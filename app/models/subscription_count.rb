@@ -9,6 +9,10 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
+# Indexes
+#
+#  index_subscription_counts_on_subreddit_id  (subreddit_id)
+#
 # Foreign Keys
 #
 #  fk_rails_...  (subreddit_id => subreddits.id)
