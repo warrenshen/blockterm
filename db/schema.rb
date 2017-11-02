@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102043743) do
+ActiveRecord::Schema.define(version: 20171102044605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,4 +21,14 @@ ActiveRecord::Schema.define(version: 20171102043743) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "subscription_counts", force: :cascade do |t|
+    t.integer  "subreddit_id",                           null: false
+    t.datetime "when",         precision: 6,             null: false
+    t.integer  "count",                      default: 0, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.index ["subreddit_id"], name: "index_subscription_counts_on_subreddit_id", using: :btree
+  end
+
+  add_foreign_key "subscription_counts", "subreddits"
 end
