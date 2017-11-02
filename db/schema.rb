@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20171102044605) do
     t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_subreddits_on_name", unique: true, using: :btree
   end
 
   create_table "subscription_counts", force: :cascade do |t|
