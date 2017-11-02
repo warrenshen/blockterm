@@ -5,3 +5,21 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+puts 'Seeding the database...'
+
+bitcoin_subreddit = Subreddit.create(name: 'Bitcoin')
+puts 'Created r/Bitcoin subreddit'
+
+start_date = DateTime.new(2015, 6, 22)
+subscription_count = 0
+for i in (-30..0)
+  date = start_date - i
+  SubscriptionCount.create(
+    subreddit_id: bitcoin_subreddit.id,
+    when: date,
+    count: subscription_count,
+  )
+  subscription_count += rand(5)
+end
+puts 'Created 31 subscription counts for the r/Bitcoin subreddit'
