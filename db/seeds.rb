@@ -9,17 +9,28 @@
 puts 'Seeding the database...'
 
 bitcoin_subreddit = Subreddit.create(name: 'Bitcoin')
-puts 'Created r/Bitcoin subreddit'
+puts "Created #{bitcoin_subreddit.name_with_r} subreddit"
 
-start_date = DateTime.new(2015, 6, 22)
-subscription_count = 0
-for i in (-30..0)
-  date = start_date - i
-  SubscriptionCount.create(
-    subreddit_id: bitcoin_subreddit.id,
-    when: date,
-    count: subscription_count,
-  )
-  subscription_count += rand(5)
+ethereum_subreddit = Subreddit.create(name: 'ethereum')
+puts "Created #{ethereum_subreddit.name_with_r} subreddit"
+
+subreddits = [bitcoin_subreddit, ethereum_subreddit]
+
+def create_one_month_subscription_counts_for_subreddit(subreddit, increment=5)
+  start_date = DateTime.new(2015, 6, 22)
+  subscription_count = 0
+  for i in (-30..0)
+    date = start_date + i.day
+    SubscriptionCount.create(
+      subreddit_id: subreddit.id,
+      when: date,
+      count: subscription_count,
+    )
+    subscription_count += rand(increment)
+  end
+  puts "Created 31 subscription counts for the #{subreddit.name_with_r} subreddit"
 end
-puts 'Created 31 subscription counts for the r/Bitcoin subreddit'
+
+subreddits.each do |subreddit|
+  create_one_month_subscription_counts_for_subreddit(subreddit)
+end

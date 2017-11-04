@@ -13,4 +13,9 @@
 #
 
 class Subreddit < ApplicationRecord
+  has_many :subscription_counts
+
+  def name_with_r
+    'r/' + name
+  end
 end
