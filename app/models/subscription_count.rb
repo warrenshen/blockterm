@@ -19,4 +19,5 @@
 #
 
 class SubscriptionCount < ApplicationRecord
+  belongs_to :subreddit
 end
