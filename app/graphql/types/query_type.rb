@@ -5,7 +5,7 @@ module Types
     # They will be entry points for queries on your schema.
 
     field :allSubreddits, types[Types::SubredditType] do
-      description 'All subreddits'
+      description 'Gets all subreddits'
 
       resolve -> (obj, args, ctx) {
         Subreddit.all
@@ -13,7 +13,7 @@ module Types
     end
 
     field :subreddit, Types::SubredditType do
-      description 'The subreddit that associated with given subreddit id'
+      description 'Gets the subreddit that associated with given subreddit id'
 
       argument :id, !types.ID
 
