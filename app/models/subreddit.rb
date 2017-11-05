@@ -13,6 +13,7 @@
 #
 
 class Subreddit < ApplicationRecord
+  has_many :post_counts
   has_many :subscription_counts
 
   def name_with_r
