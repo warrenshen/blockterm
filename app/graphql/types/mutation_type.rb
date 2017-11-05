@@ -2,6 +2,22 @@ module Types
   MutationType = GraphQL::ObjectType.define do
     name 'Mutation'
 
+    field :createPostCount, Types::PostCountType do
+      description 'Create a post count'
+
+      argument :subredditId, !types.ID
+      argument :count, !types.Int
+      argument :when, !types.String
+
+      resolve -> (obj, args, ctx) {
+        PostCount.create(
+          subreddit_id: args[:subredditId],
+          count: args[:count],
+          when: args[:when],
+        )
+      }
+    end
+
     field :createSubreddit, Types::SubredditType do
       description 'Creates a subreddit'
 
@@ -17,13 +33,13 @@ module Types
     field :createSubscriptionCount, Types::SubscriptionCountType do
       description 'Creates a subscription count'
 
-      argument :subreddit_id, !types.ID
+      argument :subredditId, !types.ID
       argument :count, !types.Int
       argument :when, !types.String
 
       resolve -> (obj, args, ctx) {
-        SubscriptionCount.find_or_create(
-          subreddit_id: args[:subreddit_id],
+        SubscriptionCount.create(
+          subreddit_id: args[:subredditId],
           count: args[:count],
           when: args[:when],
         )
