@@ -42,6 +42,7 @@ GEM
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
     arel (7.1.4)
+    awesome_print (1.8.0)
     builder (3.2.3)
     byebug (9.1.0)
     concurrent-ruby (1.0.5)
@@ -132,6 +133,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  awesome_print
   byebug
   graphiql-rails
   graphql
