@@ -34,3 +34,20 @@ end
 subreddits.each do |subreddit|
   create_one_month_subscription_counts_for_subreddit(subreddit)
 end
+
+def create_one_month_post_counts_for_subreddit(subreddit, k=5)
+  start_date = DateTime.new(2015, 6, 22)
+  for i in (-30..0)
+    date = start_date + i.day
+    SubscriptionCount.create(
+      subreddit_id: subreddit.id,
+      when: date,
+      count: rand(k),
+    )
+  end
+  puts "Created 31 post counts for the #{subreddit.name_with_r} subreddit"
+end
+
+subreddits.each do |subreddit|
+  create_one_month_post_counts_for_subreddit(subreddit)
+end
