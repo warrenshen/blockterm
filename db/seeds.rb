@@ -39,7 +39,7 @@ def create_one_month_post_counts_for_subreddit(subreddit, k=50)
   start_date = DateTime.new(2015, 6, 22)
   for i in (-30..0)
     date = start_date + i.day
-    SubscriptionCount.create(
+    PostCount.create(
       subreddit_id: subreddit.id,
       when: date,
       count: rand(k),
