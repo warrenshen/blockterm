@@ -9,7 +9,7 @@ module Types
       description 'The page counts associated with subreddit'
 
       resolve -> (obj, args, ctx) {
-        obj.post_counts
+        obj.post_counts.order(when: :asc)
       }
     end
 
@@ -17,7 +17,7 @@ module Types
       description 'The subscription counts associated with subreddit'
 
       resolve -> (obj, args, ctx) {
-        obj.subscription_counts
+        obj.subscription_counts.order(when: :asc)
       }
     end
   end
