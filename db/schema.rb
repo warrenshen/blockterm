@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171105035525) do
+ActiveRecord::Schema.define(version: 20171107060245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comment_counts", force: :cascade do |t|
+    t.integer  "subreddit_id",                           null: false
+    t.datetime "when",         precision: 6,             null: false
+    t.integer  "count",                      default: 0, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.index ["subreddit_id"], name: "index_comment_counts_on_subreddit_id", using: :btree
+  end
 
   create_table "post_counts", force: :cascade do |t|
     t.integer  "subreddit_id",                           null: false
@@ -40,6 +49,7 @@ ActiveRecord::Schema.define(version: 20171105035525) do
     t.index ["subreddit_id"], name: "index_subscription_counts_on_subreddit_id", using: :btree
   end
 
+  add_foreign_key "comment_counts", "subreddits"
   add_foreign_key "post_counts", "subreddits"
   add_foreign_key "subscription_counts", "subreddits"
 end
