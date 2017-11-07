@@ -14,7 +14,7 @@ puts "Created #{bitcoin_subreddit.name_with_r} subreddit"
 ethereum_subreddit = Subreddit.create(name: 'ethereum')
 puts "Created #{ethereum_subreddit.name_with_r} subreddit"
 
-subreddits = [bitcoin_subreddit, ethereum_subreddit]
+subreddits = [bitcoin_subreddit]
 
 def create_one_month_subscription_counts_for_subreddit(subreddit, increment=5)
   start_date = DateTime.new(2015, 6, 22)
