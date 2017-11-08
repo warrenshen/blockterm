@@ -16,23 +16,32 @@ puts "Created #{nakamoto_subreddit.name_with_r} subreddit"
 
 subreddits = [satoshi_subreddit, nakamoto_subreddit]
 
-puts 'Seeding tokens...'
+puts 'Seeding tokens and keywords...'
 
 token_infos = [
   {
     short_name: 'SAT',
     long_name: 'Satoshi',
+    keywords: ['SAT', 'SATs', 'Satoshi', 'Satoshis', 'Sato', 'Satos'],
   },
   {
     short_name: 'NAK',
     long_name: 'Nakamoto',
+    keywords: ['NAK', 'NAKs', 'Nakamoto', 'Nakamotos'],
   }
 ]
 
 token_infos.each do |token_info|
-  Token.create(token_info)
+  keyword_words = token_info.delete(:keywords)
+  token = Token.create(token_info)
+  keyword_words.each do |word|
+    Keyword.create(
+      token: token,
+      word: word,
+    )
+  end
 end
-puts "Created #{token_infos.count} tokens"
+puts "Created tokens and keywords"
 
 puts 'Seeding counts...'
 
