@@ -8,18 +8,38 @@
 
 puts 'Seeding the database...'
 
-bitcoin_subreddit = Subreddit.create(name: 'Bitcoin')
-puts "Created #{bitcoin_subreddit.name_with_r} subreddit"
+satoshi_subreddit = Subreddit.find_or_create_by(name: 'SatoshiCoin')
+puts "Created #{satoshi_subreddit.name_with_r} subreddit"
 
-ethereum_subreddit = Subreddit.create(name: 'ethereum')
-puts "Created #{ethereum_subreddit.name_with_r} subreddit"
+nakamoto_subreddit = Subreddit.find_or_create_by(name: 'NakamotoMarket')
+puts "Created #{nakamoto_subreddit.name_with_r} subreddit"
 
-subreddits = [bitcoin_subreddit]
+subreddits = [satoshi_subreddit, nakamoto_subreddit]
 
-def create_one_month_subscription_counts_for_subreddit(subreddit, increment=5)
-  start_date = DateTime.new(2015, 6, 22)
+puts 'Seeding tokens...'
+
+token_infos = [
+  {
+    short_name: 'SAT',
+    long_name: 'Satoshi',
+  },
+  {
+    short_name: 'NAK',
+    long_name: 'Nakamoto',
+  }
+]
+
+token_infos.each do |token_info|
+  Token.create(token_info)
+end
+puts "Created #{token_infos.count} tokens"
+
+puts 'Seeding counts...'
+
+def create_one_month_subscription_counts_for_subreddit(subreddit, increment=3)
+  start_date = DateTime.new(2017, 6, 22)
   subscription_count = 0
-  for i in (-30..0)
+  for i in (-365..0)
     date = start_date + i.day
     SubscriptionCount.create(
       subreddit_id: subreddit.id,
@@ -36,8 +56,8 @@ subreddits.each do |subreddit|
 end
 
 def create_one_month_post_counts_for_subreddit(subreddit, k=50)
-  start_date = DateTime.new(2015, 6, 22)
-  for i in (-30..0)
+  start_date = DateTime.new(2017, 6, 22)
+  for i in (-365..0)
     date = start_date + i.day
     PostCount.create(
       subreddit_id: subreddit.id,
@@ -48,6 +68,6 @@ def create_one_month_post_counts_for_subreddit(subreddit, k=50)
   puts "Created 31 post counts for the #{subreddit.name_with_r} subreddit"
 end
 
-subreddits.each do |subreddit|
+Subreddit.all.each do |subreddit|
   create_one_month_post_counts_for_subreddit(subreddit)
 end
