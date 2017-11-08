@@ -21,5 +21,15 @@ module Types
         Subreddit.find(args[:id])
       }
     end
+
+    field :mostRecentPostCount, Types::PostCountType do
+      description 'Gets the most recent post count associated with given subreddit id'
+
+      argument :subredditId, !types.ID
+
+      resolve -> (obj, args, ctx) {
+        PostCount.where(subreddit_id: args[:subredditId]).order(when: :asc).first
+      }
+    end
   end
 end
