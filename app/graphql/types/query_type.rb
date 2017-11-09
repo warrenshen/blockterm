@@ -12,7 +12,7 @@ module Types
       }
     end
 
-    field :subreddit, Types::SubredditType do
+    field :subredditById, Types::SubredditType do
       description 'Gets the subreddit that associated with given subreddit id'
 
       argument :id, !types.ID
@@ -22,13 +22,13 @@ module Types
       }
     end
 
-    field :mostRecentPostCount, Types::PostCountType do
+    field :mostRecentPostCountBySubredditId, Types::PostCountType do
       description 'Gets the most recent post count associated with given subreddit id'
 
       argument :subredditId, !types.ID
 
       resolve -> (obj, args, ctx) {
-        PostCount.where(subreddit_id: args[:subredditId]).order(when: :asc).first
+        PostCount.where(subreddit_id: args[:subredditId]).order(when: :desc).first
       }
     end
   end
