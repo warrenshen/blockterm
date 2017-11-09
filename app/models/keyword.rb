@@ -19,4 +19,5 @@
 
 class Keyword < ApplicationRecord
   belongs_to :token
+  has_many :mention_counts
 end

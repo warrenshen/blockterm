@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108034841) do
+ActiveRecord::Schema.define(version: 20171109193841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,17 @@ ActiveRecord::Schema.define(version: 20171108034841) do
     t.index ["name"], name: "index_markets_on_name", unique: true, using: :btree
   end
 
+  create_table "mention_counts", force: :cascade do |t|
+    t.integer  "keyword_id",                             null: false
+    t.integer  "subreddit_id",                           null: false
+    t.datetime "when",         precision: 6,             null: false
+    t.integer  "count",                      default: 0, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.index ["keyword_id"], name: "index_mention_counts_on_keyword_id", using: :btree
+    t.index ["subreddit_id"], name: "index_mention_counts_on_subreddit_id", using: :btree
+  end
+
   create_table "post_counts", force: :cascade do |t|
     t.integer  "subreddit_id",                           null: false
     t.datetime "when",         precision: 6,             null: false
@@ -95,6 +106,8 @@ ActiveRecord::Schema.define(version: 20171108034841) do
   add_foreign_key "comment_counts", "subreddits"
   add_foreign_key "keywords", "tokens"
   add_foreign_key "market_tickers", "markets", column: "markets_id"
+  add_foreign_key "mention_counts", "keywords"
+  add_foreign_key "mention_counts", "subreddits"
   add_foreign_key "post_counts", "subreddits"
   add_foreign_key "subscription_counts", "subreddits"
 end
