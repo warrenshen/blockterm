@@ -3,6 +3,11 @@ module Types
     name "Subreddit"
 
     field :id, !types.ID
+    field :startDate, !types.String do
+      resolve -> (obj, args, ctx) {
+        obj.start_date.to_s
+      }
+    end
     field :name, !types.String
 
     field :postCounts, types[Types::PostCountType] do

@@ -36,10 +36,12 @@ module Types
       description 'Creates a subreddit'
 
       argument :name, !types.String
+      argument :startDate, !types.String
 
       resolve -> (obj, args, ctx) {
         Subreddit.find_or_create_by(
-          name: args[:name]
+          name: args[:name],
+          start_date: args[:startDate],
         )
       }
     end
