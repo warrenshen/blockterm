@@ -2,6 +2,20 @@ module Types
   MutationType = GraphQL::ObjectType.define do
     name 'Mutation'
 
+    field :createCommentCount, Types::CommentCountType do
+      argument :subredditId, !types.ID
+      argument :count, !types.Int
+      argument :when, !types.String
+
+      resolve -> (obj, args, ctx) {
+        CommentCount.create(
+          subreddit_id: args[:subredditId],
+          count: args[:count],
+          when: args[:when],
+        )
+      }
+    end
+
     field :createPostCount, Types::PostCountType do
       description 'Create a post count'
 
