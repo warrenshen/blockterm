@@ -3,7 +3,7 @@ module Types
     name 'MentionCountType'
 
     field :id, !types.ID
-    field :keywordId, !types.ID, property: keyword_id
+    field :keywordId, !types.ID, property: :keyword_id
     field :subredditId, !types.ID, property: :subreddit_id
     field :when do
       type !types.String
