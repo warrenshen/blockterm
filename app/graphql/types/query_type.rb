@@ -12,8 +12,18 @@ module Types
       }
     end
 
+    field :mostRecentPostCountBySubredditId, Types::PostCountType do
+      description 'Gets the most recent post count associated with given subreddit id'
+
+      argument :subredditId, !types.ID
+
+      resolve -> (obj, args, ctx) {
+        PostCount.where(subreddit_id: args[:subredditId]).order(when: :desc).first
+      }
+    end
+
     field :subredditById, Types::SubredditType do
-      description 'Gets the subreddit that associated with given subreddit id'
+      description 'Gets the subreddit associated with given subreddit id'
 
       argument :id, !types.ID
 
@@ -22,13 +32,13 @@ module Types
       }
     end
 
-    field :mostRecentPostCountBySubredditId, Types::PostCountType do
-      description 'Gets the most recent post count associated with given subreddit id'
+    field :tokenById, Types::TokenType do
+      description 'Gets the token associated with given token id'
 
-      argument :subredditId, !types.ID
+      argument :id, !types.ID
 
       resolve -> (obj, args, ctx) {
-        PostCount.where(subreddit_id: args[:subredditId]).order(when: :desc).first
+        Token.find(args[:id])
       }
     end
   end
