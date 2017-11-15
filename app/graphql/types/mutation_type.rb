@@ -16,6 +16,38 @@ module Types
       }
     end
 
+    field :createKeyword, Types::KeywordType do
+      description 'Creates a keyword'
+
+      argument :tokenId, !types.ID
+      argument :word, !types.String
+
+      resolve -> (obj, args, ctx) {
+        Keyword.find_or_create_by(
+          token_id: args[:tokenId],
+          word: args[:word],
+        )
+      }
+    end
+
+    field :createMentionCount, Types::MentionCountType do
+      description 'Creates a mention count'
+
+      argument :keywordId, !types.ID
+      argument :subredditId, !types.Int
+      argument :when, !types.String
+      argument :count, !types.String
+
+      resolve -> (obj, args, ctx) {
+        MentionCount.create(
+          keyword_id: args[:keywordId],
+          subreddit_id: args[:subredditId],
+          count: args[:count],
+          when: args[:when],
+        )
+      }
+    end
+
     field :createPostCount, Types::PostCountType do
       description 'Create a post count'
 
@@ -58,6 +90,20 @@ module Types
           subreddit_id: args[:subredditId],
           count: args[:count],
           when: args[:when],
+        )
+      }
+    end
+
+    field :createToken, Types::TokenType do
+      description 'Creates a token'
+
+      argument :shortName, !types.String
+      argument :longName, !types.String
+
+      resolve -> (obj, args, ctx) {
+        Token.find_or_create_by(
+          short_name: args[:shortName],
+          long_name: args[:longName],
         )
       }
     end
