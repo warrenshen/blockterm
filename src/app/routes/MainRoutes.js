@@ -7,10 +7,9 @@ import {
  Redirect
 }                             from 'react-router-dom';
 import {
-  // app:
   App,
-  // non protected views
   ConnectedHome,
+  ConnectedSubreddit,
 }                               from '../containers';
 
 export const MainRoutes = () => {
@@ -18,6 +17,7 @@ export const MainRoutes = () => {
     <Switch>
       {/* non protected views */}
       <Route exact path="/" component={ConnectedHome} />
+      <Route exact path='/subreddit/:id' component={ConnectedSubreddit} />
     </Switch>
   );
 };
