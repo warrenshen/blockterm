@@ -30,7 +30,7 @@ class Home extends PureComponent {
           subreddits.map((subreddit) => {
             return (
               <li key={subreddit.id}>
-                <Link to={'/hello'}>
+                <Link to={`/subreddit/${subreddit.id}`}>
                   <h2>{subreddit.name}</h2>
                 </Link>
               </li>
@@ -48,9 +48,7 @@ class Home extends PureComponent {
 
 
     return (
-      <div
-        key="homeView"
-        className={css(styles.fadeIn)}>
+      <div className={css(styles.fadeIn)}>
         {
           data.allSubreddits &&
           this.renderSubreddits(data.allSubreddits)
