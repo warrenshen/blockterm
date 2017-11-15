@@ -34,7 +34,6 @@ const NavigationBar = ({
               <LeftNav
                 leftLinks={navModel.leftLinks}
                 onLeftNavButtonClick={handleLeftNavItemClick}
-                userIsAuthenticated={userIsAuthenticated}
               />
             }
           </ul>
@@ -43,7 +42,6 @@ const NavigationBar = ({
               <RightNav
                 rightLinks={navModel.rightLinks}
                 onRightNavButtonClick={handleRightNavItemClick}
-                userIsAuthenticated={userIsAuthenticated}
                 handleNightModeClick={handleNightModeClick}
                 nightMode={nightMode}
               />
