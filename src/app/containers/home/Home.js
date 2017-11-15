@@ -12,7 +12,7 @@ import { graphql }            from 'react-apollo';
  ------------------------------------------*/
 
 const SubredditsQuery = gql`
- query SubredditsQuery {
+ query {
     allSubreddits {
       id
       name
@@ -20,7 +20,6 @@ const SubredditsQuery = gql`
   }
 `;
 
-// 1- add queries:
 const HomeWithQuery = graphql(
   SubredditsQuery,
 )(Home);

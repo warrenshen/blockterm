@@ -1,38 +1,64 @@
 // @flow weak
 
-import React, {
-  PureComponent,
-}                          from 'react';
-import PropTypes           from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
-import { Link }            from 'react-router-dom';
+import { connect }            from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Subreddit }          from '../../views';
+import gql                    from 'graphql-tag';
+import { graphql }            from 'react-apollo';
 
-const styles = StyleSheet.create({
-    fadeIn: {
-     animation: 'fadeIn 0.5s both ease-in',
-     zIndex: 9999,
-    },
-});
 
-class Subreddit extends PureComponent {
-  static propTypes= {
-    // react-router 4:
-    match:    PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    history:  PropTypes.object.isRequired,
-  };
+/* -----------------------------------------
+  GraphQL - Apollo client
+ ------------------------------------------*/
 
-  render() {
-    const {
-      data
-    } = this.props;
+const SubredditQuery = gql`
+ query ($id: ID!) {
+    subredditById(id: $id) {
+      id
+      name
+      startDate
 
-    return (
-      <div className={css(styles.fadeIn)}>
-        Hello
-      </div>
-    );
+      postCounts {
+        id
+        count
+        when
+      }
+    }
   }
-}
+`;
 
-export default Subreddit;
+const SubredditWithQuery = graphql(
+  SubredditQuery,
+  {
+    options: ({ match }) => {
+      return {
+        variables: {
+          id: match.params.id
+        }
+      }
+    }
+  }
+)(Subreddit);
+
+
+/* -----------------------------------------
+  Redux
+ ------------------------------------------*/
+
+const mapStateToProps = (state) => {
+  return {
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+    },
+    dispatch
+  );
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SubredditWithQuery);
