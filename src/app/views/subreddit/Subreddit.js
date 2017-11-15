@@ -6,6 +6,7 @@ import React, {
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
+import Plot                from 'react-plotly.js'
 
 const styles = StyleSheet.create({
     fadeIn: {
@@ -22,14 +23,47 @@ class Subreddit extends PureComponent {
     history:  PropTypes.object.isRequired,
   };
 
+  renderSubreddit(subreddit)
+  {
+    var postsX = subreddit.postCounts.map(
+      (postCount) => postCount.when.substring(0, 20)
+    );
+    var postsY = subreddit.postCounts.map(
+      (postCount) => postCount.count
+    );
+    return (
+      <div>
+        <h2>{subreddit.name}</h2>
+        <h3># posts over time</h3>
+        <Plot
+          data={[
+            {
+              type: 'scatter',
+              mode: 'lines+points',
+              x: postsX,
+              y: postsY,
+              marker: {color: 'blue'}
+            },
+          ]}
+          layout={{
+            width: 720,
+            height: 480,
+            title: 'A Fancy Plot'
+          }}
+        />
+      </div>
+    );
+  }
+
   render() {
     const {
       data
     } = this.props;
 
+    console.log(data);
     return (
       <div className={css(styles.fadeIn)}>
-        { data && data.subredditById && data.subredditById.name }
+        { data && data.subredditById && this.renderSubreddit(data.subredditById) }
       </div>
     );
   }
