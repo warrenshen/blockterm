@@ -2,11 +2,17 @@
 
 import React, {
   PureComponent,
-}                     from 'react';
-import PropTypes      from 'prop-types';
-import Jumbotron      from '../../components/jumbotron/Jumbotron';
-import cx             from 'classnames';
-import { Link }       from 'react-router-dom';
+}                          from 'react';
+import PropTypes           from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
+import { Link }            from 'react-router-dom';
+
+const styles = StyleSheet.create({
+    fadeIn: {
+     animation: 'fadeIn 0.5s both ease-in',
+     zIndex: 9999,
+    },
+});
 
 class Home extends PureComponent {
   static propTypes= {
@@ -18,10 +24,21 @@ class Home extends PureComponent {
 
   renderSubreddits(subreddits)
   {
-    var ret = subreddits.map((subreddit) => {
-      return <div key={subreddit.id}><h2>{subreddit.name}</h2></div>;
-    });
-    return ret;
+    return (
+      <ul>
+        {
+          subreddits.map((subreddit) => {
+            return (
+              <li key={subreddit.id}>
+                <Link to={'/hello'}>
+                  <h2>{subreddit.name}</h2>
+                </Link>
+              </li>
+            );
+          })
+        }
+      </ul>
+    );
   }
 
   render() {
@@ -29,10 +46,11 @@ class Home extends PureComponent {
       data
     } = this.props;
 
-    return(
+
+    return (
       <div
         key="homeView"
-        className={ cx({ 'view-enter': true }) }>
+        className={css(styles.fadeIn)}>
         {
           data.allSubreddits &&
           this.renderSubreddits(data.allSubreddits)
