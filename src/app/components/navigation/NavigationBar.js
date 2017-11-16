@@ -73,7 +73,7 @@ NavigationBar.propTypes = {
   })
 };
 
-NavigationBar.defaultProps  = {
+NavigationBar.defaultProps = {
   brand: 'brand'
 };
 
