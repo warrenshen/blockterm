@@ -2,9 +2,23 @@
 
 import React              from 'react';
 import PropTypes          from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
 import Humburger          from './humburger/Humburger';
 import LeftNav            from './leftNav/LeftNav';
 import RightNav           from './rightNav/RightNav';
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100vw',
+    height: '48px',
+    padding: '0% 15%',
+    backgroundColor: 'white',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+});
 
 const NavigationBar = ({
   brand,
@@ -16,38 +30,33 @@ const NavigationBar = ({
   nightMode
 }) => {
   return (
-    <nav className="navbar navbar-default">
-      <div className="containersCustom">
-        <div className="navbar-header">
+    <nav className={css(styles.container)}>
+      <div className="navbar-header">
+        <a>
+          {brand}
+        </a>
+      </div>
+      <div
+        className="collapse navbar-collapse"
+        id="bs-example-navbar-collapse-1">
+        <ul className="nav navbar-nav">
           {
-            <Humburger />
+            <LeftNav
+              leftLinks={navModel.leftLinks}
+              onLeftNavButtonClick={handleLeftNavItemClick}
+            />
           }
-          <a className="navbar-brand">
-            {brand}
-          </a>
-        </div>
-        <div
-          className="collapse navbar-collapse"
-          id="bs-example-navbar-collapse-1">
-          <ul className="nav navbar-nav">
-            {
-              <LeftNav
-                leftLinks={navModel.leftLinks}
-                onLeftNavButtonClick={handleLeftNavItemClick}
-              />
-            }
-          </ul>
-          <ul className="nav navbar-nav navbar-right">
-            {
-              <RightNav
-                rightLinks={navModel.rightLinks}
-                onRightNavButtonClick={handleRightNavItemClick}
-                handleNightModeClick={handleNightModeClick}
-                nightMode={nightMode}
-              />
-            }
-          </ul>
-        </div>
+        </ul>
+        <ul className="nav navbar-nav navbar-right">
+          {
+            <RightNav
+              rightLinks={navModel.rightLinks}
+              onRightNavButtonClick={handleRightNavItemClick}
+              handleNightModeClick={handleNightModeClick}
+              nightMode={nightMode}
+            />
+          }
+        </ul>
       </div>
     </nav>
   );

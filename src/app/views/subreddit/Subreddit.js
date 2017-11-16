@@ -11,11 +11,28 @@ import Select from 'react-select';
 import { RANGE_SELECT_OPTIONS } from '../../constants/plots';
 
 const styles = StyleSheet.create({
+  plotHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  subredditHeader: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '12px 0px',
+  },
+  card: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: 'white',
+  },
   container: {
     gridColumn: '3 / 7',
   },
   wrapper: {
-    display: 'grid',
+    width: '100vw',
+    height: '100%',
+    padding: '0% 15%',
+    backgroundColor: '#ecf0f1',
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
   fadeIn: {
@@ -49,36 +66,58 @@ class Subreddit extends PureComponent {
       (postCount) => postCount.count
     );
 
+    var config = {
+      modeBarButtonsToRemove: [
+        'autoScale2d',
+        'hoverClosestCartesian',
+        'hoverCompareCartesian',
+        'pan',
+        'pan2d',
+        'resetScale2d',
+        'sendDataToCloud',
+        'toggleSpikelines',
+        'zoom2d',
+        'zoomIn2d',
+        'zoomOut2d',
+      ],
+      displaylogo: false,
+    };
     return (
       <div>
-        <div>
-          <h2>{subreddit.name}</h2>
+        <div className={css(styles.subredditHeader)}>
+          <h2>{subreddit.displayName}</h2>
           <h4>{}</h4>
         </div>
-        <h3># posts over time</h3>
-
-        <Select
-          clearable={false}
-          value={postCountPlotRange}
-          options={RANGE_SELECT_OPTIONS}
-          onChange={(option) => changePostCountPlotRange(option.value)}
-        />
-        <Plot
-          data={[
-            {
-              type: 'scatter',
-              mode: 'lines+points',
-              x: postsX,
-              y: postsY,
-              marker: {color: 'blue'}
-            },
-          ]}
-          layout={{
-            width: 720,
-            height: 480,
-            title: 'A Fancy Plot'
-          }}
-        />
+        <div className={css(styles.card)}>
+          <div className={css(styles.plotSection)}>
+            <div className={css(styles.plotHeader)}>
+              <span># posts over time</span>
+              <Select
+                clearable={false}
+                value={postCountPlotRange}
+                options={RANGE_SELECT_OPTIONS}
+                onChange={(option) => changePostCountPlotRange(option.value)}
+              />
+            </div>
+            <Plot
+              config={config}
+              data={[
+                {
+                  type: 'scatter',
+                  mode: 'lines+points',
+                  x: postsX,
+                  y: postsY,
+                  marker: {color: 'blue'}
+                },
+              ]}
+              layout={{
+                width: '100%',
+                height: '100%',
+                title: 'A Fancy Plot'
+              }}
+            />
+          </div>
+        </div>
       </div>
     );
   }

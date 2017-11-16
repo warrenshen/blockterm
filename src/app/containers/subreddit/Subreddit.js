@@ -15,6 +15,7 @@ const SubredditQuery = gql`
  query ($id: ID!) {
     subredditById(id: $id) {
       id
+      displayName
       name
       startDate
 

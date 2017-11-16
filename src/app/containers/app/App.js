@@ -4,6 +4,7 @@ import React, {
   Component
 }                             from 'react';
 import PropTypes              from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
 import {
   NavigationBar,
   BackToTop
@@ -15,6 +16,18 @@ import MainRoutes             from '../../routes/MainRoutes';
 import {
   withRouter
 }                             from 'react-router-dom';
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100vw',
+    height: '100vh',
+    padding: '0% 0%',
+    margin: '0% 0%',
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+});
 
 class App extends Component {
   static propTypes = {
@@ -36,7 +49,7 @@ class App extends Component {
     } = this.props;
 
     return (
-      <div id="appContainer">
+      <div className={css(styles.container)}>
         <NavigationBar
           brand={navModel.brand}
           navModel={navModel}
@@ -44,11 +57,7 @@ class App extends Component {
           handleRightNavItemClick={this.handleRightNavItemClick}
           handleNightModeClick={this.handleNightModeClick}
         />
-      <h1>
-      </h1>
-        <div className="container-fluid">
-          <MainRoutes />
-        </div>
+        <MainRoutes />
         <BackToTop
           minScrollY={40}
           scrollTo={'appContainer'}
