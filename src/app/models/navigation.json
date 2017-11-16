@@ -1,11 +1,11 @@
 {
-  "brand":      "",
+  "brand":      "Cryptotrends",
   "leftLinks":  [],
   "rightLinks": [
     {
-      "label":      "Home",
-      "link":       "/",
-      "view":       "home"
+      "label": "Home",
+      "link": "/",
+      "view": "home"
     }
   ]
 }

@@ -9,10 +9,17 @@ import { Link }            from 'react-router-dom';
 import Plot                from 'react-plotly.js'
 
 const styles = StyleSheet.create({
-    fadeIn: {
-     animation: 'fadeIn 0.5s both ease-in',
-     zIndex: 9999,
-    },
+  container: {
+    gridColumn: '3 / 7',
+  },
+  wrapper: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(8, 1fr)',
+  },
+  fadeIn: {
+    animation: 'fadeIn 0.5s both ease-in',
+    zIndex: 9999,
+  },
 });
 
 class Subreddit extends PureComponent {
@@ -33,7 +40,10 @@ class Subreddit extends PureComponent {
     );
     return (
       <div>
-        <h2>{subreddit.name}</h2>
+        <div>
+          <h2>{subreddit.name}</h2>
+          <h4>{}</h4>
+        </div>
         <h3># posts over time</h3>
         <Plot
           data={[
@@ -60,10 +70,11 @@ class Subreddit extends PureComponent {
       data
     } = this.props;
 
-    console.log(data);
     return (
-      <div className={css(styles.fadeIn)}>
-        { data && data.subredditById && this.renderSubreddit(data.subredditById) }
+      <div className={css(styles.wrapper, styles.fadeIn)}>
+        <div className={css(styles.container)}>
+          { data && data.subredditById && this.renderSubreddit(data.subredditById) }
+        </div>
       </div>
     );
   }
