@@ -7,6 +7,8 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
 import Plot                from 'react-plotly.js'
+import Select from 'react-select';
+import { RANGE_SELECT_OPTIONS } from '../../constants/plots';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,16 +30,25 @@ class Subreddit extends PureComponent {
     match:    PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     history:  PropTypes.object.isRequired,
+    // actions:
+    changePostCountPlotRange: PropTypes.func.isRequired,
+    // etc:
+    postCountPlotRange: PropTypes.string.isRequired,
   };
 
   renderSubreddit(subreddit)
   {
+    const {
+      changePostCountPlotRange,
+      postCountPlotRange,
+    } = this.props;
     var postsX = subreddit.postCounts.map(
       (postCount) => postCount.when.substring(0, 20)
     );
     var postsY = subreddit.postCounts.map(
       (postCount) => postCount.count
     );
+
     return (
       <div>
         <div>
@@ -45,6 +56,13 @@ class Subreddit extends PureComponent {
           <h4>{}</h4>
         </div>
         <h3># posts over time</h3>
+
+        <Select
+          clearable={false}
+          value={postCountPlotRange}
+          options={RANGE_SELECT_OPTIONS}
+          onChange={(option) => changePostCountPlotRange(option.value)}
+        />
         <Plot
           data={[
             {

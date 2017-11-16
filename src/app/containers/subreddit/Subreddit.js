@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Subreddit }          from '../../views';
 import gql                    from 'graphql-tag';
 import { graphql }            from 'react-apollo';
-
+import * as plotsActions      from '../../redux/modules/plots';
 
 /* -----------------------------------------
   GraphQL - Apollo client
@@ -47,12 +47,14 @@ const SubredditWithQuery = graphql(
 
 const mapStateToProps = (state) => {
   return {
+    postCountPlotRange: state.plots.postCountPlotRange,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      changePostCountPlotRange: plotsActions.changePostCountPlotRange,
     },
     dispatch
   );
