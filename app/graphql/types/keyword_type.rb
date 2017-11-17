@@ -12,5 +12,13 @@ module Types
         obj.mention_counts
       }
     end
+
+    field :token, Types::TokenType do
+      description 'The token associated with keyword'
+
+      resolve -> (obj, args, ctx) {
+        obj.token
+      }
+    end
   end
 end

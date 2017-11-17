@@ -23,8 +23,23 @@ module Types
       argument :timeRange, types.String
 
       resolve -> (obj, args, ctx) {
+        time_range = args[:timeRange]
+        today = Date.today
+        clause = 'timestamp > ?'
 
-        obj.post_counts.order(timestamp: :asc)
+        post_counts = obj.post_counts
+
+        if time_range.nil? or args[:timeRange] == 'ONE_WEEK'
+          post_counts = post_counts.where(clause, today - 7.days)
+        elsif time_range == 'ONE_MONTH'
+          post_counts = post_counts.where(clause, today - 1.month)
+        elsif time_range == 'THREE_MONTHS'
+          post_counts = post_counts.where(clause, today - 3.months)
+        elsif time_range == 'ONE_YEAR'
+          post_counts = post_counts.where(clause, today - 1.year)
+        end
+
+        post_counts.order(timestamp: :asc)
       }
     end
 
