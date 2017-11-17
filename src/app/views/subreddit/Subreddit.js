@@ -60,7 +60,7 @@ class Subreddit extends PureComponent {
       postCountPlotRange,
     } = this.props;
     var postsX = subreddit.postCounts.map(
-      (postCount) => postCount.when.substring(0, 20)
+      (postCount) => postCount.timestamp.substring(0, 20)
     );
     var postsY = subreddit.postCounts.map(
       (postCount) => postCount.count
@@ -124,7 +124,8 @@ class Subreddit extends PureComponent {
 
   render() {
     const {
-      data
+      data,
+      postCountPlotRange,
     } = this.props;
 
     return (

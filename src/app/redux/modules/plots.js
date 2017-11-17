@@ -1,6 +1,6 @@
 // @flow weak
 
-import { LAST_DAY } from '../../constants/plots';
+import { ONE_MONTH } from '../../constants/plots';
 
 /* -----------------------------------------
   constants
@@ -11,7 +11,7 @@ const CHANGE_POST_COUNT_PLOT_RANGE = 'CHANGE_POST_COUNT_PLOT_RANGE';
   Reducer
  ------------------------------------------*/
 const initialState = {
-  postCountPlotRange: LAST_DAY,
+  postCountPlotRange: ONE_MONTH,
 };
 
 export default function(state = initialState, action)
