@@ -5,7 +5,7 @@
 #  id           :integer          not null, primary key
 #  keyword_id   :integer          not null
 #  subreddit_id :integer          not null
-#  when         :datetime         not null
+#  timestamp    :datetime         not null
 #  count        :integer          default(0), not null
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null

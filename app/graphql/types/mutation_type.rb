@@ -5,13 +5,13 @@ module Types
     field :createCommentCount, Types::CommentCountType do
       argument :subredditId, !types.ID
       argument :count, !types.Int
-      argument :when, !types.String
+      argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
         CommentCount.create(
           subreddit_id: args[:subredditId],
           count: args[:count],
-          when: args[:when],
+          timestamp: args[:timestamp],
         )
       }
     end
@@ -35,7 +35,7 @@ module Types
 
       argument :keywordId, !types.ID
       argument :subredditId, !types.Int
-      argument :when, !types.String
+      argument :timestamp, !types.String
       argument :count, !types.String
 
       resolve -> (obj, args, ctx) {
@@ -43,7 +43,7 @@ module Types
           keyword_id: args[:keywordId],
           subreddit_id: args[:subredditId],
           count: args[:count],
-          when: args[:when],
+          timestamp: args[:timestamp],
         )
       }
     end
@@ -53,13 +53,13 @@ module Types
 
       argument :subredditId, !types.ID
       argument :count, !types.Int
-      argument :when, !types.String
+      argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
         PostCount.create(
           subreddit_id: args[:subredditId],
           count: args[:count],
-          when: args[:when],
+          timestamp: args[:timestamp],
         )
       }
     end
@@ -83,13 +83,13 @@ module Types
 
       argument :subredditId, !types.ID
       argument :count, !types.Int
-      argument :when, !types.String
+      argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
         SubscriptionCount.create(
           subreddit_id: args[:subredditId],
           count: args[:count],
-          when: args[:when],
+          when: args[:timestamp],
         )
       }
     end

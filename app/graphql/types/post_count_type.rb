@@ -4,11 +4,11 @@ module Types
 
     field :id, !types.ID
     field :subredditId, !types.ID, property: :subreddit_id
-    field :when do
+    field :timestamp do
       type !types.String
 
       resolve -> (obj, args, ctx) {
-        obj.when.to_s
+        obj.timestamp.to_s
       }
     end
     field :count, !types.Int

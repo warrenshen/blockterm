@@ -2,11 +2,12 @@
 #
 # Table name: subreddits
 #
-#  id         :integer          not null, primary key
-#  name       :string           not null
-#  start_date :date             not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  name        :string           not null
+#  description :string           default(""), not null
+#  start_date  :date             not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 # Indexes
 #

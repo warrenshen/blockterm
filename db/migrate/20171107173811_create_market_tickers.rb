@@ -3,7 +3,7 @@ class CreateMarketTickers < ActiveRecord::Migration[5.0]
     create_table :market_tickers do |t|
       t.belongs_to :markets, foreign_key: true, null: false
       t.decimal :value, null: false
-      t.datetime :when, null: false
+      t.datetime :timestamp, null: false
       t.timestamps
     end
   end

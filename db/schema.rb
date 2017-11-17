@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20171109193841) do
 
   create_table "comment_counts", force: :cascade do |t|
     t.integer  "subreddit_id",                           null: false
-    t.datetime "when",         precision: 6,             null: false
+    t.datetime "timestamp",    precision: 6,             null: false
     t.integer  "count",                      default: 0, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 20171109193841) do
   create_table "market_tickers", force: :cascade do |t|
     t.integer  "markets_id", null: false
     t.decimal  "value",      null: false
-    t.datetime "when",       null: false
+    t.datetime "timestamp",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["markets_id"], name: "index_market_tickers_on_markets_id", using: :btree
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20171109193841) do
   create_table "mention_counts", force: :cascade do |t|
     t.integer  "keyword_id",                             null: false
     t.integer  "subreddit_id",                           null: false
-    t.datetime "when",         precision: 6,             null: false
+    t.datetime "timestamp",    precision: 6,             null: false
     t.integer  "count",                      default: 0, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20171109193841) do
 
   create_table "post_counts", force: :cascade do |t|
     t.integer  "subreddit_id",                           null: false
-    t.datetime "when",         precision: 6,             null: false
+    t.datetime "timestamp",    precision: 6,             null: false
     t.integer  "count",                      default: 0, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
@@ -79,16 +79,17 @@ ActiveRecord::Schema.define(version: 20171109193841) do
   end
 
   create_table "subreddits", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.date     "start_date", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",                     null: false
+    t.string   "description", default: "", null: false
+    t.date     "start_date",               null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.index ["name"], name: "index_subreddits_on_name", unique: true, using: :btree
   end
 
   create_table "subscription_counts", force: :cascade do |t|
     t.integer  "subreddit_id",                           null: false
-    t.datetime "when",         precision: 6,             null: false
+    t.datetime "timestamp",    precision: 6,             null: false
     t.integer  "count",                      default: 0, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
