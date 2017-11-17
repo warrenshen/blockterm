@@ -4,11 +4,13 @@ module Types
 
     field :id, !types.ID
     field :name, !types.String
+    field :description, !types.String
+    field :blob, !types.String
     field :displayName, !types.String do
       description 'The display name of subreddit'
 
       resolve -> (obj, args, ctx) {
-        obj.name_with_r
+        obj.display_name
       }
     end
     field :startDate, !types.String do

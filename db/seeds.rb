@@ -12,13 +12,13 @@ satoshi_subreddit = Subreddit.find_or_create_by(
   name: 'SatoshiCoin',
   start_date: Date.new(2017, 10, 1),
 )
-puts "Created #{satoshi_subreddit.name_with_r} subreddit"
+puts "Created #{satoshi_subreddit.display_name} subreddit"
 
 nakamoto_subreddit = Subreddit.find_or_create_by(
   name: 'NakamotoMarket',
   start_date: Date.new(2017, 11, 1),
 )
-puts "Created #{nakamoto_subreddit.name_with_r} subreddit"
+puts "Created #{nakamoto_subreddit.display_name} subreddit"
 
 subreddits = [satoshi_subreddit, nakamoto_subreddit]
 
@@ -63,7 +63,7 @@ def create_one_month_subscription_counts_for_subreddit(subreddit, increment=3)
     )
     subscription_count += rand(increment)
   end
-  puts "Created 365 subscription counts for the #{subreddit.name_with_r} subreddit"
+  puts "Created 365 subscription counts for the #{subreddit.display_name} subreddit"
 end
 
 subreddits.each do |subreddit|
@@ -80,7 +80,7 @@ def create_one_month_post_counts_for_subreddit(subreddit, k=50)
       count: rand(k),
     )
   end
-  puts "Created 365 post counts for the #{subreddit.name_with_r} subreddit"
+  puts "Created 365 post counts for the #{subreddit.display_name} subreddit"
 end
 
 Subreddit.all.each do |subreddit|

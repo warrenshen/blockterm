@@ -79,11 +79,12 @@ ActiveRecord::Schema.define(version: 20171109193841) do
   end
 
   create_table "subreddits", force: :cascade do |t|
-    t.string   "name",                     null: false
-    t.string   "description", default: "", null: false
-    t.date     "start_date",               null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "name",                       null: false
+    t.string   "description", default: "",   null: false
+    t.date     "start_date",                 null: false
+    t.string   "blob",        default: "{}", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.index ["name"], name: "index_subreddits_on_name", unique: true, using: :btree
   end
 
