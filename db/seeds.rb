@@ -8,10 +8,16 @@
 
 puts 'Seeding the database...'
 
-satoshi_subreddit = Subreddit.find_or_create_by(name: 'SatoshiCoin')
+satoshi_subreddit = Subreddit.find_or_create_by(
+  name: 'SatoshiCoin',
+  start_date: Date.new(2017, 10, 1),
+)
 puts "Created #{satoshi_subreddit.name_with_r} subreddit"
 
-nakamoto_subreddit = Subreddit.find_or_create_by(name: 'NakamotoMarket')
+nakamoto_subreddit = Subreddit.find_or_create_by(
+  name: 'NakamotoMarket',
+  start_date: Date.new(2017, 11, 1),
+)
 puts "Created #{nakamoto_subreddit.name_with_r} subreddit"
 
 subreddits = [satoshi_subreddit, nakamoto_subreddit]
@@ -48,16 +54,16 @@ puts 'Seeding counts...'
 def create_one_month_subscription_counts_for_subreddit(subreddit, increment=3)
   start_date = DateTime.new(2017, 6, 22)
   subscription_count = 0
-  for i in (-365..0)
+  for i in (-364..0)
     date = start_date + i.day
     SubscriptionCount.create(
       subreddit_id: subreddit.id,
-      when: date,
+      timestamp: date,
       count: subscription_count,
     )
     subscription_count += rand(increment)
   end
-  puts "Created 31 subscription counts for the #{subreddit.name_with_r} subreddit"
+  puts "Created 365 subscription counts for the #{subreddit.name_with_r} subreddit"
 end
 
 subreddits.each do |subreddit|
@@ -66,15 +72,15 @@ end
 
 def create_one_month_post_counts_for_subreddit(subreddit, k=50)
   start_date = DateTime.new(2017, 6, 22)
-  for i in (-365..0)
+  for i in (-364..0)
     date = start_date + i.day
     PostCount.create(
       subreddit_id: subreddit.id,
-      when: date,
+      timestamp: date,
       count: rand(k),
     )
   end
-  puts "Created 31 post counts for the #{subreddit.name_with_r} subreddit"
+  puts "Created 365 post counts for the #{subreddit.name_with_r} subreddit"
 end
 
 Subreddit.all.each do |subreddit|

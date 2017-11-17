@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  markets_id :integer          not null
 #  value      :decimal(, )      not null
-#  when       :datetime         not null
+#  timestamp  :datetime         not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
