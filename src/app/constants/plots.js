@@ -1,5 +1,3 @@
-export const ONE_DAY = 'ONE_DAY';
-export const THREE_DAYS = 'THREE_DAYS';
 export const ONE_WEEK = 'ONE_WEEK';
 export const ONE_MONTH = 'ONE_MONTH';
 export const THREE_MONTHS = 'THREE_MONTHS';
@@ -7,14 +5,6 @@ export const ONE_YEAR = 'ONE_YEAR';
 export const ALL_TIME = 'ALL_TIME';
 
 export const RANGE_SELECT_OPTIONS = [
-  {
-    label: '24 hours',
-    value: ONE_DAY,
-  },
-  {
-    label: '3 days',
-    value: THREE_DAYS,
-  },
   {
     label: '1 week',
     value: ONE_WEEK,

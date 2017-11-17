@@ -6,23 +6,24 @@ import { Subreddit }          from '../../views';
 import gql                    from 'graphql-tag';
 import { graphql }            from 'react-apollo';
 import * as plotsActions      from '../../redux/modules/plots';
+import { ONE_MONTH } from '../../constants/plots';
 
 /* -----------------------------------------
   GraphQL - Apollo client
  ------------------------------------------*/
 
 const SubredditQuery = gql`
- query ($id: ID!) {
+ query ($id: ID!, $postCountsTimeRange: String) {
     subredditById(id: $id) {
       id
       displayName
       name
       startDate
 
-      postCounts {
+      postCounts(timeRange: $postCountsTimeRange) {
         id
         count
-        when
+        timestamp
       }
     }
   }
@@ -31,10 +32,11 @@ const SubredditQuery = gql`
 const SubredditWithQuery = graphql(
   SubredditQuery,
   {
-    options: ({ match }) => {
+    options: ({ match, postCountPlotRange }) => {
       return {
         variables: {
-          id: match.params.id
+          id: match.params.id,
+          postCountsTimeRange: postCountPlotRange,
         }
       }
     }
