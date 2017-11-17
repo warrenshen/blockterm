@@ -6,6 +6,7 @@
 #  name        :string           not null
 #  description :string           default(""), not null
 #  start_date  :date             not null
+#  blob        :string           default("{}"), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
@@ -19,7 +20,7 @@ class Subreddit < ApplicationRecord
   has_many :post_counts
   has_many :subscription_counts
 
-  def name_with_r
-    'r/' + name
+  def display_name
+    '/r/' + name
   end
 end

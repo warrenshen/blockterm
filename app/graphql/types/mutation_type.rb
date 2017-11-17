@@ -107,5 +107,18 @@ module Types
         )
       }
     end
+
+    field :updateSubredditBlob, Types::SubredditType do
+      description 'Updates blob column of subreddit'
+
+      argument :id, !types.ID
+      argument :blob, !types.String
+
+      resolve -> (obj, args, ctx) {
+        subreddit = Subreddit.find(args[:id])
+        subreddit.update_column(:blob, args[:blob])
+        subreddit
+      }
+    end
   end
 end
