@@ -1,21 +1,15 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 puts 'Seeding the database...'
 
 satoshi_subreddit = Subreddit.find_or_create_by(
-  name: 'SatoshiCoin',
+  name: 'Satoshi',
+  description: 'Satoshi is the currency of the Internet: a distributed, worldwide, decentralized digital money. Unlike traditional currencies such as dollars, satoshis are issued and managed without any central authority whatsoever: there is no government, company, or bank in charge of Satoshi. As such, it is more resistant to wild inflation and corrupt banks. With Satoshi, you can be your own bank.',
   start_date: Date.new(2017, 10, 1),
 )
 puts "Created #{satoshi_subreddit.display_name} subreddit"
 
 nakamoto_subreddit = Subreddit.find_or_create_by(
   name: 'NakamotoMarket',
+  description: 'Nakamoto is a shit coin just like the rest of them.',
   start_date: Date.new(2017, 11, 1),
 )
 puts "Created #{nakamoto_subreddit.display_name} subreddit"
