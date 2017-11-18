@@ -3,8 +3,8 @@ module Types
     name 'TokenType'
 
     field :id, !types.ID
-    field :short_name, !types.String
-    field :long_name, !types.String
+    field :shortName, !types.String, property: :short_name
+    field :longName, !types.String, property: :long_name
 
     field :keywords, types[Types::KeywordType] do
       description 'The keywords associated with token'

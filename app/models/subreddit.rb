@@ -20,7 +20,7 @@ class Subreddit < ApplicationRecord
   has_many :post_counts
   has_many :subscription_counts
   has_many :subreddit_tokens
-  has_many :subreddits, through: :subreddit_tokens
+  has_many :tokens, through: :subreddit_tokens
 
   def display_name
     '/r/' + name

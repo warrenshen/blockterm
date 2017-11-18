@@ -43,6 +43,18 @@ token_infos.each do |token_info|
 end
 puts "Created tokens and keywords"
 
+subreddit_tokens = [
+  {
+    subreddit_id: satoshi_subreddit.id,
+    token_id: Token.find_by(long_name: 'Satoshi').id,
+  }
+]
+subreddit_tokens.each do |subreddit_token|
+  SubredditToken.create(subreddit_token)
+end
+puts 'Created subreddit tokens'
+
+
 puts 'Seeding counts...'
 
 def create_one_month_subscription_counts_for_subreddit(subreddit, increment=3)

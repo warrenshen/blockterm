@@ -78,5 +78,13 @@ module Types
         obj.subscription_counts.order(timestamp: :asc)
       }
     end
+
+    field :tokens, types[Types::TokenType] do
+      description 'The tokens associated with subreddit'
+
+      resolve -> (obj, args, ctx) {
+        obj.tokens
+      }
+    end
   end
 end
