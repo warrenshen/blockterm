@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171109193841) do
+ActiveRecord::Schema.define(version: 20171118083323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,12 +43,12 @@ ActiveRecord::Schema.define(version: 20171109193841) do
   end
 
   create_table "market_tickers", force: :cascade do |t|
-    t.integer  "markets_id", null: false
+    t.integer  "market_id",  null: false
     t.decimal  "value",      null: false
     t.datetime "timestamp",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["markets_id"], name: "index_market_tickers_on_markets_id", using: :btree
+    t.index ["market_id"], name: "index_market_tickers_on_market_id", using: :btree
   end
 
   create_table "markets", force: :cascade do |t|
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(version: 20171109193841) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.index ["subreddit_id"], name: "index_post_counts_on_subreddit_id", using: :btree
+  end
+
+  create_table "subreddit_tokens", force: :cascade do |t|
+    t.integer  "subreddit_id", null: false
+    t.integer  "token_id",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["subreddit_id"], name: "index_subreddit_tokens_on_subreddit_id", using: :btree
+    t.index ["token_id"], name: "index_subreddit_tokens_on_token_id", using: :btree
   end
 
   create_table "subreddits", force: :cascade do |t|
@@ -107,9 +116,11 @@ ActiveRecord::Schema.define(version: 20171109193841) do
 
   add_foreign_key "comment_counts", "subreddits"
   add_foreign_key "keywords", "tokens"
-  add_foreign_key "market_tickers", "markets", column: "markets_id"
+  add_foreign_key "market_tickers", "markets"
   add_foreign_key "mention_counts", "keywords"
   add_foreign_key "mention_counts", "subreddits"
   add_foreign_key "post_counts", "subreddits"
+  add_foreign_key "subreddit_tokens", "subreddits"
+  add_foreign_key "subreddit_tokens", "tokens"
   add_foreign_key "subscription_counts", "subreddits"
 end

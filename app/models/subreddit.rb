@@ -19,6 +19,8 @@ class Subreddit < ApplicationRecord
   has_many :comment_counts
   has_many :post_counts
   has_many :subscription_counts
+  has_many :subreddit_tokens
+  has_many :subreddits, through: :subreddit_tokens
 
   def display_name
     '/r/' + name
