@@ -112,11 +112,18 @@ module Types
       description 'Updates blob column of subreddit'
 
       argument :id, !types.ID
-      argument :blob, !types.String
+      argument :postCount24h, types.Int
+      argument :commentCount24h, types.Int
 
       resolve -> (obj, args, ctx) {
         subreddit = Subreddit.find(args[:id])
-        subreddit.update_column(:blob, args[:blob])
+
+        if !args[:postCount24h].nil?
+          subreddit.update_blob_attribute(:post_count_24h, args[:postCount24h])
+        end
+        if !args[:commentCount24h].nil?
+          subreddit.update_blob_attribute(:comment_count_24h, args[:commentCount24h])
+        end
         subreddit
       }
     end
