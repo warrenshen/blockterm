@@ -15,4 +15,6 @@
 
 class Token < ApplicationRecord
   has_many :keywords
+  has_many :subreddit_tokens
+  has_many :subreddits, through: :subreddit_tokens
 end
