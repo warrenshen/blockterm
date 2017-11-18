@@ -11,6 +11,16 @@ import Select from 'react-select';
 import { RANGE_SELECT_OPTIONS } from '../../constants/plots';
 
 const styles = StyleSheet.create({
+  section: {
+    width: '100%',
+    padding: '12px',
+    display: 'flex',
+  },
+  plotSection: {
+    width: '100%',
+    padding: '12px',
+    display: 'flex',
+  },
   plotHeader: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -65,7 +75,7 @@ class Subreddit extends PureComponent {
     var postsY = subreddit.postCounts.map(
       (postCount) => postCount.count
     );
-
+    console.log(subreddit);
     var config = {
       modeBarButtonsToRemove: [
         'autoScale2d',
@@ -82,13 +92,18 @@ class Subreddit extends PureComponent {
       ],
       displaylogo: false,
     };
+    var blob = JSON.parse(subreddit.blob);
     return (
       <div>
         <div className={css(styles.subredditHeader)}>
           <h2>{subreddit.displayName}</h2>
-          <h4>{}</h4>
+          <h4>{subreddit.description}</h4>
         </div>
         <div className={css(styles.card)}>
+          <div className={css(styles.section)}>
+            <h4>{`${blob.post_count_24h} new posts`}</h4>
+            <h4>{`${blob.comment_count_24h} new comments`}</h4>
+          </div>
           <div className={css(styles.plotSection)}>
             <div className={css(styles.plotHeader)}>
               <span># posts over time</span>

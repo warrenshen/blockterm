@@ -16,6 +16,8 @@ const SubredditQuery = gql`
  query ($id: ID!, $postCountsTimeRange: String) {
     subredditById(id: $id) {
       id
+      blob
+      description
       displayName
       name
       startDate
