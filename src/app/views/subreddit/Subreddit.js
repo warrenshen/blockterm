@@ -11,6 +11,7 @@ import { RANGE_SELECT_OPTIONS } from '../../constants/plots';
 import { Bar } from 'react-chartjs-2';
 import moment from 'moment';
 import TokenWidget from '../../components/TokenWidget';
+import BarChartWithSelect from '../../components/BarChartWithSelect';
 
 const styles = StyleSheet.create({
   temp: {
@@ -181,7 +182,12 @@ class Subreddit extends PureComponent {
       <div>
         <div className={css(styles.subredditHeader)}>
           <div className={css(styles.subredditHeaderLeft)}>
-            <h2>{subreddit.displayName}</h2>
+            <a
+              href={`https://reddit.com/r/${subreddit.name}`}
+              target='_blank'
+            >
+              <h2>{subreddit.displayName}</h2>
+            </a>
             <p className={css(styles.description)}>{subreddit.description}</p>
             {this.renderTokens(subreddit.tokens)}
           </div>
@@ -197,60 +203,20 @@ class Subreddit extends PureComponent {
           </div>
           <div>
             <h2>Historical activity</h2>
-            <div className={css(styles.plotSection)}>
-              <div className={css(styles.plotHeader)}>
-                <h4>Number of posts per day</h4>
-                <div className={css(styles.select)}>
-                  <Select
-                    clearable={false}
-                    searchable={false}
-                    value={postCountPlotRange}
-                    options={RANGE_SELECT_OPTIONS}
-                    onChange={(option) => changePostCountPlotRange(option.value)}
-                  />
-                </div>
-              </div>
-              <div className={css(styles.temp)}>
-                <Bar
-                  height={312}
-                  data={postsData}
-                  responsive={true}
-                  options={{
-                    legend: { display: false },
-                    maintainAspectRatio: false,
-                    tooltips: { displayColors: false, intersect: false, mode: 'x' },
-                    scales: { yAxes: [{ ticks: { beginAtZero: true } }] },
-                  }}
-                />
-              </div>
-            </div>
-            <div className={css(styles.plotSection)}>
-              <div className={css(styles.plotHeader)}>
-                <span>Number of comments per day</span>
-                <div className={css(styles.select)}>
-                  <Select
-                    clearable={false}
-                    searchable={false}
-                    value={commentCountPlotRange}
-                    options={RANGE_SELECT_OPTIONS}
-                    onChange={(option) => changeCommentCountPlotRange(option.value)}
-                  />
-                </div>
-              </div>
-              <div className={css(styles.temp)}>
-                <Bar
-                  height={312}
-                  data={commentsData}
-                  responsive={true}
-                  options={{
-                    legend: { display: false },
-                    maintainAspectRatio: false,
-                    tooltips: { displayColors: false, intersect: false, mode: 'x' },
-                    scales: { yAxes: [{ ticks: { beginAtZero: true } }] },
-                  }}
-                />
-              </div>
-            </div>
+            <BarChartWithSelect
+              data={postsData}
+              selectOptions={RANGE_SELECT_OPTIONS}
+              selectValue={postCountPlotRange}
+              title={'Number of posts per day'}
+              onChange={(option) => changePostCountPlotRange(option.value)}
+            />
+            <BarChartWithSelect
+              data={commentsData}
+              selectOptions={RANGE_SELECT_OPTIONS}
+              selectValue={commentCountPlotRange}
+              title={'Number of comments per day'}
+              onChange={(option) => changeCommentCountPlotRange(option.value)}
+            />
           </div>
         </div>
       </div>
