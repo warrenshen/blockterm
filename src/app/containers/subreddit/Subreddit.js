@@ -14,6 +14,7 @@ import { ONE_MONTH } from '../../constants/plots';
 
 const SubredditQuery = gql`
  query ($id: ID!,
+        $activeUserCountsTimeRange: String,
         $postCountsTimeRange: String,
         $commentCountsTimeRange: String) {
     subredditById(id: $id) {
@@ -23,6 +24,12 @@ const SubredditQuery = gql`
       displayName
       name
       startDate
+
+      activeUserCounts(timeRange: $activeUserCountsTimeRange) {
+        id
+        count
+        timestamp
+      }
 
       postCounts(timeRange: $postCountsTimeRange) {
         id
@@ -50,10 +57,16 @@ const SubredditQuery = gql`
 const SubredditWithQuery = graphql(
   SubredditQuery,
   {
-    options: ({ match, commentCountPlotRange, postCountPlotRange }) => {
+    options: ({
+      match,
+      activeUserCountPlotRange,
+      commentCountPlotRange,
+      postCountPlotRange,
+      }) => {
       return {
         variables: {
           id: match.params.id,
+          activeUserCountsTimeRange: activeUserCountPlotRange,
           commentCountsTimeRange: commentCountPlotRange,
           postCountsTimeRange: postCountPlotRange,
         }
@@ -69,6 +82,7 @@ const SubredditWithQuery = graphql(
 
 const mapStateToProps = (state) => {
   return {
+    activeUserCountPlotRange: state.plots.activeUserCountPlotRange,
     commentCountPlotRange: state.plots.commentCountPlotRange,
     postCountPlotRange: state.plots.postCountPlotRange,
   };
@@ -77,6 +91,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      changeActiveUserCountPlotRange: plotsActions.changeActiveUserCountPlotRange,
       changeCommentCountPlotRange: plotsActions.changeCommentCountPlotRange,
       changePostCountPlotRange: plotsActions.changePostCountPlotRange,
     },
