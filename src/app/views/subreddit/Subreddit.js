@@ -14,9 +14,6 @@ import TokenWidget from '../../components/TokenWidget';
 import BarChartWithSelect from '../../components/BarChartWithSelect';
 
 const styles = StyleSheet.create({
-  temp: {
-    width: '100%',
-  },
   description: {
     paddingTop: '12px',
   },
@@ -25,18 +22,6 @@ const styles = StyleSheet.create({
     padding: '24px 0px',
     display: 'flex',
     flexDirection: 'column',
-  },
-  plotSection: {
-    width: '100%',
-    padding: '24px 0px',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  plotHeader: {
-    paddingBottom: '12px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
   subredditHeader: {
     display: 'flex',
@@ -62,9 +47,6 @@ const styles = StyleSheet.create({
     borderRadius: '6px',
     display: 'flex',
     flexDirection: 'column',
-  },
-  select: {
-    width: '128px',
   },
   container: {
     gridColumn: '3 / 7',
