@@ -10,6 +10,7 @@ import Select from 'react-select';
 import { RANGE_SELECT_OPTIONS } from '../../constants/plots';
 import { Bar } from 'react-chartjs-2';
 import moment from 'moment';
+import TokenWidget from '../../components/TokenWidget';
 
 const styles = StyleSheet.create({
   temp: {
@@ -31,8 +32,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   plotHeader: {
+    paddingBottom: '12px',
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   subredditHeader: {
     display: 'flex',
@@ -100,18 +103,7 @@ class Subreddit extends PureComponent {
     return (
       <div className={css(styles.relatedCoins)}>
         <h4>Related coins</h4>
-        {
-          tokens.map(
-            (token) => {
-              return (
-                <div key={token.id}>
-                  <span>{token.shortName}</span>
-                  <span>{token.longName}</span>
-                </div>
-              );
-            }
-          )
-        }
+        {tokens.map((token) => <TokenWidget token={token} />)}
       </div>
     );
   }
@@ -235,13 +227,15 @@ class Subreddit extends PureComponent {
             <div className={css(styles.plotSection)}>
               <div className={css(styles.plotHeader)}>
                 <span>Number of comments per day</span>
-                <Select
-                  clearable={false}
-                  searchable={false}
-                  value={commentCountPlotRange}
-                  options={RANGE_SELECT_OPTIONS}
-                  onChange={(option) => changeCommentCountPlotRange(option.value)}
-                />
+                <div className={css(styles.select)}>
+                  <Select
+                    clearable={false}
+                    searchable={false}
+                    value={commentCountPlotRange}
+                    options={RANGE_SELECT_OPTIONS}
+                    onChange={(option) => changeCommentCountPlotRange(option.value)}
+                  />
+                </div>
               </div>
               <div className={css(styles.temp)}>
                 <Bar
