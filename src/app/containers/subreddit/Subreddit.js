@@ -40,6 +40,8 @@ const SubredditQuery = gql`
         id
         shortName
         longName
+        imageUrl
+        website
       }
     }
   }
