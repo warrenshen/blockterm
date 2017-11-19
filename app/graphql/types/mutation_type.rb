@@ -3,6 +3,8 @@ module Types
     name 'Mutation'
 
     field :createActiveUserCount, Types::ActiveUserCountType do
+      description 'Creates a active user count'
+
       argument :subredditId, !types.ID
       argument :count, !types.Int
       argument :timestamp, !types.String
@@ -17,6 +19,8 @@ module Types
     end
 
     field :createCommentCount, Types::CommentCountType do
+      description 'Creates a comment count'
+
       argument :subredditId, !types.ID
       argument :count, !types.Int
       argument :timestamp, !types.String

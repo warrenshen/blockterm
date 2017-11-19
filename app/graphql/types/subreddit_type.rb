@@ -19,6 +19,32 @@ module Types
       }
     end
 
+    field :activeUserCounts, types[Types::ActiveUserCountType] do
+      description 'The comment counts associated with subreddit'
+
+      argument :timeRange, types.String
+
+      resolve -> (obj, args, ctx) {
+        time_range = args[:timeRange]
+        today = Date.today
+        clause = 'timestamp > ?'
+
+        active_user_counts = obj.active_user_counts
+
+        if time_range.nil? or args[:timeRange] == 'ONE_WEEK'
+          active_user_counts = active_user_counts.where(clause, today - 7.days)
+        elsif time_range == 'ONE_MONTH'
+          active_user_counts = active_user_counts.where(clause, today - 1.month)
+        elsif time_range == 'THREE_MONTHS'
+          active_user_counts = active_user_counts.where(clause, today - 3.months)
+        elsif time_range == 'ONE_YEAR'
+          active_user_counts = active_user_counts.where(clause, today - 1.year)
+        end
+
+        active_user_counts.order(timestamp: :asc)
+      }
+    end
+
     field :commentCounts, types[Types::PostCountType] do
       description 'The comment counts associated with subreddit'
 
