@@ -7,7 +7,6 @@ import PropTypes              from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import {
   NavigationBar,
-  BackToTop
 }                             from '../../components';
 import navigationModel        from '../../models/navigation.json';
 import { bindActionCreators } from 'redux';
@@ -24,8 +23,7 @@ const styles = StyleSheet.create({
     padding: '0% 0%',
     margin: '0% 0%',
     backgroundColor: 'white',
-    display: 'flex',
-    flexDirection: 'column',
+    display: 'block',
   },
 });
 
@@ -58,10 +56,6 @@ class App extends Component {
           handleNightModeClick={this.handleNightModeClick}
         />
         <MainRoutes />
-        <BackToTop
-          minScrollY={40}
-          scrollTo={'appContainer'}
-        />
       </div>
     );
   }
