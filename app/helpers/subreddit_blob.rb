@@ -15,7 +15,7 @@ class SubredditBlob
     initialize_map.each do |attribute, value|
       next if value.nil?
 
-      if ATTRIBUTES_WHITELIST.include?(attribute)
+      if ATTRIBUTES_WHITELIST.include?(attribute.to_sym)
         @attributes_map[attribute] = value
       end
     end
@@ -23,7 +23,7 @@ class SubredditBlob
   end
 
   def update_attribute(attribute, value)
-    if !value.nil? and ATTRIBUTES_WHITELIST.include?(attribute)
+    if !value.nil? and ATTRIBUTES_WHITELIST.include?(attribute.to_sym)
       @attributes_map[attribute] = value
     end
   end
