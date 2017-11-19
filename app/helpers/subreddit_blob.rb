@@ -3,6 +3,7 @@ class SubredditBlob
   ATTRIBUTES_WHITELIST = [
     :post_count_24h,
     :comment_count_24h,
+    :active_user_count_now,
   ]
 
   attr_reader :attributes_map

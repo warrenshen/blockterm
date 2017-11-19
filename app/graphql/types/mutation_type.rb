@@ -2,6 +2,20 @@ module Types
   MutationType = GraphQL::ObjectType.define do
     name 'Mutation'
 
+    field :createActiveUserCount, Types::ActiveUserCountType do
+      argument :subredditId, !types.ID
+      argument :count, !types.Int
+      argument :timestamp, !types.String
+
+      resolve -> (obj, args, ctx) {
+        ActiveUserCount.create(
+          subreddit_id: args[:subredditId],
+          count: args[:count],
+          timestamp: args[:timestamp],
+        )
+      }
+    end
+
     field :createCommentCount, Types::CommentCountType do
       argument :subredditId, !types.ID
       argument :count, !types.Int
@@ -114,6 +128,7 @@ module Types
       argument :id, !types.ID
       argument :postCount24h, types.Int
       argument :commentCount24h, types.Int
+      argument :activeUserCountNow, types.Int
 
       resolve -> (obj, args, ctx) {
         subreddit = Subreddit.find(args[:id])
@@ -123,6 +138,9 @@ module Types
         end
         if !args[:commentCount24h].nil?
           subreddit.update_blob_attribute(:comment_count_24h, args[:commentCount24h])
+        end
+        if !args[:activeUserCountNow].nil?
+          subreddit.update_blob_attribute(:active_user_count_now, args[:activeUserCountNow])
         end
         subreddit
       }
