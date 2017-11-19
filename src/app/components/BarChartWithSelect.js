@@ -52,7 +52,7 @@ class BarChartWithSelect extends PureComponent {
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.header)}>
-          <span>{title}</span>
+          <h4>{title}</h4>
           <div className={css(styles.select)}>
             <Select
               clearable={false}
