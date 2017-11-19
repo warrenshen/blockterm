@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171119003013) do
+ActiveRecord::Schema.define(version: 20171119200642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_user_counts", force: :cascade do |t|
+    t.integer  "subreddit_id",                           null: false
+    t.datetime "timestamp",    precision: 6,             null: false
+    t.integer  "count",                      default: 0, null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.index ["subreddit_id"], name: "index_active_user_counts_on_subreddit_id", using: :btree
+  end
 
   create_table "comment_counts", force: :cascade do |t|
     t.integer  "subreddit_id",                           null: false
@@ -116,6 +125,7 @@ ActiveRecord::Schema.define(version: 20171119003013) do
     t.index ["short_name"], name: "index_tokens_on_short_name", unique: true, using: :btree
   end
 
+  add_foreign_key "active_user_counts", "subreddits"
   add_foreign_key "comment_counts", "subreddits"
   add_foreign_key "keywords", "tokens"
   add_foreign_key "market_tickers", "markets"
