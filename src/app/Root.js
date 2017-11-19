@@ -20,7 +20,6 @@ import { apolloClient }         from './services/apollo';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore           from './redux/store/configureStore';
 import App                      from './containers/app/App';
-import ScrollToTop              from "./components/scrollToTop/ScrollToTop";
 
 const store           = configureStore();
 const history         = createHistory();
@@ -34,9 +33,7 @@ class Root extends Component {
       <ApolloProvider store={store} client={client}>
         <div>
           <Router history={syncedHistory}>
-            <ScrollToTop>
-              <App />
-            </ScrollToTop>
+            <App />
           </Router>
         </div>
       </ApolloProvider>

@@ -3,9 +3,9 @@
 import React              from 'react';
 import PropTypes          from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import Humburger          from './humburger/Humburger';
 import LeftNav            from './leftNav/LeftNav';
 import RightNav           from './rightNav/RightNav';
+import { Link }       from 'react-router-dom';
 
 const styles = StyleSheet.create({
   container: {
@@ -17,6 +17,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     zIndex: 1,
+  },
+  brandSection: {
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -31,10 +37,10 @@ const NavigationBar = ({
 }) => {
   return (
     <nav className={css(styles.container)}>
-      <div className="navbar-header">
-        <a>
+      <div className={css(styles.brandSection)}>
+        <Link to={'/'}>
           {brand}
-        </a>
+        </Link>
       </div>
       <div
         className="collapse navbar-collapse"

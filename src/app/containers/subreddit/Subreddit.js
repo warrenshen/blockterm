@@ -13,7 +13,9 @@ import { ONE_MONTH } from '../../constants/plots';
  ------------------------------------------*/
 
 const SubredditQuery = gql`
- query ($id: ID!, $postCountsTimeRange: String) {
+ query ($id: ID!,
+        $postCountsTimeRange: String,
+        $commentCountsTimeRange: String) {
     subredditById(id: $id) {
       id
       blob
@@ -27,6 +29,18 @@ const SubredditQuery = gql`
         count
         timestamp
       }
+
+      commentCounts(timeRange: $commentCountsTimeRange) {
+        id
+        count
+        timestamp
+      }
+
+      tokens {
+        id
+        shortName
+        longName
+      }
     }
   }
 `;
@@ -34,10 +48,11 @@ const SubredditQuery = gql`
 const SubredditWithQuery = graphql(
   SubredditQuery,
   {
-    options: ({ match, postCountPlotRange }) => {
+    options: ({ match, commentCountPlotRange, postCountPlotRange }) => {
       return {
         variables: {
           id: match.params.id,
+          commentCountsTimeRange: commentCountPlotRange,
           postCountsTimeRange: postCountPlotRange,
         }
       }
@@ -52,6 +67,7 @@ const SubredditWithQuery = graphql(
 
 const mapStateToProps = (state) => {
   return {
+    commentCountPlotRange: state.plots.commentCountPlotRange,
     postCountPlotRange: state.plots.postCountPlotRange,
   };
 };
@@ -59,6 +75,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      changeCommentCountPlotRange: plotsActions.changeCommentCountPlotRange,
       changePostCountPlotRange: plotsActions.changePostCountPlotRange,
     },
     dispatch
