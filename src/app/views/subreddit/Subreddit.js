@@ -92,9 +92,11 @@ class Subreddit extends PureComponent {
     location: PropTypes.object.isRequired,
     history:  PropTypes.object.isRequired,
     // actions:
+    changeActiveUserCountPlotRange: PropTypes.func.isRequired,
     changeCommentCountPlotRange: PropTypes.func.isRequired,
     changePostCountPlotRange: PropTypes.func.isRequired,
     // etc:
+    activeUserCountPlotRange: PropTypes.string.isRequired,
     commentCountPlotRange: PropTypes.string.isRequired,
     postCountPlotRange: PropTypes.string.isRequired,
   };
@@ -112,8 +114,10 @@ class Subreddit extends PureComponent {
   renderSubreddit(subreddit)
   {
     const {
+      changeActiveUserCountPlotRange,
       changeCommentCountPlotRange,
       changePostCountPlotRange,
+      activeUserCountPlotRange,
       commentCountPlotRange,
       postCountPlotRange,
     } = this.props;
@@ -130,6 +134,13 @@ class Subreddit extends PureComponent {
     );
     var commentsY = subreddit.commentCounts.map(
       (commentCount) => commentCount.count
+    );
+
+    var activeUsersX = subreddit.activeUserCounts.map(
+      (activeUserCount) => moment(activeUserCount.timestamp).format('MM/DD h:mm')
+    );
+    var activeUsersY = subreddit.activeUserCounts.map(
+      (activeUserCount) => activeUserCount.count
     );
 
     var postsData = {
@@ -156,6 +167,20 @@ class Subreddit extends PureComponent {
           hoverBackgroundColor: 'rgba(255,99,132,0.4)',
           hoverBorderColor: 'rgba(255,99,132,1)',
           data: commentsY,
+        }
+      ]
+    };
+
+    var activeUsersData = {
+      labels: activeUsersX,
+      datasets: [
+        {
+          backgroundColor: 'rgba(255,99,132,0.2)',
+          borderColor: 'rgba(255,99,132,1)',
+          borderWidth: 1,
+          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+          hoverBorderColor: 'rgba(255,99,132,1)',
+          data: activeUsersY,
         }
       ]
     };
@@ -207,15 +232,22 @@ class Subreddit extends PureComponent {
               data={postsData}
               selectOptions={RANGE_SELECT_OPTIONS}
               selectValue={postCountPlotRange}
-              title={'Number of posts per day'}
+              title={'Number of new posts'}
               onChange={(option) => changePostCountPlotRange(option.value)}
             />
             <BarChartWithSelect
               data={commentsData}
               selectOptions={RANGE_SELECT_OPTIONS}
               selectValue={commentCountPlotRange}
-              title={'Number of comments per day'}
+              title={'Number of new comments'}
               onChange={(option) => changeCommentCountPlotRange(option.value)}
+            />
+            <BarChartWithSelect
+              data={activeUsersData}
+              selectOptions={RANGE_SELECT_OPTIONS}
+              selectValue={activeUserCountPlotRange}
+              title={'Number of active users'}
+              onChange={(option) => changeActiveUserCountPlotRange(option.value)}
             />
           </div>
         </div>
