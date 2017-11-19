@@ -7,6 +7,8 @@
 #  long_name  :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  image_url  :string           default(""), not null
+#  website    :string           default(""), not null
 #
 # Indexes
 #
