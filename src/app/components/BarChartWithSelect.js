@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 
 class BarChartWithSelect extends PureComponent {
   static propTypes = {
-    data: PropTypes.array.isRequired,
+    data: PropTypes.object.isRequired,
     selectOptions: PropTypes.array.isRequired,
     selectValue: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
