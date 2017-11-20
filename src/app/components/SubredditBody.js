@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   section: {
     width: '100%',
-    padding: '24px 0px',
+    paddingTop: '24px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -110,7 +110,7 @@ class SubredditBody extends PureComponent {
       ]
     };
 
-    var blob = JSON.parse(subreddit.blob);
+    const blob = JSON.parse(subreddit.blob);
 
     return (
       <div className={css(styles.container, nightMode && styles.nightMode)}>
@@ -121,6 +121,12 @@ class SubredditBody extends PureComponent {
           >
             Recent activity
           </El>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            {`${blob.active_user_count_now} active users`}
+          </El>
           <El nightMode={nightMode} type={'span'}>
             {`${blob.post_count_24h} new posts`}
           </El>
@@ -128,7 +134,7 @@ class SubredditBody extends PureComponent {
             {`${blob.comment_count_24h} new comments`}
           </El>
         </div>
-        <div>
+        <div className={css(styles.section)}>
           <El
             nightMode={nightMode}
             type={'h3'}

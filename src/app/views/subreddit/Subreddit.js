@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
   relatedCoins: {
     display: 'flex',
     flexDirection: 'column',
+    paddingTop: '12px',
   },
 });
 
@@ -103,6 +104,8 @@ class Subreddit extends PureComponent {
       postCountPlotRange,
     } = this.props;
 
+    const blob = JSON.parse(subreddit.blob);
+
     return (
       <div>
         <div className={css(styles.subredditHeader)}>
@@ -128,7 +131,12 @@ class Subreddit extends PureComponent {
             {this.renderTokens(subreddit.tokens)}
           </div>
           <div className={css(styles.subredditHeaderRight)}>
-            <p>128 active users</p>
+            <El
+              nightMode={nightMode}
+              type={'span'}
+            >
+              {`${blob.subscribers_count} total subscribers`}
+            </El>
           </div>
         </div>
         <SubredditBody
