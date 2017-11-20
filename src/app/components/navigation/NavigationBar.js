@@ -3,8 +3,7 @@
 import React              from 'react';
 import PropTypes          from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import LeftNav            from './leftNav/LeftNav';
-import RightNav           from './rightNav/RightNav';
+import RightNav           from './RightNav';
 import { Link }       from 'react-router-dom';
 import navigationModel     from '../../models/navigation.json';
 import El from '../El';
@@ -50,18 +49,11 @@ const NavigationBar = ({
         </Link>
       </div>
       <div className={css(styles.section)}>
-        <ul className="nav navbar-nav">
-          <LeftNav
-            leftLinks={navigationModel.leftLinks}
-          />
-        </ul>
-        <ul className="nav navbar-nav navbar-right">
-          <RightNav
-            rightLinks={navigationModel.rightLinks}
-            nightMode={nightMode}
-            toggleNightMode={toggleNightMode}
-          />
-        </ul>
+        <RightNav
+          rightLinks={navigationModel.rightLinks}
+          nightMode={nightMode}
+          toggleNightMode={toggleNightMode}
+        />
       </div>
     </nav>
   );

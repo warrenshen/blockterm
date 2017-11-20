@@ -70,9 +70,18 @@ class Subreddit extends PureComponent {
 
   renderTokens(tokens)
   {
+    const {
+      nightMode,
+    } = this.props;
+
     return (
       <div className={css(styles.relatedCoins)}>
-        <h4>Related coins</h4>
+        <El
+          nightMode={nightMode}
+          type={'h5'}
+        >
+          Related coins
+        </El>
         {tokens.map((token) => <TokenWidget key={token.id} token={token} />)}
       </div>
     );
@@ -98,7 +107,12 @@ class Subreddit extends PureComponent {
               href={`https://reddit.com/r/${subreddit.name}`}
               target='_blank'
             >
-              <h2>{subreddit.displayName}</h2>
+              <El
+                nightMode={nightMode}
+                type={'h2'}
+              >
+                {subreddit.displayName}
+              </El>
             </a>
             <El
               nightMode={nightMode}
@@ -134,7 +148,7 @@ class Subreddit extends PureComponent {
     } = this.props;
 
     return (
-      <div className={css(styles.wrapper, nightMode && styles.nightMode, styles.fadeIn)}>
+      <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         <div className={css(styles.container)}>
           { data && data.subredditById && this.renderSubreddit(data.subredditById) }
         </div>

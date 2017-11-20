@@ -3,7 +3,7 @@
 import React                from 'react';
 import PropTypes            from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import RightNavButton       from './rightNavButton/RightNavButton';
+import RightNavButton       from './RightNavButton';
 import Switch from 'react-toggle-switch'
 
 const styles = StyleSheet.create({
@@ -21,19 +21,15 @@ const RightNav = ({
   <ul className={css(styles.container)}>
     <Switch on={nightMode} onClick={toggleNightMode} />
     {
-      rightLinks
-        .map(
-          (aLinkBtn, index) => {
-            return (
-                <RightNavButton
-                  key={index}
-                  link={aLinkBtn.link}
-                  label={aLinkBtn.label}
-                  viewName={aLinkBtn.view}
-                />
-              );
-          }
-        )
+      rightLinks.map((aLinkBtn, index) => (
+        <RightNavButton
+          key={index}
+          link={aLinkBtn.link}
+          label={aLinkBtn.label}
+          nightMode={nightMode}
+          viewName={aLinkBtn.view}
+        />
+      ))
     }
   </ul>
 );
