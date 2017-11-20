@@ -8,6 +8,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
 import SubredditBody from '../../components/SubredditBody';
 import TokenWidget from '../../components/TokenWidget';
+import El from '../../components/El';
 
 const styles = StyleSheet.create({
   description: {
@@ -88,7 +89,7 @@ class Subreddit extends PureComponent {
       commentCountPlotRange,
       postCountPlotRange,
     } = this.props;
-    console.log(nightMode);
+
     return (
       <div>
         <div className={css(styles.subredditHeader)}>
@@ -99,7 +100,13 @@ class Subreddit extends PureComponent {
             >
               <h2>{subreddit.displayName}</h2>
             </a>
-            <p className={css(styles.description)}>{subreddit.description}</p>
+            <El
+              nightMode={nightMode}
+              style={styles.description}
+              type={'p'}
+            >
+              {subreddit.description}
+            </El>
             {this.renderTokens(subreddit.tokens)}
           </div>
           <div className={css(styles.subredditHeaderRight)}>

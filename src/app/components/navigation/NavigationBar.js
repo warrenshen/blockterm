@@ -7,6 +7,7 @@ import LeftNav            from './leftNav/LeftNav';
 import RightNav           from './rightNav/RightNav';
 import { Link }       from 'react-router-dom';
 import navigationModel     from '../../models/navigation.json';
+import El from '../El';
 
 
 const styles = StyleSheet.create({
@@ -23,7 +24,11 @@ const styles = StyleSheet.create({
   nightMode: {
     backgroundColor: '#373b3e',
   },
-  brandSection: {
+  brand: {
+    fontSize: '18px',
+    fontWeight: '700',
+  },
+  section: {
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
@@ -37,20 +42,18 @@ const NavigationBar = ({
 }) => {
   return (
     <nav className={css(styles.container, nightMode && styles.nightMode)}>
-      <div className={css(styles.brandSection)}>
+      <div className={css(styles.section)}>
         <Link to={'/'}>
-          Cryptotrends
+          <El nightMode={nightMode} style={styles.brand} type={'span'}>
+            Cryptotrends
+          </El>
         </Link>
       </div>
-      <div
-        className="collapse navbar-collapse"
-        id="bs-example-navbar-collapse-1">
+      <div className={css(styles.section)}>
         <ul className="nav navbar-nav">
-          {
-            <LeftNav
-              leftLinks={navigationModel.leftLinks}
-            />
-          }
+          <LeftNav
+            leftLinks={navigationModel.leftLinks}
+          />
         </ul>
         <ul className="nav navbar-nav navbar-right">
           <RightNav
