@@ -8,6 +8,7 @@ import { StyleSheet, css } from 'aphrodite';
 import moment              from 'moment';
 import { RANGE_SELECT_OPTIONS } from '../constants/plots';
 import BarChartWithSelect  from './BarChartWithSelect';
+import El from './El';
 
 const styles = StyleSheet.create({
   container: {
@@ -115,8 +116,12 @@ class SubredditBody extends PureComponent {
       <div className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
           <h3>Recent activity</h3>
-          <span>{`${blob.post_count_24h} new posts`}</span>
-          <span>{`${blob.comment_count_24h} new comments`}</span>
+          <El nightMode={nightMode} type={'span'}>
+            {`${blob.post_count_24h} new posts`}
+          </El>
+          <El nightMode={nightMode} type={'span'}>
+            {`${blob.comment_count_24h} new comments`}
+          </El>
         </div>
         <div>
           <h2>Historical activity</h2>
