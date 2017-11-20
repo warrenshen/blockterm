@@ -11,6 +11,12 @@ import TokenWidget from '../../components/TokenWidget';
 import El from '../../components/El';
 
 const styles = StyleSheet.create({
+  wrapper: {
+    width: '100vw',
+    padding: '0% 15%',
+    backgroundColor: '#ecf0f1',
+    gridTemplateColumns: 'repeat(8, 1fr)',
+  },
   description: {
     paddingTop: '12px',
   },
@@ -32,18 +38,8 @@ const styles = StyleSheet.create({
   container: {
     gridColumn: '3 / 7',
   },
-  wrapper: {
-    width: '100vw',
-    padding: '0% 15%',
-    backgroundColor: '#ecf0f1',
-    gridTemplateColumns: 'repeat(8, 1fr)',
-  },
   nightMode: {
     backgroundColor: '#232b2e',
-  },
-  fadeIn: {
-    animation: 'fadeIn 0.5s both ease-in',
-    zIndex: 9999,
   },
   relatedCoins: {
     display: 'flex',
@@ -82,7 +78,15 @@ class Subreddit extends PureComponent {
         >
           Related coins
         </El>
-        {tokens.map((token) => <TokenWidget key={token.id} token={token} />)}
+        {
+          tokens.map((token) => (
+            <TokenWidget
+              key={token.id}
+              nightMode={nightMode}
+              token={token}
+            />
+          ))
+        }
       </div>
     );
   }
