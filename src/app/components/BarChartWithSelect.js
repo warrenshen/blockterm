@@ -12,16 +12,16 @@ import El from './El';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    padding: '24px 0px',
+    paddingTop: '12px',
     display: 'flex',
     flexDirection: 'column',
   },
   chart: {
     width: '100%',
+    paddingTop: '12px',
   },
   header: {
     width: '100%',
-    paddingBottom: '12px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
