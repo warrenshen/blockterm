@@ -11,20 +11,13 @@ const styles = StyleSheet.create({
 });
 
 const El = ({ children, nightMode, style, type }) => {
-  switch (type) {
-    case 'p':
-      return (
-        <p className={css(style, nightMode && styles.white)}>
-          {children}
-        </p>
-      );
-    case 'span':
-      return (
-        <span className={css(style, nightMode && styles.white)}>
-          {children}
-        </span>
-      );
-  }
+  const Tag = type;
+  var className = css(style, nightMode && styles.white);
+  return (
+    <Tag className={className}>
+      {children}
+    </Tag>
+  );
 };
 
 export default El;
