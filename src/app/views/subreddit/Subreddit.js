@@ -13,9 +13,16 @@ import El from '../../components/El';
 const styles = StyleSheet.create({
   wrapper: {
     width: '100vw',
+    minHeight: '100vh',
     padding: '0% 15%',
     backgroundColor: '#ecf0f1',
     gridTemplateColumns: 'repeat(8, 1fr)',
+  },
+  nightMode: {
+    backgroundColor: '#232b2e',
+  },
+  container: {
+    gridColumn: '3 / 7',
   },
   description: {
     paddingTop: '12px',
@@ -34,12 +41,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
-  },
-  container: {
-    gridColumn: '3 / 7',
-  },
-  nightMode: {
-    backgroundColor: '#232b2e',
   },
   relatedCoins: {
     display: 'flex',
@@ -71,25 +72,28 @@ class Subreddit extends PureComponent {
       nightMode,
     } = this.props;
 
-    return (
-      <div className={css(styles.relatedCoins)}>
-        <El
-          nightMode={nightMode}
-          type={'h5'}
-        >
-          Related coins
-        </El>
-        {
-          tokens.map((token) => (
-            <TokenWidget
-              key={token.id}
-              nightMode={nightMode}
-              token={token}
-            />
-          ))
-        }
-      </div>
-    );
+    if (tokens.length > 0)
+    {
+      return (
+        <div className={css(styles.relatedCoins)}>
+          <El
+            nightMode={nightMode}
+            type={'h5'}
+          >
+            Related coins
+          </El>
+          {
+            tokens.map((token) => (
+              <TokenWidget
+                key={token.id}
+                nightMode={nightMode}
+                token={token}
+              />
+            ))
+          }
+        </div>
+      );
+    }
   }
 
   renderSubreddit(subreddit)
@@ -121,13 +125,17 @@ class Subreddit extends PureComponent {
                 {subreddit.displayName}
               </El>
             </a>
-            <El
-              nightMode={nightMode}
-              style={styles.description}
-              type={'p'}
-            >
-              {subreddit.description}
-            </El>
+            {
+              subreddit.subscription && (
+                <El
+                  nightMode={nightMode}
+                  style={styles.description}
+                  type={'p'}
+                >
+                  {subreddit.description}
+                </El>
+              )
+            }
             {this.renderTokens(subreddit.tokens)}
           </div>
           <div className={css(styles.subredditHeaderRight)}>

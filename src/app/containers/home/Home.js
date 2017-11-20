@@ -31,6 +31,7 @@ const HomeWithQuery = graphql(
 
 const mapStateToProps = (state) => {
   return {
+    nightMode: state.globals.nightMode,
   };
 };
 
