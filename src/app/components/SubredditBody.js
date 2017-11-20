@@ -115,7 +115,12 @@ class SubredditBody extends PureComponent {
     return (
       <div className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
-          <h3>Recent activity</h3>
+          <El
+            nightMode={nightMode}
+            type={'h3'}
+          >
+            Recent activity
+          </El>
           <El nightMode={nightMode} type={'span'}>
             {`${blob.post_count_24h} new posts`}
           </El>
@@ -124,9 +129,15 @@ class SubredditBody extends PureComponent {
           </El>
         </div>
         <div>
-          <h2>Historical activity</h2>
+          <El
+            nightMode={nightMode}
+            type={'h3'}
+          >
+            Historical activity
+          </El>
           <BarChartWithSelect
             data={postsData}
+            nightMode={nightMode}
             selectOptions={RANGE_SELECT_OPTIONS}
             selectValue={postCountPlotRange}
             title={'Number of new posts'}
@@ -134,6 +145,7 @@ class SubredditBody extends PureComponent {
           />
           <BarChartWithSelect
             data={commentsData}
+            nightMode={nightMode}
             selectOptions={RANGE_SELECT_OPTIONS}
             selectValue={commentCountPlotRange}
             title={'Number of new comments'}
@@ -141,6 +153,7 @@ class SubredditBody extends PureComponent {
           />
           <BarChartWithSelect
             data={activeUsersData}
+            nightMode={nightMode}
             selectOptions={RANGE_SELECT_OPTIONS}
             selectValue={activeUserCountPlotRange}
             title={'Number of active users'}
