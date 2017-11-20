@@ -2,15 +2,24 @@
 
 import React                from 'react';
 import PropTypes            from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
 import RightNavButton       from './rightNavButton/RightNavButton';
 import Switch from 'react-toggle-switch'
 
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+});
+
 const RightNav = ({
   rightLinks,
-  onRightNavButtonClick,
-  handleNightModeClick
+  nightMode,
+  toggleNightMode,
 }) => (
-  <ul className="nav navbar-nav navbar-right">
+  <ul className={css(styles.container)}>
+    <Switch on={nightMode} onClick={toggleNightMode} />
     {
       rightLinks
         .map(
@@ -21,7 +30,6 @@ const RightNav = ({
                   link={aLinkBtn.link}
                   label={aLinkBtn.label}
                   viewName={aLinkBtn.view}
-                  onClick={onRightNavButtonClick}
                 />
               );
           }
@@ -38,7 +46,7 @@ RightNav.propTypes = {
       viewName: PropTypes.string
     })
   ),
-  onRightNavButtonClick: PropTypes.func,
+  toggleNightMode: PropTypes.func.isRequired,
 };
 
 export default RightNav;

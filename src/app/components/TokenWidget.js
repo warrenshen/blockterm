@@ -34,7 +34,7 @@ class TokenWidget extends PureComponent {
     } = this.props;
 
     return (
-      <div key={token.id} className={css(styles.container)}>
+      <div className={css(styles.container)}>
         <div className={css(styles.section)}>
           <img src={token.imageUrl} width={48} height={48}></img>
         </div>

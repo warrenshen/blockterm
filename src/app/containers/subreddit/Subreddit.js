@@ -85,6 +85,7 @@ const mapStateToProps = (state) => {
     activeUserCountPlotRange: state.plots.activeUserCountPlotRange,
     commentCountPlotRange: state.plots.commentCountPlotRange,
     postCountPlotRange: state.plots.postCountPlotRange,
+    nightMode: state.globals.nightMode,
   };
 };
 
