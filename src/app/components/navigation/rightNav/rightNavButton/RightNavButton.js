@@ -11,7 +11,6 @@ class RightNavButton extends PureComponent {
     link:     PropTypes.string,
     label:    PropTypes.string,
     viewName: PropTypes.string,
-    onClick:  PropTypes.func
   };
 
   render() {
@@ -22,18 +21,11 @@ class RightNavButton extends PureComponent {
 
     return (
       <li>
-        <Link
-          to={link}
-          onClick={this.handleRightNavItemClick}>
+        <Link to={link}>
           {label}
         </Link>
       </li>
     );
-  }
-
-  handleRightNavItemClick = (event) => {
-    const { onClick, viewName } = this.props;
-    onClick(event, viewName);
   }
 }
 
