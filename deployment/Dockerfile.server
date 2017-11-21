@@ -9,10 +9,12 @@ RUN apt-get update && apt-get install -qq -y \
 	postgresql-client-9.4 \
 	--fix-missing --no-install-recommends
 
+COPY ./server/Gemfile Gemfile
+
+RUN bundle install
+
 ENV APP_PATH /crypto-trends
 
 COPY . $APP_PATH
 
 WORKDIR $APP_PATH/server
-
-RUN bundle install
