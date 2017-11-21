@@ -6,7 +6,6 @@ import { Subreddit }          from '../../views';
 import gql                    from 'graphql-tag';
 import { graphql }            from 'react-apollo';
 import * as plotsActions      from '../../redux/modules/plots';
-import { ONE_MONTH } from '../../constants/plots';
 
 /* -----------------------------------------
   GraphQL - Apollo client
@@ -69,8 +68,8 @@ const SubredditWithQuery = graphql(
           activeUserCountsTimeRange: activeUserCountPlotRange,
           commentCountsTimeRange: commentCountPlotRange,
           postCountsTimeRange: postCountPlotRange,
-        }
-      }
+        },
+      };
     }
   }
 )(Subreddit);
