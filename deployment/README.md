@@ -1,0 +1,32 @@
+## Local Deployment
+
+Preparation: Install `docker` and `docker-compose` for your machine.
+
+Steps to run on local:
+
+1. In `crypto-trends/`, run the command `sh build-dev.sh` and this will create docker images for you
+2. You have two options to run the service locally:
+	i. Go into `deployment/` and run `docker-compose up`. This will bring up all the services and print out logs into your terminal. This is the easiest way to have everything up and running.
+	ii. Run the client service by itself and mount local directory. An example command: `docker-compose run -v <local_directory>/crypto-trends/client:/dev_client/ -p 3000:3000 client bash -c "cd /dev_client && npm install && npm start"`. This will reinstall all the packages and allow the container to share the local directory, thus enabling hot reloading for client dev.
+
+If the database has not been initialized, run
+
+`docker-compose run server rails db:create db:migrate db:seed` to have the db initialized
+
+## For deployment on Kubernetes:
+
+Preparation:
+
+1. Configure `gcloud` and `kubectl`. Make sure `kubectl` has the right authentication to the cluster.
+2. Install `kompose` with homebrew (or source if on linux). `brew install kompose`
+
+Steps to deploy:
+
+1. In `deployment/`, run `kompose convert`. This will create both service and deployment files for each docker-compose service specified in the `docker-compose.yaml` file.
+2. Run `kubectl apply -f <service>-deployment.yaml, <service>-service.yaml`
+
+Useful commands:
+
+* Monitor the status using `kubectl get services`, `kubectl get deployments`, `kubectl get pods`
+* See logs, `kubectl logs <pod_id>`
+* Run command `kubectl exec <pod_id> -- <command>`
