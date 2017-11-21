@@ -109,6 +109,7 @@ class Subreddit extends PureComponent {
     } = this.props;
 
     const blob = JSON.parse(subreddit.blob);
+    console.log(blob)
 
     return (
       <div>
@@ -143,7 +144,7 @@ class Subreddit extends PureComponent {
               nightMode={nightMode}
               type={'span'}
             >
-              {`${blob.subscribers_count} total subscribers`}
+              {`${blob.subscriber_count_now} total subscribers`}
             </El>
           </div>
         </div>
