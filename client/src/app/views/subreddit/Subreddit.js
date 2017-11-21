@@ -109,7 +109,6 @@ class Subreddit extends PureComponent {
     } = this.props;
 
     const blob = JSON.parse(subreddit.blob);
-    console.log(blob)
 
     return (
       <div>
