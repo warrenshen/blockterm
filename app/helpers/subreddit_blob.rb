@@ -4,6 +4,7 @@ class SubredditBlob
     :post_count_24h,
     :comment_count_24h,
     :active_user_count_now,
+    :subscribers_count,
   ]
 
   attr_reader :attributes_map
