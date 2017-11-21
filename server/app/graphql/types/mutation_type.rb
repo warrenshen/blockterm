@@ -133,22 +133,22 @@ module Types
       argument :postCount24h, types.Int
       argument :commentCount24h, types.Int
       argument :activeUserCountNow, types.Int
-      argument :subscribersCount, types.Int
+      argument :subscriberCountNow, types.Int
 
       resolve -> (obj, args, ctx) {
         subreddit = Subreddit.find(args[:id])
 
+        if !args[:activeUserCountNow].nil?
+          subreddit.update_blob_attribute(:active_user_count_now, args[:activeUserCountNow])
+        end
         if !args[:postCount24h].nil?
           subreddit.update_blob_attribute(:post_count_24h, args[:postCount24h])
         end
         if !args[:commentCount24h].nil?
           subreddit.update_blob_attribute(:comment_count_24h, args[:commentCount24h])
         end
-        if !args[:activeUserCountNow].nil?
-          subreddit.update_blob_attribute(:active_user_count_now, args[:activeUserCountNow])
-        end
-        if !args[:subscribersCount].nil?
-          subreddit.update_blob_attribute(:subscribers_count, args[:subscribersCount])
+        if !args[:subscriberCountNow].nil?
+          subreddit.update_blob_attribute(:subscriber_count_now, args[:subscriberCountNow])
         end
         subreddit
       }
