@@ -1,0 +1,18 @@
+FROM ruby:2.3-slim
+
+MAINTAINER Bob Chen <jtcdbob@gmail.com>
+
+RUN apt-get update && apt-get install -qq -y \
+	build-essential \
+	nodejs \
+	libpq-dev \
+	postgresql-client-9.4 \
+	--fix-missing --no-install-recommends
+
+ENV APP_PATH /crypto-trends
+
+COPY . $APP_PATH
+
+WORKDIR $APP_PATH/server
+
+RUN bundle install

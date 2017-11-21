@@ -1,0 +1,11 @@
+FROM node:carbon
+
+MAINTAINER Bob Chen <jtcdbob@gmail.com>
+
+ENV APP_PATH /crypto-trends
+
+COPY . $APP_PATH
+
+WORKDIR $APP_PATH/client
+
+RUN npm install
