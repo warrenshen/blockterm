@@ -1,0 +1,16 @@
+SUBREDDITS = [
+  'altcoin',
+  'Bitcoin',
+  'Bitcoincash',
+  'btc',
+  'CryptoCurrency',
+  'CryptoMarkets',
+  'Ethereum',
+  'Groestlcoin',
+  'Lisk',
+  'litecoin',
+  'Monero',
+  'NEO',
+  'SubstratumNetwork',
+  'Vertcoin',
+]
