@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   container: {
     left: '-24px',
     width: '100%',
-    padding: '0px 24px',
+    padding: '0px 24px 24px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
     borderRadius: '6px',

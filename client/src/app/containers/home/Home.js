@@ -15,6 +15,7 @@ const SubredditsQuery = gql`
  query {
     allSubreddits {
       id
+      displayName
       name
     }
   }

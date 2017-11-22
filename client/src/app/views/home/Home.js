@@ -22,10 +22,30 @@ const styles = StyleSheet.create({
   container: {
     gridColumn: '3 / 7',
   },
+  header: {
+    display: 'flex',
+    padding: '24px 0px',
+  },
+  body: {
+    left: '-24px',
+    width: '100%',
+    padding: '0px 24px 24px',
+    boxSizing: 'content-box',
+    backgroundColor: 'white',
+    borderRadius: '6px',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  bodyNightMode: {
+    backgroundColor: '#373b3e',
+  },
   list: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+  },
+  item: {
+    paddingTop: '24px',
   },
 });
 
@@ -46,24 +66,36 @@ class Home extends PureComponent {
     } = this.props;
 
     return (
-      <ul className={css(styles.list)}>
-        {
-          subreddits.map((subreddit) => {
-            return (
-              <li key={subreddit.id}>
-                <Link to={`/subreddit/${subreddit.id}`}>
-                  <El
-                    nightMode={nightMode}
-                    type={'h2'}
-                  >
-                    {subreddit.name}
-                  </El>
-                </Link>
-              </li>
-            );
-          })
-        }
-      </ul>
+      <div>
+        <div className={css(styles.header)}>
+          <El
+            nightMode={nightMode}
+            type={'h2'}
+          >
+            Subreddits
+          </El>
+        </div>
+        <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
+          <ul className={css(styles.list)}>
+            {
+              subreddits.map((subreddit) => {
+                return (
+                  <li className={css(styles.item)} key={subreddit.id}>
+                    <Link to={`/subreddit/${subreddit.id}`}>
+                      <El
+                        nightMode={nightMode}
+                        type={'h3'}
+                      >
+                        {subreddit.displayName}
+                      </El>
+                    </Link>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </div>
+      </div>
     );
   }
 
@@ -72,7 +104,6 @@ class Home extends PureComponent {
       data,
       nightMode,
     } = this.props;
-
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
