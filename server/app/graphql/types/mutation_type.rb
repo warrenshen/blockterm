@@ -69,13 +69,27 @@ module Types
     field :createPostCount, Types::PostCountType do
       description 'Create a post count'
 
-      argument :subredditId, !types.ID
+      argument :subredditId, types.ID
+      argument :subredditName, types.String
       argument :count, !types.Int
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:subredditId].nil? && args[:subredditName].nil?
+          return GraphQL::ExecutionError.new(
+            "One of 'subredditId' or 'subredditName' params is required"
+          )
+        end
+
+        if !args[:subredditId].nil?
+          subreddit_id = args[:subredditId]
+        else
+          subreddit = Subreddit.find_by(name: args[:subredditName])
+          subreddit_id = subreddit.id
+        end
+
         PostCount.create(
-          subreddit_id: args[:subredditId],
+          subreddit_id: subreddit_id,
           count: args[:count],
           timestamp: args[:timestamp],
         )
