@@ -22,10 +22,10 @@ class Api:
         response = json.loads(r.text)
         return response
 
-    def create_post_count(self, subreddit_name, count, timestamp):
+    def create_comment_count(self, subreddit_name, count, timestamp):
         query = { 'query' : '''
             mutation {
-              createPostCount(subredditName: "%s", count: %s, timestamp: "%s") {
+              createCommentCount(subredditName: "%s", count: %s, timestamp: "%s") {
                 subredditId
                 count
                 timestamp
@@ -37,15 +37,15 @@ class Api:
         response = json.loads(r.text)
         return response
 
-    def create_comment_count(self, subreddit_id, count, timestamp):
+    def create_post_count(self, subreddit_name, count, timestamp):
         query = { 'query' : '''
             mutation {
-              createCommentCount(subredditId: %s, count: %s, timestamp: "%s") {
+              createPostCount(subredditName: "%s", count: %s, timestamp: "%s") {
                 subredditId
                 count
                 timestamp
               }
-            }''' % (subreddit_id, count, timestamp)
+            }''' % (subreddit_name, count, timestamp)
         }
 
         r = requests.post(url=self.api_url, json=query)
