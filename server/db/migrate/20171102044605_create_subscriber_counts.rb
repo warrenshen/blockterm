@@ -1,6 +1,6 @@
-class CreateSubscriptionCounts < ActiveRecord::Migration[5.0]
+class CreateSubscriberCounts < ActiveRecord::Migration[5.0]
   def change
-    create_table :subscription_counts do |t|
+    create_table :subscriber_counts do |t|
       t.belongs_to :subreddit, foreign_key: true, null: false
       t.datetime :timestamp, limit: 6, null: false
       t.integer :count, default: 0, null: false

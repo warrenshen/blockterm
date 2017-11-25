@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: subscription_counts
+# Table name: subscriber_counts
 #
 #  id           :integer          not null, primary key
 #  subreddit_id :integer          not null
@@ -11,13 +11,13 @@
 #
 # Indexes
 #
-#  index_subscription_counts_on_subreddit_id  (subreddit_id)
+#  index_subscriber_counts_on_subreddit_id  (subreddit_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (subreddit_id => subreddits.id)
 #
 
-class SubscriptionCount < ApplicationRecord
+class SubscriberCount < ApplicationRecord
   belongs_to :subreddit
 end

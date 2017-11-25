@@ -1,6 +1,6 @@
 module Types
-  SubscriptionCountType = GraphQL::ObjectType.define do
-    name "SubscriptionCount"
+  SubscriberCountType = GraphQL::ObjectType.define do
+    name "SubscriberCount"
 
     field :id, !types.ID
     field :subredditId, !types.ID, property: :subreddit_id
