@@ -97,11 +97,11 @@ module Types
       }
     end
 
-    field :subscriptionCounts, types[Types::SubscriptionCountType] do
-      description 'The subscription counts associated with subreddit'
+    field :subscriberCounts, types[Types::SubscriberCountType] do
+      description 'The subscriber counts associated with subreddit'
 
       resolve -> (obj, args, ctx) {
-        obj.subscription_counts.order(timestamp: :asc)
+        obj.subscriber_counts.order(timestamp: :asc)
       }
     end
 

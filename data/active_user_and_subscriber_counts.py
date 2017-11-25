@@ -46,7 +46,7 @@ for subreddit_name in subreddits.SUBREDDITS:
     ''', (subreddit_name, active_users, timestamp))
 
     c.execute('''
-        INSERT INTO subscription_counts (subreddit_name, count, timestamp)
+        INSERT INTO subscriber_counts (subreddit_name, count, timestamp)
         VALUES (?, ?, ?)
     ''', (subreddit_id, subscribers, timestamp))
 
