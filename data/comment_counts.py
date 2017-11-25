@@ -10,8 +10,9 @@ reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_S
 reddit.read_only
 
 import api
-from database import get_cursor
 import subreddits
+
+from database import get_cursor
 
 c = get_cursor()
 
