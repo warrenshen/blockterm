@@ -126,7 +126,7 @@ class Subreddit extends PureComponent {
               </El>
             </a>
             {
-              subreddit.subscription && (
+              subreddit.description && (
                 <El
                   nightMode={nightMode}
                   style={styles.description}

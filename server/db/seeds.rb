@@ -57,23 +57,23 @@ puts 'Created subreddit tokens'
 
 puts 'Seeding counts...'
 
-def create_one_month_subscription_counts_for_subreddit(subreddit, increment=3)
+def create_one_month_subscriber_counts_for_subreddit(subreddit, increment=3)
   start_date = DateTime.new(2017, 6, 22)
-  subscription_count = 0
+  subscriber_count = 0
   for i in (-364..0)
     date = start_date + i.day
-    SubscriptionCount.create(
+    SubscriberCount.create(
       subreddit_id: subreddit.id,
       timestamp: date,
-      count: subscription_count,
+      count: subscriber_count,
     )
-    subscription_count += rand(increment)
+    subscriber_count += rand(increment)
   end
-  puts "Created 365 subscription counts for the #{subreddit.display_name} subreddit"
+  puts "Created 365 subscriber counts for the #{subreddit.display_name} subreddit"
 end
 
 subreddits.each do |subreddit|
-  create_one_month_subscription_counts_for_subreddit(subreddit)
+  create_one_month_subscriber_counts_for_subreddit(subreddit)
 end
 
 def create_one_month_post_counts_for_subreddit(subreddit, k=50)

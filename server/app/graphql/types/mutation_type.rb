@@ -153,15 +153,15 @@ module Types
       }
     end
 
-    field :createSubscriptionCount, Types::SubscriptionCountType do
-      description 'Creates a subscription count'
+    field :createSubscriberCount, Types::SubscriberCountType do
+      description 'Creates a subscriber count'
 
       argument :subredditId, !types.ID
       argument :count, !types.Int
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
-        SubscriptionCount.create(
+        SubscriberCount.create(
           subreddit_id: args[:subredditId],
           count: args[:count],
           when: args[:timestamp],

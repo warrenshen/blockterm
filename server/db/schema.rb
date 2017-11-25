@@ -106,13 +106,13 @@ ActiveRecord::Schema.define(version: 20171119200642) do
     t.index ["name"], name: "index_subreddits_on_name", unique: true, using: :btree
   end
 
-  create_table "subscription_counts", force: :cascade do |t|
+  create_table "subscriber_counts", force: :cascade do |t|
     t.integer  "subreddit_id",                           null: false
     t.datetime "timestamp",    precision: 6,             null: false
     t.integer  "count",                      default: 0, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
-    t.index ["subreddit_id"], name: "index_subscription_counts_on_subreddit_id", using: :btree
+    t.index ["subreddit_id"], name: "index_subscriber_counts_on_subreddit_id", using: :btree
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -134,5 +134,5 @@ ActiveRecord::Schema.define(version: 20171119200642) do
   add_foreign_key "post_counts", "subreddits"
   add_foreign_key "subreddit_tokens", "subreddits"
   add_foreign_key "subreddit_tokens", "tokens"
-  add_foreign_key "subscription_counts", "subreddits"
+  add_foreign_key "subscriber_counts", "subreddits"
 end
