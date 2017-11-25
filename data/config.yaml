@@ -2,23 +2,31 @@ market_usdt:
   name: USD_Markets
   base: USDT
   markets:
-    - NEO
-    - OMG
-    - LTC
-    - ETH
+    - BCC
     - BTC
+    - ETH
+    - GRS
+    - LSK
+    - LTC
+    - NEO
+    - VTC
+    - XMR
   min_wait_time: 30
   update_interval: 60
   db: 'USD_Markets'
+
 market_btc:
   name: BTC_Markets
   base: BTC
   markets:
-    - NEO
-    - OMG
-    - LTC
-    - ETH
+    - BCC
     - BTC
+    - ETH
+    - GRS
+    - LTC
+    - NEO
+    - VTC
+    - XMR
   min_wait_time: 30
   update_interval: 60
   db: 'BTC_Markets'
