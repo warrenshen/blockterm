@@ -15,24 +15,32 @@ reddit = praw.Reddit(
 
 import api
 import subreddits
+from database import SQLite3Database
 
-from database import get_cursor
-
-c = get_cursor()
-
-c.execute('''
+active_user_counts_db = SQLite3Database('active_user_counts.db')
+active_user_counts_db.cursor.execute('''
     CREATE TABLE IF NOT EXISTS active_user_counts (
-        subreddit_name string PRIMARY KEY,
+        subreddit_name string,
         count int,
         timestamp int
     )
 ''')
-c.execute('''
+active_user_counts_db.cursor.execute('''
+    CREATE INDEX IF NOT EXISTS active_user_counts_subreddit_name_and_timestamp
+    ON active_user_counts (subreddit_name, timestamp)
+''')
+
+subscriber_counts_db = SQLite3Database('subscriber_counts.db')
+subscriber_counts_db.cursor.execute('''
     CREATE TABLE IF NOT EXISTS subscriber_counts (
-        subreddit_name string PRIMARY KEY,
+        subreddit_name string,
         count int,
         timestamp int
     )
+''')
+subscriber_counts_db.cursor.execute('''
+    CREATE INDEX IF NOT EXISTS subscriber_counts_subreddit_name_and_timestamp
+    ON subscriber_counts (subreddit_name, timestamp)
 ''')
 
 for subreddit_name in subreddits.SUBREDDITS:
@@ -40,15 +48,15 @@ for subreddit_name in subreddits.SUBREDDITS:
     active_users, subscribers = praw_subreddit.active_user_count, praw_subreddit.subscribers
 
     timestamp = int(time.time())
-    result = c.execute('''
+    result = active_user_counts_db.cursor.execute('''
         INSERT INTO active_user_counts (subreddit_name, count, timestamp)
         VALUES (?, ?, ?)
     ''', (subreddit_name, active_users, timestamp))
+    active_user_counts_db.conn.commit()
 
-    c.execute('''
+    result = subscriber_counts_db.cursor.execute('''
         INSERT INTO subscriber_counts (subreddit_name, count, timestamp)
         VALUES (?, ?, ?)
-    ''', (subreddit_id, subscribers, timestamp))
-
-    conn.commit()
+    ''', (subreddit_name, subscribers, timestamp))
+    subscriber_counts_db.conn.commit()
 

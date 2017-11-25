@@ -2,12 +2,12 @@ import praw
 import sqlite3
 
 import subreddits
-
-from database import SQLite3Database
-
 import secrets
+
 reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_SECRET, user_agent=secrets.USER_AGENT)
 reddit.read_only
+
+from database import SQLite3Database
 
 db = SQLite3Database()
 db.cursor.execute('''
