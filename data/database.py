@@ -6,6 +6,6 @@ def get_cursor(db_name='test.db'):
     return conn.cursor()
 
 class SQLite3Database:
-	def __init__(self, db='test.db', ):
-		self.conn = sqlite3.connect(db)
-		self.cursor = self.conn.cursor()
+    def __init__(self, db='test.db'):
+        self.conn = sqlite3.connect(db)
+        self.cursor = self.conn.cursor()
