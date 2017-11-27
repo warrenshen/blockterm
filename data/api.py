@@ -9,6 +9,22 @@ class Api:
         else:
             self.api_url = api_url
 
+    def _get_query_response(self, query):
+        r = requests.post(url=self.api_url, json=query)
+        response = json.loads(r.text)
+        return response
+
+    def get_all_keywords(self):
+        query = { 'query': '''
+            query {
+                allKeywords {
+                    id
+                    word
+                }
+            } '''
+        }
+        return self._get_query_response(query)
+
     def create_subreddit(self, name, start_date='2017-01-01'):
         query = { 'query' : '''
             mutation {
@@ -52,7 +68,7 @@ class Api:
         response = json.loads(r.text)
         return response
 
-    def gql_create_active_user_count(self, subreddit_id, count, timestamp):
+    def create_active_user_count(self, subreddit_id, count, timestamp):
         query = { 'query' : '''
             mutation {
               createActiveUserCount(subredditId: %s, count: %s, timestamp: "%s") {
@@ -67,13 +83,29 @@ class Api:
         response = json.loads(r.text)
         return response
 
-    def gql_update_subreddit_blob(self,
-                                  subreddit_id,
-                                  post_count_24h=None,
-                                  comment_count_24h=None,
-                                  active_user_count=None,
-                                  subscriber_count=None
-                                 ):
+    def create_mention_count(self, subreddit_id, count, timestamp):
+        query = { 'query': '''
+            mutation {
+                createMentionCount(subredditId: %s, keywordId: %s, count: %s, timestamp: "%s") {
+                    subredditId
+                    keywordId
+                    count
+                    timestamp
+                }
+            }''' % (subreddit_id, count, timestamp)
+        }
+
+        r = requests.post(url=self.api_url, json=query)
+        response = json.loads(r.text)
+        return response
+
+    def update_subreddit_blob(self,
+                              subreddit_id,
+                              post_count_24h=None,
+                              comment_count_24h=None,
+                              active_user_count=None,
+                              subscriber_count=None
+                             ):
         params = 'id: "%s"' % subreddit_id
         if post_count_24h:
             params += ', postCount24h: %s' % post_count_24h
@@ -97,4 +129,3 @@ class Api:
         r = requests.post(url=graphql_url, json=query)
         response = json.loads(r.text)
         return response
-
