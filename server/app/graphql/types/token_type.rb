@@ -15,5 +15,13 @@ module Types
         obj.keywords
       }
     end
+
+    field :subreddits, types[Types::SubredditType] do
+      description 'The subreddits associated with token'
+
+      resolve -> (obj, args, ctx) {
+        obj.subreddits
+      }
+    end
   end
 end
