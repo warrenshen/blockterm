@@ -70,11 +70,42 @@ puts 'Created subreddit tokens'
 
 puts 'Seeding counts...'
 
-def create_one_month_subscriber_counts_for_subreddit(subreddit, increment=3)
-  start_date = DateTime.new(2017, 6, 22)
-  subscriber_count = 0
+def create_post_counts_for_subreddit(subreddit, k=50)
+  today = DateTime.now.beginning_of_day
+
   for i in (-364..0)
-    date = start_date + i.day
+    date = today + i.day
+    PostCount.create(
+      subreddit_id: subreddit.id,
+      timestamp: date,
+      count: rand(k),
+    )
+  end
+
+  puts "Created 365 post counts for the #{subreddit.display_name} subreddit"
+end
+
+def create_comment_counts_for_subreddit(subreddit, k=500)
+  today = DateTime.now.beginning_of_day
+
+  for i in (-364..0)
+    date = today + i.day
+    CommentCount.create(
+      subreddit_id: subreddit.id,
+      timestamp: date,
+      count: rand(k),
+    )
+  end
+
+  puts "Created 365 post counts for the #{subreddit.display_name} subreddit"
+end
+
+def create_subscriber_counts_for_subreddit(subreddit, increment=3)
+  today = DateTime.now.beginning_of_day
+  subscriber_count = 0
+
+  for i in (-364..0)
+    date = today + i.day
     SubscriberCount.create(
       subreddit_id: subreddit.id,
       timestamp: date,
@@ -82,26 +113,34 @@ def create_one_month_subscriber_counts_for_subreddit(subreddit, increment=3)
     )
     subscriber_count += rand(increment)
   end
+
   puts "Created 365 subscriber counts for the #{subreddit.display_name} subreddit"
 end
 
 Subreddit.all.each do |subreddit|
-  create_one_month_subscriber_counts_for_subreddit(subreddit)
+  create_post_counts_for_subreddit(subreddit)
+  create_comment_counts_for_subreddit(subreddit)
+  create_subscriber_counts_for_subreddit(subreddit)
 end
 
-def create_one_month_post_counts_for_subreddit(subreddit, k=50)
-  start_date = DateTime.new(2017, 6, 22)
-  for i in (-364..0)
-    date = start_date + i.day
-    PostCount.create(
-      subreddit_id: subreddit.id,
-      timestamp: date,
-      count: rand(k),
-    )
+Token.all.each do |token|
+  keywords = token.keywords
+
+  keywords.each do |keyword|
+    Subreddit.all.each do |subreddit|
+      today = DateTime.now.beginning_of_day
+
+      for i in (-364..0)
+        date = today + i.day
+        MentionCount.create(
+          subreddit_id: subreddit.id,
+          keyword_id: keyword.id,
+          timestamp: date,
+          count: rand(100),
+        )
+      end
+
+      puts "Created 365 mention counts for the #{keyword.word} keyword in the #{subreddit.display_name} subreddit"
+    end
   end
-  puts "Created 365 post counts for the #{subreddit.display_name} subreddit"
-end
-
-Subreddit.all.each do |subreddit|
-  create_one_month_post_counts_for_subreddit(subreddit)
 end
