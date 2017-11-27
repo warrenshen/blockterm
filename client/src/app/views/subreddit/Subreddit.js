@@ -27,22 +27,22 @@ const styles = StyleSheet.create({
   description: {
     paddingTop: '12px',
   },
-  subredditHeader: {
+  header: {
     display: 'flex',
     padding: '24px 0px',
   },
-  subredditHeaderLeft: {
+  headerLeft: {
     display: 'flex',
     flexDirection: 'column',
     flex: '1',
   },
-  subredditHeaderRight: {
+  headerRight: {
     width: '256px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
   },
-  relatedCoins: {
+  tokens: {
     display: 'flex',
     flexDirection: 'column',
     paddingTop: '12px',
@@ -75,7 +75,7 @@ class Subreddit extends PureComponent {
     if (tokens.length > 0)
     {
       return (
-        <div className={css(styles.relatedCoins)}>
+        <div className={css(styles.tokens)}>
           <El
             nightMode={nightMode}
             type={'h5'}
@@ -112,8 +112,8 @@ class Subreddit extends PureComponent {
 
     return (
       <div>
-        <div className={css(styles.subredditHeader)}>
-          <div className={css(styles.subredditHeaderLeft)}>
+        <div className={css(styles.header)}>
+          <div className={css(styles.headerLeft)}>
             <a
               href={`https://reddit.com/r/${subreddit.name}`}
               target='_blank'
@@ -138,7 +138,7 @@ class Subreddit extends PureComponent {
             }
             {this.renderTokens(subreddit.tokens)}
           </div>
-          <div className={css(styles.subredditHeaderRight)}>
+          <div className={css(styles.headerRight)}>
             <El
               nightMode={nightMode}
               type={'span'}

@@ -16,6 +16,13 @@ const TokenQuery = gql`
       id
       shortName
       longName
+      imageUrl
+      website
+
+      subreddits {
+        id
+        displayName
+      }
     }
   }
 `;
@@ -32,7 +39,6 @@ const TokenWithQuery = graphql(
     }
   }
 )(Token);
-
 
 /* -----------------------------------------
   Redux

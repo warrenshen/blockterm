@@ -5,6 +5,7 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { Link }            from 'react-router-dom';
 import El from './El';
 
 const styles = StyleSheet.create({
@@ -20,7 +21,9 @@ const styles = StyleSheet.create({
   },
   sectionRight: {
     paddingLeft: '12px',
-  }
+    display: 'flex',
+    flexDirection: 'column',
+  },
 });
 
 class TokenWidget extends PureComponent {
@@ -42,11 +45,13 @@ class TokenWidget extends PureComponent {
           <img src={token.imageUrl} width={48} height={48}></img>
         </div>
         <div className={css(styles.section, styles.sectionRight)}>
+          <Link to={`/token/${token.id}`}>
+            <El nightMode={nightMode} type={'span'}>
+              {token.longName}
+            </El>
+          </Link>
           <El nightMode={nightMode} type={'span'}>
             {token.shortName}
-          </El>
-          <El nightMode={nightMode} type={'span'}>
-            {token.longName}
           </El>
         </div>
       </div>
