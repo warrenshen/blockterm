@@ -90,9 +90,9 @@ module Types
       description 'Creates a mention count'
 
       argument :keywordId, !types.ID
-      argument :subredditId, !types.Int
+      argument :subredditId, !types.ID
+      argument :count, !types.Int
       argument :timestamp, !types.String
-      argument :count, !types.String
 
       resolve -> (obj, args, ctx) {
         MentionCount.create(
