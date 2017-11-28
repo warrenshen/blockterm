@@ -33,10 +33,7 @@ class Api:
               }
             }''' % (name, start_date)
         }
-
-        r = requests.post(url=self.api_url, json=query)
-        response = json.loads(r.text)
-        return response
+        return self._get_query_response(query)
 
     def create_comment_count(self, subreddit_name, count, timestamp):
         query = { 'query' : '''
@@ -48,10 +45,7 @@ class Api:
               }
             }''' % (subreddit_name, count, timestamp)
         }
-
-        r = requests.post(url=self.api_url, json=query)
-        response = json.loads(r.text)
-        return response
+        return self._get_query_response(query)
 
     def create_post_count(self, subreddit_name, count, timestamp):
         query = { 'query' : '''
@@ -63,10 +57,7 @@ class Api:
               }
             }''' % (subreddit_name, count, timestamp)
         }
-
-        r = requests.post(url=self.api_url, json=query)
-        response = json.loads(r.text)
-        return response
+        return self._get_query_response(query)
 
     def create_active_user_count(self, subreddit_id, count, timestamp):
         query = { 'query' : '''
@@ -78,12 +69,9 @@ class Api:
               }
             }''' % (subreddit_id, count, timestamp)
         }
+        return self._get_query_response(query)
 
-        r = requests.post(url=self.api_url, json=query)
-        response = json.loads(r.text)
-        return response
-
-    def create_mention_count(self, subreddit_id, count, timestamp):
+    def create_mention_count(self, subreddit_id, keyword_id, count, timestamp):
         query = { 'query': '''
             mutation {
                 createMentionCount(subredditId: %s, keywordId: %s, count: %s, timestamp: "%s") {
@@ -92,12 +80,9 @@ class Api:
                     count
                     timestamp
                 }
-            }''' % (subreddit_id, count, timestamp)
+            }''' % (subreddit_id, keyword_id, count, timestamp)
         }
-
-        r = requests.post(url=self.api_url, json=query)
-        response = json.loads(r.text)
-        return response
+        return self._get_query_response(query)
 
     def update_subreddit_blob(self,
                               subreddit_id,
@@ -125,7 +110,5 @@ class Api:
               }
             }''' % (params)
         }
+        return self._get_query_response(query)
 
-        r = requests.post(url=graphql_url, json=query)
-        response = json.loads(r.text)
-        return response
