@@ -34,7 +34,7 @@ module Types
       argument :subredditId, !types.ID
 
       resolve -> (obj, args, ctx) {
-        PostCount.where(subreddit_id: args[:subredditId]).order(when: :desc).first
+        PostCount.where(subreddit_id: args[:subredditId]).order(timestamp: :desc).first
       }
     end
 
