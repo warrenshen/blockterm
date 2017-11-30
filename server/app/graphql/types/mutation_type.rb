@@ -89,12 +89,31 @@ module Types
     field :createMentionCount, Types::MentionCountType do
       description 'Creates a mention count'
 
+      argument :subredditId, types.ID
+      argument :subredditName, types.String
       argument :keywordId, !types.ID
-      argument :subredditId, !types.Int
+      argument :count, !types.Int
       argument :timestamp, !types.String
-      argument :count, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:subredditId].nil? && args[:subredditName].nil?
+          return GraphQL::ExecutionError.new(
+            "One of 'subredditId' or 'subredditName' params is required"
+          )
+        end
+
+        if !args[:subredditId].nil?
+          subreddit_id = args[:subredditId]
+        else
+          subreddit = Subreddit.find_by(name: args[:subredditName])
+          if subreddit.nil?
+            return GraphQL::ExecutionError.new(
+              "No subreddit found for given 'subredditId' or 'subredditName'"
+            )
+          end
+          subreddit_id = subreddit.id
+        end
+
         MentionCount.create(
           keyword_id: args[:keywordId],
           subreddit_id: args[:subredditId],

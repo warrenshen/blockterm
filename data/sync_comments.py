@@ -5,11 +5,10 @@ import subreddits
 import secrets
 
 reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_SECRET, user_agent=secrets.USER_AGENT)
-reddit.read_only
 
 from database import SQLite3Database
 
-db = SQLite3Database()
+db = SQLite3Database('comments.db')
 db.cursor.execute('''
     CREATE TABLE IF NOT EXISTS comments (
         comment_id string PRIMARY KEY,

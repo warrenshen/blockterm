@@ -1,20 +1,29 @@
 puts 'Seeding the database...'
 
-satoshi_subreddit = Subreddit.find_or_create_by(
-  name: 'Satoshi',
-  description: 'Satoshi is the currency of the Internet: a distributed, worldwide, decentralized digital money. Unlike traditional currencies such as dollars, satoshis are issued and managed without any central authority whatsoever: there is no government, company, or bank in charge of Satoshi. As such, it is more resistant to wild inflation and corrupt banks. With Satoshi, you can be your own bank.',
-  start_date: Date.new(2017, 10, 1),
-)
-puts "Created #{satoshi_subreddit.display_name} subreddit"
+puts 'Seeding subreddits...'
 
-nakamoto_subreddit = Subreddit.find_or_create_by(
-  name: 'NakamotoMarket',
-  description: 'Nakamoto is a shit coin just like the rest of them.',
-  start_date: Date.new(2017, 11, 1),
-)
-puts "Created #{nakamoto_subreddit.display_name} subreddit"
+subreddit_infos = [
+  {
+    name: 'Satoshi',
+    description: 'Satoshi is the currency of the Internet: a distributed, worldwide, decentralized digital money. Unlike traditional currencies such as dollars, satoshis are issued and managed without any central authority whatsoever: there is no government, company, or bank in charge of Satoshi. As such, it is more resistant to wild inflation and corrupt banks. With Satoshi, you can be your own bank.',
+    start_date: Date.new(2017, 1, 1),
+  },
+  {
+    name: 'SatoshiTrader',
+    description: 'A place to discuss trading opportunities for the Satoshi cryptocurrency.',
+    start_date: Date.new(2017, 6, 1),
+  },
+  {
+    name: 'NakamotoMarket',
+    description: 'Nakamoto is a shit coin just like the rest of them.',
+    start_date: Date.new(2017, 11, 1),
+  },
+]
 
-subreddits = [satoshi_subreddit, nakamoto_subreddit]
+subreddit_infos.each do |subreddit_info|
+  subreddit = Subreddit.create(subreddit_info)
+  puts "Created #{subreddit.display_name} subreddit"
+end
 
 puts 'Seeding tokens and keywords...'
 
@@ -45,9 +54,13 @@ puts "Created tokens and keywords"
 
 subreddit_tokens = [
   {
-    subreddit_id: satoshi_subreddit.id,
+    subreddit_id: Subreddit.find_by(name: 'Satoshi').id,
     token_id: Token.find_by(long_name: 'Satoshi').id,
-  }
+  },
+  {
+    subreddit_id: Subreddit.find_by(name: 'SatoshiTrader').id,
+    token_id: Token.find_by(long_name: 'Satoshi').id,
+  },
 ]
 subreddit_tokens.each do |subreddit_token|
   SubredditToken.create(subreddit_token)
@@ -57,11 +70,42 @@ puts 'Created subreddit tokens'
 
 puts 'Seeding counts...'
 
-def create_one_month_subscriber_counts_for_subreddit(subreddit, increment=3)
-  start_date = DateTime.new(2017, 6, 22)
-  subscriber_count = 0
+def create_post_counts_for_subreddit(subreddit, k=50)
+  today = DateTime.now.beginning_of_day
+
   for i in (-364..0)
-    date = start_date + i.day
+    date = today + i.day
+    PostCount.create(
+      subreddit_id: subreddit.id,
+      timestamp: date,
+      count: rand(k),
+    )
+  end
+
+  puts "Created 365 post counts for the #{subreddit.display_name} subreddit"
+end
+
+def create_comment_counts_for_subreddit(subreddit, k=500)
+  today = DateTime.now.beginning_of_day
+
+  for i in (-364..0)
+    date = today + i.day
+    CommentCount.create(
+      subreddit_id: subreddit.id,
+      timestamp: date,
+      count: rand(k),
+    )
+  end
+
+  puts "Created 365 post counts for the #{subreddit.display_name} subreddit"
+end
+
+def create_subscriber_counts_for_subreddit(subreddit, increment=3)
+  today = DateTime.now.beginning_of_day
+  subscriber_count = 0
+
+  for i in (-364..0)
+    date = today + i.day
     SubscriberCount.create(
       subreddit_id: subreddit.id,
       timestamp: date,
@@ -69,26 +113,34 @@ def create_one_month_subscriber_counts_for_subreddit(subreddit, increment=3)
     )
     subscriber_count += rand(increment)
   end
+
   puts "Created 365 subscriber counts for the #{subreddit.display_name} subreddit"
 end
 
-subreddits.each do |subreddit|
-  create_one_month_subscriber_counts_for_subreddit(subreddit)
-end
-
-def create_one_month_post_counts_for_subreddit(subreddit, k=50)
-  start_date = DateTime.new(2017, 6, 22)
-  for i in (-364..0)
-    date = start_date + i.day
-    PostCount.create(
-      subreddit_id: subreddit.id,
-      timestamp: date,
-      count: rand(k),
-    )
-  end
-  puts "Created 365 post counts for the #{subreddit.display_name} subreddit"
-end
-
 Subreddit.all.each do |subreddit|
-  create_one_month_post_counts_for_subreddit(subreddit)
+  create_post_counts_for_subreddit(subreddit)
+  create_comment_counts_for_subreddit(subreddit)
+  create_subscriber_counts_for_subreddit(subreddit)
+end
+
+Token.all.each do |token|
+  keywords = token.keywords
+
+  keywords.each do |keyword|
+    Subreddit.all.each do |subreddit|
+      today = DateTime.now.beginning_of_day
+
+      for i in (-364..0)
+        date = today + i.day
+        MentionCount.create(
+          subreddit_id: subreddit.id,
+          keyword_id: keyword.id,
+          timestamp: date,
+          count: rand(100),
+        )
+      end
+
+      puts "Created 365 mention counts for the #{keyword.word} keyword in the #{subreddit.display_name} subreddit"
+    end
+  end
 end
