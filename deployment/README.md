@@ -13,6 +13,28 @@ If the database has not been initialized, run
 
 `docker-compose run server rails db:create db:migrate db:seed` to have the db initialized
 
+### Hot reloading
+
+For hot-reloading server and client code, you can run the following two commands:
+
+```
+docker-compose run -v <local_directory>/crypto-trends/server:/dev_server/ -p 8080:8080 server bash -c "cd /dev_server && bundle install && bundle exec rails s -p 8080 -b '0.0.0.0'"
+```
+
+and
+
+```
+docker-compose run -v <local_directory>/crypto-trends/client:/dev_client/ -p 3000:3000 --no-deps client bash -c "cd /dev_client && npm install && npm start"
+```
+
+This essentially allows you to start the server and client separately while mounting the local directory in the docker container. Note that the `--no-deps` in the client start command is essential because otherwise your client will start the whole dependency and run server twice.
+
+Tips and tricks:
+
+* Sometimes if the server is not shut down properly, you will have remaining files. You can do
+`rm /crypto-trends/server/tmp/pids/server.pid` and it usually fixes the issue.
+* The client container usually takes longer to bring up because of the `npm install`, however, you don't have to take it down most of the time, so you can just leave it sitting there. On the other hand, if the server halts due to bug, you can easily restart by hitting `ctrl-C` and wait for the server to perform a shutdown before bringing it back up.
+
 ## For deployment on Kubernetes:
 
 Preparation:
