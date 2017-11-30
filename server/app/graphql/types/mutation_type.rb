@@ -210,5 +210,33 @@ module Types
         subreddit
       }
     end
+
+    field :createMarket, Types::MarketType do
+      description 'Creates a market'
+
+      argument :name, !types.String
+
+      resolve -> (obj, args, ctx) {
+        Market.find_or_create_by(
+          name: args[:name],
+        )
+      }
+    end
+
+    field :createMarketTicker, Types::MarketTickerType do
+      description 'Creates a market ticker'
+
+      argument :marketId, !types.ID
+      argument :value, !types.Float
+      argument :timestamp, !types.String
+
+      resolve -> (obj, args, ctx) {
+        MarketTicker.find_or_create_by(
+          market_id: args[:marketId],
+          value: args[:value],
+          timestamp: args[:timestamp],
+        )
+      }
+    end
   end
 end
