@@ -20,6 +20,14 @@ module Types
       }
     end
 
+    field :allTokens, types[Types::TokenType] do
+      description 'Get all tokens'
+
+      resolve -> (obj, args, ctx) {
+        Token.all
+      }
+    end
+
     field :mostRecentPostCountBySubredditId, Types::PostCountType do
       description 'Gets the most recent post count associated with given subreddit id'
 
