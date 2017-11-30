@@ -3,29 +3,27 @@ import praw
 import time
 
 from datetime import datetime
-from praw.models import MoreComments
 
 import secrets
 reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_SECRET, user_agent=secrets.USER_AGENT)
-reddit.read_only
 
 import api
 import subreddits
 
-from database import get_cursor
+from database import SQLite3Database
 
-c = get_cursor()
+db = SQLite3Database('comments.db')
 
 ONE_DAY = 86400
 
 def create_comment_count_for_subreddit(subreddit_name, start, end):
-    result = c.execute('''
+    result = db.cursor.execute('''
 	SELECT COUNT(*)
 	FROM comments
-	WHERE comments.subreddit_id = subreddit_id
+	WHERE comments.subreddit_name = ?
 	AND comments.created_utc >= ?
 	AND comments.created_utc < ?
-    ''', (start, end))
+    ''', (subreddit_name, start, end))
     comment_count = list(result)[0][0]
 
     unix_dt = datetime.fromtimestamp(end)
