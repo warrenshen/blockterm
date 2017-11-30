@@ -31,11 +31,15 @@ token_infos = [
   {
     short_name: 'SAT',
     long_name: 'Satoshi',
+    image_url: 'https://bitcoin.org/img/icons/opengraph.png',
+    website: 'https://www.bitcoin.com',
     keywords: ['SAT', 'SATs', 'Satoshi', 'Satoshis', 'Sato', 'Satos'],
   },
   {
     short_name: 'NAK',
     long_name: 'Nakamoto',
+    image_url: 'https://bitcoin.org/img/icons/opengraph.png',
+    website: 'https://www.bitcoin.com',
     keywords: ['NAK', 'NAKs', 'Nakamoto', 'Nakamotos'],
   }
 ]
@@ -117,10 +121,30 @@ def create_subscriber_counts_for_subreddit(subreddit, increment=3)
   puts "Created 365 subscriber counts for the #{subreddit.display_name} subreddit"
 end
 
+def create_active_user_counts_for_subreddit(subreddit, increment=50)
+  today = DateTime.now.beginning_of_day
+  active_user_count = 3000
+
+  for i in (-364..0)
+    date = today + i.day
+    ActiveUserCount.create(
+      subreddit_id: subreddit.id,
+      timestamp: date,
+      count: active_user_count,
+    )
+    if rand(4) == 0
+      active_user_count += rand(increment)
+    end
+  end
+
+  puts "Created 365 active user counts for the #{subreddit.display_name} subreddit"
+end
+
 Subreddit.all.each do |subreddit|
   create_post_counts_for_subreddit(subreddit)
   create_comment_counts_for_subreddit(subreddit)
   create_subscriber_counts_for_subreddit(subreddit)
+  create_active_user_counts_for_subreddit(subreddit)
 end
 
 Token.all.each do |token|
