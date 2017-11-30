@@ -71,16 +71,16 @@ class Api:
         }
         return self._get_query_response(query)
 
-    def create_mention_count(self, subreddit_id, keyword_id, count, timestamp):
+    def create_mention_count(self, subreddit_name, keyword_id, count, timestamp):
         query = { 'query': '''
             mutation {
-                createMentionCount(subredditId: %s, keywordId: %s, count: %s, timestamp: "%s") {
+                createMentionCount(subredditName: "%s", keywordId: %s, count: %s, timestamp: "%s") {
                     subredditId
                     keywordId
                     count
                     timestamp
                 }
-            }''' % (subreddit_id, keyword_id, count, timestamp)
+            }''' % (subreddit_name, keyword_id, count, timestamp)
         }
         return self._get_query_response(query)
 
