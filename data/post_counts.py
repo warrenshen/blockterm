@@ -3,11 +3,9 @@ import praw
 import time
 
 from datetime import datetime
-from praw.models import MoreComments
 
 import secrets
 reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_SECRET, user_agent=secrets.USER_AGENT)
-reddit.read_only
 
 import api
 import subreddits
