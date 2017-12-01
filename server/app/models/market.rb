@@ -13,4 +13,5 @@
 #
 
 class Market < ApplicationRecord
+	has_many :market_tickers
 end

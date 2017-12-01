@@ -1,3 +1,4 @@
+from api import Api
 from base_client_runner import Client, BaseClientRunner
 from database import SQLite3Database
 from datetime import datetime as dt
@@ -9,6 +10,7 @@ import json
 import requests
 import yaml
 
+API_URL = 'http://localhost:8080/graphql'
 
 class BittrexClient(Client):
     def __init__(self, config=None, key=None, secret=None, min_wait_time=30, markets=None, base='BTC', debug=False):
@@ -100,6 +102,15 @@ class BittrexClientRunner(BaseClientRunner):
             print(query)
         db.cursor.execute(query)
 
+        self.api = Api(API_URL)
+        for market_name in self.client.market_summaries.keys():
+            self.api.create_market(market_name)
+        response = self.api.get_all_markets()
+        if 'data' in response and 'allMarkets' in response['data']:
+            self.market_id_map = {market['name'] : market['id'] for market in response['data']['allMarkets']}
+            if self.debug:
+                print('[INFO] Market id map created.')
+
     def run(self):
         super().run()
         db = SQLite3Database(self.db_name)
@@ -118,6 +129,10 @@ class BittrexClientRunner(BaseClientRunner):
         db.conn.commit()
         if self.debug:
             print('[INFO] Data committed to sqlite database {} table {}'.format(self.db_name, self.client.base))
+
+        for _, summary in self.client.market_summaries.items():
+            if summary['MarketName'] in self.market_id_map:
+                self.api.create_market_tickers(self.market_id_map[summary['MarketName']], summary['Last'], summary['TimeStamp'])
 
 
 if __name__ == '__main__':

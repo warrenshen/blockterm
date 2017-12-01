@@ -112,3 +112,45 @@ class Api:
         }
         return self._get_query_response(query)
 
+    def create_market(self,
+                      name
+                     ):
+        params = 'name: "%s"' % name
+        query = { 'query': '''
+            mutation {
+              createMarket(%s) {
+                id
+                name
+                updatedAt
+              }
+            }''' % (params)
+        }
+        return self._get_query_response(query)
+
+    def get_all_markets(self):
+        params = ''
+        query = { 'query': '''
+            query {
+              allMarkets(%s) {
+                id
+                name
+                updatedAt
+              }
+            }''' % (params)
+        }
+        return self._get_query_response(query)
+
+    def create_market_tickers(self, market_id, value, timestamp):
+        params = 'marketId: %s' % market_id
+        params += ', value: %s' % value
+        params += ', timestamp: "%s"' % timestamp
+        query = { 'query': '''
+            mutation {
+              createMarketTicker(%s) {
+                marketId
+                value
+                timestamp
+              }
+            }''' % (params)
+        }
+        return self._get_query_response(query)
