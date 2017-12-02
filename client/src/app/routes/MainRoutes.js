@@ -11,6 +11,7 @@ import {
   ConnectedHome,
   ConnectedSubreddit,
   ConnectedToken,
+  ConnectedTokens,
 }                               from '../containers';
 
 export const MainRoutes = () => {
@@ -18,7 +19,10 @@ export const MainRoutes = () => {
     <Switch>
       {/* non protected views */}
       <Route exact path="/" component={ConnectedHome} />
+      <Route exact path='/subreddits' component={ConnectedHome} />
       <Route exact path='/subreddit/:id' component={ConnectedSubreddit} />
+
+      <Route exact path='/tokens' component={ConnectedTokens} />
       <Route exact path='/token/:id' component={ConnectedToken} />
     </Switch>
   );

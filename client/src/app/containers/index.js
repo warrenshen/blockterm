@@ -5,3 +5,4 @@ export { default as ConnectedNavigationBar } from './navigation/NavigationBar';
 export { default as ConnectedHome }       from './home/Home';
 export { default as ConnectedSubreddit }  from './subreddit/Subreddit';
 export { default as ConnectedToken } from './token/Token';
+export { default as ConnectedTokens } from './Tokens';
