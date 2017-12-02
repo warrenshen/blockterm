@@ -2,55 +2,29 @@
 
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Token }              from '../../views'
+import { Tokens }             from '../views';
 import gql                    from 'graphql-tag';
 import { graphql }            from 'react-apollo';
+
 
 /* -----------------------------------------
   GraphQL - Apollo client
  ------------------------------------------*/
 
-const TokenQuery = gql`
- query ($id: ID!) {
-    tokenById(id: $id) {
+const TokensQuery = gql`
+ query {
+    allTokens {
       id
       shortName
       longName
-      imageUrl
-      website
-
-      subreddits {
-        id
-        displayName
-      }
-
-      subredditMentions {
-        subreddit {
-          id
-          name
-        }
-
-        mentionTotalCounts {
-          count
-          timestamp
-        }
-      }
     }
   }
 `;
 
-const TokenWithQuery = graphql(
-  TokenQuery,
-  {
-    options: ({ match }) => {
-      return {
-        variables: {
-          id: match.params.id,
-        },
-      };
-    }
-  }
-)(Token);
+const TokensWithQuery = graphql(
+  TokensQuery,
+)(Tokens);
+
 
 /* -----------------------------------------
   Redux
@@ -73,4 +47,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TokenWithQuery);
+)(TokensWithQuery);

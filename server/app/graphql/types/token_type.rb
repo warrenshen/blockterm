@@ -16,6 +16,33 @@ module Types
       }
     end
 
+    field :subredditMentions, types[Types::SubredditMentionType] do
+      description 'The subreddit mentions associated with token'
+
+      resolve -> (obj, args, ctx) {
+        today = Date.today
+
+        mention_counts = obj.mention_counts.where('timestamp > ?', today - 1.month)
+
+        subreddit_id_to_mention_counts = {}
+        mention_counts.each do |mention_count|
+          subreddit_id = mention_count.subreddit_id
+          timestamp = mention_count.timestamp.to_s
+          subreddit_id_to_mention_counts[subreddit_id] ||= {}
+          subreddit_id_to_mention_counts[subreddit_id][timestamp] ||= MentionTotalCount.new(subreddit_id, timestamp)
+          subreddit_id_to_mention_counts[subreddit_id][timestamp].increment_by(mention_count.count)
+        end
+
+        subreddit_id_to_mention_counts.map do |subreddit_id, timestamp_to_mention_counts|
+          subreddit = Subreddit.find(subreddit_id)
+          mention_counts = timestamp_to_mention_counts.keys.sort.map do |timestamp|
+            timestamp_to_mention_counts[timestamp]
+          end
+          SubredditMention.new(subreddit, mention_counts)
+        end
+      }
+    end
+
     field :subreddits, types[Types::SubredditType] do
       description 'The subreddits associated with token'
 
