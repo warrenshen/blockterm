@@ -20,25 +20,10 @@ module Types
       argument :timeRange, types.String
 
       resolve -> (obj, args, ctx) {
-        time_range = args[:timeRange]
-        today = Date.today
-        clause = 'timestamp > ?'
-
-        market_tickers = obj.market_tickers
-
-        if time_range.nil? or args[:timeRange] == 'ONE_HOUR'
-          market_tickers = market_tickers.where(clause, today - 1.hour)
-        elsif time_range == 'ONE_DAY'
-          market_tickers = market_tickers.where(clause, today - 1.day)
-        elsif time_range == 'ONE_WEEK'
-          market_tickers = market_tickers.where(clause, today - 1.week)
-        elsif time_range == 'ONE_MONTH'
-          market_tickers = market_tickers.where(clause, today - 1.month)
-        elsif time_range == 'ONE_YEAR'
-          market_tickers = market_tickers.where(clause, today - 1.year)
-        end
-
-        market_tickers.order(timestamp: :asc)
+        QueryHelper::filter_relation_by_time_range(
+          obj.market_tickers,
+          args[:timeRange]
+        )
       }
     end
   end
