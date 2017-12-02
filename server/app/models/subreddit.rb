@@ -18,6 +18,7 @@
 class Subreddit < ApplicationRecord
   has_many :active_user_counts
   has_many :comment_counts
+  has_many :mention_counts
   has_many :post_counts
   has_many :subscriber_counts
   has_many :subreddit_tokens

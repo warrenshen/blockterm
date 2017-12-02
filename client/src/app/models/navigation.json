@@ -4,8 +4,11 @@
   "rightLinks": [
     {
       "label": "Home",
-      "link": "/",
-      "view": "home"
+      "link": "/"
+    },
+    {
+      "label": "Coins",
+      "link": "/tokens"
     }
   ]
 }

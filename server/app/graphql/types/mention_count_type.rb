@@ -5,6 +5,7 @@ module Types
     field :id, !types.ID
     field :keywordId, !types.ID, property: :keyword_id
     field :subredditId, !types.ID, property: :subreddit_id
+    field :count, !types.Int
     field :timestamp do
       type !types.String
 
@@ -12,7 +13,6 @@ module Types
         obj.timestamp.to_s
       }
     end
-    field :count, !types.Int
     field :createdAt do
       type !types.String
 
