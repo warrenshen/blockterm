@@ -22,23 +22,10 @@ module Types
       argument :timeRange, types.String
 
       resolve -> (obj, args, ctx) {
-        time_range = args[:timeRange]
-        today = Date.today
-        clause = 'timestamp > ?'
-
-        mention_counts = obj.mention_counts
-
-        if time_range.nil? or time_range == 'ONE_WEEK'
-          mention_counts = mention_counts.where(clause, today - 7.days)
-        elsif time_range == 'ONE_MONTH'
-          mention_counts = mention_counts.where(clause, today - 1.month)
-        elsif time_range == 'THREE_MONTHS'
-          mention_counts = mention_counts.where(clause, today - 3.months)
-        elsif time_range == 'ONE_YEAR'
-          mention_counts = mention_counts.where(clause, today - 1.year)
-        end
-
-        mention_counts = mention_counts.order(timestamp: :asc)
+        mention_counts = QueryHelper::filter_relation_by_time_range(
+          obj.mention_counts,
+          args[:timeRange]
+        )
 
         timestamp_to_mention_counts = {}
         mention_counts.each do |mention_count|
@@ -59,21 +46,10 @@ module Types
       argument :timeRange, types.String
 
       resolve -> (obj, args, ctx) {
-        time_range = args[:timeRange]
-        today = Date.today
-        clause = 'timestamp > ?'
-
-        mention_counts = obj.mention_counts
-
-        if time_range.nil? or time_range == 'ONE_WEEK'
-          mention_counts = mention_counts.where(clause, today - 7.days)
-        elsif time_range == 'ONE_MONTH'
-          mention_counts = mention_counts.where(clause, today - 1.month)
-        elsif time_range == 'THREE_MONTHS'
-          mention_counts = mention_counts.where(clause, today - 3.months)
-        elsif time_range == 'ONE_YEAR'
-          mention_counts = mention_counts.where(clause, today - 1.year)
-        end
+        mention_counts = QueryHelper::filter_relation_by_time_range(
+          obj.mention_counts,
+          args[:timeRange]
+        )
 
         subreddit_id_to_mention_counts = {}
         mention_counts.each do |mention_count|

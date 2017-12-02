@@ -25,23 +25,10 @@ module Types
       argument :timeRange, types.String
 
       resolve -> (obj, args, ctx) {
-        time_range = args[:timeRange]
-        today = Date.today
-        clause = 'timestamp > ?'
-
-        active_user_counts = obj.active_user_counts
-
-        if time_range.nil? or time_range == 'ONE_WEEK'
-          active_user_counts = active_user_counts.where(clause, today - 7.days)
-        elsif time_range == 'ONE_MONTH'
-          active_user_counts = active_user_counts.where(clause, today - 1.month)
-        elsif time_range == 'THREE_MONTHS'
-          active_user_counts = active_user_counts.where(clause, today - 3.months)
-        elsif time_range == 'ONE_YEAR'
-          active_user_counts = active_user_counts.where(clause, today - 1.year)
-        end
-
-        active_user_counts.order(timestamp: :asc)
+        QueryHelper::filter_relation_by_time_range(
+          obj.active_user_counts,
+          args[:timeRange]
+        )
       }
     end
 
@@ -51,23 +38,10 @@ module Types
       argument :timeRange, types.String
 
       resolve -> (obj, args, ctx) {
-        time_range = args[:timeRange]
-        today = Date.today
-        clause = 'timestamp > ?'
-
-        comment_counts = obj.comment_counts
-
-        if time_range.nil? or time_range == 'ONE_WEEK'
-          comment_counts = comment_counts.where(clause, today - 7.days)
-        elsif time_range == 'ONE_MONTH'
-          comment_counts = comment_counts.where(clause, today - 1.month)
-        elsif time_range == 'THREE_MONTHS'
-          comment_counts = comment_counts.where(clause, today - 3.months)
-        elsif time_range == 'ONE_YEAR'
-          comment_counts = comment_counts.where(clause, today - 1.year)
-        end
-
-        comment_counts.order(timestamp: :asc)
+        QueryHelper::filter_relation_by_time_range(
+          obj.comment_counts,
+          args[:timeRange]
+        )
       }
     end
 
@@ -77,23 +51,10 @@ module Types
       argument :timeRange, types.String
 
       resolve -> (obj, args, ctx) {
-        time_range = args[:timeRange]
-        today = Date.today
-        clause = 'timestamp > ?'
-
-        post_counts = obj.post_counts
-
-        if time_range.nil? or time_range == 'ONE_WEEK'
-          post_counts = post_counts.where(clause, today - 7.days)
-        elsif time_range == 'ONE_MONTH'
-          post_counts = post_counts.where(clause, today - 1.month)
-        elsif time_range == 'THREE_MONTHS'
-          post_counts = post_counts.where(clause, today - 3.months)
-        elsif time_range == 'ONE_YEAR'
-          post_counts = post_counts.where(clause, today - 1.year)
-        end
-
-        post_counts.order(timestamp: :asc)
+        QueryHelper::filter_relation_by_time_range(
+          obj.post_counts,
+          args[:timeRange]
+        )
       }
     end
 
