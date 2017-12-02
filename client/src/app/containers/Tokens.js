@@ -6,7 +6,6 @@ import { Tokens }             from '../views';
 import gql                    from 'graphql-tag';
 import { graphql }            from 'react-apollo';
 
-
 /* -----------------------------------------
   GraphQL - Apollo client
  ------------------------------------------*/
