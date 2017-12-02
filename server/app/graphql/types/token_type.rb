@@ -16,6 +16,27 @@ module Types
       }
     end
 
+    field :mentionTotalCounts, types[Types::MentionTotalCountType] do
+      description 'The mention counts across all subreddits associated with token'
+
+      resolve -> (obj, args, ctx) {
+        today = Date.today
+
+        mention_counts = obj.mention_counts.where('timestamp > ?', today - 1.month)
+
+        timestamp_to_mention_counts = {}
+        mention_counts.each do |mention_count|
+          timestamp = mention_count.timestamp.to_s
+          timestamp_to_mention_counts[timestamp] ||= MentionTotalCount.new(nil, timestamp)
+          timestamp_to_mention_counts[timestamp].increment_by(mention_count.count)
+        end
+
+        timestamp_to_mention_counts.keys.sort.map do |timestamp|
+          timestamp_to_mention_counts[timestamp]
+        end
+      }
+    end
+
     field :subredditMentions, types[Types::SubredditMentionType] do
       description 'The subreddit mentions associated with token'
 
