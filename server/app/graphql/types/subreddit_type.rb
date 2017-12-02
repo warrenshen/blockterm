@@ -31,7 +31,7 @@ module Types
 
         active_user_counts = obj.active_user_counts
 
-        if time_range.nil? or args[:timeRange] == 'ONE_WEEK'
+        if time_range.nil? or time_range == 'ONE_WEEK'
           active_user_counts = active_user_counts.where(clause, today - 7.days)
         elsif time_range == 'ONE_MONTH'
           active_user_counts = active_user_counts.where(clause, today - 1.month)
@@ -57,7 +57,7 @@ module Types
 
         comment_counts = obj.comment_counts
 
-        if time_range.nil? or args[:timeRange] == 'ONE_WEEK'
+        if time_range.nil? or time_range == 'ONE_WEEK'
           comment_counts = comment_counts.where(clause, today - 7.days)
         elsif time_range == 'ONE_MONTH'
           comment_counts = comment_counts.where(clause, today - 1.month)
@@ -83,7 +83,7 @@ module Types
 
         post_counts = obj.post_counts
 
-        if time_range.nil? or args[:timeRange] == 'ONE_WEEK'
+        if time_range.nil? or time_range == 'ONE_WEEK'
           post_counts = post_counts.where(clause, today - 7.days)
         elsif time_range == 'ONE_MONTH'
           post_counts = post_counts.where(clause, today - 1.month)
