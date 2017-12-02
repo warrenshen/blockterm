@@ -8,7 +8,7 @@ import { StyleSheet, css } from 'aphrodite';
 import moment              from 'moment';
 import { RANGE_SELECT_OPTIONS } from '../constants/plots';
 import BarChartWithSelect  from './BarChartWithSelect';
-import El from './El';
+import El                  from './El';
 
 const styles = StyleSheet.create({
   container: {

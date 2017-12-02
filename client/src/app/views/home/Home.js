@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, {
-  PureComponent,
+PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
