@@ -55,7 +55,12 @@ class Token extends PureComponent {
     match:    PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     history:  PropTypes.object.isRequired,
+    // actions:
+    changeMentionSubredditPlotRange: PropTypes.func.isRequired,
+    changeMentionTotalPlotRange: PropTypes.func.isRequired,
     // etc:
+    mentionSubredditPlotRange: PropTypes.string.isRequired,
+    mentionTotalPlotRange: PropTypes.string.isRequired,
     nightMode: PropTypes.bool.isRequired,
   };
 
@@ -92,6 +97,10 @@ class Token extends PureComponent {
   renderToken(token)
   {
     const {
+      changeMentionTotalPlotRange,
+      changeMentionSubredditPlotRange,
+      mentionTotalPlotRange,
+      mentionSubredditPlotRange,
       nightMode,
     } = this.props;
 
@@ -120,6 +129,10 @@ class Token extends PureComponent {
         </div>
         <TokenBody
           token={token}
+          changeMentionTotalPlotRange={changeMentionTotalPlotRange}
+          changeMentionSubredditPlotRange={changeMentionSubredditPlotRange}
+          mentionTotalPlotRange={mentionTotalPlotRange}
+          mentionSubredditPlotRange={mentionSubredditPlotRange}
           nightMode={nightMode}
         />
       </div>

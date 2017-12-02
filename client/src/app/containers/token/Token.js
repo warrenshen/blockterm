@@ -5,13 +5,16 @@ import { bindActionCreators } from 'redux';
 import { Token }              from '../../views'
 import gql                    from 'graphql-tag';
 import { graphql }            from 'react-apollo';
+import * as plotsActions      from '../../redux/modules/plots';
 
 /* -----------------------------------------
   GraphQL - Apollo client
  ------------------------------------------*/
 
 const TokenQuery = gql`
- query ($id: ID!) {
+ query ($id: ID!,
+        $mentionSubredditPlotRange: String,
+        $mentionTotalPlotRange: String) {
     tokenById(id: $id) {
       id
       shortName
@@ -24,16 +27,21 @@ const TokenQuery = gql`
         displayName
       }
 
-      subredditMentions {
+      subredditMentions(timeRange: $mentionSubredditPlotRange) {
         subreddit {
           id
-          name
+          displayName
         }
 
         mentionTotalCounts {
           count
           timestamp
         }
+      }
+
+      mentionTotalCounts(timeRange: $mentionTotalPlotRange) {
+        count
+        timestamp
       }
     }
   }
@@ -42,10 +50,16 @@ const TokenQuery = gql`
 const TokenWithQuery = graphql(
   TokenQuery,
   {
-    options: ({ match }) => {
+    options: ({
+      match,
+      mentionSubredditPlotRange,
+      mentionTotalPlotRange,
+    }) => {
       return {
         variables: {
           id: match.params.id,
+          mentionSubredditPlotRange: mentionSubredditPlotRange,
+          mentionTotalPlotRange: mentionTotalPlotRange,
         },
       };
     }
@@ -58,14 +72,18 @@ const TokenWithQuery = graphql(
 
 const mapStateToProps = (state) => {
   return {
+    mentionSubredditPlotRange: state.plots.mentionSubredditPlotRange,
+    mentionTotalPlotRange: state.plots.mentionTotalPlotRange,
     nightMode: state.globals.nightMode,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
-    {
-    },
+  {
+    changeMentionSubredditPlotRange: plotsActions.changeMentionSubredditPlotRange,
+    changeMentionTotalPlotRange: plotsActions.changeMentionTotalPlotRange,
+  },
     dispatch
   );
 };
