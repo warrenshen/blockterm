@@ -23,6 +23,18 @@ const TokenQuery = gql`
         id
         displayName
       }
+
+      subredditMentions {
+        subreddit {
+          id
+          name
+        }
+
+        mentionTotalCounts {
+          count
+          timestamp
+        }
+      }
     }
   }
 `;

@@ -5,7 +5,11 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import El from './El';
+import moment              from 'moment';
+import { DATA_STYLES }     from '../constants/plots'
+import BarChartWithSelect  from './BarChartWithSelect';
+import { Line } from 'react-chartjs-2';
+import El                  from './El';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,17 +31,51 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
   },
+  chart: {
+    width: '100%',
+    paddingTop: '12px',
+  },
 });
 
 class TokenBody extends PureComponent {
 
   render()
   {
+    const gridLinesConfig = {
+      color: nightMode ? 'rgba(255, 255, 255, 0.15)' :
+                         'rgba(0, 0, 0, 0.15)',
+      zeroLineColor: nightMode ? 'rgba(255, 255, 255, 0.15)' :
+                                 'rgba(0, 0, 0, 0.15)',
+    };
+    const ticksConfig = {
+      beginAtZero: true,
+      fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
+                             'rgba(0, 0, 0, 0.5)',
+      padding: 6,
+    };
+
     const {
       nightMode,
       token,
     } = this.props;
 
+    var labels = token.subredditMentions[0].mentionTotalCounts.map(
+      (mentionTotalCount) => moment(mentionTotalCount.timestamp).format('MM/DD')
+    );
+    var data = token.subredditMentions.map((subredditMention, index) => {
+      return Object.assign(
+        {},
+        {
+          data: subredditMention.mentionTotalCounts.map((mentionTotalCount) => mentionTotalCount.count),
+        },
+        DATA_STYLES[index]
+      );
+    });
+
+    var chart = {
+      labels: labels,
+      datasets: data,
+    };
     return (
       <div className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
@@ -47,6 +85,32 @@ class TokenBody extends PureComponent {
           >
             Recent activity
           </El>
+          <div className={css(styles.chart)}>
+            <Line
+              height={312}
+              data={chart}
+              responsive={true}
+              redraw={true}
+              options={{
+                maintainAspectRatio: false,
+                tooltips: { intersect: false, mode: 'x' },
+                scales: {
+                  xAxes: [
+                    {
+                      gridLines: gridLinesConfig,
+                      ticks: ticksConfig,
+                    },
+                  ],
+                  yAxes: [
+                    {
+                      gridLines: gridLinesConfig,
+                      ticks: ticksConfig,
+                    },
+                  ],
+                },
+              }}
+            />
+          </div>
         </div>
       </div>
     );
