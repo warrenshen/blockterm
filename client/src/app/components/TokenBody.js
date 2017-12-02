@@ -6,9 +6,12 @@ import React, {
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import moment              from 'moment';
-import { DATA_STYLES }     from '../constants/plots'
+import {
+  DATA_STYLES,
+  RANGE_SELECT_OPTIONS,
+}                          from '../constants/plots'
 import BarChartWithSelect  from './BarChartWithSelect';
-import { Line } from 'react-chartjs-2';
+import LineChartWithSelect from './LineChartWithSelect';
 import El                  from './El';
 
 const styles = StyleSheet.create({
@@ -55,6 +58,10 @@ class TokenBody extends PureComponent {
     };
 
     const {
+      changeMentionTotalPlotRange,
+      changeMentionSubredditPlotRange,
+      mentionTotalPlotRange,
+      mentionSubredditPlotRange,
       nightMode,
       token,
     } = this.props;
@@ -67,6 +74,9 @@ class TokenBody extends PureComponent {
         {},
         {
           data: subredditMention.mentionTotalCounts.map((mentionTotalCount) => mentionTotalCount.count),
+          label: subredditMention.subreddit.displayName,
+          lineTension: 0,
+          fill: false,
         },
         DATA_STYLES[index]
       );
@@ -75,6 +85,25 @@ class TokenBody extends PureComponent {
     var chart = {
       labels: labels,
       datasets: data,
+    };
+
+    var labels2 = token.mentionTotalCounts.map(
+      (mentionTotalCount) => moment(mentionTotalCount.timestamp).format('MM/DD')
+    );
+    var data2 = [
+      {
+        data: token.mentionTotalCounts.map((mentionTotalCount) => mentionTotalCount.count),
+        backgroundColor: 'rgba(255,99,132,0.2)',
+        borderColor: 'rgba(255,99,132,1)',
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+        hoverBorderColor: 'rgba(255,99,132,1)',
+      },
+    ];
+
+    var chart2 = {
+      labels: labels2,
+      datasets: data2,
     };
     return (
       <div className={css(styles.container, nightMode && styles.nightMode)}>
@@ -85,32 +114,22 @@ class TokenBody extends PureComponent {
           >
             Recent activity
           </El>
-          <div className={css(styles.chart)}>
-            <Line
-              height={312}
-              data={chart}
-              responsive={true}
-              redraw={true}
-              options={{
-                maintainAspectRatio: false,
-                tooltips: { intersect: false, mode: 'x' },
-                scales: {
-                  xAxes: [
-                    {
-                      gridLines: gridLinesConfig,
-                      ticks: ticksConfig,
-                    },
-                  ],
-                  yAxes: [
-                    {
-                      gridLines: gridLinesConfig,
-                      ticks: ticksConfig,
-                    },
-                  ],
-                },
-              }}
-            />
-          </div>
+          <BarChartWithSelect
+            data={chart2}
+            nightMode={nightMode}
+            selectOptions={RANGE_SELECT_OPTIONS}
+            selectValue={mentionTotalPlotRange}
+            title={`${token.shortName} total activity`}
+            onChange={(option) => changeMentionTotalPlotRange(option.value)}
+          />
+          <LineChartWithSelect
+            data={chart}
+            nightMode={nightMode}
+            selectOptions={RANGE_SELECT_OPTIONS}
+            selectValue={mentionSubredditPlotRange}
+            title={`${token.shortName} activity by subreddits`}
+            onChange={(option) => changeMentionSubredditPlotRange(option.value)}
+          />
         </div>
       </div>
     );
