@@ -100,7 +100,6 @@ class BarChartWithSelect extends PureComponent {
                   {
                     gridLines: gridLinesConfig,
                     ticks: ticksConfig,
-
                   },
                 ],
               },

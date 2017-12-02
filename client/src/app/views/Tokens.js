@@ -6,7 +6,7 @@ PureComponent,
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
-import El from '../../components/El';
+import El from '../components/El';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Home extends PureComponent {
+class Tokens extends PureComponent {
   static propTypes= {
     // react-router 4:
     match:    PropTypes.object.isRequired,
@@ -59,7 +59,7 @@ class Home extends PureComponent {
     nightMode: PropTypes.bool.isRequired,
   };
 
-  renderSubreddits(subreddits)
+  renderTokens(tokens)
   {
     const {
       nightMode,
@@ -72,21 +72,21 @@ class Home extends PureComponent {
             nightMode={nightMode}
             type={'h2'}
           >
-            Subreddits
+            Coins
           </El>
         </div>
         <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
           <ul className={css(styles.list)}>
             {
-              subreddits.map((subreddit) => {
+              tokens.map((token) => {
                 return (
-                  <li className={css(styles.item)} key={subreddit.id}>
-                    <Link to={`/subreddit/${subreddit.id}`}>
+                  <li className={css(styles.item)} key={token.id}>
+                    <Link to={`/token/${token.id}`}>
                       <El
                         nightMode={nightMode}
                         type={'h3'}
                       >
-                        {subreddit.displayName}
+                        {token.longName}
                       </El>
                     </Link>
                   </li>
@@ -109,8 +109,8 @@ class Home extends PureComponent {
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         <div className={css(styles.container)}>
           {
-            data.allSubreddits &&
-            this.renderSubreddits(data.allSubreddits)
+            data.allTokens &&
+            this.renderTokens(data.allTokens)
           }
         </div>
       </div>
@@ -118,4 +118,4 @@ class Home extends PureComponent {
   }
 }
 
-export default Home;
+export default Tokens;
