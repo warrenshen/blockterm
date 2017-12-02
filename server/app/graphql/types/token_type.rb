@@ -19,10 +19,26 @@ module Types
     field :mentionTotalCounts, types[Types::MentionTotalCountType] do
       description 'The mention counts across all subreddits associated with token'
 
-      resolve -> (obj, args, ctx) {
-        today = Date.today
+      argument :timeRange, types.String
 
-        mention_counts = obj.mention_counts.where('timestamp > ?', today - 1.month)
+      resolve -> (obj, args, ctx) {
+        time_range = args[:timeRange]
+        today = Date.today
+        clause = 'timestamp > ?'
+
+        mention_counts = obj.mention_counts
+
+        if time_range.nil? or time_range == 'ONE_WEEK'
+          mention_counts = mention_counts.where(clause, today - 7.days)
+        elsif time_range == 'ONE_MONTH'
+          mention_counts = mention_counts.where(clause, today - 1.month)
+        elsif time_range == 'THREE_MONTHS'
+          mention_counts = mention_counts.where(clause, today - 3.months)
+        elsif time_range == 'ONE_YEAR'
+          mention_counts = mention_counts.where(clause, today - 1.year)
+        end
+
+        mention_counts = mention_counts.order(timestamp: :asc)
 
         timestamp_to_mention_counts = {}
         mention_counts.each do |mention_count|
@@ -40,10 +56,24 @@ module Types
     field :subredditMentions, types[Types::SubredditMentionType] do
       description 'The subreddit mentions associated with token'
 
-      resolve -> (obj, args, ctx) {
-        today = Date.today
+      argument :timeRange, types.String
 
-        mention_counts = obj.mention_counts.where('timestamp > ?', today - 1.month)
+      resolve -> (obj, args, ctx) {
+        time_range = args[:timeRange]
+        today = Date.today
+        clause = 'timestamp > ?'
+
+        mention_counts = obj.mention_counts
+
+        if time_range.nil? or time_range == 'ONE_WEEK'
+          mention_counts = mention_counts.where(clause, today - 7.days)
+        elsif time_range == 'ONE_MONTH'
+          mention_counts = mention_counts.where(clause, today - 1.month)
+        elsif time_range == 'THREE_MONTHS'
+          mention_counts = mention_counts.where(clause, today - 3.months)
+        elsif time_range == 'ONE_YEAR'
+          mention_counts = mention_counts.where(clause, today - 1.year)
+        end
 
         subreddit_id_to_mention_counts = {}
         mention_counts.each do |mention_count|
