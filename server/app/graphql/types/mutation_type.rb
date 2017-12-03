@@ -5,12 +5,17 @@ module Types
     field :createActiveUserCount, Types::ActiveUserCountType do
       description 'Creates a active user count'
 
-     argument :subredditId, types.ID
+      argument :apiKey, !types.String
+      argument :subredditId, types.ID
       argument :subredditName, types.String
       argument :count, !types.Int
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:apiKey] != Rails.application.secrets.api_key
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
         if args[:subredditId].nil? && args[:subredditName].nil?
           return GraphQL::ExecutionError.new(
             "One of 'subredditId' or 'subredditName' params is required"
@@ -40,12 +45,17 @@ module Types
     field :createCommentCount, Types::CommentCountType do
       description 'Creates a comment count'
 
+      argument :apiKey, types.String!
       argument :subredditId, types.ID
       argument :subredditName, types.String
       argument :count, !types.Int
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:apiKey] != Rails.application.secrets.api_key
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
         if args[:subredditId].nil? && args[:subredditName].nil?
           return GraphQL::ExecutionError.new(
             "One of 'subredditId' or 'subredditName' params is required"
@@ -75,10 +85,15 @@ module Types
     field :createKeyword, Types::KeywordType do
       description 'Creates a keyword'
 
+      argument :apiKey, !types.String
       argument :tokenId, !types.ID
       argument :word, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:apiKey] != Rails.application.secrets.api_key
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
         Keyword.find_or_create_by(
           token_id: args[:tokenId],
           word: args[:word],
@@ -89,6 +104,7 @@ module Types
     field :createMentionCount, Types::MentionCountType do
       description 'Creates a mention count'
 
+      argument :apiKey, !types.String
       argument :subredditId, types.ID
       argument :subredditName, types.String
       argument :keywordId, !types.ID
@@ -96,6 +112,10 @@ module Types
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:apiKey] != Rails.application.secrets.api_key
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
         if args[:subredditId].nil? && args[:subredditName].nil?
           return GraphQL::ExecutionError.new(
             "One of 'subredditId' or 'subredditName' params is required"
@@ -126,12 +146,17 @@ module Types
     field :createPostCount, Types::PostCountType do
       description 'Create a post count'
 
+      argument :apiKey, !types.String
       argument :subredditId, types.ID
       argument :subredditName, types.String
       argument :count, !types.Int
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:apiKey] != Rails.application.secrets.api_key
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
         if args[:subredditId].nil? && args[:subredditName].nil?
           return GraphQL::ExecutionError.new(
             "One of 'subredditId' or 'subredditName' params is required"
@@ -161,10 +186,15 @@ module Types
     field :createSubreddit, Types::SubredditType do
       description 'Creates a subreddit'
 
+      argument :apiKey, !types.String
       argument :name, !types.String
       argument :startDate, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:apiKey] != Rails.application.secrets.api_key
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
         Subreddit.find_or_create_by(
           name: args[:name],
           start_date: args[:startDate],
@@ -175,11 +205,16 @@ module Types
     field :createSubscriberCount, Types::SubscriberCountType do
       description 'Creates a subscriber count'
 
+      argument :apiKey, !types.String
       argument :subredditId, !types.ID
       argument :count, !types.Int
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:apiKey] != Rails.application.secrets.api_key
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
         SubscriberCount.create(
           subreddit_id: args[:subredditId],
           count: args[:count],
@@ -191,10 +226,15 @@ module Types
     field :createToken, Types::TokenType do
       description 'Creates a token'
 
+      argument :apiKey, !types.String
       argument :shortName, !types.String
       argument :longName, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:apiKey] != Rails.application.secrets.api_key
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
         Token.find_or_create_by(
           short_name: args[:shortName],
           long_name: args[:longName],
@@ -205,6 +245,7 @@ module Types
     field :updateSubredditBlob, Types::SubredditType do
       description 'Updates blob column of subreddit'
 
+      argument :apiKey, !types.String
       argument :id, !types.ID
       argument :postCount24h, types.Int
       argument :commentCount24h, types.Int
@@ -212,6 +253,10 @@ module Types
       argument :subscriberCountNow, types.Int
 
       resolve -> (obj, args, ctx) {
+        if args[:apiKey] != Rails.application.secrets.api_key
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
         subreddit = Subreddit.find(args[:id])
 
         if !args[:activeUserCountNow].nil?
@@ -233,9 +278,14 @@ module Types
     field :createMarket, Types::MarketType do
       description 'Creates a market'
 
+      argument :apiKey, !types.String
       argument :name, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:apiKey] != Rails.application.secrets.api_key
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
         Market.find_or_create_by(
           name: args[:name],
         )
@@ -245,11 +295,16 @@ module Types
     field :createMarketTicker, Types::MarketTickerType do
       description 'Creates a market ticker'
 
+      argument :apiKey, !types.String
       argument :marketId, !types.ID
       argument :value, !types.Float
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
+        if args[:apiKey] != Rails.application.secrets.api_key
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
         MarketTicker.find_or_create_by(
           market_id: args[:marketId],
           value: args[:value],
