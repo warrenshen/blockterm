@@ -25,6 +25,7 @@ const TokenQuery = gql`
       subreddits {
         id
         displayName
+        imageUrl
       }
 
       subredditMentions(timeRange: $mentionSubredditPlotRange) {
