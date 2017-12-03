@@ -16,4 +16,8 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore OS X file.
 .DS_Store
+
+# Ignore secrets.
+config/secrets.yml
