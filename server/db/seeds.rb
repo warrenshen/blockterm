@@ -7,16 +7,19 @@ subreddit_infos = [
     name: 'Satoshi',
     description: 'Satoshi is the currency of the Internet: a distributed, worldwide, decentralized digital money. Unlike traditional currencies such as dollars, satoshis are issued and managed without any central authority whatsoever: there is no government, company, or bank in charge of Satoshi. As such, it is more resistant to wild inflation and corrupt banks. With Satoshi, you can be your own bank.',
     start_date: Date.new(2017, 1, 1),
+    image_url: 'https://b.thumbs.redditmedia.com/QPWBJVeSoUDcA1Sc3dYL7eK_3bq2ZdVbOxNOdcBojNM.png',
   },
   {
     name: 'SatoshiTrader',
     description: 'A place to discuss trading opportunities for the Satoshi cryptocurrency.',
     start_date: Date.new(2017, 6, 1),
+    image_url: 'https://b.thumbs.redditmedia.com/QPWBJVeSoUDcA1Sc3dYL7eK_3bq2ZdVbOxNOdcBojNM.png',
   },
   {
     name: 'NakamotoMarket',
     description: 'Nakamoto is a shit coin just like the rest of them.',
     start_date: Date.new(2017, 11, 1),
+    image_url: 'https://b.thumbs.redditmedia.com/j_Y7S-sW6KsbVGYiXlKjGIOPvwJa0-BPGvZznNbwcgo.png',
   },
 ]
 

@@ -6,13 +6,8 @@ module Types
     field :name, !types.String
     field :description, !types.String
     field :blob, !types.String
-    field :displayName, !types.String do
-      description 'The display name of subreddit'
-
-      resolve -> (obj, args, ctx) {
-        obj.display_name
-      }
-    end
+    field :displayName, !types.String, property: :display_name
+    field :imageUrl, !types.String, property: :image_url
     field :startDate, !types.String do
       resolve -> (obj, args, ctx) {
         obj.start_date.to_s
