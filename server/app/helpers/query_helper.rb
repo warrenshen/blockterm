@@ -15,4 +15,8 @@ module QueryHelper
 
     relation.order(timestamp: :asc)
   end
+
+  def self.api_key_invalid?(api_key)
+    api_key != Rails.application.secrets.secret_key_api
+  end
 end
