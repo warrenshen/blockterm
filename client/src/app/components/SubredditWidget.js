@@ -28,7 +28,6 @@ const SubredditWidget = ({
   nightMode,
   subreddit,
 }) => {
-  console.log(subreddit);
   return (
     <div className={css(styles.container)}>
       <div className={css(styles.section)}>
