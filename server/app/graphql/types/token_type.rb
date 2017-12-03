@@ -7,7 +7,13 @@ module Types
     field :longName, !types.String, property: :long_name
     field :imageUrl, !types.String, property: :image_url
     field :website, !types.String
+    field :earliestMentionCountDate, types.String do
+      description 'The date time of earliest mention count associated with token'
 
+      resolve -> (obj, args, ctx) {
+        QueryHelper::get_earliest_instance_timestamp(obj.mention_counts)
+      }
+    end
     field :keywords, types[Types::KeywordType] do
       description 'The keywords associated with token'
 

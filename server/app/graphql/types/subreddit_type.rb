@@ -18,6 +18,27 @@ module Types
         obj.start_date.to_s
       }
     end
+    field :earliestActiveUserCountDate, types.String do
+      description 'The date time of earliest active user count associated with subreddit'
+
+      resolve -> (obj, args, ctx) {
+        QueryHelper::get_earliest_instance_timestamp(obj.active_user_counts)
+      }
+    end
+    field :earliestCommentCountDate, types.String do
+      description 'The date time of earliest comment count associated with subreddit'
+
+      resolve -> (obj, args, ctx) {
+        QueryHelper::get_earliest_instance_timestamp(obj.comment_counts)
+      }
+    end
+    field :earliestPostCountDate, types.String do
+      description 'The date time of earliest post count associated with subreddit'
+
+      resolve -> (obj, args, ctx) {
+        QueryHelper::get_earliest_instance_timestamp(obj.post_counts)
+      }
+    end
 
     field :activeUserCounts, types[Types::ActiveUserCountType] do
       description 'The comment counts associated with subreddit'
