@@ -26,6 +26,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  headerRight: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  marginRight: {
+    marginRight: '6px',
+  },
+  range: {
+    padding: '5px 6px',
+    border: '1px solid #bdc3c7',
+    borderRadius: '3px',
+  },
   select: {
     width: '128px',
   },
@@ -35,6 +47,8 @@ class BarChartWithSelect extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
     nightMode: PropTypes.bool.isRequired,
+    rangeStart: PropTypes.string.isRequired,
+    rangeEnd: PropTypes.string.isRequired,
     selectOptions: PropTypes.array.isRequired,
     selectValue: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
@@ -46,6 +60,8 @@ class BarChartWithSelect extends PureComponent {
     const {
       data,
       nightMode,
+      rangeStart,
+      rangeEnd,
       selectOptions,
       selectValue,
       title,
@@ -69,14 +85,23 @@ class BarChartWithSelect extends PureComponent {
       <div className={css(styles.container)}>
         <div className={css(styles.header)}>
           <El nightMode={nightMode} type={'h4'}>{title}</El>
-          <div className={css(styles.select)}>
-            <Select
-              clearable={false}
-              searchable={false}
-              value={selectValue}
-              options={selectOptions}
-              onChange={onChange}
-            />
+          <div className={css(styles.headerRight)}>
+            <div className={css(styles.range, styles.marginRight)}>
+              <h5>{rangeStart}</h5>
+            </div>
+            <h5 className={css(styles.marginRight)}>-</h5>
+            <div className={css(styles.range, styles.marginRight)}>
+              <h5>{rangeEnd}</h5>
+            </div>
+            <div className={css(styles.select)}>
+              <Select
+                clearable={false}
+                searchable={false}
+                value={selectValue}
+                options={selectOptions}
+                onChange={onChange}
+              />
+            </div>
           </div>
         </div>
         <div className={css(styles.chart)}>

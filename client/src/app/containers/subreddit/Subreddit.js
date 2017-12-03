@@ -23,6 +23,9 @@ const SubredditQuery = gql`
       displayName
       name
       startDate
+      earliestActiveUserCountDate
+      earliestCommentCountDate
+      earliestPostCountDate
 
       activeUserCounts(timeRange: $activeUserCountsTimeRange) {
         id

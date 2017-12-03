@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import moment              from 'moment';
 import { RANGE_SELECT_OPTIONS } from '../constants/plots';
+import { disableChartOptions } from '../helpers/chart';
 import BarChartWithSelect  from './BarChartWithSelect';
 import El                  from './El';
 
@@ -110,6 +111,18 @@ class SubredditBody extends PureComponent {
       ]
     };
 
+    const activeUsersSelectOptions = disableChartOptions(
+      subreddit.earliestActiveUserCountDate,
+      RANGE_SELECT_OPTIONS
+    );
+    const commentsSelectOptions = disableChartOptions(
+      subreddit.earliestCommentCountDate,
+      RANGE_SELECT_OPTIONS
+    );
+    const postsSelectOptions = disableChartOptions(
+      subreddit.earliestPostCountDate,
+      RANGE_SELECT_OPTIONS
+    );
     const blob = JSON.parse(subreddit.blob);
 
     return (
@@ -144,7 +157,9 @@ class SubredditBody extends PureComponent {
           <BarChartWithSelect
             data={postsData}
             nightMode={nightMode}
-            selectOptions={RANGE_SELECT_OPTIONS}
+            rangeStart={postsX[0]}
+            rangeEnd={postsX[postsX.length - 1]}
+            selectOptions={postsSelectOptions}
             selectValue={postCountPlotRange}
             title={'Number of new posts'}
             onChange={(option) => changePostCountPlotRange(option.value)}
@@ -152,7 +167,9 @@ class SubredditBody extends PureComponent {
           <BarChartWithSelect
             data={commentsData}
             nightMode={nightMode}
-            selectOptions={RANGE_SELECT_OPTIONS}
+            rangeStart={commentsX[0]}
+            rangeEnd={commentsX[commentsX.length - 1]}
+            selectOptions={commentsSelectOptions}
             selectValue={commentCountPlotRange}
             title={'Number of new comments'}
             onChange={(option) => changeCommentCountPlotRange(option.value)}
@@ -160,7 +177,9 @@ class SubredditBody extends PureComponent {
           <BarChartWithSelect
             data={activeUsersData}
             nightMode={nightMode}
-            selectOptions={RANGE_SELECT_OPTIONS}
+            rangeStart={activeUsersX[0]}
+            rangeEnd={activeUsersX[activeUsersX.length - 1]}
+            selectOptions={activeUsersSelectOptions}
             selectValue={activeUserCountPlotRange}
             title={'Number of active users'}
             onChange={(option) => changeActiveUserCountPlotRange(option.value)}

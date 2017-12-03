@@ -60,7 +60,8 @@ h5,
 h6 {
   display: inline-block;
   font-family: $font-family;
-  font-weight: $font-weight-large;
+  // font-weight: $font-weight-large;
+  text-decoration: inherit;
 }
 
 h1 {
