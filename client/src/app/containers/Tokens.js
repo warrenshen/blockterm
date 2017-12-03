@@ -16,6 +16,7 @@ const TokensQuery = gql`
       id
       shortName
       longName
+      imageUrl
     }
   }
 `;

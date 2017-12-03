@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
   },
   item: {
     paddingTop: '24px',
+    display: 'flex',
+    alignItems: 'center',
   },
 });
 
@@ -81,6 +83,7 @@ class Tokens extends PureComponent {
               tokens.map((token) => {
                 return (
                   <li className={css(styles.item)} key={token.id}>
+                    <img src={token.imageUrl} width={36} height={36}></img>
                     <Link to={`/token/${token.id}`}>
                       <El
                         nightMode={nightMode}
