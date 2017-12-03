@@ -1,6 +1,8 @@
 import json
 import requests
 
+from secrets import API_KEY
+
 class Api:
 
     def __init__(self, api_url):
@@ -14,6 +16,9 @@ class Api:
         response = json.loads(r.text)
         return response
 
+    def _inject_api_key(self, params):
+        return 'apiKey: "%s", %s' % (API_KEY, params)
+
     def get_all_keywords(self):
         query = { 'query': '''
             query {
@@ -26,55 +31,74 @@ class Api:
         return self._get_query_response(query)
 
     def create_subreddit(self, name, start_date='2017-01-01'):
+        params = 'name: "%s", startDate: "%s"' % (name, start_date)
+        params = self._inject_api_key(params)
+
         query = { 'query' : '''
             mutation {
-              createSubreddit(name: "%s", startDate: "%s") {
+              createSubreddit(%s) {
                 id
               }
-            }''' % (name, start_date)
+            }''' % params
         }
         return self._get_query_response(query)
 
     def create_comment_count(self, subreddit_name, count, timestamp):
+        params = 'subredditName: "%s", count: %s, timestamp: "%s"' % \
+                 (subreddit_name, count, timestamp)
+        params = self._inject_api_key(params)
+
         query = { 'query' : '''
             mutation {
-              createCommentCount(subredditName: "%s", count: %s, timestamp: "%s") {
+              createCommentCount(%s) {
                 subredditId
                 count
                 timestamp
               }
-            }''' % (subreddit_name, count, timestamp)
+            }''' % params
         }
         return self._get_query_response(query)
 
     def create_post_count(self, subreddit_name, count, timestamp):
+        params = 'subredditName: "%s", count: %s, timestamp: "%s"' % \
+                 (subreddit_name, count, timestamp)
+        params = self._inject_api_key(params)
+
         query = { 'query' : '''
             mutation {
-              createPostCount(subredditName: "%s", count: %s, timestamp: "%s") {
+              createPostCount(%s) {
                 subredditId
                 count
                 timestamp
               }
-            }''' % (subreddit_name, count, timestamp)
+            }''' % params
         }
         return self._get_query_response(query)
 
     def create_active_user_count(self, subreddit_id, count, timestamp):
+        params = 'subredditId: %s, count: %s, timestamp: "%s"' % \
+                 (subreddit_id, count, timestamp)
+        params = self._inject_api_key(params)
+
         query = { 'query' : '''
             mutation {
-              createActiveUserCount(subredditId: %s, count: %s, timestamp: "%s") {
+              createActiveUserCount(%s) {
                 subredditId
                 count
                 timestamp
               }
-            }''' % (subreddit_id, count, timestamp)
+            }''' % params
         }
         return self._get_query_response(query)
 
     def create_mention_count(self, subreddit_name, keyword_id, count, timestamp):
+        params = 'subredditName: "%s", keywordId: %s, count: %s, timestamp: "%s"' % \
+                 (subreddit_name, keyword_id, count, timestamp)
+        params = self._inject_api_key(params)
+
         query = { 'query': '''
             mutation {
-                createMentionCount(subredditName: "%s", keywordId: %s, count: %s, timestamp: "%s") {
+                createMentionCount(%s) {
                     subredditId
                     keywordId
                     count
@@ -100,6 +124,7 @@ class Api:
             params += ', activeUserCountNow: %s' % active_user_count
         if subscriber_count:
             params += ', subscriberCountNow: %s' % subscriber_count
+        params = self._inject_api_key(params)
 
         query = { 'query': '''
             mutation {
@@ -108,7 +133,7 @@ class Api:
                 name
                 blob
               }
-            }''' % (params)
+            }''' % params
         }
         return self._get_query_response(query)
 
@@ -116,6 +141,8 @@ class Api:
                       name
                      ):
         params = 'name: "%s"' % name
+        params = self._inject_api_key(params)
+
         query = { 'query': '''
             mutation {
               createMarket(%s) {
@@ -123,7 +150,7 @@ class Api:
                 name
                 updatedAt
               }
-            }''' % (params)
+            }''' % params
         }
         return self._get_query_response(query)
 
@@ -141,9 +168,10 @@ class Api:
         return self._get_query_response(query)
 
     def create_market_tickers(self, market_id, value, timestamp):
-        params = 'marketId: %s' % market_id
-        params += ', value: %s' % value
-        params += ', timestamp: "%s"' % timestamp
+        params = 'marketId: %s, value: %s, timestamp: "%s"' % \
+                 (market_id, value, timestamp)
+        params = self._inject_api_key(params)
+
         query = { 'query': '''
             mutation {
               createMarketTicker(%s) {
@@ -151,6 +179,6 @@ class Api:
                 value
                 timestamp
               }
-            }''' % (params)
+            }''' % params
         }
         return self._get_query_response(query)
