@@ -12,7 +12,7 @@ module Types
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
-        if args[:apiKey] != Rails.application.secrets.api_key
+        if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
@@ -45,14 +45,14 @@ module Types
     field :createCommentCount, Types::CommentCountType do
       description 'Creates a comment count'
 
-      argument :apiKey, types.String!
+      argument :apiKey, !types.String
       argument :subredditId, types.ID
       argument :subredditName, types.String
       argument :count, !types.Int
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
-        if args[:apiKey] != Rails.application.secrets.api_key
+        if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
@@ -90,7 +90,7 @@ module Types
       argument :word, !types.String
 
       resolve -> (obj, args, ctx) {
-        if args[:apiKey] != Rails.application.secrets.api_key
+        if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
@@ -112,7 +112,7 @@ module Types
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
-        if args[:apiKey] != Rails.application.secrets.api_key
+        if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
@@ -153,7 +153,7 @@ module Types
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
-        if args[:apiKey] != Rails.application.secrets.api_key
+        if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
@@ -191,7 +191,7 @@ module Types
       argument :startDate, !types.String
 
       resolve -> (obj, args, ctx) {
-        if args[:apiKey] != Rails.application.secrets.api_key
+        if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
@@ -211,7 +211,7 @@ module Types
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
-        if args[:apiKey] != Rails.application.secrets.api_key
+        if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
@@ -231,7 +231,7 @@ module Types
       argument :longName, !types.String
 
       resolve -> (obj, args, ctx) {
-        if args[:apiKey] != Rails.application.secrets.api_key
+        if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
@@ -253,7 +253,7 @@ module Types
       argument :subscriberCountNow, types.Int
 
       resolve -> (obj, args, ctx) {
-        if args[:apiKey] != Rails.application.secrets.api_key
+        if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
@@ -282,7 +282,7 @@ module Types
       argument :name, !types.String
 
       resolve -> (obj, args, ctx) {
-        if args[:apiKey] != Rails.application.secrets.api_key
+        if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
@@ -301,7 +301,7 @@ module Types
       argument :timestamp, !types.String
 
       resolve -> (obj, args, ctx) {
-        if args[:apiKey] != Rails.application.secrets.api_key
+        if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
