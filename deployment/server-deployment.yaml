@@ -19,6 +19,15 @@ spec:
         io.kompose.service: server
     spec:
       containers:
+      - env:
+        - name: DEV_SECRET_KEY_BASE
+          value: 'dev_secret_base'
+        - name: DEV_SECRET_KEY_API
+          value: 'dev_secret_api'
+        - name: SECRET_KEY_BASE
+          value:
+        - name: SECRET_KEY_API
+          value:
       - args:
         - bundle
         - exec
