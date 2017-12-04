@@ -30,6 +30,20 @@ class Api:
         }
         return self._get_query_response(query)
 
+    def get_subreddit_by_name(self, subreddit_name):
+        params = 'name: "%s"' % (subreddit_name)
+        
+        query = { 'query' : '''
+            query {
+                subredditByName(%s) {
+                    id
+                    startDate
+                    earliestPostCountDate
+                }
+            }''' % params
+        }
+        return self._get_query_response(query)
+                 
     def create_subreddit(self, name, start_date='2017-01-01'):
         params = 'name: "%s", startDate: "%s"' % (name, start_date)
         params = self._inject_api_key(params)
