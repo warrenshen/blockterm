@@ -11,7 +11,8 @@
 #
 # Indexes
 #
-#  index_comment_counts_on_subreddit_id  (subreddit_id)
+#  index_comment_counts_on_subreddit_id                (subreddit_id)
+#  index_comment_counts_on_subreddit_id_and_timestamp  (subreddit_id,timestamp) UNIQUE
 #
 # Foreign Keys
 #

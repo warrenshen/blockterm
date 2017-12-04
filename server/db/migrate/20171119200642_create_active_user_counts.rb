@@ -5,6 +5,8 @@ class CreateActiveUserCounts < ActiveRecord::Migration[5.0]
       t.datetime :timestamp, limit: 6, null: false
       t.integer :count, default: 0, null: false
       t.timestamps
+
+      t.index [:subreddit_id, :timestamp], unique: true
     end
   end
 end
