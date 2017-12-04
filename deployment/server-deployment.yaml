@@ -19,7 +19,11 @@ spec:
         io.kompose.service: server
     spec:
       containers:
-      - env:
+      - name: server
+        image: us.gcr.io/crypto-trends/server:latest
+        ports:
+        - containerPort: 9999
+        env:
         - name: DEV_SECRET_KEY_BASE
           value: 'dev_secret_base'
         - name: DEV_SECRET_KEY_API
@@ -28,7 +32,7 @@ spec:
           value:
         - name: SECRET_KEY_API
           value:
-      - args:
+        args:
         - bundle
         - exec
         - rails
@@ -37,10 +41,6 @@ spec:
         - "9999"
         - -b
         - 0.0.0.0
-        image: us.gcr.io/crypto-trends/server:latest
-        name: server
-        ports:
-        - containerPort: 9999
         resources: {}
       restartPolicy: Always
 status: {}
