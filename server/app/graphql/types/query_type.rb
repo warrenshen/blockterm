@@ -48,6 +48,16 @@ module Types
       }
     end
 
+    field :subredditByName, Types::SubredditType do
+      description 'Gets the subreddit associated with given name'
+
+      argument :name, !types.String
+
+      resolve -> (obj, args, ctx) {
+        Subreddit.find_by(name: args[:name])
+      }
+    end
+
     field :tokenById, Types::TokenType do
       description 'Gets the token associated with given token id'
 

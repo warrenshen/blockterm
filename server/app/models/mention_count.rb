@@ -12,8 +12,9 @@
 #
 # Indexes
 #
-#  index_mention_counts_on_keyword_id    (keyword_id)
-#  index_mention_counts_on_subreddit_id  (subreddit_id)
+#  index_mention_counts_on_keyword_and_subreddit_and_timestamp  (keyword_id,subreddit_id,timestamp) UNIQUE
+#  index_mention_counts_on_keyword_id                           (keyword_id)
+#  index_mention_counts_on_subreddit_id                         (subreddit_id)
 #
 # Foreign Keys
 #

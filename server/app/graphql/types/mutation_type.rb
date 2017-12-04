@@ -175,11 +175,19 @@ module Types
           subreddit_id = subreddit.id
         end
 
-        PostCount.create(
+        post_count = PostCount.create(
           subreddit_id: subreddit_id,
           count: args[:count],
           timestamp: args[:timestamp],
         )
+
+        if post_count.valid?
+          post_count
+        else
+          return GraphQL::ExecutionError.new(
+            'Failed to create post count'
+          )
+        end
       }
     end
 
