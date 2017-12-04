@@ -2,30 +2,37 @@
 
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Home }               from '../../views';
+import { SubredditsCompare }  from '../views';
 import gql                    from 'graphql-tag';
 import { graphql }            from 'react-apollo';
-
 
 /* -----------------------------------------
   GraphQL - Apollo client
  ------------------------------------------*/
 
-const SubredditsQuery = gql`
- query {
-    allSubreddits {
+const query = gql`
+  query ($ids: [ID]!) {
+    subredditsByIds(ids: $ids) {
       id
       displayName
-      name
-      imageUrl
+
+      postCounts {
+        id
+        count
+        timestamp
+      }
     }
   }
 `;
 
-const HomeWithQuery = graphql(
-  SubredditsQuery,
-)(Home);
-
+const SubredditsCompareContainer = graphql(
+  query,
+  {
+    options: ({ match, ids }) => {
+      return { variables: { ids: [1, 2] } };
+    },
+  }
+)(SubredditsCompare);
 
 /* -----------------------------------------
   Redux
@@ -48,4 +55,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeWithQuery);
+)(SubredditsCompareContainer);
