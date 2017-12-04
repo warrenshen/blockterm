@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=
       - POSTGRES_DB=db
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - ../cache/postgres-data:/var/lib/postgresql/data
     labels:
@@ -19,7 +19,7 @@ services:
     image: us.gcr.io/crypto-trends/server:latest
     command: bundle exec rails s -p 8080 -b '0.0.0.0'
     ports:
-      - "8080:8080"
+      - "9999:9999"
     depends_on:
       - db
     labels:
@@ -29,7 +29,7 @@ services:
     image: us.gcr.io/crypto-trends/client:latest
     command: npm start
     ports:
-      - "3000:3000"
+      - "9999:9999"
     depends_on:
       - server
     labels:
