@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20171203233518) do
     t.integer  "count",                      default: 0, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.index ["subreddit_id", "timestamp"], name: "index_active_user_counts_on_subreddit_id_and_timestamp", unique: true, using: :btree
     t.index ["subreddit_id"], name: "index_active_user_counts_on_subreddit_id", using: :btree
   end
 
@@ -30,6 +31,7 @@ ActiveRecord::Schema.define(version: 20171203233518) do
     t.integer  "count",                      default: 0, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.index ["subreddit_id", "timestamp"], name: "index_comment_counts_on_subreddit_id_and_timestamp", unique: true, using: :btree
     t.index ["subreddit_id"], name: "index_comment_counts_on_subreddit_id", using: :btree
   end
 
@@ -74,6 +76,7 @@ ActiveRecord::Schema.define(version: 20171203233518) do
     t.integer  "count",                      default: 0, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.index ["keyword_id", "subreddit_id", "timestamp"], name: "index_mention_counts_on_keyword_and_subreddit_and_timestamp", unique: true, using: :btree
     t.index ["keyword_id"], name: "index_mention_counts_on_keyword_id", using: :btree
     t.index ["subreddit_id"], name: "index_mention_counts_on_subreddit_id", using: :btree
   end
@@ -84,6 +87,7 @@ ActiveRecord::Schema.define(version: 20171203233518) do
     t.integer  "count",                      default: 0, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.index ["subreddit_id", "timestamp"], name: "index_post_counts_on_subreddit_id_and_timestamp", unique: true, using: :btree
     t.index ["subreddit_id"], name: "index_post_counts_on_subreddit_id", using: :btree
   end
 
@@ -113,6 +117,7 @@ ActiveRecord::Schema.define(version: 20171203233518) do
     t.integer  "count",                      default: 0, null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.index ["subreddit_id", "timestamp"], name: "index_subscriber_counts_on_subreddit_id_and_timestamp", unique: true, using: :btree
     t.index ["subreddit_id"], name: "index_subscriber_counts_on_subreddit_id", using: :btree
   end
 

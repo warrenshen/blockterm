@@ -6,6 +6,10 @@ class CreateMentionCounts < ActiveRecord::Migration[5.0]
       t.datetime :timestamp, limit: 6, null: false
       t.integer :count, default: 0, null: false
       t.timestamps
+
+      t.index [:keyword_id, :subreddit_id, :timestamp],
+              name: 'index_mention_counts_on_keyword_and_subreddit_and_timestamp',
+              unique: true
     end
   end
 end

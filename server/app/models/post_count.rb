@@ -11,7 +11,8 @@
 #
 # Indexes
 #
-#  index_post_counts_on_subreddit_id  (subreddit_id)
+#  index_post_counts_on_subreddit_id                (subreddit_id)
+#  index_post_counts_on_subreddit_id_and_timestamp  (subreddit_id,timestamp) UNIQUE
 #
 # Foreign Keys
 #
@@ -20,4 +21,6 @@
 
 class PostCount < ApplicationRecord
   belongs_to :subreddit
+
+  validates :timestamp, uniqueness: { scope: :subreddit_id }
 end
