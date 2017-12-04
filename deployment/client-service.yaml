@@ -11,9 +11,9 @@ metadata:
   name: client
 spec:
   ports:
-  - name: "9999"
-    port: 9999
-    targetPort: 9999
+  - name: "3000"
+    port: 3000
+    targetPort: 3000
   selector:
     io.kompose.service: client
   type: LoadBalancer

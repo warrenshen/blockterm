@@ -25,7 +25,7 @@ spec:
         image: us.gcr.io/crypto-trends/client:latest
         name: client
         ports:
-        - containerPort: 9999
+        - containerPort: 3000
         resources: {}
       restartPolicy: Always
 status: {}
