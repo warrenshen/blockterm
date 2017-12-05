@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   brand: {
     fontSize: '18px',
-    fontWeight: '700',
+    fontWeight: '400',
   },
   section: {
     height: '100%',

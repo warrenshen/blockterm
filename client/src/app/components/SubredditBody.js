@@ -31,6 +31,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
   },
+  sectionHeader: {
+    paddingBottom: '12px',
+    borderBottom: '1px solid #bdc3c7',
+  },
 });
 
 class SubredditBody extends PureComponent {
@@ -128,12 +132,14 @@ class SubredditBody extends PureComponent {
     return (
       <div className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
-          <El
-            nightMode={nightMode}
-            type={'h3'}
-          >
-            Recent activity
-          </El>
+          <div className={css(styles.sectionHeader)}>
+            <El
+              nightMode={nightMode}
+              type={'h3'}
+            >
+              Recent activity
+            </El>
+          </div>
           <El
             nightMode={nightMode}
             type={'span'}
