@@ -5,10 +5,12 @@ import { routerReducer }   from 'react-router-redux';
 import { apolloClient }    from '../../services/apollo';
 import plots               from './plots';
 import globals             from './globals';
+import subreddits          from './subreddits';
 
 const appReducers = {
   plots,
   globals,
+  subreddits,
 };
 
 // combine reducers -> createStore reducer
