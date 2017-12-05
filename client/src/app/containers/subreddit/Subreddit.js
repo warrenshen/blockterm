@@ -13,9 +13,9 @@ import * as plotsActions      from '../../redux/modules/plots';
 
 const SubredditQuery = gql`
   query ($id: ID!,
-        $activeUserCountsTimeRange: String,
-        $postCountsTimeRange: String,
-        $commentCountsTimeRange: String) {
+         $activeUserCountsTimeRange: String,
+         $postCountsTimeRange: String,
+         $commentCountsTimeRange: String) {
     subredditById(id: $id) {
       id
       blob
@@ -73,7 +73,7 @@ const SubredditWithQuery = graphql(
           postCountsTimeRange: postCountPlotRange,
         },
       };
-    }
+    },
   }
 )(Subreddit);
 
