@@ -17,5 +17,6 @@ spec:
   selector:
     io.kompose.service: server
   type: LoadBalancer
+  loadBalancerIP: "35.199.161.76"
 status:
   loadBalancer: {}
