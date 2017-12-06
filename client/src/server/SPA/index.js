@@ -8,7 +8,7 @@ const chalk     = require('chalk');
 
 const app       = express();
 const DOCS_PATH = '../../../docs/';
-const PORT      = 8082;
+const PORT      = 80;
 const IP_ADRESS = 'localhost';
 
 app.set('port', PORT);
