@@ -21,11 +21,12 @@ spec:
       containers:
       - args:
         - npm
-        - start
+        - run
+        - start-spa-prod
         image: us.gcr.io/crypto-trends/client:latest
         name: client
         ports:
-        - containerPort: 3000
+        - containerPort: 80
         resources: {}
       restartPolicy: Always
 status: {}
