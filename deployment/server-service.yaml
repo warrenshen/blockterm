@@ -11,9 +11,9 @@ metadata:
   name: server
 spec:
   ports:
-  - name: "9999"
-    port: 9999
-    targetPort: 9999
+  - name: "80"
+    port: 80
+    targetPort: 80
   selector:
     io.kompose.service: server
   type: LoadBalancer
