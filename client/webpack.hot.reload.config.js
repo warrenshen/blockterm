@@ -23,10 +23,6 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: 'ify-loader',
-      },
-      {
         test:     /\.jsx?$/,
         include:  srcInclude,
         loaders:  ['babel-loader']
