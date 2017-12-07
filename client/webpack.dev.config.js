@@ -50,10 +50,6 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: 'ify-loader',
-      },
-      {
         test:     /\.jsx?$/,
         exclude:  [nodeModulesDir],
         loader:   'babel-loader'
