@@ -6,8 +6,8 @@ from secrets import API_KEY
 
 class Api:
 
-    def __init__(self, api_url):
-        if not api_url:
+    def __init__(self, api_url=None):
+        if api_url is None:
             self.api_url = API_URL
         else:
             self.api_url = api_url
