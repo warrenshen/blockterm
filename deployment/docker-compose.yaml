@@ -32,7 +32,7 @@ services:
 
   client:
     image: us.gcr.io/crypto-trends/client:latest
-    command: npm run start-spa-prod
+    command: npm run start
     ports:
       - "3000:80"
     depends_on:
