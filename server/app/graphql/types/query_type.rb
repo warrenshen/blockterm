@@ -58,6 +58,16 @@ module Types
       }
     end
 
+    field :subredditsByIds, !types[Types::SubredditType] do
+      description 'Gets the subreddits with given subreddit ids'
+
+      argument :ids, !types[types.ID]
+
+      resolve -> (obj, args, ctx) {
+        Subreddit.where(id: args[:ids])
+      }
+    end
+
     field :tokenById, Types::TokenType do
       description 'Gets the token associated with given token id'
 
