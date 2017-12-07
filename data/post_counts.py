@@ -12,13 +12,13 @@ import subreddits
 
 ONE_DAY = 86400
 
+server = api.Api()
+
 def create_post_count_for_subreddit(subreddit_name, praw_subreddit, start, end):
     posts = praw_subreddit.submissions(start, end)
     post_count = len(list(posts))
     unix_dt = datetime.fromtimestamp(end)
     date_t = unix_dt.strftime('%Y-%m-%d %H:%M:%S')
-    # TODO: accept endpoint through command line
-    server = api.Api('http://localhost:8080/graphql')
     response = server.create_post_count(subreddit_name, post_count, date_t)
     return post_count, response
 

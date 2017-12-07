@@ -15,19 +15,19 @@ from api import Api
 
 ONE_DAY = 86400
 
+server = Api()
+
 def get_subreddit_by_name(subreddit_name):
-    server = Api('http://localhost:8080/graphql')
     response = server.get_subreddit_by_name(subreddit_name)
     return response['data']['subredditByName']
-    
+
 def create_post_count(subreddit_name, count, timestamp):
-    server = Api('http://localhost:8080/graphql')
     response = server.create_post_count(subreddit_name, count, timestamp)
-    if response['errors']:
+    if 'errors' in response:
         return False
     else:
         return True
-    
+
 def create_post_count_for_subreddit(subreddit_name, praw_subreddit, start, end):
     posts = praw_subreddit.submissions(start, end)
     post_count = len(list(posts))
@@ -41,12 +41,12 @@ def run_for_subreddit(subreddit_name):
     if not api_subreddit:
         print('Subreddit with name %s does not exist on server' % subreddit_name)
         return
-    
+
     praw_subreddit = reddit.subreddit(subreddit_name)
-    
+
     start_date = api_subreddit['startDate']
     start_date_timestamp = int(datetime.strptime(start_date, '%Y-%m-%d').strftime('%s'))
-    
+
     start_timestamp = start_date_timestamp
     done = False
     while not done:
@@ -59,7 +59,7 @@ def run_for_subreddit(subreddit_name):
         start_timestamp += ONE_DAY
         done = not success
         time.sleep(3)
-    
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Get market tickers', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
@@ -70,6 +70,6 @@ if __name__ == '__main__':
         type=str
     )
     args = parser.parse_args()
-    
+
     run_for_subreddit(args.subreddit_name)
-    
+
