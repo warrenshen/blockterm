@@ -29,7 +29,7 @@ def create_comment_count_for_subreddit(subreddit_name, start, end):
     unix_dt = datetime.fromtimestamp(end)
     date_t = unix_dt.strftime('%Y-%m-%d %H:%M:%S')
 
-    server = api.Api('http://localhost:8080/graphql')
+    server = api.Api()
     response = server.create_comment_count(subreddit_name, comment_count, date_t)
     return comment_count, response
 

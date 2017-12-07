@@ -16,7 +16,7 @@ ONE_DAY = 86400
 
 comments_db = SQLite3Database('comments.db')
 
-server = api.Api('http://localhost:8080/graphql')
+server = api.Api()
 response = server.get_all_keywords()
 keywords = response['data']['allKeywords']
 

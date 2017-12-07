@@ -1,13 +1,14 @@
 import json
 import requests
 
+from configs import API_URL
 from secrets import API_KEY
 
 class Api:
 
     def __init__(self, api_url):
         if not api_url:
-            raise Exception('A api url is required')
+            self.api_url = API_URL
         else:
             self.api_url = api_url
 
@@ -32,7 +33,7 @@ class Api:
 
     def get_subreddit_by_name(self, subreddit_name):
         params = 'name: "%s"' % (subreddit_name)
-        
+
         query = { 'query' : '''
             query {
                 subredditByName(%s) {
@@ -43,7 +44,7 @@ class Api:
             }''' % params
         }
         return self._get_query_response(query)
-                 
+
     def create_subreddit(self, name, start_date='2017-01-01'):
         params = 'name: "%s", startDate: "%s"' % (name, start_date)
         params = self._inject_api_key(params)
