@@ -9,7 +9,7 @@ class SQLite3Database:
     def __init__(self, db='test.db'):
         self.conn = sqlite3.connect(db)
         self.cursor = self.conn.cursor()
-        
+
     def insert_comment(self,
                        subreddit_name,
                        comment_id,
@@ -42,10 +42,10 @@ class SQLite3Database:
             ))
         except sqlite3.IntegrityError:
             raise sqlite3.IntegrityError
-        
+
         try:
             self.conn.commit()
             return True
         except:
             return False
-        
+
