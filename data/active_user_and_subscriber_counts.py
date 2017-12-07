@@ -13,9 +13,11 @@ reddit = praw.Reddit(
   user_agent=secrets.USER_AGENT
 )
 
-import api
-import subreddits
+from api import Api
+from subreddits import SUBREDDITS
 from database import SQLite3Database
+
+server = Api()
 
 active_user_counts_db = SQLite3Database('active_user_counts.db')
 active_user_counts_db.cursor.execute('''
@@ -43,20 +45,23 @@ subscriber_counts_db.cursor.execute('''
     ON subscriber_counts (subreddit_name, timestamp)
 ''')
 
-for subreddit_name in subreddits.SUBREDDITS:
+for subreddit_name in SUBREDDITS:
     praw_subreddit = reddit.subreddit(subreddit_name)
-    active_users, subscribers = praw_subreddit.active_user_count, praw_subreddit.subscribers
+    active_user_count, subscriber_count = praw_subreddit.active_user_count, praw_subreddit.subscribers
 
     timestamp = int(time.time())
+    unix_dt = datetime.fromtimestamp(timestamp)
+    date_t = unix_dt.strftime('%Y-%m-%d %H:%M:%S')
+
     result = active_user_counts_db.cursor.execute('''
         INSERT INTO active_user_counts (subreddit_name, count, timestamp)
         VALUES (?, ?, ?)
-    ''', (subreddit_name, active_users, timestamp))
+    ''', (subreddit_name, active_user_count, timestamp))
     active_user_counts_db.conn.commit()
+    response = server.create_active_user_count(subreddit_name, active_user_count, date_t)
 
     result = subscriber_counts_db.cursor.execute('''
         INSERT INTO subscriber_counts (subreddit_name, count, timestamp)
         VALUES (?, ?, ?)
-    ''', (subreddit_name, subscribers, timestamp))
+    ''', (subreddit_name, subscriber_count, timestamp))
     subscriber_counts_db.conn.commit()
-
