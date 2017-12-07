@@ -52,6 +52,23 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingTop: '12px',
   },
+  comparables: {
+    left: '-24px',
+    width: '100%',
+    padding: '24px 24px 24px',
+    boxSizing: 'content-box',
+    backgroundColor: 'white',
+    borderRadius: '6px',
+    display: 'flex',
+  },
+  comparable: {
+    flex: 1,
+  },
+  newComparable: {
+    width: '172px',
+    display: 'flex',
+    flexDirection: 'column',
+  },
 });
 
 class SubredditsCompare extends PureComponent {
@@ -130,15 +147,14 @@ class SubredditsCompare extends PureComponent {
     );
   }
 
-  renderOptions(subreddits)
+  renderOptions(subredditOptions, selectedSubreddits)
   {
     const {
-      data,
       addSubredditId,
       nightMode,
     } = this.props;
 
-    const selectOptions = data.allSubreddits.map((subreddit) => {
+    const selectOptions = subredditOptions.map((subreddit) => {
       return {
         label: subreddit.displayName,
         value: subreddit.id,
@@ -146,13 +162,27 @@ class SubredditsCompare extends PureComponent {
     });
 
     return (
-      <Select
-        clearable={false}
-        searchable={true}
-        value={''}
-        options={selectOptions}
-        onChange={(option) => addSubredditId(option.value)}
-      />
+      <div className={css(styles.comparables)}>
+        {
+          selectedSubreddits.map((subreddit) => {
+            return (
+              <div className={css(styles.comparable)}>
+                {subreddit.displayName}
+              </div>
+            );
+          })
+        }
+        <div className={css(styles.newComparable)}>
+          <h4>+ compare</h4>
+          <Select
+            clearable={false}
+            searchable={true}
+            value={''}
+            options={selectOptions}
+            onChange={(option) => addSubredditId(option.value)}
+          />
+        </div>
+      </div>
     );
   }
 
@@ -165,7 +195,7 @@ class SubredditsCompare extends PureComponent {
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        { data && data.allSubreddits && this.renderOptions(data.allSubreddits) }
+        { data && data.allSubreddits && this.renderOptions(data.allSubreddits, data.subredditsByIds) }
         <div className={css(styles.container)}>
           { data && data.subredditsByIds && data.subredditsByIds.length > 0 && this.renderSubreddits(data.subredditsByIds) }
         </div>
