@@ -13,6 +13,11 @@ const chalk         = require('chalk');
 const app       = express();
 const compiler  = webpack(config);
 
+const PORT      = 80;
+const IP_ADRESS = '0.0.0.0';
+
+app.set('port', PORT);
+app.set('ipAdress', IP_ADRESS);
 
 app.use(devMiddleware(compiler, {
   publicPath: config.output.publicPath,
@@ -25,15 +30,16 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(80, (err) => {
+app.listen(
+  PORT,
+  IP_ADRESS,
+  (err) => {
   if (err) {
     return console.error(err);
   }
   console.log(
     `
-      =====================================================
-      -> Server (${chalk.bgBlue('Hot reload')}) 🏃 (running) on ${chalk.green('localhost')}:${chalk.green('80')}
-      =====================================================
+      -> Server (${chalk.bgBlue('Hot reload')}) 🏃 (running) on ${chalk.green(IP_ADRESS)}:${chalk.green(PORT)}
     `
   );
 });
