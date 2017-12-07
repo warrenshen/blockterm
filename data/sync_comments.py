@@ -29,40 +29,26 @@ def insert_comments(subreddit_name, comments):
 
     try:
         for comment in comments:
-            comment_id = 't1_' + comment.id
+            comment_id = comment.id
             parent_id = comment.parent_id
             link_id = comment.link_id
             body = comment.body
             created_utc = comment.created_utc
 
-            response = db.cursor.execute('''
-                INSERT INTO comments (
-                    comment_id,
-                    parent_id,
-                    subreddit_name,
-                    link_id,
-                    body,
-                    created_utc
-                )
-                VALUES (?, ?, ?, ?, ?, ?)
-            ''', (
+            response = db.insert_comment(
                 comment_id,
                 parent_id,
                 subreddit_name,
                 link_id,
                 body,
                 created_utc
-            ))
+            )
             success_count += 1
 
     except sqlite3.IntegrityError:
         pass
 
-    try:
-        db.conn.commit()
-        return success_count
-    except:
-        return 0
+    return success_count
 
 def fetch_new_comments_for_subreddit(subreddit_name):
     subreddit = reddit.subreddit(subreddit_name)

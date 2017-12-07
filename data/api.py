@@ -90,9 +90,9 @@ class Api:
         }
         return self._get_query_response(query)
 
-    def create_active_user_count(self, subreddit_id, count, timestamp):
-        params = 'subredditId: %s, count: %s, timestamp: "%s"' % \
-                 (subreddit_id, count, timestamp)
+    def create_active_user_count(self, subreddit_name, count, timestamp):
+        params = 'subredditName: "%s", count: %s, timestamp: "%s"' % \
+                 (subreddit_name, count, timestamp)
         params = self._inject_api_key(params)
 
         query = { 'query' : '''

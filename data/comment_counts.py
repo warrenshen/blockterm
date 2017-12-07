@@ -13,23 +13,25 @@ import subreddits
 from database import SQLite3Database
 
 db = SQLite3Database('comments.db')
+server = api.Api()
 
 ONE_DAY = 86400
 
 def create_comment_count_for_subreddit(subreddit_name, start, end):
     result = db.cursor.execute('''
-	SELECT COUNT(*)
-	FROM comments
-	WHERE comments.subreddit_name = ?
-	AND comments.created_utc >= ?
-	AND comments.created_utc < ?
-    ''', (subreddit_name, start, end))
+    	SELECT COUNT(*)
+    	FROM comments
+    	WHERE comments.subreddit_name = ?
+    	AND comments.created_utc >= ?
+    	AND comments.created_utc < ?
+        ''',
+        (subreddit_name, start, end)
+    )
     comment_count = list(result)[0][0]
 
     unix_dt = datetime.fromtimestamp(end)
     date_t = unix_dt.strftime('%Y-%m-%d %H:%M:%S')
 
-    server = api.Api()
     response = server.create_comment_count(subreddit_name, comment_count, date_t)
     return comment_count, response
 
