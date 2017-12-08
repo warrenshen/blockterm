@@ -1,4 +1,5 @@
 import json
+import logging
 import requests
 
 from configs import API_URL
@@ -13,12 +14,20 @@ class Api:
             self.api_url = api_url
 
     def _get_query_response(self, query):
-        print('Sending api request...')
-        print(query)
+        logging.basicConfig(
+            level=logging.INFO,
+            filename='log.log',
+            filemode='a+',
+            format='%(asctime)-15s %(levelname)-8s %(message)s'
+        )
+        logging.info('Sending api request...')
+        logging.info(query)
+
         r = requests.post(url=self.api_url, json=query)
         response = json.loads(r.text)
-        print('Loading api response...')
-        print(response)
+
+        logging.info('Loading api response...')
+        logging.info(response)
         return response
 
     def _inject_api_key(self, params):
