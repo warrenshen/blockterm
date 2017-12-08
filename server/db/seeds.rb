@@ -21,6 +21,36 @@ subreddit_infos = [
     start_date: Date.new(2017, 11, 1),
     image_url: 'https://b.thumbs.redditmedia.com/j_Y7S-sW6KsbVGYiXlKjGIOPvwJa0-BPGvZznNbwcgo.png',
   },
+  {
+    name: 'Bitcoin',
+    start_date: '2010-09-09',
+  },
+  {
+    name: 'btc',
+    start_date: '2011-5-20',
+    image_url: 'https://bitsonline.com/wp-content/uploads/2017/10/Bitcoin-Cash-Green-Logo.png',
+  },
+  {
+    name: 'CryptoCurrency',
+    start_date: '2013-3-11',
+    image_url: 'https://b.thumbs.redditmedia.com/BlRR72bV2aPJ5HW-JmzFi9IUhNCxtqjgjlO8VGWJN6w.png',
+  },
+  {
+    name: 'ethereum',
+    start_date: '2013-12-14',
+  },
+  {
+    name: 'NEO',
+    start_date: '2008-08-06',
+  },
+  {
+    name: 'SubstratumNetwork',
+    start_date: '2017-07-31',
+  },
+  {
+    name: 'Vertcoin',
+    start_date: '2014-01-11',
+  },
 ]
 
 subreddit_infos.each do |subreddit_info|
