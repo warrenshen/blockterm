@@ -13,8 +13,12 @@ class Api:
             self.api_url = api_url
 
     def _get_query_response(self, query):
+        print('Sending api request...')
+        print(query)
         r = requests.post(url=self.api_url, json=query)
         response = json.loads(r.text)
+        print('Loading api response...')
+        print(response)
         return response
 
     def _inject_api_key(self, params):
