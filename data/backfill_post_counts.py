@@ -2,7 +2,6 @@ import json
 import praw
 import time
 
-from datetime import datetime
 from praw.models import MoreComments
 from tqdm import tqdm
 
