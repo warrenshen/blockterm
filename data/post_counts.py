@@ -1,4 +1,5 @@
 import json
+import logging
 import praw
 
 import secrets
@@ -18,9 +19,19 @@ def create_post_count_for_subreddit(subreddit_name, praw_subreddit, start, end):
     timestamp_string = unix_timestamp_to_datetime_string(start)
     return server.create_post_count(subreddit_name, post_count, timestamp_string)
 
+logging.basicConfig(
+    level=logging.INFO,
+    filename='log.log',
+    filemode='a+',
+    format='%(asctime)-15s %(levelname)-8s %(message)s'
+)
+logging.info('Starting post counts script...')
+
 for subreddit_name in SUBREDDITS:
     praw_subreddit = reddit.subreddit(subreddit_name)
     # End timestamp is start of today, since we are getting post count for yesterday.
     end = unix_timestamp_today()
     start = end - ONE_DAY
     response = create_post_count_for_subreddit(subreddit_name, praw_subreddit, start, end)
+
+logging.info('Ending post counts script...')
