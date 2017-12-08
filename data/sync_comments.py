@@ -1,12 +1,17 @@
 import praw
 import sqlite3
 
-import subreddits
 import secrets
 
-reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_SECRET, user_agent=secrets.USER_AGENT)
+reddit = praw.Reddit(
+    client_id=secrets.CLIENT_ID,
+    client_secret=secrets.CLIENT_SECRET,
+    user_agent=secrets.USER_AGENT
+)
 
 from database import SQLite3Database
+from logger import logger
+from subreddits import SUBREDDITS
 
 db = SQLite3Database('comments.db')
 db.cursor.execute('''
@@ -23,6 +28,8 @@ db.cursor.execute('''
     CREATE INDEX IF NOT EXISTS comments_subreddit_name_and_created_utc
     ON comments (subreddit_name, created_utc)
 ''')
+
+logger.info('Starting sync comments script...')
 
 def insert_comments(subreddit_name, comments):
     success_count = 0
@@ -87,7 +94,8 @@ def fetch_new_comments_for_subreddit(subreddit_name):
 
     return fetch_count
 
-for subreddit_name in subreddits.SUBREDDITS:
+for subreddit_name in SUBREDDITS:
     fetch_count = fetch_new_comments_for_subreddit(subreddit_name)
-    print(subreddit_name, fetch_count)
+    logger.info('Synced %s comments for subreddit %s' % (fetch_count, subreddit_name))
 
+logger.info('Ending sync comments script...')

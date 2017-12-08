@@ -1,8 +1,8 @@
 import json
-import logging
 import requests
 
 from configs import API_URL
+from logger import logger
 from secrets import API_KEY
 
 class Api:
@@ -14,20 +14,15 @@ class Api:
             self.api_url = api_url
 
     def _get_query_response(self, query):
-        logging.basicConfig(
-            level=logging.INFO,
-            filename='log.log',
-            filemode='a+',
-            format='%(asctime)-15s %(levelname)-8s %(message)s'
-        )
-        logging.info('Sending api request...')
-        logging.info(query)
+        logger.info('Sending api request...')
+        logger.info(query)
 
         r = requests.post(url=self.api_url, json=query)
         response = json.loads(r.text)
 
-        logging.info('Loading api response...')
-        logging.info(response)
+        logger.info('Loading api response...')
+        logger.info(response)
+
         return response
 
     def _inject_api_key(self, params):
@@ -132,7 +127,7 @@ class Api:
                     count
                     timestamp
                 }
-            }''' % (subreddit_name, keyword_id, count, timestamp)
+            }''' % params
         }
         return self._get_query_response(query)
 
