@@ -14,7 +14,7 @@ job.minute.every(10)
 cron_tab.write()
 
 job = cron_tab.new(command=get_command_for_script('active_user_and_subscriber_counts.py'))
-job.minute.every(2)
+job.minute.every(15)
 cron_tab.write()
 
 job = cron_tab.new(command=get_command_for_script('post_counts.py'))
