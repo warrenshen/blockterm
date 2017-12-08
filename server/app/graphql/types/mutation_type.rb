@@ -254,7 +254,8 @@ module Types
       description 'Updates blob column of subreddit'
 
       argument :apiKey, !types.String
-      argument :id, !types.ID
+      argument :subredditId, types.ID
+      argument :subredditName, types.String
       argument :postCount24h, types.Int
       argument :commentCount24h, types.Int
       argument :activeUserCountNow, types.Int
@@ -265,7 +266,23 @@ module Types
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
-        subreddit = Subreddit.find(args[:id])
+        if args[:subredditId].nil? && args[:subredditName].nil?
+          return GraphQL::ExecutionError.new(
+            "One of 'subredditId' or 'subredditName' params is required"
+          )
+        end
+
+        if !args[:subredditId].nil?
+          subreddit_id = args[:subredditId]
+        else
+          subreddit = Subreddit.find_by(name: args[:subredditName])
+          if subreddit.nil?
+            return GraphQL::ExecutionError.new(
+              "No subreddit found for given 'subredditId' or 'subredditName'"
+            )
+          end
+        end
+
 
         if !args[:activeUserCountNow].nil?
           subreddit.update_blob_attribute(:active_user_count_now, args[:activeUserCountNow])
