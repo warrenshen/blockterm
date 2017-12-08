@@ -1,4 +1,3 @@
-import json
 import praw
 import sqlite3
 
@@ -49,7 +48,8 @@ subscriber_counts_db.cursor.execute('''
 
 for subreddit_name in SUBREDDITS:
     praw_subreddit = reddit.subreddit(subreddit_name)
-    active_user_count, subscriber_count = praw_subreddit.active_user_count, praw_subreddit.subscribers
+    active_user_count = praw_subreddit.active_user_count
+    subscriber_count = praw_subreddit.subscribers
 
     unix_timestamp = unix_timestamp_now()
     datetime_string = datetime_string_now()

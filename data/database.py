@@ -1,8 +1,9 @@
 import sqlite3
 
 class SQLite3Database:
-  def __init__(self, db):
-    self.conn = sqlite3.connect(db)
+  def __init__(self, db_name):
+    self.db_name = db_name
+    self.conn = sqlite3.connect(self.db_name)
     self.cursor = self.conn.cursor()
 
   def insert_comment(
@@ -14,6 +15,8 @@ class SQLite3Database:
     body,
     created_utc
   ):
+    assert self.db_name == 'comments.db'
+
     if comment_id.find('t1_') != 0:
       comment_id = 't1_' + comment_id
 
@@ -47,3 +50,19 @@ class SQLite3Database:
       return True
     except:
       return False
+
+  def get_comment_count_for_subreddit(self, subreddit_name, start, end):
+    assert self.db_name == 'comments.db'
+
+    result = self.cursor.execute(
+      '''
+      SELECT COUNT(*)
+      FROM comments
+      WHERE comments.subreddit_name = ?
+      AND comments.created_utc >= ?
+      AND comments.created_utc < ?
+      ''',
+      (subreddit_name, start, end)
+    )
+    return list(result)[0][0]
+

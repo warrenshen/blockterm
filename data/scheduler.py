@@ -9,8 +9,8 @@ cron_tab = CronTab(user=CRONTAB_USER)
 cron_tab.remove_all()
 cron_tab.write()
 
-job = cron_tab.new(command=get_command_for_script('sync_comments.py'))
-job.minute.every(10)
+job = cron_tab.new(command=get_command_for_script('sync_blob_and_comments.py'))
+job.minute.every(5)
 cron_tab.write()
 
 job = cron_tab.new(command=get_command_for_script('active_user_and_subscriber_counts.py'))
