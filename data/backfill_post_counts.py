@@ -12,6 +12,7 @@ reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_S
 import argparse
 
 from api import Api
+from utils import datetime_string_to_unix_timestamp, unix_timestamp_to_datetime_string
 
 ONE_DAY = 86400
 
@@ -31,9 +32,8 @@ def create_post_count(subreddit_name, count, timestamp):
 def create_post_count_for_subreddit(subreddit_name, praw_subreddit, start, end):
     posts = praw_subreddit.submissions(start, end)
     post_count = len(list(posts))
-    unix_dt = datetime.fromtimestamp(end)
-    date_t = unix_dt.strftime('%Y-%m-%d %H:%M:%S')
-    return create_post_count(subreddit_name, post_count, date_t)
+    timestamp_string = unix_timestamp_to_datetime_string(start)
+    return create_post_count(subreddit_name, post_count, timestamp_string)
 
 # Note that `api` refers to Rails API and `praw` refers to Reddit API.
 def run_for_subreddit(subreddit_name):
@@ -45,7 +45,7 @@ def run_for_subreddit(subreddit_name):
     praw_subreddit = reddit.subreddit(subreddit_name)
 
     start_date = api_subreddit['startDate']
-    start_date_timestamp = int(datetime.strptime(start_date, '%Y-%m-%d').strftime('%s'))
+    start_date_timestamp = datetime_string_to_unix_timestamp(start_date)
 
     start_timestamp = start_date_timestamp
     done = False
@@ -58,7 +58,7 @@ def run_for_subreddit(subreddit_name):
         )
         start_timestamp += ONE_DAY
         done = not success
-        time.sleep(3)
+        time.sleep(5)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Get market tickers', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
