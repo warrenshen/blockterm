@@ -1,9 +1,7 @@
 import json
 import praw
 import sqlite3
-import time
 
-from datetime import datetime
 from praw.models import MoreComments
 
 import secrets
@@ -14,10 +12,14 @@ reddit = praw.Reddit(
 )
 
 from api import Api
-from subreddits import SUBREDDITS
 from database import SQLite3Database
+from logger import logger
+from subreddits import SUBREDDITS
+from utils import unix_timestamp_now, datetime_string_now
 
 server = Api()
+
+logger.info('Starting active user and subscriber counts script...')
 
 active_user_counts_db = SQLite3Database('active_user_counts.db')
 active_user_counts_db.cursor.execute('''
@@ -49,19 +51,20 @@ for subreddit_name in SUBREDDITS:
     praw_subreddit = reddit.subreddit(subreddit_name)
     active_user_count, subscriber_count = praw_subreddit.active_user_count, praw_subreddit.subscribers
 
-    timestamp = int(time.time())
-    unix_dt = datetime.fromtimestamp(timestamp)
-    date_t = unix_dt.strftime('%Y-%m-%d %H:%M:%S')
+    unix_timestamp = unix_timestamp_now()
+    datetime_string = datetime_string_now()
 
     result = active_user_counts_db.cursor.execute('''
         INSERT INTO active_user_counts (subreddit_name, count, timestamp)
         VALUES (?, ?, ?)
-    ''', (subreddit_name, active_user_count, timestamp))
+    ''', (subreddit_name, active_user_count, unix_timestamp))
     active_user_counts_db.conn.commit()
-    response = server.create_active_user_count(subreddit_name, active_user_count, date_t)
+    response = server.create_active_user_count(subreddit_name, active_user_count, datetime_string)
 
     result = subscriber_counts_db.cursor.execute('''
         INSERT INTO subscriber_counts (subreddit_name, count, timestamp)
         VALUES (?, ?, ?)
-    ''', (subreddit_name, subscriber_count, timestamp))
+    ''', (subreddit_name, subscriber_count, unix_timestamp))
     subscriber_counts_db.conn.commit()
+
+logger.info('Ending active user and subscriber counts script...')
