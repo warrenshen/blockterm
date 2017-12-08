@@ -132,13 +132,13 @@ class Api:
         return self._get_query_response(query)
 
     def update_subreddit_blob(self,
-                              subreddit_id,
+                              subreddit_name,
                               post_count_24h=None,
                               comment_count_24h=None,
                               active_user_count=None,
                               subscriber_count=None
                              ):
-        params = 'id: "%s"' % subreddit_id
+        params = 'subredditName: "%s"' % subreddit_name
         if post_count_24h:
             params += ', postCount24h: %s' % post_count_24h
         if comment_count_24h:

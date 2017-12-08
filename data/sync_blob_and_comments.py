@@ -9,9 +9,15 @@ reddit = praw.Reddit(
     user_agent=secrets.USER_AGENT
 )
 
+from api import Api
 from database import SQLite3Database
 from logger import logger
 from subreddits import SUBREDDITS
+from utils import unix_timestamp_now
+
+ONE_DAY = 86400
+
+server = Api()
 
 db = SQLite3Database('comments.db')
 db.cursor.execute('''
@@ -29,7 +35,7 @@ db.cursor.execute('''
     ON comments (subreddit_name, created_utc)
 ''')
 
-logger.info('Starting sync comments script...')
+logger.info('Starting sync blob and comments script...')
 
 def insert_comments(subreddit_name, comments):
     success_count = 0
@@ -57,8 +63,7 @@ def insert_comments(subreddit_name, comments):
 
     return success_count
 
-def fetch_new_comments_for_subreddit(subreddit_name):
-    subreddit = reddit.subreddit(subreddit_name)
+def fetch_new_comments_for_subreddit(subreddit_name, praw_subreddit):
     done = False
     after = None
 
@@ -66,9 +71,9 @@ def fetch_new_comments_for_subreddit(subreddit_name):
 
     while not done:
         if not after:
-            comments_generator = subreddit.comments(limit=100)
+            comments_generator = praw_subreddit.comments(limit=100)
         else:
-            comments_generator = subreddit.comments(
+            comments_generator = praw_subreddit.comments(
                 limit=100,
                 params={ 'after': after }
             )
@@ -94,8 +99,34 @@ def fetch_new_comments_for_subreddit(subreddit_name):
 
     return fetch_count
 
+def update_subreddit_blob(subreddit_name, praw_subreddit, start, end):
+  posts = praw_subreddit.submissions(start, end)
+  post_count = len(list(posts))
+
+  comment_count = db.get_comment_count_for_subreddit(
+    subreddit_name,
+    start,
+    end
+  )
+
+  active_user_count = praw_subreddit.active_user_count
+  subscriber_count = praw_subreddit.subscribers
+
+  return server.update_subreddit_blob(
+    subreddit_name,
+    post_count,
+    comment_count,
+    active_user_count,
+    subscriber_count
+  )
+
 for subreddit_name in SUBREDDITS:
-    fetch_count = fetch_new_comments_for_subreddit(subreddit_name)
+    praw_subreddit = reddit.subreddit(subreddit_name)
+    fetch_count = fetch_new_comments_for_subreddit(subreddit_name, praw_subreddit)
     logger.info('Synced %s comments for subreddit %s' % (fetch_count, subreddit_name))
 
-logger.info('Ending sync comments script...')
+    end = unix_timestamp_now()
+    start = end - ONE_DAY
+    response = update_subreddit_blob(subreddit_name, praw_subreddit, start, end)
+
+logger.info('Ending sync blob and comments script...')

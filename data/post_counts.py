@@ -1,4 +1,3 @@
-import json
 import praw
 
 import secrets
