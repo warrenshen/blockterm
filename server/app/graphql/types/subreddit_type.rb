@@ -5,7 +5,7 @@ module Types
     field :id, !types.ID
     field :name, !types.String
     field :description, !types.String
-    field :blob, !types.String
+    field :blob, !types.String, property: :blob_camel_case
     field :displayName, !types.String, property: :display_name
     field :imageUrl, !types.String, property: :image_url
     field :startDate, !types.String do
