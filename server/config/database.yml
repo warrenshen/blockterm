@@ -84,5 +84,4 @@ test:
 production:
   <<: *default
   database: crypto_trends_production
-  username: crypto_trends
   password: <%= ENV['CRYPTO_TRENDS_DATABASE_PASSWORD'] %>
