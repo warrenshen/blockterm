@@ -66,5 +66,6 @@ for subreddit_name in SUBREDDITS:
         VALUES (?, ?, ?)
     ''', (subreddit_name, subscriber_count, unix_timestamp))
     subscriber_counts_db.conn.commit()
+    response = server.create_subscriber_count(subreddit_name, subscriber_count, datetime_string)
 
 logger.info('Ending active user and subscriber counts script...')
