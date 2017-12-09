@@ -32,4 +32,8 @@ class SubredditBlob
   def serialize
     @attributes_map.to_json
   end
+
+  def camel_case_serialize
+    @attributes_map.transform_keys { |key| key.to_s.camelize(:lower) }.to_json
+  end
 end
