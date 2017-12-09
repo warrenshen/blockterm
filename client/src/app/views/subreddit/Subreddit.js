@@ -143,7 +143,7 @@ class Subreddit extends PureComponent {
               nightMode={nightMode}
               type={'span'}
             >
-              {`${blob.subscriber_count_now} total subscribers`}
+              {`${blob.subscriberCountNow} total subscribers`}
             </El>
           </div>
         </div>
