@@ -149,19 +149,19 @@ class Api:
 
     def update_subreddit_blob(self,
                               subreddit_name,
-                              post_count_24h=None,
-                              comment_count_24h=None,
+                              post_count=None,
+                              comment_count=None,
                               active_user_count=None,
                               subscriber_count=None
                              ):
         params = 'subredditName: "%s"' % subreddit_name
-        if post_count_24h:
-            params += ', postCount24h: %s' % post_count_24h
-        if comment_count_24h:
-            params += ', commentCount24h: %s' % comment_count_24h
-        if active_user_count:
+        if post_count is not None:
+            params += ', postCount24h: %s' % post_count
+        if comment_count is not None:
+            params += ', commentCount24h: %s' % comment_count
+        if active_user_count is not None:
             params += ', activeUserCountNow: %s' % active_user_count
-        if subscriber_count:
+        if subscriber_count is not None:
             params += ', subscriberCountNow: %s' % subscriber_count
         params = self._inject_api_key(params)
 

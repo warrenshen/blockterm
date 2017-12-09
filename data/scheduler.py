@@ -1,8 +1,8 @@
 from crontab import CronTab
-from configs import CRONTAB_PATH, CRONTAB_USER, PYTHON_PATH
+from configs import CRONTAB_USER, PYTHON_PATH, SRC_PATH
 
 def get_command_for_script(script_name):
-    return '%s %s/%s' % (PYTHON_PATH, CRONTAB_PATH, script_name)
+    return '%s %s/%s' % (PYTHON_PATH, SRC_PATH, script_name)
 
 cron_tab = CronTab(user=CRONTAB_USER)
 
