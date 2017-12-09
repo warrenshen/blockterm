@@ -28,39 +28,17 @@ class Api:
     def _inject_api_key(self, params):
         return 'apiKey: "%s", %s' % (API_KEY, params)
 
-    def get_all_keywords(self):
-        query = { 'query': '''
-            query {
-                allKeywords {
-                    id
-                    word
-                }
-            } '''
-        }
-        return self._get_query_response(query)
-
-    def get_subreddit_by_name(self, subreddit_name):
-        params = 'name: "%s"' % (subreddit_name)
-
-        query = { 'query' : '''
-            query {
-                subredditByName(%s) {
-                    id
-                    startDate
-                    earliestPostCountDate
-                }
-            }''' % params
-        }
-        return self._get_query_response(query)
-
-    def create_subreddit(self, name, start_date='2017-01-01'):
-        params = 'name: "%s", startDate: "%s"' % (name, start_date)
+    def create_active_user_count(self, subreddit_name, count, timestamp):
+        params = 'subredditName: "%s", count: %s, timestamp: "%s"' % \
+                 (subreddit_name, count, timestamp)
         params = self._inject_api_key(params)
 
         query = { 'query' : '''
             mutation {
-              createSubreddit(%s) {
-                id
+              createActiveUserCount(%s) {
+                subredditId
+                count
+                timestamp
               }
             }''' % params
         }
@@ -98,22 +76,6 @@ class Api:
         }
         return self._get_query_response(query)
 
-    def create_active_user_count(self, subreddit_name, count, timestamp):
-        params = 'subredditName: "%s", count: %s, timestamp: "%s"' % \
-                 (subreddit_name, count, timestamp)
-        params = self._inject_api_key(params)
-
-        query = { 'query' : '''
-            mutation {
-              createActiveUserCount(%s) {
-                subredditId
-                count
-                timestamp
-              }
-            }''' % params
-        }
-        return self._get_query_response(query)
-
     def create_mention_count(self, subreddit_name, keyword_id, count, timestamp):
         params = 'subredditName: "%s", keywordId: %s, count: %s, timestamp: "%s"' % \
                  (subreddit_name, keyword_id, count, timestamp)
@@ -126,6 +88,60 @@ class Api:
                     keywordId
                     count
                     timestamp
+                }
+            }''' % params
+        }
+        return self._get_query_response(query)
+
+    def create_subscriber_count(self, subreddit_name, count, timestamp):
+      params = 'subredditName: "%s", count: %s, timestamp: "%s"' % \
+               (subreddit_name, count, timestamp)
+      params = self._inject_api_key(params)
+
+      query = { 'query': '''
+          mutation {
+              createSubscriberCount(%s) {
+                  subredditId
+                  count
+                  timestamp
+              }
+          }''' % params
+      }
+      return self._get_query_response(query)
+
+    def create_subreddit(self, name, start_date='2017-01-01'):
+        params = 'name: "%s", startDate: "%s"' % (name, start_date)
+        params = self._inject_api_key(params)
+
+        query = { 'query' : '''
+            mutation {
+              createSubreddit(%s) {
+                id
+              }
+            }''' % params
+        }
+        return self._get_query_response(query)
+
+    def get_all_keywords(self):
+        query = { 'query': '''
+            query {
+                allKeywords {
+                    id
+                    word
+                }
+            } '''
+        }
+        return self._get_query_response(query)
+
+    def get_subreddit_by_name(self, subreddit_name):
+        params = 'name: "%s"' % (subreddit_name)
+
+        query = { 'query' : '''
+            query {
+                subredditByName(%s) {
+                    id
+                    startDate
+                    earliestPostCountDate
                 }
             }''' % params
         }
