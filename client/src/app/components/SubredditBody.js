@@ -73,11 +73,24 @@ class SubredditBody extends PureComponent {
       (activeUserCount) => activeUserCount.count
     );
 
+    var backgroundColor = postsX.map(
+      (postCount) => 'rgba(255,99,132,0.2)'
+    );
+
+    const blob = JSON.parse(subreddit.blob);
+
+    if (blob.postCount24h)
+    {
+      backgroundColor.push('rgba(255,99,132,1)');
+      postsX.push('today');
+      postsY.push(blob.postCount24h);
+    }
+
     var postsData = {
       labels: postsX,
       datasets: [
         {
-          backgroundColor: 'rgba(255,99,132,0.2)',
+          backgroundColor: backgroundColor,
           borderColor: 'rgba(255,99,132,1)',
           borderWidth: 1,
           hoverBackgroundColor: 'rgba(255,99,132,0.4)',
@@ -127,7 +140,6 @@ class SubredditBody extends PureComponent {
       subreddit.earliestPostCountDate,
       RANGE_SELECT_OPTIONS
     );
-    const blob = JSON.parse(subreddit.blob);
 
     return (
       <div className={css(styles.container, nightMode && styles.nightMode)}>
@@ -144,13 +156,13 @@ class SubredditBody extends PureComponent {
             nightMode={nightMode}
             type={'span'}
           >
-            {`${blob.active_user_count_now} active users`}
+            {`${blob.activeUserCountNow} active users`}
           </El>
           <El nightMode={nightMode} type={'span'}>
-            {`${blob.post_count_24h} new posts`}
+            {`${blob.postCount24h} new posts`}
           </El>
           <El nightMode={nightMode} type={'span'}>
-            {`${blob.comment_count_24h} new comments`}
+            {`${blob.commentCount24h} new comments`}
           </El>
         </div>
         <div className={css(styles.section)}>
