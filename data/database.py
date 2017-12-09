@@ -1,9 +1,13 @@
 import sqlite3
 
+from configs import DB_PATH
+
 class SQLite3Database:
   def __init__(self, db_name):
     self.db_name = db_name
-    self.conn = sqlite3.connect(self.db_name)
+    db_path = '%s/%s' % (DB_PATH, self.db_name)
+    print(db_path)
+    self.conn = sqlite3.connect(db_path)
     self.cursor = self.conn.cursor()
 
   def insert_comment(
@@ -65,4 +69,3 @@ class SQLite3Database:
       (subreddit_name, start, end)
     )
     return list(result)[0][0]
-

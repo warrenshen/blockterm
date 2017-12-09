@@ -49,9 +49,9 @@ def insert_comments(subreddit_name, comments):
             created_utc = comment.created_utc
 
             response = db.insert_comment(
+                subreddit_name,
                 comment_id,
                 parent_id,
-                subreddit_name,
                 link_id,
                 body,
                 created_utc
