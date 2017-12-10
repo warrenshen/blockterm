@@ -2,7 +2,7 @@
 
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Home }               from '../../views';
+import { Subreddits }         from '../views';
 import gql                    from 'graphql-tag';
 import { graphql }            from 'react-apollo';
 
@@ -11,7 +11,7 @@ import { graphql }            from 'react-apollo';
   GraphQL - Apollo client
  ------------------------------------------*/
 
-const SubredditsQuery = gql`
+const query = gql`
  query {
     allSubreddits {
       id
@@ -23,10 +23,7 @@ const SubredditsQuery = gql`
   }
 `;
 
-const HomeWithQuery = graphql(
-  SubredditsQuery,
-)(Home);
-
+const SubredditsContainer = graphql(query)(Subreddits);
 
 /* -----------------------------------------
   Redux
@@ -49,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomeWithQuery);
+)(SubredditsContainer);
