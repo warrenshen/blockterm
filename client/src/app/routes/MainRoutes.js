@@ -8,8 +8,8 @@ import {
 }                             from 'react-router-dom';
 import {
   App,
-  ConnectedHome,
   ConnectedSubreddit,
+  ConnectedSubreddits,
   ConnectedSubredditsCompare,
   ConnectedToken,
   ConnectedTokens,
@@ -18,9 +18,8 @@ import {
 export const MainRoutes = () => {
   return (
     <Switch>
-      {/* non protected views */}
-      <Route exact path="/" component={ConnectedHome} />
-      <Route exact path='/subreddits' component={ConnectedHome} />
+      <Route exact path="/" component={ConnectedSubreddits} />
+      <Route exact path='/subreddits' component={ConnectedSubreddits} />
       <Route exact path='/subreddits/compare' component={ConnectedSubredditsCompare} />
 
       <Route exact path='/subreddit/:id' component={ConnectedSubreddit} />
