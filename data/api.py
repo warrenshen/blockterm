@@ -109,7 +109,7 @@ class Api:
       }
       return self._get_query_response(query)
 
-    def create_subreddit(self, name, start_date='2017-01-01'):
+    def create_subreddit(self, name, start_date):
         params = 'name: "%s", startDate: "%s"' % (name, start_date)
         params = self._inject_api_key(params)
 
