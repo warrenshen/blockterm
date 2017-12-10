@@ -3,7 +3,6 @@ import praw
 import time
 
 from praw.models import MoreComments
-from tqdm import tqdm
 
 import secrets
 reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_SECRET, user_agent=secrets.USER_AGENT)
