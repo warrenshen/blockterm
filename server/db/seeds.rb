@@ -22,8 +22,16 @@ subreddit_infos = [
     image_url: 'https://b.thumbs.redditmedia.com/j_Y7S-sW6KsbVGYiXlKjGIOPvwJa0-BPGvZznNbwcgo.png',
   },
   {
+    name: 'altcoin',
+    start_date: '2013-03-12',
+  },
+  {
     name: 'Bitcoin',
     start_date: '2010-09-09',
+  },
+  {
+    name: 'Bitcoincash',
+    start_date: '2014-11-09',
   },
   {
     name: 'btc',
@@ -36,12 +44,40 @@ subreddit_infos = [
     image_url: 'https://b.thumbs.redditmedia.com/BlRR72bV2aPJ5HW-JmzFi9IUhNCxtqjgjlO8VGWJN6w.png',
   },
   {
+    name: 'CryptoMarkets',
+    start_date: '2013-11-12',
+  },
+  {
+    name: 'Electroneum',
+    start_date: '2017-08-17',
+  },
+  {
     name: 'ethereum',
     start_date: '2013-12-14',
   },
   {
+    name: 'Groestlcoin',
+    start_date: '2014-04-03',
+  },
+  {
+    name: 'Iota',
+    start_date: '2012-09-06',
+  },
+  {
+    name: 'Lisk',
+    start_date: '2016-01-07',
+  },
+  {
+    name: 'litecoin',
+    start_date: '2011-10-14',
+  },
+  {
+    name: 'Monero',
+    start_date: '2014-04-24',
+  },
+  {
     name: 'NEO',
-    start_date: '2008-08-06',
+    start_date: '2008-08-07',
   },
   {
     name: 'SubstratumNetwork',
