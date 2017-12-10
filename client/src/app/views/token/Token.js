@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   shortName: {
     paddingLeft: '4px',
-    lineHeight: '30px',
+    lineHeight: '24px',
   },
   subreddits: {
     display: 'flex',
@@ -112,14 +112,14 @@ class Token extends PureComponent {
             <div className={css(styles.names)}>
               <El
                 nightMode={nightMode}
-                type={'h2'}
+                type={'h3'}
               >
                 {token.longName}
               </El>
               <El
                 nightMode={nightMode}
                 style={styles.shortName}
-                type={'h3'}
+                type={'h4'}
               >
                 {`[${token.shortName}]`}
               </El>

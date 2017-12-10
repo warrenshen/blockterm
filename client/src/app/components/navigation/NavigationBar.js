@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#373b3e',
   },
   brand: {
-    fontSize: '18px',
+    fontSize: '14px',
     fontWeight: '400',
   },
   section: {
