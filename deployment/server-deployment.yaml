@@ -24,10 +24,10 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: DEV_SECRET_KEY_BASE
-          value: 'dev_secret_base'
-        - name: DEV_SECRET_KEY_API
-          value: 'dev_secret_api'
+        - name: RAILS_ENV
+          value: production
+        - name: RAILS_LOG_TO_STDOUT
+          value: "1"
         - name: SECRET_KEY_BASE
           value:
         - name: SECRET_KEY_API

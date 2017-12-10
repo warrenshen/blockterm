@@ -23,9 +23,9 @@ spec:
       - env:
         - name: POSTGRES_DB
           value: db
-        - name: POSTGRES_PASSWORD
         - name: POSTGRES_USER
           value: postgres
+        - name: POSTGRES_PASSWORD
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
         image: postgres:9.4.4
