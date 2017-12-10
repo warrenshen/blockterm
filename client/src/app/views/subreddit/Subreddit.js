@@ -120,7 +120,7 @@ class Subreddit extends PureComponent {
             >
               <El
                 nightMode={nightMode}
-                type={'h2'}
+                type={'h3'}
               >
                 {subreddit.displayName}
               </El>

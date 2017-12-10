@@ -110,7 +110,7 @@ class TokenBody extends PureComponent {
         <div className={css(styles.section)}>
           <El
             nightMode={nightMode}
-            type={'h3'}
+            type={'h4'}
           >
             Recent activity
           </El>

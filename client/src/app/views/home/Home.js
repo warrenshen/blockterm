@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   body: {
     left: '-24px',
     width: '100%',
-    padding: '0px 24px 24px',
+    padding: '24px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
     borderRadius: '6px',
@@ -39,13 +39,18 @@ const styles = StyleSheet.create({
   bodyNightMode: {
     backgroundColor: '#373b3e',
   },
-  list: {
+  table: {
     width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
+    borderCollapse: 'collapse',
+    display: 'table',
   },
-  item: {
-    paddingTop: '24px',
+  row: {
+    width: '100%',
+    border: '1px solid #ddd',
+  },
+  element: {
+    padding: '12px',
+    border: '1px solid #ddd',
   },
 });
 
@@ -70,30 +75,110 @@ class Home extends PureComponent {
         <div className={css(styles.header)}>
           <El
             nightMode={nightMode}
-            type={'h2'}
+            type={'h4'}
           >
             Subreddits
           </El>
         </div>
         <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
-          <ul className={css(styles.list)}>
-            {
-              subreddits.map((subreddit) => {
-                return (
-                  <li className={css(styles.item)} key={subreddit.id}>
-                    <Link to={`/subreddit/${subreddit.id}`}>
-                      <El
-                        nightMode={nightMode}
-                        type={'h3'}
-                      >
-                        {subreddit.displayName}
-                      </El>
-                    </Link>
-                  </li>
-                );
-              })
-            }
-          </ul>
+          <table className={css(styles.table)}>
+            <tbody>
+              <tr className={css(styles.row)}>
+                <td className={css(styles.element)}>
+                  <El
+                    nightMode={nightMode}
+                    type={'span'}
+                  >
+                    Name
+                  </El>
+                </td>
+                <td className={css(styles.element)}>
+                  <El
+                    nightMode={nightMode}
+                    type={'span'}
+                  >
+                    Active users
+                  </El>
+                </td>
+                <td className={css(styles.element)}>
+                  <El
+                    nightMode={nightMode}
+                    type={'span'}
+                  >
+                    Subscribers
+                  </El>
+                </td>
+                <td className={css(styles.element)}>
+                  <El
+                    nightMode={nightMode}
+                    type={'span'}
+                  >
+                    Number of posts (24h)
+                  </El>
+                </td>
+                <td className={css(styles.element)}>
+                  <El
+                    nightMode={nightMode}
+                    type={'span'}
+                  >
+                    Number of comments (24h)
+                  </El>
+                </td>
+              </tr>
+              {
+                subreddits.map((subreddit) => {
+                  const blob = JSON.parse(subreddit.blob);
+
+                  return (
+                    <tr className={css(styles.row)} key={subreddit.id}>
+                      <td className={css(styles.element)}>
+                        <Link to={`/subreddit/${subreddit.id}`}>
+                          <El
+                            nightMode={nightMode}
+                            type={'h5'}
+                          >
+                            {subreddit.displayName}
+                          </El>
+                        </Link>
+                      </td>
+                      <td className={css(styles.element)}>
+                        <El
+                          nightMode={nightMode}
+                          type={'span'}
+                        >
+                          {blob.activeUserCountNow}
+                        </El>
+                      </td>
+                      <td className={css(styles.element)}>
+                        <El
+                          nightMode={nightMode}
+                          type={'span'}
+                        >
+                          {blob.postCount24h}
+                        </El>
+                      </td>
+                      <td className={css(styles.element)}>
+                        <El
+                          nightMode={nightMode}
+                          type={'span'}
+                        >
+                          {blob.commentCount24h}
+                        </El>
+                      </td>
+                      <td className={css(styles.element)}>
+                        <El
+                          nightMode={nightMode}
+                          type={'span'}
+                        >
+                          {blob.subscriberCountNow}
+                        </El>
+                      </td>
+                    </tr>
+                  );
+                })
+              }
+            </tbody>
+          </table>
         </div>
       </div>
     );
