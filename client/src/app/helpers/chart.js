@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { DATA_STYLES } from '../constants/plots';
 
 export function disableChartOptions(earliestDate, options)
 {
@@ -19,4 +20,45 @@ export function disableChartOptions(earliestDate, options)
       return Object.assign({}, option);
     }
   });
+}
+
+export function generateCountChartData(
+  historicalCounts,
+  nowCount=undefined,
+  timeFormat='MM/DD')
+{
+  var x = historicalCounts.map(
+    (historicalCount) => moment(historicalCount.timestamp).format('MM/DD')
+  );
+  var y = historicalCounts.map(
+    (historicalCount) => historicalCount.count
+  );
+  var backgroundColors = x.map((_) => DATA_STYLES[0].historical.backgroundColor);
+  var borderColors = x.map((_) => DATA_STYLES[0].historical.borderColor);
+  var hoverBackgroundColors = x.map((_) => DATA_STYLES[0].historical.hoverBackgroundColor);
+  var hoverBorderColors = x.map((_) => DATA_STYLES[0].historical.hoverBorderColor);
+
+  if (nowCount !== undefined)
+  {
+    x = x.concat(['now']);
+    y = y.concat([nowCount]);
+    backgroundColors = backgroundColors.concat([DATA_STYLES[0].now.backgroundColor]);
+    borderColors = borderColors.concat([DATA_STYLES[0].now.borderColor]);
+    hoverBackgroundColors = borderColors.concat([DATA_STYLES[0].now.hoverBackgroundColor]);
+    hoverBorderColors = borderColors.concat([DATA_STYLES[0].now.hoverBorderColor]);
+  }
+
+  return {
+    labels: x,
+    datasets: [
+      {
+        backgroundColor: backgroundColors,
+        borderColor: borderColors,
+        borderWidth: 1,
+        hoverBackgroundColor: hoverBackgroundColors,
+        hoverBorderColor: hoverBorderColors,
+        data: y,
+      },
+    ],
+  };
 }
