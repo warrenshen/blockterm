@@ -1,16 +1,15 @@
 import json
+import argparse
 import praw
 import time
-
-from praw.models import MoreComments
 
 import secrets
 reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_SECRET, user_agent=secrets.USER_AGENT)
 
-import argparse
-
 from api import Api
-from utils import datetime_string_to_unix_timestamp, unix_timestamp_to_datetime_string
+from utils import datetime_string_to_unix_timestamp, \
+                  unix_timestamp_to_datetime_string, \
+                  unix_timestamps_until_today
 
 ONE_DAY = 86400
 
@@ -43,19 +42,18 @@ def run_for_subreddit(subreddit_name):
     praw_subreddit = reddit.subreddit(subreddit_name)
 
     start_date = api_subreddit['startDate']
-    start_date_timestamp = datetime_string_to_unix_timestamp(start_date)
 
-    start_timestamp = start_date_timestamp
-    done = False
-    while not done:
+    for unix_timestamp in unix_timestamps_until_today(start_date):
         success = create_post_count_for_subreddit(
             subreddit_name,
             praw_subreddit,
-            start_timestamp,
-            start_timestamp + ONE_DAY
+            unix_timestamp,
+            unix_timestamp + ONE_DAY
         )
-        start_timestamp += ONE_DAY
-        done = not success
+
+        if not success:
+          break
+
         time.sleep(5)
 
 if __name__ == '__main__':

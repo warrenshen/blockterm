@@ -175,10 +175,12 @@ module Types
           subreddit_id = subreddit.id
         end
 
+        timestamp = args[:timestamp].in_time_zone("Pacific Time (US & Canada)")
+
         post_count = PostCount.create(
           subreddit_id: subreddit_id,
           count: args[:count],
-          timestamp: args[:timestamp],
+          timestamp: timestamp,
         )
 
         if post_count.valid?
