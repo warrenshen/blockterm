@@ -20,8 +20,8 @@ services:
     command: bundle exec rails s -p 80 -b '0.0.0.0'
     environment:
       - RAILS_ENV=development
-      - SECRET_KEY_BASE='dev_secret_key_base'
-      - SECRET_KEY_API='dev_secret_key_api'
+      - SECRET_KEY_BASE=dev_secret_key_base
+      - SECRET_KEY_API=dev_secret_key_api
     ports:
       - "9999:80"
     depends_on:
