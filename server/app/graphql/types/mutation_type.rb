@@ -34,7 +34,7 @@ module Types
           subreddit_id = subreddit.id
         end
 
-        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
+        timestamp = QueryHelper::localize_timestamp(args[:timestamp])
 
         active_user_count = ActiveUserCount.create(
           subreddit_id: subreddit_id,
@@ -84,7 +84,7 @@ module Types
           subreddit_id = subreddit.id
         end
 
-        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
+        timestamp = QueryHelper::localize_timestamp(args[:timestamp])
 
         comment_count = CommentCount.create(
           subreddit_id: subreddit_id,
@@ -162,7 +162,7 @@ module Types
           subreddit_id = subreddit.id
         end
 
-        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
+        timestamp = QueryHelper::localize_timestamp(args[:timestamp])
 
         mention_count = MentionCount.create(
           keyword_id: args[:keywordId],
@@ -213,7 +213,7 @@ module Types
           subreddit_id = subreddit.id
         end
 
-        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
+        timestamp = QueryHelper::localize_timestamp(args[:timestamp])
 
         post_count = PostCount.create(
           subreddit_id: subreddit_id,
@@ -244,7 +244,7 @@ module Types
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
-        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
+        timestamp = QueryHelper::localize_timestamp(args[:timestamp])
 
         subscriber_count = SubscriberCount.create(
           subreddit_id: args[:subredditId],
@@ -404,7 +404,7 @@ module Types
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
-        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
+        timestamp = QueryHelper::localize_timestamp(args[:timestamp])
 
         market_ticker = MarketTicker.find_or_create_by(
           market_id: args[:marketId],
