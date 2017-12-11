@@ -44,7 +44,7 @@ const NavigationBar = ({
       <div className={css(styles.section)}>
         <Link to={'/'}>
           <El nightMode={nightMode} style={styles.brand} type={'span'}>
-            Cryptotrends
+            {navigationModel.brand}
           </El>
         </Link>
       </div>
