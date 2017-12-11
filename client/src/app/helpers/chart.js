@@ -24,11 +24,12 @@ export function disableChartOptions(earliestDate, options)
 
 export function generateCountChartData(
   historicalCounts,
-  nowCount=undefined,
+  recentCount=undefined,
+  recentLabel='today',
   timeFormat='MM/DD')
 {
   var x = historicalCounts.map(
-    (historicalCount) => moment(historicalCount.timestamp).format('MM/DD')
+    (historicalCount) => moment(historicalCount.timestamp).format(timeFormat)
   );
   var y = historicalCounts.map(
     (historicalCount) => historicalCount.count
@@ -38,10 +39,10 @@ export function generateCountChartData(
   var hoverBackgroundColors = x.map((_) => DATA_STYLES[0].historical.hoverBackgroundColor);
   var hoverBorderColors = x.map((_) => DATA_STYLES[0].historical.hoverBorderColor);
 
-  if (nowCount !== undefined)
+  if (recentCount !== undefined)
   {
-    x = x.concat(['now']);
-    y = y.concat([nowCount]);
+    x = x.concat([recentLabel]);
+    y = y.concat([recentCount]);
     backgroundColors = backgroundColors.concat([DATA_STYLES[0].now.backgroundColor]);
     borderColors = borderColors.concat([DATA_STYLES[0].now.borderColor]);
     hoverBackgroundColors = borderColors.concat([DATA_STYLES[0].now.hoverBackgroundColor]);
