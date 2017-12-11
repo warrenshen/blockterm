@@ -1,12 +1,9 @@
-import json
 import argparse
-import praw
 import time
 
-import secrets
-reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_SECRET, user_agent=secrets.USER_AGENT)
 
 from api import Api
+from reddit import reddit
 from utils import datetime_string_to_unix_timestamp, \
                   unix_timestamp_to_datetime_string, \
                   unix_timestamps_until_today

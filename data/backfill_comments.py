@@ -1,22 +1,20 @@
 import argparse
-import json
-import praw
-import sqlite3
 import time
 
 from praw.models import MoreComments
 
-import secrets
-reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_SECRET, user_agent=secrets.USER_AGENT)
-
 from api import Api
 from database import SQLite3Database
+from logger import logger
+from reddit import reddit
 from utils import unix_timestamps_until_today
 
 ONE_DAY = 86400
 
 db = SQLite3Database('comments.db')
 server = Api()
+
+logger.info('Starting backfill comments script...')
 
 def get_subreddit_by_name(subreddit_name):
     response = server.get_subreddit_by_name(subreddit_name)
@@ -78,6 +76,7 @@ def run_for_subreddit(subreddit_name):
             unix_timestamp,
             unix_timestamp + ONE_DAY
         )
+        logger.info('Backfilled %s comments for subreddit %s' % (success_count, subreddit_name))
         time.sleep(10)
 
 if __name__ == '__main__':
@@ -93,3 +92,4 @@ if __name__ == '__main__':
 
     run_for_subreddit(args.subreddit_name)
 
+logger.info('Ending backfill comments script...')

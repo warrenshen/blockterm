@@ -1,10 +1,6 @@
-import praw
-
-import secrets
-reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_SECRET, user_agent=secrets.USER_AGENT)
-
 from api import Api
 from logger import logger
+from reddit import reddit
 from subreddits import SUBREDDITS
 from utils import unix_timestamp_today, unix_timestamp_to_datetime_string
 
