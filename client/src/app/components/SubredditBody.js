@@ -7,7 +7,10 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import moment              from 'moment';
 import { RANGE_SELECT_OPTIONS } from '../constants/plots';
-import { disableChartOptions } from '../helpers/chart';
+import {
+  disableChartOptions,
+  generateCountChartData,
+} from '../helpers/chart';
 import BarChartWithSelect  from './BarChartWithSelect';
 import El                  from './El';
 
@@ -73,60 +76,18 @@ class SubredditBody extends PureComponent {
       (activeUserCount) => activeUserCount.count
     );
 
-    var backgroundColor = postsX.map(
-      (postCount) => 'rgba(255,99,132,0.2)'
-    );
+    const {
+      activeUserCounts,
+      commentCounts,
+      postCounts,
+      subscriberCounts,
+    } = subreddit;
 
     const blob = JSON.parse(subreddit.blob);
 
-    if (blob.postCount24h)
-    {
-      backgroundColor.push('rgba(255,99,132,1)');
-      postsX.push('today');
-      postsY.push(blob.postCount24h);
-    }
-
-    var postsData = {
-      labels: postsX,
-      datasets: [
-        {
-          backgroundColor: backgroundColor,
-          borderColor: 'rgba(255,99,132,1)',
-          borderWidth: 1,
-          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-          hoverBorderColor: 'rgba(255,99,132,1)',
-          data: postsY,
-        }
-      ]
-    };
-
-    var commentsData = {
-      labels: commentsX,
-      datasets: [
-        {
-          backgroundColor: 'rgba(255,99,132,0.2)',
-          borderColor: 'rgba(255,99,132,1)',
-          borderWidth: 1,
-          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-          hoverBorderColor: 'rgba(255,99,132,1)',
-          data: commentsY,
-        }
-      ]
-    };
-
-    var activeUsersData = {
-      labels: activeUsersX,
-      datasets: [
-        {
-          backgroundColor: 'rgba(255,99,132,0.2)',
-          borderColor: 'rgba(255,99,132,1)',
-          borderWidth: 1,
-          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-          hoverBorderColor: 'rgba(255,99,132,1)',
-          data: activeUsersY,
-        }
-      ]
-    };
+    const activeUsersData = generateCountChartData(activeUserCounts, blob.activeUserCountNow);
+    const commentsData = generateCountChartData(commentCounts, blob.commentCount24h);
+    const postsData = generateCountChartData(postCounts, blob.postCount24h);
 
     const activeUsersSelectOptions = disableChartOptions(
       subreddit.earliestActiveUserCountDate,
