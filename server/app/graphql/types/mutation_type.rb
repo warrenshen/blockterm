@@ -34,11 +34,21 @@ module Types
           subreddit_id = subreddit.id
         end
 
-        ActiveUserCount.create(
+        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
+
+        active_user_count = ActiveUserCount.create(
           subreddit_id: subreddit_id,
           count: args[:count],
-          timestamp: args[:timestamp],
+          timestamp: timestamp,
         )
+
+        if active_user_count.valid?
+          active_user_count
+        else
+          return GraphQL::ExecutionError.new(
+            'Failed to create active user count'
+          )
+        end
       }
     end
 
@@ -74,11 +84,21 @@ module Types
           subreddit_id = subreddit.id
         end
 
-        CommentCount.create(
+        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
+
+        comment_count = CommentCount.create(
           subreddit_id: subreddit_id,
           count: args[:count],
-          timestamp: args[:timestamp],
+          timestamp: timestamp,
         )
+
+        if comment_count.valid?
+          comment_count
+        else
+          return GraphQL::ExecutionError.new(
+            'Failed to create comment count'
+          )
+        end
       }
     end
 
@@ -94,10 +114,18 @@ module Types
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
-        Keyword.find_or_create_by(
+        keyword = Keyword.create(
           token_id: args[:tokenId],
           word: args[:word],
         )
+
+        if keyword.valid?
+          keyword
+        else
+          return GraphQL::ExecutionError.new(
+            'Failed to create keyword'
+          )
+        end
       }
     end
 
@@ -134,12 +162,22 @@ module Types
           subreddit_id = subreddit.id
         end
 
-        MentionCount.create(
+        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
+
+        mention_count = MentionCount.create(
           keyword_id: args[:keywordId],
           subreddit_id: args[:subredditId],
           count: args[:count],
-          timestamp: args[:timestamp],
+          timestamp: timestamp,
         )
+
+        if mention_count.valid?
+          mention_count
+        else
+          return GraphQL::ExecutionError.new(
+            'Failed to create mention count'
+          )
+        end
       }
     end
 
@@ -175,7 +213,7 @@ module Types
           subreddit_id = subreddit.id
         end
 
-        timestamp = args[:timestamp].in_time_zone("Pacific Time (US & Canada)")
+        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
 
         post_count = PostCount.create(
           subreddit_id: subreddit_id,
@@ -193,25 +231,6 @@ module Types
       }
     end
 
-    field :createSubreddit, Types::SubredditType do
-      description 'Creates a subreddit'
-
-      argument :apiKey, !types.String
-      argument :name, !types.String
-      argument :startDate, !types.String
-
-      resolve -> (obj, args, ctx) {
-        if QueryHelper::api_key_invalid?(args[:apiKey])
-          return GraphQL::ExecutionError.new('Invalid api key')
-        end
-
-        Subreddit.find_or_create_by(
-          name: args[:name],
-          start_date: args[:startDate],
-        )
-      }
-    end
-
     field :createSubscriberCount, Types::SubscriberCountType do
       description 'Creates a subscriber count'
 
@@ -225,11 +244,48 @@ module Types
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
-        SubscriberCount.create(
+        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
+
+        subscriber_count = SubscriberCount.create(
           subreddit_id: args[:subredditId],
           count: args[:count],
-          when: args[:timestamp],
+          when: timestamp,
         )
+
+        if subscriber_count.valid?
+          subscriber_count
+        else
+          return GraphQL::ExecutionError.new(
+            'Failed to create subscriber count'
+          )
+        end
+      }
+    end
+
+    field :createSubreddit, Types::SubredditType do
+      description 'Creates a subreddit'
+
+      argument :apiKey, !types.String
+      argument :name, !types.String
+      argument :startDate, !types.String
+
+      resolve -> (obj, args, ctx) {
+        if QueryHelper::api_key_invalid?(args[:apiKey])
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
+        subreddit = Subreddit.create(
+          name: args[:name],
+          start_date: args[:startDate],
+        )
+
+        if subreddit.valid?
+          subreddit
+        else
+          return GraphQL::ExecutionError.new(
+            'Failed to create subscriber count'
+          )
+        end
       }
     end
 
@@ -245,10 +301,18 @@ module Types
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
-        Token.find_or_create_by(
+        token = Token.create(
           short_name: args[:shortName],
           long_name: args[:longName],
         )
+
+        if token.valid?
+          token
+        else
+          return GraphQL::ExecutionError.new(
+            'Failed to create token'
+          )
+        end
       }
     end
 
@@ -285,7 +349,6 @@ module Types
           end
         end
 
-
         if !args[:activeUserCountNow].nil?
           subreddit.update_blob_attribute(:active_user_count_now, args[:activeUserCountNow])
         end
@@ -298,6 +361,7 @@ module Types
         if !args[:subscriberCountNow].nil?
           subreddit.update_blob_attribute(:subscriber_count_now, args[:subscriberCountNow])
         end
+
         subreddit
       }
     end
@@ -313,9 +377,17 @@ module Types
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
-        Market.find_or_create_by(
+        market = Market.create(
           name: args[:name],
         )
+
+        if market.valid?
+          market
+        else
+          return GraphQL::ExecutionError.new(
+            'Failed to create market'
+          )
+        end
       }
     end
 
@@ -332,11 +404,21 @@ module Types
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
-        MarketTicker.find_or_create_by(
+        timestamp = QueryHelper::parse_timestamp(args[:timestamp])
+
+        market_ticker = MarketTicker.find_or_create_by(
           market_id: args[:marketId],
           value: args[:value],
-          timestamp: args[:timestamp],
+          timestamp: timestamp,
         )
+
+        if market_ticker.valid?
+          market_ticker
+        else
+          return GraphQL::ExecutionError.new(
+            'Failed to create market market_ticker'
+          )
+        end
       }
     end
   end
