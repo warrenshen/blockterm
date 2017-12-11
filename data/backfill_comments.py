@@ -28,18 +28,22 @@ def backfill_comments_for_subreddit(subreddit_name, praw_subreddit, start, end):
     success_count = 0
     for post in posts:
         post_comments = post.comments.list()
+
+        last_created_utc = None
+
         # Note we count an instance of MoreComments as one comment.
         for comment in post_comments:
             comment_id = comment.id
             parent_id = comment.parent_id
             if isinstance(comment, MoreComments):
                 link_id = None
-                body = None
-                created_utc = None
+                body = 'MORE_COMMENTS'
+                created_utc = last_created_utc
             else:
                 link_id = comment.link_id
                 body = comment.body
                 created_utc = comment.created_utc
+                last_created_utc = created_utc
 
             try:
                 if db.insert_comment(
@@ -66,7 +70,6 @@ def run_for_subreddit(subreddit_name):
     praw_subreddit = reddit.subreddit(subreddit_name)
 
     start_date = api_subreddit['startDate']
-    start_date_timestamp = datetime_string_to_unix_timestamp(start_date)
 
     for unix_timestamp in unix_timestamps_until_today(start_date):
         success_count = backfill_comments_for_subreddit(
