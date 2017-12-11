@@ -8,7 +8,7 @@ module Types
       type !types.String
 
       resolve -> (obj, args, ctx) {
-        obj.timestamp.in_time_zone("Pacific Time (US & Canada)").to_s
+        QueryHelper::localize_timestamp(obj.timestamp).to_s
       }
     end
     field :count, !types.Int

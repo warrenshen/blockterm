@@ -10,7 +10,7 @@ module Types
       type !types.String
 
       resolve -> (obj, args, ctx) {
-        obj.timestamp.to_s
+        QueryHelper::localize_timestamp(obj.timestamp).to_s
       }
     end
     field :createdAt do
