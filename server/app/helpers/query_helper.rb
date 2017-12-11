@@ -30,4 +30,8 @@ module QueryHelper
   def self.api_key_invalid?(api_key)
     api_key != Rails.application.secrets.secret_key_api
   end
+
+  def self.parse_timestamp(timestamp)
+    timestamp.in_time_zone('Pacific Time (US & Canada)')
+  end
 end
