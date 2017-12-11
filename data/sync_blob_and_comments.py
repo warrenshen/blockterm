@@ -40,14 +40,21 @@ logger.info('Starting sync blob and comments script...')
 def insert_comments(subreddit_name, comments):
     success_count = 0
 
-    try:
-        for comment in comments:
-            comment_id = comment.id
-            parent_id = comment.parent_id
+    for comment in comments:
+        # Same logic as in backfill_comments.py - refactor?
+        comment_id = comment.id
+        parent_id = comment.parent_id
+        if isinstance(comment, MoreComments):
+            link_id = None
+            body = 'MORE_COMMENTS'
+            created_utc = last_created_utc
+        else:
             link_id = comment.link_id
             body = comment.body
             created_utc = comment.created_utc
+            last_created_utc = created_utc
 
+        try:
             response = db.insert_comment(
                 subreddit_name,
                 comment_id,
@@ -58,8 +65,8 @@ def insert_comments(subreddit_name, comments):
             )
             success_count += 1
 
-    except sqlite3.IntegrityError:
-        pass
+        except sqlite3.IntegrityError:
+            pass
 
     return success_count
 
