@@ -4,7 +4,6 @@ import praw
 import sqlite3
 import time
 
-from datetime import datetime
 from praw.models import MoreComments
 
 import secrets
@@ -12,6 +11,7 @@ reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_S
 
 from api import Api
 from database import SQLite3Database
+from utils import unix_timestamps_until_today
 
 ONE_DAY = 86400
 
@@ -66,16 +66,14 @@ def run_for_subreddit(subreddit_name):
     praw_subreddit = reddit.subreddit(subreddit_name)
 
     start_date = api_subreddit['startDate']
-    start_date_timestamp = int(datetime.strptime(start_date, '%Y-%m-%d').strftime('%s'))
+    start_date_timestamp = datetime_string_to_unix_timestamp(start_date)
 
-    today_timestamp = int(time.mktime(datetime.today().date().timetuple()))
-
-    for timestamp in range(start_date_timestamp, today_timestamp, ONE_DAY):
+    for unix_timestamp in unix_timestamps_until_today(start_date):
         success_count = backfill_comments_for_subreddit(
             subreddit_name,
             praw_subreddit,
-            timestamp,
-            timestamp + ONE_DAY
+            unix_timestamp,
+            unix_timestamp + ONE_DAY
         )
         time.sleep(10)
 
