@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171203233518) do
+ActiveRecord::Schema.define(version: 20171210221841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,11 +62,22 @@ ActiveRecord::Schema.define(version: 20171203233518) do
     t.index ["market_id"], name: "index_market_tickers_on_market_id", using: :btree
   end
 
+  create_table "market_tokens", force: :cascade do |t|
+    t.integer  "market_id",  null: false
+    t.integer  "token_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["market_id"], name: "index_market_tokens_on_market_id", using: :btree
+    t.index ["token_id"], name: "index_market_tokens_on_token_id", using: :btree
+  end
+
   create_table "markets", force: :cascade do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "token_id"
     t.index ["name"], name: "index_markets_on_name", unique: true, using: :btree
+    t.index ["token_id"], name: "index_markets_on_token_id", using: :btree
   end
 
   create_table "mention_counts", force: :cascade do |t|
@@ -135,6 +146,9 @@ ActiveRecord::Schema.define(version: 20171203233518) do
   add_foreign_key "comment_counts", "subreddits"
   add_foreign_key "keywords", "tokens"
   add_foreign_key "market_tickers", "markets"
+  add_foreign_key "market_tokens", "markets"
+  add_foreign_key "market_tokens", "tokens"
+  add_foreign_key "markets", "tokens"
   add_foreign_key "mention_counts", "keywords"
   add_foreign_key "mention_counts", "subreddits"
   add_foreign_key "post_counts", "subreddits"
