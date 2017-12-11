@@ -4,10 +4,10 @@ Preparation: Install `docker` and `docker-compose` for your machine.
 
 Steps to run on local:
 
-1. In `crypto-trends/`, run the command `sh build-dev.sh` and this will create docker images for you
+1. In `blockterm/`, run the command `sh build-dev.sh` and this will create docker images for you
 2. You have two options to run the service locally:
 	* Go into `deployment/` and run `docker-compose up`. This will bring up all the services and print out logs into your terminal. This is the easiest way to have everything up and running.
-	* Run the client service by itself and mount local directory. An example command: `docker-compose run -v <local_directory>/crypto-trends/client:/dev_client/ -p 3000:3000 client bash -c "cd /dev_client && npm install && npm start"`. This will reinstall all the packages and allow the container to share the local directory, thus enabling hot reloading for client dev.
+	* Run the client service by itself and mount local directory. An example command: `docker-compose run -v <local_directory>/blockterm/client:/dev_client/ -p 3000:3000 client bash -c "cd /dev_client && npm install && npm start"`. This will reinstall all the packages and allow the container to share the local directory, thus enabling hot reloading for client dev.
 
 If the database has not been initialized, run
 
@@ -18,13 +18,13 @@ If the database has not been initialized, run
 For hot-reloading server and client code, you can run the following two commands:
 
 ```
-docker-compose run -v <local_directory>/crypto-trends/server:/dev_server/ -p 9999:80 server bash -c "cd /dev_server && bundle install && bundle exec rails s -p 8080 -b '0.0.0.0'"
+docker-compose run -v <local_directory>/blockterm/server:/dev_server/ -p 9999:80 server bash -c "cd /dev_server && bundle install && bundle exec rails s -p 8080 -b '0.0.0.0'"
 ```
 
 and
 
 ```
-docker-compose run -v <local_directory>/crypto-trends/client:/dev_client/ -p 3000:80 --no-deps client bash -c "cd /dev_client && npm install && npm start"
+docker-compose run -v <local_directory>/blockterm/client:/dev_client/ -p 3000:80 --no-deps client bash -c "cd /dev_client && npm install && npm start"
 ```
 
 This essentially allows you to start the server and client separately while mounting the local directory in the docker container. Note that the `--no-deps` in the client start command is essential because otherwise your client will start the whole dependency and run server twice.
@@ -32,7 +32,7 @@ This essentially allows you to start the server and client separately while moun
 Tips and tricks:
 
 * Sometimes if the server is not shut down properly, you will have remaining files. You can do
-`rm /crypto-trends/server/tmp/pids/server.pid` and it usually fixes the issue.
+`rm /blockterm/server/tmp/pids/server.pid` and it usually fixes the issue.
 * The client container usually takes longer to bring up because of the `npm install`, however, you don't have to take it down most of the time, so you can just leave it sitting there. On the other hand, if the server halts due to bug, you can easily restart by hitting `ctrl-C` and wait for the server to perform a shutdown before bringing it back up.
 * Command line commands will need to be run in a similar fashion as the above two commands, for example to perform a database reset you can do `docker-compose run -v <local_directory>/server:/dev_server/ -p 9999:80 server bash -c "cd /dev_server && rails db:reset"`.
 
