@@ -1,16 +1,9 @@
-import json
-import praw
-import time
-
-from datetime import datetime
 from gensim.utils import simple_preprocess
 
-import secrets
-reddit = praw.Reddit(client_id=secrets.CLIENT_ID, client_secret=secrets.CLIENT_SECRET, user_agent=secrets.USER_AGENT)
-
-import api
+from api import Api
 from database import SQLite3Database
 from logger import logger
+from reddit import reddit
 from subreddits import SUBREDDITS
 from utils import unix_timestamp_today, unix_timestamp_to_datetime_string
 
@@ -18,7 +11,7 @@ ONE_DAY = 86400
 
 db = SQLite3Database('comments.db')
 
-server = api.Api()
+server = Api()
 
 logger.info('Starting mention counts script...')
 

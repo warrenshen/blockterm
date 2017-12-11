@@ -1,17 +1,11 @@
-import praw
 import sqlite3
 
-import secrets
-
-reddit = praw.Reddit(
-    client_id=secrets.CLIENT_ID,
-    client_secret=secrets.CLIENT_SECRET,
-    user_agent=secrets.USER_AGENT
-)
+from praw.models import MoreComments
 
 from api import Api
 from database import SQLite3Database
 from logger import logger
+from reddit import reddit
 from subreddits import SUBREDDITS
 from utils import unix_timestamp_now
 

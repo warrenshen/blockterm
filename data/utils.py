@@ -1,7 +1,8 @@
 import pytz
-# import time
+import time
 
-from datetime import datetime, time, timedelta
+# Note that we use both the "time" module and the "datetime.time" function.
+from datetime import datetime, timedelta
 
 tz = pytz.timezone('America/Los_Angeles')
 
@@ -12,7 +13,7 @@ def unix_timestamp_now():
   return int(time.time())
 
 def unix_timestamp_today():
-  return int(tz.localize(datetime.combine(datetime.now(tz), time(0, 0)), is_dst=None).strftime('%s'))
+  return int(tz.localize(datetime.combine(datetime.now(tz), datetime.time(0, 0)), is_dst=None).strftime('%s'))
 
 def unix_timestamp_to_datetime_string(timestamp_unix):
   datetime_object = datetime.fromtimestamp(timestamp_unix)
@@ -31,5 +32,5 @@ def unix_timestamps_until_today(start_date):
 
   for day_number in range(total_days):
     current_date = start_date + timedelta(days=day_number)
-    localized_date = tz.localize(datetime.combine(current_date, time(0, 0)), is_dst=None)
+    localized_date = tz.localize(datetime.combine(current_date, datetime.time(0, 0)), is_dst=None)
     yield int(localized_date.strftime('%s'))
