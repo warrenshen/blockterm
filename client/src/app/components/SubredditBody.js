@@ -85,7 +85,8 @@ class SubredditBody extends PureComponent {
 
     const blob = JSON.parse(subreddit.blob);
 
-    const activeUsersData = generateCountChartData(activeUserCounts, blob.activeUserCountNow);
+    // TODO: change chart labels from MM/DD to MM/DD/YY based on time range.
+    const activeUsersData = generateCountChartData(activeUserCounts, blob.activeUserCountNow, 'now', 'MM/DD h:mm');
     const commentsData = generateCountChartData(commentCounts, blob.commentCount24h);
     const postsData = generateCountChartData(postCounts, blob.postCount24h);
 
