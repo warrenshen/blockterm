@@ -14,11 +14,20 @@ module Types
         QueryHelper::get_earliest_instance_timestamp(obj.mention_counts)
       }
     end
+
     field :keywords, types[Types::KeywordType] do
       description 'The keywords associated with token'
 
       resolve -> (obj, args, ctx) {
         obj.keywords
+      }
+    end
+
+    field :markets, types[Types::MarketType] do
+      description 'The markets associated with token'
+
+      resolve -> (obj, args, ctx) {
+        obj.markets
       }
     end
 

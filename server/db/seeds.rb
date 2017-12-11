@@ -98,15 +98,15 @@ puts 'Seeding tokens and keywords...'
 
 token_infos = [
   {
-    short_name: 'SAT',
     long_name: 'Satoshi',
+    short_name: 'SAT',
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
     keywords: ['SAT', 'SATs', 'Satoshi', 'Satoshis', 'Sato', 'Satos'],
   },
   {
-    short_name: 'NAK',
     long_name: 'Nakamoto',
+    short_name: 'NAK',
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
     keywords: ['NAK', 'NAKs', 'Nakamoto', 'Nakamotos'],
@@ -117,6 +117,7 @@ token_infos = [
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
     keywords: ['BTC', 'Bitcoin', 'Bitcoins'],
+    markets: ['BTC-USD'],
   },
   {
     short_name: 'ETH',
@@ -124,6 +125,7 @@ token_infos = [
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
     keywords: ['ETH', 'Ethereum'],
+    markets: ['ETH-USD', 'ETH-BTC'],
   },
   {
     short_name: 'NEO',
@@ -131,20 +133,50 @@ token_infos = [
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
     keywords: ['NEO', 'Antshare', 'Antshares'],
+    markets: ['NEO-BTC', 'NEO-ETH'],
   },
 ]
 
 token_infos.each do |token_info|
   keyword_words = token_info.delete(:keywords)
+  markets = token_info.delete(:markets)
+
   token = Token.create(token_info)
-  keyword_words.each do |word|
-    Keyword.create(
-      token: token,
-      word: word,
+
+  if !keyword_words.nil?
+    keyword_words.each do |word|
+      Keyword.create(
+        token_id: token.id,
+        word: word,
+      )
+    end
+  end
+
+  if !markets.nil?
+    puts markets
+    markets.each do |market|
+      Market.create(
+        name: market,
+        token_id: token.id,
+      )
+    end
+  end
+end
+
+puts "Created tokens, keywords, and markets"
+
+Market.all.each do |market|
+  today = DateTime.now.beginning_of_day
+
+  for i in (-90..0)
+    date = today + i.day
+    MarketTicker.create(
+      market_id: market.id,
+      timestamp: date,
+      value: rand(100),
     )
   end
 end
-puts "Created tokens and keywords"
 
 subreddit_tokens = [
   {
@@ -178,7 +210,7 @@ puts 'Seeding counts...'
 def create_post_counts_for_subreddit(subreddit, k=50)
   today = DateTime.now.beginning_of_day
 
-  for i in (-364..0)
+  for i in (-90..0)
     date = today + i.day
     PostCount.create(
       subreddit_id: subreddit.id,
@@ -187,13 +219,13 @@ def create_post_counts_for_subreddit(subreddit, k=50)
     )
   end
 
-  puts "Created 365 post counts for the #{subreddit.display_name} subreddit"
+  puts "Created 90 post counts for the #{subreddit.display_name} subreddit"
 end
 
 def create_comment_counts_for_subreddit(subreddit, k=500)
   today = DateTime.now.beginning_of_day
 
-  for i in (-364..0)
+  for i in (-90..0)
     date = today + i.day
     CommentCount.create(
       subreddit_id: subreddit.id,
@@ -202,14 +234,14 @@ def create_comment_counts_for_subreddit(subreddit, k=500)
     )
   end
 
-  puts "Created 365 post counts for the #{subreddit.display_name} subreddit"
+  puts "Created 90 post counts for the #{subreddit.display_name} subreddit"
 end
 
 def create_subscriber_counts_for_subreddit(subreddit, increment=3)
   today = DateTime.now.beginning_of_day
   subscriber_count = 0
 
-  for i in (-364..0)
+  for i in (-90..0)
     date = today + i.day
     SubscriberCount.create(
       subreddit_id: subreddit.id,
@@ -219,14 +251,14 @@ def create_subscriber_counts_for_subreddit(subreddit, increment=3)
     subscriber_count += rand(increment)
   end
 
-  puts "Created 365 subscriber counts for the #{subreddit.display_name} subreddit"
+  puts "Created 90 subscriber counts for the #{subreddit.display_name} subreddit"
 end
 
 def create_active_user_counts_for_subreddit(subreddit, increment=50)
   today = DateTime.now.beginning_of_day
   active_user_count = 3000
 
-  for i in (-364..0)
+  for i in (-90..0)
     date = today + i.day
     ActiveUserCount.create(
       subreddit_id: subreddit.id,
@@ -238,7 +270,7 @@ def create_active_user_counts_for_subreddit(subreddit, increment=50)
     end
   end
 
-  puts "Created 365 active user counts for the #{subreddit.display_name} subreddit"
+  puts "Created 90 active user counts for the #{subreddit.display_name} subreddit"
 end
 
 Subreddit.first(3).each do |subreddit|
@@ -265,7 +297,11 @@ Token.all.each do |token|
         )
       end
 
+<<<<<<< HEAD
       puts "Created 90   mention counts for the #{keyword.word} keyword in the #{subreddit.display_name} subreddit"
+=======
+      puts "Created 90 mention counts for the #{keyword.word} keyword in the #{subreddit.display_name} subreddit"
+>>>>>>> Add token id to markets table and update seeds with markets
     end
   end
 end
