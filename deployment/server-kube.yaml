@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: server
-        image: us.gcr.io/crypto-trends/server:latest
+        image: us.gcr.io/blockterm-188823/server:latest
         ports:
         - containerPort: 80
         env:
@@ -44,3 +44,27 @@ spec:
         resources: {}
       restartPolicy: Always
 status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.service.type: LoadBalancer
+    kompose.version: 1.4.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: server
+  name: server
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    targetPort: 80
+  selector:
+    io.kompose.service: server
+  type: LoadBalancer
+  loadBalancerIP: "35.197.3.243"
+status:
+  loadBalancer: {}
