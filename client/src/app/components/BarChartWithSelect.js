@@ -87,11 +87,21 @@ class BarChartWithSelect extends PureComponent {
           <El nightMode={nightMode} type={'h4'}>{title}</El>
           <div className={css(styles.headerRight)}>
             <div className={css(styles.range, styles.marginRight)}>
-              <h5>{rangeStart}</h5>
+              <El
+                nightMode={nightMode}
+                type={'h5'}
+              >
+                {rangeStart}
+              </El>
             </div>
             <h5 className={css(styles.marginRight)}>-</h5>
             <div className={css(styles.range, styles.marginRight)}>
-              <h5>{rangeEnd}</h5>
+            <El
+              nightMode={nightMode}
+              type={'h5'}
+            >
+              {rangeEnd}
+            </El>
             </div>
             <div className={css(styles.select)}>
               <Select

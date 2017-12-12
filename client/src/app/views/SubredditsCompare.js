@@ -2,18 +2,14 @@
 
 import React, {
   PureComponent,
-}                          from 'react';
-import PropTypes           from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
-import moment              from 'moment';
-import { Link }            from 'react-router-dom';
-import Select from 'react-select';
-import {
-  DATA_STYLES,
-  RANGE_SELECT_OPTIONS,
-}                          from '../constants/plots'
-import LineChartWithSelect from '../components/LineChartWithSelect';
-import El                  from '../components/El';
+}                            from 'react';
+import PropTypes             from 'prop-types';
+import { StyleSheet, css }   from 'aphrodite';
+import moment                from 'moment';
+import { Link }              from 'react-router-dom';
+import Select                from 'react-select';
+import SubredditsCompareBody from '../components/SubredditsCompareBody';
+import El                    from '../components/El';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -53,12 +49,8 @@ const styles = StyleSheet.create({
     paddingTop: '12px',
   },
   comparables: {
-    left: '-24px',
     width: '100%',
-    padding: '24px 24px 24px',
-    boxSizing: 'content-box',
-    backgroundColor: 'white',
-    borderRadius: '6px',
+    padding: '24px 0px',
     display: 'flex',
   },
   comparable: {
@@ -72,80 +64,6 @@ const styles = StyleSheet.create({
 });
 
 class SubredditsCompare extends PureComponent {
-
-  renderSubreddits(subreddits)
-  {
-    const {
-      changeCommentCountPlotRange,
-      changePostCountPlotRange,
-      commentCountPlotRange,
-      postCountPlotRange,
-      nightMode,
-    } = this.props;
-
-    const labels = subreddits[0].postCounts.map(
-      (postCount) => moment(postCount.timestamp).format('MM/DD')
-    );
-    const data = subreddits.map((subreddit, index) => {
-      return Object.assign(
-        {},
-        {
-          data: subreddit.postCounts.map((postCount) => postCount.count),
-          label: subreddit.displayName,
-          lineTension: 0,
-          fill: false,
-        },
-        DATA_STYLES[index]
-      );
-    });
-
-    const chart = {
-      labels: labels,
-      datasets: data,
-    };
-
-    const commentCountsLabels = subreddits[0].commentCounts.map(
-      (commentCount) => moment(commentCount.timestamp).format('MM/DD')
-    );
-    const commentCountsData = subreddits.map((subreddit, index) => {
-      return Object.assign(
-        {},
-        {
-          data: subreddit.commentCounts.map((commentCount) => commentCount.count),
-          label: subreddit.displayName,
-          lineTension: 0,
-          fill: false,
-        },
-        DATA_STYLES[index]
-      );
-    });
-
-    const commentCountsChart = {
-      labels: commentCountsLabels,
-      datasets: commentCountsData,
-    };
-
-    return (
-      <div>
-        <LineChartWithSelect
-          data={chart}
-          nightMode={nightMode}
-          selectOptions={RANGE_SELECT_OPTIONS}
-          selectValue={postCountPlotRange}
-          title={'Number of new posts'}
-          onChange={(option) => changePostCountPlotRange(option.value)}
-        />
-        <LineChartWithSelect
-          data={commentCountsChart}
-          nightMode={nightMode}
-          selectOptions={RANGE_SELECT_OPTIONS}
-          selectValue={commentCountPlotRange}
-          title={'Number of new comments'}
-          onChange={(option) => changeCommentCountPlotRange(option.value)}
-        />
-      </div>
-    );
-  }
 
   renderOptions(subredditOptions, selectedSubreddits)
   {
@@ -197,7 +115,12 @@ class SubredditsCompare extends PureComponent {
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         { data && data.allSubreddits && this.renderOptions(data.allSubreddits, data.subredditsByIds) }
         <div className={css(styles.container)}>
-          { data && data.subredditsByIds && data.subredditsByIds.length > 0 && this.renderSubreddits(data.subredditsByIds) }
+          {
+            data &&
+            data.subredditsByIds &&
+            data.subredditsByIds.length > 0 &&
+            <SubredditsCompareBody subreddits={data.subredditsByIds} />
+          }
         </div>
       </div>
     );
