@@ -14,7 +14,10 @@ server = Api()
 
 def get_subreddit_by_name(subreddit_name):
     response = server.get_subreddit_by_name(subreddit_name)
-    return response['data']['subredditByName']
+    if 'errors' in response:
+      return None
+    else:
+      return response['data']['subredditByName']
 
 def create_post_count(subreddit_name, count, timestamp):
     response = server.create_post_count(subreddit_name, count, timestamp)
