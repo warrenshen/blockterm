@@ -27,6 +27,12 @@ const query = gql`
       displayName
       imageUrl
 
+      activeUserCounts(timeRange: $activeUserCountsTimeRange) {
+        id
+        count
+        timestamp
+      }
+
       commentCounts(timeRange: $commentCountsTimeRange) {
         id
         count
