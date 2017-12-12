@@ -35,12 +35,12 @@ subreddit_infos = [
   },
   {
     name: 'btc',
-    start_date: '2011-5-20',
+    start_date: '2011-05-20',
     image_url: 'https://bitsonline.com/wp-content/uploads/2017/10/Bitcoin-Cash-Green-Logo.png',
   },
   {
     name: 'CryptoCurrency',
-    start_date: '2013-3-11',
+    start_date: '2013-03-11',
     image_url: 'https://b.thumbs.redditmedia.com/BlRR72bV2aPJ5HW-JmzFi9IUhNCxtqjgjlO8VGWJN6w.png',
   },
   {
@@ -134,12 +134,23 @@ subreddit_tokens = [
     subreddit_id: Subreddit.find_by(name: 'SatoshiTrader').id,
     token_id: Token.find_by(long_name: 'Satoshi').id,
   },
+  {
+    subreddit_id: Subreddit.find_by(name: 'Bitcoin').id,
+    token_id: Token.find_by(long_name: 'Bitcoin').id,
+  },
+  {
+    subreddit_id: Subreddit.find_by(name: 'ethereum').id,
+    token_id: Token.find_by(long_name: 'Ethereum').id,
+  },
+  {
+    subreddit_id: Subreddit.find_by(name: 'NEO').id,
+    token_id: Token.find_by(long_name: 'NEO').id,
+  },
 ]
 subreddit_tokens.each do |subreddit_token|
   SubredditToken.create(subreddit_token)
 end
 puts 'Created subreddit tokens'
-
 
 puts 'Seeding counts...'
 
