@@ -17,13 +17,23 @@ class Api:
         logger.info('Sending api request...')
         logger.info(query)
 
-        r = requests.post(url=self.api_url, json=query)
-        response = json.loads(r.text)
+        try:
+          r = requests.post(url=self.api_url, json=query)
+          response = json.loads(r.text)
 
-        logger.info('Loading api response...')
-        logger.info(response)
+          logger.info('Loading api response...')
+          logger.info(response)
 
-        return response
+          return response
+
+        except requests.exceptions.ConnectionError:
+          logger.info('Could not connect to api...')
+          return { 'errors': 'Could not connect to api' }
+
+        except Exception:
+          logger.info('Unknown exception caught...')
+          return { 'errors': 'Unkown exception caught' }
+
 
     def _inject_api_key(self, params):
         return 'apiKey: "%s", %s' % (API_KEY, params)
