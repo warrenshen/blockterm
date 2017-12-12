@@ -13,7 +13,7 @@ COPY ./server/Gemfile Gemfile
 
 RUN bundle install
 
-ENV APP_PATH /crypto-trends
+ENV APP_PATH /blockterm
 
 COPY . $APP_PATH
 

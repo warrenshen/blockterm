@@ -2,7 +2,7 @@ FROM node:carbon
 
 MAINTAINER Bob Chen <jtcdbob@gmail.com>
 
-ENV APP_PATH /crypto-trends
+ENV APP_PATH /blockterm
 
 COPY ./client/package.json $APP_PATH/client/
 
