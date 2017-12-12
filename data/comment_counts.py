@@ -25,6 +25,7 @@ for subreddit_name in SUBREDDITS:
 	# End timestamp is start of today, since we are getting comment count for yesterday.
 	end = unix_timestamp_today()
 	start = end - ONE_DAY
+
 	response = create_comment_count_for_subreddit(
 			subreddit_name,
 			start,
