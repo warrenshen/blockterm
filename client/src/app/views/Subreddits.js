@@ -154,6 +154,14 @@ class Home extends PureComponent {
                           nightMode={nightMode}
                           type={'span'}
                         >
+                          {blob.subscriberCountNow}
+                        </El>
+                      </td>
+                      <td className={css(styles.element)}>
+                        <El
+                          nightMode={nightMode}
+                          type={'span'}
+                        >
                           {blob.postCount24h}
                         </El>
                       </td>
@@ -163,14 +171,6 @@ class Home extends PureComponent {
                           type={'span'}
                         >
                           {blob.commentCount24h}
-                        </El>
-                      </td>
-                      <td className={css(styles.element)}>
-                        <El
-                          nightMode={nightMode}
-                          type={'span'}
-                        >
-                          {blob.subscriberCountNow}
                         </El>
                       </td>
                     </tr>
