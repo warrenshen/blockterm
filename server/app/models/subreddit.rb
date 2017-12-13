@@ -25,6 +25,8 @@ class Subreddit < ApplicationRecord
   has_many :subreddit_tokens
   has_many :tokens, through: :subreddit_tokens
 
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+
   def blob_camel_case
     subreddit_blob.camel_case_serialize
   end

@@ -25,7 +25,7 @@ module Types
         if !args[:subredditId].nil?
           subreddit_id = args[:subredditId]
         else
-          subreddit = Subreddit.find_by(name: args[:subredditName])
+          subreddit = QueryHelper::find_subreddit_by_name(args[:subredditName])
           if subreddit.nil?
             return GraphQL::ExecutionError.new(
               "No subreddit found for given 'subredditId' or 'subredditName'"
@@ -75,7 +75,7 @@ module Types
         if !args[:subredditId].nil?
           subreddit_id = args[:subredditId]
         else
-          subreddit = Subreddit.find_by(name: args[:subredditName])
+          subreddit = QueryHelper::find_subreddit_by_name(args[:subredditName])
           if subreddit.nil?
             return GraphQL::ExecutionError.new(
               "No subreddit found for given 'subredditId' or 'subredditName'"
@@ -153,7 +153,7 @@ module Types
         if !args[:subredditId].nil?
           subreddit_id = args[:subredditId]
         else
-          subreddit = Subreddit.find_by(name: args[:subredditName])
+          subreddit = QueryHelper::find_subreddit_by_name(args[:subredditName])
           if subreddit.nil?
             return GraphQL::ExecutionError.new(
               "No subreddit found for given 'subredditId' or 'subredditName'"
@@ -204,7 +204,7 @@ module Types
         if !args[:subredditId].nil?
           subreddit_id = args[:subredditId]
         else
-          subreddit = Subreddit.find_by(name: args[:subredditName])
+          subreddit = QueryHelper::find_subreddit_by_name(args[:subredditName])
           if subreddit.nil?
             return GraphQL::ExecutionError.new(
               "No subreddit found for given 'subredditId' or 'subredditName'"
@@ -341,7 +341,7 @@ module Types
         if !args[:subredditId].nil?
           subreddit_id = args[:subredditId]
         else
-          subreddit = Subreddit.find_by(name: args[:subredditName])
+          subreddit = QueryHelper::find_subreddit_by_name(args[:subredditName])
           if subreddit.nil?
             return GraphQL::ExecutionError.new(
               "No subreddit found for given 'subredditId' or 'subredditName'"

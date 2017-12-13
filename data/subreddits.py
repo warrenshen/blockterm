@@ -7,7 +7,7 @@ SUBREDDITS = [
   'CryptoMarkets',
   'Electroneum',
   'ethereum',
-  'Groestlcoin',
+  'groestlcoin',
   'Iota',
   'Lisk',
   'litecoin',
