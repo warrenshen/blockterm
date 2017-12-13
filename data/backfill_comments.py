@@ -1,4 +1,5 @@
 import argparse
+import sqlite3
 import time
 
 from praw.models import MoreComments
@@ -55,6 +56,8 @@ def backfill_comments_for_subreddit(subreddit_name, praw_subreddit, start, end):
                     success_count += 1
             except sqlite3.IntegrityError:
                 continue
+
+        time.sleep(5)
 
     return success_count
 

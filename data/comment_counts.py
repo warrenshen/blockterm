@@ -1,3 +1,5 @@
+import time
+
 from api import Api
 from database import SQLite3Database
 from logger import logger
@@ -31,5 +33,8 @@ for subreddit_name in SUBREDDITS:
 			start,
 			end
 	)
+
+  # Don't need to sleep much since we aren't using reddit API.
+  time.sleep(1)
 
 logger.info('Ending comment counts script...')
