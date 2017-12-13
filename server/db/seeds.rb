@@ -110,7 +110,28 @@ token_infos = [
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
     keywords: ['NAK', 'NAKs', 'Nakamoto', 'Nakamotos'],
-  }
+  },
+  {
+    short_name: 'BTC',
+    long_name: 'Bitcoin',
+    image_url: 'https://bitcoin.org/img/icons/opengraph.png',
+    website: 'https://www.bitcoin.com',
+    keywords: ['BTC', 'Bitcoin', 'Bitcoins'],
+  },
+  {
+    short_name: 'ETH',
+    long_name: 'Ethereum',
+    image_url: 'https://bitcoin.org/img/icons/opengraph.png',
+    website: 'https://www.bitcoin.com',
+    keywords: ['ETH', 'Ethereum'],
+  },
+  {
+    short_name: 'NEO',
+    long_name: 'NEO',
+    image_url: 'https://bitcoin.org/img/icons/opengraph.png',
+    website: 'https://www.bitcoin.com',
+    keywords: ['NEO', 'Antshare', 'Antshares'],
+  },
 ]
 
 token_infos.each do |token_info|
@@ -220,7 +241,7 @@ def create_active_user_counts_for_subreddit(subreddit, increment=50)
   puts "Created 365 active user counts for the #{subreddit.display_name} subreddit"
 end
 
-Subreddit.all.each do |subreddit|
+Subreddit.first(3).each do |subreddit|
   create_post_counts_for_subreddit(subreddit)
   create_comment_counts_for_subreddit(subreddit)
   create_subscriber_counts_for_subreddit(subreddit)
@@ -234,7 +255,7 @@ Token.all.each do |token|
     Subreddit.all.each do |subreddit|
       today = DateTime.now.beginning_of_day
 
-      for i in (-364..0)
+      for i in (-90..0)
         date = today + i.day
         MentionCount.create(
           subreddit_id: subreddit.id,
@@ -244,7 +265,7 @@ Token.all.each do |token|
         )
       end
 
-      puts "Created 365 mention counts for the #{keyword.word} keyword in the #{subreddit.display_name} subreddit"
+      puts "Created 90   mention counts for the #{keyword.word} keyword in the #{subreddit.display_name} subreddit"
     end
   end
 end
