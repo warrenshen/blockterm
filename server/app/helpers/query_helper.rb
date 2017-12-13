@@ -34,4 +34,8 @@ module QueryHelper
   def self.localize_timestamp(timestamp)
     timestamp.in_time_zone('Pacific Time (US & Canada)')
   end
+
+  def self.find_subreddit_by_name(subreddit_name)
+    return Subreddit.where('lower(name) = ?', subreddit_name.downcase).first
+  end
 end
