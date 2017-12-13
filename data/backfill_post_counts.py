@@ -1,11 +1,9 @@
 import argparse
 import time
 
-
 from api import Api
 from reddit import reddit
-from utils import datetime_string_to_unix_timestamp, \
-                  unix_timestamp_to_datetime_string, \
+from utils import unix_timestamp_to_datetime_string, \
                   unix_timestamps_until_today
 
 ONE_DAY = 86400
@@ -57,8 +55,10 @@ def run_for_subreddit(subreddit_name):
         time.sleep(5)
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Get market tickers', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument(
+    parser = argparse.ArgumentParser(
+      description='Backfill post counts',
+      formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )    parser.add_argument(
         '-s',
         dest='subreddit_name',
         help='Name of subreddit to backfill post counts for',
@@ -67,5 +67,7 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
+    logger.info('Starting backfill post counts script...')
     run_for_subreddit(args.subreddit_name)
+    logger.info('Ending backfill post counts script...')
 
