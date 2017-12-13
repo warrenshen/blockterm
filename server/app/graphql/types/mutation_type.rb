@@ -283,7 +283,7 @@ module Types
           subreddit
         else
           return GraphQL::ExecutionError.new(
-            'Failed to create subscriber count'
+            'Failed to create subreddit'
           )
         end
       }
