@@ -9,8 +9,6 @@ from utils import unix_timestamp_today, unix_timestamp_to_datetime_string
 
 ONE_DAY = 86400
 
-db = SQLite3Database('comments.db')
-
 server = Api()
 
 logger.info('Starting mention counts script...')
@@ -23,6 +21,7 @@ for keyword in keywords:
   keyword_id_to_words[keyword['id']] = keyword['word']
 
 def create_mention_counts_for_subreddit(subreddit_name, keyword_id_to_words, start, end):
+  db = SQLite3Database('comments.db')
   result = db.cursor.execute(
     '''
     SELECT *
@@ -34,6 +33,7 @@ def create_mention_counts_for_subreddit(subreddit_name, keyword_id_to_words, sta
     (subreddit_name, start, end)
   )
   comments = list(result)
+  db.close()
 
   comment_bodies = [comment[4] for comment in comments if type(comment[4]) is unicode]
   # A text blob of all comments in given range, separated by a special delimeter.

@@ -28,11 +28,13 @@ db.cursor.execute('''
     CREATE INDEX IF NOT EXISTS comments_subreddit_name_and_created_utc
     ON comments (subreddit_name, created_utc)
 ''')
+db.close()
 
 logger.info('Starting sync blob and comments script...')
 
 def insert_comments(subreddit_name, comments):
     success_count = 0
+    db = SQLite3Database('comments.db')
 
     for comment in comments:
         # Same logic as in backfill_comments.py - refactor?
@@ -62,6 +64,7 @@ def insert_comments(subreddit_name, comments):
         except sqlite3.IntegrityError:
             pass
 
+    db.close()
     return success_count
 
 def fetch_new_comments_for_subreddit(subreddit_name, praw_subreddit):
@@ -104,11 +107,13 @@ def update_subreddit_blob(subreddit_name, praw_subreddit, start, end):
   posts = praw_subreddit.submissions(start, end)
   post_count = len(list(posts))
 
+  db = SQLite3Database('comments.db')
   comment_count = db.get_comment_count_for_subreddit(
     subreddit_name,
     start,
     end
   )
+  db.close()
 
   active_user_count = praw_subreddit.active_user_count
   subscriber_count = praw_subreddit.subscribers

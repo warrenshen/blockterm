@@ -12,7 +12,6 @@ from utils import unix_timestamps_until_today
 
 ONE_DAY = 86400
 
-db = SQLite3Database('comments.db')
 server = Api()
 
 logger.info('Starting backfill comments script...')
@@ -23,11 +22,12 @@ def get_subreddit_by_name(subreddit_name):
 
 def backfill_comments_for_subreddit(subreddit_name, praw_subreddit, start, end):
     posts = praw_subreddit.submissions(start, end)
-
     success_count = 0
+
     for post in posts:
         post_comments = post.comments.list()
 
+        db = SQLite3Database('comments.db')
         last_created_utc = None
 
         # Note we count an instance of MoreComments as one comment.
@@ -57,6 +57,7 @@ def backfill_comments_for_subreddit(subreddit_name, praw_subreddit, start, end):
             except sqlite3.IntegrityError:
                 continue
 
+        db.close()
         time.sleep(5)
 
     return success_count
