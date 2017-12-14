@@ -25,4 +25,6 @@
 class MentionCount < ApplicationRecord
   belongs_to :keyword
   belongs_to :subreddit
+
+  validates :timestamp, uniqueness: { scope: [:keyword_id, :subreddit_id] }
 end

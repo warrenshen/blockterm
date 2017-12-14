@@ -21,4 +21,6 @@
 
 class CommentCount < ApplicationRecord
   belongs_to :subreddit
+
+  validates :timestamp, uniqueness: { scope: :subreddit_id }
 end
