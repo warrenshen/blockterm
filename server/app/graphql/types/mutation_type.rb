@@ -2,7 +2,7 @@ module Types
   MutationType = GraphQL::ObjectType.define do
     name 'Mutation'
 
-    field :createActiveUserCount, Types::ActiveUserCountType do
+    field :createActiveUserCount, Types::CountType do
       description 'Creates a active user count'
 
       argument :apiKey, !types.String
@@ -52,7 +52,7 @@ module Types
       }
     end
 
-    field :createCommentCount, Types::CommentCountType do
+    field :createCommentCount, Types::CountType do
       description 'Creates a comment count'
 
       argument :apiKey, !types.String
@@ -181,7 +181,7 @@ module Types
       }
     end
 
-    field :createPostCount, Types::PostCountType do
+    field :createPostCount, Types::CountType do
       description 'Create a post count'
 
       argument :apiKey, !types.String
@@ -231,7 +231,7 @@ module Types
       }
     end
 
-    field :createSubscriberCount, Types::SubscriberCountType do
+    field :createSubscriberCount, Types::CountType do
       description 'Creates a subscriber count'
 
       argument :apiKey, !types.String
