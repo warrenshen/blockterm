@@ -30,7 +30,12 @@ def create_comment_count_for_subreddit(subreddit_name, start, end):
   db.close()
 
   datetime_string = unix_timestamp_to_datetime_string(start)
-  return server.create_comment_count(subreddit_name, comment_count, datetime_string)
+  response = server.create_comment_count(
+    subreddit_name,
+    comment_count,
+    datetime_string
+  )
+  return 'errors' not in response
 
 # Note that `api` refers to Rails API and `praw` refers to Reddit API.
 def run_for_subreddit(subreddit_name):
