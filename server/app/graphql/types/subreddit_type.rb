@@ -35,7 +35,7 @@ module Types
       }
     end
 
-    field :activeUserCounts, types[Types::ActiveUserCountType] do
+    field :activeUserCounts, types[Types::CountType] do
       description 'The comment counts associated with subreddit'
 
       argument :timeRange, types.String
@@ -48,7 +48,7 @@ module Types
       }
     end
 
-    field :commentCounts, types[Types::PostCountType] do
+    field :commentCounts, types[Types::CountType] do
       description 'The comment counts associated with subreddit'
 
       argument :timeRange, types.String
@@ -61,7 +61,7 @@ module Types
       }
     end
 
-    field :postCounts, types[Types::PostCountType] do
+    field :postCounts, types[Types::CountType] do
       description 'The page counts associated with subreddit'
 
       argument :timeRange, types.String
@@ -74,11 +74,16 @@ module Types
       }
     end
 
-    field :subscriberCounts, types[Types::SubscriberCountType] do
+    field :subscriberCounts, types[Types::CountType] do
       description 'The subscriber counts associated with subreddit'
 
+      argument :timeRange, types.String
+
       resolve -> (obj, args, ctx) {
-        obj.subscriber_counts.order(timestamp: :asc)
+        QueryHelper::filter_relation_by_time_range(
+          obj.subscriber_counts,
+          args[:timeRange]
+        )
       }
     end
 
