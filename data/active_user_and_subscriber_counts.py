@@ -21,6 +21,7 @@ active_user_counts_db.cursor.execute('''
     CREATE INDEX IF NOT EXISTS active_user_counts_subreddit_name_and_timestamp
     ON active_user_counts (subreddit_name, timestamp)
 ''')
+active_user_counts_db.close()
 
 subscriber_counts_db = SQLite3Database('subscriber_counts.db')
 subscriber_counts_db.cursor.execute('''
@@ -34,6 +35,7 @@ subscriber_counts_db.cursor.execute('''
     CREATE INDEX IF NOT EXISTS subscriber_counts_subreddit_name_and_timestamp
     ON subscriber_counts (subreddit_name, timestamp)
 ''')
+subscriber_counts_db.close()
 
 for subreddit_name in SUBREDDITS:
     praw_subreddit = reddit.subreddit(subreddit_name)
@@ -43,18 +45,22 @@ for subreddit_name in SUBREDDITS:
     unix_timestamp = unix_timestamp_now()
     datetime_string = datetime_string_now()
 
+    active_user_counts_db = SQLite3Database('active_user_counts.db')
     result = active_user_counts_db.cursor.execute('''
         INSERT INTO active_user_counts (subreddit_name, count, timestamp)
         VALUES (?, ?, ?)
     ''', (subreddit_name, active_user_count, unix_timestamp))
     active_user_counts_db.conn.commit()
+    active_user_counts_db.close()
     response = server.create_active_user_count(subreddit_name, active_user_count, datetime_string)
 
+    subscriber_counts_db = SQLite3Database('subscriber_counts.db')
     result = subscriber_counts_db.cursor.execute('''
         INSERT INTO subscriber_counts (subreddit_name, count, timestamp)
         VALUES (?, ?, ?)
     ''', (subreddit_name, subscriber_count, unix_timestamp))
     subscriber_counts_db.conn.commit()
+    subscriber_counts_db.close()
     response = server.create_subscriber_count(subreddit_name, subscriber_count, datetime_string)
 
 logger.info('Ending active user and subscriber counts script...')

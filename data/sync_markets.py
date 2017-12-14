@@ -3,7 +3,6 @@ Example:
     python3 sync_markets.py --debug 1 config.yaml
 '''
 
-from database import SQLite3Database
 from bittrex_client import BittrexClient, BittrexClientRunner
 
 import argparse

@@ -11,10 +11,7 @@ from utils import unix_timestamp_to_datetime_string, \
 
 ONE_DAY = 86400
 
-db = SQLite3Database('comments.db')
 server = Api()
-
-ONE_DAY = 86400
 
 def get_subreddit_by_name(subreddit_name):
   response = server.get_subreddit_by_name(subreddit_name)
@@ -24,11 +21,13 @@ def get_subreddit_by_name(subreddit_name):
     return response['data']['subredditByName']
 
 def create_comment_count_for_subreddit(subreddit_name, start, end):
+  db = SQLite3Database('comments.db')
   comment_count = db.get_comment_count_for_subreddit(
     subreddit_name,
     start,
     end
   )
+  db.close()
 
   datetime_string = unix_timestamp_to_datetime_string(start)
   return server.create_comment_count(subreddit_name, comment_count, datetime_string)

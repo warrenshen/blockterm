@@ -6,8 +6,11 @@ class SQLite3Database:
   def __init__(self, db_name):
     self.db_name = db_name
     db_path = '%s/%s' % (DB_PATH, self.db_name)
-    self.conn = sqlite3.connect(db_path)
+    self.conn = sqlite3.connect(db_path, timeout=10)
     self.cursor = self.conn.cursor()
+
+  def close(self):
+    self.conn.close()
 
   def insert_comment(
     self,
