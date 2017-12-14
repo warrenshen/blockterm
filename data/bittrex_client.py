@@ -101,6 +101,8 @@ class BittrexClientRunner(BaseClientRunner):
         if self.debug:
             print(query)
         db.cursor.execute(query)
+        db.commit()
+        db.close()
 
         self.api = Api(API_URL)
         for market_name in self.client.market_summaries.keys():
@@ -127,6 +129,7 @@ class BittrexClientRunner(BaseClientRunner):
             values = (summary['MarketName'], summary['Last'], summary['TimeStamp'], dt.now())
             db.cursor.execute(query, values)
         db.conn.commit()
+        db.close()
         if self.debug:
             print('[INFO] Data committed to sqlite database {} table {}'.format(self.db_name, self.client.base))
 

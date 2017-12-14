@@ -2,6 +2,7 @@ import argparse
 import time
 
 from api import Api
+from logger import logger
 from reddit import reddit
 from utils import unix_timestamp_to_datetime_string, \
                   unix_timestamps_until_today
@@ -55,19 +56,20 @@ def run_for_subreddit(subreddit_name):
         time.sleep(5)
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-      description='Backfill post counts',
-      formatter_class=argparse.ArgumentDefaultsHelpFormatter
-    )    parser.add_argument(
-        '-s',
-        dest='subreddit_name',
-        help='Name of subreddit to backfill post counts for',
-        required=True,
-        type=str
-    )
-    args = parser.parse_args()
+  parser = argparse.ArgumentParser(
+    description='Backfill post counts',
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter
+  )
+  parser.add_argument(
+    '-s',
+    dest='subreddit_name',
+    help='Name of subreddit to backfill post counts for',
+    required=True,
+    type=str
+  )
+  args = parser.parse_args()
 
-    logger.info('Starting backfill post counts script...')
-    run_for_subreddit(args.subreddit_name)
-    logger.info('Ending backfill post counts script...')
+  logger.info('Starting backfill post counts script...')
+  run_for_subreddit(args.subreddit_name)
+  logger.info('Ending backfill post counts script...')
 
