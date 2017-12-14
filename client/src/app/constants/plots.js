@@ -37,7 +37,7 @@ export const RANGE_SELECT_OPTIONS = [
   },
 ];
 
-export const DATA_STYLES = [
+export const BAR_CHART_DATA_STYLES = [
   {
     historical: {
       backgroundColor: 'rgba(255,99,132,0.2)',
@@ -69,3 +69,74 @@ export const DATA_STYLES = [
     hoverBorderColor: 'rgba(255, 206, 86, 1)',
   },
 ];
+
+export const LINE_CHART_DATA_STYLES = [
+  {
+    historical: {
+      backgroundColor: 'rgba(255,99,132,0.2)',
+      borderColor: 'rgba(255,99,132,0.2)',
+      borderWidth: 4,
+      borderCapStyle: 'rgba(255,99,132,0.2)',
+      borderJoinStyle: 'rgba(255,99,132,0.2)',
+      fill: false,
+      lineTension: 0,
+      pointBackgroundColor: 'rgba(255,99,132,0.2)',
+      pointBorderColor: 'rgba(255,99,132,1)',
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 3,
+      // pointHoverBackgroundColor
+      // pointHoverBorderColor
+      // pointHoverBorderWidth
+      // pointHoverRadius
+    },
+    now: {
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1,
+      hoverBackgroundColor: 'rgba(54, 162, 235, 0.4)',
+      hoverBorderColor: 'rgba(54, 162, 235, 1)',
+    },
+  },
+  {
+    historical: {
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgba(54, 162, 235, 0.2)',
+      borderWidth: 4,
+      // borderCapStyle:
+      // borderJoinStyle:
+      fill: false,
+      lineTension: 0,
+      pointBackgroundColor: 'rgba(54, 162, 235, 0.2)',
+      pointBorderColor: 'rgba(54, 162, 235, 1)',
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 3,
+      // pointHoverBackgroundColor
+      // pointHoverBorderColor
+      // pointHoverBorderWidth
+      // pointHoverRadius
+    },
+  },
+  {
+    historical: {
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      borderColor: 'rgba(54, 162, 235, 0.2)',
+      borderWidth: 4,
+      // borderCapStyle:
+      // borderJoinStyle:
+      fill: false,
+      lineTension: 0,
+      pointBackgroundColor: 'rgba(54, 162, 235, 0.2)',
+      pointBorderColor: 'rgba(54, 162, 235, 1)',
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 3,
+      // pointHoverBackgroundColor
+      // pointHoverBorderColor
+      // pointHoverBorderWidth
+      // pointHoverRadius
+    },
+  },
+]
