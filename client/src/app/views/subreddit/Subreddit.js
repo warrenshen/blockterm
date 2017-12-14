@@ -6,6 +6,7 @@ import React, {
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
+import moment              from 'moment';
 import SubredditBody from '../../components/SubredditBody';
 import TokenWidget from '../../components/TokenWidget';
 import El from '../../components/El';
@@ -108,6 +109,14 @@ class Subreddit extends PureComponent {
       postCountPlotRange,
     } = this.props;
 
+    const {
+      description,
+      displayName,
+      name,
+      startDate,
+      tokens,
+    } = subreddit;
+
     const blob = JSON.parse(subreddit.blob);
 
     return (
@@ -115,28 +124,28 @@ class Subreddit extends PureComponent {
         <div className={css(styles.header)}>
           <div className={css(styles.headerLeft)}>
             <a
-              href={`https://reddit.com/r/${subreddit.name}`}
+              href={`https://reddit.com/r/${name}`}
               target='_blank'
             >
               <El
                 nightMode={nightMode}
                 type={'h3'}
               >
-                {subreddit.displayName}
+                {displayName}
               </El>
             </a>
             {
-              subreddit.description && (
+              description && (
                 <El
                   nightMode={nightMode}
                   style={styles.description}
                   type={'p'}
                 >
-                  {subreddit.description}
+                  {description}
                 </El>
               )
             }
-            {this.renderTokens(subreddit.tokens)}
+            {this.renderTokens(tokens)}
           </div>
           <div className={css(styles.headerRight)}>
             <El
@@ -144,6 +153,12 @@ class Subreddit extends PureComponent {
               type={'span'}
             >
               {`${blob.subscriberCountNow} total subscribers`}
+            </El>
+            <El
+              nightMode={nightMode}
+              type={'span'}
+            >
+              {`Created ${moment(startDate).format("MMM Do YYYY")}`}
             </El>
           </div>
         </div>

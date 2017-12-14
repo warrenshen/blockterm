@@ -58,22 +58,11 @@ class SubredditBody extends PureComponent {
     var postsX = subreddit.postCounts.map(
       (postCount) => moment(postCount.timestamp).format('MM/DD')
     );
-    var postsY = subreddit.postCounts.map(
-      (postCount) => postCount.count
-    );
-
     var commentsX = subreddit.commentCounts.map(
       (commentCount) => moment(commentCount.timestamp).format('MM/DD')
     );
-    var commentsY = subreddit.commentCounts.map(
-      (commentCount) => commentCount.count
-    );
-
     var activeUsersX = subreddit.activeUserCounts.map(
       (activeUserCount) => moment(activeUserCount.timestamp).format('MM/DD h:mm')
-    );
-    var activeUsersY = subreddit.activeUserCounts.map(
-      (activeUserCount) => activeUserCount.count
     );
 
     const {
@@ -86,7 +75,12 @@ class SubredditBody extends PureComponent {
     const blob = JSON.parse(subreddit.blob);
 
     // TODO: change chart labels from MM/DD to MM/DD/YY based on time range.
-    const activeUsersData = generateCountChartData(activeUserCounts, blob.activeUserCountNow, 'now', 'MM/DD h:mm');
+    const activeUsersData = generateCountChartData(
+      activeUserCounts,
+      blob.activeUserCountNow,
+      'now',
+      'MM/DD h:mm'
+    );
     const commentsData = generateCountChartData(commentCounts, blob.commentCount24h);
     const postsData = generateCountChartData(postCounts, blob.postCount24h);
 
