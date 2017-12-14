@@ -106,21 +106,21 @@ token_infos = [
     short_name: 'SAT',
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
-    keywords: ['SAT', 'SATs', 'Satoshi', 'Satoshis', 'Sato', 'Satos'],
+    keywords: ['SAT', 'Satoshi'],
   },
   {
     long_name: 'Nakamoto',
     short_name: 'NAK',
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
-    keywords: ['NAK', 'NAKs', 'Nakamoto', 'Nakamotos'],
+    keywords: ['NAK', 'Nakamotos'],
   },
   {
     short_name: 'BTC',
     long_name: 'Bitcoin',
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
-    keywords: ['BTC', 'Bitcoin', 'Bitcoins'],
+    keywords: ['BTC', 'Bitcoin'],
     markets: ['BTC-USD'],
   },
   {
@@ -136,7 +136,7 @@ token_infos = [
     long_name: 'NEO',
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
-    keywords: ['NEO', 'Antshare', 'Antshares'],
+    keywords: ['NEO', 'Antshare'],
     markets: ['NEO-BTC', 'NEO-ETH'],
   },
 ]
@@ -301,11 +301,7 @@ Token.all.each do |token|
         )
       end
 
-<<<<<<< HEAD
-      puts "Created 90   mention counts for the #{keyword.word} keyword in the #{subreddit.display_name} subreddit"
-=======
       puts "Created 90 mention counts for the #{keyword.word} keyword in the #{subreddit.display_name} subreddit"
->>>>>>> Add token id to markets table and update seeds with markets
     end
   end
 end
