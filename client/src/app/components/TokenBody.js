@@ -7,9 +7,14 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import moment              from 'moment';
 import {
-  DATA_STYLES,
+  LINE_CHART_DATA_STYLES,
   RANGE_SELECT_OPTIONS,
-}                          from '../constants/plots'
+} from '../constants/plots';
+import {
+  disableChartOptions,
+  generateCountChartData,
+  generateCountChartData2,
+} from '../helpers/chart';
 import BarChartWithSelect  from './BarChartWithSelect';
 import LineChartWithSelect from './LineChartWithSelect';
 import El                  from './El';
@@ -44,19 +49,6 @@ class TokenBody extends PureComponent {
 
   render()
   {
-    const gridLinesConfig = {
-      color: nightMode ? 'rgba(255, 255, 255, 0.15)' :
-                         'rgba(0, 0, 0, 0.15)',
-      zeroLineColor: nightMode ? 'rgba(255, 255, 255, 0.15)' :
-                                 'rgba(0, 0, 0, 0.15)',
-    };
-    const ticksConfig = {
-      beginAtZero: true,
-      fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
-                             'rgba(0, 0, 0, 0.5)',
-      padding: 6,
-    };
-
     const {
       changeMentionTotalPlotRange,
       changeMentionSubredditPlotRange,
@@ -66,45 +58,23 @@ class TokenBody extends PureComponent {
       token,
     } = this.props;
 
-    var labels = token.subredditMentions[0].mentionTotalCounts.map(
-      (mentionTotalCount) => moment(mentionTotalCount.timestamp).format('MM/DD')
+    const {
+      mentionTotalCounts,
+      subredditMentions,
+    } = token;
+
+    const subredditMentionsData = generateCountChartData2(
+      subredditMentions.slice(0, 3).map((subredditMention) => subredditMention.mentionTotalCounts),
+      subredditMentions.slice(0, 3).map((subredditMention) => subredditMention.displayName)
     );
-    var data = token.subredditMentions.map((subredditMention, index) => {
-      return Object.assign(
-        {},
-        {
-          data: subredditMention.mentionTotalCounts.map((mentionTotalCount) => mentionTotalCount.count),
-          label: subredditMention.subreddit.displayName,
-          lineTension: 0,
-          fill: false,
-        },
-        DATA_STYLES[index]
-      );
-    });
 
-    var chart = {
-      labels: labels,
-      datasets: data,
-    };
-
-    var labels2 = token.mentionTotalCounts.map(
-      (mentionTotalCount) => moment(mentionTotalCount.timestamp).format('MM/DD')
+    const totalMentionsData = generateCountChartData(
+      mentionTotalCounts,
+      undefined,
+      'now',
+      'MM/DD'
     );
-    var data2 = [
-      {
-        data: token.mentionTotalCounts.map((mentionTotalCount) => mentionTotalCount.count),
-        backgroundColor: 'rgba(255,99,132,0.2)',
-        borderColor: 'rgba(255,99,132,1)',
-        borderWidth: 1,
-        hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-        hoverBorderColor: 'rgba(255,99,132,1)',
-      },
-    ];
 
-    var chart2 = {
-      labels: labels2,
-      datasets: data2,
-    };
     return (
       <div className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
@@ -112,10 +82,10 @@ class TokenBody extends PureComponent {
             nightMode={nightMode}
             type={'h4'}
           >
-            Recent activity
+            Historical activity
           </El>
           <BarChartWithSelect
-            data={chart2}
+            data={totalMentionsData}
             nightMode={nightMode}
             selectOptions={RANGE_SELECT_OPTIONS}
             selectValue={mentionTotalPlotRange}
@@ -123,7 +93,7 @@ class TokenBody extends PureComponent {
             onChange={(option) => changeMentionTotalPlotRange(option.value)}
           />
           <LineChartWithSelect
-            data={chart}
+            data={subredditMentionsData}
             nightMode={nightMode}
             selectOptions={RANGE_SELECT_OPTIONS}
             selectValue={mentionSubredditPlotRange}

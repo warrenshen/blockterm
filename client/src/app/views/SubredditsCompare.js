@@ -72,7 +72,12 @@ class SubredditsCompare extends PureComponent {
       nightMode,
     } = this.props;
 
-    const selectOptions = subredditOptions.map((subreddit) => {
+    const selectedIds = selectedSubreddits.map((subreddit) => subreddit.id);
+
+    const selectOptions = subredditOptions
+    .filter(
+      (subreddit) => !selectedIds.includes(subreddit.id)
+    ).map((subreddit) => {
       return {
         label: subreddit.displayName,
         value: subreddit.id,
@@ -84,7 +89,10 @@ class SubredditsCompare extends PureComponent {
         {
           selectedSubreddits.map((subreddit) => {
             return (
-              <div className={css(styles.comparable)}>
+              <div
+                className={css(styles.comparable)}
+                key={subreddit.id}
+              >
                 {subreddit.displayName}
               </div>
             );
@@ -108,6 +116,12 @@ class SubredditsCompare extends PureComponent {
   {
     const {
       data,
+      changeActiveUserCountPlotRange,
+      changeCommentCountPlotRange,
+      changePostCountPlotRange,
+      activeUserCountPlotRange,
+      commentCountPlotRange,
+      postCountPlotRange,
       nightMode,
     } = this.props;
 
@@ -119,7 +133,16 @@ class SubredditsCompare extends PureComponent {
             data &&
             data.subredditsByIds &&
             data.subredditsByIds.length > 0 &&
-            <SubredditsCompareBody subreddits={data.subredditsByIds} />
+            <SubredditsCompareBody
+              subreddits={data.subredditsByIds}
+              changeActiveUserCountPlotRange={changeActiveUserCountPlotRange}
+              changeCommentCountPlotRange={changeCommentCountPlotRange}
+              changePostCountPlotRange={changePostCountPlotRange}
+              activeUserCountPlotRange={activeUserCountPlotRange}
+              commentCountPlotRange={commentCountPlotRange}
+              postCountPlotRange={postCountPlotRange}
+              nightMode={nightMode}
+            />
           }
         </div>
       </div>

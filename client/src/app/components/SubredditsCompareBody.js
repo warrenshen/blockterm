@@ -7,12 +7,13 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import moment              from 'moment';
 import {
-  DATA_STYLES,
+  BAR_CHART_DATA_STYLES,
   RANGE_SELECT_OPTIONS,
 }                           from '../constants/plots'
 import {
   disableChartOptions,
   generateCountChartData,
+  generateCountChartData2,
 } from '../helpers/chart';
 import LineChartWithSelect  from '../components/LineChartWithSelect';
 import El                  from './El';
@@ -55,52 +56,19 @@ class SubredditsCompareBody extends PureComponent {
       nightMode,
     } = this.props;
 
-    const labels = subreddits[0].postCounts.map(
-      (postCount) => moment(postCount.timestamp).format('MM/DD')
+    const postCountsData = generateCountChartData2(
+      subreddits.map((subreddit) => subreddit.postCounts),
+      subreddits.map((subreddit) => subreddit.displayName)
     );
-    const data = subreddits.map((subreddit, index) => {
-      return Object.assign(
-        {},
-        {
-          data: subreddit.postCounts.map((postCount) => postCount.count),
-          label: subreddit.displayName,
-          lineTension: 0,
-          fill: false,
-        },
-        DATA_STYLES[index]
-      );
-    });
-
-    const chart = {
-      labels: labels,
-      datasets: data,
-    };
-
-    const commentCountsLabels = subreddits[0].commentCounts.map(
-      (commentCount) => moment(commentCount.timestamp).format('MM/DD')
+    const commentCountsData = generateCountChartData2(
+      subreddits.map((subreddit) => subreddit.commentCounts),
+      subreddits.map((subreddit) => subreddit.displayName)
     );
-    const commentCountsData = subreddits.map((subreddit, index) => {
-      return Object.assign(
-        {},
-        {
-          data: subreddit.commentCounts.map((commentCount) => commentCount.count),
-          label: subreddit.displayName,
-          lineTension: 0,
-          fill: false,
-        },
-        DATA_STYLES[index]
-      );
-    });
-
-    const commentCountsChart = {
-      labels: commentCountsLabels,
-      datasets: commentCountsData,
-    };
 
     return (
       <div className={css(styles.container, nightMode && styles.nightMode)}>
         <LineChartWithSelect
-          data={chart}
+          data={postCountsData}
           nightMode={nightMode}
           selectOptions={RANGE_SELECT_OPTIONS}
           selectValue={postCountPlotRange}
@@ -108,7 +76,7 @@ class SubredditsCompareBody extends PureComponent {
           onChange={(option) => changePostCountPlotRange(option.value)}
         />
         <LineChartWithSelect
-          data={commentCountsChart}
+          data={commentCountsData}
           nightMode={nightMode}
           selectOptions={RANGE_SELECT_OPTIONS}
           selectValue={commentCountPlotRange}
@@ -116,7 +84,7 @@ class SubredditsCompareBody extends PureComponent {
           onChange={(option) => changeCommentCountPlotRange(option.value)}
         />
         <LineChartWithSelect
-          data={commentCountsChart}
+          data={commentCountsData}
           nightMode={nightMode}
           selectOptions={RANGE_SELECT_OPTIONS}
           selectValue={commentCountPlotRange}
