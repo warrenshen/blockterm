@@ -114,6 +114,7 @@ class Subreddit extends PureComponent {
       displayName,
       name,
       startDate,
+      updatedAt,
       tokens,
     } = subreddit;
 
@@ -159,6 +160,12 @@ class Subreddit extends PureComponent {
               type={'span'}
             >
               {`Created ${moment(startDate).format("MMM Do YYYY")}`}
+            </El>
+            <El
+              nightMode={nightMode}
+              type={'span'}
+            >
+              {`Last updated ${moment(updatedAt).fromNow()}`}
             </El>
           </div>
         </div>
