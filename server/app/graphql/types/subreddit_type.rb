@@ -13,6 +13,12 @@ module Types
         obj.start_date.to_s
       }
     end
+    field :updatedAt, types.String do
+      resolve -> (obj, args, ctx) {
+        obj.updated_at.to_s
+      }
+    end
+
     field :earliestActiveUserCountDate, types.String do
       description 'The date time of earliest active user count associated with subreddit'
 
