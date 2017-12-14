@@ -15,7 +15,8 @@ import * as plotsActions      from '../redux/modules/plots';
 const query = gql`
   query ($ids: [ID]!,
          $commentCountsTimeRange: String,
-         $postCountsTimeRange: String) {
+         $postCountsTimeRange: String,
+         $activeUserCountsTimeRange: String) {
     allSubreddits {
       id
       displayName
@@ -53,6 +54,7 @@ const SubredditsCompareContainer = graphql(
   {
     options: ({
       match,
+      activeUserCountPlotRange,
       commentCountPlotRange,
       postCountPlotRange,
       subredditIds,
@@ -60,6 +62,7 @@ const SubredditsCompareContainer = graphql(
       return {
         variables: {
           ids: subredditIds,
+          activeUserCountPlotRange: activeUserCountPlotRange,
           commentCountsTimeRange: commentCountPlotRange,
           postCountsTimeRange: postCountPlotRange,
         },
@@ -74,6 +77,7 @@ const SubredditsCompareContainer = graphql(
 
 const mapStateToProps = (state) => {
   return {
+    activeUserCountPlotRange: state.plots.activeUserCountPlotRange,
     commentCountPlotRange: state.plots.commentCountPlotRange,
     postCountPlotRange: state.plots.postCountPlotRange,
     nightMode: state.globals.nightMode,
@@ -85,6 +89,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       addSubredditId: subredditsActions.addSubredditId,
+      changeActiveUserCountPlotRange: plotsActions.changeActiveUserCountPlotRange,
       changeCommentCountPlotRange: plotsActions.changeCommentCountPlotRange,
       changePostCountPlotRange: plotsActions.changePostCountPlotRange,
     },
