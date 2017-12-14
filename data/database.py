@@ -71,3 +71,17 @@ class SQLite3Database:
       (subreddit_name, start, end)
     )
     return list(result)[0][0]
+
+  def get_keyword_count_for_subreddit(self, subreddit_name, keyword, start, end):
+    result = self.cursor.execute(
+      '''
+      SELECT COUNT(*)
+      FROM comments
+      WHERE comments.subreddit_name = ?
+      AND LOWER(comments.body) LIKE "%" || ? || " %"
+      AND comments.created_utc >= ?
+      AND comments.created_utc < ?
+      ''',
+      (subreddit_name, keyword.lower(), start, end)
+    )
+    return list(result)[0][0]
