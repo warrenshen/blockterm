@@ -80,6 +80,10 @@ subreddit_infos = [
     start_date: '2008-08-07',
   },
   {
+    name: 'Ripple',
+    start_date: '2009-10-14',
+  },
+  {
     name: 'SubstratumNetwork',
     start_date: '2017-07-31',
   },
