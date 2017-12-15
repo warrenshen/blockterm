@@ -20,11 +20,27 @@ def get_subreddit_by_name(subreddit_name):
     response = server.get_subreddit_by_name(subreddit_name)
     return response['data']['subredditByName']
 
-def backfill_comments_for_subreddit(subreddit_name, praw_subreddit, start, end):
+def backfill_posts_and_comments(subreddit_name, praw_subreddit, start, end):
     posts = praw_subreddit.submissions(start, end)
     success_count = 0
 
     for post in posts:
+        db = SQLite3Database('posts.db')
+        try:
+            post_id = post.id
+            self_text = post.selftext
+            created_utc = post.created_utc
+
+            response = db.insert_post(
+              subreddit_name,
+              post_id,
+              self_text,
+              created_utc
+            )
+          except sqlite3.IntegrityError:
+            pass
+        db.close()
+
         post_comments = post.comments.list()
 
         db = SQLite3Database('comments.db')
@@ -74,7 +90,7 @@ def run_for_subreddit(subreddit_name):
     start_date = api_subreddit['startDate']
 
     for unix_timestamp in unix_timestamps_until_today(start_date):
-        success_count = backfill_comments_for_subreddit(
+        success_count = backfill_posts_and_comments(
             subreddit_name,
             praw_subreddit,
             unix_timestamp,
