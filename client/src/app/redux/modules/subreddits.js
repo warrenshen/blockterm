@@ -17,7 +17,6 @@ export default function(state = initialState, action)
   switch (action.type)
   {
     case ADD_SUBREDDIT_ID:
-      console.log(state);
       return {
         ...state,
         subredditIds: state.subredditIds.concat([action.value])
