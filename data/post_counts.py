@@ -1,4 +1,5 @@
 from api import Api
+from database import SQLite3Database
 from logger import logger
 from reddit import reddit
 from subreddits import SUBREDDITS
@@ -8,12 +9,45 @@ ONE_DAY = 86400
 
 server = Api()
 
+db = SQLite3Database('posts.db')
+db.cursor.execute('''
+    CREATE TABLE IF NOT EXISTS posts (
+        post_id string PRIMARY KEY,
+        subreddit_name string,
+        self_text string,
+        created_utc int
+    )
+''')
+db.cursor.execute('''
+    CREATE INDEX IF NOT EXISTS posts_subreddit_name_and_created_utc
+    ON posts (subreddit_name, created_utc)
+''')
+db.close()
+
 logger.info('Starting post counts script...')
 
 def create_post_count_for_subreddit(subreddit_name, praw_subreddit, start, end):
-  posts = praw_subreddit.submissions(start, end)
-  post_count = len(list(posts))
+  posts_generator = praw_subreddit.submissions(start, end)
+  posts = list(posts_generator)
 
+  db = SQLite3Database('posts.db')
+  for post in posts:
+    try:
+      post_id = post.id
+      self_text = post.selftext
+      created_utc = post.created_utc
+
+      response = db.insert_post(
+        subreddit_name,
+        post_id,
+        self_text,
+        created_utc
+      )
+    except sqlite3.IntegrityError:
+      pass
+  db.close()
+
+  post_count = len(posts)
   datetime_string = unix_timestamp_to_datetime_string(start)
   return server.create_post_count(subreddit_name, post_count, datetime_string)
 

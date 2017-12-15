@@ -1,11 +1,9 @@
 import argparse
-import sqlite3
 import time
 
 from api import Api
 from database import SQLite3Database
 from logger import logger
-from subreddits import SUBREDDITS
 from utils import unix_timestamp_to_datetime_string, \
                   unix_timestamps_until_today
 
@@ -20,7 +18,15 @@ def get_subreddit_by_name(subreddit_name):
   else:
     return response['data']['subredditByName']
 
-def create_comment_count_for_subreddit(subreddit_name, start, end):
+def create_counts_for_subreddit(subreddit_name, start, end):
+  db = SQLite3Database('posts.db')
+  post_count = db.get_post_count_for_subreddit(
+    subreddit_name,
+    start,
+    end
+  )
+  db.close()
+
   db = SQLite3Database('comments.db')
   comment_count = db.get_comment_count_for_subreddit(
     subreddit_name,
@@ -30,12 +36,20 @@ def create_comment_count_for_subreddit(subreddit_name, start, end):
   db.close()
 
   datetime_string = unix_timestamp_to_datetime_string(start)
-  response = server.create_comment_count(
+
+  post_response = server.create_post_count(
+    subreddit_name,
+    post_count,
+    datetime_string
+  )
+
+  comment_response = server.create_comment_count(
     subreddit_name,
     comment_count,
     datetime_string
   )
-  return 'errors' not in response
+
+  return 'errors' not in post_response and 'errors' not in comment_response
 
 # Note that `api` refers to Rails API and `praw` refers to Reddit API.
 def run_for_subreddit(subreddit_name):
@@ -61,18 +75,18 @@ def run_for_subreddit(subreddit_name):
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(
-    description='Backfill comment counts',
+    description='Backfill post and comment counts',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter
   )
   parser.add_argument(
     '-s',
     dest='subreddit_name',
-    help='Name of subreddit to backfill post counts for',
+    help='Name of subreddit to backfill post and comment counts for',
     required=True,
     type=str
   )
   args = parser.parse_args()
 
-  logger.info('Starting backfill comment counts script...')
+  logger.info('Starting backfill post and comment counts script...')
   run_for_subreddit(args.subreddit_name)
-  logger.info('Ending backfill comment counts script...')
+  logger.info('Ending backfill post and comment counts script...')
