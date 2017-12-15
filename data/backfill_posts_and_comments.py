@@ -22,7 +22,8 @@ def get_subreddit_by_name(subreddit_name):
 
 def backfill_posts_and_comments(subreddit_name, praw_subreddit, start, end):
     posts = praw_subreddit.submissions(start, end)
-    success_count = 0
+    post_success_count = 0
+    comment_success_count = 0
 
     for post in posts:
         db = SQLite3Database('posts.db')
@@ -31,13 +32,14 @@ def backfill_posts_and_comments(subreddit_name, praw_subreddit, start, end):
             self_text = post.selftext
             created_utc = post.created_utc
 
-            response = db.insert_post(
+            if db.insert_post(
               subreddit_name,
               post_id,
               self_text,
               created_utc
-            )
-          except sqlite3.IntegrityError:
+            ):
+                post_success_count += 1
+        except sqlite3.IntegrityError:
             pass
         db.close()
 
@@ -69,14 +71,16 @@ def backfill_posts_and_comments(subreddit_name, praw_subreddit, start, end):
                     body,
                     created_utc
                 ):
-                    success_count += 1
+                    comment_success_count += 1
             except sqlite3.IntegrityError:
                 continue
 
         db.close()
-        time.sleep(5)
 
-    return success_count
+        time.sleep(3)
+
+    logger.info('Backfilled %s posts for subreddit %s' % (post_success_count, subreddit_name))
+    logger.info('Backfilled %s comments for subreddit %s' % (comment_success_count, subreddit_name))
 
 # Note that `api` refers to Rails API and `praw` refers to Reddit API.
 def run_for_subreddit(subreddit_name):
@@ -90,14 +94,14 @@ def run_for_subreddit(subreddit_name):
     start_date = api_subreddit['startDate']
 
     for unix_timestamp in unix_timestamps_until_today(start_date):
-        success_count = backfill_posts_and_comments(
+        backfill_posts_and_comments(
             subreddit_name,
             praw_subreddit,
             unix_timestamp,
             unix_timestamp + ONE_DAY
         )
-        logger.info('Backfilled %s comments for subreddit %s' % (success_count, subreddit_name))
-        time.sleep(10)
+
+        time.sleep(5)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Backfill comments in a subreddit', formatter_class=argparse.ArgumentDefaultsHelpFormatter)

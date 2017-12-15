@@ -64,7 +64,7 @@ class SQLite3Database:
     self_text,
     created_utc
   ):
-    assert self.db_name = 'posts.db'
+    assert self.db_name == 'posts.db'
 
     if post_id.find('t2_') != 0:
       post_id = 't2_' + post_id
