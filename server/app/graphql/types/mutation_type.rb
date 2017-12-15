@@ -86,18 +86,28 @@ module Types
 
         timestamp = QueryHelper::localize_timestamp(args[:timestamp])
 
-        comment_count = CommentCount.create(
+        existing_comment_count = CommentCount.find_by(
           subreddit_id: subreddit_id,
-          count: args[:count],
           timestamp: timestamp,
         )
 
-        if comment_count.valid?
-          comment_count
-        else
-          return GraphQL::ExecutionError.new(
-            'Failed to create comment count'
+        if existing_comment_count.nil?
+          comment_count = CommentCount.create(
+            subreddit_id: subreddit_id,
+            count: args[:count],
+            timestamp: timestamp,
           )
+
+          if comment_count.valid?
+            comment_count
+          else
+            return GraphQL::ExecutionError.new(
+              'Failed to create comment count'
+            )
+          end
+        else
+          existing_comment_count.update_attribute(:count, args[:count])
+          existing_comment_count
         end
       }
     end
@@ -215,18 +225,28 @@ module Types
 
         timestamp = QueryHelper::localize_timestamp(args[:timestamp])
 
-        post_count = PostCount.create(
+        existing_post_count = PostCount.find_by(
           subreddit_id: subreddit_id,
-          count: args[:count],
           timestamp: timestamp,
         )
 
-        if post_count.valid?
-          post_count
-        else
-          return GraphQL::ExecutionError.new(
-            'Failed to create post count'
+        if existing_post_count.nil?
+          post_count = PostCount.create(
+            subreddit_id: subreddit_id,
+            count: args[:count],
+            timestamp: timestamp,
           )
+
+          if post_count.valid?
+            post_count
+          else
+            return GraphQL::ExecutionError.new(
+              'Failed to create post count'
+            )
+          end
+        else
+          existing_post_count.update_attribute(:count, args[:count])
+          existing_post_count
         end
       }
     end
