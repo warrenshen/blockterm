@@ -9,34 +9,6 @@ server = Api()
 
 logger.info('Starting active user and subscriber counts script...')
 
-active_user_counts_db = SQLite3Database('active_user_counts.db')
-active_user_counts_db.cursor.execute('''
-    CREATE TABLE IF NOT EXISTS active_user_counts (
-        subreddit_name string,
-        count int,
-        timestamp int
-    )
-''')
-active_user_counts_db.cursor.execute('''
-    CREATE INDEX IF NOT EXISTS active_user_counts_subreddit_name_and_timestamp
-    ON active_user_counts (subreddit_name, timestamp)
-''')
-active_user_counts_db.close()
-
-subscriber_counts_db = SQLite3Database('subscriber_counts.db')
-subscriber_counts_db.cursor.execute('''
-    CREATE TABLE IF NOT EXISTS subscriber_counts (
-        subreddit_name string,
-        count int,
-        timestamp int
-    )
-''')
-subscriber_counts_db.cursor.execute('''
-    CREATE INDEX IF NOT EXISTS subscriber_counts_subreddit_name_and_timestamp
-    ON subscriber_counts (subreddit_name, timestamp)
-''')
-subscriber_counts_db.close()
-
 for subreddit_name in SUBREDDITS:
     praw_subreddit = reddit.subreddit(subreddit_name)
     active_user_count = praw_subreddit.active_user_count

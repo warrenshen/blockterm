@@ -13,23 +13,6 @@ ONE_DAY = 86400
 
 server = Api()
 
-db = SQLite3Database('comments.db')
-db.cursor.execute('''
-    CREATE TABLE IF NOT EXISTS comments (
-        comment_id string PRIMARY KEY,
-        parent_id string,
-        subreddit_name string,
-        link_id string,
-        body string,
-        created_utc int
-    )
-''')
-db.cursor.execute('''
-    CREATE INDEX IF NOT EXISTS comments_subreddit_name_and_created_utc
-    ON comments (subreddit_name, created_utc)
-''')
-db.close()
-
 logger.info('Starting sync blob and comments script...')
 
 def insert_comments(subreddit_name, comments):
