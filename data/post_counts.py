@@ -11,21 +11,6 @@ ONE_DAY = 86400
 
 server = Api()
 
-db = SQLite3Database('posts.db')
-db.cursor.execute('''
-    CREATE TABLE IF NOT EXISTS posts (
-        post_id string PRIMARY KEY,
-        subreddit_name string,
-        self_text string,
-        created_utc int
-    )
-''')
-db.cursor.execute('''
-    CREATE INDEX IF NOT EXISTS posts_subreddit_name_and_created_utc
-    ON posts (subreddit_name, created_utc)
-''')
-db.close()
-
 logger.info('Starting post counts script...')
 
 def create_post_count_for_subreddit(subreddit_name, praw_subreddit, start, end):
