@@ -49,8 +49,10 @@ class SubredditsCompareBody extends PureComponent {
     } = this.props;
 
     const {
+      changeActiveUserCountPlotRange,
       changeCommentCountPlotRange,
       changePostCountPlotRange,
+      activeUserCountPlotRange,
       commentCountPlotRange,
       postCountPlotRange,
       nightMode,
@@ -62,6 +64,10 @@ class SubredditsCompareBody extends PureComponent {
     );
     const commentCountsData = generateCountChartData2(
       subreddits.map((subreddit) => subreddit.commentCounts),
+      subreddits.map((subreddit) => subreddit.displayName)
+    );
+    const activeUserCountsData = generateCountChartData2(
+      subreddits.map((subreddit) => subreddit.activeUserCounts),
       subreddits.map((subreddit) => subreddit.displayName)
     );
 
@@ -84,12 +90,12 @@ class SubredditsCompareBody extends PureComponent {
           onChange={(option) => changeCommentCountPlotRange(option.value)}
         />
         <LineChartWithSelect
-          data={commentCountsData}
+          data={activeUserCountsData}
           nightMode={nightMode}
           selectOptions={RANGE_SELECT_OPTIONS}
-          selectValue={commentCountPlotRange}
+          selectValue={activeUserCountPlotRange}
           title={'Number of active users'}
-          onChange={(option) => changeCommentCountPlotRange(option.value)}
+          onChange={(option) => changeActiveUserCountPlotRange(option.value)}
         />
       </div>
     );
