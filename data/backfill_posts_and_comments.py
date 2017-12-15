@@ -8,7 +8,8 @@ from api import Api
 from database import SQLite3Database
 from logger import logger
 from reddit import reddit
-from utils import unix_timestamps_until_today
+from utils import unix_timestamp_to_datetime_string, \
+                  unix_timestamps_until_today
 
 ONE_DAY = 86400
 
@@ -24,6 +25,9 @@ def backfill_posts_and_comments(subreddit_name, praw_subreddit, start, end):
     posts = praw_subreddit.submissions(start, end)
     post_success_count = 0
     comment_success_count = 0
+
+    datetime_string = unix_timestamp_to_datetime_string(start)
+    logger.info('Backfilling subreddit %s posts and comments from %s' % (subreddit_name, datetime_string))
 
     for post in posts:
         db = SQLite3Database('posts.db')
