@@ -47,33 +47,79 @@ const styles = StyleSheet.create({
 
 class TokenBody extends PureComponent {
 
-  render()
+  renderMentionTotalCounts()
   {
     const {
       changeMentionTotalPlotRange,
-      changeMentionSubredditPlotRange,
       mentionTotalPlotRange,
-      mentionSubredditPlotRange,
       nightMode,
       token,
     } = this.props;
 
     const {
       mentionTotalCounts,
+    } = token;
+
+    if (mentionTotalCounts.length > 0)
+    {
+      const totalMentionsData = generateCountChartData(
+        mentionTotalCounts,
+        undefined,
+        'now',
+        'MM/DD'
+      );
+
+      return (
+        <BarChartWithSelect
+          data={totalMentionsData}
+          nightMode={nightMode}
+          selectOptions={RANGE_SELECT_OPTIONS}
+          selectValue={mentionTotalPlotRange}
+          title={`${token.shortName} total activity`}
+          onChange={(option) => changeMentionTotalPlotRange(option.value)}
+        />
+      );
+    }
+  }
+
+  renderMentionSubredditCounts()
+  {
+    const {
+      changeMentionSubredditPlotRange,
+      mentionSubredditPlotRange,
+      nightMode,
+      token,
+    } = this.props;
+
+    const {
       subredditMentions,
     } = token;
 
-    const subredditMentionsData = generateCountChartData2(
-      subredditMentions.slice(0, 3).map((subredditMention) => subredditMention.mentionTotalCounts),
-      subredditMentions.slice(0, 3).map((subredditMention) => subredditMention.displayName)
-    );
+    if (subredditMentions.length > 0)
+    {
+      const subredditMentionsData = generateCountChartData2(
+        subredditMentions.slice(0, 3).map((subredditMention) => subredditMention.mentionTotalCounts),
+        subredditMentions.slice(0, 3).map((subredditMention) => subredditMention.displayName)
+      );
 
-    const totalMentionsData = generateCountChartData(
-      mentionTotalCounts,
-      undefined,
-      'now',
-      'MM/DD'
-    );
+      return (
+        <LineChartWithSelect
+          data={subredditMentionsData}
+          nightMode={nightMode}
+          selectOptions={RANGE_SELECT_OPTIONS}
+          selectValue={mentionSubredditPlotRange}
+          title={`${token.shortName} activity by subreddits`}
+          onChange={(option) => changeMentionSubredditPlotRange(option.value)}
+        />
+      );
+    }
+  }
+
+  render()
+  {
+    const {
+      nightMode,
+    } = this.props;
 
     return (
       <div className={css(styles.container, nightMode && styles.nightMode)}>
@@ -84,22 +130,8 @@ class TokenBody extends PureComponent {
           >
             Historical activity
           </El>
-          <BarChartWithSelect
-            data={totalMentionsData}
-            nightMode={nightMode}
-            selectOptions={RANGE_SELECT_OPTIONS}
-            selectValue={mentionTotalPlotRange}
-            title={`${token.shortName} total activity`}
-            onChange={(option) => changeMentionTotalPlotRange(option.value)}
-          />
-          <LineChartWithSelect
-            data={subredditMentionsData}
-            nightMode={nightMode}
-            selectOptions={RANGE_SELECT_OPTIONS}
-            selectValue={mentionSubredditPlotRange}
-            title={`${token.shortName} activity by subreddits`}
-            onChange={(option) => changeMentionSubredditPlotRange(option.value)}
-          />
+          {this.renderMentionTotalCounts()}
+          {this.renderMentionSubredditCounts()}
         </div>
       </div>
     );
