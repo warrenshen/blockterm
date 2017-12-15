@@ -1,3 +1,5 @@
+import sqlite3
+
 from api import Api
 from database import SQLite3Database
 from logger import logger
@@ -31,21 +33,25 @@ def create_post_count_for_subreddit(subreddit_name, praw_subreddit, start, end):
   posts = list(posts_generator)
 
   db = SQLite3Database('posts.db')
+  success_count = 0
+
   for post in posts:
     try:
       post_id = post.id
       self_text = post.selftext
       created_utc = post.created_utc
 
-      response = db.insert_post(
+      if db.insert_post(
         subreddit_name,
         post_id,
         self_text,
         created_utc
-      )
+      ):
+        success_count += 1
     except sqlite3.IntegrityError:
       pass
   db.close()
+  logger.info('Synced %s posts for subreddit %s' % (success_count, subreddit_name))
 
   post_count = len(posts)
   datetime_string = unix_timestamp_to_datetime_string(start)
