@@ -71,7 +71,7 @@ def run_for_subreddit(subreddit_name):
       break
 
     # Don't need to sleep much since we aren't using reddit API.
-    time.sleep(1)
+    time.sleep(0.25)
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(
