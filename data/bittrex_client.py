@@ -10,8 +10,6 @@ import json
 import requests
 import yaml
 
-API_URL = 'http://localhost:8080/graphql'
-
 class BittrexClient(Client):
     def __init__(self, config=None, key=None, secret=None, min_wait_time=30, markets=None, base='BTC', debug=False):
         self.key = key
@@ -20,9 +18,7 @@ class BittrexClient(Client):
         if self.base != 'BTC' and self.base != 'USDT':
             raise Exception('Base type not supported, please use "BTC" or "USDT"')
         self.markets = config['markets'] if 'markets' in config else markets
-        self.min_wait_time = config['min_wait_time'] if 'min_wait_time' in config else min_wait_time
         self.debug = config['debug'] if 'debug' in config else debug
-        self.last_update_dt = None
         self.update()
 
     def get_ticker(self, coin, base='BTC'):
@@ -30,21 +26,20 @@ class BittrexClient(Client):
         return self._curl_result(api_url)
 
     def update(self):
-        if not self.last_update_dt or (dt.now() - self.last_update_dt > timedelta(seconds=self.min_wait_time)):
-            self.market_summaries = self._get_all_market_summaries()
-            self.last_update_dt = dt.now()
+        self.market_summaries = self._get_all_market_summaries()
 
-            summary_dict = {elem['MarketName']:elem for elem in self.market_summaries if elem['MarketName'].startswith(self.base)}
-            if not self.markets:
-                self.market_summaries = summary_dict
-            else:
-                self.market_summaries = {}
-                for key in self.markets:
-                    summary_key = '{}-{}'.format(self.base, key)
-                    if summary_key in summary_dict:
-                        self.market_summaries[summary_key] = summary_dict[summary_key]
-            if self.debug:
-                print('[INFO] Bittrex data for {} updated at: {}'.format(self.base, self.last_update_dt))
+        summary_dict = {elem['MarketName']:elem for elem in self.market_summaries if elem['MarketName'].startswith(self.base)}
+        if not self.markets:
+            self.market_summaries = summary_dict
+        else:
+            self.market_summaries = {}
+            for key in self.markets:
+                summary_key = '{}-{}'.format(self.base, key)
+                if summary_key in summary_dict:
+                    self.market_summaries[summary_key] = summary_dict[summary_key]
+
+        if self.debug:
+            print('[INFO] Bittrex data for {}'.format(self.base))
         return True
 
     def _get_all_market_summaries(self):
@@ -84,29 +79,12 @@ class BittrexClient(Client):
         return result
 
 
-class BittrexClientRunner(BaseClientRunner):
-    def __init__(self, config, update_interval=5, db_name='bittrex_markets.db', debug=False):
-        client = BittrexClient(config)
-        super().__init__(client, update_interval=update_interval)
-        self.db_name = db_name
-        db = SQLite3Database(self.db_name)
+class BittrexClientRunner:
+    def __init__(self, config, debug=False):
+        self.client = BittrexClient(config)
         self.debug = config['debug'] if 'debug' in config else debug
-        query = '''
-            CREATE TABLE IF NOT EXISTS {} (
-                name string,
-                last double,
-                ts datetime,
-                dt datetime
-            )'''.format(self.client.base)
-        if self.debug:
-            print(query)
-        db.cursor.execute(query)
-        db.commit()
-        db.close()
 
-        self.api = Api(API_URL)
-        for market_name in self.client.market_summaries.keys():
-            self.api.create_market(market_name)
+        self.api = Api()
         response = self.api.get_all_markets()
         if 'data' in response and 'allMarkets' in response['data']:
             self.market_id_map = {market['name'] : market['id'] for market in response['data']['allMarkets']}
@@ -114,32 +92,24 @@ class BittrexClientRunner(BaseClientRunner):
                 print('[INFO] Market id map created.')
 
     def run(self):
-        super().run()
-        db = SQLite3Database(self.db_name)
+        db = SQLite3Database('market_tickers.db')
         for _, summary in self.client.market_summaries.items():
-            query = '''
-                INSERT INTO {} (
-                    name,
-                    last,
-                    ts,
-                    dt
-                )
-                VALUES (?, ?, ?, ?)'''.format(self.client.base)
-
-            values = (summary['MarketName'], summary['Last'], summary['TimeStamp'], dt.now())
-            db.cursor.execute(query, values)
-        db.conn.commit()
+            db.insert_market_ticker(summary['MarketName'], summary['Last'], summary['TimeStamp'], dt.now())
         db.close()
+
         if self.debug:
-            print('[INFO] Data committed to sqlite database {} table {}'.format(self.db_name, self.client.base))
+            print('[INFO] Data committed to sqlite database {}'.format('market_tickers.db'))
 
         for _, summary in self.client.market_summaries.items():
             if summary['MarketName'] in self.market_id_map:
-                self.api.create_market_tickers(self.market_id_map[summary['MarketName']], summary['Last'], summary['TimeStamp'])
+                self.api.create_market_ticker(
+                    self.market_id_map[summary['MarketName']],
+                    summary['Last'],
+                    summary['TimeStamp']
+                )
 
 
 if __name__ == '__main__':
-
     parser = argparse.ArgumentParser(description='Get market tickers', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('config_file', help='Path to config yaml file')
     parser.add_argument('--markets', dest='markets', nargs='+', default=['bittrex'], help='Target markets to get the information')
@@ -157,5 +127,5 @@ if __name__ == '__main__':
     for market, config in configs.items():
         if debug:
             print(market, config)
-        runners.append(BittrexClientRunner(config, update_interval=config['update_interval'], db_name='bittrex_markets.db', debug=debug))
+        runners.append(BittrexClientRunner(config, debug=debug))
         runners[-1].run()

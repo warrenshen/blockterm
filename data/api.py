@@ -216,7 +216,7 @@ class Api:
         }
         return self._get_query_response(query)
 
-    def create_market_tickers(self, market_id, value, timestamp):
+    def create_market_ticker(self, market_id, value, timestamp):
         params = 'marketId: %s, value: %s, timestamp: "%s"' % \
                  (market_id, value, timestamp)
         params = self._inject_api_key(params)

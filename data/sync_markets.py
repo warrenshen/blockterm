@@ -28,5 +28,5 @@ if __name__ == '__main__':
         debug = args.debug == 1 or ('debug' in config and config['debug'])
         if debug:
             print(market, config)
-        runners.append(BittrexClientRunner(config, update_interval=config['update_interval'], db_name='bittrex_markets.db', debug=debug))
+        runners.append(BittrexClientRunner(config, debug=debug))
         runners[-1].run()

@@ -12,6 +12,12 @@ class SQLite3Database:
   def close(self):
     self.conn.close()
 
+  def commit(self):
+    self.conn.commit()
+
+  def execute(self, query, params):
+    return self.cursor.execute(query, params)
+
   def insert_comment(
     self,
     subreddit_name,
@@ -27,7 +33,7 @@ class SQLite3Database:
       comment_id = 't1_' + comment_id
 
     try:
-      self.cursor.execute(
+      self.execute(
         '''
         INSERT INTO comments (
           comment_id,
@@ -57,6 +63,28 @@ class SQLite3Database:
     except:
       return False
 
+  def insert_market_ticker(self, name, last, timestamp, created_at):
+    assert self.db_name == 'market_tickers.db'
+
+    self.execute(
+      '''
+      INSERT INTO market_tickers (
+          name,
+          last,
+          timestamp,
+          created_at
+      )
+      VALUES (?, ?, ?, ?)
+      ''',
+      (name, last, timestamp, created_at)
+    )
+
+    try:
+      self.conn.commit()
+      return True
+    except:
+      return False
+
   def insert_post(
     self,
     subreddit_name,
@@ -70,7 +98,7 @@ class SQLite3Database:
       post_id = 't2_' + post_id
 
     try:
-      self.cursor.execute(
+      self.execute(
         '''
         INSERT INTO posts (
           post_id,
@@ -99,7 +127,7 @@ class SQLite3Database:
   def get_comment_count_for_subreddit(self, subreddit_name, start, end):
     assert self.db_name == 'comments.db'
 
-    result = self.cursor.execute(
+    result = self.execute(
       '''
       SELECT COUNT(*)
       FROM comments
@@ -112,7 +140,7 @@ class SQLite3Database:
     return list(result)[0][0]
 
   def get_keyword_count_for_subreddit(self, subreddit_name, keyword, start, end):
-    result = self.cursor.execute(
+    result = self.execute(
       '''
       SELECT COUNT(*)
       FROM comments
@@ -128,7 +156,7 @@ class SQLite3Database:
   def get_post_count_for_subreddit(self, subreddit_name, start, end):
     assert self.db_name == 'posts.db'
 
-    result = self.cursor.execute(
+    result = self.execute(
       '''
       SELECT COUNT(*)
       FROM posts
