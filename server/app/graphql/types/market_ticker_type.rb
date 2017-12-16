@@ -7,17 +7,7 @@ module Types
     field :value, !types.Float
     field :timestamp, !types.String do
       resolve -> (obj, args, ctx) {
-        obj.timestamp.to_s
-      }
-    end
-    field :createdAt, !types.String do
-      resolve -> (obj, args, ctx) {
-        obj.created_at.to_s
-      }
-    end
-    field :updatedAt, !types.String do
-      resolve -> (obj, args, ctx) {
-        obj.updated_at.to_s
+        QueryHelper::localize_timestamp(obj.timestamp).to_s
       }
     end
   end
