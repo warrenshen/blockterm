@@ -124,3 +124,18 @@ class SQLite3Database:
       (subreddit_name, keyword.lower(), start, end)
     )
     return list(result)[0][0]
+
+  def get_post_count_for_subreddit(self, subreddit_name, start, end):
+    assert self.db_name == 'posts.db'
+
+    result = self.cursor.execute(
+      '''
+      SELECT COUNT(*)
+      FROM posts
+      WHERE posts.subreddit_name = ?
+      AND posts.created_utc >= ?
+      AND posts.created_utc < ?
+      ''',
+      (subreddit_name, start, end)
+    )
+    return list(result)[0][0]
