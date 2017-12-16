@@ -5,6 +5,7 @@ SUBREDDITS = [
   'btc',
   'CryptoCurrency',
   'CryptoMarkets',
+  'dogecoin',
   'Electroneum',
   'ethereum',
   'groestlcoin',

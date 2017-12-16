@@ -48,6 +48,10 @@ subreddit_infos = [
     start_date: '2013-11-12',
   },
   {
+    name: 'dogecoin',
+    start_date: '2013-12-08',
+  },
+  {
     name: 'Electroneum',
     start_date: '2017-08-17',
   },
