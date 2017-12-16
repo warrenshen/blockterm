@@ -20,10 +20,11 @@ module Types
       argument :timeRange, types.String
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::filter_relation_by_time_range(
-          obj.market_tickers,
-          args[:timeRange]
-        )
+        obj.market_tickers
+        # QueryHelper::filter_relation_by_time_range(
+        #   obj.market_tickers,
+        #   args[:timeRange]
+        # )
       }
     end
   end
