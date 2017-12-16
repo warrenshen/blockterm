@@ -61,7 +61,7 @@ def run_for_subreddit(subreddit_name):
   start_date = api_subreddit['startDate']
 
   for unix_timestamp in unix_timestamps_until_today(start_date):
-    success = create_comment_count_for_subreddit(
+    success = create_counts_for_subreddit(
       subreddit_name,
       unix_timestamp,
       unix_timestamp + ONE_DAY
