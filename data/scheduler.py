@@ -9,6 +9,9 @@ cron_tab = CronTab(user=CRONTAB_USER)
 cron_tab.remove_all()
 cron_tab.write()
 
+cron_tab.env['MAILTO'] = 'jtcdbob@gmail.com, warrenzshen@gmail.com, blockterm2017@gmail.com'
+cron_tab.write()
+
 job = cron_tab.new(command=get_command_for_script('sync_blob_and_comments.py'))
 job.minute.every(5)
 cron_tab.write()
@@ -24,3 +27,8 @@ cron_tab.write()
 job = cron_tab.new(command=get_command_for_script('comment_counts.py'))
 job.hour.every(24)
 cron_tab.write()
+
+
+for (name, value) in cron_tab.env.items():
+    print(name)
+    print(value)
