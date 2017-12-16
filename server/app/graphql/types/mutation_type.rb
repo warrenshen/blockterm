@@ -443,7 +443,8 @@ module Types
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
-        timestamp = QueryHelper::localize_timestamp(args[:timestamp])
+        # We expect timestamp param to be in UTC.
+        timestamp = args[:timestamp]
 
         market_ticker = MarketTicker.find_or_create_by(
           market_id: args[:marketId],

@@ -62,15 +62,6 @@ ActiveRecord::Schema.define(version: 20171210221841) do
     t.index ["market_id"], name: "index_market_tickers_on_market_id", using: :btree
   end
 
-  create_table "market_tokens", force: :cascade do |t|
-    t.integer  "market_id",  null: false
-    t.integer  "token_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["market_id"], name: "index_market_tokens_on_market_id", using: :btree
-    t.index ["token_id"], name: "index_market_tokens_on_token_id", using: :btree
-  end
-
   create_table "markets", force: :cascade do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
@@ -146,8 +137,6 @@ ActiveRecord::Schema.define(version: 20171210221841) do
   add_foreign_key "comment_counts", "subreddits"
   add_foreign_key "keywords", "tokens"
   add_foreign_key "market_tickers", "markets"
-  add_foreign_key "market_tokens", "markets"
-  add_foreign_key "market_tokens", "tokens"
   add_foreign_key "markets", "tokens"
   add_foreign_key "mention_counts", "keywords"
   add_foreign_key "mention_counts", "subreddits"

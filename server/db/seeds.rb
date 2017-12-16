@@ -121,7 +121,7 @@ token_infos = [
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
     keywords: ['BTC', 'Bitcoin'],
-    markets: ['BTC-USD'],
+    markets: ['USD-BTC', 'USDT-BTC'],
   },
   {
     short_name: 'ETH',
@@ -129,7 +129,7 @@ token_infos = [
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
     keywords: ['ETH', 'Ethereum'],
-    markets: ['ETH-USD', 'ETH-BTC'],
+    markets: ['USD-ETH', 'BTC-ETH', 'USDT-ETH'],
   },
   {
     short_name: 'NEO',
@@ -137,7 +137,7 @@ token_infos = [
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
     keywords: ['NEO', 'Antshare'],
-    markets: ['NEO-BTC', 'NEO-ETH'],
+    markets: ['BTC-NEO', 'ETH-NEO', 'USDT-NEO'],
   },
 ]
 
