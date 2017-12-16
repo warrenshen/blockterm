@@ -149,7 +149,7 @@ class TwilioSMSSender(Sender):
         self.client.messages.create(
                        from_=self.client_number,
                        to=recipient,
-                       body='Hello from Python!')
+                       body=body)
 
 
 class SenderFactory:
