@@ -25,6 +25,49 @@ export function disableChartOptions(earliestDate, options)
   });
 }
 
+export function generateChartData(
+  points,
+  key='value',
+  recentCount=undefined,
+  recentLabel='today',
+  timeFormat='MM/DD')
+{
+  var x = points.map((point) => moment(point.timestamp).format(timeFormat));
+  var y = points.map((point) => point[key]);
+  var backgroundColors = x.map((_) => BAR_CHART_DATA_STYLES[0].historical.backgroundColor);
+  var borderColors = x.map((_) => BAR_CHART_DATA_STYLES[0].historical.borderColor);
+  var hoverBackgroundColors = x.map((_) => BAR_CHART_DATA_STYLES[0].historical.hoverBackgroundColor);
+  var hoverBorderColors = x.map((_) => BAR_CHART_DATA_STYLES[0].historical.hoverBorderColor);
+
+  if (recentCount !== undefined)
+  {
+    x = x.concat([recentLabel]);
+    y = y.concat([recentCount]);
+    backgroundColors = backgroundColors.concat([BAR_CHART_DATA_STYLES[0].now.backgroundColor]);
+    borderColors = borderColors.concat([BAR_CHART_DATA_STYLES[0].now.borderColor]);
+    hoverBackgroundColors = borderColors.concat([BAR_CHART_DATA_STYLES[0].now.hoverBackgroundColor]);
+    hoverBorderColors = borderColors.concat([BAR_CHART_DATA_STYLES[0].now.hoverBorderColor]);
+  }
+
+  return {
+    labels: x,
+    datasets: [
+      Object.assign(
+        {},
+        {
+          backgroundColor: backgroundColors,
+          borderColor: borderColors,
+          borderWidth: 1,
+          hoverBackgroundColor: hoverBackgroundColors,
+          hoverBorderColor: hoverBorderColors,
+          data: y,
+        },
+        LINE_CHART_DATA_STYLES[0].historical
+      ),
+    ],
+  };
+}
+
 export function generateCountChartData(
   historicalCounts,
   recentCount=undefined,
@@ -82,6 +125,7 @@ export function generateCountChartData2(
       {
         data: historicalCounts.map((historicalCount) => historicalCount.count),
         label: legendLabels[index],
+        // yAxisID: index,
       },
       LINE_CHART_DATA_STYLES[index].historical
     );
