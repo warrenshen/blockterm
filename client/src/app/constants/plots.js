@@ -39,12 +39,17 @@ export const RANGE_SELECT_OPTIONS = [
 
 export const BAR_CHART_DATA_STYLES = [
   {
+    // #3498db
     historical: {
-      backgroundColor: 'rgba(255,99,132,0.2)',
-      borderColor: 'rgba(255,99,132,1)',
+      // backgroundColor: 'rgba(255,99,132,0.2)',
+      backgroundColor: '#3498db',
+      // borderColor: 'rgba(255,99,132,1)',
+      borderColor: '#3498db',
       borderWidth: 1,
-      hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-      hoverBorderColor: 'rgba(255,99,132,1)',
+      // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+      hoverBackgroundColor: '#2980b9',
+      // hoverBorderColor: 'rgba(255,99,132,1)',
+      hoverBorderColor: '#2980b9',
     },
     now: {
       backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -73,36 +78,46 @@ export const BAR_CHART_DATA_STYLES = [
 export const LINE_CHART_DATA_STYLES = [
   {
     historical: {
-      backgroundColor: 'rgba(255,99,132,0.2)',
-      borderColor: 'rgba(255,99,132,0.2)',
-      borderWidth: 4,
+      backgroundColor: '#3498db',
+      borderColor: '#3498db',
+      // hoverBackgroundColor: '#2980b9',
+      // hoverBorderColor: '#2980b9',
+      // backgroundColor: 'rgba(255,99,132,0.2)',
+      // borderColor: 'rgba(255,99,132,0.2)',
+      // borderWidth: 4,
+      borderWidth: 2,
       borderCapStyle: 'rgba(255,99,132,0.2)',
       borderJoinStyle: 'rgba(255,99,132,0.2)',
       fill: false,
       lineTension: 0,
       pointBackgroundColor: 'rgba(255,99,132,0.2)',
       pointBorderColor: 'rgba(255,99,132,1)',
-      pointBorderWidth: 2,
-      pointRadius: 2,
-      pointHitRadius: 3,
+      // pointBorderWidth: 2,
+      // pointRadius: 2,
+      // pointHitRadius: 3,
+      pointBorderWidth: 0,
+      pointRadius: 0,
+      pointHitRadius: 2,
       // pointHoverBackgroundColor
       // pointHoverBorderColor
       // pointHoverBorderWidth
       // pointHoverRadius
     },
-    now: {
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 1)',
-      borderWidth: 1,
-      hoverBackgroundColor: 'rgba(54, 162, 235, 0.4)',
-      hoverBorderColor: 'rgba(54, 162, 235, 1)',
-    },
+    // now: {
+    //   backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    //   backgroundColor: 'rgba(54, 162, 235, 0.2)',
+    //   borderColor: 'rgba(54, 162, 235, 1)',
+    //   borderWidth: 1,
+    //   hoverBackgroundColor: 'rgba(54, 162, 235, 0.4)',
+    //   hoverBorderColor: 'rgba(54, 162, 235, 1)',
+    // },
   },
   {
     historical: {
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 0.2)',
+      backgroundColor: '#e74c3c',
+      borderColor: '#e74c3c',
+      // backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      // borderColor: 'rgba(54, 162, 235, 0.2)',
       borderWidth: 4,
       // borderCapStyle:
       // borderJoinStyle:
