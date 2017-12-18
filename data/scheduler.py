@@ -31,6 +31,10 @@ job = cron_tab.new(command=get_command_for_script('comment_counts.py'))
 job.hour.every(24)
 cron_tab.write()
 
+job = cron_tab.new(command=get_command_for_script('mention_counts.py'))
+job.hour.every(24)
+cron_tab.write()
+
 for (name, value) in cron_tab.env.items():
   print(name)
   print(value)
