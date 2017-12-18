@@ -11,11 +11,14 @@ const styles = StyleSheet.create({
     paddingLeft: '12px',
     display: 'flex',
   },
+  bolded: {
+    fontWeight: '700',
+  },
 });
 
 const RightNavButton = ({ link, label, nightMode, viewName }) => (
   <li className={css(styles.container)}>
-    <Link to={link}>
+    <Link className={css(styles.bolded)} to={link}>
       <El nightMode={nightMode} type={'span'}>{label}</El>
     </Link>
   </li>

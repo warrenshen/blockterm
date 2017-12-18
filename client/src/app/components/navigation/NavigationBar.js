@@ -7,13 +7,14 @@ import RightNav           from './RightNav';
 import { Link }       from 'react-router-dom';
 import navigationModel     from '../../models/navigation.json';
 import El from '../El';
+import * as STYLES from '../../constants/styles';
 
 
 const styles = StyleSheet.create({
   container: {
     width: '100vw',
     height: '48px',
-    padding: '0% 15%',
+    padding: '0px 20px',
     backgroundColor: 'white',
     display: 'flex',
     justifyContent: 'space-between',
@@ -21,11 +22,23 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   nightMode: {
-    backgroundColor: '#373b3e',
+    backgroundColor: '#000',
+    //backgroundColor: '#020b0e',
   },
   brand: {
-    fontSize: '14px',
-    fontWeight: '400',
+    fontSize: '16px',
+    fontWeight: '700',
+    letterSpacing: '4px',
+    textTransform: 'uppercase',
+    ':hover': {
+      textDecoration: 'none',
+      color: STYLES.GOLD,
+    }
+  },
+  hoverColor: {
+    ':hover': {
+      color: STYLES.GOLD,
+    }
   },
   section: {
     height: '100%',
@@ -42,8 +55,8 @@ const NavigationBar = ({
   return (
     <nav className={css(styles.container, nightMode && styles.nightMode)}>
       <div className={css(styles.section)}>
-        <Link to={'/'}>
-          <El nightMode={nightMode} style={styles.brand} type={'span'}>
+        <Link className={css(styles.brand)} to={'/'}>
+          <El style={styles.hoverColor} nightMode={nightMode} type={'span'}>
             {navigationModel.brand}
           </El>
         </Link>

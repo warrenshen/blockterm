@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '100vw',
     minHeight: '100vh',
-    padding: '0% 15%',
+    padding: '0px 20px',
     backgroundColor: '#ecf0f1',
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
@@ -27,8 +27,6 @@ const styles = StyleSheet.create({
     padding: '24px 0px',
   },
   body: {
-    left: '-24px',
-    width: '100%',
     padding: '24px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
