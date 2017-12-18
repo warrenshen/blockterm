@@ -20,10 +20,15 @@ for keyword in keywords:
 def create_mention_counts_for_subreddit(subreddit_name, keyword_id_to_words, start, end):
   datetime_string = unix_timestamp_to_datetime_string(start)
 
-  for keyword_id, word in keyword_id_to_words.iteritems():
+  for keyword_id, word in keyword_id_to_words.items():
     db = SQLite3Database('comments.db')
     mention_count = db.get_keyword_count_for_subreddit(subreddit_name, word, start, end)
     db.close()
+    logger.info('Keyword {} mentioned {} times in subreddit {}'.format(
+      word,
+      mention_count,
+      subreddit_name
+    ))
 
     response = server.create_mention_count(
       subreddit_name,
@@ -36,6 +41,11 @@ for subreddit_name in SUBREDDITS:
     # End timestamp is start of today, since we are getting mention count for yesterday.
     end = unix_timestamp_today()
     start = end - ONE_DAY
-    create_mention_counts_for_subreddit(subreddit_name, keyword_id_to_words, start, end)
+    create_mention_counts_for_subreddit(
+      subreddit_name,
+      keyword_id_to_words,
+      start,
+      end
+    )
 
 logger.info('Ending mention counts script...')
