@@ -81,7 +81,6 @@ class BittrexClient(Client):
       print(e)
     return result
 
-
 class BittrexClientRunner:
   def __init__(self, config, debug=False):
     self.client = BittrexClient(config)

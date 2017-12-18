@@ -17,9 +17,9 @@ market_btc:
   base: BTC
   markets:
     - BCC
-    - BTC
     - ETH
     - GRS
+    - LSK
     - LTC
     - NEO
     - VTC
