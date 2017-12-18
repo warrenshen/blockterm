@@ -15,8 +15,11 @@ class SQLite3Database:
   def commit(self):
     self.conn.commit()
 
-  def execute(self, query, params):
-    return self.cursor.execute(query, params)
+  def execute(self, query, params=None):
+    if params:
+      return self.cursor.execute(query, params)
+    else:
+      return self.cursor.execute(query)
 
   def insert_comment(
     self,
