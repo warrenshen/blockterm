@@ -12,6 +12,7 @@ import {
 } from '../constants/plots';
 import {
   disableChartOptions,
+  generateChartData,
   generateCountChartData,
   generateCountChartData2,
 } from '../helpers/chart';
@@ -46,6 +47,29 @@ const styles = StyleSheet.create({
 });
 
 class TokenBody extends PureComponent {
+
+  renderMarkets(markets)
+  {
+    const {
+      nightMode,
+    } = this.props;
+
+    if (markets.length > 0)
+    {
+      const market = markets[0];
+      const chartData = generateChartData(market.marketTickers);
+      return (
+        <LineChartWithSelect
+          data={chartData}
+          nightMode={nightMode}
+          selectOptions={RANGE_SELECT_OPTIONS}
+          selectValue={''}
+          title={`${market.name}`}
+          onChange={(option) => option.value}
+        />
+      );
+    }
+  }
 
   renderMentionTotalCounts()
   {
@@ -99,15 +123,17 @@ class TokenBody extends PureComponent {
     {
       const subredditMentionsData = generateCountChartData2(
         subredditMentions.slice(0, 3).map((subredditMention) => subredditMention.mentionTotalCounts),
-        subredditMentions.slice(0, 3).map((subredditMention) => subredditMention.displayName)
+        subredditMentions.slice(0, 3).map((subredditMention) => subredditMention.subreddit.displayName)
       );
 
       return (
-        <LineChartWithSelect
+        <BarChartWithSelect
           data={subredditMentionsData}
+          displayLegend={true}
           nightMode={nightMode}
           selectOptions={RANGE_SELECT_OPTIONS}
           selectValue={mentionSubredditPlotRange}
+          stacked={true}
           title={`${token.shortName} activity by subreddits`}
           onChange={(option) => changeMentionSubredditPlotRange(option.value)}
         />
@@ -119,6 +145,7 @@ class TokenBody extends PureComponent {
   {
     const {
       nightMode,
+      token,
     } = this.props;
 
     return (
@@ -130,6 +157,7 @@ class TokenBody extends PureComponent {
           >
             Historical activity
           </El>
+          {this.renderMarkets(token.markets)}
           {this.renderMentionTotalCounts()}
           {this.renderMentionSubredditCounts()}
         </div>
