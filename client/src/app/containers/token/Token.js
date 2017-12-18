@@ -22,6 +22,22 @@ const TokenQuery = gql`
       imageUrl
       website
 
+      markets {
+        name
+        lastPrice
+
+        marketTickers {
+          id
+          value
+          timestamp
+        }
+      }
+
+      mentionTotalCounts(timeRange: $mentionTotalPlotRange) {
+        count
+        timestamp
+      }
+
       subreddits {
         id
         displayName
@@ -38,11 +54,6 @@ const TokenQuery = gql`
           count
           timestamp
         }
-      }
-
-      mentionTotalCounts(timeRange: $mentionTotalPlotRange) {
-        count
-        timestamp
       }
     }
   }
