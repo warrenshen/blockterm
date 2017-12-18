@@ -46,11 +46,13 @@ const styles = StyleSheet.create({
 class BarChartWithSelect extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
+    displayLegend: PropTypes.bool,
     nightMode: PropTypes.bool.isRequired,
     rangeStart: PropTypes.string.isRequired,
     rangeEnd: PropTypes.string.isRequired,
     selectOptions: PropTypes.array.isRequired,
     selectValue: PropTypes.string.isRequired,
+    stacked: PropTypes.bool,
     title: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
   };
@@ -59,11 +61,13 @@ class BarChartWithSelect extends PureComponent {
   {
     const {
       data,
+      displayLegend,
       nightMode,
       rangeStart,
       rangeEnd,
       selectOptions,
       selectValue,
+      stacked,
       title,
       onChange,
     } = this.props;
@@ -73,6 +77,13 @@ class BarChartWithSelect extends PureComponent {
                          'rgba(0, 0, 0, 0.15)',
       zeroLineColor: nightMode ? 'rgba(255, 255, 255, 0.15)' :
                                  'rgba(0, 0, 0, 0.15)',
+    };
+    const legendConfig = {
+      display: displayLegend,
+      labels: {
+        fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
+                               'rgba(0, 0, 0, 0.5)',
+      },
     };
     const ticksConfig = {
       beginAtZero: true,
@@ -121,19 +132,21 @@ class BarChartWithSelect extends PureComponent {
             responsive={true}
             redraw={true}
             options={{
-              legend: { display: false },
+              legend: legendConfig,
               maintainAspectRatio: false,
               tooltips: { displayColors: false, intersect: false, mode: 'x' },
               scales: {
                 xAxes: [
                   {
                     gridLines: gridLinesConfig,
+                    stacked: stacked,
                     ticks: ticksConfig,
                   },
                 ],
                 yAxes: [
                   {
                     gridLines: gridLinesConfig,
+                    stacked: stacked,
                     ticks: ticksConfig,
                   },
                 ],
