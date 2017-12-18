@@ -434,7 +434,8 @@ module Types
       description 'Creates a market ticker'
 
       argument :apiKey, !types.String
-      argument :marketId, !types.ID
+      argument :marketId, types.ID
+      argument :marketName, types.String
       argument :value, !types.Float
       argument :timestamp, !types.String
 
@@ -443,11 +444,29 @@ module Types
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
+        if args[:marketId].nil? && args[:marketName].nil?
+          return GraphQL::ExecutionError.new(
+            "One of 'marketId' or 'marketName' params is required"
+          )
+        end
+
+        if !args[:marketId].nil?
+          market = Market.find(args[:marketId])
+        else
+          market = Market.find_by_name(args[:marketName])
+        end
+        if market.nil?
+          return GraphQL::ExecutionError.new(
+            "No market found for given 'marketId' or 'marketName'"
+          )
+        end
+        market_id = market.id
+
         # We expect timestamp param to be in UTC.
         timestamp = args[:timestamp]
 
         market_ticker = MarketTicker.find_or_create_by(
-          market_id: args[:marketId],
+          market_id: market_id,
           value: args[:value],
           timestamp: timestamp,
         )
@@ -456,7 +475,7 @@ module Types
           market_ticker
         else
           return GraphQL::ExecutionError.new(
-            'Failed to create market market_ticker'
+            'Failed to create market ticker'
           )
         end
       }

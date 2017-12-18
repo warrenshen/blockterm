@@ -4,16 +4,17 @@ module Types
 
     field :id, !types.ID
     field :name, !types.String
-    field :createdAt, !types.String do
+    field :lastPrice, !types.String do
       resolve -> (obj, args, ctx) {
-        obj.created_at.to_s
+        obj.market_tickers.order(timestamp: :desc).first.value
       }
     end
     field :updatedAt, !types.String do
       resolve -> (obj, args, ctx) {
-        obj.updated_at.to_s
+        obj.market_tickers.order(timestamp: :desc).first.created_at
       }
     end
+
     field :marketTickers, types[Types::MarketTickerType] do
       description 'The tickers associated with the market'
 
