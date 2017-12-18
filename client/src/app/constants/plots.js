@@ -5,6 +5,8 @@ export const SIX_MONTHS = 'SIX_MONTHS';
 export const ONE_YEAR = 'ONE_YEAR';
 export const ALL_TIME = 'ALL_TIME';
 
+import * as STYLES from './styles';
+
 export const RANGE_SELECT_OPTIONS = [
   {
     label: '1 week',
@@ -42,14 +44,14 @@ export const BAR_CHART_DATA_STYLES = [
     // #3498db
     historical: {
       // backgroundColor: 'rgba(255,99,132,0.2)',
-      backgroundColor: '#3498db',
+      backgroundColor: STYLES.ORANGE,
       // borderColor: 'rgba(255,99,132,1)',
-      borderColor: '#3498db',
-      borderWidth: 1,
+      //borderColor: '#3498db',
+      //borderWidth: 1,
       // hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-      hoverBackgroundColor: '#2980b9',
+      hoverBackgroundColor: STYLES.GOLD,
       // hoverBorderColor: 'rgba(255,99,132,1)',
-      hoverBorderColor: '#2980b9',
+      //hoverBorderColor: '#2980b9',
     },
     now: {
       backgroundColor: 'rgba(54, 162, 235, 0.2)',

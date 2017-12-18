@@ -10,27 +10,37 @@ import moment              from 'moment';
 import SubredditBody from '../../components/SubredditBody';
 import TokenWidget from '../../components/TokenWidget';
 import El from '../../components/El';
+import * as STYLES from '../../constants/styles';
 
 const styles = StyleSheet.create({
   wrapper: {
     width: '100vw',
     minHeight: '100vh',
-    padding: '0% 15%',
+    display: 'flex',
+    //padding: '0px 20px',
     backgroundColor: '#ecf0f1',
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
   nightMode: {
-    backgroundColor: '#232b2e',
+    backgroundColor: STYLES.LIGHTNIGHT,
   },
   container: {
     gridColumn: '3 / 7',
+  },
+  mainContent: {
+    width: '85vw',
+  },
+  sidebar: {
+    width: '15vw',
+    minWidth: '15vw',
+    backgroundColor: STYLES.SOFTGRAY,
   },
   description: {
     paddingTop: '12px',
   },
   header: {
     display: 'flex',
-    padding: '24px 0px',
+    padding: '24px 24px',
   },
   headerLeft: {
     display: 'flex',
@@ -47,6 +57,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     paddingTop: '12px',
+  },
+  bolded: {
+    fontWeight: '700',
   },
 });
 
@@ -129,6 +142,7 @@ class Subreddit extends PureComponent {
               target='_blank'
             >
               <El
+                style={styles.bolded}
                 nightMode={nightMode}
                 type={'h3'}
               >
@@ -191,8 +205,11 @@ class Subreddit extends PureComponent {
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        <div className={css(styles.container)}>
+        <div className={css(styles.mainContent)}>
           { data && data.subredditById && this.renderSubreddit(data.subredditById) }
+        </div>
+        <div className={css(styles.sidebar)}>
+
         </div>
       </div>
     );

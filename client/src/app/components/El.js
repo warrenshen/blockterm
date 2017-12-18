@@ -2,11 +2,11 @@
 
 import React               from 'react';
 import PropTypes           from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite/no-important';
 
 const styles = StyleSheet.create({
   white: {
-    color: '#c3c3c5',
+    color: '#e3e3e5',
   },
 });
 

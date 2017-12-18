@@ -20,7 +20,6 @@ import El                  from './El';
 
 const styles = StyleSheet.create({
   container: {
-    left: '-24px',
     width: '100%',
     padding: '0px 24px 24px',
     boxSizing: 'content-box',
