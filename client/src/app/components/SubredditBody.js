@@ -16,17 +16,15 @@ import El                  from './El';
 
 const styles = StyleSheet.create({
   container: {
-    left: '-24px',
-    width: '100%',
     padding: '0px 24px 24px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
-    borderRadius: '6px',
+    //borderRadius: '6px',
     display: 'flex',
     flexDirection: 'column',
   },
   nightMode: {
-    backgroundColor: '#373b3e',
+    backgroundColor: '#000',
   },
   section: {
     width: '100%',
