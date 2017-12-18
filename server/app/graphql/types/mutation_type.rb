@@ -176,7 +176,7 @@ module Types
 
         mention_count = MentionCount.create(
           keyword_id: args[:keywordId],
-          subreddit_id: args[:subredditId],
+          subreddit_id: subreddit_id,
           count: args[:count],
           timestamp: timestamp,
         )
