@@ -45,6 +45,7 @@ class BittrexClient(Client):
 
   def _get_all_market_summaries(self):
     api_url = 'https://bittrex.com/api/v1.1/public/getmarketsummaries'
+
     result = self._curl_result(api_url)
     return [
       {
@@ -71,7 +72,8 @@ class BittrexClient(Client):
     result = None
     try:
       response = requests.get(url)
-      content = json.loads((response.content))
+      str_response = response.content.decode('utf-8')
+      content = json.loads(str_response)
       if not content['success']:
         raise Exception('Request failed with server response message: {}'.format(content['message']))
       result = content['result']
