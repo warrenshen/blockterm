@@ -1,13 +1,23 @@
 class GraphqlController < ApplicationController
   def execute
     variables = ensure_hash(params[:variables])
+    # Note that `current_user` can be nil.
+    current_user = authorize_request
+
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      current_user: current_user,
     }
-    result = CryptoTrendsSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+    result = CryptoTrendsSchema.execute(
+      query,
+      {
+        variables: variables,
+        context: context,
+        operation_name: operation_name,
+      }
+    )
+
     render json: result
   end
 
@@ -29,5 +39,9 @@ class GraphqlController < ApplicationController
     else
       raise ArgumentError, "Unexpected parameter: #{ambiguous_param}"
     end
+  end
+
+  def authorize_request
+    AuthorizeApiRequest.call(request.headers).result
   end
 end
