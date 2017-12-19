@@ -11,15 +11,18 @@ const styles = StyleSheet.create({
     paddingLeft: '12px',
     display: 'flex',
   },
-  bolded: {
-    fontWeight: '700',
+  boldedUpper: {
+    fontWeight: '700 !important',
+    textTransform: 'uppercase',
+    fontSize: '13px',
+    letterSpacing: '3px',
   },
 });
 
 const RightNavButton = ({ link, label, nightMode, viewName }) => (
   <li className={css(styles.container)}>
-    <Link className={css(styles.bolded)} to={link}>
-      <El nightMode={nightMode} type={'span'}>{label}</El>
+    <Link to={link}>
+      <El nightMode={nightMode} style={styles.boldedUpper} type={'span'}>{label}</El>
     </Link>
   </li>
 );

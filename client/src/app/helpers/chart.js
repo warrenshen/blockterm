@@ -136,3 +136,27 @@ export function generateCountChartData2(
     datasets: datasets,
   };
 }
+
+export function generateLineChartData(
+  historicalCounts,
+  recentCount=undefined,
+  recentLabel='today',
+  timeFormat='MM/DD')
+{
+  var x = historicalCounts.map(
+    (historicalCount) => moment(historicalCount.timestamp).format(timeFormat)
+  );
+  return {
+    labels: x,
+    datasets: [
+      Object.assign(
+        {},
+        {
+          data: historicalCounts.map((historicalCount) => historicalCount.count),
+          // yAxisID: index,
+        },
+        LINE_CHART_DATA_STYLES[0].historical
+      )
+    ],
+  };
+}
