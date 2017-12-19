@@ -29,6 +29,8 @@ module CryptoTrends
 
     config.autoload_paths += %W(#{config.root}/helpers)
     config.autoload_paths += Dir["#{config.root}/helpers/**/"]
+    config.autoload_paths += %W(#{config.root}/commands)
+    config.autoload_paths += Dir["#{config.root}/commands/**/"]
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
