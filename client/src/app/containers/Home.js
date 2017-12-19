@@ -2,7 +2,7 @@
 
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Subreddits }         from '../views';
+import { Home }               from '../views';
 import gql                    from 'graphql-tag';
 import { graphql }            from 'react-apollo';
 
@@ -15,18 +15,15 @@ const query = gql`
  query {
     allSubreddits {
       id
+      blob
       displayName
       name
       imageUrl
-      activeUserCount
-      commentCount
-      postCount
-      subscriberCount
     }
   }
 `;
 
-const SubredditsContainer = graphql(query)(Subreddits);
+const HomeContainer = graphql(query)(Home);
 
 /* -----------------------------------------
   Redux
@@ -49,4 +46,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SubredditsContainer);
+)(HomeContainer);

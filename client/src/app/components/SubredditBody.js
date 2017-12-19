@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
     padding: '0px 24px 24px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
-    //borderRadius: '6px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -53,34 +52,39 @@ class SubredditBody extends PureComponent {
       postCountPlotRange,
     } = this.props;
 
-    var postsX = subreddit.postCounts.map(
-      (postCount) => moment(postCount.timestamp).format('MM/DD')
-    );
-    var commentsX = subreddit.commentCounts.map(
-      (commentCount) => moment(commentCount.timestamp).format('MM/DD')
-    );
-    var activeUsersX = subreddit.activeUserCounts.map(
-      (activeUserCount) => moment(activeUserCount.timestamp).format('MM/DD h:mm')
-    );
-
     const {
+      activeUserCount,
+      commentCount,
+      postCount,
       activeUserCounts,
       commentCounts,
       postCounts,
       subscriberCounts,
     } = subreddit;
 
-    const blob = JSON.parse(subreddit.blob);
+    const postsX = postCounts.map(
+      (postCount) => moment(postCount.timestamp).format('MM/DD')
+    );
+    const commentsX = commentCounts.map(
+      (commentCount) => moment(commentCount.timestamp).format('MM/DD')
+    );
+    const activeUsersX = activeUserCounts.map(
+      (activeUserCount) => moment(activeUserCount.timestamp).format('MM/DD h:mm')
+    );
+    const subscibersX = subscriberCounts.map(
+      (subscriberCount) => moment(subscriberCount.timestamp).format('MM/DD h:mm')
+    );
 
     // TODO: change chart labels from MM/DD to MM/DD/YY based on time range.
     const activeUsersData = generateCountChartData(
       activeUserCounts,
-      blob.activeUserCountNow,
+      activeUserCount,
       'now',
       'MM/DD h:mm'
     );
-    const commentsData = generateCountChartData(commentCounts, blob.commentCount24h);
-    const postsData = generateCountChartData(postCounts, blob.postCount24h);
+    const commentsData = generateCountChartData(commentCounts, commentCount);
+    const postsData = generateCountChartData(postCounts, postCount);
+    const subscribersData = generateCountChartData(subscriberCounts);
 
     const activeUsersSelectOptions = disableChartOptions(
       subreddit.earliestActiveUserCountDate,
@@ -110,13 +114,13 @@ class SubredditBody extends PureComponent {
             nightMode={nightMode}
             type={'span'}
           >
-            {`${blob.activeUserCountNow} active users`}
+            {`${activeUserCount} active users`}
           </El>
           <El nightMode={nightMode} type={'span'}>
-            {`${blob.postCount24h} new posts`}
+            {`${postCount} new posts`}
           </El>
           <El nightMode={nightMode} type={'span'}>
-            {`${blob.commentCount24h} new comments`}
+            {`${commentCount} new comments`}
           </El>
         </div>
         <div className={css(styles.section)}>
@@ -145,6 +149,12 @@ class SubredditBody extends PureComponent {
             selectValue={commentCountPlotRange}
             title={'Number of new comments'}
             onChange={(option) => changeCommentCountPlotRange(option.value)}
+          />
+          <BarChartWithSelect
+            data={subscribersData}
+            nightMode={nightMode}
+            title={'Number of subscribers'}
+            onChange={(option) => option.value}
           />
           <BarChartWithSelect
             data={activeUsersData}

@@ -133,7 +133,12 @@ class Home extends PureComponent {
               </tr>
               {
                 subreddits.map((subreddit, index) => {
-                  const blob = JSON.parse(subreddit.blob);
+                  const {
+                    activeUserCount,
+                    commentCount,
+                    postCount,
+                    subscriberCount,
+                  } = subreddit;
 
                   return (
                     <tr className={css(styles.row)} key={subreddit.id}>
@@ -160,7 +165,7 @@ class Home extends PureComponent {
                           nightMode={nightMode}
                           type={'span'}
                         >
-                          {blob.activeUserCountNow}
+                          {activeUserCount}
                         </El>
                       </td>
                       <td className={css(styles.element)}>
@@ -168,7 +173,7 @@ class Home extends PureComponent {
                           nightMode={nightMode}
                           type={'span'}
                         >
-                          {blob.subscriberCountNow}
+                          {subscriberCount}
                         </El>
                       </td>
                       <td className={css(styles.element)}>
@@ -176,7 +181,7 @@ class Home extends PureComponent {
                           nightMode={nightMode}
                           type={'span'}
                         >
-                          {blob.postCount24h}
+                          {postCount}
                         </El>
                       </td>
                       <td className={css(styles.element)}>
@@ -184,7 +189,7 @@ class Home extends PureComponent {
                           nightMode={nightMode}
                           type={'span'}
                         >
-                          {blob.commentCount24h}
+                          {commentCount}
                         </El>
                       </td>
                     </tr>

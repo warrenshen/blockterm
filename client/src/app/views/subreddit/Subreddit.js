@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     width: '100vw',
     minHeight: '100vh',
     display: 'flex',
-    //padding: '0px 20px',
     backgroundColor: '#ecf0f1',
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
@@ -25,9 +24,6 @@ const styles = StyleSheet.create({
     backgroundColor: STYLES.LIGHTNIGHT,
   },
   container: {
-    gridColumn: '3 / 7',
-  },
-  mainContent: {
     width: '85vw',
   },
   sidebar: {
@@ -126,12 +122,11 @@ class Subreddit extends PureComponent {
       description,
       displayName,
       name,
+      subscriberCount,
       startDate,
       updatedAt,
       tokens,
     } = subreddit;
-
-    const blob = JSON.parse(subreddit.blob);
 
     return (
       <div>
@@ -167,7 +162,7 @@ class Subreddit extends PureComponent {
               nightMode={nightMode}
               type={'span'}
             >
-              {`${blob.subscriberCountNow} total subscribers`}
+              {`${subscriberCount} total subscribers`}
             </El>
             <El
               nightMode={nightMode}
@@ -205,7 +200,7 @@ class Subreddit extends PureComponent {
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        <div className={css(styles.mainContent)}>
+        <div className={css(styles.container)}>
           { data && data.subredditById && this.renderSubreddit(data.subredditById) }
         </div>
         <div className={css(styles.sidebar)}>

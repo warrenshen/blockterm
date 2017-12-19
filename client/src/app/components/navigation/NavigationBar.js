@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   brand: {
     fontSize: '16px',
     fontWeight: '700',
-    letterSpacing: '4px',
+    letterSpacing: '3px',
     textTransform: 'uppercase',
     ':hover': {
       textDecoration: 'none',
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     }
   },
   hoverColor: {
+    fontWeight: 'inherit',
     ':hover': {
       color: STYLES.GOLD,
     }
