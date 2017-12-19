@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     //backgroundColor: '#020b0e',
   },
   brand: {
-    fontSize: '16px',
     fontWeight: '700',
     letterSpacing: '3px',
     textTransform: 'uppercase',
@@ -36,6 +35,7 @@ const styles = StyleSheet.create({
     }
   },
   hoverColor: {
+    fontSize: '16px',
     fontWeight: 'inherit',
     ':hover': {
       color: STYLES.GOLD,

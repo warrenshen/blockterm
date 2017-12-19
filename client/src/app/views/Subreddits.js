@@ -9,7 +9,7 @@ import { Link }            from 'react-router-dom';
 import El                  from '../components/El';
 import { Line }            from 'react-chartjs-2';
 import {
-  generateCountChartData,
+  generateLineChartData,
 } from '../helpers/chart';
 import * as STYLES from '../constants/styles';
 
@@ -24,15 +24,20 @@ const styles = StyleSheet.create({
   nightMode: {
     backgroundColor: STYLES.LIGHTNIGHT,
   },
-  container: {
-    width: '85vw',
+  mainContent: {
+    width: '80vw',
+  },
+  sidebar: {
+    width: '20vw',
+    minWidth: '20vw',
+    backgroundColor: STYLES.SOFTGRAY,
   },
   header: {
     display: 'flex',
     padding: '24px 24px',
   },
   body: {
-    padding: '0px 24px 24px',
+    padding: '0px 24px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
     display: 'flex',
@@ -45,14 +50,17 @@ const styles = StyleSheet.create({
     width: '100%',
     borderCollapse: 'collapse',
     display: 'table',
+    //backgroundColor: STYLES.SOFTGRAY,
   },
   row: {
     width: '100%',
-    border: '1px solid #ddd',
   },
   element: {
     padding: '12px',
-    border: '1px solid #ddd',
+    borderBottom: `1px solid #ddd`,
+  },
+  graphElement: {
+    maxHeight:'50px',
   },
 });
 
@@ -111,7 +119,7 @@ class Home extends PureComponent {
             nightMode={nightMode}
             type={'span'}
           >
-            Number of posts (24h)
+            Posts (24h)
           </El>
         </td>
         <td className={css(styles.element)}>
@@ -119,7 +127,7 @@ class Home extends PureComponent {
             nightMode={nightMode}
             type={'span'}
           >
-            Number of comments (24h)
+            Comments (24h)
           </El>
         </td>
         <td className={css(styles.element)}>
@@ -177,7 +185,7 @@ class Home extends PureComponent {
                     commentCounts,
                   } = subreddit;
 
-                  const data = generateCountChartData(commentCounts);
+                  const data = generateLineChartData(commentCounts);
 
                   return (
                     <tr className={css(styles.row)} key={subreddit.id}>
@@ -231,26 +239,19 @@ class Home extends PureComponent {
                           {commentCount}
                         </El>
                       </td>
-                      <td className={css(styles.element)}>
+                      <td className={css(styles.graphElement)}>
                         <Line
-                          height={48}
+                          height={50}
                           data={data}
-                          responsive={false}
-                          redraw={true}
                           options={{
                             legend: { display: false },
-                            maintainAspectRatio: false,
-                            tooltips: { enabled: false },
+                            tooltips: { enabled: false }, 
                             scales: {
                               xAxes: [
-                                {
-                                  display: false,
-                                },
+                                { display: false, },
                               ],
                               yAxes: [
-                                {
-                                  display: false,
-                                },
+                                { display: true, },
                               ],
                             },
                           }}
@@ -275,11 +276,14 @@ class Home extends PureComponent {
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        <div className={css(styles.container)}>
+        <div className={css(styles.mainContent)}>
           {
             data.allSubreddits &&
             this.renderSubreddits(data.allSubreddits)
           }
+        </div>
+        <div className={css(styles.sidebar)}>
+
         </div>
       </div>
     );
