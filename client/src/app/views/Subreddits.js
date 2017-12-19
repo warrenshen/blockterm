@@ -7,35 +7,35 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
 import El                  from '../components/El';
+import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
   wrapper: {
     width: '100vw',
     minHeight: '100vh',
-    padding: '0px 20px',
+    display: 'flex',
     backgroundColor: '#ecf0f1',
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
   nightMode: {
-    backgroundColor: '#232b2e',
+    backgroundColor: STYLES.LIGHTNIGHT,
   },
   container: {
-    gridColumn: '3 / 7',
+    width: '85vw',
   },
   header: {
     display: 'flex',
-    padding: '24px 0px',
+    padding: '24px 24px',
   },
   body: {
-    padding: '24px',
+    padding: '0px 24px 24px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
-    borderRadius: '6px',
     display: 'flex',
     flexDirection: 'column',
   },
   bodyNightMode: {
-    backgroundColor: '#373b3e',
+    backgroundColor: '#000',
   },
   table: {
     width: '100%',
@@ -87,6 +87,14 @@ class Home extends PureComponent {
                     nightMode={nightMode}
                     type={'span'}
                   >
+                    #
+                  </El>
+                </td>
+                <td className={css(styles.element)}>
+                  <El
+                    nightMode={nightMode}
+                    type={'span'}
+                  >
                     Name
                   </El>
                 </td>
@@ -124,11 +132,19 @@ class Home extends PureComponent {
                 </td>
               </tr>
               {
-                subreddits.map((subreddit) => {
+                subreddits.map((subreddit, index) => {
                   const blob = JSON.parse(subreddit.blob);
 
                   return (
                     <tr className={css(styles.row)} key={subreddit.id}>
+                      <td className={css(styles.element)}>
+                        <El
+                          nightMode={nightMode}
+                          type={'span'}
+                        >
+                          {index + 1}
+                        </El>
+                      </td>
                       <td className={css(styles.element)}>
                         <Link to={`/subreddit/${subreddit.id}`}>
                           <El
