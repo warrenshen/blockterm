@@ -480,5 +480,48 @@ module Types
         end
       }
     end
+
+    field :logIn, Types::AuthType do
+      description 'Logs in user'
+
+      argument :email, !types.String
+      argument :password, !types.String
+
+      resolve -> (obj, args, ctx) {
+        command = AuthenticateUser.call(args[:email], args[:password])
+
+        if command.success?
+          result = command.result
+          return Auth.new(result[:user], result[:auth_token])
+        else
+          return GraphQL::ExecutionError.new('Invalid credentials')
+        end
+      }
+    end
+
+    field :createUser, Types::AuthType do
+      description 'Creates and logs in a user'
+
+      argument :email, !types.String
+      argument :password, !types.String
+
+      resolve -> (obj, args, ctx) {
+        user = User.create(
+          email: args[:email],
+          password: args[:password],
+        )
+
+        if user.valid?
+          command = AuthenticateUser.call(args[:email], args[:password])
+
+          if command.success?
+            result = command.result
+            return Auth.new(result[:user], result[:auth_token])
+          end
+        end
+
+        return GraphQL::ExecutionError.new('Failed to create user')
+      }
+    end
   end
 end
