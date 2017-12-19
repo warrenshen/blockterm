@@ -8,6 +8,7 @@ import {
 }                             from 'react-router-dom';
 import {
   App,
+  ConnectedHome,
   ConnectedSubreddit,
   ConnectedSubreddits,
   ConnectedSubredditsCompare,
@@ -18,7 +19,8 @@ import {
 export const MainRoutes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={ConnectedSubreddits} />
+      <Route exact path="/" component={ConnectedHome} />
+
       <Route exact path='/subreddits' component={ConnectedSubreddits} />
       <Route exact path='/subreddits/compare' component={ConnectedSubredditsCompare} />
 

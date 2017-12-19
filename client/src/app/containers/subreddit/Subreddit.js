@@ -18,10 +18,13 @@ const SubredditQuery = gql`
          $commentCountsTimeRange: String) {
     subredditById(id: $id) {
       id
-      blob
       description
       displayName
       name
+      activeUserCount
+      commentCount
+      postCount
+      subscriberCount
       startDate
       earliestActiveUserCountDate
       earliestCommentCountDate
@@ -34,13 +37,19 @@ const SubredditQuery = gql`
         timestamp
       }
 
+      commentCounts(timeRange: $commentCountsTimeRange) {
+        id
+        count
+        timestamp
+      }
+
       postCounts(timeRange: $postCountsTimeRange) {
         id
         count
         timestamp
       }
 
-      commentCounts(timeRange: $commentCountsTimeRange) {
+      subscriberCounts {
         id
         count
         timestamp
