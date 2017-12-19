@@ -8,6 +8,10 @@ module Types
     field :blob, !types.String, property: :blob_camel_case
     field :displayName, !types.String, property: :display_name
     field :imageUrl, !types.String, property: :image_url
+    field :activeUserCount, types.Int, property: :active_user_count
+    field :commentCount, types.Int, property: :comment_count
+    field :postCount, types.Int, property: :post_count
+    field :subscriberCount, types.Int, property: :subscriber_count
     field :startDate, !types.String do
       resolve -> (obj, args, ctx) {
         obj.start_date.to_s

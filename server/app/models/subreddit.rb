@@ -2,14 +2,18 @@
 #
 # Table name: subreddits
 #
-#  id          :integer          not null, primary key
-#  name        :string           not null
-#  description :string           default(""), not null
-#  start_date  :date             not null
-#  blob        :string           default("{}"), not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  image_url   :string           default(""), not null
+#  id                :integer          not null, primary key
+#  name              :string           not null
+#  description       :string           default(""), not null
+#  start_date        :date             not null
+#  blob              :string           default("{}"), not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  image_url         :string           default(""), not null
+#  subscriber_count  :integer
+#  active_user_count :integer
+#  post_count        :integer
+#  comment_count     :integer
 #
 # Indexes
 #

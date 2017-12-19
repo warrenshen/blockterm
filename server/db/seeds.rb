@@ -98,7 +98,13 @@ subreddit_infos = [
 ]
 
 subreddit_infos.each do |subreddit_info|
-  subreddit = Subreddit.create(subreddit_info)
+  count_data = {
+    active_user_count: rand(5000),
+    comment_count: rand(500),
+    post_count: rand(250),
+    subscriber_count: rand(50000),
+  }
+  subreddit = Subreddit.create(subreddit_info.merge(count_data))
   puts "Created #{subreddit.display_name} subreddit"
 end
 
