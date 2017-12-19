@@ -8,7 +8,7 @@ $opaque: rgba(255, 255, 255, 0.875);
 $wash: #c1d6d8;
 $white: #ffffff;
 
-$font-family: 'Lato', sans-serif;
+$font-family: 'Roboto', sans-serif;
 
 $font-size-largest: 48px;
 $font-size-larger: 30px;
@@ -113,12 +113,13 @@ input,
 label,
 li,
 p,
+span,
 textarea {
   display: inline-block;
   font-family: $font-family;
-  font-size: $font-size-smallest;
+  font-size: $font-size-smaller;
   font-weight: $font-weight-medium;
-  letter-spacing: 0.5px;
+  // letter-spacing: 0.5px;
 }
 
 input,
@@ -128,6 +129,7 @@ textarea {
   padding: 8px;
   border: 1px solid $gray;
   box-sizing: border-box;
+  font-family: $font-family;
   resize: none;
   -webkit-transition: border-color, box-shadow 0.25s ease-in-out;
   -moz-transition: border-color, box-shadow 0.25s ease-in-out;
