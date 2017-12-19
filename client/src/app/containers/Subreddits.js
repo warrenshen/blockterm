@@ -22,6 +22,12 @@ const query = gql`
       commentCount
       postCount
       subscriberCount
+
+      commentCounts(timeRange: "ONE_WEEK") {
+        id
+        count
+        timestamp
+      }
     }
   }
 `;

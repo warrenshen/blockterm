@@ -7,6 +7,10 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
 import El                  from '../components/El';
+import { Line }            from 'react-chartjs-2';
+import {
+  generateCountChartData,
+} from '../helpers/chart';
 import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
@@ -62,11 +66,92 @@ class Home extends PureComponent {
     nightMode: PropTypes.bool.isRequired,
   };
 
+  renderHeader()
+  {
+    const {
+      nightMode,
+    } = this.props;
+
+    return (
+      <tr className={css(styles.row)}>
+        <td className={css(styles.element)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            #
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Name
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Active users
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Subscribers
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Number of posts (24h)
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Number of comments (24h)
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Comments graph (7d)
+          </El>
+        </td>
+      </tr>
+    );
+  }
+
   renderSubreddits(subreddits)
   {
     const {
       nightMode,
     } = this.props;
+
+    const gridLinesConfig = {
+      color: nightMode ? 'rgba(255, 255, 255, 0.15)' :
+                         'rgba(0, 0, 0, 0.15)',
+      zeroLineColor: nightMode ? 'rgba(255, 255, 255, 0.15)' :
+                                 'rgba(0, 0, 0, 0.15)',
+    };
+    const ticksConfig = {
+      beginAtZero: true,
+      fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
+                             'rgba(0, 0, 0, 0.5)',
+      padding: 6,
+    };
 
     return (
       <div>
@@ -81,56 +166,7 @@ class Home extends PureComponent {
         <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
           <table className={css(styles.table)}>
             <tbody>
-              <tr className={css(styles.row)}>
-                <td className={css(styles.element)}>
-                  <El
-                    nightMode={nightMode}
-                    type={'span'}
-                  >
-                    #
-                  </El>
-                </td>
-                <td className={css(styles.element)}>
-                  <El
-                    nightMode={nightMode}
-                    type={'span'}
-                  >
-                    Name
-                  </El>
-                </td>
-                <td className={css(styles.element)}>
-                  <El
-                    nightMode={nightMode}
-                    type={'span'}
-                  >
-                    Active users
-                  </El>
-                </td>
-                <td className={css(styles.element)}>
-                  <El
-                    nightMode={nightMode}
-                    type={'span'}
-                  >
-                    Subscribers
-                  </El>
-                </td>
-                <td className={css(styles.element)}>
-                  <El
-                    nightMode={nightMode}
-                    type={'span'}
-                  >
-                    Number of posts (24h)
-                  </El>
-                </td>
-                <td className={css(styles.element)}>
-                  <El
-                    nightMode={nightMode}
-                    type={'span'}
-                  >
-                    Number of comments (24h)
-                  </El>
-                </td>
-              </tr>
+              {this.renderHeader()}
               {
                 subreddits.map((subreddit, index) => {
                   const {
@@ -138,7 +174,10 @@ class Home extends PureComponent {
                     commentCount,
                     postCount,
                     subscriberCount,
+                    commentCounts,
                   } = subreddit;
+
+                  const data = generateCountChartData(commentCounts);
 
                   return (
                     <tr className={css(styles.row)} key={subreddit.id}>
@@ -191,6 +230,31 @@ class Home extends PureComponent {
                         >
                           {commentCount}
                         </El>
+                      </td>
+                      <td className={css(styles.element)}>
+                        <Line
+                          height={48}
+                          data={data}
+                          responsive={false}
+                          redraw={true}
+                          options={{
+                            legend: { display: false },
+                            maintainAspectRatio: false,
+                            tooltips: { enabled: false },
+                            scales: {
+                              xAxes: [
+                                {
+                                  display: false,
+                                },
+                              ],
+                              yAxes: [
+                                {
+                                  display: false,
+                                },
+                              ],
+                            },
+                          }}
+                        />
                       </td>
                     </tr>
                   );
