@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171210221841) do
+ActiveRecord::Schema.define(version: 20171219004735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,13 +103,17 @@ ActiveRecord::Schema.define(version: 20171210221841) do
   end
 
   create_table "subreddits", force: :cascade do |t|
-    t.string   "name",                       null: false
-    t.string   "description", default: "",   null: false
-    t.date     "start_date",                 null: false
-    t.string   "blob",        default: "{}", null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "image_url",   default: "",   null: false
+    t.string   "name",                             null: false
+    t.string   "description",       default: "",   null: false
+    t.date     "start_date",                       null: false
+    t.string   "blob",              default: "{}", null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "image_url",         default: "",   null: false
+    t.integer  "active_user_count"
+    t.integer  "comment_count"
+    t.integer  "post_count"
+    t.integer  "subscriber_count"
     t.index ["name"], name: "index_subreddits_on_name", unique: true, using: :btree
   end
 
