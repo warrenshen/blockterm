@@ -56,6 +56,7 @@ class SubredditBody extends PureComponent {
       activeUserCount,
       commentCount,
       postCount,
+      subscriberCount,
       activeUserCounts,
       commentCounts,
       postCounts,
@@ -84,7 +85,12 @@ class SubredditBody extends PureComponent {
     );
     const commentsData = generateCountChartData(commentCounts, commentCount);
     const postsData = generateCountChartData(postCounts, postCount);
-    const subscribersData = generateCountChartData(subscriberCounts);
+    const subscribersData = generateCountChartData(
+      subscriberCounts,
+      subscriberCount,
+      'now',
+      'MM/DD h:mm'
+    );
 
     const activeUsersSelectOptions = disableChartOptions(
       subreddit.earliestActiveUserCountDate,
