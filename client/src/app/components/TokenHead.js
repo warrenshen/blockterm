@@ -23,7 +23,7 @@ import El                  from './El';
 
 const styles = StyleSheet.create({
   container: {
-    padding: '24px 0px',
+    padding: '24px 24px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -157,7 +157,7 @@ class TokenBody extends PureComponent {
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.row)}>
-          <img src={token.imageUrl} width={96} height={96}></img>
+          <img src={token.imageUrl} width={48} height={48}></img>
           <div className={css(styles.rowSection)}>
             <div className={css(styles.names)}>
               <El
