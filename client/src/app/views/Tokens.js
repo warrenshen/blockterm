@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
 import El from '../components/El';
+import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
   wrapper: {

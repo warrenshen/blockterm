@@ -5,10 +5,11 @@ import PropTypes      from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }       from 'react-router-dom';
 import El from '../El';
+import * as STYLES from '../../constants/styles';
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: '12px',
+    paddingLeft: '24px',
     display: 'flex',
   },
   boldedUpper: {

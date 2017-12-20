@@ -9,20 +9,30 @@ import { Link }            from 'react-router-dom';
 import TokenHead           from '../../components/TokenHead';
 import TokenBody           from '../../components/TokenBody';
 import El                  from '../../components/El';
+import * as STYLES from '../../constants/styles';
 
 const styles = StyleSheet.create({
   wrapper: {
     width: '100vw',
     minHeight: '100vh',
-    padding: '0% 15%',
+    display: 'flex',
+    //padding: '0% 15%',
     backgroundColor: '#ecf0f1',
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
   nightMode: {
-    backgroundColor: '#232b2e',
+    backgroundColor: STYLES.LIGHTNIGHT,
   },
   container: {
     gridColumn: '3 / 7',
+  },
+  mainContent: {
+    width: '80vw',
+  },
+  sidebar: {
+    width: '20vw',
+    minWidth: '20vw',
+    backgroundColor: STYLES.SOFTGRAY,
   },
 });
 
@@ -77,8 +87,11 @@ class Token extends PureComponent {
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        <div className={css(styles.container)}>
+        <div className={css(styles.mainContent)}>
           { data && data.tokenById && this.renderToken(data.tokenById) }
+        </div>
+        <div className={css(styles.sidebar)}>
+
         </div>
       </div>
     );
