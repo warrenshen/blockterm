@@ -30,16 +30,12 @@ const SubredditWidget = ({
 }) => {
   return (
     <div className={css(styles.container)}>
-      <div className={css(styles.section)}>
-        <img src={subreddit.imageUrl} width={48} height={48}></img>
-      </div>
-      <div className={css(styles.section, styles.sectionRight)}>
-        <Link to={`/subreddit/${subreddit.id}`}>
-          <El nightMode={nightMode} type={'span'}>
-            {subreddit.displayName}
-          </El>
-        </Link>
-      </div>
+      <img src={subreddit.imageUrl} width={48} height={48}></img>
+      <Link to={`/subreddit/${subreddit.id}`}>
+        <El nightMode={nightMode} type={'span'}>
+          {subreddit.displayName}
+        </El>
+      </Link>
     </div>
   );
 }
