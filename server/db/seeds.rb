@@ -15,28 +15,28 @@ end
 puts 'Seeding dashboard item infos'
 dashboard_item_infos = [
   {
-    identifier: 'SUBREDDIT-POSTS-Bitcoin',
+    identifier: 'SUBREDDIT-POSTS-5',
     w: 3,
     h: 3,
     x: 0,
     y: 0,
   },
   {
-    identifier: 'SUBREDDIT-POSTS-ethereum',
+    identifier: 'SUBREDDIT-COMMENTS-12',
     w: 3,
     h: 3,
     x: 3,
     y: 0,
   },
   {
-    identifier: 'SUBREDDIT-POSTS-btc',
+    identifier: 'SUBREDDIT-POSTS-7',
     w: 3,
     h: 3,
     x: 3,
     y: 3,
   },
   {
-    identifier: 'SUBREDDIT-POSTS-Iota',
+    identifier: 'TOKEN-PRICE-4',
     w: 3,
     h: 3,
     x: 0,
