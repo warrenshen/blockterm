@@ -523,5 +523,36 @@ module Types
         return GraphQL::ExecutionError.new('Failed to create user')
       }
     end
+
+    field :updateDashboardItems, Types::UserType do
+      description ''
+
+      argument :layout, !types.String
+
+      resolve -> (obj, args, ctx) {
+        current_user = ctx[:current_user]
+
+        if !ctx[:current_user].valid?
+          return GraphQL::ExecutionError.new('No current user')
+        end
+
+        temp = JSON.parse(args[:layout])
+        temp.each do |item|
+          dashboard_item_id = item['i']
+          dashboard_item = DashboardItem.find(dashboard_item_id)
+          dashboard_item.assign_attributes(
+            w: item['w'],
+            h: item['h'],
+            x: item['x'],
+            y: item['y'],
+          )
+          if dashboard_item.changed?
+            dashboard_item.save!
+          end
+        end
+
+        current_user
+      }
+    end
   end
 end
