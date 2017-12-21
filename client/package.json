@@ -160,6 +160,7 @@
     "react-bootstrap": "^0.31.1",
     "react-chartjs-2": "^2.6.4",
     "react-dom": "^15.6.1",
+    "react-grid-layout": "^0.16.2",
     "react-motion": "^0.5.0",
     "react-notification": "^5.0.1",
     "react-plotly.js": "^1.0.3",
