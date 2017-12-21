@@ -361,9 +361,9 @@ module Types
       argument :apiKey, !types.String
       argument :subredditId, types.ID
       argument :subredditName, types.String
-      argument :postCount, types.Int
-      argument :commentCount, types.Int
       argument :activeUserCount, types.Int
+      argument :commentCount, types.Int
+      argument :postCount, types.Int
       argument :subscriberCount, types.Int
 
       resolve -> (obj, args, ctx) {
@@ -378,30 +378,39 @@ module Types
         end
 
         if !args[:subredditId].nil?
-          subreddit_id = args[:subredditId]
+          subreddit = Subreddit.find(args[:subredditId])
         else
           subreddit = QueryHelper::find_subreddit_by_name(args[:subredditName])
-          if subreddit.nil?
-            return GraphQL::ExecutionError.new(
-              "No subreddit found for given 'subredditId' or 'subredditName'"
-            )
+        end
+
+        if subreddit.nil?
+          return GraphQL::ExecutionError.new(
+            "No subreddit found for given 'subredditId' or 'subredditName'"
+          )
+        end
+
+        if !args[:activeUserCount].nil?
+          subreddit.active_user_count = args[:activeUserCount]
+        end
+        if !args[:commentCount].nil?
+          subreddit.comment_count = args[:commentCount]
+        end
+        if !args[:postCount].nil?
+          subreddit.post_count =  args[:postCount]
+        end
+        if !args[:subscriberCount].nil?
+          subreddit.subscriber_count = args[:subscriberCount]
+        end
+
+        if subreddit.changed?
+          if subreddit.save
+            subreddit
+          else
+            return GraphQL::ExecutionError.new('Could not save subreddit')
           end
+        else
+          subreddit
         end
-
-        if !args[:activeUserCountNow].nil?
-          subreddit.update_blob_attribute(:active_user_count_now, args[:activeUserCountNow])
-        end
-        if !args[:postCount24h].nil?
-          subreddit.update_blob_attribute(:post_count_24h, args[:postCount24h])
-        end
-        if !args[:commentCount24h].nil?
-          subreddit.update_blob_attribute(:comment_count_24h, args[:commentCount24h])
-        end
-        if !args[:subscriberCountNow].nil?
-          subreddit.update_blob_attribute(:subscriber_count_now, args[:subscriberCountNow])
-        end
-
-        subreddit
       }
     end
 
@@ -547,7 +556,9 @@ module Types
             y: item['y'],
           )
           if dashboard_item.changed?
-            dashboard_item.save!
+            if !dashboard_item.save
+              return GraphQL::ExecutionError.new('Could not save dashboard item')
+            end
           end
         end
 

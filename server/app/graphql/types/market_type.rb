@@ -11,7 +11,12 @@ module Types
     end
     field :updatedAt, !types.String do
       resolve -> (obj, args, ctx) {
-        obj.market_tickers.order(timestamp: :desc).first.created_at
+        market_ticker = obj.market_tickers.order(timestamp: :desc).first
+        if market_ticker.valid?
+          market_ticker.created_at.to_s
+        else
+          obj.created_at.to_s
+        end
       }
     end
 
