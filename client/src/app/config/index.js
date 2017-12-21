@@ -6,7 +6,6 @@ const API_URL = process.env.NODE_ENV == 'dev' ?
                'http://api.blockterm.com/graphql';
 
 export const appConfig = {
-  // apollo client:
   apollo: {
     networkInterface: API_URL,
   },
