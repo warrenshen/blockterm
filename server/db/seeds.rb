@@ -28,6 +28,20 @@ dashboard_item_infos = [
     x: 3,
     y: 0,
   },
+  {
+    identifier: 'SUBREDDIT-POSTS-btc',
+    w: 3,
+    h: 3,
+    x: 3,
+    y: 3,
+  },
+  {
+    identifier: 'SUBREDDIT-POSTS-Iota',
+    w: 3,
+    h: 3,
+    x: 0,
+    y: 3,
+  },
 ]
 
 User.all.each do |user|
@@ -257,10 +271,10 @@ puts 'Created subreddit tokens'
 
 puts 'Seeding counts...'
 
-def create_post_counts_for_subreddit(subreddit, k=50)
+def create_post_counts_for_subreddit(subreddit, days=30, k=50)
   today = DateTime.now.beginning_of_day
 
-  for i in (-90..0)
+  for i in (-days..0)
     date = today + i.day
     PostCount.create(
       subreddit_id: subreddit.id,
@@ -269,13 +283,13 @@ def create_post_counts_for_subreddit(subreddit, k=50)
     )
   end
 
-  puts "Created 90 post counts for the #{subreddit.display_name} subreddit"
+  puts "Created #{days} post counts for the #{subreddit.display_name} subreddit"
 end
 
-def create_comment_counts_for_subreddit(subreddit, k=500)
+def create_comment_counts_for_subreddit(subreddit, days=30, k=500)
   today = DateTime.now.beginning_of_day
 
-  for i in (-90..0)
+  for i in (-days..0)
     date = today + i.day
     CommentCount.create(
       subreddit_id: subreddit.id,
@@ -284,14 +298,14 @@ def create_comment_counts_for_subreddit(subreddit, k=500)
     )
   end
 
-  puts "Created 90 post counts for the #{subreddit.display_name} subreddit"
+  puts "Created #{days} post counts for the #{subreddit.display_name} subreddit"
 end
 
-def create_subscriber_counts_for_subreddit(subreddit, increment=3)
+def create_subscriber_counts_for_subreddit(subreddit, days=30, increment=3)
   today = DateTime.now.beginning_of_day
   subscriber_count = 0
 
-  for i in (-90..0)
+  for i in (-days..0)
     date = today + i.day
     SubscriberCount.create(
       subreddit_id: subreddit.id,
@@ -301,14 +315,14 @@ def create_subscriber_counts_for_subreddit(subreddit, increment=3)
     subscriber_count += rand(increment)
   end
 
-  puts "Created 90 subscriber counts for the #{subreddit.display_name} subreddit"
+  puts "Created #{days} subscriber counts for the #{subreddit.display_name} subreddit"
 end
 
-def create_active_user_counts_for_subreddit(subreddit, increment=50)
+def create_active_user_counts_for_subreddit(subreddit, days=30, increment=50)
   today = DateTime.now.beginning_of_day
   active_user_count = 3000
 
-  for i in (-90..0)
+  for i in (-days..0)
     date = today + i.day
     ActiveUserCount.create(
       subreddit_id: subreddit.id,
@@ -320,7 +334,7 @@ def create_active_user_counts_for_subreddit(subreddit, increment=50)
     end
   end
 
-  puts "Created 90 active user counts for the #{subreddit.display_name} subreddit"
+  puts "Created #{days} active user counts for the #{subreddit.display_name} subreddit"
 end
 
 Subreddit.first(5).each do |subreddit|
@@ -328,6 +342,10 @@ Subreddit.first(5).each do |subreddit|
   create_comment_counts_for_subreddit(subreddit)
   create_subscriber_counts_for_subreddit(subreddit)
   create_active_user_counts_for_subreddit(subreddit)
+end
+
+Subreddit.all[5..-1].each do |subreddit|
+  create_comment_counts_for_subreddit(subreddit, 14)
 end
 
 Token.all.each do |token|
