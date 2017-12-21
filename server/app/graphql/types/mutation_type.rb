@@ -361,10 +361,10 @@ module Types
       argument :apiKey, !types.String
       argument :subredditId, types.ID
       argument :subredditName, types.String
-      argument :postCount24h, types.Int
-      argument :commentCount24h, types.Int
-      argument :activeUserCountNow, types.Int
-      argument :subscriberCountNow, types.Int
+      argument :postCount, types.Int
+      argument :commentCount, types.Int
+      argument :activeUserCount, types.Int
+      argument :subscriberCount, types.Int
 
       resolve -> (obj, args, ctx) {
         if QueryHelper::api_key_invalid?(args[:apiKey])
