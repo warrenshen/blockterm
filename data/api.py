@@ -166,13 +166,13 @@ class Api:
                              ):
         params = 'subredditName: "%s"' % subreddit_name
         if post_count is not None:
-            params += ', postCount24h: %s' % post_count
+            params += ', postCount: %s' % post_count
         if comment_count is not None:
-            params += ', commentCount24h: %s' % comment_count
+            params += ', commentCount: %s' % comment_count
         if active_user_count is not None:
-            params += ', activeUserCountNow: %s' % active_user_count
+            params += ', activeUserCount: %s' % active_user_count
         if subscriber_count is not None:
-            params += ', subscriberCountNow: %s' % subscriber_count
+            params += ', subscriberCount: %s' % subscriber_count
         params = self._inject_api_key(params)
 
         query = { 'query': '''
@@ -181,6 +181,10 @@ class Api:
                 id
                 name
                 blob
+                activeUserCount
+                commentCount
+                postCount
+                subscriberCount
               }
             }''' % params
         }
