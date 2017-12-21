@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
 
 const LineChartWithSelect = ({
   data,
+  displayLegend,
   nightMode,
   selectOptions,
   selectValue,
@@ -50,7 +51,7 @@ const LineChartWithSelect = ({
     padding: 6,
   };
   const legendConfig = {
-    display: true,
+    display: displayLegend,
     labels: {
       fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
                              'rgba(0, 0, 0, 0.5)',
