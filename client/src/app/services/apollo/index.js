@@ -8,13 +8,13 @@ import {
 import {
   ApolloClient,
   createNetworkInterface,
-  addTypename
+  addTypename,
 }                         from 'react-apollo';
 import { appConfig }      from '../../config';
 
 const networkInterface = createNetworkInterface({
   uri: appConfig.apollo.networkInterface,
-  // connectToDevTools: true
+  connectToDevTools: true,
   // transportBatching: true
 });
 
