@@ -1,5 +1,41 @@
 puts 'Seeding the database...'
 
+puts 'Seeding users...'
+user_infos = [
+  {
+    email: 'warren@blockterm.com',
+    password: 'password',
+  },
+]
+
+user_infos.each do |user_info|
+  User.create(user_info)
+end
+
+puts 'Seeding dashboard item infos'
+dashboard_item_infos = [
+  {
+    identifier: 'SUBREDDIT-POSTS-Bitcoin',
+    w: 3,
+    h: 3,
+    x: 0,
+    y: 0,
+  },
+  {
+    identifier: 'SUBREDDIT-POSTS-ethereum',
+    w: 3,
+    h: 3,
+    x: 3,
+    y: 0,
+  },
+]
+
+User.all.each do |user|
+  dashboard_item_infos.each do |dashboard_item_info|
+    DashboardItem.create({ user_id: user.id }.merge(dashboard_item_info))
+  end
+end
+
 puts 'Seeding subreddits...'
 
 subreddit_infos = [
@@ -287,7 +323,7 @@ def create_active_user_counts_for_subreddit(subreddit, increment=50)
   puts "Created 90 active user counts for the #{subreddit.display_name} subreddit"
 end
 
-Subreddit.first(3).each do |subreddit|
+Subreddit.first(5).each do |subreddit|
   create_post_counts_for_subreddit(subreddit)
   create_comment_counts_for_subreddit(subreddit)
   create_subscriber_counts_for_subreddit(subreddit)
@@ -298,7 +334,7 @@ Token.all.each do |token|
   keywords = token.keywords
 
   keywords.each do |keyword|
-    Subreddit.all.each do |subreddit|
+    Subreddit.first(5).each do |subreddit|
       today = DateTime.now.beginning_of_day
 
       for i in (-90..0)
