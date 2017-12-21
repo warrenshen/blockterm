@@ -1,6 +1,7 @@
 // @flow weak
 
 export { default as App }                        from './app/App';
+export { default as ConnectedHome }              from './Home';
 export { default as ConnectedNavigationBar }     from './navigation/NavigationBar';
 export { default as ConnectedSubreddit }         from './subreddit/Subreddit';
 export { default as ConnectedSubreddits }        from './Subreddits';
