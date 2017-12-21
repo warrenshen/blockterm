@@ -23,12 +23,9 @@ import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
   container: {
-    ///left: '-24px',
-    //width: '100%',
     padding: '0px 24px 24px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
-    //borderRadius: '6px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -62,6 +59,7 @@ class TokenBody extends PureComponent {
       return (
         <LineChartWithSelect
           data={chartData}
+          displayLegend={false}
           nightMode={nightMode}
           selectOptions={RANGE_SELECT_OPTIONS}
           selectValue={''}
