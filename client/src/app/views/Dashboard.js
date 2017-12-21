@@ -46,17 +46,20 @@ class Dashboard extends PureComponent {
     const {
       data,
     } = this.props;
-    const key = `subreddit${dashboardItem.identifier.substring(16)}`;
 
     return (
       <div
         className={css(styles.item)}
         key={dashboardItem.id}
       >
-        <DashboardItem
-          dashboardItem={dashboardItem}
-          data={data[dashboardItem.identifier.replace(/-/g, '')]}
-        />
+        {
+          data[dashboardItem.identifier.replace(/-/g, '')] && (
+            <DashboardItem
+              dashboardItem={dashboardItem}
+              data={data[dashboardItem.identifier.replace(/-/g, '')]}
+            />
+          )
+        }
       </div>
     );
   }
@@ -64,15 +67,12 @@ class Dashboard extends PureComponent {
   render()
   {
     const {
-      data2,
+      dashboard,
+      data,
+      user,
     } = this.props;
 
-    if (!data2.user)
-    {
-      return null;
-    }
-
-    const layout = data2.user.dashboardItems.map((dashboardItem) => ({
+    const layout = user.dashboardItems.map((dashboardItem) => ({
       i: dashboardItem.id,
       w: dashboardItem.w,
       h: dashboardItem.h,
@@ -80,21 +80,28 @@ class Dashboard extends PureComponent {
       y: dashboardItem.y,
     }));
 
-    return (
-      <ResponsiveReactGridLayout
-        className='layout'
-        cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 2 }}
-        layouts={{ lg: layout }}
-        rowHeight={400}
-        onLayoutChange={(layout, layouts) =>
-          this.onLayoutChange(layout, layouts)
-        }
-      >
-        {
-          data2.user.dashboardItems.map((dashboardItem) => this.renderItem(dashboardItem))
-        }
-      </ResponsiveReactGridLayout>
-    );
+    if (data.loading)
+    {
+      return <div>Loading...</div>;
+    }
+    else
+    {
+      return (
+        <ResponsiveReactGridLayout
+          className='layout'
+          cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 2 }}
+          layouts={{ lg: layout }}
+          rowHeight={400}
+          onLayoutChange={(layout, layouts) =>
+            this.onLayoutChange(layout, layouts)
+          }
+        >
+          {
+            user.dashboardItems.map((dashboardItem) => this.renderItem(dashboardItem))
+          }
+        </ResponsiveReactGridLayout>
+      );
+    }
   }
 }
 

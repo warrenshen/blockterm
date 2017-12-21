@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import gql                    from 'graphql-tag';
 import { graphql }            from 'react-apollo';
 import Dashboard          from './Dashboard';
+import * as dashboardActions      from '../redux/modules/dashboard';
 
 
 /* -----------------------------------------
@@ -34,6 +35,7 @@ const HomeContainer = graphql(query)(Dashboard);
 
 const mapStateToProps = (state) => {
   return {
+    dashboard: state.dashboard,
     nightMode: state.globals.nightMode,
   };
 };
@@ -41,6 +43,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      registerItem: dashboardActions.registerItem,
     },
     dispatch
   );
