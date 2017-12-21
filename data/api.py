@@ -214,7 +214,6 @@ class Api:
               allMarkets(%s) {
                 id
                 name
-                updatedAt
               }
             }''' % (params)
         }
