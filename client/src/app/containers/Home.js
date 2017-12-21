@@ -2,9 +2,9 @@
 
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Home }               from '../views';
 import gql                    from 'graphql-tag';
 import { graphql }            from 'react-apollo';
+import Dashboard          from './Dashboard';
 
 
 /* -----------------------------------------
@@ -13,17 +13,20 @@ import { graphql }            from 'react-apollo';
 
 const query = gql`
  query {
-    allSubreddits {
-      id
-      blob
-      displayName
-      name
-      imageUrl
+    user {
+      dashboardItems {
+        id
+        identifier
+        w
+        h
+        x
+        y
+      }
     }
   }
 `;
 
-const HomeContainer = graphql(query)(Home);
+const HomeContainer = graphql(query)(Dashboard);
 
 /* -----------------------------------------
   Redux
