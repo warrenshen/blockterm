@@ -10,18 +10,46 @@ import { graphql }            from 'react-apollo';
 
 function f(identifier)
 {
-  const subredditName = identifier.substring(16);
-  return `
-    ${identifier.replace(/-/g, '')}: subredditByName(name: "${subredditName}") {
-      id
-      displayName
-      postCounts {
+  const id = identifier.substring(identifier.lastIndexOf('-') + 1);
+
+  if (identifier.indexOf('SUBREDDIT-POSTS') === 0)
+  {
+    return `
+      ${identifier.replace(/-/g, '')}: subredditById(id: "${id}") {
         id
-        count
-        timestamp
+        displayName
+
+        postCounts {
+          id
+          count
+          timestamp
+        }
       }
-    }
-  `;
+    `;
+  }
+  else if (identifier.indexOf('TOKEN-PRICE') === 0)
+  {
+    return `
+      ${identifier.replace(/-/g, '')}: tokenById(id: "${id}") {
+        id
+
+        markets {
+          name
+          lastPrice
+
+          marketTickers {
+            id
+            value
+            timestamp
+          }
+        }
+      }
+    `;
+  }
+  else
+  {
+    console.log('Missing query!!!!!');
+  }
 };
 
 function queryBuilder(props)
@@ -47,14 +75,27 @@ function wrapDynamicGraphQL(ComponentToWrap)
     constructor(props) {
       super(props);
       this.wrapped = null;
+      this.registered = false;
     }
 
     componentWillReceiveProps(nextProps)
     {
+      const {
+        registerItem,
+      } = this.props;
+
       if (nextProps.data.user)
       {
-        const { query, config } = queryBuilder(nextProps);
-        this.wrapped = graphql(query, config)(ComponentToWrap);
+        if (!this.registered)
+        {
+          this.registered = true;
+          nextProps.data.user.dashboardItems.map(
+            (dashboardItem) => registerItem(dashboardItem)
+          );
+
+          const { query, config } = queryBuilder(nextProps);
+          this.wrapped = graphql(query, config)(ComponentToWrap);
+        }
       }
     }
 
@@ -65,8 +106,21 @@ function wrapDynamicGraphQL(ComponentToWrap)
       }
       else
       {
+        const {
+          dashboard,
+          data,
+        } = this.props;
+
+        const { user } = data;
+
         const Wrapped = this.wrapped;
-        return <Wrapped data2={this.props.data} />;
+
+        return (
+          <Wrapped
+            dashboard={dashboard}
+            user={user}
+          />
+        );
       }
     }
   }

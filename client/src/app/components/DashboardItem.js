@@ -11,6 +11,7 @@ import {
   disableChartOptions,
   generateCountChartData,
 } from '../helpers/chart';
+import TokenPriceItem from './TokenPriceItem';
 
 const styles = StyleSheet.create({
   full: {
@@ -25,37 +26,51 @@ class DashboardItem extends PureComponent {
   {
     const {
       data,
+      nightMode,
     } = this.props;
-    if (!data)
-    {
-      return null;
-    }
 
-    switch (dashboardItem.identifier)
+    const identifier = dashboardItem.identifier;
+    if (identifier.indexOf('SUBREDDIT-POSTS') === 0)
     {
-      default:
-        const {
-          postCount,
-          postCounts,
-        } = data;
-        const postsX = postCounts.map(
-          (postCount) => moment(postCount.timestamp).format('MM/DD')
-        );
-        const postsData = generateCountChartData(postCounts, postCount);
-        return (
-          <div style={styles.full}>
-            <BarChartWithSelect
-              data={postsData}
-              nightMode={true}
-              rangeStart={''}
-              rangeEnd={''}
-              selectOptions={[]}
-              selectValue={''}
-              title={'Number of new posts'}
-              onChange={(option) => option.value}
-            />
-          </div>
-        );
+      const {
+        postCount,
+        postCounts,
+      } = data;
+      const postsX = postCounts.map(
+        (postCount) => moment(postCount.timestamp).format('MM/DD')
+      );
+      const postsData = generateCountChartData(postCounts, postCount);
+      return (
+        <div style={styles.full}>
+          <BarChartWithSelect
+            data={postsData}
+            nightMode={true}
+            rangeStart={''}
+            rangeEnd={''}
+            selectOptions={[]}
+            selectValue={''}
+            title={'Number of new posts'}
+            onChange={(option) => option.value}
+          />
+        </div>
+      );
+    }
+    else if (identifier.indexOf('SUBREDDIT-COMMENTS') === 0)
+    {
+      console.log('comments');
+    }
+    else if (identifier.indexOf('TOKEN-PRICE') === 0)
+    {
+      return (
+        <TokenPriceItem
+          nightMode={nightMode}
+          token={data}
+        />
+      );
+    }
+    else
+    {
+      return <div>Unmatched identifier</div>;
     }
   }
 
@@ -63,6 +78,7 @@ class DashboardItem extends PureComponent {
   {
     const {
       dashboardItem,
+      nightMode,
     } = this.props;
 
     return (
