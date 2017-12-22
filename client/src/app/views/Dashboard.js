@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   item: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#BB0000',
+    backgroundColor: '#000',
   },
 });
 
