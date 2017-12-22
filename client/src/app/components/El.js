@@ -8,9 +8,9 @@ const styles = StyleSheet.create({
   white: {
     color: '#e3e3e5',
   },
-  default: {
-    color: '#000 !important',
-  },
+  //default: {
+  //  color: '#000 !important',
+  //},
 });
 
 const El = ({ children, nightMode, style, type }) => {

@@ -10,7 +10,7 @@ import El                  from './El';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    paddingTop: '12px',
+    //paddingTop: '12px',
     display: 'flex',
     flexDirection: 'column',
   },
