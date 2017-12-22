@@ -84,9 +84,9 @@ export const BAR_CHART_DATA_STYLES = [
       //hoverBorderColor: '#2980b9',
     },
     now: {
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 1)',
-      borderWidth: 1,
+      backgroundColor: STYLES.COMPBLUE,
+      //borderColor: 'rgba(54, 162, 235, 1)',
+      //borderWidth: 1,
       hoverBackgroundColor: 'rgba(54, 162, 235, 0.4)',
       hoverBorderColor: 'rgba(54, 162, 235, 1)',
     }
@@ -110,8 +110,8 @@ export const BAR_CHART_DATA_STYLES = [
 export const LINE_CHART_DATA_STYLES = [
   {
     historical: {
-      backgroundColor: '#3498db',
-      borderColor: '#3498db',
+      backgroundColor: 'rgba(52,152,219,0.4)',
+      borderColor: '#006DDB',
       // hoverBackgroundColor: '#2980b9',
       // hoverBorderColor: '#2980b9',
       // backgroundColor: 'rgba(255,99,132,0.2)',
@@ -120,7 +120,7 @@ export const LINE_CHART_DATA_STYLES = [
       borderWidth: 2,
       borderCapStyle: 'rgba(255,99,132,0.2)',
       borderJoinStyle: 'rgba(255,99,132,0.2)',
-      fill: false,
+      fill: true,
       lineTension: 0,
       pointBackgroundColor: 'rgba(255,99,132,0.2)',
       pointBorderColor: 'rgba(255,99,132,1)',

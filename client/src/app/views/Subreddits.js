@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
-    padding: '20px 20px',
+    padding: '15px 20px',
   },
   body: {
     padding: '0px 20px',

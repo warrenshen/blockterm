@@ -17,11 +17,17 @@ import {
 import TokenPriceItem from './TokenPriceItem';
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+  },
   full: {
     width: '100%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     padding: '0px !important',
+    position: 'relative',
   },
 });
 
@@ -94,6 +100,7 @@ class DashboardItem extends PureComponent {
 
     return (
       <div
+        className={css(styles.container)}
         key={dashboardItem.id}
       >
         {this.renderItem(dashboardItem)}
