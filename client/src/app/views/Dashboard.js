@@ -44,7 +44,10 @@ class Dashboard extends PureComponent {
   renderItem(dashboardItem)
   {
     const {
+      changeDashboardItemPlotRange,
+      dashboard,
       data,
+      nightMode,
     } = this.props;
 
     return (
@@ -55,8 +58,11 @@ class Dashboard extends PureComponent {
         {
           data[dashboardItem.identifier.replace(/-/g, '')] && (
             <DashboardItem
+              changeDashboardItemPlotRange={changeDashboardItemPlotRange}
               dashboardItem={dashboardItem}
               data={data[dashboardItem.identifier.replace(/-/g, '')]}
+              nightMode={nightMode}
+              storeState={dashboard[dashboardItem.id]}
             />
           )
         }
@@ -71,6 +77,7 @@ class Dashboard extends PureComponent {
       data,
       user,
     } = this.props;
+    console.log(dashboard);
 
     const layout = user.dashboardItems.map((dashboardItem) => ({
       i: dashboardItem.id,

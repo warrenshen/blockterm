@@ -217,7 +217,6 @@ token_infos.each do |token_info|
   end
 
   if !markets.nil?
-    puts markets
     markets.each do |market|
       Market.create(
         name: market,
@@ -227,17 +226,24 @@ token_infos.each do |token_info|
   end
 end
 
+Market.create(
+  name: 'TOTAL',
+)
+
+
 puts "Created tokens, keywords, and markets"
 
 Market.all.each do |market|
   today = DateTime.now.beginning_of_day
+  last_value = 1000
 
   for i in (-90..0)
     date = today + i.day
+    last_value += rand(5)
     MarketTicker.create(
       market_id: market.id,
       timestamp: date,
-      value: rand(100),
+      value: last_value,
     )
   end
 end
@@ -337,14 +343,14 @@ def create_active_user_counts_for_subreddit(subreddit, days=30, increment=50)
   puts "Created #{days} active user counts for the #{subreddit.display_name} subreddit"
 end
 
-Subreddit.first(5).each do |subreddit|
-  create_post_counts_for_subreddit(subreddit)
-  create_comment_counts_for_subreddit(subreddit)
-  create_subscriber_counts_for_subreddit(subreddit)
-  create_active_user_counts_for_subreddit(subreddit)
+Subreddit.first(3).each do |subreddit|
+  create_post_counts_for_subreddit(subreddit, 365 * 2)
+  create_comment_counts_for_subreddit(subreddit, 365 * 2)
+  create_subscriber_counts_for_subreddit(subreddit, 365 * 2)
+  create_active_user_counts_for_subreddit(subreddit, 365 * 2)
 end
 
-Subreddit.all[5..-1].each do |subreddit|
+Subreddit.all[3..-1].each do |subreddit|
   create_comment_counts_for_subreddit(subreddit, 14)
 end
 

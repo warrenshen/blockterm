@@ -81,7 +81,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
     componentWillReceiveProps(nextProps)
     {
       const {
-        registerItem,
+        registerDashboardItem,
       } = this.props;
 
       if (nextProps.data.user)
@@ -90,7 +90,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
         {
           this.registered = true;
           nextProps.data.user.dashboardItems.map(
-            (dashboardItem) => registerItem(dashboardItem)
+            (dashboardItem) => registerDashboardItem(dashboardItem)
           );
 
           const { query, config } = queryBuilder(nextProps);
@@ -107,8 +107,10 @@ function wrapDynamicGraphQL(ComponentToWrap)
       else
       {
         const {
+          changeDashboardItemPlotRange,
           dashboard,
           data,
+          nightMode,
         } = this.props;
 
         const { user } = data;
@@ -117,7 +119,9 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
         return (
           <Wrapped
+            changeDashboardItemPlotRange={changeDashboardItemPlotRange}
             dashboard={dashboard}
+            nightMode={nightMode}
             user={user}
           />
         );
