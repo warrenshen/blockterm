@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    padding: '10px 10px',
   },
 });
 

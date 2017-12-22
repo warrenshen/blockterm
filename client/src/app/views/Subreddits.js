@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
 import El                  from '../components/El';
+import Sidebar             from '../components/Sidebar';
 import { Line }            from 'react-chartjs-2';
 import {
   generateLineChartData,
@@ -251,7 +252,13 @@ class Home extends PureComponent {
                                 { display: false, },
                               ],
                               yAxes: [
-                                { display: true, },
+                                {
+                                  display: true,
+                                  gridLines: {
+                                    zeroLineColor: '#aa9000',
+                                    color: '#bbb',
+                                  }
+                                },
                               ],
                             },
                           }}
@@ -282,9 +289,9 @@ class Home extends PureComponent {
             this.renderSubreddits(data.allSubreddits)
           }
         </div>
-        <div className={css(styles.sidebar)}>
+        <Sidebar nightMode={nightMode}>
 
-        </div>
+        </Sidebar>
       </div>
     );
   }

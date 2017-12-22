@@ -10,6 +10,7 @@ import moment              from 'moment';
 import SubredditBody from '../../components/SubredditBody';
 import TokenWidget from '../../components/TokenWidget';
 import El from '../../components/El';
+import Sidebar from '../../components/Sidebar';
 import * as STYLES from '../../constants/styles';
 
 const styles = StyleSheet.create({
@@ -207,9 +208,9 @@ class Subreddit extends PureComponent {
         <div className={css(styles.mainContent)}>
           { data && data.subredditById && this.renderSubreddit(data.subredditById) }
         </div>
-        <div className={css(styles.sidebar)}>
+        <Sidebar nightMode={nightMode}>
 
-        </div>
+        </Sidebar>
       </div>
     );
   }
