@@ -114,7 +114,7 @@ export const LINE_CHART_DATA_STYLES = [
       // hoverBackgroundColor: '#2980b9',
       // hoverBorderColor: '#2980b9',
       // backgroundColor: 'rgba(255,99,132,0.2)',
-      // borderColor: 'rgba(255,99,132,0.2)',
+      //borderColor: 'rgba(255,99,132,0.2)',
       // borderWidth: 4,
       borderWidth: 2,
       borderCapStyle: 'rgba(255,99,132,0.2)',

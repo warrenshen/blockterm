@@ -9,6 +9,7 @@ import { Link }            from 'react-router-dom';
 import TokenHead           from '../../components/TokenHead';
 import TokenBody           from '../../components/TokenBody';
 import El                  from '../../components/El';
+import Sidebar from '../../components/Sidebar';
 import * as STYLES from '../../constants/styles';
 
 const styles = StyleSheet.create({
@@ -93,9 +94,9 @@ class Token extends PureComponent {
         <div className={css(styles.mainContent)}>
           { data && data.tokenById && this.renderToken(data.tokenById) }
         </div>
-        <div className={css(styles.sidebar)}>
+        <Sidebar nightMode={nightMode}>
 
-        </div>
+        </Sidebar>
       </div>
     );
   }
