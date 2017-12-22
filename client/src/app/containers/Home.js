@@ -3,9 +3,9 @@
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import gql                    from 'graphql-tag';
-import { graphql }            from 'react-apollo';
-import Dashboard          from './Dashboard';
+import { compose, graphql }   from 'react-apollo';
 import * as dashboardActions      from '../redux/modules/dashboard';
+import Dashboard              from './Dashboard';
 
 
 /* -----------------------------------------
@@ -27,7 +27,33 @@ const query = gql`
   }
 `;
 
-const HomeContainer = graphql(query)(Dashboard);
+const mutation = gql`
+  mutation ($layout: String!) {
+    updateDashboardItems(layout: $layout) {
+      dashboardItems {
+        id
+      }
+    }
+  }
+`;
+const mutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    updateDashboardItems(layout) {
+
+      return mutate({ variables: { layout } })
+        .then(
+          (response) => {
+            return Promise.resolve();
+          }
+        )
+        .catch(
+          (error)=> {
+            return Promise.reject();
+          }
+        );
+    }
+  })
+};
 
 /* -----------------------------------------
   Redux
@@ -50,7 +76,8 @@ const mapDispatchToProps = (dispatch) => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HomeContainer);
+export default compose(
+  graphql(query),
+  graphql(mutation, mutationOptions),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Dashboard);
