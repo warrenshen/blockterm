@@ -6,8 +6,16 @@ import datetime
 
 tz = pytz.timezone('America/Los_Angeles')
 
-def datetime_string_to_unix_timestamp(timstamp_string):
-  return int(datetime.datetime.strptime(timstamp_string, '%Y-%m-%d %H:%M:%S').strftime('%s'))
+def datetime_string_now():
+  timestamp_unix = int(time.time())
+  return unix_timestamp_to_datetime_string(timestamp_unix)
+
+def datetime_string_to_unix_timestamp(datetime_string, string_format='%Y-%m-%d %H:%M:%S'):
+  return int(datetime.datetime.strptime(datetime_string, string_format).strftime('%s'))
+
+def datetime_string_utc_to_pst(datetime_string, string_format='%Y-%m-%d %H:%M:%S'):
+  datetime_object = datetime.datetime.strptime(datetime_string, string_format)
+  return pytz.utc.localize(datetime_object).astimezone(tz).strftime('%Y-%m-%d %H:%M:%S')
 
 def unix_timestamp_now():
   return int(time.time())
@@ -26,10 +34,6 @@ def unix_timestamp_to_datetime_string(timestamp_unix):
   datetime_object = datetime.datetime.fromtimestamp(timestamp_unix)
   localized = tz.localize(datetime_object, is_dst=None)
   return localized.strftime('%Y-%m-%d %H:%M:%S')
-
-def datetime_string_now():
-  timestamp_unix = int(time.time())
-  return unix_timestamp_to_datetime_string(timestamp_unix)
 
 def unix_timestamps_until_today(start_date):
   start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
