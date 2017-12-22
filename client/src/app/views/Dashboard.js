@@ -12,16 +12,6 @@ import DashboardItem from '../components/DashboardItem';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-const updateDashboardItems = gql`
-  mutation ($layout: String!) {
-    updateDashboardItems(layout: $layout) {
-      dashboardItems {
-        id
-      }
-    }
-  }
-`;
-
 const styles = StyleSheet.create({
   item: {
     display: 'flex',
@@ -77,7 +67,6 @@ class Dashboard extends PureComponent {
       data,
       user,
     } = this.props;
-    console.log(dashboard);
 
     const layout = user.dashboardItems.map((dashboardItem) => ({
       i: dashboardItem.id,
@@ -112,31 +101,4 @@ class Dashboard extends PureComponent {
   }
 }
 
-const DashboardWithMutation = graphql(
-  updateDashboardItems,
-  {
-    props: ({ mutate, ownProps }) => ({
-      updateDashboardItems(layout) {
-        // ownProps.setMutationLoading();
-
-        return mutate({ variables: { layout } })
-          .then(
-            (response) => {
-              // ownProps.onUserLoggedIn(loginUser.token, loginUser.user);
-              // ownProps.unsetMutationLoading();
-              return Promise.resolve();
-            }
-          )
-          .catch(
-            (error)=> {
-              // ownProps.onUserLogError(error);
-              // ownProps.unsetMutationLoading();
-              return Promise.reject();
-            }
-          );
-      }
-    })
-  }
-)(Dashboard);
-
-export default DashboardWithMutation;
+export default Dashboard;
