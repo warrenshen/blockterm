@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    padding: '10px 10px',
   },
 });
 
@@ -43,7 +44,7 @@ class DashboardItem extends PureComponent {
         );
         const postsData = generateCountChartData(postCounts, postCount);
         return (
-          <div style={styles.full}>
+          <div className={css(styles.full)}>
             <BarChartWithSelect
               data={postsData}
               nightMode={true}

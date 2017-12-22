@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   rowSection: {
     display: 'flex',
     flexDirection: 'column',
-    paddingLeft: '12px',
+    paddingLeft: '8px',
   },
   names: {
     display: 'flex',
