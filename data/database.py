@@ -127,6 +127,29 @@ class SQLite3Database:
     except:
       return False
 
+  def insert_total_ticker(self, blob, last_updated):
+    assert self.db_name == 'total_market_caps.db'
+    print(blob)
+    try:
+      self.execute(
+        '''
+        INSERT INTO total_market_caps (
+          blob,
+          last_updated
+        ) VALUES (?, ?)
+        ''',
+        (blob, last_updated)
+      )
+    except Exception as e:
+      print('Database insertion error: {}'.format(e))
+      return False
+
+    try:
+      self.conn.commit()
+      return True
+    except:
+      return False
+
   def get_comment_count_for_subreddit(self, subreddit_name, start, end):
     assert self.db_name == 'comments.db'
 
