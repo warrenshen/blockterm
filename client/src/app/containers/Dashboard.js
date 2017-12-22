@@ -111,10 +111,10 @@ function wrapDynamicGraphQL(ComponentToWrap)
           dashboard,
           data,
           nightMode,
+          updateDashboardItems,
         } = this.props;
 
         const { user } = data;
-
         const Wrapped = this.wrapped;
 
         return (
@@ -122,6 +122,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
             changeDashboardItemPlotRange={changeDashboardItemPlotRange}
             dashboard={dashboard}
             nightMode={nightMode}
+            updateDashboardItems={updateDashboardItems}
             user={user}
           />
         );
