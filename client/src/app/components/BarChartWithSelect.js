@@ -48,8 +48,8 @@ class BarChartWithSelect extends PureComponent {
     data: PropTypes.object.isRequired,
     displayLegend: PropTypes.bool,
     nightMode: PropTypes.bool.isRequired,
-    rangeStart: PropTypes.string.isRequired,
-    rangeEnd: PropTypes.string.isRequired,
+    rangeStart: PropTypes.string,
+    rangeEnd: PropTypes.string,
     selectOptions: PropTypes.array.isRequired,
     selectValue: PropTypes.string.isRequired,
     stacked: PropTypes.bool,
@@ -97,23 +97,27 @@ class BarChartWithSelect extends PureComponent {
         <div className={css(styles.header)}>
           <El nightMode={nightMode} type={'h4'}>{title}</El>
           <div className={css(styles.headerRight)}>
-            <div className={css(styles.range, styles.marginRight)}>
-              <El
-                nightMode={nightMode}
-                type={'h5'}
-              >
-                {rangeStart}
-              </El>
-            </div>
-            <h5 className={css(styles.marginRight)}>-</h5>
-            <div className={css(styles.range, styles.marginRight)}>
-            <El
-              nightMode={nightMode}
-              type={'h5'}
-            >
-              {rangeEnd}
-            </El>
-            </div>
+            {
+              rangeStart && rangeEnd && [
+                <div className={css(styles.range, styles.marginRight)}>
+                  <El
+                    nightMode={nightMode}
+                    type={'h5'}
+                  >
+                    {rangeStart}
+                  </El>
+                </div>,
+                <h5 className={css(styles.marginRight)}>-</h5>,
+                <div className={css(styles.range, styles.marginRight)}>
+                  <El
+                    nightMode={nightMode}
+                    type={'h5'}
+                  >
+                    {rangeEnd}
+                  </El>
+                </div>,
+              ]
+            }
             <div className={css(styles.select)}>
               <Select
                 clearable={false}

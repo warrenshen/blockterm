@@ -13,6 +13,7 @@ import * as plotsActions      from '../../redux/modules/plots';
 
 const TokenQuery = gql`
  query ($id: ID!,
+        $pricePlotRange: String,
         $mentionSubredditPlotRange: String,
         $mentionTotalPlotRange: String) {
     tokenById(id: $id) {
@@ -26,7 +27,7 @@ const TokenQuery = gql`
         name
         lastPrice
 
-        marketTickers {
+        marketTickers(timeRange: $pricePlotRange) {
           id
           value
           timestamp
@@ -66,12 +67,14 @@ const TokenWithQuery = graphql(
       match,
       mentionSubredditPlotRange,
       mentionTotalPlotRange,
+      pricePlotRange,
     }) => {
       return {
         variables: {
           id: match.params.id,
           mentionSubredditPlotRange: mentionSubredditPlotRange,
           mentionTotalPlotRange: mentionTotalPlotRange,
+          pricePlotRange: pricePlotRange,
         },
       };
     }
@@ -87,6 +90,7 @@ const mapStateToProps = (state) => {
     mentionSubredditPlotRange: state.plots.mentionSubredditPlotRange,
     mentionTotalPlotRange: state.plots.mentionTotalPlotRange,
     nightMode: state.globals.nightMode,
+    pricePlotRange: state.plots.pricePlotRange,
   };
 };
 
@@ -95,6 +99,7 @@ const mapDispatchToProps = (dispatch) => {
   {
     changeMentionSubredditPlotRange: plotsActions.changeMentionSubredditPlotRange,
     changeMentionTotalPlotRange: plotsActions.changeMentionTotalPlotRange,
+    changePricePlotRange: plotsActions.changePricePlotRange,
   },
     dispatch
   );
