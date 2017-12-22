@@ -8,8 +8,18 @@ $indigo: #2980b9;
 $opaque: rgba(255, 255, 255, 0.875);
 $wash: #c1d6d8;
 $white: #ffffff;
+$black: #000;
 
 $font-family: 'Roboto', sans-serif;
+//$font-family: 'Neuton', serif;
+//$font-family: 'Lora', serif;
+//$font-family: 'Arimo', sans-serif;
+//$font-family: 'Roboto Slab', serif;
+//$font-family: 'Ubuntu', sans-serif;
+//$font-family: 'Slabo 27px', serif;
+//$font-family: 'Roboto Slab', serif;
+//$font-family: 'Poppins', sans-serif;
+//$font-family: 'Alegreya', serif;
 
 $font-size-largest: 48px;
 $font-size-larger: 30px;
@@ -43,7 +53,7 @@ ul {
   position: relative;
   padding: 0;
   margin: 0;
-  color: $bloomy;
+  color: $black;
   outline: none;
 }
 

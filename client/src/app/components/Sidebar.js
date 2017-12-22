@@ -29,7 +29,7 @@ const Sidebar = ({
   return (
     <div className={css(styles.sidebar, nightMode && styles.nightbar)}>
       <div className={css(styles.alert)}>
-        <h3>Hi, I'm an Alert</h3>
+        <h4>Hi, I'm an Alert</h4>
 
       </div>
     </div>
