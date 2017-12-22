@@ -11,6 +11,9 @@ import {
   disableChartOptions,
   generateCountChartData,
 } from '../helpers/chart';
+import {
+  RANGE_SELECT_OPTIONS,
+} from '../constants/plots';
 import TokenPriceItem from './TokenPriceItem';
 
 const styles = StyleSheet.create({
@@ -25,9 +28,15 @@ class DashboardItem extends PureComponent {
   renderItem(dashboardItem)
   {
     const {
+      changeDashboardItemPlotRange,
       data,
       nightMode,
+      storeState,
     } = this.props;
+    console.log(storeState);
+    const {
+      plotRange,
+    } = storeState;
 
     const identifier = dashboardItem.identifier;
     if (identifier.indexOf('SUBREDDIT-POSTS') === 0)
@@ -44,13 +53,11 @@ class DashboardItem extends PureComponent {
         <div style={styles.full}>
           <BarChartWithSelect
             data={postsData}
-            nightMode={true}
-            rangeStart={''}
-            rangeEnd={''}
-            selectOptions={[]}
-            selectValue={''}
+            nightMode={nightMode}
+            selectOptions={RANGE_SELECT_OPTIONS}
+            selectValue={plotRange}
             title={'Number of new posts'}
-            onChange={(option) => option.value}
+            onChange={(option) => changeDashboardItemPlotRange(dashboardItem.id, option.value)}
           />
         </div>
       );
@@ -63,7 +70,10 @@ class DashboardItem extends PureComponent {
     {
       return (
         <TokenPriceItem
+          changeDashboardItemPlotRange={changeDashboardItemPlotRange}
+          id={dashboardItem.id}
           nightMode={nightMode}
+          storeState={storeState}
           token={data}
         />
       );

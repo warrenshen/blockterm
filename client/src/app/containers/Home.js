@@ -43,7 +43,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      registerItem: dashboardActions.registerItem,
+      changeDashboardItemPlotRange: dashboardActions.changeDashboardItemPlotRange,
+      registerDashboardItem: dashboardActions.registerDashboardItem,
     },
     dispatch
   );
