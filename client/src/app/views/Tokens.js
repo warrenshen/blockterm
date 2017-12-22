@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
-    padding: '24px 24px',
+    padding: '20px 20px',
   },
   body: {
     //left: '-24px',
     width: '100%',
-    padding: '0px 24px 24px',
+    padding: '0px 20px 0px',
     boxSizing: 'content-box',
     backgroundColor: '#fff',
     //borderRadius: '6px',
@@ -53,9 +53,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   item: {
-    paddingTop: '24px',
+    padding: '10px',
     display: 'flex',
     alignItems: 'center',
+    borderBottom: '1px solid #ddd',
   },
   image: {
     marginRight: '8px',
