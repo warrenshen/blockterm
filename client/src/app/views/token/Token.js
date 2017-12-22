@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
     width: '100vw',
     minHeight: '100vh',
     display: 'flex',
-    //padding: '0% 15%',
     backgroundColor: '#ecf0f1',
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
@@ -54,8 +53,10 @@ class Token extends PureComponent {
   renderToken(token)
   {
     const {
+      changePricePlotRange,
       changeMentionTotalPlotRange,
       changeMentionSubredditPlotRange,
+      pricePlotRange,
       mentionTotalPlotRange,
       mentionSubredditPlotRange,
       nightMode,
@@ -68,8 +69,10 @@ class Token extends PureComponent {
           token={token}
         />
         <TokenBody
+          changePricePlotRange={changePricePlotRange}
           changeMentionTotalPlotRange={changeMentionTotalPlotRange}
           changeMentionSubredditPlotRange={changeMentionSubredditPlotRange}
+          pricePlotRange={pricePlotRange}
           mentionTotalPlotRange={mentionTotalPlotRange}
           mentionSubredditPlotRange={mentionSubredditPlotRange}
           nightMode={nightMode}

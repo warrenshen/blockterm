@@ -1,5 +1,20 @@
 // @flow weak
 
+import {
+  ONE_DAY,
+  ONE_WEEK,
+  ONE_MONTH,
+} from '../../constants/plots';
+
+const IDENTIFIER_TO_STATE_MAP = {
+  'SUBREDDIT-POSTS': {
+    plotRange: ONE_WEEK,
+  },
+  'TOKEN-PRICE': {
+    plotRange: ONE_DAY,
+  },
+};
+
 /* -----------------------------------------
   constants
  ------------------------------------------*/

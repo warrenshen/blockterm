@@ -11,8 +11,10 @@ import {
 const CHANGE_ACTIVE_USER_COUNT_PLOT_RANGE = 'CHANGE_ACTIVE_USER_COUNT_PLOT_RANGE';
 const CHANGE_COMMENT_COUNT_PLOT_RANGE = 'CHANGE_COMMENT_COUNT_PLOT_RANGE';
 const CHANGE_POST_COUNT_PLOT_RANGE = 'CHANGE_POST_COUNT_PLOT_RANGE';
+const CHANGE_PRICE_PLOT_RANGE = 'CHANGE_PRICE_PLOT_RANGE';
 const CHANGE_MENTION_TOTAL_PLOT_RANGE = 'CHANGE_MENTION_TOTAL_PLOT_RANGE';
 const CHANGE_MENTION_SUBREDDIT_PLOT_RANGE = 'CHANGE_MENTION_SUBREDDIT_PLOT_RANGE';
+const CHANGE_SUBSCRIBER_COUNT_PLOT_RANGE = 'CHANGE_SUBSCRIBER_COUNT_PLOT_RANGE';
 
 /* -----------------------------------------
   Reducer
@@ -21,8 +23,10 @@ const initialState = {
   activeUserCountPlotRange: ONE_WEEK,
   commentCountPlotRange: ONE_MONTH,
   postCountPlotRange: ONE_MONTH,
+  pricePlotRange: ONE_WEEK,
   mentionSubredditPlotRange: ONE_MONTH,
   mentionTotalPlotRange: ONE_MONTH,
+  subscriberCountPlotRange: ONE_MONTH,
 };
 
 export default function(state = initialState, action)
@@ -54,6 +58,16 @@ export default function(state = initialState, action)
         ...state,
         mentionTotalPlotRange: action.value,
       };
+    case CHANGE_PRICE_PLOT_RANGE:
+      return {
+        ...state,
+        pricePlotRange: action.value,
+      };
+    case CHANGE_SUBSCRIBER_COUNT_PLOT_RANGE:
+      return {
+        ...state,
+        subscriberCountPlotRange: action.value,
+      };
     default:
       return state;
   }
@@ -83,6 +97,14 @@ export function changePostCountPlotRange(value)
   };
 }
 
+export function changePricePlotRange(value)
+{
+  return {
+    type: CHANGE_PRICE_PLOT_RANGE,
+    value: value,
+  };
+}
+
 export function changeMentionSubredditPlotRange(value)
 {
   return {
@@ -95,6 +117,14 @@ export function changeMentionTotalPlotRange(value)
 {
   return {
     type: CHANGE_MENTION_TOTAL_PLOT_RANGE,
+    value: value,
+  };
+}
+
+export function changeSubscriberCountPlotRange(value)
+{
+  return {
+    type: CHANGE_SUBSCRIBER_COUNT_PLOT_RANGE,
     value: value,
   };
 }

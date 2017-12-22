@@ -9,6 +9,7 @@ import moment              from 'moment';
 import {
   LINE_CHART_DATA_STYLES,
   RANGE_SELECT_OPTIONS,
+  SMALL_RANGE_SELECT_OPTIONS,
 } from '../constants/plots';
 import {
   disableChartOptions,
@@ -49,22 +50,24 @@ class TokenBody extends PureComponent {
   renderMarkets(markets)
   {
     const {
+      changePricePlotRange,
+      pricePlotRange,
       nightMode,
     } = this.props;
 
     if (markets.length > 0)
     {
-      const market = markets[0];
+      const market = markets[1];
       const chartData = generateChartData(market.marketTickers);
       return (
         <LineChartWithSelect
           data={chartData}
           displayLegend={false}
           nightMode={nightMode}
-          selectOptions={RANGE_SELECT_OPTIONS}
-          selectValue={''}
+          selectOptions={SMALL_RANGE_SELECT_OPTIONS}
+          selectValue={pricePlotRange}
           title={`${market.name}`}
-          onChange={(option) => option.value}
+          onChange={(option) => changePricePlotRange(option.value)}
         />
       );
     }
