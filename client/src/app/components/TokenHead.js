@@ -23,7 +23,7 @@ import El                  from './El';
 
 const styles = StyleSheet.create({
   container: {
-    padding: '24px 24px',
+    padding: '10px 20px',
     display: 'flex',
     flexDirection: 'column',
   },

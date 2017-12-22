@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   brand: {
     fontWeight: '700',
-    letterSpacing: '2px',
+    letterSpacing: '3px',
     textTransform: 'uppercase',
     ':hover': {
       textDecoration: 'none',

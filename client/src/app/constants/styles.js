@@ -10,6 +10,9 @@ export const GOLD = '#FFD000';
 export const ORANGE = '#FF8000';
 export const PURPLE = '#640BD3';
 export const TRIADORANGE = '#ED7518';
+export const COMPOUNDAQUA = '#3BECD1';
+export const COMPOUNDGREEN = '#12B66F';
+export const COMPBLUE = '#00CDE9';
 
 export const STYLES = StyleSheet.create({
   card: {
