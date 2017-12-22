@@ -9,6 +9,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import DashboardItem from '../components/DashboardItem';
+import Sidebar from '../components/Sidebar';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -27,6 +28,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#000',
+  },
+  gridContainer: {
+    backgroundColor: '#e3e3e3',
+    height: '100vh',
+    //width: '80vw',
   },
 });
 
@@ -78,14 +84,16 @@ class Dashboard extends PureComponent {
       h: dashboardItem.h,
       x: dashboardItem.x,
       y: dashboardItem.y,
+      minW: 1,
+      maxW: 4,
     }));
 
     return (
       <ResponsiveReactGridLayout
-        className='layout'
-        cols={{ lg: 4, md: 4, sm: 4, xs: 4, xxs: 2 }}
+        className={css(styles.gridContainer)}
+        cols={{ lg: 6, md: 6, sm: 6, xs: 6, xxs: 6 }}
         layouts={{ lg: layout }}
-        rowHeight={400}
+        rowHeight={200}
         onLayoutChange={(layout, layouts) =>
           this.onLayoutChange(layout, layouts)
         }
