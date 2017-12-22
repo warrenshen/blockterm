@@ -10,6 +10,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import DashboardItem from '../components/DashboardItem';
 import Sidebar from '../components/Sidebar';
+import * as STYLES from '../constants/styles';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -27,12 +28,19 @@ const styles = StyleSheet.create({
   item: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#000',
+    backgroundColor: '#fff',
+    padding: '10px',
   },
   gridContainer: {
     backgroundColor: '#e3e3e3',
     height: '100vh',
   },
+  nightMode: {
+    backgroundColor: '#000',
+  },
+  gridNightContainer: {
+    backgroundColor: STYLES.SOFTGRAY,
+  }
 });
 
 class Dashboard extends PureComponent {
@@ -57,7 +65,7 @@ class Dashboard extends PureComponent {
 
     return (
       <div
-        className={css(styles.item)}
+        className={css(styles.item, nightMode && styles.nightMode)}
         key={dashboardItem.id}
       >
         {
@@ -81,6 +89,7 @@ class Dashboard extends PureComponent {
       dashboard,
       data,
       user,
+      nightMode,
     } = this.props;
     console.log(dashboard);
 
@@ -102,7 +111,7 @@ class Dashboard extends PureComponent {
     {
       return (
         <ResponsiveReactGridLayout
-          className={css(styles.gridContainer)}
+          className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
           cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
           layouts={{ lg: layout }}
           rowHeight={200}
