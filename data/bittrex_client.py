@@ -12,9 +12,8 @@ from database import SQLite3Database
 from logger import logger
 
 class BittrexClient(Client):
-  def __init__(self, config=None, key=None, secret=None, min_wait_time=30, markets=None, base='BTC', debug=False):
+  def __init__(self, config=None, key=None, min_wait_time=30, markets=None, base='BTC', debug=False):
     self.key = key
-    self.secret = secret
     self.base = config['base'] if 'base' in config else base
     if self.base != 'BTC' and self.base != 'USDT':
       raise Exception('Base type not supported, please use "BTC" or "USDT"')

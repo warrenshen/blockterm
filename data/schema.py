@@ -78,3 +78,14 @@ db.execute('''
   )
 ''')
 db.close()
+
+########################################
+
+db = SQLite3Database('total_market_caps.db')
+db.execute('''
+  CREATE TABLE IF NOT EXISTS total_market_caps (
+    blob string,
+    last_updated int
+  )
+''')
+db.close()
