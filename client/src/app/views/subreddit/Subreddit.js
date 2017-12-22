@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
-    padding: '24px 24px',
+    padding: '10px 20px',
   },
   headerLeft: {
     display: 'flex',
@@ -61,6 +61,9 @@ const styles = StyleSheet.create({
   },
   bolded: {
     fontWeight: '700',
+  },
+  hidden: {
+    display: 'none !important',
   },
 });
 
@@ -167,19 +170,20 @@ class Subreddit extends PureComponent {
               nightMode={nightMode}
               type={'span'}
             >
-              {`${subscriberCount} total subscribers`}
+              <strong>{`${subscriberCount}`}</strong> total subscribers
+            </El>
+            <El
+              nightMode={nightMode}
+              type={'span'}
+              style={styles.hidden}
+            >
+              Created <strong>{`${moment(startDate).format("MMM Do YYYY")}`}</strong>
             </El>
             <El
               nightMode={nightMode}
               type={'span'}
             >
-              {`Created ${moment(startDate).format("MMM Do YYYY")}`}
-            </El>
-            <El
-              nightMode={nightMode}
-              type={'span'}
-            >
-              {`Last updated ${moment(updatedAt).fromNow()}`}
+              Last updated <strong>{`${moment(updatedAt).fromNow()}`}</strong>
             </El>
           </div>
         </div>
