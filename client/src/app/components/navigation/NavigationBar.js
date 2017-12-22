@@ -20,14 +20,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     zIndex: 1,
+    borderBottom: '1px solid rgba(0,0,0,0.2)',
   },
   nightMode: {
     backgroundColor: '#000',
+    borderBottom: '1px solid rgba(255,255,255,0.2)',
     //backgroundColor: '#020b0e',
   },
   brand: {
     fontWeight: '700',
-    letterSpacing: '3px',
+    letterSpacing: '2px',
     textTransform: 'uppercase',
     ':hover': {
       textDecoration: 'none',

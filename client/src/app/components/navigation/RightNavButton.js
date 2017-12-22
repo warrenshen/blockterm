@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     fontWeight: '700 !important',
     textTransform: 'uppercase',
     fontSize: '13px',
-    letterSpacing: '3px',
+    letterSpacing: '2px',
   },
 });
 
