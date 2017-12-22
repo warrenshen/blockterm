@@ -25,6 +25,11 @@ const styles = StyleSheet.create({
   mainContent: {
     width: '80vw',
   },
+  sidebar: {
+    width: '20vw',
+    minWidth: '20vw',
+    backgroundColor: STYLES.SOFTGRAY,
+  },
   header: {
     display: 'flex',
     padding: '24px 24px',
@@ -78,7 +83,7 @@ class Tokens extends PureComponent {
         <div className={css(styles.header)}>
           <El
             nightMode={nightMode}
-            type={'h2'}
+            type={'h3'}
           >
             Coins
           </El>
@@ -93,7 +98,7 @@ class Tokens extends PureComponent {
                     <Link to={`/token/${token.id}`}>
                       <El
                         nightMode={nightMode}
-                        type={'h3'}
+                        type={'h4'}
                       >
                         {token.longName}
                       </El>
