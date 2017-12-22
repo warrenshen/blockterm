@@ -1,42 +1,71 @@
+export const ONE_DAY = 'ONE_DAY';
 export const ONE_WEEK = 'ONE_WEEK';
 export const ONE_MONTH = 'ONE_MONTH';
 export const THREE_MONTHS = 'THREE_MONTHS';
 export const SIX_MONTHS = 'SIX_MONTHS';
 export const ONE_YEAR = 'ONE_YEAR';
+export const THREE_YEARS = 'THREE_YEARS';
 export const ALL_TIME = 'ALL_TIME';
 
 import * as STYLES from './styles';
 
+const oneDay = {
+  label: '24 hours',
+  substract: { days: 1 },
+  value: ONE_DAY,
+};
+const oneWeek = {
+  label: '1 week',
+  subtract: { weeks: 1 },
+  value: ONE_WEEK,
+};
+const oneMonth = {
+  label: '1 month',
+  subtract: { months: 1 },
+  value: ONE_MONTH,
+};
+const threeMonths = {
+  label: '3 months',
+  subtract: { months: 3 },
+  value: THREE_MONTHS,
+};
+const sixMonths = {
+  label: '6 months',
+  subtract: { months: 6 },
+  value: SIX_MONTHS,
+};
+const oneYear = {
+  label: '1 year',
+  subtract: { years: 1 },
+  value: ONE_YEAR,
+};
+const threeYears = {
+  label: '3 years',
+  subtract: { years: 3 },
+  value: THREE_YEARS,
+};
+const allTime = {
+  label: 'All time',
+  value: ALL_TIME,
+};
+
+export const SMALL_RANGE_SELECT_OPTIONS = [
+  oneDay,
+  oneWeek,
+  oneMonth,
+  threeMonths,
+  oneYear,
+  allTime,
+];
+
 export const RANGE_SELECT_OPTIONS = [
-  {
-    label: '1 week',
-    subtract: { weeks: 1 },
-    value: ONE_WEEK,
-  },
-  {
-    label: '1 month',
-    subtract: { months: 1 },
-    value: ONE_MONTH,
-  },
-  {
-    label: '3 months',
-    subtract: { months: 3 },
-    value: THREE_MONTHS,
-  },
-  {
-    label: '6 months',
-    subtract: { months: 6 },
-    value: SIX_MONTHS,
-  },
-  {
-    label: '1 year',
-    subtract: { years: 1 },
-    value: ONE_YEAR,
-  },
-  {
-    label: 'All time',
-    value: ALL_TIME,
-  },
+  oneWeek,
+  oneMonth,
+  threeMonths,
+  sixMonths,
+  oneYear,
+  threeYears,
+  allTime,
 ];
 
 export const BAR_CHART_DATA_STYLES = [
