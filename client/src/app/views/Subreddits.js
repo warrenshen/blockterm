@@ -61,7 +61,10 @@ const styles = StyleSheet.create({
     borderBottom: `1px solid #ddd`,
   },
   graphElement: {
-    maxHeight:'50px',
+    maxHeight:'40px',
+  },
+  bolded: {
+    fontWeight: '700',
   },
 });
 
@@ -85,6 +88,7 @@ class Home extends PureComponent {
       <tr className={css(styles.row)}>
         <td className={css(styles.element)}>
           <El
+            style={styles.bolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -93,6 +97,7 @@ class Home extends PureComponent {
         </td>
         <td className={css(styles.element)}>
           <El
+            style={styles.bolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -101,6 +106,7 @@ class Home extends PureComponent {
         </td>
         <td className={css(styles.element)}>
           <El
+            style={styles.bolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -109,6 +115,7 @@ class Home extends PureComponent {
         </td>
         <td className={css(styles.element)}>
           <El
+            style={styles.bolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -117,6 +124,7 @@ class Home extends PureComponent {
         </td>
         <td className={css(styles.element)}>
           <El
+            style={styles.bolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -125,6 +133,7 @@ class Home extends PureComponent {
         </td>
         <td className={css(styles.element)}>
           <El
+            style={styles.bolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -133,6 +142,7 @@ class Home extends PureComponent {
         </td>
         <td className={css(styles.element)}>
           <El
+            style={styles.bolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -242,7 +252,7 @@ class Home extends PureComponent {
                       </td>
                       <td className={css(styles.graphElement)}>
                         <Line
-                          height={50}
+                          height={40}
                           data={data}
                           options={{
                             legend: { display: false },

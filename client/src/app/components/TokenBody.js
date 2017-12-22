@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: '12px',
   },
+  sectionHeader: {
+    marginBottom: '8px',
+    borderBottom: '1px solid #bdc3c7',
+  },
 });
 
 class TokenBody extends PureComponent {
@@ -153,6 +157,7 @@ class TokenBody extends PureComponent {
       <div className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
           <El
+            style={styles.sectionHeader}
             nightMode={nightMode}
             type={'h4'}
           >

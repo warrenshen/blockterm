@@ -8,11 +8,14 @@ const styles = StyleSheet.create({
   white: {
     color: '#e3e3e5',
   },
+  default: {
+    color: '#000 !important',
+  },
 });
 
 const El = ({ children, nightMode, style, type }) => {
   const Tag = type;
-  var className = css(style, nightMode && styles.white);
+  var className = css(style, styles.default, nightMode && styles.white);
   return (
     <Tag className={className}>
       {children}

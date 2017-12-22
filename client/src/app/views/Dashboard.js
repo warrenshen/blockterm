@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   gridContainer: {
     backgroundColor: '#e3e3e3',
     height: '100vh',
-    //width: '80vw',
   },
 });
 
@@ -85,13 +84,13 @@ class Dashboard extends PureComponent {
       x: dashboardItem.x,
       y: dashboardItem.y,
       minW: 1,
-      maxW: 4,
+      maxW: 8,
     }));
 
     return (
       <ResponsiveReactGridLayout
         className={css(styles.gridContainer)}
-        cols={{ lg: 6, md: 6, sm: 6, xs: 6, xxs: 6 }}
+        cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
         layouts={{ lg: layout }}
         rowHeight={200}
         onLayoutChange={(layout, layouts) =>

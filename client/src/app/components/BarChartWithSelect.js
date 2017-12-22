@@ -73,22 +73,20 @@ class BarChartWithSelect extends PureComponent {
     } = this.props;
 
     const gridLinesConfig = {
-      color: nightMode ? 'rgba(255, 255, 255, 0.15)' :
-                         'rgba(0, 0, 0, 0.15)',
-      zeroLineColor: nightMode ? 'rgba(255, 255, 255, 0.15)' :
-                                 'rgba(0, 0, 0, 0.15)',
+      color: nightMode ? 'rgba(255, 255, 255, 0.25)' : 'rgba(0, 0, 0, 0.25)',
+      zeroLineColor: nightMode ? 'rgba(255, 255, 255, 0.25)' : 'rgba(0, 0, 0, 0.25)',
     };
     const legendConfig = {
       display: displayLegend,
       labels: {
-        fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
-                               'rgba(0, 0, 0, 0.5)',
+        fontColor: nightMode ? 'rgba(255, 255, 255, 1)' :
+                               'rgba(0, 0, 0, 1)',
       },
     };
     const ticksConfig = {
       beginAtZero: true,
-      fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
-                             'rgba(0, 0, 0, 0.5)',
+      fontColor: nightMode ? 'rgba(255, 255, 255, 1)' :
+                             'rgba(0, 0, 0, 1)',
       padding: 6,
     };
 

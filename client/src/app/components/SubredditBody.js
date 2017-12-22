@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   sectionHeader: {
-    paddingBottom: '12px',
+    marginBottom: '8px',
     borderBottom: '1px solid #bdc3c7',
   },
 });
@@ -120,17 +120,18 @@ class SubredditBody extends PureComponent {
             nightMode={nightMode}
             type={'span'}
           >
-            {`${activeUserCount} active users`}
+            <strong>{`${activeUserCount}`}</strong> active users
           </El>
           <El nightMode={nightMode} type={'span'}>
-            {`${postCount} new posts`}
+            <strong>{`${postCount}`}</strong> new posts
           </El>
           <El nightMode={nightMode} type={'span'}>
-            {`${commentCount} new comments`}
+            <strong>{`${commentCount}`}</strong> new comments
           </El>
         </div>
         <div className={css(styles.section)}>
           <El
+            style={styles.sectionHeader}
             nightMode={nightMode}
             type={'h4'}
           >
