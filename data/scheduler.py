@@ -11,6 +11,10 @@ cron_tab.env['MAILTO'] = 'jtcdbob@gmail.com, warrenzshen@gmail.com, blockterm201
 cron_tab.remove_all()
 cron_tab.write()
 
+job = cron_tab.new(command=get_command_for_script('coinmarketcap_client.py'))
+job.minute.every(5)
+cron_tab.write()
+
 job = cron_tab.new(command=get_command_for_script('sync_markets.py %s/config.yaml' % SRC_PATH))
 job.minute.every(1)
 cron_tab.write()
