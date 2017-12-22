@@ -471,8 +471,7 @@ module Types
         end
         market_id = market.id
 
-        # We expect timestamp param to be in UTC.
-        timestamp = args[:timestamp]
+        timestamp = QueryHelper::localize_timestamp(args[:timestamp])
 
         market_ticker = MarketTicker.find_or_create_by(
           market_id: market_id,

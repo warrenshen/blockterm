@@ -5,6 +5,7 @@ from api import Api
 from base_client_runner import Client
 from database import SQLite3Database
 from logger import logger
+from utils import unix_timestamp_to_datetime_string
 
 class CoinmarketcapClient(Client):
   def __init__(self):
@@ -31,15 +32,16 @@ class CoinmarketcapClient(Client):
 
     value = result['total_market_cap_usd']
     timestamp = result['last_updated']
+    datetime_string = unix_timestamp_to_datetime_string(timestamp)
 
     db = SQLite3Database('total_market_caps.db')
     db.insert_total_ticker(str(result), timestamp)
     db.close()
 
     response = self.api.create_market_ticker_by_market_name(
-      'MARKET',
+      'TOTAL',
       value,
-      timestamp
+      datetime_string
     )
     if 'errors' in response:
       logger.log('Something went wrong with saving total market ticker')

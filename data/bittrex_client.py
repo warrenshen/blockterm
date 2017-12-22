@@ -10,6 +10,7 @@ from api import Api
 from base_client_runner import Client, BaseClientRunner
 from database import SQLite3Database
 from logger import logger
+from utils import datetime_string_utc_to_pst, unix_timestamp_to_datetime_string
 
 class BittrexClient(Client):
   def __init__(self, config=None, key=None, min_wait_time=30, markets=None, base='BTC', debug=False):
@@ -110,11 +111,12 @@ class BittrexClientRunner:
       print('[INFO] Data committed to sqlite database {}'.format('market_tickers.db'))
 
     for _, summary in self.client.market_summaries.items():
+      pst_timestamp = datetime_string_utc_to_pst(summary['TimeStamp'], '%Y-%m-%dT%H:%M:%S.%f')
       if summary['MarketName'] in self.market_id_map:
         self.api.create_market_ticker(
           self.market_id_map[summary['MarketName']],
           summary['Last'],
-          summary['TimeStamp']
+          pst_timestamp
         )
 
 if __name__ == '__main__':
