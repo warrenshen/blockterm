@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   nightMode: {
-    backgroundColor: STYLES.LIGHTNIGHT,
+    backgroundColor: '#000',
   },
   section: {
     width: '100%',
