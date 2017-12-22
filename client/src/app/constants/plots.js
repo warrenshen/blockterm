@@ -1,5 +1,6 @@
 export const ONE_DAY = 'ONE_DAY';
 export const ONE_WEEK = 'ONE_WEEK';
+export const TWO_WEEKS = 'TWO_WEEKS';
 export const ONE_MONTH = 'ONE_MONTH';
 export const THREE_MONTHS = 'THREE_MONTHS';
 export const SIX_MONTHS = 'SIX_MONTHS';

@@ -23,7 +23,7 @@ const query = gql`
       postCount
       subscriberCount
 
-      commentCounts(timeRange: "ONE_WEEK") {
+      commentCounts(timeRange: "TWO_WEEKS") {
         id
         count
         timestamp
