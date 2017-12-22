@@ -1,9 +1,14 @@
 module QueryHelper
-  def self.filter_relation_by_time_range(relation, time_range)
-    today = Date.today
+  def self.filter_relation_by_time_range(relation, time_range, default_time_range=7.days)
     clause = 'timestamp > ?'
+    now = DateTime.now
+    today = Date.today
 
-    if time_range.nil? or time_range == 'ONE_WEEK'
+    if time_range.nil?
+      relation = relation.where(clause, today - default_time_range)
+    elsif time_range == 'ONE_DAY'
+      relation = relation.where(clause, now - 24.hours)
+    elsif time_range == 'ONE_WEEK'
       relation = relation.where(clause, today - 7.days)
     elsif time_range == 'ONE_MONTH'
       relation = relation.where(clause, today - 1.month)
@@ -13,6 +18,8 @@ module QueryHelper
       relation = relation.where(clause, today - 6.months)
     elsif time_range == 'ONE_YEAR'
       relation = relation.where(clause, today - 1.year)
+    elsif time_range == 'THREE_YEARS'
+      relation = relation.where(clause, today - 3.years)
     end
 
     relation.order(timestamp: :asc)
