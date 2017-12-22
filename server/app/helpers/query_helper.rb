@@ -10,6 +10,8 @@ module QueryHelper
       relation = relation.where(clause, now - 24.hours)
     elsif time_range == 'ONE_WEEK'
       relation = relation.where(clause, today - 7.days)
+    elsif time_range == 'TWO_WEEKS'
+      relation = relation.where(clause, today - 14.days)
     elsif time_range == 'ONE_MONTH'
       relation = relation.where(clause, today - 1.month)
     elsif time_range == 'THREE_MONTHS'
