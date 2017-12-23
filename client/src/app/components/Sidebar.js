@@ -12,16 +12,17 @@ const styles = StyleSheet.create({
     width: '20vw',
     minWidth: '20vw',
     backgroundColor: '#f3f3f3',
-    borderLeft: '1px solid rgba(0,0,0,0.15)',
+    borderLeft: '1px solid rgba(0,0,0,0.2)',
   },
   nightbar: {
     backgroundColor: STYLES.SOFTGRAY,
-    borderLeft: '1px solid rgba(255,255,255,0.15)',
+    borderLeft: '1px solid rgba(255,255,255,0.2)',
   },
   alert: {
     width:'100%',
     padding:'16px',
-    backgroundColor: STYLES.ORANGE,
+    backgroundColor: 'white',
+    borderBottom: '1px solid rgba(0,0,0,0.2)',
   }
 });
 

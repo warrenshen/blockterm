@@ -50,7 +50,6 @@ class TVChartItem extends PureComponent {
         "enable_publishing": false,
         "hide_top_toolbar": true,
         "withdateranges": true,
-        "allow_symbol_change": true,
         "save_image": false,
         "hideideas": true
       });

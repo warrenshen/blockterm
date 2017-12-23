@@ -30,6 +30,17 @@ const styles = StyleSheet.create({
     padding: '0px !important',
     position: 'relative',
   },
+  closeButton: {
+    position: 'absolute',
+    color: '#000',
+    borderColor: '#666',
+    margin: '8px',
+    zIndex: '1',
+  },
+  darkCloseButton: {
+    backgroundColor: '#000',
+    color: '#fff',
+  }
 });
 
 class DashboardItem extends PureComponent {
@@ -117,8 +128,8 @@ class DashboardItem extends PureComponent {
         className={css(styles.container)}
         key={id}
       >
-        <button onClick={(event) => destroyDashboardItem(id)}>
-          x
+        <button className={css(styles.closeButton, nightMode && styles.darkCloseButton)} onClick={(event) => destroyDashboardItem(id)}>
+          <strong>x</strong>
         </button>
         {this.renderItem(dashboardItem)}
       </div>

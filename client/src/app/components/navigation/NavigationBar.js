@@ -43,14 +43,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     letterSpacing: '3px',
     textTransform: 'uppercase',
-    ':hover': {
-      textDecoration: 'none',
-      color: STYLES.GOLD,
-    }
   },
   hoverColor: {
     fontSize: '18px',
     fontWeight: 'inherit',
+  },
+  nightHover: {
     ':hover': {
       color: STYLES.GOLD,
     }
@@ -108,7 +106,12 @@ const NavigationBar = ({
       <nav className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
           <Link className={css(styles.brand)} to={'/'}>
-            <El style={styles.hoverColor} nightMode={nightMode} type={'span'}>
+            <El 
+              style={styles.hoverColor}
+              nightMode={nightMode}
+              nightModeStyle={styles.nightHover}
+              type={'span'}
+            >
               {navigationModel.brand}
             </El>
           </Link>

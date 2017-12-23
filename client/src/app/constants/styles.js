@@ -12,7 +12,7 @@ export const PURPLE = '#640BD3';
 export const TRIADORANGE = '#ED7518';
 export const COMPOUNDAQUA = '#3BECD1';
 export const COMPOUNDGREEN = '#12B66F';
-export const BLAZINGREEN = '#33fb8c';
+export const BLAZINGREEN = '#23eb7c';
 export const COMPBLUE = '#00CDE9';
 
 export const STYLES = StyleSheet.create({
