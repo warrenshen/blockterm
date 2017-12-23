@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loginButton: {
-    border: '1px solid #aaa',
+    border: '1px solid #000',
     borderRadius: '1px',
     padding: '4px 12px',
   }
