@@ -258,9 +258,11 @@ class Home extends PureComponent {
                             legend: { display: false },
                             tooltips: { enabled: false }, 
                             scales: {
-                              xAxes: [
-                                { display: false, },
-                              ],
+                              xAxes: [{
+                                ticks: {
+                                  display: false
+                                }
+                              }],
                               yAxes: [
                                 {
                                   display: true,

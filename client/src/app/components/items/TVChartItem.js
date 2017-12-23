@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   frame: {
     width: '100%',
     height: '100%',
+    border: 'none',
   },
 });
 
@@ -28,7 +29,24 @@ class TVChartItem extends PureComponent {
     s.onload = function() {
       var s = iframeDocument.createElement('script');
       s.type = 'text/javascript';
-      s.text = 'new TradingView.widget({"autosize": true,"symbol": "NASDAQ:AAPL","interval": "D","timezone": "Etc/UTC","theme": "Light","style": "1","locale": "en","toolbar_bg": "#f1f3f6","enable_publishing": false,"allow_symbol_change": true,"hideideas": true})';
+      s.text = `
+        new TradingView.widget({
+          "autosize": true,
+          "symbol": "BITSTAMP:BTCUSD",
+          "interval": "D",
+          "timezone": "Etc/UTC",
+          "theme": "Light",
+          "style": "1",
+          "locale": "en",
+          "toolbar_bg": "#f1f3f6",
+          "enable_publishing": false,
+          "hide_top_toolbar": true,
+          "withdateranges": true,
+          "allow_symbol_change": true,
+          "save_image": false,
+          "hideideas": true
+        });
+      `;
       iframeDocument.body.appendChild(s);
     };
 

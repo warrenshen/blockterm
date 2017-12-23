@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
-    padding: '10px',
     border: '1px solid #ccc',
   },
   gridContainer: {

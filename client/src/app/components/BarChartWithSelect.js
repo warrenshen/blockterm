@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
+    padding: '10px',
     //paddingTop: '12px',
     display: 'flex',
     flexDirection: 'column',

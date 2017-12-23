@@ -10,17 +10,21 @@ import El                  from './El';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    height: '100%',
+    padding: '10px',
     //paddingTop: '12px',
     display: 'flex',
     flexDirection: 'column',
   },
   chart: {
     width: '100%',
-    paddingTop: '12px',
+    height: '100%',
+    marginTop: '-4px',
   },
   header: {
     width: '100%',
     display: 'flex',
+    minHeight: '30px',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
