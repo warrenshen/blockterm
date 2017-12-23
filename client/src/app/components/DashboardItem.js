@@ -15,6 +15,7 @@ import {
   RANGE_SELECT_OPTIONS,
 } from '../constants/plots';
 import TokenPriceItem from './TokenPriceItem';
+import TVChartItem from './items/TVChartItem';
 
 const styles = StyleSheet.create({
   container: {
@@ -40,13 +41,19 @@ class DashboardItem extends PureComponent {
       nightMode,
       storeState,
     } = this.props;
-    console.log(storeState);
+
     const {
       plotRange,
     } = storeState;
 
     const identifier = dashboardItem.identifier;
-    if (identifier.indexOf('SUBREDDIT-POSTS') === 0)
+    if (false)
+    {
+      return (
+        <TVChartItem />
+      );
+    }
+    else if (identifier.indexOf('SUBREDDIT-POSTS') === 0)
     {
       const {
         postCount,
