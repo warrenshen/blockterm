@@ -32,6 +32,7 @@ const mutation = gql`
     updateDashboardItems(layout: $layout) {
       dashboardItems {
         id
+        identifier
       }
     }
   }
