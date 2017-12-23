@@ -28,7 +28,6 @@ const initialState = {};
 
 export default function(state = initialState, action)
 {
-  console.log(action);
   switch (action.type)
   {
     case CHANGE_DASHBOARD_ITEM_PLOT_RANGE:

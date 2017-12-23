@@ -54,7 +54,7 @@ function f(identifier)
 
 function queryBuilder(props)
 {
-  const queries = props.data.user.dashboardItems.map(
+  const queries = props.data.dashboardItems.map(
     (dashboardItem) => f(dashboardItem.identifier)
   );
 
@@ -80,16 +80,18 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
     componentWillReceiveProps(nextProps)
     {
+      console.log(this.props);
+      console.log(nextProps);
       const {
         registerDashboardItem,
       } = this.props;
 
-      if (nextProps.data.user)
+      if (nextProps.data.dashboardItems)
       {
         if (!this.registered)
         {
           this.registered = true;
-          nextProps.data.user.dashboardItems.map(
+          nextProps.data.dashboardItems.map(
             (dashboardItem) => registerDashboardItem(dashboardItem)
           );
 
@@ -110,20 +112,22 @@ function wrapDynamicGraphQL(ComponentToWrap)
           changeDashboardItemPlotRange,
           dashboard,
           data,
+          destroyDashboardItem,
           nightMode,
           updateDashboardItems,
         } = this.props;
 
-        const { user } = data;
+        const { dashboardItems } = data;
         const Wrapped = this.wrapped;
 
         return (
           <Wrapped
             changeDashboardItemPlotRange={changeDashboardItemPlotRange}
             dashboard={dashboard}
+            dashboardItems={dashboardItems}
+            destroyDashboardItem={destroyDashboardItem}
             nightMode={nightMode}
             updateDashboardItems={updateDashboardItems}
-            user={user}
           />
         );
       }
