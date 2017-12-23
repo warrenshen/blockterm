@@ -83,6 +83,10 @@ const mutation = gql`
       dashboardItems {
         id
         identifier
+        w
+        h
+        x
+        y
       }
     }
   }
@@ -91,17 +95,24 @@ const mutationOptions = {
   props: ({ mutate, ownProps }) => ({
     createDashboardItem(identifier) {
 
-      return mutate({ variables: { identifier } })
-        .then(
-          (response) => {
-            return Promise.resolve();
-          }
-        )
-        .catch(
-          (error)=> {
-            return Promise.reject();
-          }
-        );
+      return mutate({
+        variables: { identifier },
+        updateQueries: {
+          dashboardItemsQuery: (prev, { mutationResult }) => ({
+            dashboardItems: mutationResult.data.createDashboardItem.dashboardItems,
+          }),
+        },
+      })
+      .then(
+        (response) => {
+          return Promise.resolve();
+        }
+      )
+      .catch(
+        (error)=> {
+          return Promise.reject();
+        }
+      );
     }
   }),
 };
