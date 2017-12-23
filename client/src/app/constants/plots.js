@@ -122,14 +122,14 @@ export const LINE_CHART_DATA_STYLES = [
       borderJoinStyle: 'rgba(255,99,132,0.2)',
       fill: true,
       lineTension: 0,
-      pointBackgroundColor: 'rgba(255,99,132,0.2)',
-      pointBorderColor: 'rgba(255,99,132,1)',
+      pointBackgroundColor: 'rgba(255,255,255,0.1)',
+      pointBorderColor: '#006DDB',
       // pointBorderWidth: 2,
       // pointRadius: 2,
       // pointHitRadius: 3,
-      pointBorderWidth: 0,
-      pointRadius: 0,
-      pointHitRadius: 2,
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 3,
       // pointHoverBackgroundColor
       // pointHoverBorderColor
       // pointHoverBorderWidth

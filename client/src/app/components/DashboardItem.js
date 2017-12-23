@@ -47,7 +47,7 @@ class DashboardItem extends PureComponent {
     } = storeState;
 
     const identifier = dashboardItem.identifier;
-    if (false)
+    if (true)
     {
       return (
         <TVChartItem />

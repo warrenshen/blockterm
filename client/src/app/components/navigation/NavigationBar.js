@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     }
   },
   hoverColor: {
-    fontSize: '16px',
+    fontSize: '18px',
     fontWeight: 'inherit',
     ':hover': {
       color: STYLES.GOLD,
@@ -75,7 +75,10 @@ const styles = StyleSheet.create({
     justifyContent: 'right !important',
     alignItems: 'right !important',
     //border: '1px solid darkorange',
-  }
+  },
+  semibolded: {
+    fontWeight: '500 !important',
+  },
 });
 
 const NavigationBar = ({
@@ -87,17 +90,18 @@ const NavigationBar = ({
       <nav className={css(styles.banner, nightMode && styles.nightMode)}>
         <div className={css(styles.tickerbar)}>
           <El nightMode={nightMode} type={'span'}>
-            BTC 15500 | ETH 800 | XMR 430 | BTC 15500 | ETH 800 | XMR 430 | BTC 15500 | ETH 800 | XMR 430 | BTC 15500 | ETH 800 | XMR 430 | BTC 15500 | ETH 800 | XMR 430 | BTC 15500 | ETH 800 | XMR 430 | 
+            BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;
           </El>
         </div>
         <div className={css(styles.promotion)}>
-          <Link to={'https://www.binance.com/?ref=10907326'}>
-            <El type={'span'}>
-              Trade Altcoins with Binance!
+          <a href='https://www.binance.com/?ref=10907326' target='_blank'>
+            <El style={styles.semibolded} type={'span'}>
+              Trade Altcoins with Binance
             </El>
-          </Link>
+          </a>
         </div>
       </nav>
+
       <nav className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
           <Link className={css(styles.brand)} to={'/'}>

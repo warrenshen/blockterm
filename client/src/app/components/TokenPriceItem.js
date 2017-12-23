@@ -16,6 +16,13 @@ import {
   SMALL_RANGE_SELECT_OPTIONS,
 } from '../constants/plots';
 
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+  },
+});
+
 const TokenPriceItem = ({
   changeDashboardItemPlotRange,
   id,
@@ -35,7 +42,7 @@ const TokenPriceItem = ({
   const chartData = generateChartData(market.marketTickers);
 
   return (
-    <div>
+    <div className={css(styles.container)}>
       <LineChartWithSelect
         data={chartData}
         nightMode={nightMode}
