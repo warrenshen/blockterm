@@ -22,14 +22,7 @@ dashboard_item_infos = [
     y: 0,
   },
   {
-    identifier: 'SUBREDDIT-COMMENTS-12',
-    w: 3,
-    h: 3,
-    x: 3,
-    y: 0,
-  },
-  {
-    identifier: 'SUBREDDIT-POSTS-7',
+    identifier: 'TV-CANDLE-CHART-BITSTAMP:BTCUSD',
     w: 3,
     h: 3,
     x: 3,
@@ -40,6 +33,13 @@ dashboard_item_infos = [
     w: 3,
     h: 3,
     x: 0,
+    y: 3,
+  },
+  {
+    identifier: 'TV-CANDLE-CHART-BITTREX:XMRUSD',
+    w: 3,
+    h: 3,
+    x: 3,
     y: 3,
   },
 ]

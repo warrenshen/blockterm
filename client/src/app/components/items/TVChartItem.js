@@ -34,6 +34,7 @@ class TVChartItem extends PureComponent {
   update() {
     const {
       nightMode,
+      value,
     } = this.props;
 
     const iframeDocument = this.instance.contentWindow.document;
@@ -46,7 +47,7 @@ class TVChartItem extends PureComponent {
     const text = `
       new TradingView.widget({
         "autosize": true,
-        "symbol": "BITSTAMP:BTCUSD",
+        "symbol": "${value}",
         "interval": "1",
         "timezone": "America/Los_Angeles",
         "theme": "${nightMode ? "Dark" : "Light"}",

@@ -7,14 +7,14 @@ import { StyleSheet, css } from 'aphrodite';
 import {
   LINE_CHART_DATA_STYLES,
   RANGE_SELECT_OPTIONS,
-} from '../constants/plots';
+} from '../../constants/plots';
 import {
   generateChartData,
-} from '../helpers/chart';
-import LineChartWithSelect from './LineChartWithSelect';
+} from '../../helpers/chart';
+import LineChartWithSelect from '../LineChartWithSelect';
 import {
   SMALL_RANGE_SELECT_OPTIONS,
-} from '../constants/plots';
+} from '../../constants/plots';
 
 const styles = StyleSheet.create({
   container: {
