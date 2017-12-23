@@ -31,6 +31,10 @@ const updateDashboardItemsMutation = gql`
       dashboardItems {
         id
         identifier
+        w
+        h
+        x
+        y
       }
     }
   }
@@ -39,17 +43,24 @@ const updateDashboardItemsMutationOptions = {
   props: ({ mutate, ownProps }) => ({
     updateDashboardItems(layout) {
 
-      return mutate({ variables: { layout } })
-        .then(
-          (response) => {
-            return Promise.resolve();
-          }
-        )
-        .catch(
-          (error) => {
-            return Promise.reject();
-          }
-        );
+      return mutate({
+        variables: { layout },
+        updateQueries: {
+          dashboardItemsQuery: (prev, { mutationResult }) => ({
+            dashboardItems: mutationResult.data.updateDashboardItems.dashboardItems,
+          }),
+        },
+      })
+      .then(
+        (response) => {
+          return Promise.resolve();
+        }
+      )
+      .catch(
+        (error) => {
+          return Promise.reject();
+        }
+      );
     }
   }),
 };
@@ -78,7 +89,7 @@ const destroyDashboardItemMutationOptions = {
           dashboardItemsQuery: (prev, { mutationResult }) => ({
             dashboardItems: mutationResult.data.destroyDashboardItem.dashboardItems,
           }),
-        }
+        },
       })
       .then(
         (response) => {
