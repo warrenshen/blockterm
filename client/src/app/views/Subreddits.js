@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     padding: '15px 20px',
   },
   body: {
+    borderTop: '1px solid rgba(0,0,0,0.15)',
     padding: '0px 20px',
     boxSizing: 'content-box',
     backgroundColor: 'white',

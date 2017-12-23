@@ -50,7 +50,9 @@ class DashboardItem extends PureComponent {
     if (true)
     {
       return (
-        <TVChartItem />
+        <TVChartItem
+          nightMode={nightMode}
+        />
       );
     }
     else if (identifier.indexOf('SUBREDDIT-POSTS') === 0)

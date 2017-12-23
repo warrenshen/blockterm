@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   },
   body: {
     //left: '-24px',
+    borderTop: '1px solid rgba(0,0,0,0.15)',
     width: '100%',
     padding: '0px 20px 0px',
     boxSizing: 'content-box',
