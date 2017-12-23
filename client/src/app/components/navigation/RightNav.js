@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
     border: '1px solid #000',
     borderRadius: '1px',
   },
+  nightModeButton: {
+    border: '1px solid #fff',
+    borderRadius: '1px',
+  },
   switch: {
     borderColor: '#555',
   },
@@ -66,6 +70,7 @@ const RightNav = ({
           action={(event) => logOut(event, client)}
           label={'Logout'}
           nightMode={nightMode}
+          nightModeStyle={styles.nightModeButton}
           style={styles.logoutButton}
         />
       ) :
@@ -74,6 +79,7 @@ const RightNav = ({
           label={'Login/Join'}
           link={'/login'}
           nightMode={nightMode}
+          nightModeStyle={styles.nightModeButton}
           style={styles.loginButton}
         />
       )
