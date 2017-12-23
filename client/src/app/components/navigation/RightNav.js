@@ -11,6 +11,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
   },
+  loginButton: {
+    border: '1px solid #aaa',
+    borderRadius: '1px',
+    padding: '4px 12px',
+  }
 });
 
 const RightNav = ({
@@ -27,10 +32,15 @@ const RightNav = ({
           link={aLinkBtn.link}
           label={aLinkBtn.label}
           nightMode={nightMode}
-          viewName={aLinkBtn.view}
         />
       ))
     }
+    <RightNavButton
+      style={styles.loginButton}
+      link={''}
+      label={'Login'}
+      nightMode={nightMode}
+    />
   </ul>
 );
 

@@ -146,7 +146,7 @@ class Home extends PureComponent {
             nightMode={nightMode}
             type={'span'}
           >
-            Comments graph (7d)
+            Comments graph (14d)
           </El>
         </td>
       </tr>

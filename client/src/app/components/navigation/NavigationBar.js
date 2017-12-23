@@ -23,6 +23,17 @@ const styles = StyleSheet.create({
     //borderTop: '1px solid rgba(0,0,0,0.2)',
     borderBottom: '2px solid rgba(0,0,0,0.2)',
   },
+  banner: {
+    width: '100vw',
+    padding: '0px 20px',
+    backgroundColor: 'white',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    zIndex: 2,
+    //borderTop: '1px solid rgba(0,0,0,0.2)',
+    borderBottom: '1px solid rgba(0,0,0,0.2)',
+  },
   nightMode: {
     backgroundColor: '#000',
     borderBottom: '2px solid rgba(255,255,255,0.2)',
@@ -50,6 +61,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  tickerbar: {
+    overflow: 'hidden',
+    overflowX: 'scroll',
+    whiteSpace: 'nowrap',
+  },
+  promotion: {
+    position:'absolute',
+    right: '0px',
+    zIndex: '2',
+    padding: '0px 10px',
+    backgroundColor: STYLES.GOLD,    
+    justifyContent: 'right !important',
+    alignItems: 'right !important',
+    //border: '1px solid darkorange',
+  }
 });
 
 const NavigationBar = ({
@@ -57,22 +83,38 @@ const NavigationBar = ({
   toggleNightMode,
 }) => {
   return (
-    <nav className={css(styles.container, nightMode && styles.nightMode)}>
-      <div className={css(styles.section)}>
-        <Link className={css(styles.brand)} to={'/'}>
-          <El style={styles.hoverColor} nightMode={nightMode} type={'span'}>
-            {navigationModel.brand}
+    <div>
+      <nav className={css(styles.banner, nightMode && styles.nightMode)}>
+        <div className={css(styles.tickerbar)}>
+          <El nightMode={nightMode} type={'span'}>
+            BTC 15500 | ETH 800 | XMR 430 | BTC 15500 | ETH 800 | XMR 430 | BTC 15500 | ETH 800 | XMR 430 | BTC 15500 | ETH 800 | XMR 430 | BTC 15500 | ETH 800 | XMR 430 | BTC 15500 | ETH 800 | XMR 430 | 
           </El>
-        </Link>
-      </div>
-      <div className={css(styles.section)}>
-        <RightNav
-          rightLinks={navigationModel.rightLinks}
-          nightMode={nightMode}
-          toggleNightMode={toggleNightMode}
-        />
-      </div>
-    </nav>
+        </div>
+        <div className={css(styles.promotion)}>
+          <Link to={'https://www.binance.com/?ref=10907326'}>
+            <El type={'span'}>
+              Trade Altcoins with Binance!
+            </El>
+          </Link>
+        </div>
+      </nav>
+      <nav className={css(styles.container, nightMode && styles.nightMode)}>
+        <div className={css(styles.section)}>
+          <Link className={css(styles.brand)} to={'/'}>
+            <El style={styles.hoverColor} nightMode={nightMode} type={'span'}>
+              {navigationModel.brand}
+            </El>
+          </Link>
+        </div>
+        <div className={css(styles.section)}>
+          <RightNav
+            rightLinks={navigationModel.rightLinks}
+            nightMode={nightMode}
+            toggleNightMode={toggleNightMode}
+          />
+        </div>
+      </nav>
+    </div>
   );
 };
 
