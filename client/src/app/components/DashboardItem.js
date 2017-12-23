@@ -104,14 +104,22 @@ class DashboardItem extends PureComponent {
   {
     const {
       dashboardItem,
+      destroyDashboardItem,
       nightMode,
     } = this.props;
+
+    const {
+      id,
+    } = dashboardItem;
 
     return (
       <div
         className={css(styles.container)}
-        key={dashboardItem.id}
+        key={id}
       >
+        <button onClick={(event) => destroyDashboardItem(id)}>
+          x
+        </button>
         {this.renderItem(dashboardItem)}
       </div>
     );
