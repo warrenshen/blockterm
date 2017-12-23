@@ -7,12 +7,14 @@ import plots               from './plots';
 import globals             from './globals';
 import subreddits          from './subreddits';
 import dashboard           from './dashboard';
+import login               from './login';
 
 const appReducers = {
-  plots,
-  globals,
-  subreddits,
   dashboard,
+  globals,
+  login,
+  plots,
+  subreddits,
 };
 
 // combine reducers -> createStore reducer

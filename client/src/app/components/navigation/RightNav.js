@@ -2,9 +2,15 @@
 
 import React                from 'react';
 import PropTypes            from 'prop-types';
+import { withApollo } from 'react-apollo';
 import { StyleSheet, css } from 'aphrodite';
 import RightNavButton       from './RightNavButton';
 import Switch from 'react-toggle-switch'
+
+import {
+  AUTH_TOKEN,
+  clearItem,
+} from '../../services/cookie';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,10 +24,18 @@ const styles = StyleSheet.create({
   }
 });
 
+function logOut(event, client)
+{
+  clearItem(AUTH_TOKEN);
+  client.resetStore()
+}
+
 const RightNav = ({
+  client,
   rightLinks,
   nightMode,
   toggleNightMode,
+  user,
 }) => (
   <ul className={css(styles.container)}>
     <Switch on={nightMode} onClick={toggleNightMode} />
@@ -35,16 +49,30 @@ const RightNav = ({
         />
       ))
     }
-    <RightNavButton
-      style={styles.loginButton}
-      link={''}
-      label={'Login/Join'}
-      nightMode={nightMode}
-    />
+    {
+      user ?
+      (
+        <RightNavButton
+          action={(event) => logOut(event, client)}
+          label={'Logout'}
+          nightMode={nightMode}
+          style={styles.loginButton}
+        />
+      ) :
+      (
+        <RightNavButton
+          label={'Login/Join'}
+          link={'/login'}
+          nightMode={nightMode}
+          style={styles.loginButton}
+        />
+      )
+    }
   </ul>
 );
 
 RightNav.propTypes = {
+  client: PropTypes.object.isRequired,
   rightLinks: PropTypes.arrayOf(
     PropTypes.shape({
       link:     PropTypes.string,
@@ -53,6 +81,7 @@ RightNav.propTypes = {
     })
   ),
   toggleNightMode: PropTypes.func.isRequired,
+  user: PropTypes.object,
 };
 
-export default RightNav;
+export default withApollo(RightNav);

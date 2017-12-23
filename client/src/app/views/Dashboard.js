@@ -3,13 +3,10 @@
 import React, {
   PureComponent,
 }                          from 'react';
-import gql                    from 'graphql-tag';
-import { graphql }            from 'react-apollo';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import DashboardItem from '../components/DashboardItem';
-import Sidebar from '../components/Sidebar';
 import * as STYLES from '../constants/styles';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);

@@ -61,3 +61,19 @@ export function setItem(itemKey, value, toStorage=APP_PERSIST_STORES_TYPES[0])
     }
   }
 }
+
+export function clearItem(itemKey, toStorage=APP_PERSIST_STORES_TYPES[0])
+{
+  // localStorage:
+  if (toStorage === APP_PERSIST_STORES_TYPES[0]) {
+    if (localStorage) {
+      localStorage.removeItem(itemKey);
+    }
+  }
+  // sessionStorage:
+  if (toStorage === APP_PERSIST_STORES_TYPES[1]) {
+    if (sessionStorage) {
+      sessionStorage.removeItem(itemKey);
+    }
+  }
+}
