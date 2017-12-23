@@ -55,8 +55,10 @@ class TokenBody extends PureComponent {
   {
     const {
       changePricePlotRange,
+      createDashboardItem,
       pricePlotRange,
       nightMode,
+      token,
     } = this.props;
 
     if (markets.length > 0)
@@ -64,15 +66,20 @@ class TokenBody extends PureComponent {
       const market = markets[1];
       const chartData = generateChartData(market.marketTickers);
       return (
-        <LineChartWithSelect
-          data={chartData}
-          displayLegend={false}
-          nightMode={nightMode}
-          selectOptions={SMALL_RANGE_SELECT_OPTIONS}
-          selectValue={pricePlotRange}
-          title={`${market.name}`}
-          onChange={(option) => changePricePlotRange(option.value)}
-        />
+        <div>
+          <button onClick={(event) => createDashboardItem(`TOKEN-PRICE-${token.id}`)}>
+            Add to dashboard
+          </button>
+          <LineChartWithSelect
+            data={chartData}
+            displayLegend={false}
+            nightMode={nightMode}
+            selectOptions={SMALL_RANGE_SELECT_OPTIONS}
+            selectValue={pricePlotRange}
+            title={`${market.name}`}
+            onChange={(option) => changePricePlotRange(option.value)}
+          />
+        </div>
       );
     }
   }
