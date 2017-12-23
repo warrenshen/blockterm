@@ -28,6 +28,19 @@ module Types
       }
     end
 
+    field :dashboardItems, types[Types::DashboardItemType] do
+      description 'Get dashboard items of current user'
+
+      resolve -> (obj, args, ctx) {
+        current_user = ctx[:current_user]
+        if ctx[:current_user].nil?
+          return GraphQL::ExecutionError.new('No current user')
+        end
+
+        current_user.dashboard_items
+      }
+    end
+
     field :subredditById, Types::SubredditType do
       description 'Gets the subreddit associated with given subreddit id'
 
