@@ -26,12 +26,18 @@ class TVChartItem extends PureComponent {
     this.update();
   }
 
+  componentDidUpdate()
+  {
+    this.update();
+  }
+
   update() {
     const {
       nightMode,
     } = this.props;
 
     const iframeDocument = this.instance.contentWindow.document;
+    while (iframeDocument.body.firstChild) iframeDocument.body.removeChild(iframeDocument.body.firstChild);
 
     var s = iframeDocument.createElement('script');
     s.type = 'text/javascript';
