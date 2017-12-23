@@ -14,39 +14,52 @@ const styles = StyleSheet.create({
     height: '100%',
     border: 'none',
   },
+  nightFrame: {
+    backgroundColor: '#000',
+  },
 });
 
 class TVChartItem extends PureComponent {
 
   componentDidMount()
   {
+    this.update();
+  }
+
+  update() {
+    const {
+      nightMode,
+    } = this.props;
+
     const iframeDocument = this.instance.contentWindow.document;
 
     var s = iframeDocument.createElement('script');
     s.type = 'text/javascript';
     s.src = 'https://s3.tradingview.com/tv.js';
 
+    const text = `
+      new TradingView.widget({
+        "autosize": true,
+        "symbol": "BITSTAMP:BTCUSD",
+        "interval": "1",
+        "timezone": "America/Los_Angeles",
+        "theme": "${nightMode ? "Dark" : "Light"}",
+        "style": "1",
+        "locale": "en",
+        "toolbar_bg": "#f1f3f6",
+        "enable_publishing": false,
+        "hide_top_toolbar": true,
+        "withdateranges": true,
+        "allow_symbol_change": true,
+        "save_image": false,
+        "hideideas": true
+      });
+    `;
+
     s.onload = function() {
       var s = iframeDocument.createElement('script');
       s.type = 'text/javascript';
-      s.text = `
-        new TradingView.widget({
-          "autosize": true,
-          "symbol": "BITSTAMP:BTCUSD",
-          "interval": "D",
-          "timezone": "Etc/UTC",
-          "theme": "Light",
-          "style": "1",
-          "locale": "en",
-          "toolbar_bg": "#f1f3f6",
-          "enable_publishing": false,
-          "hide_top_toolbar": true,
-          "withdateranges": true,
-          "allow_symbol_change": true,
-          "save_image": false,
-          "hideideas": true
-        });
-      `;
+      s.text = text;
       iframeDocument.body.appendChild(s);
     };
 
@@ -61,7 +74,7 @@ class TVChartItem extends PureComponent {
 
     return (
       <div className={css(styles.container)}>
-        <iframe className={css(styles.frame)} ref={(el) => this.instance = el}>
+        <iframe className={css(styles.frame, nightMode && styles.nightFrame)} ref={(el) => this.instance = el}>
         </iframe>
       </div>
     );

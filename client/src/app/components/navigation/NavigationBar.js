@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     alignItems: 'right !important',
     //border: '1px solid darkorange',
   },
+  promotionNight: {
+    backgroundColor: STYLES.BLAZINGREEN,
+  },
   semibolded: {
     fontWeight: '500 !important',
   },
@@ -93,7 +96,7 @@ const NavigationBar = ({
             BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;
           </El>
         </div>
-        <div className={css(styles.promotion)}>
+        <div className={css(styles.promotion, nightMode && styles.promotionNight)}>
           <a href='https://www.binance.com/?ref=10907326' target='_blank'>
             <El style={styles.semibolded} type={'span'}>
               Trade Altcoins with Binance
