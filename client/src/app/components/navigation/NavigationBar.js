@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     right: '0px',
     zIndex: '2',
     padding: '0px 10px',
-    backgroundColor: STYLES.GOLD,    
+    backgroundColor: STYLES.GOLD,
     justifyContent: 'right !important',
     alignItems: 'right !important',
     //border: '1px solid darkorange',
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
 });
 
 const NavigationBar = ({
+  data,
   nightMode,
   toggleNightMode,
 }) => {
@@ -114,10 +115,10 @@ const NavigationBar = ({
       <nav className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
           <Link className={css(styles.brand)} to={'/'}>
-            <El 
-              style={styles.hoverColor}
+            <El
               nightMode={nightMode}
               nightModeStyle={styles.nightHover}
+              style={styles.hoverColor}
               type={'span'}
             >
               {navigationModel.brand}
@@ -126,8 +127,9 @@ const NavigationBar = ({
         </div>
         <div className={css(styles.section)}>
           <RightNav
-            rightLinks={navigationModel.rightLinks}
+            user={data.user}
             nightMode={nightMode}
+            rightLinks={navigationModel.rightLinks}
             toggleNightMode={toggleNightMode}
           />
         </div>
@@ -137,14 +139,15 @@ const NavigationBar = ({
 };
 
 NavigationBar.propTypes = {
-  navModel:                 PropTypes.shape({
+  data: PropTypes.object.isRequired,
+  navModel: PropTypes.shape({
     leftLinks:  PropTypes.arrayOf(
       PropTypes.shape({
         label: PropTypes.string.isRequired,
         link : PropTypes.string.isRequired
       })
     ).isRequired,
-    rightLinks:  PropTypes.arrayOf(
+    rightLinks: PropTypes.arrayOf(
       PropTypes.shape({
         label: PropTypes.string.isRequired,
         link : PropTypes.string.isRequired
