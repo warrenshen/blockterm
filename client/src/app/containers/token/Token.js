@@ -4,14 +4,14 @@ import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Token }              from '../../views'
 import gql                    from 'graphql-tag';
-import { graphql }            from 'react-apollo';
+import { compose, graphql }   from 'react-apollo';
 import * as plotsActions      from '../../redux/modules/plots';
 
 /* -----------------------------------------
   GraphQL - Apollo client
  ------------------------------------------*/
 
-const TokenQuery = gql`
+const query = gql`
  query ($id: ID!,
         $pricePlotRange: String,
         $mentionSubredditPlotRange: String,
@@ -59,27 +59,50 @@ const TokenQuery = gql`
     }
   }
 `;
+const queryOptions = {
+  options: ({
+    match,
+    mentionSubredditPlotRange,
+    mentionTotalPlotRange,
+    pricePlotRange,
+  }) => {
+    return {
+      variables: {
+        id: match.params.id,
+        mentionSubredditPlotRange: mentionSubredditPlotRange,
+        mentionTotalPlotRange: mentionTotalPlotRange,
+        pricePlotRange: pricePlotRange,
+      },
+    };
+  },
+};
 
-const TokenWithQuery = graphql(
-  TokenQuery,
-  {
-    options: ({
-      match,
-      mentionSubredditPlotRange,
-      mentionTotalPlotRange,
-      pricePlotRange,
-    }) => {
-      return {
-        variables: {
-          id: match.params.id,
-          mentionSubredditPlotRange: mentionSubredditPlotRange,
-          mentionTotalPlotRange: mentionTotalPlotRange,
-          pricePlotRange: pricePlotRange,
-        },
-      };
+const mutation = gql`
+  mutation ($identifier: String!) {
+    createDashboardItem(identifier: $identifier) {
+      id
+      identifier
     }
   }
-)(Token);
+`;
+const mutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    createDashboardItem(identifier) {
+
+      return mutate({ variables: { identifier } })
+        .then(
+          (response) => {
+            return Promise.resolve();
+          }
+        )
+        .catch(
+          (error)=> {
+            return Promise.reject();
+          }
+        );
+    }
+  }),
+};
 
 /* -----------------------------------------
   Redux
@@ -105,7 +128,8 @@ const mapDispatchToProps = (dispatch) => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TokenWithQuery);
+export default compose(
+  graphql(query, queryOptions),
+  graphql(mutation, mutationOptions),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Token);

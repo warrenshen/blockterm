@@ -54,6 +54,7 @@ class Token extends PureComponent {
   renderToken(token)
   {
     const {
+      createDashboardItem,
       changePricePlotRange,
       changeMentionTotalPlotRange,
       changeMentionSubredditPlotRange,
@@ -73,6 +74,7 @@ class Token extends PureComponent {
           changePricePlotRange={changePricePlotRange}
           changeMentionTotalPlotRange={changeMentionTotalPlotRange}
           changeMentionSubredditPlotRange={changeMentionSubredditPlotRange}
+          createDashboardItem={createDashboardItem}
           pricePlotRange={pricePlotRange}
           mentionTotalPlotRange={mentionTotalPlotRange}
           mentionSubredditPlotRange={mentionSubredditPlotRange}
@@ -94,9 +96,7 @@ class Token extends PureComponent {
         <div className={css(styles.mainContent)}>
           { data && data.tokenById && this.renderToken(data.tokenById) }
         </div>
-        <Sidebar nightMode={nightMode}>
-
-        </Sidebar>
+        <Sidebar nightMode={nightMode} />
       </div>
     );
   }
