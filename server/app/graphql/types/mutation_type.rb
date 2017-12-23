@@ -532,15 +532,44 @@ module Types
       }
     end
 
+    field :createDashboardItem, Types::DashboardItemType do
+      # description ''
+
+      argument :identifier, !types.String
+
+      resolve -> (obj, args, ctx) {
+        current_user = ctx[:current_user]
+        if ctx[:current_user].nil?
+          # current_user = User.first
+          return GraphQL::ExecutionError.new('No current user')
+        end
+
+        # TODO: verify that identifier arg is in whitelist.
+        dashboard_item = DashboardItem.create(
+          user_id: current_user.id,
+          identifier: args[:identifier],
+          w: 3,
+          h: 3,
+          x: 0,
+          y: 0,
+        )
+
+        if dashboard_item.valid?
+          dashboard_item
+        else
+          return GraphQL::ExecutionError.new('Failed to create dashboard item')
+        end
+      }
+    end
+
     field :updateDashboardItems, Types::UserType do
-      description ''
+      # description ''
 
       argument :layout, !types.String
 
       resolve -> (obj, args, ctx) {
         current_user = ctx[:current_user]
-
-        if !ctx[:current_user].valid?
+        if ctx[:current_user].nil?
           return GraphQL::ExecutionError.new('No current user')
         end
 
