@@ -57,23 +57,39 @@ class Dashboard extends PureComponent {
       nightMode,
     } = this.props;
 
+    const {
+      id,
+      identifier,
+      w,
+      h,
+      x,
+      y,
+    } = dashboardItem;
+
+    const layout = {
+      i: id,
+      w: w,
+      h: h,
+      x: x,
+      y: y,
+      minW: 1,
+      maxW: 8,
+    };
+
     return (
       <div
         className={css(styles.item, nightMode && styles.nightMode)}
-        key={dashboardItem.id}
+        data-grid={layout}
+        key={id}
       >
-        {
-          data[dashboardItem.identifier.replace(/-/g, '')] && (
-            <DashboardItem
-              changeDashboardItemPlotRange={changeDashboardItemPlotRange}
-              dashboardItem={dashboardItem}
-              data={data[dashboardItem.identifier.replace(/-/g, '')]}
-              destroyDashboardItem={destroyDashboardItem}
-              nightMode={nightMode}
-              storeState={dashboard[dashboardItem.id]}
-            />
-          )
-        }
+        <DashboardItem
+          changeDashboardItemPlotRange={changeDashboardItemPlotRange}
+          dashboardItem={dashboardItem}
+          data={data[identifier.replace(/-/g, '')]}
+          destroyDashboardItem={destroyDashboardItem}
+          nightMode={nightMode}
+          storeState={dashboard[id]}
+        />
       </div>
     );
   }
@@ -81,21 +97,10 @@ class Dashboard extends PureComponent {
   render()
   {
     const {
-      dashboard,
       dashboardItems,
       data,
       nightMode,
     } = this.props;
-
-    const layout = dashboardItems.map((dashboardItem) => ({
-      i: dashboardItem.id,
-      w: dashboardItem.w,
-      h: dashboardItem.h,
-      x: dashboardItem.x,
-      y: dashboardItem.y,
-      minW: 1,
-      maxW: 8,
-    }));
 
     if (data.loading)
     {
@@ -103,18 +108,19 @@ class Dashboard extends PureComponent {
     }
     else
     {
+      const itemsWithData = dashboardItems.filter(
+        (dashboardItem) => data[dashboardItem.identifier.replace(/-/g, '')] !== undefined
+      );
+
       return (
         <ResponsiveReactGridLayout
           className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
           cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
-          layouts={{ lg: layout }}
           rowHeight={200}
-          onLayoutChange={(layout, layouts) =>
-            this.onLayoutChange(layout, layouts)
-          }
+          onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
         >
           {
-            dashboardItems.map((dashboardItem) => this.renderItem(dashboardItem))
+            itemsWithData.map((dashboardItem) => this.renderItem(dashboardItem))
           }
         </ResponsiveReactGridLayout>
       );
