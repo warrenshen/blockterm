@@ -46,7 +46,7 @@ const updateDashboardItemsMutationOptions = {
           }
         )
         .catch(
-          (error)=> {
+          (error) => {
             return Promise.reject();
           }
         );
@@ -86,7 +86,7 @@ const destroyDashboardItemMutationOptions = {
         }
       )
       .catch(
-        (error)=> {
+        (error) => {
           return Promise.reject();
         }
       );

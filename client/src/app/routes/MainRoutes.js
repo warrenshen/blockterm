@@ -9,6 +9,7 @@ import {
 import {
   App,
   ConnectedHome,
+  ConnectedLogin,
   ConnectedSubreddit,
   ConnectedSubreddits,
   ConnectedSubredditsCompare,
@@ -19,7 +20,9 @@ import {
 export const MainRoutes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={ConnectedHome} />
+      <Route exact path='/' component={ConnectedHome} />
+
+      <Route exact path='/login' component={ConnectedLogin} />
 
       <Route exact path='/subreddits' component={ConnectedSubreddits} />
       <Route exact path='/subreddits/compare' component={ConnectedSubredditsCompare} />
