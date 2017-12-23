@@ -51,6 +51,7 @@ class Dashboard extends PureComponent {
   {
     const {
       changeDashboardItemPlotRange,
+      destroyDashboardItem,
       dashboard,
       data,
       nightMode,
@@ -67,6 +68,7 @@ class Dashboard extends PureComponent {
               changeDashboardItemPlotRange={changeDashboardItemPlotRange}
               dashboardItem={dashboardItem}
               data={data[dashboardItem.identifier.replace(/-/g, '')]}
+              destroyDashboardItem={destroyDashboardItem}
               nightMode={nightMode}
               storeState={dashboard[dashboardItem.id]}
             />
@@ -80,12 +82,12 @@ class Dashboard extends PureComponent {
   {
     const {
       dashboard,
+      dashboardItems,
       data,
-      user,
       nightMode,
     } = this.props;
 
-    const layout = user.dashboardItems.map((dashboardItem) => ({
+    const layout = dashboardItems.map((dashboardItem) => ({
       i: dashboardItem.id,
       w: dashboardItem.w,
       h: dashboardItem.h,
@@ -112,7 +114,7 @@ class Dashboard extends PureComponent {
           }
         >
           {
-            user.dashboardItems.map((dashboardItem) => this.renderItem(dashboardItem))
+            dashboardItems.map((dashboardItem) => this.renderItem(dashboardItem))
           }
         </ResponsiveReactGridLayout>
       );

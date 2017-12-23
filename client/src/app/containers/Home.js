@@ -12,23 +12,21 @@ import Dashboard              from './Dashboard';
   GraphQL - Apollo client
  ------------------------------------------*/
 
-const query = gql`
- query {
-    user {
-      dashboardItems {
-        id
-        identifier
-        w
-        h
-        x
-        y
-      }
+const dashboardItemsQuery = gql`
+ query dashboardItemsQuery {
+    dashboardItems {
+      id
+      identifier
+      w
+      h
+      x
+      y
     }
   }
 `;
 
-const mutation = gql`
-  mutation ($layout: String!) {
+const updateDashboardItemsMutation = gql`
+  mutation updateDashboardItemsMutation($layout: String!) {
     updateDashboardItems(layout: $layout) {
       dashboardItems {
         id
@@ -37,7 +35,7 @@ const mutation = gql`
     }
   }
 `;
-const mutationOptions = {
+const updateDashboardItemsMutationOptions = {
   props: ({ mutate, ownProps }) => ({
     updateDashboardItems(layout) {
 
@@ -52,6 +50,46 @@ const mutationOptions = {
             return Promise.reject();
           }
         );
+    }
+  }),
+};
+
+const destroyDashboardItemMutation = gql`
+  mutation destroyDashboardItemMutation($id: ID!) {
+    destroyDashboardItem(id: $id) {
+      dashboardItems {
+        id
+        identifier
+        w
+        h
+        x
+        y
+      }
+    }
+  }
+`;
+const destroyDashboardItemMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    destroyDashboardItem(id) {
+
+      return mutate({
+        variables: { id },
+        updateQueries: {
+          dashboardItemsQuery: (prev, { mutationResult }) => ({
+            dashboardItems: mutationResult.data.destroyDashboardItem.dashboardItems,
+          }),
+        }
+      })
+      .then(
+        (response) => {
+          return Promise.resolve();
+        }
+      )
+      .catch(
+        (error)=> {
+          return Promise.reject();
+        }
+      );
     }
   }),
 };
@@ -78,7 +116,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
-  graphql(query),
-  graphql(mutation, mutationOptions),
+  graphql(dashboardItemsQuery),
+  graphql(updateDashboardItemsMutation, updateDashboardItemsMutationOptions),
+  graphql(destroyDashboardItemMutation, destroyDashboardItemMutationOptions),
   connect(mapStateToProps, mapDispatchToProps)
 )(Dashboard);
