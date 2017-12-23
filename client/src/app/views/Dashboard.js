@@ -8,6 +8,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import DashboardItem from '../components/DashboardItem';
 import * as STYLES from '../constants/styles';
+import { isIdentifierValid } from '../constants/items.js'
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -105,8 +106,8 @@ class Dashboard extends PureComponent {
     }
     else
     {
-      const itemsWithData = dashboardItems.filter(
-        (dashboardItem) => data[dashboardItem.identifier.replace(/-/g, '')] !== undefined
+      const validItems = dashboardItems.filter(
+        (dashboardItem) => isIdentifierValid(dashboardItem.identifier)
       );
 
       return (
@@ -117,7 +118,7 @@ class Dashboard extends PureComponent {
           onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
         >
           {
-            itemsWithData.map((dashboardItem) => this.renderItem(dashboardItem))
+            dashboardItems.map((dashboardItem) => this.renderItem(dashboardItem))
           }
         </ResponsiveReactGridLayout>
       );
