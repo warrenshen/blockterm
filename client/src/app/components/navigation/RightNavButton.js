@@ -18,13 +18,18 @@ const styles = StyleSheet.create({
     fontSize: '13px',
     letterSpacing: '2px',
   },
+  flatButton: {
+    background: 'none',
+    border: 'none',
+    padding: '4px 12px',
+  },
 });
 
 const RightNavButton = ({ action, label, link, nightMode, style }) => {
   return action ?
   (
     <li className={css(styles.container, style)}>
-      <button onClick={action}>
+      <button className={css(styles.flatButton)} onClick={action}>
         <El
           nightMode={nightMode}
           style={styles.boldedUpper}
