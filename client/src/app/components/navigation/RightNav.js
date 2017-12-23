@@ -21,7 +21,17 @@ const styles = StyleSheet.create({
     border: '1px solid #000',
     borderRadius: '1px',
     padding: '4px 12px',
-  }
+  },
+  logoutButton: {
+    border: '1px solid #000',
+    borderRadius: '1px',
+  },
+  switch: {
+    borderColor: '#555',
+  },
+  switchNight: {
+    borderColor: '#fff',
+  },
 });
 
 function logOut(event, client)
@@ -38,7 +48,7 @@ const RightNav = ({
   user,
 }) => (
   <ul className={css(styles.container)}>
-    <Switch on={nightMode} onClick={toggleNightMode} />
+    <Switch className={css(styles.switch, nightMode && styles.switchNight)} on={nightMode} onClick={toggleNightMode} />
     {
       rightLinks.map((aLinkBtn, index) => (
         <RightNavButton
@@ -56,7 +66,7 @@ const RightNav = ({
           action={(event) => logOut(event, client)}
           label={'Logout'}
           nightMode={nightMode}
-          style={styles.loginButton}
+          style={styles.logoutButton}
         />
       ) :
       (
