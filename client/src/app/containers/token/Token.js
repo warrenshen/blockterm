@@ -80,8 +80,10 @@ const queryOptions = {
 const mutation = gql`
   mutation ($identifier: String!) {
     createDashboardItem(identifier: $identifier) {
-      id
-      identifier
+      dashboardItems {
+        id
+        identifier
+      }
     }
   }
 `;
