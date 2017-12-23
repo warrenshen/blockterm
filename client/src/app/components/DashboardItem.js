@@ -15,8 +15,6 @@ import {
   RANGE_SELECT_OPTIONS,
 } from '../constants/plots';
 import TokenPriceItem from './TokenPriceItem';
-import TViewChart from './TViewChart';
-
 
 const styles = StyleSheet.create({
   container: {
@@ -58,12 +56,22 @@ class DashboardItem extends PureComponent {
         (postCount) => moment(postCount.timestamp).format('MM/DD')
       );
       const postsData = generateCountChartData(postCounts, postCount);
-      return <TViewChart />;
+      return (
+        <div className={css(styles.full)}>
+          <BarChartWithSelect
+            data={postsData}
+            nightMode={nightMode}
+            selectOptions={RANGE_SELECT_OPTIONS}
+            selectValue={plotRange}
+            title={'Number of new posts'}
+            onChange={(option) => changeDashboardItemPlotRange(dashboardItem.id, option.value)}
+          />
+        </div>
+      );
     }
     else if (identifier.indexOf('SUBREDDIT-COMMENTS') === 0)
     {
-      
-      return <TViewChart />;
+      console.log('comments');
     }
     else if (identifier.indexOf('TOKEN-PRICE') === 0)
     {
