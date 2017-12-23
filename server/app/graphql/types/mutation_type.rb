@@ -540,8 +540,7 @@ module Types
       resolve -> (obj, args, ctx) {
         current_user = ctx[:current_user]
         if ctx[:current_user].nil?
-          current_user = User.first
-          # return GraphQL::ExecutionError.new('No current user')
+          return GraphQL::ExecutionError.new('No current user')
         end
 
         # TODO: verify that identifier arg is in whitelist.
@@ -559,6 +558,30 @@ module Types
         else
           return GraphQL::ExecutionError.new('Failed to create dashboard item')
         end
+      }
+    end
+
+    field :destroyDashboardItem, Types::UserType do
+      # description ''
+
+      argument :id, !types.ID
+
+      resolve -> (obj, args, ctx) {
+        current_user = ctx[:current_user]
+        if ctx[:current_user].nil?
+          current_user = User.first
+          # return GraphQL::ExecutionError.new('No current user')
+        end
+
+        dashboard_item = DashboardItem.find(args[:id])
+        if dashboard_item.valid?
+          dashboard_item.destroy
+          if dashboard_item.destroyed?
+            return current_user
+          end
+        end
+
+        return GraphQL::ExecutionError.new('Failed to destroy dashboard item')
       }
     end
 
