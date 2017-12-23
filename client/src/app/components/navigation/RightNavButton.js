@@ -9,7 +9,7 @@ import * as STYLES from '../../constants/styles';
 
 const styles = StyleSheet.create({
   container: {
-    paddingLeft: '24px',
+    marginLeft: '24px',
     display: 'flex',
   },
   boldedUpper: {
@@ -20,8 +20,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const RightNavButton = ({ link, label, nightMode, viewName }) => (
-  <li className={css(styles.container)}>
+const RightNavButton = ({ style, link, label, nightMode, viewName }) => (
+  <li className={css(styles.container, style)}>
     <Link to={link}>
       <El nightMode={nightMode} style={styles.boldedUpper} type={'span'}>{label}</El>
     </Link>
