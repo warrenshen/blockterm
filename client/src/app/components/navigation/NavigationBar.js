@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 1,
     //borderTop: '1px solid rgba(0,0,0,0.2)',
-    borderBottom: '2px solid rgba(0,0,0,0.2)',
+    borderBottom: '2px solid #aaa',
   },
   banner: {
     width: '100vw',
@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 2,
     //borderTop: '1px solid rgba(0,0,0,0.2)',
-    borderBottom: '1px solid rgba(0,0,0,0.2)',
+    borderBottom: '1px solid #aaa',
   },
   nightMode: {
     backgroundColor: '#000',
-    borderBottom: '2px solid rgba(255,255,255,0.2)',
+    borderBottom: '2px solid #555',
     //backgroundColor: '#020b0e',
   },
   brand: {
@@ -51,13 +51,16 @@ const styles = StyleSheet.create({
   nightHover: {
     ':hover': {
       color: STYLES.GOLD,
-    }
+    },
   },
   section: {
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    ':hover': {
+    //  borderBottom: '1px solid #000',
+    },
   },
   tickerbar: {
     overflow: 'hidden',
@@ -86,12 +89,17 @@ const NavigationBar = ({
   nightMode,
   toggleNightMode,
 }) => {
+  var feed = [];  //generate fake feed content
+  for (var i = 0; i < 7; i++) {
+    feed.push(`BTC 15500 | ETH 800 | XMR 430 | `);
+  }
+  //end of nicks feed nonsense
   return (
     <div>
       <nav className={css(styles.banner, nightMode && styles.nightMode)}>
         <div className={css(styles.tickerbar)}>
           <El nightMode={nightMode} type={'span'}>
-            BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;BTC 15500&nbsp; | &nbsp;&nbsp;ETH 800&nbsp; | &nbsp;XMR 430&nbsp; | &nbsp;
+            {feed}
           </El>
         </div>
         <div className={css(styles.promotion, nightMode && styles.promotionNight)}>

@@ -19,17 +19,17 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
-    border: '1px solid #bbb',
-    borderBottom: '2px solid #bbb',
+    border: '1px solid #aaa',
+    borderBottom: '2px solid #aaa',
   },
   gridContainer: {
-    backgroundColor: '#e3e3e3',
+    backgroundColor: '#ececec',
     minHeight: '100vh',
   },
   nightMode: {
     backgroundColor: '#000 !important',
-    border: '1px solid #444',
-    borderBottom: '2px solid #444',
+    border: '1px solid #555',
+    borderBottom: '2px solid #555',
   },
   gridNightContainer: {
     backgroundColor: STYLES.SOFTGRAY,
