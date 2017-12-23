@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   gridContainer: {
     backgroundColor: '#e3e3e3',
-    height: '100vh',
+    minHeight: '100vh',
   },
   nightMode: {
     backgroundColor: '#000 !important',

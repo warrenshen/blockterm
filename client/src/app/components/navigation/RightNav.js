@@ -38,7 +38,7 @@ const RightNav = ({
     <RightNavButton
       style={styles.loginButton}
       link={''}
-      label={'Login'}
+      label={'Login/Join'}
       nightMode={nightMode}
     />
   </ul>
