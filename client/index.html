@@ -24,7 +24,7 @@
       var s = document.createElement("script");
       s.type = "text/javascript";
       s.async = true;
-      var theUrl = baseUrl+'serve/v3/coin/header?fsyms=BTC,ETH,XMR,LTC,NEO,XRP&tsyms=USD';
+      var theUrl = baseUrl+'serve/v3/coin/header?fsyms=BTC,ETH,XMR,LTC,BCH,XRP,DASH,ADA,NEO,IOT,SUB,XLM,ZEC,TRX&tsyms=USD';
       s.src = theUrl + ( theUrl.indexOf("?") >= 0 ? "&" : "?") + "app=" + appName;
       embedder.parentNode.appendChild(s);
       })();

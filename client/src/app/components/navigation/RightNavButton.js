@@ -21,17 +21,18 @@ const styles = StyleSheet.create({
   flatButton: {
     background: 'none',
     border: 'none',
-    padding: '4px 12px',
+    //padding: '4px 12px',
   },
 });
 
 const RightNavButton = ({ action, label, link, nightMode, nightModeStyle, style }) => {
   return action ?
   (
-    <li className={css(styles.container, style)}>
-      <button className={css(styles.flatButton, nightMode && nightModeStyle)} onClick={action}>
+    <li className={css(styles.container)}>
+      <button className={css(styles.flatButton, style, nightMode&& nightModeStyle)} onClick={action}>
         <El
           nightMode={nightMode}
+          //nightModeStyle={nightModeStyle}
           style={styles.boldedUpper}
           type={'span'}>
           {label}
@@ -40,11 +41,11 @@ const RightNavButton = ({ action, label, link, nightMode, nightModeStyle, style 
     </li>
   ) :
   (
-    <li className={css(styles.container, style)}>
-      <Link to={link}>
+    <li className={css(styles.container)}>
+      <Link to={link} className={css(style, nightMode&& nightModeStyle)}>
         <El
           nightMode={nightMode}
-          nightModeStyle={nightModeStyle}
+          //nightModeStyle={nightModeStyle}
           style={styles.boldedUpper}
           type={'span'}>
           {label}

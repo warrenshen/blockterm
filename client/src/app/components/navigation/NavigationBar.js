@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    zIndex: 2,
+    zIndex: 100,
     //borderTop: '1px solid rgba(0,0,0,0.2)',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
   },
@@ -87,6 +87,14 @@ const styles = StyleSheet.create({
   semibolded: {
     fontWeight: '500 !important',
   },
+  floatingBeta: {
+    textTransform: 'uppercase',
+    letterSpacing: '2px',
+    position: 'absolute',
+    left: '140px',
+    top: '15px',
+    fontSize: '10px',
+  }
 });
 
 const NavigationBar = ({
@@ -118,6 +126,7 @@ const NavigationBar = ({
 
       <nav className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
+          <El type={'span'} nightMode={nightMode} style={styles.floatingBeta}>BETA</El>
           <Link className={css(styles.brand)} to={'/'}>
             <El
               nightMode={nightMode}

@@ -50,17 +50,22 @@ const styles = StyleSheet.create({
   loginPanel: {
     marginTop: '20px',
     backgroundColor: '#fff',
-    border: `1px solid ${STYLES.BORDERLIGHT}`,
-    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
+    border: `1px solid #000`,
+    borderBottom: `2px solid #000`,
   },
-  joinPanel: {
+  infoPanel: {
     backgroundColor: '#fff',
     marginTop: '20px',
-    padding: '10px 15px',
+    padding: '15px 15px',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
     borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
   panelsNight: {
+    backgroundColor: '#000',
+    border: `1px solid #fff`,
+    borderBottom: `2px solid #fff`,
+  },
+  panelsLightNight: {
     backgroundColor: '#000',
     border: `1px solid ${STYLES.BORDERDARK}`,
     borderBottom: `2px solid ${STYLES.BORDERDARK}`,
@@ -73,19 +78,19 @@ const styles = StyleSheet.create({
     fontWeight:'700',
     display: 'block',
     marginBottom: '8px',
-    border: `1px solid ${STYLES.BORDERLIGHT}`,
+    border: `1px solid #000`,
     width: '100%',
   },
   fieldNight: {
     border: '1px solid #fff',
   },
   halfPanel: {
-    width:'60%',
+    width:'55%',
     display: 'inline-block',
-    padding: '10px 15px',
+    padding: '15px 15px',
   },
   rightHalf: {
-    width:'40%',
+    width:'45%',
     borderLeft: '1px solid #555',
     position: 'absolute',
     top: '0px',
@@ -142,12 +147,11 @@ class Login extends PureComponent {
       <div className={css(styles.body, styles.wrapper, nightMode && styles.bodyNightMode)}>
         <div className={css(styles.mainContent)}>
           <div className={css(styles.loginPanel, nightMode && styles.panelsNight)}>
-
             <div className={css(styles.halfPanel)}>
               <El style={styles.bolded, styles.bottomHeavy}
                   nightMode={nightMode}
                   type={'h4'}>
-                  Login to your Account:
+                  Login to your account:
               </El>
               <input
                 className={css(styles.inputField, nightMode && styles.fieldNight)}
@@ -182,11 +186,12 @@ class Login extends PureComponent {
               </ul>
             </div>
           </div>
-          <div className={css(styles.joinPanel, nightMode && styles.panelsNight)}>
-            <El style={styles.bolded}
+
+          <div className={css(styles.infoPanel, nightMode && styles.panelsLightNight)}>
+            <El style={styles.bolded, styles.bottomHeavy}
                 nightMode={nightMode}
                 type={'h4'}>
-                Join the Army of HODLers:
+                How to Buy and Sell Altcoins (such as XMR, DASH, XRP, IOT, SUB, etc.):
             </El>
           </div>
         </div>
