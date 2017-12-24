@@ -37,7 +37,10 @@ const styles = StyleSheet.create({
     lineHeight: '4px',
     textAlign: 'right',
     width: '100%',
-    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+    borderBottom: `1px solid #666`,
+    ':hover': {
+      cursor: 'move',
+    },
   },
 });
 

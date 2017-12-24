@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   alert: {
     width:'100%',
-    padding:'16px',
+    padding:'10px',
     backgroundColor: 'white',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
   },
@@ -38,7 +38,7 @@ const Sidebar = ({
       <div className={css(styles.alert, nightMode && styles.darkAlert)}>
         <El style={styles.bolded}
             nightMode={nightMode}
-            type={'h4'}>
+            type={'h5'}>
             Hi, I'm an Alert
         </El>
 
