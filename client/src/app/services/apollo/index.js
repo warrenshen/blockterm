@@ -1,7 +1,7 @@
 // @flow weak
 
 import {
-  AUTH_TOKEN,
+  AUTH_TOKEN_COOKIE,
   getItem,
 } from '../../services/cookie';
 
@@ -23,8 +23,8 @@ networkInterface.use([{
     if (!req.options.headers) {
       req.options.headers = {};  // Create the header object if needed.
     }
-    // get the authentication token from local storage if it exists
-    const authToken = getItem(AUTH_TOKEN);
+    // Get the authentication token from local storage if it exists.
+    const authToken = getItem(AUTH_TOKEN_COOKIE);
     if (authToken) {
       req.options.headers.authorization = authToken ? `Bearer ${authToken}` : null;
     }

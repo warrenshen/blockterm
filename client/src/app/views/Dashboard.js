@@ -36,17 +36,6 @@ const styles = StyleSheet.create({
 
 class Dashboard extends PureComponent {
 
-  onLayoutChange(layout, layouts) {
-    const {
-      updateDashboardItems,
-    } = this.props;
-
-    console.log('layout change');
-    console.log(layout);
-    const layoutString = JSON.stringify(layout);
-    updateDashboardItems(layoutString);
-  }
-
   renderItem(dashboardItem)
   {
     const {
@@ -100,6 +89,7 @@ class Dashboard extends PureComponent {
       dashboardItems,
       data,
       nightMode,
+      saveLayout,
     } = this.props;
 
     if (data.loading)
@@ -117,10 +107,11 @@ class Dashboard extends PureComponent {
           className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
           cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
           rowHeight={200}
-          onLayoutChange={(layout, layouts) => this.onLayoutChange(layout, layouts)}
+          onLayoutChange={(layout, layouts) => saveLayout(layout)}
         >
           {
-            dashboardItems.map((dashboardItem) => this.renderItem(dashboardItem))
+            dashboardItems.map(
+              (dashboardItem) => this.renderItem(dashboardItem))
           }
         </ResponsiveReactGridLayout>
       );

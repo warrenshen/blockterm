@@ -2,17 +2,21 @@
 
 const APP_PERSIST_STORES_TYPES = [
   'localStorage',
-  'sessionStorage'
+  'sessionStorage',
 ];
 
-export const AUTH_TOKEN = 'AUTH_TOKEN';
-export const NIGHT_MODE = 'NIGHT_MODE';
+export const AUTH_TOKEN_COOKIE = 'AUTH_TOKEN_COOKIE';
+export const DASHBOARD_COOKIE = 'DASHBOARD_COOKIE';
+export const NIGHT_MODE_COOKIE = 'NIGHT_MODE_COOKIE';
+
+const parse = JSON.parse;
+const stringify = JSON.stringify;
 
 export function getItem(itemKey, fromStorage=APP_PERSIST_STORES_TYPES[0])
 {
   // localStorage:
   if (fromStorage === APP_PERSIST_STORES_TYPES[0] && localStorage) {
-    const value = localStorage.getItem(itemKey);
+    const value = parse(localStorage.getItem(itemKey));
     if (value === 'true')
     {
       return true;
@@ -48,16 +52,18 @@ export function getItem(itemKey, fromStorage=APP_PERSIST_STORES_TYPES[0])
 
 export function setItem(itemKey, value, toStorage=APP_PERSIST_STORES_TYPES[0])
 {
+  const json = stringify(value);
+
   // localStorage:
   if (toStorage === APP_PERSIST_STORES_TYPES[0]) {
     if (localStorage) {
-      localStorage.setItem(itemKey, value);
+      localStorage.setItem(itemKey, json);
     }
   }
   // sessionStorage:
   if (toStorage === APP_PERSIST_STORES_TYPES[1]) {
     if (sessionStorage) {
-      sessionStorage.setItem(itemKey, value);
+      sessionStorage.setItem(itemKey, json);
     }
   }
 }
