@@ -130,30 +130,43 @@ function wrapDynamicGraphQL(ComponentToWrap)
     saveLayout(layout)
     {
       const {
-        data
+        data,
+        updateDashboardItems,
       } = this.props;
 
-      if (data.user)
-      {
-        updateDashboardItems(JSON.stringify(layout));
-      }
-      else
-      {
-        var itemMap = {};
-        layout.map((item) => {
-          itemMap[item.i] = {
-            id: item.i,
-            w: item.w,
-            h: item.h,
-            x: item.x,
-            y: item.y,
-          };
-        });
-        this.dashboardItems.map((item) => {
-          itemMap[item.id].identifier = item.identifier;
-        });
+      var layoutChanged = false;
+      const newLayoutMap = {};
+      layout.map((item) => {
+        newLayoutMap[item.i] = {
+          id: item.i,
+          w: item.w,
+          h: item.h,
+          x: item.x,
+          y: item.y,
+        };
+      });
+      this.dashboardItems.map((item) => {
+        const matchItem = newLayoutMap[item.id];
+        layoutChanged = layoutChanged || item.w != matchItem.w;
+        layoutChanged = layoutChanged || item.h != matchItem.h;
+        layoutChanged = layoutChanged || item.x != matchItem.x;
+        layoutChanged = layoutChanged || item.y != matchItem.y;
+      });
 
-        setItem(DASHBOARD_COOKIE, Object.values(itemMap));
+      if (layoutChanged)
+      {
+        if (data.user)
+        {
+          updateDashboardItems(JSON.stringify(layout));
+        }
+        else
+        {
+          this.dashboardItems.map((item) => {
+            newLayoutMap[item.id].identifier = item.identifier;
+          });
+
+          setItem(DASHBOARD_COOKIE, Object.values(newLayoutMap));
+        }
       }
     }
 
@@ -170,7 +183,6 @@ function wrapDynamicGraphQL(ComponentToWrap)
           data,
           destroyDashboardItem,
           nightMode,
-          updateDashboardItems,
         } = this.props;
 
         const Wrapped = this.wrapped;
