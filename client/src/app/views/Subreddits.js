@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     padding: '15px 20px',
   },
   body: {
-    borderTop: '1px solid rgba(0,0,0,0.15)',
+    borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
     padding: '0px 20px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   },
   bodyNightMode: {
     backgroundColor: '#000',
+    borderTop: `1px solid ${STYLES.BORDERDARK}`,
   },
   table: {
     width: '100%',
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
   },
   element: {
     padding: '12px',
-    borderBottom: `1px solid #ddd`,
+    borderBottom: `1px solid #ccc`,
   },
   graphElement: {
     maxHeight:'40px',

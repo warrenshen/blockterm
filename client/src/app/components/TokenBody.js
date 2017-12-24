@@ -29,9 +29,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'column',
+    borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   nightMode: {
     backgroundColor: '#000',
+    borderTop: `1px solid ${STYLES.BORDERDARK}`,
   },
   section: {
     width: '100%',
