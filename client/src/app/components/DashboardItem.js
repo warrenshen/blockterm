@@ -15,23 +15,30 @@ import {
 import SubredditPostsItem from './items/SubredditPostsItem';
 import TokenPriceItem from './items/TokenPriceItem';
 import TVChartItem from './items/TVChartItem';
+import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
+    overflow: 'hidden',
   },
   closeButton: {
-    position: 'absolute',
     color: '#000',
-    borderColor: '#666',
-    margin: '8px',
-    zIndex: '1',
+    borderLeft: `1px solid ${STYLES.BORDERLIGHT}`,
+    padding: '0px 2px',
+    lineHeight: '12px',
   },
   darkCloseButton: {
     backgroundColor: '#000',
     color: '#fff',
-  }
+  },
+  grabBar: {
+    lineHeight: '4px',
+    textAlign: 'right',
+    width: '100%',
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
 });
 
 class DashboardItem extends PureComponent {
@@ -98,9 +105,11 @@ class DashboardItem extends PureComponent {
         className={css(styles.container)}
         key={id}
       >
-        <button className={css(styles.closeButton, nightMode && styles.darkCloseButton)} onClick={(event) => destroyDashboardItem(id)}>
-          <strong>x</strong>
-        </button>
+        <div className={css(styles.grabBar)}>
+          <button className={css(styles.closeButton, nightMode && styles.darkCloseButton)} onClick={(event) => destroyDashboardItem(id)}>
+            <strong>x</strong>
+          </button>
+        </div>
         {this.renderItem(dashboardItem)}
       </div>
     );
