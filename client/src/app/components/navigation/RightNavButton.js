@@ -14,9 +14,9 @@ const styles = StyleSheet.create({
   },
   boldedUpper: {
     fontWeight: '700 !important',
-    textTransform: 'uppercase',
-    fontSize: '13px',
-    letterSpacing: '2px',
+    textTransform: 'uppercase !important',
+    fontSize: '13px !important',
+    letterSpacing: '2px !important',
   },
   flatButton: {
     background: 'none',
@@ -42,7 +42,13 @@ const RightNavButton = ({ action, label, link, nightMode, nightModeStyle, style 
   (
     <li className={css(styles.container, style)}>
       <Link to={link}>
-        <El nightMode={nightMode} style={styles.boldedUpper, nightMode && nightModeStyle} type={'span'}>{label}</El>
+        <El
+          nightMode={nightMode}
+          nightModeStyle={nightModeStyle}
+          style={styles.boldedUpper}
+          type={'span'}>
+          {label}
+        </El>
       </Link>
     </li>
   )

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     minHeight: '100vh',
     display: 'flex',
     //padding: '0% 15%',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
   nightMode: {

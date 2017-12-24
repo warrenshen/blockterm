@@ -14,7 +14,6 @@ const El = ({ children, nightMode, nightModeStyle, style, type }) => {
   const Tag = type;
   var className = css(
     style,
-    styles.default,
     nightMode && styles.white,
     nightMode && nightModeStyle
   );
