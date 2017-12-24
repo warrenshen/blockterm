@@ -120,9 +120,11 @@ class Subreddit extends PureComponent {
       changeActiveUserCountPlotRange,
       changeCommentCountPlotRange,
       changePostCountPlotRange,
+      changeSubscriberCountPlotRange,
       activeUserCountPlotRange,
       commentCountPlotRange,
       postCountPlotRange,
+      subscriberCountPlotRange,
     } = this.props;
 
     const {
@@ -176,13 +178,13 @@ class Subreddit extends PureComponent {
               type={'span'}
               style={styles.hidden}
             >
-              Created <strong>{`${moment(startDate).format("MMM Do YYYY")}`}</strong>
+              Created <strong>{`${moment(startDate, 'YYYY-M-D H:m:s Z').format("MMM Do YYYY")}`}</strong>
             </El>
             <El
               nightMode={nightMode}
               type={'span'}
             >
-              Last updated <strong>{`${moment(updatedAt).fromNow()}`}</strong>
+              Last updated <strong>{`${moment(updatedAt, 'YYYY-M-D H:m:s Z').fromNow()}`}</strong>
             </El>
           </div>
         </div>
@@ -191,9 +193,11 @@ class Subreddit extends PureComponent {
           changeActiveUserCountPlotRange={changeActiveUserCountPlotRange}
           changeCommentCountPlotRange={changeCommentCountPlotRange}
           changePostCountPlotRange={changePostCountPlotRange}
+          changeSubscriberCountPlotRange={changeSubscriberCountPlotRange}
           activeUserCountPlotRange={activeUserCountPlotRange}
           commentCountPlotRange={commentCountPlotRange}
           postCountPlotRange={postCountPlotRange}
+          subscriberCountPlotRange={subscriberCountPlotRange}
           nightMode={nightMode}
         />
       </div>
