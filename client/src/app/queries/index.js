@@ -32,7 +32,7 @@ export const UserQuery = gql`
 ------------------------------------------*/
 
 export const CreateUserMutation = gql`
-  mutation createUserMutation($email: String!, $password: String!) {
+  mutation CreateUserMutation($email: String!, $password: String!) {
     createUser(email: $email, password: $password) {
       authToken
 
@@ -43,13 +43,43 @@ export const CreateUserMutation = gql`
   }
 `;
 
+export const DestroyDashboardItemMutation = gql`
+  mutation DestroyDashboardItemMutation($id: ID!) {
+    destroyDashboardItem(id: $id) {
+      dashboardItems {
+        id
+        identifier
+        w
+        h
+        x
+        y
+      }
+    }
+  }
+`;
+
 export const LogInMutation = gql`
-  mutation logInMutation($email: String!, $password: String!) {
+  mutation LogInMutation($email: String!, $password: String!) {
     logIn(email: $email, password: $password) {
       authToken
 
       user {
         email
+      }
+    }
+  }
+`;
+
+export const UpdateDashboardItemsMutation = gql`
+  mutation UpdateDashboardItemsMutation($layout: String!) {
+    updateDashboardItems(layout: $layout) {
+      dashboardItems {
+        id
+        identifier
+        w
+        h
+        x
+        y
       }
     }
   }

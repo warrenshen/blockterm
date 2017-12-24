@@ -11,7 +11,7 @@ import Login                  from '../views/Login';
 import * as loginActions      from '../redux/modules/login';
 
 import {
-  AUTH_TOKEN,
+  AUTH_TOKEN_COOKIE,
   setItem,
 } from '../services/cookie';
 
@@ -33,7 +33,7 @@ const logInMutationOptions = {
       })
       .then(
         (response) => {
-          setItem(AUTH_TOKEN, response.data.logIn.authToken);
+          setItem(AUTH_TOKEN_COOKIE, response.data.logIn.authToken);
           return Promise.resolve();
         }
       )

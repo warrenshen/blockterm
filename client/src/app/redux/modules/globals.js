@@ -1,7 +1,7 @@
 // @flow weak
 
 import {
-  NIGHT_MODE,
+  NIGHT_MODE_COOKIE,
   getItem,
   setItem,
 } from '../../services/cookie';
@@ -14,7 +14,7 @@ const TOGGLE_NIGHT_MODE = 'TOGGLE_NIGHT_MODE';
 /* -----------------------------------------
   Reducer
  ------------------------------------------*/
-const cookieNightMode = getItem(NIGHT_MODE);
+const cookieNightMode = getItem(NIGHT_MODE_COOKIE);
 const initialState = {
   nightMode: cookieNightMode !== null ? cookieNightMode : false,
 };
@@ -25,7 +25,7 @@ export default function(state = initialState, action)
   {
     case TOGGLE_NIGHT_MODE:
       const newNightMode = !state.nightMode;
-      setItem(NIGHT_MODE, newNightMode);
+      setItem(NIGHT_MODE_COOKIE, newNightMode);
 
       return {
         ...state,

@@ -1,12 +1,17 @@
 // @flow weak
 
-import React, { Component } from 'react';
+import React, { Component }   from 'react';
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Dashboard }          from '../views';
 import gql                    from 'graphql-tag';
-import { parse }              from 'graphql';
+import { Dashboard }          from '../views';
 import { graphql }            from 'react-apollo';
+
+import {
+  DASHBOARD_COOKIE,
+  getItem,
+  setItem,
+} from '../services/cookie';
 
 function f(identifier)
 {
@@ -86,20 +91,85 @@ function wrapDynamicGraphQL(ComponentToWrap)
         registerDashboardItem,
       } = this.props;
 
-      if (nextProps.data.user && nextProps.data.user.dashboardItems)
-      {
-        if (!this.registered)
-        {
-          const dashboardItems = nextProps.data.user.dashboardItems;
-          this.registered = true;
-          dashboardItems.map(
-            (dashboardItem) => registerDashboardItem(dashboardItem)
-          );
+      var dashboardItems;
 
-          const { query, config } = queryBuilder(dashboardItems);
-          this.wrapped = graphql(query, config)(ComponentToWrap);
-          this.dashboardItems = dashboardItems;
+      if (nextProps.data.user)
+      {
+        dashboardItems = nextProps.data.user.dashboardItems;
+      }
+      else
+      {
+        var localDashboard = getItem(DASHBOARD_COOKIE);
+        if (localDashboard)
+        {
+          console.log(localDashboard);
+          dashboardItems = localDashboard;
         }
+        else
+        {
+          localDashboard = [
+            {
+              id: '1',
+              identifier: 'TV-CANDLE-CHART-BITSTAMP:BTCUSD',
+              w: 4,
+              h: 4,
+              x: 0,
+              y: 0,
+            },
+            {
+              id: '2',
+              identifier: 'SUBREDDIT-POSTS-5',
+              w: 4,
+              h: 4,
+              x: 4,
+              y: 0,
+            },
+          ];
+          setItem(DASHBOARD_COOKIE, localDashboard);
+          dashboardItems = localDashboard;
+        }
+      }
+
+      if (!this.registered)
+      {
+        this.registered = true;
+        dashboardItems.map(
+          (dashboardItem) => registerDashboardItem(dashboardItem)
+        );
+
+        const { query, config } = queryBuilder(dashboardItems);
+        this.wrapped = graphql(query, config)(ComponentToWrap);
+        this.dashboardItems = dashboardItems;
+      }
+    }
+
+    saveLayout(layout)
+    {
+      const {
+        data
+      } = this.props;
+      console.log(layout);
+      if (data.user)
+      {
+        updateDashboardItems(JSON.stringify(layout));
+      }
+      else
+      {
+        var itemMap = {};
+        layout.map((item) => {
+          itemMap[item.i] = {
+            id: item.i,
+            w: item.w,
+            h: item.h,
+            x: item.x,
+            y: item.y,
+          };
+        });
+        this.dashboardItems.map((item) => {
+          itemMap[item.id].identifier = item.identifier;
+        });
+
+        setItem(DASHBOARD_COOKIE, Object.values(itemMap));
       }
     }
 
@@ -128,7 +198,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
             dashboardItems={this.dashboardItems}
             destroyDashboardItem={destroyDashboardItem}
             nightMode={nightMode}
-            updateDashboardItems={updateDashboardItems}
+            saveLayout={(layout) => this.saveLayout(layout)}
           />
         );
       }
