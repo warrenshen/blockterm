@@ -1,12 +1,8 @@
 import gql from 'graphql-tag';
 
-export const UserQuery = gql`
-  query {
-    user {
-      email
-    }
-  }
-`;
+/* -----------------------------------------
+  Queries
+------------------------------------------*/
 
 export const CreateUserMutation = gql`
   mutation createUserMutation($email: String!, $password: String!) {
@@ -19,3 +15,30 @@ export const CreateUserMutation = gql`
     }
   }
 `;
+
+export const DashboardItemsQuery = gql`
+  query DashboardItemsQuery {
+     user {
+       dashboardItems {
+         id
+         identifier
+         w
+         h
+         x
+         y
+       }
+     }
+   }
+`;
+
+export const UserQuery = gql`
+  query UserQuery {
+    user {
+      email
+    }
+  }
+`;
+
+/* -----------------------------------------
+  Mutations
+------------------------------------------*/

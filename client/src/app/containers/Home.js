@@ -1,29 +1,17 @@
 // @flow weak
 
-import { connect }            from 'react-redux';
-import { bindActionCreators } from 'redux';
-import gql                    from 'graphql-tag';
-import { compose, graphql }   from 'react-apollo';
-import * as dashboardActions      from '../redux/modules/dashboard';
-import Dashboard              from './Dashboard';
+import { connect }             from 'react-redux';
+import { bindActionCreators }  from 'redux';
+import gql                     from 'graphql-tag';
+import { compose, graphql }    from 'react-apollo';
+import { DashboardItemsQuery } from '../queries';
+import * as dashboardActions   from '../redux/modules/dashboard';
+import Dashboard               from './Dashboard';
 
 
 /* -----------------------------------------
   GraphQL - Apollo client
  ------------------------------------------*/
-
-const dashboardItemsQuery = gql`
- query dashboardItemsQuery {
-    dashboardItems {
-      id
-      identifier
-      w
-      h
-      x
-      y
-    }
-  }
-`;
 
 const updateDashboardItemsMutation = gql`
   mutation updateDashboardItemsMutation($layout: String!) {
@@ -46,8 +34,8 @@ const updateDashboardItemsMutationOptions = {
       return mutate({
         variables: { layout },
         updateQueries: {
-          dashboardItemsQuery: (prev, { mutationResult }) => ({
-            dashboardItems: mutationResult.data.updateDashboardItems.dashboardItems,
+          DashboardItemsQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.updateDashboardItems,
           }),
         },
       })
@@ -86,8 +74,8 @@ const destroyDashboardItemMutationOptions = {
       return mutate({
         variables: { id },
         updateQueries: {
-          dashboardItemsQuery: (prev, { mutationResult }) => ({
-            dashboardItems: mutationResult.data.destroyDashboardItem.dashboardItems,
+          DashboardItemsQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.updateDashboardItems,
           }),
         },
       })
@@ -127,7 +115,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
-  graphql(dashboardItemsQuery),
+  graphql(DashboardItemsQuery),
   graphql(updateDashboardItemsMutation, updateDashboardItemsMutationOptions),
   graphql(destroyDashboardItemMutation, destroyDashboardItemMutationOptions),
   connect(mapStateToProps, mapDispatchToProps)
