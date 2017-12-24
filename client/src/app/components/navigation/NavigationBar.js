@@ -39,6 +39,10 @@ const styles = StyleSheet.create({
     borderBottom: '2px solid #555',
     //backgroundColor: '#020b0e',
   },
+  bannerNight: {
+    backgroundColor: '#000',
+    borderBottom: '1px solid #555',
+  },
   brand: {
     fontWeight: '700',
     letterSpacing: '3px',
@@ -97,7 +101,7 @@ const NavigationBar = ({
   //end of nicks feed nonsense
   return (
     <div>
-      <nav className={css(styles.banner, nightMode && styles.nightMode)}>
+      <nav className={css(styles.banner, nightMode && styles.bannerNight)}>
         <div className={css(styles.tickerbar)}>
           <El nightMode={nightMode} type={'span'}>
             {feed}
