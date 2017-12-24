@@ -8,7 +8,7 @@ import RightNavButton       from './RightNavButton';
 import Switch from 'react-toggle-switch'
 
 import {
-  AUTH_TOKEN,
+  AUTH_TOKEN_COOKIE,
   clearItem,
 } from '../../services/cookie';
 
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
 function logOut(event, client)
 {
-  clearItem(AUTH_TOKEN);
+  clearItem(AUTH_TOKEN_COOKIE);
   client.resetStore()
 }
 

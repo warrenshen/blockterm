@@ -11,7 +11,7 @@ import Signup                 from '../views/Signup';
 import * as loginActions      from '../redux/modules/login';
 
 import {
-  AUTH_TOKEN,
+  AUTH_TOKEN_COOKIE,
   setItem,
 } from '../services/cookie';
 
@@ -33,7 +33,7 @@ const createUserMutationOptions = {
       })
       .then(
         (response) => {
-          setItem(AUTH_TOKEN, response.data.createUser.authToken);
+          setItem(AUTH_TOKEN_COOKIE, response.data.createUser.authToken);
           return Promise.resolve();
         }
       )
