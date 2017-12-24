@@ -14,12 +14,14 @@ import {
   DASHBOARD_ITEM_KEYS,
   DASHBOARD_ITEM_KEY_TO_VALUES,
 } from '../constants/items';
+import Sidebar from 'react-sidebar';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
+    minHeight: '100%',
   },
   item: {
     display: 'flex',
@@ -148,25 +150,34 @@ class Dashboard extends PureComponent {
       }));
       return (
         <div className={css(styles.container)}>
-          <ResponsiveReactGridLayout
-            className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
-            cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
-            rowHeight={200}
-            onLayoutChange={(layout, layouts) => saveLayout(layout)}
-          >
-            {
-              dashboardItems.map(
-                (dashboardItem) => this.renderItem(dashboardItem))
+          <Sidebar
+            sidebar={
+              <div className={css(styles.sidebar)}>
+                <Select
+                  options={selectOptions}
+                  onChange={(option) => changeKeySelectValue(option ? option.value : '')}
+                  value={keySelectValue}
+                />
+                {this.renderValueSelect()}
+              </div>
             }
-          </ResponsiveReactGridLayout>
-          <div className={css(styles.sidebar)}>
-            <Select
-              options={selectOptions}
-              onChange={(option) => changeKeySelectValue(option ? option.value : '')}
-              value={keySelectValue}
-            />
-            {this.renderValueSelect()}
-          </div>
+            docked={false}
+            open={true}
+            pullRight={true}
+            styles={{ root: { height: '100%' }}}
+          >
+            <ResponsiveReactGridLayout
+              className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
+              cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
+              rowHeight={200}
+              onLayoutChange={(layout, layouts) => saveLayout(layout)}
+            >
+              {
+                dashboardItems.map(
+                  (dashboardItem) => this.renderItem(dashboardItem))
+              }
+            </ResponsiveReactGridLayout>
+          </Sidebar>
         </div>
       );
     }
