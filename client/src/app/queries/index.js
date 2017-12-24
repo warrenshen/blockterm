@@ -31,6 +31,27 @@ export const UserQuery = gql`
   Mutations
 ------------------------------------------*/
 
+export const CreateDashboardItemMutation = gql`
+  mutation CreateDashboardItemMutation(
+    $identifier: String!,
+    $w: Int,
+    $h: Int,
+    $x: Int,
+    $y: Int,
+  ) {
+    createDashboardItem(identifier: $identifier) {
+      dashboardItems {
+        id
+        identifier
+        w
+        h
+        x
+        y
+      }
+    }
+  }
+`;
+
 export const CreateUserMutation = gql`
   mutation CreateUserMutation($email: String!, $password: String!) {
     createUser(email: $email, password: $password) {

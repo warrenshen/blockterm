@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
   gridContainer: {
+    display: 'flex',
     backgroundColor: '#ececec',
     minHeight: '100vh',
   },
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
   },
   gridNightContainer: {
     backgroundColor: STYLES.SOFTGRAY,
-  }
+  },
 });
 
 class Dashboard extends PureComponent {
