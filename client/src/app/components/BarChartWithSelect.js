@@ -102,7 +102,10 @@ class BarChartWithSelect extends PureComponent {
           <div className={css(styles.headerRight)}>
             {
               rangeStart && rangeEnd && [
-                <div className={css(styles.range, styles.marginRight)}>
+                <div
+                  className={css(styles.range, styles.marginRight)}
+                  key={'start'}
+                >
                   <El
                     nightMode={nightMode}
                     type={'h5'}
@@ -110,8 +113,16 @@ class BarChartWithSelect extends PureComponent {
                     {rangeStart}
                   </El>
                 </div>,
-                <h5 className={css(styles.marginRight)}>-</h5>,
-                <div className={css(styles.range, styles.marginRight)}>
+                <h5
+                  className={css(styles.marginRight)}
+                  key={'dash'}
+                >
+                  -
+                </h5>,
+                <div
+                  className={css(styles.range, styles.marginRight)}
+                  key={'end'}
+                >
                   <El
                     nightMode={nightMode}
                     type={'h5'}

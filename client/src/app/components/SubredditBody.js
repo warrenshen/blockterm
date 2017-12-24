@@ -50,9 +50,11 @@ class SubredditBody extends PureComponent {
       changeActiveUserCountPlotRange,
       changeCommentCountPlotRange,
       changePostCountPlotRange,
+      changeSubscriberCountPlotRange,
       activeUserCountPlotRange,
       commentCountPlotRange,
       postCountPlotRange,
+      subscriberCountPlotRange,
     } = this.props;
 
     const {
@@ -67,16 +69,16 @@ class SubredditBody extends PureComponent {
     } = subreddit;
 
     const postsX = postCounts.map(
-      (postCount) => moment(postCount.timestamp).format('MM/DD')
+      (postCount) => moment(postCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
     );
     const commentsX = commentCounts.map(
-      (commentCount) => moment(commentCount.timestamp).format('MM/DD')
+      (commentCount) => moment(commentCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
     );
     const activeUsersX = activeUserCounts.map(
-      (activeUserCount) => moment(activeUserCount.timestamp).format('MM/DD h:mm')
+      (activeUserCount) => moment(activeUserCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD HH:mm')
     );
     const subscibersX = subscriberCounts.map(
-      (subscriberCount) => moment(subscriberCount.timestamp).format('MM/DD h:mm')
+      (subscriberCount) => moment(subscriberCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD HH:mm')
     );
 
     // TODO: change chart labels from MM/DD to MM/DD/YY based on time range.
@@ -105,6 +107,10 @@ class SubredditBody extends PureComponent {
     );
     const postsSelectOptions = disableChartOptions(
       subreddit.earliestPostCountDate,
+      RANGE_SELECT_OPTIONS
+    );
+    const subscribersSelectOptions = disableChartOptions(
+      subreddit.earliestSubscriberCountDate,
       RANGE_SELECT_OPTIONS
     );
 
@@ -149,7 +155,6 @@ class SubredditBody extends PureComponent {
             selectValue={postCountPlotRange}
             title={'Number of new posts'}
             onChange={(option) => changePostCountPlotRange(option.value)}
-            key='postsData'
           />
           <BarChartWithSelect
             data={commentsData}
@@ -160,14 +165,14 @@ class SubredditBody extends PureComponent {
             selectValue={commentCountPlotRange}
             title={'Number of new comments'}
             onChange={(option) => changeCommentCountPlotRange(option.value)}
-            key='commentsData'
           />
           <BarChartWithSelect
             data={subscribersData}
             nightMode={nightMode}
+            selectOptions={subscribersSelectOptions}
+            selectValue={subscriberCountPlotRange}
             title={'Number of subscribers'}
-            onChange={(option) => option.value}
-            key='subscribersData'
+            onChange={(option) => changeSubscriberCountPlotRange(option.value)}
           />
           <BarChartWithSelect
             data={activeUsersData}
@@ -178,7 +183,6 @@ class SubredditBody extends PureComponent {
             selectValue={activeUserCountPlotRange}
             title={'Number of active users'}
             onChange={(option) => changeActiveUserCountPlotRange(option.value)}
-            key='activeUsersData'
           />
         </div>
       </div>

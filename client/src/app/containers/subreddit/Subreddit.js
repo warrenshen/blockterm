@@ -97,6 +97,7 @@ const mapStateToProps = (state) => {
     activeUserCountPlotRange: state.plots.activeUserCountPlotRange,
     commentCountPlotRange: state.plots.commentCountPlotRange,
     postCountPlotRange: state.plots.postCountPlotRange,
+    subscriberCountPlotRange: state.plots.subscriberCountPlotRange,
     nightMode: state.globals.nightMode,
   };
 };
@@ -107,6 +108,7 @@ const mapDispatchToProps = (dispatch) => {
       changeActiveUserCountPlotRange: plotsActions.changeActiveUserCountPlotRange,
       changeCommentCountPlotRange: plotsActions.changeCommentCountPlotRange,
       changePostCountPlotRange: plotsActions.changePostCountPlotRange,
+      changeSubscriberCountPlotRange: plotsActions.changeSubscriberCountPlotRange,
     },
     dispatch
   );

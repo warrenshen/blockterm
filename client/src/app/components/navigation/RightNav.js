@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '5px',
     right: '68px',
-    fontWeight: '700',    
+    fontWeight: '700',
   },
 });
 
@@ -85,6 +85,7 @@ const RightNav = ({
       ) :
       [
         <RightNavButton
+          key={'login'}
           label={'Login'}
           link={'/login'}
           nightMode={nightMode}
@@ -93,6 +94,7 @@ const RightNav = ({
           key='login'
         />,
         <RightNavButton
+          key={'join'}
           label={'Join'}
           link={'/join'}
           nightMode={nightMode}

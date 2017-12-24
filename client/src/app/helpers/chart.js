@@ -6,7 +6,7 @@ import {
 
 export function disableChartOptions(earliestDate, options)
 {
-  const earliest = moment(earliestDate).startOf('day');
+  const earliest = moment(earliestDate, 'YYYY-M-D H:m:s Z').startOf('day');
   return options.map((option) => {
     if (option.subtract)
     {
@@ -32,7 +32,7 @@ export function generateChartData(
   recentLabel='today',
   timeFormat='MM/DD')
 {
-  var x = points.map((point) => moment(point.timestamp).format(timeFormat));
+  var x = points.map((point) => moment(point.timestamp, 'YYYY-M-D H:m:s Z').format(timeFormat));
   var y = points.map((point) => point[key]);
   var backgroundColors = x.map((_) => BAR_CHART_DATA_STYLES[0].historical.backgroundColor);
   var borderColors = x.map((_) => BAR_CHART_DATA_STYLES[0].historical.borderColor);
@@ -75,7 +75,7 @@ export function generateCountChartData(
   timeFormat='MM/DD')
 {
   var x = historicalCounts.map(
-    (historicalCount) => moment(historicalCount.timestamp).format(timeFormat)
+    (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format(timeFormat)
   );
   var y = historicalCounts.map(
     (historicalCount) => historicalCount.count
@@ -116,7 +116,7 @@ export function generateCountChartData2(
   timeFormat='MM/DD')
 {
   const labels = historicalCountsList[0].map(
-    (historicalCount) => moment(historicalCount.timestamp).format('MM/DD')
+    (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
   );
 
   const datasets = historicalCountsList.map((historicalCounts, index) => {
@@ -144,7 +144,7 @@ export function generateLineChartData(
   timeFormat='MM/DD')
 {
   var x = historicalCounts.map(
-    (historicalCount) => moment(historicalCount.timestamp).format(timeFormat)
+    (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format(timeFormat)
   );
   return {
     labels: x,
