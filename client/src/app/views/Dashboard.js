@@ -96,19 +96,41 @@ class Dashboard extends PureComponent {
     );
   }
 
+  renderValueSelect()
+  {
+    const {
+      changeValueSelectValue,
+      keySelectValue,
+      valueSelectValue,
+    } = this.props;
+
+    if (keySelectValue)
+    {
+      const valueOptions = DASHBOARD_ITEM_KEY_TO_VALUES[keySelectValue];
+      const selectOptions = valueOptions.map((value) => ({
+        label: value,
+        value: value,
+      }));
+      return (
+        <Select
+          options={selectOptions}
+          onChange={(option) => changeValueSelectValue(option ? option.value : '')}
+          value={valueSelectValue}
+        />
+      );
+    }
+  }
+
   render()
   {
     const {
       changeKeySelectValue,
-      changeValueSelectValue,
       dashboardItems,
       data,
       nightMode,
       keySelectValue,
       saveLayout,
-      valueSelectValue
     } = this.props;
-    console.log(keySelectValue);
 
     if (data.loading)
     {
@@ -143,15 +165,7 @@ class Dashboard extends PureComponent {
               onChange={(option) => changeKeySelectValue(option ? option.value : '')}
               value={keySelectValue}
             />
-            {
-              keySelectValue && (
-                <Select
-                  options={selectOptions}
-                  onChange={(option) => changeValueSelectValue(option ? option.value : '')}
-                  value={valueSelectValue}
-                />
-              )
-            }
+            {this.renderValueSelect()}
           </div>
         </div>
       );
