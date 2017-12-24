@@ -179,11 +179,15 @@ function wrapDynamicGraphQL(ComponentToWrap)
       {
         const {
           changeDashboardItemPlotRange,
+          changeKeySelectValue,
+          changeValueSelectValue,
           dashboard,
           data,
           createDashboardItem,
           destroyDashboardItem,
+          keySelectValue,
           nightMode,
+          valueSelectValue,
         } = this.props;
 
         const Wrapped = this.wrapped;
@@ -191,11 +195,15 @@ function wrapDynamicGraphQL(ComponentToWrap)
         return (
           <Wrapped
             changeDashboardItemPlotRange={changeDashboardItemPlotRange}
+            changeKeySelectValue={changeKeySelectValue}
+            changeValueSelectValue={changeValueSelectValue}
             dashboard={dashboard}
             dashboardItems={this.dashboardItems}
             destroyDashboardItem={destroyDashboardItem}
+            keySelectValue={keySelectValue}
             nightMode={nightMode}
             saveLayout={(layout) => this.saveLayout(layout)}
+            valueSelectValue={valueSelectValue}
           />
         );
       }

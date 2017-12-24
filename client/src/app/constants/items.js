@@ -30,3 +30,23 @@ export function isIdentifierValid(identifier)
   const identifierValue = identifier.substring(index + 1);
   return ITEM_KEY_WHITELIST.includes(identifierKey);
 }
+
+export const DASHBOARD_ITEM_KEYS = [
+  'Candle chart',
+  '# posts',
+];
+
+export const DASHBOARD_ITEM_KEY_TO_VALUES = {
+  'Candle chart': [
+    'BITSTAMP:BTCUSD',
+    'BITSTAMP:ETHUSD',
+    'BITSTAMP:LTCUSD',
+    'BITSTAMP:XMRUSD',
+    'BITSTAMP:NEOUSD',
+  ],
+  '# posts': [
+    'r/Bitcoin',
+    'r/ethereum',
+    'r/NEO',
+  ],
+};
