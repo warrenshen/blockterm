@@ -1,11 +1,14 @@
 // @flow weak
 
-import { connect }            from 'react-redux';
-import { bindActionCreators } from 'redux';
-import gql                    from 'graphql-tag';
-import { compose, graphql }   from 'react-apollo';
-import Signup                 from '../views/Signup';
-import * as loginActions      from '../redux/modules/login';
+import { connect }                        from 'react-redux';
+import { bindActionCreators }             from 'redux';
+import { compose, graphql, withApollo }   from 'react-apollo';
+import {
+  CreateUserMutation,
+  UserQuery,
+}                                         from '../queries';
+import Signup                             from '../views/Signup';
+import * as loginActions                  from '../redux/modules/login';
 
 import {
   AUTH_TOKEN,
@@ -16,25 +19,6 @@ import {
   GraphQL - Apollo client
  ------------------------------------------*/
 
-const userQuery = gql`
-  query {
-    user {
-      email
-    }
-  }
-`;
-
-const createUserMutation = gql`
-  mutation createUserMutation($email: String!, $password: String!) {
-    createUser(email: $email, password: $password) {
-      authToken
-
-      user {
-        email
-      }
-    }
-  }
-`;
 const createUserMutationOptions = {
   props: ({ mutate, ownProps }) => ({
     createUser(email, password) {
@@ -45,12 +29,12 @@ const createUserMutationOptions = {
       .then(
         (response) => {
           setItem(AUTH_TOKEN, response.data.createUser.authToken);
+          ownProps.client.resetStore();
           return Promise.resolve();
         }
       )
       .catch(
         (error) => {
-          console.log(error);
           return Promise.reject();
         }
       );
@@ -80,8 +64,10 @@ const mapDispatchToProps = (dispatch) => {
   );
 };
 
-export default compose(
-  graphql(userQuery),
-  graphql(createUserMutation, createUserMutationOptions),
-  connect(mapStateToProps, mapDispatchToProps)
-)(Signup);
+export default withApollo(
+  compose(
+    graphql(UserQuery),
+    graphql(CreateUserMutation, createUserMutationOptions),
+    connect(mapStateToProps, mapDispatchToProps)
+  )(Signup)
+);

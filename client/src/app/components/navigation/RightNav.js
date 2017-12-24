@@ -2,8 +2,8 @@
 
 import React                from 'react';
 import PropTypes            from 'prop-types';
-import { withApollo } from 'react-apollo';
-import { StyleSheet, css } from 'aphrodite';
+import { withApollo }       from 'react-apollo';
+import { StyleSheet, css }  from 'aphrodite';
 import RightNavButton       from './RightNavButton';
 import Switch from 'react-toggle-switch'
 

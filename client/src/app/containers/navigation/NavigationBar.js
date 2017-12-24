@@ -2,22 +2,10 @@
 
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import gql                    from 'graphql-tag';
 import { compose, graphql }   from 'react-apollo';
+import { UserQuery }          from '../../queries';
 import NavigationBar          from '../../components/navigation/NavigationBar';
 import * as globalsActions    from '../../redux/modules/globals';
-
-/* -----------------------------------------
-  GraphQL - Apollo client
- ------------------------------------------*/
-
-const userQuery = gql`
-  query {
-    user {
-      email
-    }
-  }
-`;
 
 /* -----------------------------------------
   Redux
@@ -39,6 +27,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
-  graphql(userQuery),
+  graphql(UserQuery),
   connect(mapStateToProps, mapDispatchToProps)
 )(NavigationBar);
