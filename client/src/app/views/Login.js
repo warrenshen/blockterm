@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: STYLES.LIGHTNIGHT,
   },
-  nightModeText: { 
+  nightModeText: {
     color: '#fff',
   },
   mainContent: {
@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     display: 'block',
   },
   inputField: {
-    textTransform:'uppercase',
     fontWeight:'700',
     display: 'block',
     marginBottom: '8px',
@@ -143,7 +142,7 @@ class Login extends PureComponent {
       <div className={css(styles.body, styles.wrapper, nightMode && styles.bodyNightMode)}>
         <div className={css(styles.mainContent)}>
           <div className={css(styles.loginPanel, nightMode && styles.panelsNight)}>
-            
+
             <div className={css(styles.halfPanel)}>
               <El style={styles.bolded, styles.bottomHeavy}
                   nightMode={nightMode}
@@ -175,25 +174,21 @@ class Login extends PureComponent {
                   type={'h4'}>
                   Latest Updates:
               </El>
-              <ul className={css(styles.squareList, nightMode && styles.nightModeText)}> 
+              <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
                 <li className={css(styles.blockli)}>In-depth chart widget added </li>
                 <li className={css(styles.blockli)}>Accounts and dashboard arrangement/state saving</li>
                 <li className={css(styles.blockli)}>Subreddit tracking data added by sub </li>
                 <li className={css(styles.blockli)}>Launch of Blockterm!</li>
               </ul>
-
             </div>
           </div>
-
-
-
-            <div className={css(styles.joinPanel, nightMode && styles.panelsNight)}>
-              <El style={styles.bolded}
-                  nightMode={nightMode}
-                  type={'h4'}>
-                  Join the Army of HODLers:
-              </El>
-            </div>
+          <div className={css(styles.joinPanel, nightMode && styles.panelsNight)}>
+            <El style={styles.bolded}
+                nightMode={nightMode}
+                type={'h4'}>
+                Join the Army of HODLers:
+            </El>
+          </div>
         </div>
       </div>
     );
