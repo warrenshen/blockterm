@@ -4,7 +4,7 @@ import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import gql                    from 'graphql-tag';
 import { compose, graphql }   from 'react-apollo';
-import Login                  from '../views/Login';
+import Signup                 from '../views/Signup';
 import * as loginActions      from '../redux/modules/login';
 
 import {
@@ -24,9 +24,9 @@ const userQuery = gql`
   }
 `;
 
-const logInMutation = gql`
-  mutation logInMutation($email: String!, $password: String!) {
-    logIn(email: $email, password: $password) {
+const createUserMutation = gql`
+  mutation createUserMutation($email: String!, $password: String!) {
+    createUser(email: $email, password: $password) {
       authToken
 
       user {
@@ -35,21 +35,22 @@ const logInMutation = gql`
     }
   }
 `;
-const logInMutationOptions = {
+const createUserMutationOptions = {
   props: ({ mutate, ownProps }) => ({
-    logIn(email, password) {
+    createUser(email, password) {
 
       return mutate({
         variables: { email, password },
       })
       .then(
         (response) => {
-          setItem(AUTH_TOKEN, response.data.logIn.authToken);
+          setItem(AUTH_TOKEN, response.data.createUser.authToken);
           return Promise.resolve();
         }
       )
       .catch(
         (error) => {
+          console.log(error);
           return Promise.reject();
         }
       );
@@ -81,7 +82,6 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
   graphql(userQuery),
-  graphql(logInMutation, logInMutationOptions),
+  graphql(createUserMutation, createUserMutationOptions),
   connect(mapStateToProps, mapDispatchToProps)
-)(Login);
-
+)(Signup);
