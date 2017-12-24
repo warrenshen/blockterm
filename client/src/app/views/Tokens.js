@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   body: {
     //left: '-24px',
-    borderTop: '1px solid rgba(0,0,0,0.15)',
+    borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
     width: '100%',
     padding: '0px 20px 0px',
     boxSizing: 'content-box',
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   },
   bodyNightMode: {
     backgroundColor: '#000',
+    borderTop: `1px solid ${STYLES.BORDERDARK}`,
   },
   list: {
     width: '100%',
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     padding: '10px',
     display: 'flex',
     alignItems: 'center',
-    borderBottom: '1px solid #ddd',
+    borderBottom: '1px solid #ccc',
   },
   image: {
     marginRight: '8px',

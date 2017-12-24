@@ -29,7 +29,7 @@ const RightNavButton = ({ action, label, link, nightMode, nightModeStyle, style 
   return action ?
   (
     <li className={css(styles.container)}>
-      <button className={css(styles.flatButton, style, nightMode&& nightModeStyle)} onClick={action}>
+      <button className={css(styles.flatButton, style, nightMode && nightModeStyle)} onClick={action}>
         <El
           nightMode={nightMode}
           //nightModeStyle={nightModeStyle}

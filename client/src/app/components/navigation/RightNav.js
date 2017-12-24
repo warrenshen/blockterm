@@ -90,6 +90,7 @@ const RightNav = ({
           nightMode={nightMode}
           nightModeStyle={styles.nightModeButton}
           style={styles.loginButton}
+          key='login'
         />,
         <RightNavButton
           label={'Join'}
@@ -97,6 +98,7 @@ const RightNav = ({
           nightMode={nightMode}
           nightModeStyle={styles.nightModeButton}
           style={styles.loginButton}
+          key='join'
         />
       ]
     }

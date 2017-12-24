@@ -13,6 +13,7 @@ import {
 } from '../helpers/chart';
 import BarChartWithSelect  from './BarChartWithSelect';
 import El                  from './El';
+import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,9 +22,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'column',
+    borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   nightMode: {
     backgroundColor: '#000',
+    borderTop: `1px solid ${STYLES.BORDERDARK}`,
   },
   section: {
     width: '100%',
@@ -146,6 +149,7 @@ class SubredditBody extends PureComponent {
             selectValue={postCountPlotRange}
             title={'Number of new posts'}
             onChange={(option) => changePostCountPlotRange(option.value)}
+            key='postsData'
           />
           <BarChartWithSelect
             data={commentsData}
@@ -156,12 +160,14 @@ class SubredditBody extends PureComponent {
             selectValue={commentCountPlotRange}
             title={'Number of new comments'}
             onChange={(option) => changeCommentCountPlotRange(option.value)}
+            key='commentsData'
           />
           <BarChartWithSelect
             data={subscribersData}
             nightMode={nightMode}
             title={'Number of subscribers'}
             onChange={(option) => option.value}
+            key='subscribersData'
           />
           <BarChartWithSelect
             data={activeUsersData}
@@ -172,6 +178,7 @@ class SubredditBody extends PureComponent {
             selectValue={activeUserCountPlotRange}
             title={'Number of active users'}
             onChange={(option) => changeActiveUserCountPlotRange(option.value)}
+            key='activeUsersData'
           />
         </div>
       </div>

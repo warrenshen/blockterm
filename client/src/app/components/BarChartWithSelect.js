@@ -55,8 +55,8 @@ class BarChartWithSelect extends PureComponent {
     nightMode: PropTypes.bool.isRequired,
     rangeStart: PropTypes.string,
     rangeEnd: PropTypes.string,
-    selectOptions: PropTypes.array.isRequired,
-    selectValue: PropTypes.string.isRequired,
+    selectOptions: PropTypes.array, //removed isRequired
+    selectValue: PropTypes.string, //removed isRequired
     stacked: PropTypes.bool,
     title: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
