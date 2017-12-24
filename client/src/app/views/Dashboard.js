@@ -9,10 +9,18 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import DashboardItem from '../components/DashboardItem';
 import * as STYLES from '../constants/styles';
 import { isIdentifierValid } from '../constants/items.js'
+import Select from 'react-select';
+import {
+  DASHBOARD_ITEM_KEYS,
+  DASHBOARD_ITEM_KEY_TO_VALUES,
+} from '../constants/items';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+  },
   item: {
     display: 'flex',
     flexDirection: 'column',
@@ -22,6 +30,7 @@ const styles = StyleSheet.create({
   },
   gridContainer: {
     display: 'flex',
+    flex: '1',
     backgroundColor: '#ececec',
     minHeight: '100vh',
   },
@@ -32,6 +41,9 @@ const styles = StyleSheet.create({
   },
   gridNightContainer: {
     backgroundColor: STYLES.SOFTGRAY,
+  },
+  sidebar: {
+    width: '256px',
   },
 });
 
@@ -87,11 +99,16 @@ class Dashboard extends PureComponent {
   render()
   {
     const {
+      changeKeySelectValue,
+      changeValueSelectValue,
       dashboardItems,
       data,
       nightMode,
+      keySelectValue,
       saveLayout,
+      valueSelectValue
     } = this.props;
+    console.log(keySelectValue);
 
     if (data.loading)
     {
@@ -103,18 +120,40 @@ class Dashboard extends PureComponent {
         (dashboardItem) => isIdentifierValid(dashboardItem.identifier)
       );
 
+      const selectOptions = DASHBOARD_ITEM_KEYS.map((key) =>({
+        label: key,
+        value: key,
+      }));
       return (
-        <ResponsiveReactGridLayout
-          className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
-          cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
-          rowHeight={200}
-          onLayoutChange={(layout, layouts) => saveLayout(layout)}
-        >
-          {
-            dashboardItems.map(
-              (dashboardItem) => this.renderItem(dashboardItem))
-          }
-        </ResponsiveReactGridLayout>
+        <div className={css(styles.container)}>
+          <ResponsiveReactGridLayout
+            className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
+            cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
+            rowHeight={200}
+            onLayoutChange={(layout, layouts) => saveLayout(layout)}
+          >
+            {
+              dashboardItems.map(
+                (dashboardItem) => this.renderItem(dashboardItem))
+            }
+          </ResponsiveReactGridLayout>
+          <div className={css(styles.sidebar)}>
+            <Select
+              options={selectOptions}
+              onChange={(option) => changeKeySelectValue(option ? option.value : '')}
+              value={keySelectValue}
+            />
+            {
+              keySelectValue && (
+                <Select
+                  options={selectOptions}
+                  onChange={(option) => changeValueSelectValue(option ? option.value : '')}
+                  value={valueSelectValue}
+                />
+              )
+            }
+          </div>
+        </div>
       );
     }
   }
