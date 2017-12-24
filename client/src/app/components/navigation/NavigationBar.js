@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     left: '140px',
     top: '15px',
     fontSize: '10px',
+    fontWeight: '500',
   }
 });
 
