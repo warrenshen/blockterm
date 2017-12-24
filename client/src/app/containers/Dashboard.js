@@ -181,6 +181,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
           changeDashboardItemPlotRange,
           dashboard,
           data,
+          createDashboardItem,
           destroyDashboardItem,
           nightMode,
         } = this.props;
