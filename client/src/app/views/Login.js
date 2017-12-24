@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     minHeight: '100vh',
     display: 'flex',
     //padding: '0% 15%',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
   nightMode: {
@@ -81,11 +81,12 @@ const styles = StyleSheet.create({
     border: '1px solid #fff',
   },
   halfPanel: {
-    width:'49.5%',
+    width:'60%',
     display: 'inline-block',
     padding: '10px 15px',
   },
   rightHalf: {
+    width:'40%',
     borderLeft: '1px solid #555',
     position: 'absolute',
     top: '0px',

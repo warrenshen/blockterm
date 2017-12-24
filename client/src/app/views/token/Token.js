@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     width: '100vw',
     minHeight: '100vh',
     display: 'flex',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
   nightMode: {
