@@ -3,6 +3,7 @@ import { StyleSheet } from 'aphrodite';
 //export const BLUE = '#0000ff';
 export const LIGHTNIGHT = '#0b1010';
 export const SOFTGRAY = '#121515';
+export const BLUEGRAY = '#1E2130';
 
 export const BLOOMYBLUE = '#2900EA';
 export const LAVENDER = '#6447ED';
