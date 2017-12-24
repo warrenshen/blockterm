@@ -8,6 +8,9 @@ import { Dashboard }          from '../views';
 import { graphql }            from 'react-apollo';
 
 import {
+  DEFAULT_DASHBOARD_ITEMS,
+} from '../constants/items';
+import {
   DASHBOARD_COOKIE,
   getItem,
   setItem,
@@ -85,8 +88,8 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
     componentWillReceiveProps(nextProps)
     {
-      console.log(this.props);
-      console.log(nextProps);
+      // console.log(this.props);
+      // console.log(nextProps);
       const {
         registerDashboardItem,
       } = this.props;
@@ -99,34 +102,15 @@ function wrapDynamicGraphQL(ComponentToWrap)
       }
       else
       {
-        var localDashboard = getItem(DASHBOARD_COOKIE);
+        const localDashboard = getItem(DASHBOARD_COOKIE);
         if (localDashboard)
         {
-          console.log(localDashboard);
           dashboardItems = localDashboard;
         }
         else
         {
-          localDashboard = [
-            {
-              id: '1',
-              identifier: 'TV-CANDLE-CHART-BITSTAMP:BTCUSD',
-              w: 4,
-              h: 4,
-              x: 0,
-              y: 0,
-            },
-            {
-              id: '2',
-              identifier: 'SUBREDDIT-POSTS-5',
-              w: 4,
-              h: 4,
-              x: 4,
-              y: 0,
-            },
-          ];
-          setItem(DASHBOARD_COOKIE, localDashboard);
-          dashboardItems = localDashboard;
+          setItem(DASHBOARD_COOKIE, DEFAULT_DASHBOARD_ITEMS);
+          dashboardItems = DEFAULT_DASHBOARD_ITEMS;
         }
       }
 
@@ -148,7 +132,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
       const {
         data
       } = this.props;
-      console.log(layout);
+
       if (data.user)
       {
         updateDashboardItems(JSON.stringify(layout));
