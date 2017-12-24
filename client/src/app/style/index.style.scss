@@ -156,8 +156,7 @@ input {
 @import '../../../node_modules/react-grid-layout/css/styles.css';
 @import '../../../node_modules/react-resizable/css/styles.css';
 
-.ccc-header-v3 {
-  position: fixed;
-  top: 0px;
-  left: 0px;
+.ccc-widget {
+  padding: 2px 0px;
+  border-bottom: '1px solid #aaa';
 }
