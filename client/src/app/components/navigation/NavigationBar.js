@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 1,
     //borderTop: '1px solid rgba(0,0,0,0.2)',
-    borderBottom: '2px solid #aaa',
+    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
   banner: {
     width: '100vw',
@@ -32,16 +32,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 2,
     //borderTop: '1px solid rgba(0,0,0,0.2)',
-    borderBottom: '1px solid #aaa',
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   nightMode: {
     backgroundColor: '#000',
-    borderBottom: '2px solid #555',
+    borderBottom: `2px solid ${STYLES.BORDERDARK}`,
     //backgroundColor: '#020b0e',
   },
   bannerNight: {
     backgroundColor: '#000',
-    borderBottom: '1px solid #555',
+    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
   },
   brand: {
     fontWeight: '700',

@@ -6,6 +6,10 @@ export const SOFTGRAY = '#121515';
 export const BLUEGRAY = '#1E2130';
 export const LIGHTBACKGROUNDGRAY = '#ececec !important';
 
+//borders
+export const BORDERLIGHT = '#999';
+export const BORDERDARK = '#666';
+
 export const BLOOMYBLUE = '#2900EA';
 export const LAVENDER = '#6447ED';
 export const GOLD = '#FFD000';

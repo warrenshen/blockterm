@@ -50,20 +50,20 @@ const styles = StyleSheet.create({
   loginPanel: {
     marginTop: '20px',
     backgroundColor: '#fff',
-    border: '1px solid #aaa',
-    borderBottom: '2px solid #aaa',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
+    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
   joinPanel: {
     backgroundColor: '#fff',
     marginTop: '20px',
     padding: '10px 15px',
-    border: '1px solid #aaa',
-    borderBottom: '2px solid #aaa',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
+    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
   panelsNight: {
     backgroundColor: '#000',
-    border: '1px solid #555',
-    borderBottom: '2px solid #555',
+    border: `1px solid ${STYLES.BORDERDARK}`,
+    borderBottom: `2px solid ${STYLES.BORDERDARK}`,
   },
   bolded: {
     fontWeight:'700',
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontWeight:'700',
     display: 'block',
     marginBottom: '8px',
-    border: '1px solid #aaa',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
     width: '100%',
   },
   fieldNight: {
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     display: 'block',
   },
   submitButton: {
-    border: '1px solid #aaa',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
   }
 });
 
