@@ -196,7 +196,7 @@ class Dashboard extends PureComponent {
               </div>
             }
             docked={false}
-            open={true}
+            open={false}
             pullRight={true}
             styles={{ root: { height: '100%' }}}
           >
