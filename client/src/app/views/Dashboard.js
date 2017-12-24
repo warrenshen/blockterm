@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
-    border: '1px solid #aaa',
-    borderBottom: '2px solid #aaa',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
+    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
   gridContainer: {
     backgroundColor: '#ececec',
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   },
   nightMode: {
     backgroundColor: '#000 !important',
-    border: '1px solid #555',
-    borderBottom: '2px solid #555',
+    border: `1px solid ${STYLES.BORDERDARK}`,
+    borderBottom: `2px solid ${STYLES.BORDERDARK}`,
   },
   gridNightContainer: {
     backgroundColor: STYLES.SOFTGRAY,
