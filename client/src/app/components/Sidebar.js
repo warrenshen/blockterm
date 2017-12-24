@@ -23,7 +23,11 @@ const styles = StyleSheet.create({
     padding:'16px',
     backgroundColor: 'white',
     borderBottom: '1px solid rgba(0,0,0,0.2)',
-  }
+  },
+  darkAlert: {
+    backgroundColor: STYLES.BLUEGRAY,
+    color: 'white !important',
+  },
 });
 
 const Sidebar = ({
@@ -31,8 +35,12 @@ const Sidebar = ({
 }) => {
   return (
     <div className={css(styles.sidebar, nightMode && styles.nightbar)}>
-      <div className={css(styles.alert)}>
-        <h4>Hi, I'm an Alert</h4>
+      <div className={css(styles.alert, nightMode && styles.darkAlert)}>
+        <El style={styles.bolded}
+            nightMode={nightMode}
+            type={'h4'}>
+            Hi, I'm an Alert
+        </El>
 
       </div>
     </div>

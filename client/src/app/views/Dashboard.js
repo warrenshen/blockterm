@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   nightMode: {
     backgroundColor: '#000 !important',
-    border: '1px solid #444',
+    border: '1px solid #555',
     borderBottom: '2px solid #555',
   },
   gridNightContainer: {
