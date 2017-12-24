@@ -49,16 +49,21 @@ const styles = StyleSheet.create({
   },
   loginPanel: {
     marginTop: '20px',
-    backgroundColor: '#000',
-    border: '1px solid #555',
-    borderBottom: '2px solid #555',
+    backgroundColor: '#fff',
+    border: '1px solid #aaa',
+    borderBottom: '2px solid #aaa',
   },
   joinPanel: {
+    backgroundColor: '#fff',
     marginTop: '20px',
+    padding: '10px 15px',
+    border: '1px solid #aaa',
+    borderBottom: '2px solid #aaa',
+  },
+  panelsNight: {
     backgroundColor: '#000',
     border: '1px solid #555',
     borderBottom: '2px solid #555',
-    padding: '10px 15px',
   },
   bolded: {
     fontWeight:'700',
@@ -69,8 +74,11 @@ const styles = StyleSheet.create({
     fontWeight:'700',
     display: 'block',
     marginBottom: '8px',
-    border: '1px solid #fff',
+    border: '1px solid #aaa',
     width: '100%',
+  },
+  fieldNight: {
+    border: '1px solid #fff',
   },
   halfPanel: {
     width:'49.5%',
@@ -92,6 +100,9 @@ const styles = StyleSheet.create({
   },
   blockli: {
     display: 'block',
+  },
+  submitButton: {
+    border: '1px solid #aaa',
   }
 });
 
@@ -130,7 +141,7 @@ class Login extends PureComponent {
     return (
       <div className={css(styles.body, styles.wrapper, nightMode && styles.bodyNightMode)}>
         <div className={css(styles.mainContent)}>
-          <div className={css(styles.loginPanel)}>
+          <div className={css(styles.loginPanel, nightMode && styles.panelsNight)}>
             
             <div className={css(styles.halfPanel)}>
               <El style={styles.bolded, styles.bottomHeavy}
@@ -139,20 +150,20 @@ class Login extends PureComponent {
                   Login to your Account:
               </El>
               <input
-                className={css(styles.inputField)}
+                className={css(styles.inputField, nightMode && styles.fieldNight)}
                 placeholder='email/username'
                 onChange={(event) => changeEmail(event.target.value)}
                 value={email}
               />
               <input
-                className={css(styles.inputField)}
+                className={css(styles.inputField, nightMode && styles.fieldNight)}
                 placeholder='password'
                 onChange={(event) => changePassword(event.target.value)}
                 type='password'
                 value={password}
               />
               <input
-                className={css(styles.bolded)}
+                className={css(styles.bolded, styles.submitButton)}
                 onClick={(event) => this.submit(event)}
                 type='submit'
               />
@@ -167,7 +178,7 @@ class Login extends PureComponent {
                 <li className={css(styles.blockli)}>In-depth chart widget added </li>
                 <li className={css(styles.blockli)}>Accounts and dashboard arrangement/state saving</li>
                 <li className={css(styles.blockli)}>Subreddit tracking data added by sub </li>
-                <li className={css(styles.blockli)}>Launch of Blockterm! (12/23/17) </li>
+                <li className={css(styles.blockli)}>Launch of Blockterm!</li>
               </ul>
 
             </div>
@@ -175,7 +186,7 @@ class Login extends PureComponent {
 
 
 
-            <div className={css(styles.joinPanel)}>
+            <div className={css(styles.joinPanel, nightMode && styles.panelsNight)}>
               <El style={styles.bolded}
                   nightMode={nightMode}
                   type={'h4'}>
