@@ -41,6 +41,8 @@ class Dashboard extends PureComponent {
       updateDashboardItems,
     } = this.props;
 
+    console.log('layout change');
+    console.log(layout);
     const layoutString = JSON.stringify(layout);
     updateDashboardItems(layoutString);
   }
