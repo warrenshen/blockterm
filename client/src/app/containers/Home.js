@@ -104,7 +104,9 @@ const updateDashboardItemsMutationOptions = {
 const mapStateToProps = (state) => {
   return {
     dashboard: state.dashboard,
+    keySelectValue: state.dashboard.keySelectValue,
     nightMode: state.globals.nightMode,
+    valueSelectValue: state.dashboard.valueSelectValue,
   };
 };
 
@@ -112,6 +114,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       changeDashboardItemPlotRange: dashboardActions.changeDashboardItemPlotRange,
+      changeKeySelectValue: dashboardActions.changeKeySelectValue,
+      changeValueSelectValue: dashboardActions.changeValueSelectValue,
       registerDashboardItem: dashboardActions.registerDashboardItem,
     },
     dispatch
