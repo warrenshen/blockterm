@@ -52,9 +52,9 @@ function f(identifier)
   }
 };
 
-function queryBuilder(props)
+function queryBuilder(dashboardItems)
 {
-  const queries = props.data.dashboardItems.map(
+  const queries = dashboardItems.map(
     (dashboardItem) => f(dashboardItem.identifier)
   );
 
@@ -86,17 +86,19 @@ function wrapDynamicGraphQL(ComponentToWrap)
         registerDashboardItem,
       } = this.props;
 
-      if (nextProps.data.dashboardItems)
+      if (nextProps.data.user && nextProps.data.user.dashboardItems)
       {
         if (!this.registered)
         {
+          const dashboardItems = nextProps.data.user.dashboardItems;
           this.registered = true;
-          nextProps.data.dashboardItems.map(
+          dashboardItems.map(
             (dashboardItem) => registerDashboardItem(dashboardItem)
           );
 
-          const { query, config } = queryBuilder(nextProps);
+          const { query, config } = queryBuilder(dashboardItems);
           this.wrapped = graphql(query, config)(ComponentToWrap);
+          this.dashboardItems = dashboardItems;
         }
       }
     }
@@ -117,14 +119,13 @@ function wrapDynamicGraphQL(ComponentToWrap)
           updateDashboardItems,
         } = this.props;
 
-        const { dashboardItems } = data;
         const Wrapped = this.wrapped;
 
         return (
           <Wrapped
             changeDashboardItemPlotRange={changeDashboardItemPlotRange}
             dashboard={dashboard}
-            dashboardItems={dashboardItems}
+            dashboardItems={this.dashboardItems}
             destroyDashboardItem={destroyDashboardItem}
             nightMode={nightMode}
             updateDashboardItems={updateDashboardItems}
