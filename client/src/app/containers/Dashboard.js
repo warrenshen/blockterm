@@ -131,6 +131,42 @@ function wrapDynamicGraphQL(ComponentToWrap)
       }
     }
 
+    addToLayout(identifier, w, h, x, y)
+    {
+      const {
+        createDashboardItem,
+      } = this.props;
+
+      if (data.user)
+      {
+        createDashboardItem(identifier);
+      }
+      else
+      {
+        var maxIdPresent = 0;
+        this.dashboardItems.each((item) => {
+          if (parseInt(item.id) > maxIdPresent)
+          {
+            maxIdPresent = parseInt(item.id);
+          }
+        });
+        this.dashboardItems.append({
+          id: toString(maxIdPresent + 1),
+          identifier: identifier,
+          w: 0,
+          h: 0,
+          x: 0,
+          y: 0,
+        });
+        console.log(this.dashboardItems);
+      }
+    }
+
+    removeFromLayout(id)
+    {
+
+    }
+
     saveLayout(layout)
     {
       const {
@@ -140,7 +176,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
       var layoutChanged = false;
       const newLayoutMap = {};
-      layout.map((item) => {
+      layout.each((item) => {
         newLayoutMap[item.i] = {
           id: item.i,
           w: item.w,
@@ -149,7 +185,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
           y: item.y,
         };
       });
-      this.dashboardItems.map((item) => {
+      this.dashboardItems.each((item) => {
         const matchItem = newLayoutMap[item.id];
         layoutChanged = layoutChanged || item.w != matchItem.w;
         layoutChanged = layoutChanged || item.h != matchItem.h;
@@ -187,7 +223,6 @@ function wrapDynamicGraphQL(ComponentToWrap)
           changeValueSelectValue,
           dashboard,
           data,
-          createDashboardItem,
           destroyDashboardItem,
           keySelectValue,
           nightMode,
@@ -199,17 +234,18 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
         return (
           <Wrapped
+            addToLayout={(identifer) => this.addToLayout(identifier)}
             changeDashboardItemPlotRange={changeDashboardItemPlotRange}
             changeKeySelectValue={changeKeySelectValue}
             changeValueSelectValue={changeValueSelectValue}
-            createDashboardItem={createDashboardItem}
             dashboard={dashboard}
             dashboardItems={this.dashboardItems}
             destroyDashboardItem={destroyDashboardItem}
             keySelectValue={keySelectValue}
             nightMode={nightMode}
             sidebarActive={sidebarActive}
-            saveLayout={(layout) => this.saveLayout(layout)}
+            removeFromLayout={(id) => removeFromLayout(id)}
+            saveLayout={(layout) => saveLayout(layout)}
             valueSelectValue={valueSelectValue}
           />
         );
