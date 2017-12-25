@@ -52,6 +52,9 @@ const styles = StyleSheet.create({
     borderLeft: '1px solid #666',
     height: '100%', //might be overzealous
   },
+  nightSidebar: {
+    backgroundColor:STYLES.LIGHTNIGHT,
+  },
 });
 
 class Dashboard extends PureComponent {
@@ -134,6 +137,7 @@ class Dashboard extends PureComponent {
       }));
       return (
         <Select
+          className={css(styles.select)}
           options={selectOptions}
           onChange={(option) => changeValueSelectValue(option ? option.value : '')}
           value={valueSelectValue}
@@ -168,6 +172,7 @@ class Dashboard extends PureComponent {
       dashboardItems,
       data,
       nightMode,
+      sidebarActive,
       keySelectValue,
       saveLayout,
     } = this.props;
@@ -182,6 +187,11 @@ class Dashboard extends PureComponent {
         (dashboardItem) => isIdentifierValid(dashboardItem.identifier)
       );
 
+      const overlayStyle = {
+        transition: 'opacity .2s ease-out, visibility .2s ease-out',
+        backgroundColor: `rgba(0,0,0,${nightMode ? 0.3 : 0.1})`,
+      };
+
       const selectOptions = Object.entries(ITEM_KEY_TO_LABELS).map((arr) => ({
         label: arr[1],
         value: arr[0],
@@ -190,8 +200,9 @@ class Dashboard extends PureComponent {
         <div className={css(styles.container)}>
           <Sidebar
             sidebar={
-              <div className={css(styles.sidebar)}>
+              <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
                 <Select
+                  className={css(styles.select)}
                   options={selectOptions}
                   onChange={(option) => changeKeySelectValue(option ? option.value : '')}
                   value={keySelectValue}
@@ -201,10 +212,10 @@ class Dashboard extends PureComponent {
               </div>
             }
             docked={false}
-            open={false}
+            open={sidebarActive}
             pullRight={true}
             shadow={false}
-            styles={{ root: { height: '100%' }}}
+            styles={{root: { height: '100%' }, overlay: overlayStyle, }}
           >
             <ResponsiveReactGridLayout
               className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
