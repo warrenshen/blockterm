@@ -11,6 +11,9 @@ import * as STYLES from '../../constants/styles';
 
 
 const styles = StyleSheet.create({
+  navbar: {
+    zIndex:'2',
+  },
   container: {
     width: '100vw',
     height: '48px',
@@ -102,6 +105,8 @@ const NavigationBar = ({
   data,
   nightMode,
   toggleNightMode,
+  toggleSidebar,
+  sidebarActive,
 }) => {
   var feed = [];  //generate fake feed content
   for (var i = 0; i < 7; i++) {
@@ -109,7 +114,7 @@ const NavigationBar = ({
   }
   //end of nicks feed nonsense
   return (
-    <div>
+    <div className={css(styles.navbar)}>
       <nav className={css(styles.banner, nightMode && styles.bannerNight)}>
         <div className={css(styles.tickerbar)}>
           <El nightMode={nightMode} type={'span'}>
@@ -145,6 +150,8 @@ const NavigationBar = ({
             nightMode={nightMode}
             rightLinks={navigationModel.rightLinks}
             toggleNightMode={toggleNightMode}
+            toggleSidebar={toggleSidebar}
+            sidebarActive={sidebarActive}
           />
         </div>
       </nav>
@@ -170,6 +177,7 @@ NavigationBar.propTypes = {
   }),
   nightMode: PropTypes.bool.isRequired,
   toggleNightMode: PropTypes.func.isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
 };
 
 export default NavigationBar;

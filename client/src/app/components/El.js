@@ -6,7 +6,7 @@ import { StyleSheet, css } from 'aphrodite/no-important';
 
 const styles = StyleSheet.create({
   white: {
-    color: '#e3e3e5',
+    color: '#f3f3f3',
   },
 });
 

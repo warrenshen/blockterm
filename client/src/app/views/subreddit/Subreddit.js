@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     gridColumn: '3 / 7',
   },
   mainContent: {
-    width: '80vw',
+    //width: '80vw',
+    width: '100vw',
   },
   sidebar: {
     width: '20vw',
@@ -215,9 +216,6 @@ class Subreddit extends PureComponent {
         <div className={css(styles.mainContent)}>
           { data && data.subredditById && this.renderSubreddit(data.subredditById) }
         </div>
-        <Sidebar nightMode={nightMode}>
-
-        </Sidebar>
       </div>
     );
   }

@@ -191,6 +191,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
           destroyDashboardItem,
           keySelectValue,
           nightMode,
+          sidebarActive,
           valueSelectValue,
         } = this.props;
 
@@ -207,6 +208,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
             destroyDashboardItem={destroyDashboardItem}
             keySelectValue={keySelectValue}
             nightMode={nightMode}
+            sidebarActive={sidebarActive}
             saveLayout={(layout) => this.saveLayout(layout)}
             valueSelectValue={valueSelectValue}
           />

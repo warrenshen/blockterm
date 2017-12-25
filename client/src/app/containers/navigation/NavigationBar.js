@@ -14,6 +14,7 @@ import * as globalsActions    from '../../redux/modules/globals';
 const mapStateToProps = (state) => {
   return {
     nightMode: state.globals.nightMode,
+    sidebarActive: state.globals.sidebarActive,
   };
 };
 
@@ -21,6 +22,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       toggleNightMode: globalsActions.toggleNightMode,
+      toggleSidebar: globalsActions.toggleSidebar,
     },
     dispatch
   );

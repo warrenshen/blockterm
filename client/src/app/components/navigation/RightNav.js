@@ -49,6 +49,9 @@ const styles = StyleSheet.create({
       fontWeight: '700',
     },
   },
+  nightBurger: {
+    backgroundColor: 'white',
+  }
 });
 
 function logOut(event, client)
@@ -62,6 +65,8 @@ const RightNav = ({
   rightLinks,
   nightMode,
   toggleNightMode,
+  sidebarActive,
+  toggleSidebar,
   user,
 }) => (
   <ul className={css(styles.container)}>
@@ -106,8 +111,13 @@ const RightNav = ({
           style={styles.joinButton}
           key='join'
         />,
-        <button className="hamburger hamburger--arrow" type="button"
-        aria-label="Menu" aria-controls="navigation">
+        <button
+          className={`hamburger hamburger--arrow ${sidebarActive ? 'is-active' : ''}  ${nightMode ? css(styles.nightBurger) : ''}`}
+          type="button"
+          aria-label="Menu"
+          aria-controls="navigation"
+          onClick={(event) => toggleSidebar()}
+        >
           <span className="hamburger-box">
             <span className="hamburger-inner"></span>
           </span>
@@ -127,6 +137,7 @@ RightNav.propTypes = {
     })
   ),
   toggleNightMode: PropTypes.func.isRequired,
+  toggleSidebar: PropTypes.func.isRequired,
   user: PropTypes.object,
 };
 

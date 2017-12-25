@@ -107,6 +107,7 @@ const mapStateToProps = (state) => {
     dashboard: state.dashboard,
     keySelectValue: state.dashboard.keySelectValue,
     nightMode: state.globals.nightMode,
+    sidebarActive: state.globals.sidebarActive,
     valueSelectValue: state.dashboard.valueSelectValue,
   };
 };

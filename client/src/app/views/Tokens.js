@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     backgroundColor: STYLES.LIGHTNIGHT,
   },
   mainContent: {
-    width: '80vw',
+    //width: '80vw',
+    width: '100vw',
   },
   sidebar: {
     width: '20vw',
@@ -130,9 +131,6 @@ class Tokens extends PureComponent {
             this.renderTokens(data.allTokens)
           }
         </div>
-        <Sidebar nightMode={nightMode}>
-
-        </Sidebar>
       </div>
     );
   }
