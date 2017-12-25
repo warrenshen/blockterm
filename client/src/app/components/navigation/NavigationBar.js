@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: STYLES.GOLD,
     justifyContent: 'right !important',
     alignItems: 'right !important',
-    //border: '1px solid darkorange',
+    top: '-20px',
   },
   promotionNight: {
     backgroundColor: STYLES.BLAZINGREEN,
