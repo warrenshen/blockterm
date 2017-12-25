@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: STYLES.LIGHTNIGHT,
   },
-  nightModeText: { 
+  nightModeText: {
     color: '#fff',
   },
   mainContent: {
@@ -34,13 +34,11 @@ const styles = StyleSheet.create({
     padding: '15px 20px',
   },
   body: {
-    //left: '-24px',
     borderTop: '1px solid rgba(0,0,0,0.15)',
     padding: '0px 20px 0px',
     boxSizing: 'content-box',
     backgroundColor: '#fff',
     minHeight: '100vh',
-    //borderRadius: '6px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -78,7 +76,6 @@ const styles = StyleSheet.create({
     fontWeight:'500',
   },
   inputField: {
-    textTransform:'uppercase',
     fontWeight:'700',
     display: 'block',
     marginBottom: '8px',
@@ -150,11 +147,13 @@ class Login extends PureComponent {
     return (
       <div className={css(styles.body, styles.wrapper, nightMode && styles.bodyNightMode)}>
         <div className={css(styles.mainContent)}>
-          <div className={css(styles.loginPanel, nightMode && styles.panelsNight)}>  
+          <div className={css(styles.loginPanel, nightMode && styles.panelsNight)}>
             <div className={css(styles.halfPanel)}>
-              <El style={styles.bolded, styles.bottomHeavy}
-                  nightMode={nightMode}
-                  type={'h4'}>
+              <El
+                style={styles.bolded, styles.bottomHeavy}
+                nightMode={nightMode}
+                type={'h4'}
+              >
                   Join our army of HODLers:
               </El>
               <input
@@ -177,12 +176,14 @@ class Login extends PureComponent {
               />
             </div>
             <div className={css(styles.halfPanel, styles.rightHalf)}>
-              <El style={styles.bolded, styles.bottomHeavy}
-                  nightMode={nightMode}
-                  type={'h4'}>
-                  Why should I join?
+              <El
+                style={styles.bolded, styles.bottomHeavy}
+                nightMode={nightMode}
+                type={'h4'}
+              >
+                Why should I join?
               </El>
-              <ul className={css(styles.squareList, nightMode && styles.nightModeText)}> 
+              <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
                 <li className={css(styles.blockli, styles.semibolded)}>Pre-Beta HODLers get grandfathered into any future premium-only features</li>
                 <li className={css(styles.blockli)}>We have big plans for the near future</li>
                 <li className={css(styles.blockli, styles.semibolded)}>Customize and save your terminal/dashboard configuration</li>
@@ -193,10 +194,12 @@ class Login extends PureComponent {
           </div>
 
           <div className={css(styles.faqPanel, nightMode && styles.panelsLightNight)}>
-            <El style={styles.bolded, styles.bottomHeavy}
-                nightMode={nightMode}
-                type={'h4'}>
-                FAQ:
+            <El
+              style={styles.bolded, styles.bottomHeavy}
+              nightMode={nightMode}
+              type={'h4'}
+            >
+              FAQ:
             </El>
           </div>
         </div>

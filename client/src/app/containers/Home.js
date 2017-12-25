@@ -40,6 +40,7 @@ const createDashboardItemMutationOptions = {
       )
       .catch(
         (error) => {
+          console.log(error);
           return Promise.reject();
         }
       );

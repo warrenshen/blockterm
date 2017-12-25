@@ -255,7 +255,7 @@ module Types
       description 'Creates a subscriber count'
 
       argument :apiKey, !types.String
-       argument :subredditId, types.ID
+      argument :subredditId, types.ID
       argument :subredditName, types.String
       argument :count, !types.Int
       argument :timestamp, !types.String
@@ -536,6 +536,10 @@ module Types
       # description ''
 
       argument :identifier, !types.String
+      argument :w, types.Int
+      argument :h, types.Int
+      argument :x, types.Int
+      argument :y, types.Int
 
       resolve -> (obj, args, ctx) {
         current_user = ctx[:current_user]

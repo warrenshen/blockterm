@@ -13,6 +13,8 @@ import Select from 'react-select';
 import {
   ITEM_KEY_TO_LABELS,
   ITEM_KEY_TO_VALUES,
+  ITEM_VALUE_TO_LABELS,
+  generateIdentifier,
 } from '../constants/items';
 import Sidebar from 'react-sidebar';
 
@@ -103,16 +105,16 @@ class Dashboard extends PureComponent {
 
   addItem(event)
   {
+    event.preventDefault();
+
     const {
       keySelectValue,
       valueSelectValue,
       createDashboardItem,
     } = this.props;
 
-    event.preventDefault();
-    console.log(keySelectValue, valueSelectValue);
-
-    // createDashboardItem()
+    const identifier = generateIdentifier(keySelectValue, valueSelectValue);
+    createDashboardItem(identifier);
   }
 
   renderValueSelect()
@@ -127,7 +129,7 @@ class Dashboard extends PureComponent {
     {
       const valueOptions = ITEM_KEY_TO_VALUES[keySelectValue];
       const selectOptions = valueOptions.map((value) => ({
-        label: value,
+        label: ITEM_VALUE_TO_LABELS[value] ? ITEM_VALUE_TO_LABELS[value] : value,
         value: value,
       }));
       return (
@@ -200,8 +202,8 @@ class Dashboard extends PureComponent {
             }
             docked={false}
             open={false}
-            shadow={false}
             pullRight={true}
+            shadow={false}
             styles={{ root: { height: '100%' }}}
           >
             <ResponsiveReactGridLayout

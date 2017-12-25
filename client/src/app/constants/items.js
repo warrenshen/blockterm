@@ -85,9 +85,9 @@ export const ITEM_KEY_TO_LABELS = {
 
 export const ITEM_KEY_TO_VALUES = {
   [SUBREDDIT_POST_COUNTS]: [
-    'r/Bitcoin',
-    'r/ethereum',
-    'r/NEO',
+    'Bitcoin',
+    'ethereum',
+    'NEO',
   ],
   [TV_CANDLE_CHART]: [
     'BITSTAMP:BTCUSD',
@@ -109,4 +109,10 @@ export const ITEM_KEY_TO_VALUES = {
     'BITFINEX:EOSUSD',
     'BITTREX:QTUMUSD',
   ],
+};
+
+export const ITEM_VALUE_TO_LABELS = {
+  Bitcoin: 'r/Bitcoin',
+  ethereum: 'r/ethereum',
+  NEO: 'r/NEO',
 };
