@@ -108,19 +108,9 @@ const NavigationBar = ({
   toggleSidebar,
   sidebarActive,
 }) => {
-  var feed = [];  //generate fake feed content
-  for (var i = 0; i < 7; i++) {
-    feed.push(`BTC 15500 | ETH 800 | XMR 430 | `);
-  }
-  //end of nicks feed nonsense
   return (
     <div className={css(styles.navbar)}>
       <nav className={css(styles.banner, nightMode && styles.bannerNight)}>
-        <div className={css(styles.tickerbar)}>
-          <El nightMode={nightMode} type={'span'}>
-            {feed}
-          </El>
-        </div>
         <div className={css(styles.promotion, nightMode && styles.promotionNight)}>
           <a href='https://www.binance.com/?ref=10907326' target='_blank'>
             <El style={styles.semibolded} type={'span'}>
