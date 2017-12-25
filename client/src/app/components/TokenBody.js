@@ -16,6 +16,7 @@ import {
   generateChartData,
   generateCountChartData,
   generateCountChartData2,
+  isPlotRangeBig,
 } from '../helpers/chart';
 import BarChartWithSelect  from './BarChartWithSelect';
 import LineChartWithSelect from './LineChartWithSelect';
@@ -105,7 +106,7 @@ class TokenBody extends PureComponent {
         mentionTotalCounts,
         undefined,
         'now',
-        'MM/DD'
+        isPlotRangeBig(mentionTotalPlotRange) ? 'M/D/YY' : 'MM/DD'
       );
 
       return (

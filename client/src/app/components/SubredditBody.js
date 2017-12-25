@@ -10,6 +10,7 @@ import { RANGE_SELECT_OPTIONS } from '../constants/plots';
 import {
   disableChartOptions,
   generateCountChartData,
+  isPlotRangeBig,
 } from '../helpers/chart';
 import BarChartWithSelect  from './BarChartWithSelect';
 import El                  from './El';
@@ -86,15 +87,25 @@ class SubredditBody extends PureComponent {
       activeUserCounts,
       activeUserCount,
       'now',
-      'MM/DD h:mm'
+      isPlotRangeBig(activeUserCountPlotRange) ? 'M/D/YY' : 'MM/DD h:mm'
     );
-    const commentsData = generateCountChartData(commentCounts, commentCount);
-    const postsData = generateCountChartData(postCounts, postCount);
+    const commentsData = generateCountChartData(
+      commentCounts,
+      commentCount,
+      'last 24 hours',
+      isPlotRangeBig(commentCountPlotRange) ? 'M/D/YY' : 'MM/DD'
+    );
+    const postsData = generateCountChartData(
+      postCounts,
+      postCount,
+      'last 24 hours',
+      isPlotRangeBig(postCountPlotRange) ? 'M/D/YY' : 'MM/DD'
+    );
     const subscribersData = generateCountChartData(
       subscriberCounts,
       subscriberCount,
       'now',
-      'MM/DD h:mm'
+      isPlotRangeBig(subscriberCountPlotRange) ? 'M/D/YY' : 'MM/DD h:mm'
     );
 
     const activeUsersSelectOptions = disableChartOptions(
