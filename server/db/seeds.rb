@@ -15,28 +15,28 @@ end
 puts 'Seeding dashboard item infos'
 dashboard_item_infos = [
   {
-    identifier: 'SUBREDDIT-POSTS-5',
+    identifier: 'TV_CANDLE_CHART__BITSTAMP:BTCUSD',
     w: 3,
     h: 3,
     x: 0,
     y: 0,
   },
   {
-    identifier: 'TV-CANDLE-CHART-BITSTAMP:BTCUSD',
+    identifier: 'SUBREDDIT_POST_COUNTS__Bitcoin',
     w: 3,
     h: 3,
     x: 3,
-    y: 3,
+    y: 0,
   },
   {
-    identifier: 'TOKEN-PRICE-4',
+    identifier: 'TV_CANDLE_CHART__BITSTAMP:ETHUSD',
     w: 3,
     h: 3,
     x: 0,
     y: 3,
   },
   {
-    identifier: 'TV-CANDLE-CHART-BITTREX:XMRUSD',
+    identifier: 'SUBREDDIT_POST_COUNTS__ethereum',
     w: 3,
     h: 3,
     x: 3,

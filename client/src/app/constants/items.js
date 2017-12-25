@@ -1,13 +1,18 @@
+const DELIMETER = '__';
+
+export const SUBREDDIT_POST_COUNTS = 'SUBREDDIT_POST_COUNTS';
+export const TV_CANDLE_CHART = 'TV_CANDLE_CHART';
+
 export const ITEM_KEY_WHITELIST = [
-  'SUBREDDIT-POSTS',
+  SUBREDDIT_POST_COUNTS,
   'TOKEN-PRICE',
-  'TV-CANDLE-CHART',
+  TV_CANDLE_CHART,
 ];
 
-export const DEFAULT_DASHBOARD_ITEMS = [
+export const DEFAULT_ITEM_OBJECTS = [
   {
     id: '1',
-    identifier: 'TV-CANDLE-CHART-BITSTAMP:BTCUSD',
+    identifier: generateIdentifier(TV_CANDLE_CHART, 'BITSTAMP:BTCUSD'),
     w: 4,
     h: 4,
     x: 0,
@@ -15,29 +20,76 @@ export const DEFAULT_DASHBOARD_ITEMS = [
   },
   {
     id: '2',
-    identifier: 'SUBREDDIT-POSTS-5',
+    identifier: generateIdentifier(SUBREDDIT_POST_COUNTS, 'Bitcoin'),
     w: 4,
     h: 4,
     x: 4,
     y: 0,
   },
+  {
+    id: '3',
+    identifier: generateIdentifier(TV_CANDLE_CHART, 'BITSTAMP:ETHUSD'),
+    w: 4,
+    h: 4,
+    x: 0,
+    y: 4,
+  },
+  {
+    id: '4',
+    identifier: generateIdentifier(SUBREDDIT_POST_COUNTS, 'ethereum'),
+    w: 4,
+    h: 4,
+    x: 4,
+    y: 4,
+  },
 ];
+
+export function generateIdentifier(key, value)
+{
+  if (!ITEM_KEY_WHITELIST.includes(key))
+  {
+    console.log('Invalid identifier');
+    return null;
+  }
+  else
+  {
+    return `${key}${DELIMETER}${value}`;
+  }
+}
 
 export function isIdentifierValid(identifier)
 {
-  const index = identifier.lastIndexOf('-');
-  const identifierKey = identifier.substring(0, index);
-  const identifierValue = identifier.substring(index + 1);
+  const arr = identifier.split(DELIMETER, 2);
+  const identifierKey = arr[0];
+  const identifierValue = arr[1];
   return ITEM_KEY_WHITELIST.includes(identifierKey);
 }
 
-export const DASHBOARD_ITEM_KEYS = [
-  'Candle chart',
-  '# posts',
-];
+export function parseIdentifer(identifier)
+{
+  if (!isIdentifierValid(identifier))
+  {
+    console.log('Invalid identifier');
+    return null;
+  }
+  else
+  {
+    return identifier.split(DELIMETER, 2);
+  }
+}
 
-export const DASHBOARD_ITEM_KEY_TO_VALUES = {
-  'Candle chart': [
+export const ITEM_KEY_TO_LABELS = {
+  [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
+  [TV_CANDLE_CHART]: 'Candle chart',
+};
+
+export const ITEM_KEY_TO_VALUES = {
+  [SUBREDDIT_POST_COUNTS]: [
+    'r/Bitcoin',
+    'r/ethereum',
+    'r/NEO',
+  ],
+  [TV_CANDLE_CHART]: [
     'BITSTAMP:BTCUSD',
     'BITSTAMP:ETHUSD',
     'BITSTAMP:LTCUSD',
@@ -56,10 +108,5 @@ export const DASHBOARD_ITEM_KEY_TO_VALUES = {
     'BITTREX:WAVESUSD',
     'BITFINEX:EOSUSD',
     'BITTREX:QTUMUSD',
-  ],
-  '# posts': [
-    'r/Bitcoin',
-    'r/ethereum',
-    'r/NEO',
   ],
 };

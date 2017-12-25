@@ -8,22 +8,26 @@ import { Dashboard }          from '../views';
 import { graphql }            from 'react-apollo';
 
 import {
-  DEFAULT_DASHBOARD_ITEMS,
-} from '../constants/items';
+  DEFAULT_ITEM_OBJECTS,
+  SUBREDDIT_POST_COUNTS,
+  parseIdentifer,
+}                             from '../constants/items';
 import {
   DASHBOARD_COOKIE,
   getItem,
   setItem,
-} from '../services/cookie';
+}                             from '../services/cookie';
 
 function f(identifier)
 {
-  const id = identifier.substring(identifier.lastIndexOf('-') + 1);
+  const arr = parseIdentifer(identifier);
+  const identifierKey = arr[0];
+  const identifierValue = arr[1];
 
-  if (identifier.indexOf('SUBREDDIT-POSTS') === 0)
+  if (identifierKey === SUBREDDIT_POST_COUNTS)
   {
     return `
-      ${identifier.replace(/-/g, '')}: subredditById(id: "${id}") {
+      ${identifier}: subredditByName(name: "${identifierValue}") {
         id
         displayName
 
@@ -35,25 +39,25 @@ function f(identifier)
       }
     `;
   }
-  else if (identifier.indexOf('TOKEN-PRICE') === 0)
-  {
-    return `
-      ${identifier.replace(/-/g, '')}: tokenById(id: "${id}") {
-        id
+  // else if (identifier.indexOf('TOKEN-PRICE') === 0)
+  // {
+  //   return `
+  //     ${identifier.replace(/-/g, '')}: tokenById(id: "${id}") {
+  //       id
 
-        markets {
-          name
-          lastPrice
+  //       markets {
+  //         name
+  //         lastPrice
 
-          marketTickers {
-            id
-            value
-            timestamp
-          }
-        }
-      }
-    `;
-  }
+  //         marketTickers {
+  //           id
+  //           value
+  //           timestamp
+  //         }
+  //       }
+  //     }
+  //   `;
+  // }
   else
   {
     console.log('Missing query!!!!!');
@@ -109,8 +113,8 @@ function wrapDynamicGraphQL(ComponentToWrap)
         }
         else
         {
-          setItem(DASHBOARD_COOKIE, DEFAULT_DASHBOARD_ITEMS);
-          dashboardItems = DEFAULT_DASHBOARD_ITEMS;
+          setItem(DASHBOARD_COOKIE, DEFAULT_ITEM_OBJECTS);
+          dashboardItems = DEFAULT_ITEM_OBJECTS;
         }
       }
 
@@ -197,6 +201,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
             changeDashboardItemPlotRange={changeDashboardItemPlotRange}
             changeKeySelectValue={changeKeySelectValue}
             changeValueSelectValue={changeValueSelectValue}
+            createDashboardItem={createDashboardItem}
             dashboard={dashboard}
             dashboardItems={this.dashboardItems}
             destroyDashboardItem={destroyDashboardItem}
