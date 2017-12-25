@@ -46,6 +46,9 @@ const styles = StyleSheet.create({
   },
   sidebar: {
     width: '256px',
+    backgroundColor:'#fff',
+    borderLeft: '1px solid #666',
+    height: '100%', //might be overzealous
   },
 });
 
@@ -197,6 +200,7 @@ class Dashboard extends PureComponent {
             }
             docked={false}
             open={false}
+            shadow={false}
             pullRight={true}
             styles={{ root: { height: '100%' }}}
           >
