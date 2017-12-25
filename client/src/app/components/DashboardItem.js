@@ -17,6 +17,12 @@ import TokenPriceItem from './items/TokenPriceItem';
 import TVChartItem from './items/TVChartItem';
 import * as STYLES from '../constants/styles';
 
+import {
+  SUBREDDIT_POST_COUNTS,
+  TV_CANDLE_CHART,
+  parseIdentifer,
+}                             from '../constants/items';
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -54,13 +60,13 @@ class DashboardItem extends PureComponent {
       storeState,
     } = this.props;
 
-    const identifier = dashboardItem.identifier;
-    const index = identifier.lastIndexOf('-');
-    const identifierKey = identifier.substring(0, index);
-    const identifierValue = identifier.substring(index + 1);
+    const arr = parseIdentifer(dashboardItem.identifier);
+    const identifierKey = arr[0];
+    const identifierValue = arr[1];
+
     switch (identifierKey)
     {
-      case 'SUBREDDIT-POSTS':
+      case SUBREDDIT_POST_COUNTS:
         return (
           <SubredditPostsItem
             data={data}
@@ -79,7 +85,7 @@ class DashboardItem extends PureComponent {
             token={data}
           />
         );
-      case 'TV-CANDLE-CHART':
+      case TV_CANDLE_CHART:
         return (
           <TVChartItem
             nightMode={nightMode}

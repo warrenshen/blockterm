@@ -11,8 +11,8 @@ import * as STYLES from '../constants/styles';
 import { isIdentifierValid } from '../constants/items.js'
 import Select from 'react-select';
 import {
-  DASHBOARD_ITEM_KEYS,
-  DASHBOARD_ITEM_KEY_TO_VALUES,
+  ITEM_KEY_TO_LABELS,
+  ITEM_KEY_TO_VALUES,
 } from '../constants/items';
 import Sidebar from 'react-sidebar';
 
@@ -89,13 +89,27 @@ class Dashboard extends PureComponent {
         <DashboardItem
           changeDashboardItemPlotRange={changeDashboardItemPlotRange}
           dashboardItem={dashboardItem}
-          data={data[identifier.replace(/-/g, '')]}
+          data={data[identifier]}
           destroyDashboardItem={destroyDashboardItem}
           nightMode={nightMode}
           storeState={dashboard[id]}
         />
       </div>
     );
+  }
+
+  addItem(event)
+  {
+    const {
+      keySelectValue,
+      valueSelectValue,
+      createDashboardItem,
+    } = this.props;
+
+    event.preventDefault();
+    console.log(keySelectValue, valueSelectValue);
+
+    // createDashboardItem()
   }
 
   renderValueSelect()
@@ -108,7 +122,7 @@ class Dashboard extends PureComponent {
 
     if (keySelectValue)
     {
-      const valueOptions = DASHBOARD_ITEM_KEY_TO_VALUES[keySelectValue];
+      const valueOptions = ITEM_KEY_TO_VALUES[keySelectValue];
       const selectOptions = valueOptions.map((value) => ({
         label: value,
         value: value,
@@ -119,6 +133,25 @@ class Dashboard extends PureComponent {
           onChange={(option) => changeValueSelectValue(option ? option.value : '')}
           value={valueSelectValue}
         />
+      );
+    }
+  }
+
+  renderSubmit()
+  {
+    const {
+      createDashboardItem,
+      valueSelectValue,
+    } = this.props;
+
+    if (valueSelectValue)
+    {
+      return (
+        <button
+          onClick={(event) => this.addItem(event)}
+        >
+          Add to dashboard
+        </button>
       );
     }
   }
@@ -144,9 +177,9 @@ class Dashboard extends PureComponent {
         (dashboardItem) => isIdentifierValid(dashboardItem.identifier)
       );
 
-      const selectOptions = DASHBOARD_ITEM_KEYS.map((key) =>({
-        label: key,
-        value: key,
+      const selectOptions = Object.entries(ITEM_KEY_TO_LABELS).map((arr) => ({
+        label: arr[1],
+        value: arr[0],
       }));
       return (
         <div className={css(styles.container)}>
@@ -159,6 +192,7 @@ class Dashboard extends PureComponent {
                   value={keySelectValue}
                 />
                 {this.renderValueSelect()}
+                {this.renderSubmit()}
               </div>
             }
             docked={false}
