@@ -185,10 +185,9 @@ class Dashboard extends PureComponent {
       changeKeySelectValue,
       dashboardItems,
       data,
-      nightMode,
-      sidebarActive,
       keySelectValue,
       nightMode,
+      sidebarActive,
       saveLayout,
     } = this.props;
 
