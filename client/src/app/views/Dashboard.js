@@ -151,6 +151,7 @@ class Dashboard extends PureComponent {
       }));
       return (
         <Select
+          placeholder={'Search Coin'}
           className={css(styles.select, styles.bolded)}
           optionClassName={css(styles.bolded)}
           options={selectOptions}
@@ -218,6 +219,7 @@ class Dashboard extends PureComponent {
             sidebar={
               <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
                 <Select
+                  placeholder={'Search Widget Type'}
                   className={css(styles.select, styles.bolded)}
                   optionClassName={css(styles.bolded)}
                   options={selectOptions}

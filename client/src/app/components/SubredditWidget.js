@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
   },
+  sideSpacing: {
+    marginRight: '18px',
+  },
 });
 
 const SubredditWidget = ({
@@ -29,7 +32,7 @@ const SubredditWidget = ({
   subreddit,
 }) => {
   return (
-    <div className={css(styles.container)}>
+    <div className={css(styles.container, styles.sideSpacing)}>
       <img src={subreddit.imageUrl} width={48} height={48}></img>
       <Link to={`/subreddit/${subreddit.id}`}>
         <El nightMode={nightMode} type={'span'}>
