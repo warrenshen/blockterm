@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
   logoutButton: {
     border: '1px solid #000',
     borderRadius: '1px',
+    padding: '4px 12px',
   },
   nightModeButton: {
     border: '1px solid #fff',

@@ -56,8 +56,11 @@ const styles = StyleSheet.create({
   },
   tokens: {
     display: 'flex',
-    flexDirection: 'column',
-    paddingTop: '12px',
+    flexDirection: 'row !important',
+    //paddingTop: '12px',
+  },
+  sideSpacing: {
+    marginRight: '18px',
   },
   bolded: {
     fontWeight: '700',
@@ -93,22 +96,24 @@ class Subreddit extends PureComponent {
     if (tokens.length > 0)
     {
       return (
-        <div className={css(styles.tokens)}>
+        <div className={css(styles.container, styles.sideSpacing)}>
           <El
-            nightMode={nightMode}
-            type={'h5'}
-          >
-            Related coins
+              nightMode={nightMode}
+              type={'h5'}
+            >
+              Related coins
           </El>
-          {
-            tokens.map((token) => (
-              <TokenWidget
-                key={token.id}
-                nightMode={nightMode}
-                token={token}
-              />
-            ))
-          }
+          <div className={css(styles.tokens)}>
+            {
+              tokens.map((token) => (
+                <TokenWidget
+                  key={token.id}
+                  nightMode={nightMode}
+                  token={token}
+                />
+              ))
+            }
+          </div>
         </div>
       );
     }

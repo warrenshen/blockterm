@@ -46,8 +46,12 @@ const styles = StyleSheet.create({
   },
   subreddits: {
     display: 'flex',
-    flexDirection: 'column',
-    paddingTop: '12px',
+    flexDirection: 'row !important',
+    //paddingTop: '12px',
+  },
+  columns: {
+    display: 'flex',
+    flexDirection: 'column !important',
   },
   markets: {
     display: 'flex',
@@ -125,22 +129,26 @@ class TokenBody extends PureComponent {
     if (subreddits.length > 0)
     {
       return (
-        <div className={css(styles.subreddits)}>
-          <El
-            nightMode={nightMode}
-            type={'h5'}
-          >
-            Related subreddits
-          </El>
-          {
-            subreddits.map((subreddit) => (
-              <SubredditWidget
-                key={subreddit.id}
-                nightMode={nightMode}
-                subreddit={subreddit}
-              />
-            ))
-          }
+        <div className={css(styles.columns)}>
+          <div className={css(styles.row)}>
+            <El
+              nightMode={nightMode}
+              type={'h5'}
+            >
+              Related subreddits
+            </El>
+          </div>
+          <div className={css(styles.subreddits)}>
+            {
+              subreddits.map((subreddit) => (
+                <SubredditWidget
+                  key={subreddit.id}
+                  nightMode={nightMode}
+                  subreddit={subreddit}
+                />
+              ))
+            }
+          </div>
         </div>
       );
     }
