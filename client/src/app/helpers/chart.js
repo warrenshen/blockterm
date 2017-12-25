@@ -2,7 +2,22 @@ import moment from 'moment';
 import {
   BAR_CHART_DATA_STYLES,
   LINE_CHART_DATA_STYLES,
+  THREE_MONTHS,
+  SIX_MONTHS,
+  ONE_YEAR,
+  THREE_YEARS,
+  ALL_TIME,
 } from '../constants/plots';
+
+// Returns true if a chart with given plot range should include year in x axis.
+export function isPlotRangeBig(plotRange)
+{
+  return plotRange === THREE_MONTHS ||
+         plotRange === SIX_MONTHS ||
+         plotRange === ONE_YEAR ||
+         plotRange === THREE_YEARS ||
+         plotRange === ALL_TIME;
+}
 
 export function disableChartOptions(earliestDate, options)
 {

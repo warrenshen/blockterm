@@ -7,6 +7,7 @@ import moment              from 'moment';
 import BarChartWithSelect  from '../BarChartWithSelect';
 import {
   generateCountChartData,
+  isPlotRangeBig,
 } from '../../helpers/chart';
 import {
   RANGE_SELECT_OPTIONS,
@@ -40,7 +41,12 @@ const SubredditPostsItem = ({
   const postsX = postCounts.map(
     (postCount) => moment(postCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
   );
-  const postsData = generateCountChartData(postCounts, postCount);
+  const postsData = generateCountChartData(
+    postCounts,
+    postCount,
+    'last 24 hours',
+    isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD'
+  );
 
   return (
     <div className={css(styles.container)}>
