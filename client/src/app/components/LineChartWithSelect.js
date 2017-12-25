@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   header: {
     width: '100%',
     display: 'flex',
-    minHeight: '25px',
+    minHeight: '20px',
     justifyContent: 'space-between',
     alignItems: 'center',
   },

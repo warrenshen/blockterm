@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     gridColumn: '3 / 7',
   },
   mainContent: {
-    width: '80vw',
+    width: '100vw',
+    //width: '80vw',
   },
   sidebar: {
     width: '20vw',
@@ -96,7 +97,6 @@ class Token extends PureComponent {
         <div className={css(styles.mainContent)}>
           { data && data.tokenById && this.renderToken(data.tokenById) }
         </div>
-        <Sidebar nightMode={nightMode} />
       </div>
     );
   }
