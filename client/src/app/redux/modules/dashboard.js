@@ -5,9 +5,14 @@ import {
   ONE_WEEK,
   ONE_MONTH,
 } from '../../constants/plots';
+import {
+  SUBREDDIT_POST_COUNTS,
+  TV_CANDLE_CHART,
+  parseIdentifer,
+} from '../../constants/items';
 
-const IDENTIFIER_TO_STATE_MAP = {
-  'SUBREDDIT-POSTS': {
+const IDENTIFIER_KEY_TO_STATE_MAP = {
+  [SUBREDDIT_POST_COUNTS]: {
     plotRange: ONE_WEEK,
   },
   'TOKEN-PRICE': {
@@ -43,7 +48,6 @@ export default function(state = initialState, action)
         [id]: Object.assign({}, state[id], { plotRange: value }),
       };
     case CHANGE_KEY_SELECT_VALUE:
-    console.log(action.value);
       return {
         ...state,
         keySelectValue: action.value,
@@ -59,10 +63,14 @@ export default function(state = initialState, action)
         id,
         identifier,
       } = dashboardItem;
-      const prefix = identifier.substring(0, identifier.lastIndexOf('-'));
+
+      const arr = parseIdentifer(identifier);
+      const identifierKey = arr[0];
+      const identifierValue = arr[1];
+
       return {
         ...state,
-        [id]: Object.assign({}, IDENTIFIER_TO_STATE_MAP[prefix]),
+        [id]: Object.assign({}, IDENTIFIER_KEY_TO_STATE_MAP[identifierKey]),
       };
     default:
       return state;
@@ -101,4 +109,3 @@ export function registerDashboardItem(dashboardItem)
     value: dashboardItem,
   };
 }
-

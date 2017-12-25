@@ -37,7 +37,7 @@ const SubredditPostsItem = ({
   } = data;
 
   const postsX = postCounts.map(
-    (postCount) => moment(postCount.timestamp).format('MM/DD')
+    (postCount) => moment(postCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
   );
   const postsData = generateCountChartData(postCounts, postCount);
 

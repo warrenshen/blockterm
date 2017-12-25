@@ -39,7 +39,13 @@ export const CreateDashboardItemMutation = gql`
     $x: Int,
     $y: Int,
   ) {
-    createDashboardItem(identifier: $identifier) {
+    createDashboardItem(
+      identifier: $identifier,
+      w: $w,
+      h: $h,
+      x: $x,
+      y: $y,
+    ) {
       dashboardItems {
         id
         identifier
