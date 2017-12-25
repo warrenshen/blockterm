@@ -55,6 +55,18 @@ const styles = StyleSheet.create({
   nightSidebar: {
     backgroundColor:STYLES.LIGHTNIGHT,
   },
+  bolded: {
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    fontSize: '12px',
+    letterSpacing: '2px',
+  },
+  select: {
+    borderBottom: '1px solid #666 !important',
+  },
+  button: {
+    width:'100%',
+  },
 });
 
 class Dashboard extends PureComponent {
@@ -137,7 +149,8 @@ class Dashboard extends PureComponent {
       }));
       return (
         <Select
-          className={css(styles.select)}
+          className={css(styles.select, styles.bolded)}
+          optionClassName={css(styles.bolded)}
           options={selectOptions}
           onChange={(option) => changeValueSelectValue(option ? option.value : '')}
           value={valueSelectValue}
@@ -157,6 +170,7 @@ class Dashboard extends PureComponent {
     {
       return (
         <button
+          className={css(styles.button)}
           onClick={(event) => this.addItem(event)}
         >
           Add to dashboard
@@ -202,7 +216,8 @@ class Dashboard extends PureComponent {
             sidebar={
               <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
                 <Select
-                  className={css(styles.select)}
+                  className={css(styles.select, styles.bolded)}
+                  optionClassName={css(styles.bolded)}
                   options={selectOptions}
                   onChange={(option) => changeKeySelectValue(option ? option.value : '')}
                   value={keySelectValue}
