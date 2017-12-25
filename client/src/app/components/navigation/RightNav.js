@@ -38,11 +38,16 @@ const styles = StyleSheet.create({
   switchNight: {
     borderColor: '#fff',
   },
-  floatingOr: {
-    position: 'absolute',
-    top: '5px',
-    right: '68px',
-    fontWeight: '700',
+  joinButton: {
+    border: '1px solid #000',
+    borderRadius: '1px',
+    padding: '4px 12px',
+    ':before': {
+      content: '"or"',
+      position: 'absolute',
+      left: '-19px',
+      fontWeight: '700',
+    },
   },
 });
 
@@ -60,7 +65,6 @@ const RightNav = ({
   user,
 }) => (
   <ul className={css(styles.container)}>
-    <El type={'span'} nightMode={nightMode} style={styles.floatingOr}>or</El>
     <Switch className={css(styles.switch, nightMode && styles.switchNight)} on={nightMode} onClick={toggleNightMode} />
     {
       rightLinks.map((aLinkBtn, index) => (
@@ -99,9 +103,15 @@ const RightNav = ({
           link={'/join'}
           nightMode={nightMode}
           nightModeStyle={styles.nightModeButton}
-          style={styles.loginButton}
+          style={styles.joinButton}
           key='join'
-        />
+        />,
+        <button className="hamburger hamburger--arrow" type="button"
+        aria-label="Menu" aria-controls="navigation">
+          <span className="hamburger-box">
+            <span className="hamburger-inner"></span>
+          </span>
+        </button>,
       ]
     }
   </ul>

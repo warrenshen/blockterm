@@ -155,8 +155,17 @@ input {
 @import '../../../node_modules/react-select/dist/react-select.css';
 @import '../../../node_modules/react-grid-layout/css/styles.css';
 @import '../../../node_modules/react-resizable/css/styles.css';
+@import '../../../node_modules/hamburgers/_sass/hamburgers/hamburgers.scss';
 
 .ccc-widget {
   padding: 2px 0px;
   border-bottom: '1px solid #aaa';
+}
+
+/* Version 3 */ 
+.hamburger {
+  margin-right: -20px;
+  margin-left: 24px;
+  border: 1px solid white;
+  border-left: 1px solid #888;
 }

@@ -145,6 +145,7 @@
     "compression": "^1.7.0",
     "font-awesome": "^4.7.0",
     "graphql-tag": "^2.4.2",
+    "hamburgers": "^0.9.1",
     "helmet": "^3.8.1",
     "history": "^4.6.3",
     "ify-loader": "^1.1.0",
