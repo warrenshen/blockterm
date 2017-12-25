@@ -135,6 +135,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
     {
       const {
         createDashboardItem,
+        data,
       } = this.props;
 
       if (data.user)
@@ -144,21 +145,20 @@ function wrapDynamicGraphQL(ComponentToWrap)
       else
       {
         var maxIdPresent = 0;
-        this.dashboardItems.each((item) => {
+        this.dashboardItems.forEach((item) => {
           if (parseInt(item.id) > maxIdPresent)
           {
             maxIdPresent = parseInt(item.id);
           }
         });
-        this.dashboardItems.append({
+        this.dashboardItems.push({
           id: toString(maxIdPresent + 1),
           identifier: identifier,
-          w: 0,
-          h: 0,
+          w: 3,
+          h: 3,
           x: 0,
           y: 0,
         });
-        console.log(this.dashboardItems);
       }
     }
 
@@ -176,7 +176,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
       var layoutChanged = false;
       const newLayoutMap = {};
-      layout.each((item) => {
+      layout.forEach((item) => {
         newLayoutMap[item.i] = {
           id: item.i,
           w: item.w,
@@ -185,7 +185,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
           y: item.y,
         };
       });
-      this.dashboardItems.each((item) => {
+      this.dashboardItems.forEach((item) => {
         const matchItem = newLayoutMap[item.id];
         layoutChanged = layoutChanged || item.w != matchItem.w;
         layoutChanged = layoutChanged || item.h != matchItem.h;
@@ -234,7 +234,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
         return (
           <Wrapped
-            addToLayout={(identifer) => this.addToLayout(identifier)}
+            addToLayout={(identifier) => this.addToLayout(identifier)}
             changeDashboardItemPlotRange={changeDashboardItemPlotRange}
             changeKeySelectValue={changeKeySelectValue}
             changeValueSelectValue={changeValueSelectValue}
@@ -244,8 +244,8 @@ function wrapDynamicGraphQL(ComponentToWrap)
             keySelectValue={keySelectValue}
             nightMode={nightMode}
             sidebarActive={sidebarActive}
-            removeFromLayout={(id) => removeFromLayout(id)}
-            saveLayout={(layout) => saveLayout(layout)}
+            removeFromLayout={(id) => this.removeFromLayout(id)}
+            saveLayout={(layout) => this.saveLayout(layout)}
             valueSelectValue={valueSelectValue}
           />
         );
