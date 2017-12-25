@@ -67,6 +67,10 @@ const styles = StyleSheet.create({
   button: {
     width:'100%',
   },
+  placeholder: {
+    width: '100%',
+    height: '256px',
+  },
 });
 
 class Dashboard extends PureComponent {
@@ -239,7 +243,7 @@ class Dashboard extends PureComponent {
             <ResponsiveReactGridLayout
               className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
               cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
-              rowHeight={200}
+              rowHeight={128}
               onLayoutChange={(layout, layouts) => saveLayout(layout)}
             >
               {
@@ -247,6 +251,8 @@ class Dashboard extends PureComponent {
                   (dashboardItem) => this.renderItem(dashboardItem))
               }
             </ResponsiveReactGridLayout>
+            <div className={css(styles.placeholder, nightMode && styles.gridNightContainer)}>
+            </div>
           </Sidebar>
         </div>
       );
