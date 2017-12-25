@@ -101,8 +101,8 @@ class DashboardItem extends PureComponent {
   {
     const {
       dashboardItem,
-      destroyDashboardItem,
       nightMode,
+      removeFromLayout,
     } = this.props;
 
     const {
@@ -115,7 +115,10 @@ class DashboardItem extends PureComponent {
         key={id}
       >
         <div className={css(styles.grabBar)}>
-          <button className={css(styles.closeButton, nightMode && styles.darkCloseButton)} onClick={(event) => destroyDashboardItem(id)}>
+          <button
+            className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+            onClick={(event) => removeFromLayout(id)}
+          >
             <strong>x</strong>
           </button>
         </div>

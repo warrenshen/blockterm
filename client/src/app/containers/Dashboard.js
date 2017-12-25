@@ -138,33 +138,60 @@ function wrapDynamicGraphQL(ComponentToWrap)
         data,
       } = this.props;
 
+      var maxIdPresent = 0;
+      var lowestRow = 0;
+      this.dashboardItems.forEach((item) => {
+        if (parseInt(item.id) > maxIdPresent)
+        {
+          maxIdPresent = parseInt(item.id);
+        }
+        if (item.y + item.h > lowestRow)
+        {
+          lowestRow = item.y + item.h + 1;
+        }
+      });
+      const newY = lowestRow + 1;
+
       if (data.user)
       {
-        createDashboardItem(identifier);
+        createDashboardItem(
+          identifier,
+          3,
+          3,
+          0,
+          newY,
+        );
       }
       else
       {
-        var maxIdPresent = 0;
-        this.dashboardItems.forEach((item) => {
-          if (parseInt(item.id) > maxIdPresent)
-          {
-            maxIdPresent = parseInt(item.id);
-          }
-        });
         this.dashboardItems.push({
-          id: toString(maxIdPresent + 1),
+          id: String(maxIdPresent + 1),
           identifier: identifier,
           w: 3,
           h: 3,
           x: 0,
-          y: 0,
+          y: newY,
         });
+        setItem(DASHBOARD_COOKIE, Object.values(this.dashboardItems));
       }
     }
 
     removeFromLayout(id)
     {
+      const {
+        destroyDashboardItem,
+        data,
+      } = this.props;
 
+      if (data.user)
+      {
+        destroyDashboardItem(id);
+      }
+      else
+      {
+        this.dashboardItems = this.dashboardItems.filter((item) => item.id != id);
+        setItem(DASHBOARD_COOKIE, Object.values(newLayoutMap));
+      }
     }
 
     saveLayout(layout)
@@ -204,7 +231,6 @@ function wrapDynamicGraphQL(ComponentToWrap)
           this.dashboardItems.map((item) => {
             newLayoutMap[item.id].identifier = item.identifier;
           });
-
           setItem(DASHBOARD_COOKIE, Object.values(newLayoutMap));
         }
       }
@@ -223,7 +249,6 @@ function wrapDynamicGraphQL(ComponentToWrap)
           changeValueSelectValue,
           dashboard,
           data,
-          destroyDashboardItem,
           keySelectValue,
           nightMode,
           sidebarActive,
@@ -240,7 +265,6 @@ function wrapDynamicGraphQL(ComponentToWrap)
             changeValueSelectValue={changeValueSelectValue}
             dashboard={dashboard}
             dashboardItems={this.dashboardItems}
-            destroyDashboardItem={destroyDashboardItem}
             keySelectValue={keySelectValue}
             nightMode={nightMode}
             sidebarActive={sidebarActive}

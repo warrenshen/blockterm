@@ -79,6 +79,7 @@ class Dashboard extends PureComponent {
       dashboard,
       data,
       nightMode,
+      removeFromLayout,
     } = this.props;
 
     const {
@@ -112,6 +113,7 @@ class Dashboard extends PureComponent {
           data={data[identifier]}
           destroyDashboardItem={destroyDashboardItem}
           nightMode={nightMode}
+          removeFromLayout={removeFromLayout}
           storeState={dashboard[id]}
         />
       </div>
