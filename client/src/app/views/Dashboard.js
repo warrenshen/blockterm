@@ -125,11 +125,11 @@ class Dashboard extends PureComponent {
     const {
       keySelectValue,
       valueSelectValue,
-      createDashboardItem,
+      addToLayout,
     } = this.props;
 
     const identifier = generateIdentifier(keySelectValue, valueSelectValue);
-    createDashboardItem(identifier);
+    addToLayout(identifier);
   }
 
   renderValueSelect()
@@ -188,6 +188,7 @@ class Dashboard extends PureComponent {
       nightMode,
       sidebarActive,
       keySelectValue,
+      nightMode,
       saveLayout,
     } = this.props;
 
