@@ -142,6 +142,7 @@ class Dashboard extends PureComponent {
       data,
       keySelectValue,
       nightMode,
+      removeFromLayout,
       sidebarActive,
       saveLayout,
     } = this.props;
@@ -190,6 +191,7 @@ class Dashboard extends PureComponent {
               dashboardItems={dashboardItems}
               data={data}
               nightMode={nightMode}
+              removeFromLayout={removeFromLayout}
               saveLayout={saveLayout}
             />
             <div className={css(styles.placeholder, nightMode && styles.gridNightContainer)}>

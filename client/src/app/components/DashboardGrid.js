@@ -72,9 +72,6 @@ class DashboardGrid extends Component {
 
   shouldComponentUpdate(nextProps, nextState)
   {
-    console.log(this.props);
-    console.log(nextProps);
-    console.log(this.props !== nextProps);
     return this.props !== nextProps;
   }
 
@@ -138,11 +135,13 @@ class DashboardGrid extends Component {
     );
 
     const arr = computeDashboardFreeValues(dashboardItems);
+    console.log(arr);
 
     return (
       <ResponsiveReactGridLayout
         className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
         cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
+        compactType={null}
         rowHeight={128}
         onLayoutChange={(layout, layouts) => saveLayout(layout)}
       >
@@ -152,7 +151,7 @@ class DashboardGrid extends Component {
         }
         <div
           className={css(styles.item, nightMode && styles.nightMode)}
-          data-grid={{ id: 'ADD_DASHBOARD_ITEM_ELEMENT', w: 2, h: 3, x: 0, y: arr[0] }}
+          data-grid={{ i: 'ADD_DASHBOARD_ITEM_ELEMENT', w: 1, h: 1, x: 0, y: arr[0] }}
           key={'ADD_DASHBOARD_ITEM_ELEMENT'}
         >
           +

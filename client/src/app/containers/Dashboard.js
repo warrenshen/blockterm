@@ -91,7 +91,8 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
     componentWillReceiveProps(nextProps)
     {
-      if (this.props.dashboardItems !== nextProps.dashboardItems)
+      if (this.props.dashboardItems !== nextProps.dashboardItems &&
+          this.props.dashboardItems.length !== nextProps.dashboardItems.length)
       {
         const {
           dashboardItems,
@@ -99,7 +100,6 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
         const { query, config } = queryBuilder(dashboardItems);
         this.wrapped = graphql(query, config)(ComponentToWrap);
-        this.dashboardItems = dashboardItems;
       }
     }
 
@@ -126,7 +126,6 @@ function wrapDynamicGraphQL(ComponentToWrap)
       }
       else
       {
-        console.log(identifier);
         createDashboardItemLocal({
           id: arr[1],
           identifier: identifier,
@@ -142,6 +141,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
     {
       const {
         destroyDashboardItem,
+        destroyDashboardItemLocal,
         dashboardItems,
         data,
       } = this.props;
@@ -152,9 +152,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
       }
       else
       {
-        const newDashboardItems = dashboardItems.filter((item) => item.id != id);
-        // TODO
-        // setItem(DASHBOARD_COOKIE, Object.values(newLayoutMap));
+        destroyDashboardItemLocal(id);
       }
     }
 
@@ -208,7 +206,6 @@ function wrapDynamicGraphQL(ComponentToWrap)
     render() {
       if (this.wrapped === null)
       {
-        console.log('wrapped is NULLLLLL');
         return null;
       }
       else
