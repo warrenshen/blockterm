@@ -14,7 +14,7 @@ module Types
     field :subscriberCount, types.Int, property: :subscriber_count
     field :startDate, !types.String do
       resolve -> (obj, args, ctx) {
-        obj.start_date.to_s
+         QueryHelper::localize_timestamp(obj.start_date).to_s
       }
     end
     field :updatedAt, types.String do
