@@ -30,8 +30,26 @@ const styles = StyleSheet.create({
   },
   select: {
     width: '128px',
+    zIndex: '1',
+    backgroundColor:'white !important',
+    color:'#777 !important',
+    borderColor: '#777 !important',
+  },
+  night: {
+    backgroundColor:'black',
+    color:'#fff',
   },
 });
+
+const selectDay = {
+    backgroundColor:'white !important',
+    color:'#777 !important',
+    borderColor: '#777 !important',
+  };
+const selectNight = {
+    backgroundColor:'black',
+    color:'#fff',
+  };
 
 const LineChartWithSelect = ({
   data,
@@ -68,6 +86,11 @@ const LineChartWithSelect = ({
         <El nightMode={nightMode} type={'h4'}>{title}</El>
         <div className={css(styles.select)}>
           <Select
+            className={css(styles.select)}
+            style={nightMode ? selectNight : selectDay}
+            menuStyle={nightMode ? selectNight : selectDay}
+            menuContainerStyle={nightMode ? selectNight : selectDay}
+            optionClassName={css(nightMode && styles.night)}
             clearable={false}
             searchable={false}
             value={selectValue}
