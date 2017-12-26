@@ -6,10 +6,16 @@ import {
   ONE_MONTH,
 } from '../../constants/plots';
 import {
+  DEFAULT_ITEM_OBJECTS,
   SUBREDDIT_POST_COUNTS,
   TV_CANDLE_CHART,
   parseIdentifer,
 } from '../../constants/items';
+import {
+  DASHBOARD_COOKIE,
+  getItem,
+  setItem,
+} from '../../services/cookie';
 
 const IDENTIFIER_KEY_TO_STATE_MAP = {
   [SUBREDDIT_POST_COUNTS]: {
@@ -23,26 +29,62 @@ const IDENTIFIER_KEY_TO_STATE_MAP = {
 /* -----------------------------------------
   constants
  ------------------------------------------*/
+const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
 const CHANGE_DASHBOARD_ITEM_PLOT_RANGE = 'CHANGE_DASHBOARD_ITEM_PLOT_RANGE';
 const CHANGE_KEY_SELECT_VALUE = 'CHANGE_KEY_SELECT_VALUE';
 const CHANGE_VALUE_SELECT_VALUE = 'CHANGE_VALUE_SELECT_VALUE';
-const REGISTER_DASHBOARD_ITEM = 'REGISTER_DASHBOARD_ITEM';
+const CREATE_DASHBOARD_ITEM_LOCAL = 'CREATE_DASHBOARD_ITEM_LOCAL';
+const DESTROY_DASHBOARD_ITEM_LOCAL = 'DESTROY_DASHBOARD_ITEM_LOCAL';
+const SAVE_DASHBOARD_ITEMS_LOCAL = 'SAVE_DASHBOARD_ITEMS_LOCAL';
 
 /* -----------------------------------------
   Reducer
  ------------------------------------------*/
 const initialState = {
+  dashboardItems: [],
   keySelectValue: '',
   valueSelectValue: '',
 };
 
 export default function(state = initialState, action)
 {
+  let newDashboardItems;
   switch (action.type)
   {
+    case APOLLO_QUERY_RESULT:
+      if (action.operationName === 'DashboardItemsQuery')
+      {
+        const data = action.result.data;
+        let dashboardItems;
+        if (data)
+        {
+          if (data.user === null)
+          {
+            const cookieDashboardItems = getItem(DASHBOARD_COOKIE);
+            if (cookieDashboardItems)
+            {
+              dashboardItems = cookieDashboardItems;
+            }
+            else
+            {
+              setItem(DASHBOARD_COOKIE, DEFAULT_ITEM_OBJECTS);
+              dashboardItems = DEFAULT_ITEM_OBJECTS;
+            }
+          }
+          else
+          {
+            dashboardItems = data.user.dashboardItems;
+          }
+          return {
+            ...state,
+            dashboardItems: dashboardItems,
+          };
+        }
+      }
+      return state;
     case CHANGE_DASHBOARD_ITEM_PLOT_RANGE:
-      var id = action.id;
-      var value = action.value;
+      let id = action.id;
+      let value = action.value;
       return {
         ...state,
         [id]: Object.assign({}, state[id], { plotRange: value }),
@@ -57,21 +99,41 @@ export default function(state = initialState, action)
         ...state,
         valueSelectValue: action.value,
       };
-    case REGISTER_DASHBOARD_ITEM:
-      const dashboardItem = action.value;
-      var {
-        id,
-        identifier,
-      } = dashboardItem;
-
-      const arr = parseIdentifer(identifier);
-      const identifierKey = arr[0];
-      const identifierValue = arr[1];
-
+    case CREATE_DASHBOARD_ITEM_LOCAL:
+      newDashboardItems = state.dashboardItems.concat([action.value]);
+      setItem(DASHBOARD_COOKIE, newDashboardItems);
+      console.log(newDashboardItems);
       return {
         ...state,
-        [id]: Object.assign({}, IDENTIFIER_KEY_TO_STATE_MAP[identifierKey]),
+        dashboardItems: newDashboardItems,
       };
+    case DESTROY_DASHBOARD_ITEM_LOCAL:
+      return {
+        ...state,
+      };
+    case SAVE_DASHBOARD_ITEMS_LOCAL:
+      newDashboardItems = action.value;
+      setItem(DASHBOARD_COOKIE, newDashboardItems);
+      console.log(newDashboardItems);
+      return {
+        ...state,
+        dashboardItems: newDashboardItems,
+      };
+    // case REGISTER_DASHBOARD_ITEM:
+    //   const dashboardItem = action.value;
+    //   var {
+    //     id,
+    //     identifier,
+    //   } = dashboardItem;
+
+    //   const arr = parseIdentifer(identifier);
+    //   const identifierKey = arr[0];
+    //   const identifierValue = arr[1];
+
+    //   return {
+    //     ...state,
+    //     [id]: Object.assign({}, IDENTIFIER_KEY_TO_STATE_MAP[identifierKey]),
+    //   };
     default:
       return state;
   }
@@ -102,10 +164,26 @@ export function changeValueSelectValue(value)
   };
 }
 
-export function registerDashboardItem(dashboardItem)
+export function createDashboardItemLocal(value)
 {
   return {
-    type: REGISTER_DASHBOARD_ITEM,
-    value: dashboardItem,
+    type: CREATE_DASHBOARD_ITEM_LOCAL,
+    value: value,
+  };
+}
+
+export function destroyDashboardItemLocal(value)
+{
+  return {
+    type: DESTROY_DASHBOARD_ITEM_LOCAL,
+    value: value,
+  };
+}
+
+export function saveDashboardItemsLocal(value)
+{
+  return {
+    type: SAVE_DASHBOARD_ITEMS_LOCAL,
+    value: value,
   };
 }

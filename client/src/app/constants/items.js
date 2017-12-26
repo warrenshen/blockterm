@@ -44,40 +44,6 @@ export const DEFAULT_ITEM_OBJECTS = [
   },
 ];
 
-export function generateIdentifier(key, value)
-{
-  if (!ITEM_KEY_WHITELIST.includes(key))
-  {
-    console.log('Invalid identifier');
-    return null;
-  }
-  else
-  {
-    return `${key}${DELIMETER}${value}`;
-  }
-}
-
-export function isIdentifierValid(identifier)
-{
-  const arr = identifier.split(DELIMETER, 2);
-  const identifierKey = arr[0];
-  const identifierValue = arr[1];
-  return ITEM_KEY_WHITELIST.includes(identifierKey);
-}
-
-export function parseIdentifer(identifier)
-{
-  if (!isIdentifierValid(identifier))
-  {
-    console.log('Invalid identifier');
-    return null;
-  }
-  else
-  {
-    return identifier.split(DELIMETER, 2);
-  }
-}
-
 export const ITEM_KEY_TO_LABELS = {
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
   [TV_CANDLE_CHART]: 'Candle chart',
@@ -135,3 +101,49 @@ export const ITEM_VALUE_TO_LABELS = {
   ethereum: 'r/ethereum',
   NEO: 'r/NEO',
 };
+
+// Returns an array of [next Y coordinate to use, next id to use].
+export function computeDashboardFreeValues(dashboardItems)
+{
+  var maxId = 0;
+  var maxY = 0;
+  dashboardItems.forEach((dashboardItem) => {
+    maxId = Math.max(maxId, parseInt(dashboardItem.id));
+    maxY = Math.max(maxY, dashboardItem.y + dashboardItem.h);
+  });
+  return [maxY + 1, String(maxId + 1)];
+}
+
+export function generateIdentifier(key, value)
+{
+  if (!ITEM_KEY_WHITELIST.includes(key))
+  {
+    console.log('Invalid identifier');
+    return null;
+  }
+  else
+  {
+    return `${key}${DELIMETER}${value}`;
+  }
+}
+
+export function isIdentifierValid(identifier)
+{
+  const arr = identifier.split(DELIMETER, 2);
+  const identifierKey = arr[0];
+  const identifierValue = arr[1];
+  return ITEM_KEY_WHITELIST.includes(identifierKey);
+}
+
+export function parseIdentifer(identifier)
+{
+  if (!isIdentifierValid(identifier))
+  {
+    console.log('Invalid identifier');
+    return null;
+  }
+  else
+  {
+    return identifier.split(DELIMETER, 2);
+  }
+}
