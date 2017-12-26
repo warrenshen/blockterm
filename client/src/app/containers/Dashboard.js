@@ -83,9 +83,11 @@ function queryBuilder(dashboardItems)
   const queries = dashboardItems.map(
     (dashboardItem) => f(dashboardItem.identifier)
   );
-
+  const queriesWithPlaceholder = queries.concat([
+    'placeholder'
+  ]);
   const query = `query {
-    ${queries.join('')}
+    ${queriesWithPlaceholder.join('')}
   }`;
 
   return {
@@ -105,13 +107,13 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
     componentWillReceiveProps(nextProps)
     {
-      if (this.props.dashboardItems !== nextProps.dashboardItems &&
-          this.props.dashboardItems.length !== nextProps.dashboardItems.length)
+      if (this.wrapped === null ||
+          (this.props.dashboardItems !== nextProps.dashboardItems &&
+          this.props.dashboardItems.length !== nextProps.dashboardItems.length))
       {
         const {
           dashboardItems,
         } = nextProps;
-
         const { query, config } = queryBuilder(dashboardItems);
         this.wrapped = graphql(query, config)(ComponentToWrap);
       }
@@ -126,7 +128,6 @@ function wrapDynamicGraphQL(ComponentToWrap)
         data,
       } = this.props;
 
-      console.log(dashboardItems);
       const arr = computeDashboardFreeValues(dashboardItems);
 
       if (data.user)

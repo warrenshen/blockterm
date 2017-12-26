@@ -4,6 +4,14 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
+    field :placeholder, types.String do
+      description 'Returns a placeholder string'
+
+      resolve -> (obj, args, ctx) {
+        'placeholder'
+      }
+    end
+
     field :allKeywords, types[Types::KeywordType] do
       description 'Gets all keywords'
 
