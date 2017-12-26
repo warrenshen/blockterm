@@ -28,12 +28,6 @@ const styles = StyleSheet.create({
     border: `1px solid ${STYLES.BORDERLIGHT}`,
     borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
-  gridContainer: {
-    display: 'flex',
-    flex: '1',
-    backgroundColor: '#ececec',
-    minHeight: '100vh',
-  },
   nightMode: {
     backgroundColor: '#000 !important',
     border: `1px solid ${STYLES.BORDERDARK}`,
@@ -68,9 +62,48 @@ const styles = StyleSheet.create({
     height: '256px',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
   },
+  shield: {
+    position: 'fixed',
+    top: '0px',
+    left: '0px',
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    // visibility: 'hidden',
+    zIndex: '9000',
+  },
 });
 
+var isScrolling;
+
 class Dashboard extends PureComponent {
+
+  constructor(props)
+  {
+    super(props);
+
+    const {
+      changeScrollActive,
+    } = props;
+
+    this.handleScroll = (event) => {
+      changeScrollActive(true);
+      window.clearTimeout(isScrolling);
+      isScrolling = setTimeout(function() {
+        changeScrollActive(false);
+      }, 256);
+    };
+  }
+
+  componentDidMount()
+  {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount()
+  {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
 
   addItem(event)
   {
@@ -135,6 +168,22 @@ class Dashboard extends PureComponent {
     }
   }
 
+  renderScrollShield()
+  {
+    const {
+      scrollActive,
+    } = this.props;
+
+    if (scrollActive)
+    {
+      return (
+        <div className={css(styles.shield)}>
+
+        </div>
+      );
+    }
+  }
+
   render()
   {
     const {
@@ -148,6 +197,7 @@ class Dashboard extends PureComponent {
       logDashboardActionStop,
       nightMode,
       removeFromLayout,
+      scrollActive,
       sidebarActive,
       toggleSidebar,
       saveLayout,
@@ -191,8 +241,14 @@ class Dashboard extends PureComponent {
             open={sidebarActive}
             pullRight={true}
             shadow={false}
-            styles={{root: { height: '100%' }, overlay: overlayStyle, }}
+            styles={
+              {
+                root: { height: '100%', overflow: 'visible', },
+                overlay: overlayStyle,
+                content: { overflowY: 'visible' },
+            }}
           >
+            {this.renderScrollShield()}
             <DashboardGrid
               dashboard={dashboard}
               dashboardAction={dashboardAction}
