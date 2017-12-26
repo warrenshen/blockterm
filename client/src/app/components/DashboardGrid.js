@@ -93,8 +93,13 @@ const styles = StyleSheet.create({
     height: '-webkit-fill-available',
     borderBottom: '1px solid #777',
     color: '#444 !important',
-    letterSpacing: '2px !important',
-    fontSize: '13px',
+    letterSpacing: '1px !important',
+    fontSize: '12px',
+  },
+  darkAddButton: {
+    borderColor: '#555',
+    backgroundColor: '#000',
+    color: '#fff',
   },
 });
 
@@ -193,7 +198,7 @@ class DashboardGrid extends Component {
           </button>
           </div>
           <button
-            className={css(styles.button, styles.addToButton)}
+            className={css(styles.button, styles.addToButton, nightMode && styles.darkAddButton)}
             onClick={(event) => toggleSidebar()} >
             + ADD WIDGET
           </button>

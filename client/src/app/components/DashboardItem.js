@@ -16,6 +16,7 @@ import SubredditPostsItem from './items/SubredditPostsItem';
 import TokenPriceItem from './items/TokenPriceItem';
 import TVChartItem from './items/TVChartItem';
 import * as STYLES from '../constants/styles';
+import El                  from './El';
 
 import {
   SUBREDDIT_POST_COUNTS,
@@ -40,14 +41,30 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   grabBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     lineHeight: '4px',
-    textAlign: 'right',
     width: '100%',
     borderBottom: `1px solid #666`,
     ':hover': {
       cursor: 'move',
     },
   },
+  widgetTitle: {
+    lineHeight: '12px',
+    fontSize: '12px',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+    marginLeft: '2px',
+    marginTop: '2px',
+  },
+  section: {
+    flex: '1',
+  },
+  rightAlign: {
+    textAlign: 'right',
+  }
 });
 
 class DashboardItem extends Component {
@@ -116,12 +133,22 @@ class DashboardItem extends Component {
         key={id}
       >
         <div className={css(styles.grabBar)}>
-          <button
-            className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-            onClick={(event) => removeFromLayout(id)}
-          >
-            <strong>x</strong>
-          </button>
+          <div className={css(styles.section)}>
+            <El 
+              style={styles.widgetTitle}
+              nightMode={nightMode}
+              type={'h5'}>
+              {dashboardItem.identifier}
+            </El>
+          </div>
+          <div className={css(styles.section, styles.rightAlign)}>
+            <button
+              className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+              onClick={(event) => removeFromLayout(id)}
+            >
+              <strong>x</strong>
+            </button>
+          </div>
         </div>
         {this.renderItem(dashboardItem)}
       </div>

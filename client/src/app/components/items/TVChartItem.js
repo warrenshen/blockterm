@@ -67,6 +67,9 @@ class TVChartItem extends PureComponent {
       s.type = 'text/javascript';
       s.text = text;
       iframeDocument.body.appendChild(s);
+      //iframeDocument.body.find(".pane-legend-line.apply-overflow-tooltip.main").css("font-size", "13px");
+      //.apply-overflow-tooltip.main
+      console.log(iframeDocument.querySelector(".pane-legend-line"));
     };
 
     this.instance.contentWindow.document.head.appendChild(s);
