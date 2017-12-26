@@ -45,8 +45,26 @@ const styles = StyleSheet.create({
   },
   select: {
     width: '128px',
+    zIndex: '1',
+    backgroundColor:'white !important',
+    color:'#777 !important',
+    borderColor: '#777 !important',
+  },
+  night: {
+    backgroundColor:'black',
+    color:'#fff',
   },
 });
+
+const selectDay = {
+    backgroundColor:'white !important',
+    color:'#777 !important',
+    borderColor: '#777 !important',
+  };
+const selectNight = {
+    backgroundColor:'black',
+    color:'#fff',
+  };
 
 class BarChartWithSelect extends PureComponent {
   static propTypes = {
@@ -132,8 +150,13 @@ class BarChartWithSelect extends PureComponent {
                 </div>,
               ]
             }
-            <div className={css(styles.select)}>
+            <div className={css(styles.select, nightMode && styles.night)}>
               <Select
+                className={css(styles.select)}
+                style={nightMode ? selectNight : selectDay}
+                menuStyle={nightMode ? selectNight : selectDay}
+                menuContainerStyle={nightMode ? selectNight : selectDay}
+                optionClassName={css(nightMode && styles.night)}
                 clearable={false}
                 options={selectOptions}
                 onChange={onChange}

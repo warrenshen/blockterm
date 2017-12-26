@@ -174,9 +174,11 @@ input {
 .Select-placeholder, .Select-value, .Select-input, .Select-value-label {
   font-weight: 700 !important;
   font-size: 12px;
+  color: #777 !important;
 }
 .Select-control {
   border-radius: 0px !important;
+  border-color: #777 !important;
 }
 
 $hamburger-padding-x                       : 12px !default;
@@ -253,7 +255,7 @@ $hamburger-types: (
   border: 1px solid white;
   border-left: 1px solid #777;
   margin-left: 24px;
-  margin-right: -20px;
+  margin-right: -12px;
 
   &:hover {
     @if $hamburger-hover-use-filter == true {
