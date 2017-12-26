@@ -140,9 +140,12 @@ class Dashboard extends PureComponent {
     const {
       changeKeySelectValue,
       dashboard,
+      dashboardAction,
       dashboardItems,
       data,
       keySelectValue,
+      logDashboardActionStart,
+      logDashboardActionStop,
       nightMode,
       removeFromLayout,
       sidebarActive,
@@ -172,7 +175,7 @@ class Dashboard extends PureComponent {
             sidebar={
               <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
                 <Select
-                  inputProps={{'id':'widget_search'}}
+                  inputProps={{'id': 'widget_search'}}
                   placeholder={'Search Widget Type'}
                   className={css(styles.select, styles.bolded)}
                   optionClassName={css(styles.bolded)}
@@ -192,15 +195,35 @@ class Dashboard extends PureComponent {
           >
             <DashboardGrid
               dashboard={dashboard}
+              dashboardAction={dashboardAction}
               dashboardItems={dashboardItems}
               data={data}
+              logDashboardActionStart={logDashboardActionStart}
+              logDashboardActionStop={logDashboardActionStop}
               nightMode={nightMode}
               toggleSidebar={toggleSidebar}
               removeFromLayout={removeFromLayout}
               saveLayout={saveLayout}
             />
-            
-            <div className={css(styles.placeholder, nightMode && styles.gridNightContainer)}>
+            <div
+              className={css(styles.placeholder, nightMode && styles.gridNightContainer)}
+            >
+              <div
+                className={css(styles.item, styles.addItem, nightMode && styles.nightMode)}
+              >
+                <div className={css(styles.grabBar)}>
+                  <button
+                    className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+                  >
+                    <strong>"</strong>
+                  </button>
+                </div>
+                <button
+                  className={css(styles.button, styles.addToButton, nightMode && styles.darkAddButton)}
+                  onClick={(event) => toggleSidebar()} >
+                  ADD WIDGET [+]
+                </button>
+              </div>
             </div>
           </Sidebar>
         </div>

@@ -229,9 +229,12 @@ function wrapDynamicGraphQL(ComponentToWrap)
           changeKeySelectValue,
           changeValueSelectValue,
           dashboard,
+          dashboardAction,
           dashboardItems,
           data,
           keySelectValue,
+          logDashboardActionStart,
+          logDashboardActionStop,
           nightMode,
           toggleSidebar,
           sidebarActive,
@@ -247,13 +250,16 @@ function wrapDynamicGraphQL(ComponentToWrap)
             changeKeySelectValue={changeKeySelectValue}
             changeValueSelectValue={changeValueSelectValue}
             dashboard={dashboard}
+            dashboardAction={dashboardAction}
             dashboardItems={dashboardItems}
             keySelectValue={keySelectValue}
             nightMode={nightMode}
             toggleSidebar={toggleSidebar}
-            sidebarActive={sidebarActive}
+            logDashboardActionStart={logDashboardActionStart}
+            logDashboardActionStop={logDashboardActionStop}
             removeFromLayout={(id) => this.removeFromLayout(id)}
             saveLayout={(layout) => this.saveLayout(layout)}
+            sidebarActive={sidebarActive}
             valueSelectValue={valueSelectValue}
           />
         );

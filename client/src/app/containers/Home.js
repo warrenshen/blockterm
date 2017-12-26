@@ -13,7 +13,6 @@ import * as dashboardActions   from '../redux/modules/dashboard';
 import Dashboard               from './Dashboard';
 import * as globalsActions    from '../redux/modules/globals';
 
-
 /* -----------------------------------------
   GraphQL - Apollo client
  ------------------------------------------*/
@@ -106,6 +105,7 @@ const updateDashboardItemsMutationOptions = {
 const mapStateToProps = (state) => {
   return {
     dashboard: state.dashboard,
+    dashboardAction: state.dashboard.dashboardAction,
     dashboardItems: state.dashboard.dashboardItems,
     keySelectValue: state.dashboard.keySelectValue,
     nightMode: state.globals.nightMode,
@@ -122,6 +122,8 @@ const mapDispatchToProps = (dispatch) => {
       changeValueSelectValue: dashboardActions.changeValueSelectValue,
       createDashboardItemLocal: dashboardActions.createDashboardItemLocal,
       destroyDashboardItemLocal: dashboardActions.destroyDashboardItemLocal,
+      logDashboardActionStart: dashboardActions.logDashboardActionStart,
+      logDashboardActionStop: dashboardActions.logDashboardActionStop,
       saveDashboardItemsLocal: dashboardActions.saveDashboardItemsLocal,
       toggleSidebar: globalsActions.toggleSidebar,
     },

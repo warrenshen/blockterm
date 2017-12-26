@@ -5,6 +5,7 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { isEqual }         from 'underscore';
 import {
   disableChartOptions,
   generateCountChartData,
@@ -72,6 +73,13 @@ const styles = StyleSheet.create({
 });
 
 class DashboardItem extends Component {
+
+  shouldComponentUpdate(nextProps, nextState)
+  {
+    return !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
+           !isEqual(this.props.data, nextProps.data) ||
+           !isEqual(this.props.nightMode, nextProps.nightMode);
+  }
 
   renderItem(dashboardItem)
   {
