@@ -199,7 +199,7 @@ class Home extends PureComponent {
                     commentCounts,
                   } = subreddit;
 
-                  const data = generateLineChartData(commentCounts);
+                  const data = generateLineChartData(commentCounts, undefined, 'today', 'MM/DD', nightMode);
 
                   return (
                     <tr className={css(styles.row)} key={subreddit.id}>

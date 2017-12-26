@@ -14,6 +14,7 @@ export const BLOOMYBLUE = '#2900EA';
 export const LAVENDER = '#6447ED';
 export const GOLD = '#FFD000';
 export const ORANGE = '#FF8000';
+export const FIREORANGE = '#FF5200';
 export const PURPLE = '#640BD3';
 export const TRIADORANGE = '#ED7518';
 export const COMPOUNDAQUA = '#3BECD1';

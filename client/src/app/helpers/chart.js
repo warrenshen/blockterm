@@ -156,7 +156,8 @@ export function generateLineChartData(
   historicalCounts,
   recentCount=undefined,
   recentLabel='today',
-  timeFormat='MM/DD')
+  timeFormat='MM/DD',
+  nightMode=false)
 {
   var x = historicalCounts.map(
     (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format(timeFormat)
@@ -170,7 +171,7 @@ export function generateLineChartData(
           data: historicalCounts.map((historicalCount) => historicalCount.count),
           // yAxisID: index,
         },
-        LINE_CHART_DATA_STYLES[0].historical
+        nightMode ? LINE_CHART_DATA_STYLES[3].historical : LINE_CHART_DATA_STYLES[0].historical
       )
     ],
   };
