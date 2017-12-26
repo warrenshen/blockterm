@@ -30,6 +30,7 @@ const IDENTIFIER_KEY_TO_STATE_MAP = {
   constants
  ------------------------------------------*/
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
+const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_DASHBOARD_ITEM_PLOT_RANGE = 'CHANGE_DASHBOARD_ITEM_PLOT_RANGE';
 const CHANGE_KEY_SELECT_VALUE = 'CHANGE_KEY_SELECT_VALUE';
 const CHANGE_VALUE_SELECT_VALUE = 'CHANGE_VALUE_SELECT_VALUE';
@@ -49,37 +50,65 @@ const initialState = {
 export default function(state = initialState, action)
 {
   let newDashboardItems;
+  let data;
+  let dashboardItems;
+
   switch (action.type)
   {
     case APOLLO_QUERY_RESULT:
-      if (action.operationName === 'DashboardItemsQuery')
+      switch (action.operationName)
       {
-        const data = action.result.data;
-        let dashboardItems;
-        if (data)
-        {
-          if (data.user === null)
+        case 'DashboardItemsQuery':
+          data = action.result.data;
+          if (data)
           {
-            const cookieDashboardItems = getItem(DASHBOARD_COOKIE);
-            if (cookieDashboardItems)
+            if (data.user === null)
             {
-              dashboardItems = cookieDashboardItems;
+              const cookieDashboardItems = getItem(DASHBOARD_COOKIE);
+              if (cookieDashboardItems)
+              {
+                dashboardItems = cookieDashboardItems;
+              }
+              else
+              {
+                setItem(DASHBOARD_COOKIE, DEFAULT_ITEM_OBJECTS);
+                dashboardItems = DEFAULT_ITEM_OBJECTS;
+              }
             }
             else
             {
-              setItem(DASHBOARD_COOKIE, DEFAULT_ITEM_OBJECTS);
-              dashboardItems = DEFAULT_ITEM_OBJECTS;
+              dashboardItems = data.user.dashboardItems;
             }
+            return {
+              ...state,
+              dashboardItems: dashboardItems,
+            };
           }
-          else
+      }
+      return state;
+    case APOLLO_MUTATION_RESULT:
+      switch (action.operationName)
+      {
+        case 'CreateDashboardItemMutation':
+          data = action.result.data;
+          if (data.createDashboardItem)
           {
-            dashboardItems = data.user.dashboardItems;
+            dashboardItems = data.createDashboardItem.dashboardItems;
           }
           return {
             ...state,
             dashboardItems: dashboardItems,
           };
-        }
+        case 'DestroyDashboardItemMutation':
+          data = action.result.data;
+          if (data.destroyDashboardItem)
+          {
+            dashboardItems = data.destroyDashboardItem.dashboardItems;
+          }
+          return {
+            ...state,
+            dashboardItems: dashboardItems,
+          };
       }
       return state;
     case CHANGE_DASHBOARD_ITEM_PLOT_RANGE:
