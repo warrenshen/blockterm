@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
-    padding: '10px 10px',
+    padding: '8px 10px',
   },
   headerLeft: {
     display: 'flex',

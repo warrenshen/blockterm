@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     borderBottom: `2px solid ${STYLES.BORDERDARK}`,
   },
   gridNightContainer: {
+    paddingTop: '4px',
     backgroundColor: STYLES.SOFTGRAY,
   },
   sidebar: {
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     width: '100%',
-    height: '256px',
+    height: '128px',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
   },
   shield: {
@@ -87,7 +88,12 @@ const styles = StyleSheet.create({
     zIndex: '9000',
   },
   addToButton: {
-    paddingTop: '5px',
+    //paddingTop: 5px,
+    margin: '10px',
+    marginTop: '2px',
+  },
+  options: {
+    borderBottom: '1px solid #ddd',
   },
 });
 
@@ -156,7 +162,7 @@ class Dashboard extends PureComponent {
           inputProps={{'id':'widget_search_2'}}
           placeholder={'Search Coin'}
           className={css(styles.select, styles.bolded)}
-          optionClassName={css(styles.bolded)}
+          optionClassName={css(styles.bolded, styles.options)}
           options={selectOptions}
           onChange={(option) => changeValueSelectValue(option ? option.value : '')}
           value={valueSelectValue}
@@ -245,7 +251,7 @@ class Dashboard extends PureComponent {
                   inputProps={{'id': 'widget_search'}}
                   placeholder={'Search Widget Type'}
                   className={css(styles.select, styles.bolded)}
-                  optionClassName={css(styles.bolded)}
+                  optionClassName={css(styles.bolded, styles.options)}
                   options={selectOptions}
                   onChange={(option) => changeKeySelectValue(option ? option.value : '')}
                   value={keySelectValue}
@@ -266,7 +272,7 @@ class Dashboard extends PureComponent {
             }}
           >
             {this.renderScrollShield()}
-            <div className={css(styles.subContainer)}>
+            <div className={css(styles.subContainer, nightMode && styles.gridNightContainer)}>
               <DashboardGrid
                 dashboard={dashboard}
                 dashboardAction={dashboardAction}
@@ -283,10 +289,10 @@ class Dashboard extends PureComponent {
                 className={css(styles.placeholder, nightMode && styles.gridNightContainer)}
               >
                 <div
-                  className={css(styles.item, styles.addItem, nightMode && styles.nightMode)}
+                  className={css(styles.item, styles.addItem, styles.addToButton, nightMode && styles.nightMode)}
                 >
                   <button
-                    className={css(styles.button, styles.addToButton, nightMode && styles.darkAddButton)}
+                    className={css(styles.button, nightMode && styles.darkAddButton)}
                     onClick={(event) => toggleSidebar()} >
                     Add Widget [+]
                   </button>

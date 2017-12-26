@@ -141,8 +141,8 @@ export function generateCountChartData2(
         data: historicalCounts.map((historicalCount) => historicalCount.count),
         label: legendLabels[index],
         // yAxisID: index,
-      },
-      LINE_CHART_DATA_STYLES[index].historical
+      },    //offset index by one so as to not interfere with sub line graph color
+      LINE_CHART_DATA_STYLES[index + 2].historical
     );
   });
 
@@ -171,7 +171,7 @@ export function generateLineChartData(
           data: historicalCounts.map((historicalCount) => historicalCount.count),
           // yAxisID: index,
         },
-        nightMode ? LINE_CHART_DATA_STYLES[3].historical : LINE_CHART_DATA_STYLES[0].historical
+        nightMode ? LINE_CHART_DATA_STYLES[1].historical : LINE_CHART_DATA_STYLES[0].historical
       )
     ],
   };
