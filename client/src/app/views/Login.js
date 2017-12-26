@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   body: {
     //left: '-24px',
     borderTop: '1px solid rgba(0,0,0,0.15)',
-    padding: '0px 20px 0px',
+    padding: '0px 10px 0px',
     boxSizing: 'content-box',
     backgroundColor: '#fff',
     minHeight: '100vh',
@@ -107,7 +107,17 @@ const styles = StyleSheet.create({
     display: 'block',
   },
   submitButton: {
-    border: `1px solid ${STYLES.BORDERLIGHT}`,
+    border: `1px solid #000`,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  section: {
+    flex: '1',
+  },
+  rightAlign: {
+    textAlign: 'right',
   }
 });
 
@@ -166,11 +176,20 @@ class Login extends PureComponent {
                 type='password'
                 value={password}
               />
-              <input
-                className={css(styles.bolded, styles.submitButton)}
-                onClick={(event) => this.submit(event)}
-                type='submit'
-              />
+              <div className={css(styles.row)}>
+                <div className={css(styles.section)}>
+                  <input
+                    className={css(styles.bolded, styles.submitButton)}
+                    onClick={(event) => this.submit(event)}
+                    type='submit'
+                  />
+                </div>
+                <div className={css(styles.section, styles.rightAlign)}>
+                  <El nightMode={nightMode} type={'span'}>
+                    Need an account? <Link to={'/join'}><u>Register here.</u></Link>
+                  </El>
+                </div>
+              </div>
             </div>
             <div className={css(styles.halfPanel, styles.rightHalf)}>
               <El style={styles.bolded, styles.bottomHeavy}
