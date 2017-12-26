@@ -188,9 +188,8 @@ class DashboardGrid extends Component {
           <div className={css(styles.grabBar)}>
             <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-              onClick={(event) => removeFromLayout(id)}
             >
-            <strong>-</strong>
+            <strong>*</strong>
           </button>
           </div>
           <button
