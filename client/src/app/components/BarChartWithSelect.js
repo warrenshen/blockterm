@@ -46,24 +46,30 @@ const styles = StyleSheet.create({
   select: {
     width: '128px',
     zIndex: '1',
-    backgroundColor:'white !important',
-    color:'#777 !important',
-    borderColor: '#777 !important',
+    backgroundColor:'white',
+    color:'#777',
+    borderColor: '#777',
   },
   night: {
     backgroundColor:'black',
     color:'#fff',
   },
+  nightSelect: {
+    backgroundColor:'black',
+    color:'#fff !important',
+    borderColor: '#fff !important',
+  },
 });
 
 const selectDay = {
     backgroundColor:'white !important',
-    color:'#777 !important',
-    borderColor: '#777 !important',
+    color:'#777',
+    borderColor: '#777',
   };
 const selectNight = {
     backgroundColor:'black',
-    color:'#fff',
+    color:'#fff !important',
+    borderColor: '#fff !important',
   };
 
 class BarChartWithSelect extends PureComponent {
@@ -152,7 +158,7 @@ class BarChartWithSelect extends PureComponent {
             }
             <div className={css(styles.select, nightMode && styles.night)}>
               <Select
-                className={css(styles.select)}
+                className={css(styles.select, nightMode && styles.nightSelect)}
                 style={nightMode ? selectNight : selectDay}
                 menuStyle={nightMode ? selectNight : selectDay}
                 menuContainerStyle={nightMode ? selectNight : selectDay}
