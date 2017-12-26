@@ -41,11 +41,8 @@ class TVChartItem extends PureComponent {
 
     var s = iframeDocument.createElement('script');
     s.type = 'text/javascript';
-    s.src = 'https://s3.tradingview.com/tv.js';
-
-    const text = `
-      <span id="tradingview-copyright"><a ref="nofollow noopener" target="_blank" href="http://www.tradingview.com" style="color: rgb(173, 174, 176); font-family: &quot;Trebuchet MS&quot;, Tahoma, Arial, sans-serif; font-size: 13px;">Market Quotes by <span style="color: #3BB3E4">TradingView</span></a></span>
-      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js">
+    s.src = 'https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js';
+    s.innerHTML = `
       {
         "showChart": true,
         "locale": "en",
@@ -131,17 +128,9 @@ class TVChartItem extends PureComponent {
           }
         ]
       }
-      </script>
     `;
 
-    s.onload = function() {
-      var s = iframeDocument.createElement('script');
-      s.type = 'text/javascript';
-      s.text = text;
-      iframeDocument.body.appendChild(s);
-    };
-
-    this.instance.contentWindow.document.head.appendChild(s);
+    this.instance.contentWindow.document.body.appendChild(s);
   }
 
   render()
@@ -152,8 +141,10 @@ class TVChartItem extends PureComponent {
 
     return (
       <div className={css(styles.container)}>
-        <iframe className={css(styles.frame, nightMode && styles.nightFrame)} ref={(el) => this.instance = el}>
-        </iframe>
+        <iframe
+          className={css(styles.frame, nightMode && styles.nightFrame)}
+          ref={(el) => this.instance = el}
+        />
       </div>
     );
   }

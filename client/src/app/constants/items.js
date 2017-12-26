@@ -3,12 +3,14 @@ const DELIMETER = '__';
 export const SUBREDDIT_COMMENT_COUNTS = 'SUBREDDIT_COMMENT_COUNTS';
 export const SUBREDDIT_POST_COUNTS = 'SUBREDDIT_POST_COUNTS';
 export const TV_CANDLE_CHART = 'TV_CANDLE_CHART';
+export const TV_MARKET_OVERVIEW = 'TV_MARKET_OVERVIEW';
 
 export const ITEM_KEY_WHITELIST = [
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
   'TOKEN-PRICE',
   TV_CANDLE_CHART,
+  TV_MARKET_OVERVIEW,
 ];
 
 export const DEFAULT_ITEM_OBJECTS = [
@@ -85,11 +87,18 @@ export const DEFAULT_ITEM_OBJECTS_BY_SUBREDDIT = {
 };
 
 export const ITEM_KEY_TO_LABELS = {
-  [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
   [TV_CANDLE_CHART]: 'Candle chart',
+  [TV_MARKET_OVERVIEW]: 'Market overview',
+  [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
+  [SUBREDDIT_COMMENT_COUNTS]: 'Subreddit comments chart',
 };
 
 export const ITEM_KEY_TO_VALUES = {
+  [SUBREDDIT_COMMENT_COUNTS]: [
+    'Bitcoin',
+    'ethereum',
+    'NEO',
+  ],
   [SUBREDDIT_POST_COUNTS]: [
     'Bitcoin',
     'ethereum',
@@ -132,6 +141,9 @@ export const ITEM_KEY_TO_VALUES = {
     'BITTREX:XVGBTC',
     'BITFINEX:EOSBTC',
     'BITTREX:QTUMBTC',
+  ],
+  [TV_MARKET_OVERVIEW]: [
+    'Default',
   ],
 };
 
