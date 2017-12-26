@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: '1',
     backgroundColor: '#ececec',
-    minHeight: '100vh',
   },
   nightMode: {
     backgroundColor: '#000 !important',

@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     padding: '0px !important',
     position: 'relative',
+    paddingBottom: '15px',
   },
 });
 

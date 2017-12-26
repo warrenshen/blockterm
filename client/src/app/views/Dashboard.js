@@ -20,6 +20,13 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     minHeight: '100%',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+  },
+  subContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
   },
   item: {
     display: 'flex',
@@ -56,6 +63,14 @@ const styles = StyleSheet.create({
   },
   button: {
     width:'100%',
+    fontWeight: '500',
+    letterSpacing: '1px',
+    fontSize: '12px',
+    textTransform: 'uppercase',
+  },
+  nightButton: {
+    color: 'white',
+    backgroundColor: '#bbb',
   },
   placeholder: {
     width: '100%',
@@ -69,8 +84,10 @@ const styles = StyleSheet.create({
     width: '100vw',
     height: '100vh',
     backgroundColor: 'rgba(255, 255, 255, 0)',
-    // visibility: 'hidden',
     zIndex: '9000',
+  },
+  addToButton: {
+    paddingTop: '5px',
   },
 });
 
@@ -162,7 +179,7 @@ class Dashboard extends PureComponent {
           className={css(styles.button)}
           onClick={(event) => this.addItem(event)}
         >
-          Add to dashboard
+          Add to Dashboard
         </button>
       );
     }
@@ -249,36 +266,31 @@ class Dashboard extends PureComponent {
             }}
           >
             {this.renderScrollShield()}
-            <DashboardGrid
-              dashboard={dashboard}
-              dashboardAction={dashboardAction}
-              dashboardItems={dashboardItems}
-              data={data}
-              logDashboardActionStart={logDashboardActionStart}
-              logDashboardActionStop={logDashboardActionStop}
-              nightMode={nightMode}
-              toggleSidebar={toggleSidebar}
-              removeFromLayout={removeFromLayout}
-              saveLayout={saveLayout}
-            />
-            <div
-              className={css(styles.placeholder, nightMode && styles.gridNightContainer)}
-            >
+            <div className={css(styles.subContainer)}>
+              <DashboardGrid
+                dashboard={dashboard}
+                dashboardAction={dashboardAction}
+                dashboardItems={dashboardItems}
+                data={data}
+                logDashboardActionStart={logDashboardActionStart}
+                logDashboardActionStop={logDashboardActionStop}
+                nightMode={nightMode}
+                toggleSidebar={toggleSidebar}
+                removeFromLayout={removeFromLayout}
+                saveLayout={saveLayout}
+              />
               <div
-                className={css(styles.item, styles.addItem, nightMode && styles.nightMode)}
+                className={css(styles.placeholder, nightMode && styles.gridNightContainer)}
               >
-                <div className={css(styles.grabBar)}>
+                <div
+                  className={css(styles.item, styles.addItem, nightMode && styles.nightMode)}
+                >
                   <button
-                    className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-                  >
-                    <strong>"</strong>
+                    className={css(styles.button, styles.addToButton, nightMode && styles.darkAddButton)}
+                    onClick={(event) => toggleSidebar()} >
+                    Add Widget [+]
                   </button>
                 </div>
-                <button
-                  className={css(styles.button, styles.addToButton, nightMode && styles.darkAddButton)}
-                  onClick={(event) => toggleSidebar()} >
-                  ADD WIDGET [+]
-                </button>
               </div>
             </div>
           </Sidebar>
