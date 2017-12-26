@@ -591,7 +591,7 @@ module Types
     field :updateDashboardItems, Types::UserType do
       # description ''
 
-      argument :layout, !types.String
+      argument :dashboardItemsString, !types.String
 
       resolve -> (obj, args, ctx) {
         current_user = ctx[:current_user]
@@ -599,9 +599,9 @@ module Types
           return GraphQL::ExecutionError.new('No current user')
         end
 
-        temp = JSON.parse(args[:layout])
+        temp = JSON.parse(args[:dashboardItemsString])
         temp.each do |item|
-          dashboard_item_id = item['i']
+          dashboard_item_id = item['id']
           dashboard_item = DashboardItem.find(dashboard_item_id)
           dashboard_item.assign_attributes(
             w: item['w'],

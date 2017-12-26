@@ -55,7 +55,7 @@ const destroyDashboardItemMutationOptions = {
         variables: { id },
         updateQueries: {
           DashboardItemsQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.updateDashboardItems,
+            user: mutationResult.data.destroyDashboardItem,
           }),
         },
       })
@@ -75,14 +75,15 @@ const destroyDashboardItemMutationOptions = {
 
 const updateDashboardItemsMutationOptions = {
   props: ({ mutate, ownProps }) => ({
-    updateDashboardItems(layout) {
+    updateDashboardItems(dashboardItems) {
+      console.log(dashboardItems);
       return mutate({
         updateQueries: {
           DashboardItemsQuery: (prev, { mutationResult }) => ({
             user: mutationResult.data.updateDashboardItems,
           }),
         },
-        variables: { layout },
+        variables: { dashboardItemsString: JSON.stringify(dashboardItems) },
       })
       .then(
         (response) => {

@@ -112,6 +112,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
         data,
       } = this.props;
 
+      console.log(dashboardItems);
       const arr = computeDashboardFreeValues(dashboardItems);
 
       if (data.user)
@@ -167,31 +168,31 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
       var layoutChanged = false;
       const newDashboardItemsMap = {};
-      layout.forEach((item) => {
-        if (item.i !== 'ADD_DASHBOARD_ITEM_ELEMENT')
+      layout.forEach((dashboardItem) => {
+        if (dashboardItem.i !== 'ADD_DASHBOARD_ITEM_ELEMENT')
         {
-          newDashboardItemsMap[item.i] = {
-            id: item.i,
-            w: item.w,
-            h: item.h,
-            x: item.x,
-            y: item.y,
+          newDashboardItemsMap[dashboardItem.i] = {
+            id: dashboardItem.i,
+            w: dashboardItem.w,
+            h: dashboardItem.h,
+            x: dashboardItem.x,
+            y: dashboardItem.y,
           };
         }
       });
-      dashboardItems.forEach((item) => {
-        const matchItem = newDashboardItemsMap[item.id];
-        layoutChanged = layoutChanged || item.w != matchItem.w;
-        layoutChanged = layoutChanged || item.h != matchItem.h;
-        layoutChanged = layoutChanged || item.x != matchItem.x;
-        layoutChanged = layoutChanged || item.y != matchItem.y;
+      dashboardItems.forEach((dashboardItem) => {
+        const matchItem = newDashboardItemsMap[dashboardItem.id];
+        layoutChanged = layoutChanged || dashboardItem.w != matchItem.w;
+        layoutChanged = layoutChanged || dashboardItem.h != matchItem.h;
+        layoutChanged = layoutChanged || dashboardItem.x != matchItem.x;
+        layoutChanged = layoutChanged || dashboardItem.y != matchItem.y;
       });
 
       if (layoutChanged)
       {
         if (data.user)
         {
-          updateDashboardItems(JSON.stringify(layout));
+          updateDashboardItems(Object.values(newDashboardItemsMap));
         }
         else
         {

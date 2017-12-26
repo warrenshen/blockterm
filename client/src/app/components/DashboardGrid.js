@@ -135,7 +135,6 @@ class DashboardGrid extends Component {
     );
 
     const arr = computeDashboardFreeValues(dashboardItems);
-    console.log(arr);
 
     return (
       <ResponsiveReactGridLayout

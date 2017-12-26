@@ -98,8 +98,8 @@ export const LogInMutation = gql`
 `;
 
 export const UpdateDashboardItemsMutation = gql`
-  mutation UpdateDashboardItemsMutation($layout: String!) {
-    updateDashboardItems(layout: $layout) {
+  mutation UpdateDashboardItemsMutation($dashboardItemsString: String!) {
+    updateDashboardItems(dashboardItemsString: $dashboardItemsString) {
       dashboardItems {
         id
         identifier
