@@ -102,19 +102,22 @@ export default function(state = initialState, action)
     case CREATE_DASHBOARD_ITEM_LOCAL:
       newDashboardItems = state.dashboardItems.concat([action.value]);
       setItem(DASHBOARD_COOKIE, newDashboardItems);
-      console.log(newDashboardItems);
       return {
         ...state,
         dashboardItems: newDashboardItems,
       };
     case DESTROY_DASHBOARD_ITEM_LOCAL:
+      newDashboardItems = state.dashboardItems.filter(
+        (dashboardItem) => dashboardItem.id != action.value
+      );
+      setItem(DASHBOARD_COOKIE, newDashboardItems);
       return {
         ...state,
+        dashboardItems: newDashboardItems,
       };
     case SAVE_DASHBOARD_ITEMS_LOCAL:
       newDashboardItems = action.value;
       setItem(DASHBOARD_COOKIE, newDashboardItems);
-      console.log(newDashboardItems);
       return {
         ...state,
         dashboardItems: newDashboardItems,

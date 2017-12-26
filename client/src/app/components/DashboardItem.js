@@ -52,11 +52,6 @@ const styles = StyleSheet.create({
 
 class DashboardItem extends Component {
 
-  shouldComponentUpdate(nextProps, nextState)
-  {
-    return this.props !== nextProps;
-  }
-
   renderItem(dashboardItem)
   {
     const {

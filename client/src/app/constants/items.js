@@ -111,7 +111,7 @@ export function computeDashboardFreeValues(dashboardItems)
     maxId = Math.max(maxId, parseInt(dashboardItem.id));
     maxY = Math.max(maxY, dashboardItem.y + dashboardItem.h);
   });
-  return [maxY + 1, String(maxId + 1)];
+  return [maxY, String(maxId + 1)];
 }
 
 export function generateIdentifier(key, value)
