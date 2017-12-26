@@ -26,7 +26,7 @@ export default function(state = initialState, action)
   switch (action.type)
   {
     case TOGGLE_SIDEBAR:
-      //document.getElementById('widget_search').focus();
+      document.getElementById('widget_search').focus();
       return {
         ...state,
         sidebarActive: !state.sidebarActive,

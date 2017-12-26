@@ -194,13 +194,13 @@ class DashboardGrid extends Component {
             <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
             >
-            <strong>*</strong>
+            <strong>"</strong>
           </button>
           </div>
           <button
             className={css(styles.button, styles.addToButton, nightMode && styles.darkAddButton)}
             onClick={(event) => toggleSidebar()} >
-            + ADD WIDGET
+            ADD WIDGET [+]
           </button>
         </div>
       </ResponsiveReactGridLayout>

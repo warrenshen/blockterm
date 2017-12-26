@@ -103,6 +103,7 @@ class Dashboard extends PureComponent {
       }));
       return (
         <Select
+          inputProps={{'id':'widget_search_2'}}
           placeholder={'Search Coin'}
           className={css(styles.select, styles.bolded)}
           optionClassName={css(styles.bolded)}
@@ -171,7 +172,7 @@ class Dashboard extends PureComponent {
             sidebar={
               <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
                 <Select
-                  instanceId='widget_search'
+                  inputProps={{'id':'widget_search'}}
                   placeholder={'Search Widget Type'}
                   className={css(styles.select, styles.bolded)}
                   optionClassName={css(styles.bolded)}
