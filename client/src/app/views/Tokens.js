@@ -33,13 +33,13 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
-    padding: '10px 10px',
+    padding: '8px 10px',
   },
   body: {
     //left: '-24px',
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
     width: '100%',
-    padding: '0px 15px 0px',
+    padding: '0px 12px 0px',
     boxSizing: 'content-box',
     backgroundColor: '#fff',
     //borderRadius: '6px',

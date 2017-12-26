@@ -146,50 +146,68 @@ export const LINE_CHART_DATA_STYLES = [
   },
   {
     historical: {
-      backgroundColor: '#e74c3c',
-      borderColor: '#e74c3c',
-      // backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      // borderColor: 'rgba(54, 162, 235, 0.2)',
-      borderWidth: 4,
-      // borderCapStyle:
-      // borderJoinStyle:
-      fill: false,
-      lineTension: 0,
-      pointBackgroundColor: 'rgba(54, 162, 235, 0.2)',
-      pointBorderColor: 'rgba(54, 162, 235, 1)',
-      pointBorderWidth: 2,
-      pointRadius: 2,
-      pointHitRadius: 3,
-      // pointHoverBackgroundColor
-      // pointHoverBorderColor
-      // pointHoverBorderWidth
-      // pointHoverRadius
-    },
-  },
-  {
-    historical: {
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 0.2)',
-      borderWidth: 4,
-      // borderCapStyle:
-      // borderJoinStyle:
-      fill: false,
-      lineTension: 0,
-      pointBackgroundColor: 'rgba(54, 162, 235, 0.2)',
-      pointBorderColor: 'rgba(54, 162, 235, 1)',
-      pointBorderWidth: 2,
-      pointRadius: 2,
-      pointHitRadius: 3,
-      // pointHoverBackgroundColor
-      // pointHoverBorderColor
-      // pointHoverBorderWidth
-      // pointHoverRadius
-    },
-  },
-  {
-    historical: {
       backgroundColor: 'rgba(255,141,25,0.5)',
       borderColor: '#FF6519',
+      borderWidth: 2,
+      borderCapStyle: 'rgba(255,81,0,0.2)',
+      borderJoinStyle: 'rgba(255,81,0,0.2)',
+      fill: true,
+      lineTension: 0,
+      pointBackgroundColor: 'rgba(255,255,255,0.1)',
+      pointBorderColor: '#FF7529',
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 3,
+    },
+  },
+  { //used for sats
+    historical: {
+      backgroundColor: '#ffce00',
+      borderColor: '#ffce00',
+      borderWidth: 4,
+      fill: false,
+      lineTension: 0,
+      pointBackgroundColor: 'rgba(54, 162, 235, 0.2)',
+      pointBorderColor: 'rgba(54, 162, 235, 1)',
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 3,
+    },
+  },
+  { //used for sats multi-bar graph
+    historical: {
+      backgroundColor: '#F93621',
+      borderColor: '#F93621',
+      borderWidth: 4,
+      fill: false,
+      lineTension: 0,
+      pointBackgroundColor: 'rgba(54, 162, 235, 0.2)',
+      pointBorderColor: 'rgba(54, 162, 235, 1)',
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 3,
+    },
+  },
+  {
+    historical: {
+      backgroundColor: '#ff9a00',
+      borderColor: '#ff9a00',
+      borderWidth: 2,
+      borderCapStyle: 'rgba(255,81,0,0.2)',
+      borderJoinStyle: 'rgba(255,81,0,0.2)',
+      fill: true,
+      lineTension: 0,
+      pointBackgroundColor: 'rgba(255,255,255,0.1)',
+      pointBorderColor: '#FF7529',
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 3,
+    },
+  },
+  {
+    historical: {
+      backgroundColor: '#00E96D',
+      borderColor: '#00E96D',
       borderWidth: 2,
       borderCapStyle: 'rgba(255,81,0,0.2)',
       borderJoinStyle: 'rgba(255,81,0,0.2)',

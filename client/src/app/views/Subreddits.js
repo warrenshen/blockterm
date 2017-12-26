@@ -36,11 +36,11 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
-    padding: '10px 10px',
+    padding: '8px 10px',
   },
   body: {
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
-    padding: '0px 15px',
+    padding: '0px 12px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
     display: 'flex',

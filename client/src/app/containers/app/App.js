@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     height: '100vh',
     padding: '0% 0%',
     margin: '0% 0%',
-    backgroundColor: 'white',
     display: 'block',
   },
 });

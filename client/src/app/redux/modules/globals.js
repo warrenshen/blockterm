@@ -20,6 +20,7 @@ const initialState = {
   nightMode: cookieNightMode !== null ? cookieNightMode : false,
   sidebarActive: false,
 };
+document.body.classList.toggle('darkClass', initialState.nightMode);
 
 export default function(state = initialState, action)
 {
@@ -34,6 +35,7 @@ export default function(state = initialState, action)
     case TOGGLE_NIGHT_MODE:
       const newNightMode = !state.nightMode;
       setItem(NIGHT_MODE_COOKIE, newNightMode);
+      document.body.classList.toggle('darkClass', newNightMode);
 
       return {
         ...state,

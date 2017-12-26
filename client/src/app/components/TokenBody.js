@@ -25,7 +25,7 @@ import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
   container: {
-    padding: '0px 24px 24px',
+    padding: '0px 12px 12px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
     display: 'flex',
