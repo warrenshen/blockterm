@@ -5,11 +5,27 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
     <link rel='stylesheet' href='assets/app.styles.css'>
   </head>
   <body>
+    <section id="marquee"></section>
     <section id="root"></section>
     <script type="text/javascript" src="assets/app.vendor.bundle.js"></script>
     <script type="text/javascript" src="assets/app.bundle.js"></script>
+    <script type="text/javascript">
+      var baseUrl = "https://widgets.cryptocompare.com/";
+      var node = document.getElementById("marquee");
+      var cccTheme = {"General":{"background":"#000","priceText":"#fff","enableMarquee":true},"Currency":{"color":"#fff"}};
+      (function (){
+        var appName = "local";
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.async = true;
+        var theUrl = baseUrl + 'serve/v3/coin/header?fsyms=BTC,ETH,XMR,LTC,BCH,XRP,DASH,ADA,USDT,NEO,IOT,SUB,XLM,ZEC,STEEM,LSK,TRX,GAS&tsyms=USD';
+        s.src = theUrl + ( theUrl.indexOf("?") >= 0 ? "&" : "?") + "app=" + appName;
+        node.appendChild(s);
+      })();
+    </script>
   </body>
 </html>

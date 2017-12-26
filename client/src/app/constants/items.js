@@ -1,9 +1,11 @@
 const DELIMETER = '__';
 
+export const SUBREDDIT_COMMENT_COUNTS = 'SUBREDDIT_COMMENT_COUNTS';
 export const SUBREDDIT_POST_COUNTS = 'SUBREDDIT_POST_COUNTS';
 export const TV_CANDLE_CHART = 'TV_CANDLE_CHART';
 
 export const ITEM_KEY_WHITELIST = [
+  SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
   'TOKEN-PRICE',
   TV_CANDLE_CHART,
@@ -43,6 +45,44 @@ export const DEFAULT_ITEM_OBJECTS = [
     y: 4,
   },
 ];
+
+// Keys should be all lowercase.
+export const DEFAULT_ITEM_OBJECTS_BY_SUBREDDIT = {
+  monero: [
+    {
+      id: '1',
+      identifier: generateIdentifier(TV_CANDLE_CHART, 'KRAKEN:XMRUSD'),
+      w: 4,
+      h: 4,
+      x: 0,
+      y: 0,
+    },
+    {
+      id: '2',
+      identifier: generateIdentifier(SUBREDDIT_POST_COUNTS, 'Monero'),
+      w: 4,
+      h: 4,
+      x: 4,
+      y: 0,
+    },
+    {
+      id: '3',
+      identifier: generateIdentifier(TV_CANDLE_CHART, 'BITTREX:XMRBTC'),
+      w: 4,
+      h: 4,
+      x: 0,
+      y: 4,
+    },
+    {
+      id: '4',
+      identifier: generateIdentifier(SUBREDDIT_COMMENT_COUNTS, 'Monero'),
+      w: 4,
+      h: 4,
+      x: 4,
+      y: 4,
+    },
+  ],
+};
 
 export const ITEM_KEY_TO_LABELS = {
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',

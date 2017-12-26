@@ -8,6 +8,7 @@ import { Dashboard }              from '../views';
 import { graphql }                from 'react-apollo';
 
 import {
+  SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
   computeDashboardFreeValues,
   parseIdentifer,
@@ -24,20 +25,37 @@ function f(identifier)
   const identifierKey = arr[0];
   const identifierValue = arr[1];
 
-  if (identifierKey === SUBREDDIT_POST_COUNTS)
+  switch (identifierKey)
   {
-    return `
-      ${identifier}: subredditByName(name: "${identifierValue}") {
-        id
-        displayName
-
-        postCounts {
+    case SUBREDDIT_COMMENT_COUNTS:
+      return `
+        ${identifier}: subredditByName(name: "${identifierValue}") {
           id
-          count
-          timestamp
+          displayName
+
+          commentCounts {
+            id
+            count
+            timestamp
+          }
         }
-      }
-    `;
+      `;
+    case SUBREDDIT_POST_COUNTS:
+      return `
+        ${identifier}: subredditByName(name: "${identifierValue}") {
+          id
+          displayName
+
+          postCounts {
+            id
+            count
+            timestamp
+          }
+        }
+      `;
+    default:
+      console.log('Missing query');
+      return null;
   }
   // else if (identifier.indexOf('TOKEN-PRICE') === 0)
   // {
@@ -58,10 +76,6 @@ function f(identifier)
   //     }
   //   `;
   // }
-  else
-  {
-    console.log('Missing query!!!!!');
-  }
 };
 
 function queryBuilder(dashboardItems)
