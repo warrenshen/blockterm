@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     //left: '-24px',
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
     width: '100%',
-    padding: '0px 20px 0px',
+    padding: '0px 15px 0px',
     boxSizing: 'content-box',
     backgroundColor: '#fff',
     //borderRadius: '6px',

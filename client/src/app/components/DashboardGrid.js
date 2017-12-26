@@ -187,7 +187,7 @@ class DashboardGrid extends Component {
         }
         <div
           className={css(styles.item, styles.addItem, nightMode && styles.nightMode)}
-          data-grid={{ i: 'ADD_DASHBOARD_ITEM_ELEMENT', w: 1, h: 1, x: 0, y: arr[0], static: true}}
+          data-grid={{ i: 'ADD_DASHBOARD_ITEM_ELEMENT', w: 1, h: 1, x: 0, y: arr[0], isResizable: false}}
           key={'ADD_DASHBOARD_ITEM_ELEMENT'}
         >
           <div className={css(styles.grabBar)}>
