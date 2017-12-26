@@ -9,7 +9,7 @@ class GraphqlController < ApplicationController
     context = {
       current_user: current_user,
     }
-    result = CryptoTrendsSchema.execute(
+    result = BlocktermSchema.execute(
       query,
       {
         variables: variables,

@@ -1,4 +1,4 @@
-CryptoTrendsSchema = GraphQL::Schema.define do
+BlocktermSchema = GraphQL::Schema.define do
   mutation(Types::MutationType)
   query(Types::QueryType)
 end
