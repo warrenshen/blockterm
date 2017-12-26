@@ -8,9 +8,6 @@ import { StyleSheet, css } from 'aphrodite';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import DashboardItem from '../components/DashboardItem';
 import { isIdentifierValid } from '../constants/items.js'
-import {
-  computeDashboardFreeValues,
-} from '../constants/items';
 import * as STYLES from '../constants/styles';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -114,8 +111,8 @@ class DashboardGrid extends Component {
   {
     const {
       changeDashboardItemPlotRange,
-      destroyDashboardItem,
       data,
+      destroyDashboardItem,
       nightMode,
       removeFromLayout,
     } = this.props;
@@ -162,47 +159,33 @@ class DashboardGrid extends Component {
   {
     const {
       dashboardItems,
+      logDashboardActionStart,
+      logDashboardActionStop,
       nightMode,
       saveLayout,
-      toggleSidebar,
     } = this.props;
 
     const validItems = dashboardItems.filter(
       (dashboardItem) => isIdentifierValid(dashboardItem.identifier)
     );
 
-    const arr = computeDashboardFreeValues(dashboardItems);
-
     return (
       <ResponsiveReactGridLayout
         className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
         cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
         compactType={null}
-        rowHeight={64}
+        onDragStart={logDashboardActionStart}
+        onDragStop={logDashboardActionStop}
+        onResizeStart={logDashboardActionStart}
+        onResizeStop={logDashboardActionStop}
         onLayoutChange={(layout, layouts) => saveLayout(layout)}
+        rowHeight={64}
       >
         {
           dashboardItems.map(
-            (dashboardItem) => this.renderItem(dashboardItem))
+            (dashboardItem) => this.renderItem(dashboardItem)
+          )
         }
-        <div
-          className={css(styles.item, styles.addItem, nightMode && styles.nightMode)}
-          data-grid={{ i: 'ADD_DASHBOARD_ITEM_ELEMENT', w: 1, h: 1, x: 0, y: arr[0], isResizable: false}}
-          key={'ADD_DASHBOARD_ITEM_ELEMENT'}
-        >
-          <div className={css(styles.grabBar)}>
-            <button
-              className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-            >
-            <strong>"</strong>
-          </button>
-          </div>
-          <button
-            className={css(styles.button, styles.addToButton, nightMode && styles.darkAddButton)}
-            onClick={(event) => toggleSidebar()} >
-            ADD WIDGET [+]
-          </button>
-        </div>
       </ResponsiveReactGridLayout>
     );
   }

@@ -36,12 +36,15 @@ const CHANGE_KEY_SELECT_VALUE = 'CHANGE_KEY_SELECT_VALUE';
 const CHANGE_VALUE_SELECT_VALUE = 'CHANGE_VALUE_SELECT_VALUE';
 const CREATE_DASHBOARD_ITEM_LOCAL = 'CREATE_DASHBOARD_ITEM_LOCAL';
 const DESTROY_DASHBOARD_ITEM_LOCAL = 'DESTROY_DASHBOARD_ITEM_LOCAL';
+const LOG_DASHBOARD_ACTION_START = 'LOG_DASHBOARD_ACTION_START';
+const LOG_DASHBOARD_ACTION_STOP = 'LOG_DASHBOARD_ACTION_STOP';
 const SAVE_DASHBOARD_ITEMS_LOCAL = 'SAVE_DASHBOARD_ITEMS_LOCAL';
 
 /* -----------------------------------------
   Reducer
  ------------------------------------------*/
 const initialState = {
+  dashboardAction: false,
   dashboardItems: [],
   keySelectValue: '',
   valueSelectValue: '',
@@ -144,6 +147,16 @@ export default function(state = initialState, action)
         ...state,
         dashboardItems: newDashboardItems,
       };
+    case LOG_DASHBOARD_ACTION_START:
+      return {
+        ...state,
+        dashboardAction: true,
+      };
+    case LOG_DASHBOARD_ACTION_STOP:
+      return {
+        ...state,
+        dashboardAction: false,
+      };
     case SAVE_DASHBOARD_ITEMS_LOCAL:
       newDashboardItems = action.value;
       setItem(DASHBOARD_COOKIE, newDashboardItems);
@@ -217,5 +230,19 @@ export function saveDashboardItemsLocal(value)
   return {
     type: SAVE_DASHBOARD_ITEMS_LOCAL,
     value: value,
+  };
+}
+
+export function logDashboardActionStart()
+{
+  return {
+    type: LOG_DASHBOARD_ACTION_START,
+  };
+}
+
+export function logDashboardActionStop()
+{
+  return {
+    type: LOG_DASHBOARD_ACTION_STOP,
   };
 }
