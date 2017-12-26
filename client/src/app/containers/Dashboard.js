@@ -227,6 +227,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
         const {
           changeDashboardItemPlotRange,
           changeKeySelectValue,
+          changeScrollActive,
           changeValueSelectValue,
           dashboard,
           dashboardAction,
@@ -237,6 +238,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
           logDashboardActionStop,
           nightMode,
           toggleSidebar,
+          scrollActive,
           sidebarActive,
           valueSelectValue,
         } = this.props;
@@ -248,6 +250,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
             addToLayout={(identifier) => this.addToLayout(identifier)}
             changeDashboardItemPlotRange={changeDashboardItemPlotRange}
             changeKeySelectValue={changeKeySelectValue}
+            changeScrollActive={changeScrollActive}
             changeValueSelectValue={changeValueSelectValue}
             dashboard={dashboard}
             dashboardAction={dashboardAction}
@@ -259,6 +262,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
             logDashboardActionStop={logDashboardActionStop}
             removeFromLayout={(id) => this.removeFromLayout(id)}
             saveLayout={(layout) => this.saveLayout(layout)}
+            scrollActive={scrollActive}
             sidebarActive={sidebarActive}
             valueSelectValue={valueSelectValue}
           />
