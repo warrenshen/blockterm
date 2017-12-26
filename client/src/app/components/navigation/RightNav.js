@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
     border: '1px solid #fff',
     borderRadius: '1px',
     padding: '4px 12px',
+    ':before': {
+      color: "#fff !important",
+    },
   },
   switch: {
     borderColor: '#555',

@@ -2,7 +2,8 @@
 @import '../../../node_modules/react-select/dist/react-select.css';
 @import '../../../node_modules/react-grid-layout/css/styles.css';
 @import '../../../node_modules/react-resizable/css/styles.css';
-@import '../../../node_modules/hamburgers/_sass/hamburgers/hamburgers.scss';
+// @import '../../../node_modules/hamburgers/_sass/hamburgers/hamburgers.scss';
+//@import '../../../node_modules/hamburgers/_sass/hamburgers/_base.scss';
 
 $bloomy: #2900EA;
 $ash: #565a5c;
@@ -190,6 +191,47 @@ $hamburger-hover-transition-duration       : 0.15s !default;
 $hamburger-hover-transition-timing-function: linear !default;
 $hamburger-hover-background-color          : #fafafa !default;
 
+$hamburger-hover-use-filter: false !default;
+$hamburger-hover-filter    : opacity(50%) !default;
+
+// Types (Remove or comment out what you don’t need)
+// ==================================================
+$hamburger-types: (
+  3dx,
+  3dx-r,
+  3dy,
+  3dy-r,
+  3dxy,
+  3dxy-r,
+  arrow,
+  arrow-r,
+  arrowalt,
+  arrowalt-r,
+  arrowturn,
+  arrowturn-r,
+  boring,
+  collapse,
+  collapse-r,
+  elastic,
+  elastic-r,
+  emphatic,
+  emphatic-r,
+  minus,
+  slider,
+  slider-r,
+  spin,
+  spin-r,
+  spring,
+  spring-r,
+  stand,
+  stand-r,
+  squeeze,
+  vortex,
+  vortex-r
+) !default;
+
+@import "../../../node_modules/hamburgers/_sass/hamburgers/types/arrow";
+
 .hamburger {
   padding: $hamburger-padding-y $hamburger-padding-x;
   display: inline-block;
@@ -222,5 +264,45 @@ $hamburger-hover-background-color          : #fafafa !default;
       border: 1px solid #000;
       //background-color: $hamburger-hover-background-color;
     }
+  }
+}
+
+.hamburger-box {
+  width: $hamburger-layer-width !important;
+  height: $hamburger-layer-height * 3 + $hamburger-layer-spacing * 2 !important;
+  display: inline-block;
+  position: relative;
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: $hamburger-layer-height / -2 !important;
+
+  &,
+  &::before,
+  &::after {
+    width: $hamburger-layer-width !important;
+    height: $hamburger-layer-height !important;
+    background-color: $hamburger-layer-color !important;
+    border-radius: $hamburger-layer-border-radius !important;
+    position: absolute !important;
+    transition-property: transform !important;
+    transition-duration: 0.15s !important;
+    transition-timing-function: ease !important;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+  }
+
+  &::before {
+    top: ($hamburger-layer-spacing + $hamburger-layer-height) * -1 !important;
+  }
+
+  &::after {
+    bottom: ($hamburger-layer-spacing + $hamburger-layer-height) * -1 !important;
   }
 }

@@ -11,6 +11,7 @@ import {
 import { DashboardItemsQuery } from '../queries';
 import * as dashboardActions   from '../redux/modules/dashboard';
 import Dashboard               from './Dashboard';
+import * as globalsActions    from '../redux/modules/globals';
 
 
 /* -----------------------------------------
@@ -123,6 +124,7 @@ const mapDispatchToProps = (dispatch) => {
       createDashboardItemLocal: dashboardActions.createDashboardItemLocal,
       destroyDashboardItemLocal: dashboardActions.destroyDashboardItemLocal,
       saveDashboardItemsLocal: dashboardActions.saveDashboardItemsLocal,
+      toggleSidebar: globalsActions.toggleSidebar,
     },
     dispatch
   );

@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: '2px',
     position: 'absolute',
-    left: '140px',
+    left: '135px',
     top: '15px',
     fontSize: '10px',
     fontWeight: '500',
