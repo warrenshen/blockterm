@@ -5,10 +5,8 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import { Responsive, WidthProvider } from 'react-grid-layout';
-import DashboardItem from '../components/DashboardItem';
+import DashboardGrid from '../components/DashboardGrid';
 import * as STYLES from '../constants/styles';
-import { isIdentifierValid } from '../constants/items.js'
 import Select from 'react-select';
 import {
   ITEM_KEY_TO_LABELS,
@@ -17,8 +15,6 @@ import {
   generateIdentifier,
 } from '../constants/items';
 import Sidebar from 'react-sidebar';
-
-const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 const styles = StyleSheet.create({
   container: {
@@ -74,55 +70,6 @@ const styles = StyleSheet.create({
 });
 
 class Dashboard extends PureComponent {
-
-  renderItem(dashboardItem)
-  {
-    const {
-      changeDashboardItemPlotRange,
-      destroyDashboardItem,
-      dashboard,
-      data,
-      nightMode,
-      removeFromLayout,
-    } = this.props;
-
-    const {
-      id,
-      identifier,
-      w,
-      h,
-      x,
-      y,
-    } = dashboardItem;
-
-    const layout = {
-      i: id,
-      w: w,
-      h: h,
-      x: x,
-      y: y,
-      minW: 1,
-      maxW: 8,
-    };
-
-    return (
-      <div
-        className={css(styles.item, nightMode && styles.nightMode)}
-        data-grid={layout}
-        key={id}
-      >
-        <DashboardItem
-          changeDashboardItemPlotRange={changeDashboardItemPlotRange}
-          dashboardItem={dashboardItem}
-          data={data[identifier]}
-          destroyDashboardItem={destroyDashboardItem}
-          nightMode={nightMode}
-          removeFromLayout={removeFromLayout}
-          storeState={dashboard[id]}
-        />
-      </div>
-    );
-  }
 
   addItem(event)
   {
@@ -190,6 +137,7 @@ class Dashboard extends PureComponent {
   {
     const {
       changeKeySelectValue,
+      dashboard,
       dashboardItems,
       data,
       keySelectValue,
@@ -204,10 +152,6 @@ class Dashboard extends PureComponent {
     }
     else
     {
-      const validItems = dashboardItems.filter(
-        (dashboardItem) => isIdentifierValid(dashboardItem.identifier)
-      );
-
       const overlayStyle = {
         transition: 'opacity .2s ease-out, visibility .2s ease-out',
         backgroundColor: `rgba(0,0,0,${nightMode ? 0.3 : 0.1})`,
@@ -217,6 +161,7 @@ class Dashboard extends PureComponent {
         label: arr[1],
         value: arr[0],
       }));
+
       return (
         <div className={css(styles.container)}>
           <Sidebar
@@ -240,17 +185,13 @@ class Dashboard extends PureComponent {
             shadow={false}
             styles={{root: { height: '100%' }, overlay: overlayStyle, }}
           >
-            <ResponsiveReactGridLayout
-              className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
-              cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
-              rowHeight={128}
-              onLayoutChange={(layout, layouts) => saveLayout(layout)}
-            >
-              {
-                dashboardItems.map(
-                  (dashboardItem) => this.renderItem(dashboardItem))
-              }
-            </ResponsiveReactGridLayout>
+            <DashboardGrid
+              dashboard={dashboard}
+              dashboardItems={dashboardItems}
+              data={data}
+              nightMode={nightMode}
+              saveLayout={saveLayout}
+            />
             <div className={css(styles.placeholder, nightMode && styles.gridNightContainer)}>
             </div>
           </Sidebar>

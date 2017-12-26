@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, {
-  PureComponent,
+  Component,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
@@ -50,7 +50,13 @@ const styles = StyleSheet.create({
   },
 });
 
-class DashboardItem extends PureComponent {
+class DashboardItem extends Component {
+
+  shouldComponentUpdate(nextProps, nextState)
+  {
+    return this.props !== nextProps;
+  }
+
   renderItem(dashboardItem)
   {
     const {

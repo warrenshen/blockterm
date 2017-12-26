@@ -29,9 +29,9 @@ const SubredditPostsItem = ({
   nightMode,
   storeState,
 }) => {
-  const {
-    plotRange,
-  } = storeState;
+  // const {
+  //   plotRange,
+  // } = storeState;
 
   const {
     postCount,
@@ -45,7 +45,7 @@ const SubredditPostsItem = ({
     postCounts,
     postCount,
     'last 24 hours',
-    isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD'
+    isPlotRangeBig('1 week') ? 'M/D/YY' : 'MM/DD'
   );
 
   return (
@@ -54,7 +54,7 @@ const SubredditPostsItem = ({
         data={postsData}
         nightMode={nightMode}
         selectOptions={RANGE_SELECT_OPTIONS}
-        selectValue={plotRange}
+        selectValue={'1 week'}
         title={'Number of new posts'}
         onChange={(option) => changeDashboardItemPlotRange(dashboardItem.id, option.value)}
       />
