@@ -53,7 +53,8 @@ module Types
       resolve -> (obj, args, ctx) {
         QueryHelper::filter_relation_by_time_range(
           obj.active_user_counts,
-          args[:timeRange]
+          args[:timeRange],
+          'max'
         )
       }
     end
@@ -92,7 +93,8 @@ module Types
       resolve -> (obj, args, ctx) {
         QueryHelper::filter_relation_by_time_range(
           obj.subscriber_counts,
-          args[:timeRange]
+          args[:timeRange],
+          'max'
         )
       }
     end

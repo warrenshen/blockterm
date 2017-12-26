@@ -324,7 +324,7 @@ def create_subscriber_counts_for_subreddit(subreddit, days=30, increment=3)
   puts "Created #{days} subscriber counts for the #{subreddit.display_name} subreddit"
 end
 
-def create_active_user_counts_for_subreddit(subreddit, days=30, increment=50)
+def create_active_user_counts_for_subreddit(subreddit, days=30, increment=4)
   today = DateTime.now.beginning_of_day
   active_user_count = 3000
 

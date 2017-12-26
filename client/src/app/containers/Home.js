@@ -77,7 +77,6 @@ const destroyDashboardItemMutationOptions = {
 const updateDashboardItemsMutationOptions = {
   props: ({ mutate, ownProps }) => ({
     updateDashboardItems(dashboardItems) {
-      console.log(dashboardItems);
       return mutate({
         updateQueries: {
           DashboardItemsQuery: (prev, { mutationResult }) => ({

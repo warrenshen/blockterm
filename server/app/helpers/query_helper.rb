@@ -1,5 +1,26 @@
 module QueryHelper
-  def self.filter_relation_by_time_range(relation, time_range, default_time_range=7.days)
+  def self.bin_relation_by_k(relation, bin_strategy, k=2)
+    result = []
+    relation = relation.each_slice(k) do |records|
+      total_count = MentionTotalCount.new(records[0].subreddit_id, records[0].timestamp)
+      records.each do |record|
+        if bin_strategy == 'total'
+          total_count.increment_by(record.count)
+        else
+          total_count.max_by(record.count)
+        end
+      end
+      result << total_count
+    end
+    result
+  end
+
+  def self.filter_relation_by_time_range(
+    relation,
+    time_range,
+    bin_strategy='total',
+    default_time_range=7.days
+  )
     clause = 'timestamp > ?'
     now = DateTime.now
     today = Date.today
@@ -24,7 +45,14 @@ module QueryHelper
       relation = relation.where(clause, today - 3.years)
     end
 
-    relation.order(timestamp: :asc)
+    relation = relation.order(timestamp: :asc)
+
+    relation_count = relation.length
+    if relation_count > 365
+      relation = self.bin_relation_by_k(relation, bin_strategy, relation_count / 365)
+    end
+
+    relation
   end
 
   def self.get_earliest_instance_timestamp(relation)
