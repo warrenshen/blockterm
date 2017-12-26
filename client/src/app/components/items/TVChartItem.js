@@ -36,22 +36,19 @@ class TVChartItem extends PureComponent {
       'hidetoptoolbar=1&' + 
       'hidesidetoolbar=1&' +
       'symboledit=0&' +
-      'saveimage=1&' +
+      'saveimage=0&' +
       'toolbarbg=rgba(0,0,0,0)&' +
       'hideideas=1&' +
       `theme=${nightMode ? "Dark" : "Light"}&` +
       'timezone=exchange'
     ;
-    console.log(url);
 
     return (
       <div className={css(styles.container)}>
         <iframe
           className={css(styles.frame, nightMode && styles.nightFrame)}
           src={url}
-          ref={(el) => this.instance = el}
-        >
-        </iframe>
+        />
       </div>
     );
   }

@@ -12,15 +12,19 @@ import {
 import {
   RANGE_SELECT_OPTIONS,
 } from '../constants/plots';
+import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
 import SubredditPostsItem from './items/SubredditPostsItem';
 import TokenPriceItem from './items/TokenPriceItem';
 import TVChartItem from './items/TVChartItem';
+import TVMarketOverviewItem from './items/TVMarketOverviewItem';
 import * as STYLES from '../constants/styles';
 import El                  from './El';
 
 import {
+  SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
   TV_CANDLE_CHART,
+  TV_MARKET_OVERVIEW,
   parseIdentifer,
 }                             from '../constants/items';
 
@@ -84,6 +88,15 @@ class DashboardItem extends Component {
 
     switch (identifierKey)
     {
+      case SUBREDDIT_COMMENT_COUNTS:
+        return (
+          <SubredditCommentCountsItem
+            data={data}
+            id={dashboardItem.id}
+            nightMode={nightMode}
+            storeState={storeState}
+          />
+        );
       case SUBREDDIT_POST_COUNTS:
         return (
           <SubredditPostsItem
@@ -110,6 +123,12 @@ class DashboardItem extends Component {
             value={identifierValue}
           />
         );
+      case TV_MARKET_OVERVIEW:
+        return (
+          <TVMarketOverviewItem
+            nightMode={nightMode}
+          />
+        );
       default:
         return <div>Unmatched identifier</div>;
     }
@@ -134,7 +153,7 @@ class DashboardItem extends Component {
       >
         <div className={css(styles.grabBar)}>
           <div className={css(styles.section)}>
-            <El 
+            <El
               style={styles.widgetTitle}
               nightMode={nightMode}
               type={'h5'}>
