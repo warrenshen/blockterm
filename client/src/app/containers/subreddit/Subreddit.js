@@ -14,8 +14,9 @@ import * as plotsActions      from '../../redux/modules/plots';
 const SubredditQuery = gql`
   query ($id: ID!,
          $activeUserCountsTimeRange: String,
+         $commentCountsTimeRange: String,
          $postCountsTimeRange: String,
-         $commentCountsTimeRange: String) {
+         $subscriberCountsTimeRange: String) {
     subredditById(id: $id) {
       id
       description
@@ -32,25 +33,21 @@ const SubredditQuery = gql`
       updatedAt
 
       activeUserCounts(timeRange: $activeUserCountsTimeRange) {
-        id
         count
         timestamp
       }
 
       commentCounts(timeRange: $commentCountsTimeRange) {
-        id
         count
         timestamp
       }
 
       postCounts(timeRange: $postCountsTimeRange) {
-        id
         count
         timestamp
       }
 
-      subscriberCounts {
-        id
+      subscriberCounts(timeRange: $subscriberCountsTimeRange) {
         count
         timestamp
       }

@@ -34,7 +34,6 @@ function f(identifier)
           displayName
 
           commentCounts {
-            id
             count
             timestamp
           }
@@ -47,7 +46,6 @@ function f(identifier)
           displayName
 
           postCounts {
-            id
             count
             timestamp
           }
