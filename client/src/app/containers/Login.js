@@ -25,15 +25,17 @@ const logInMutationOptions = {
 
       return mutate({
         updateQueries: {
-          UserQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.logIn.user,
-          }),
+          UserQuery: (prev, { mutationResult }) => {
+            setItem(AUTH_TOKEN_COOKIE, mutationResult.data.logIn.authToken);
+            return {
+              user: mutationResult.data.logIn.user,
+            }
+          },
         },
         variables: { email, password },
       })
       .then(
         (response) => {
-          setItem(AUTH_TOKEN_COOKIE, response.data.logIn.authToken);
           return Promise.resolve();
         }
       )
