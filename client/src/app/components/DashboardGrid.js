@@ -66,6 +66,36 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '256px',
   },
+  addItem: {
+    fontWeight: '700',
+  },
+  closeButton: {
+    color: '#000',
+    borderLeft: `1px solid ${STYLES.BORDERLIGHT}`,
+    padding: '0px 2px',
+    lineHeight: '12px',
+  },
+  darkCloseButton: {
+    backgroundColor: '#000',
+    color: '#fff',
+  },
+  grabBar: {
+    lineHeight: '4px',
+    textAlign: 'right',
+    width: '100%',
+    borderBottom: `1px solid #666`,
+    ':hover': {
+      cursor: 'move',
+    },
+  },
+  addToButton: {
+    minHeight: '47px',
+    height: '-webkit-fill-available',
+    borderBottom: '1px solid #777',
+    color: '#444 !important',
+    letterSpacing: '2px !important',
+    fontSize: '13px',
+  },
 });
 
 class DashboardGrid extends Component {
@@ -102,6 +132,7 @@ class DashboardGrid extends Component {
       y: y,
       minW: 1,
       maxW: 8,
+      minH: 2,
     };
 
     return (
@@ -128,6 +159,7 @@ class DashboardGrid extends Component {
       dashboardItems,
       nightMode,
       saveLayout,
+      toggleSidebar,
     } = this.props;
 
     const validItems = dashboardItems.filter(
@@ -141,7 +173,7 @@ class DashboardGrid extends Component {
         className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
         cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
         compactType={null}
-        rowHeight={128}
+        rowHeight={64}
         onLayoutChange={(layout, layouts) => saveLayout(layout)}
       >
         {
@@ -149,11 +181,23 @@ class DashboardGrid extends Component {
             (dashboardItem) => this.renderItem(dashboardItem))
         }
         <div
-          className={css(styles.item, nightMode && styles.nightMode)}
-          data-grid={{ i: 'ADD_DASHBOARD_ITEM_ELEMENT', w: 1, h: 1, x: 0, y: arr[0] }}
+          className={css(styles.item, styles.addItem, nightMode && styles.nightMode)}
+          data-grid={{ i: 'ADD_DASHBOARD_ITEM_ELEMENT', w: 1, h: 1, x: 0, y: arr[0], static: true}}
           key={'ADD_DASHBOARD_ITEM_ELEMENT'}
         >
-          +
+          <div className={css(styles.grabBar)}>
+            <button
+              className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+              onClick={(event) => removeFromLayout(id)}
+            >
+            <strong>-</strong>
+          </button>
+          </div>
+          <button
+            className={css(styles.button, styles.addToButton)}
+            onClick={(event) => toggleSidebar()} >
+            + ADD WIDGET
+          </button>
         </div>
       </ResponsiveReactGridLayout>
     );

@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     height: '100%', //might be overzealous
   },
   nightSidebar: {
-    backgroundColor:STYLES.LIGHTNIGHT,
+    backgroundColor: STYLES.LIGHTNIGHT,
   },
   bolded: {
     fontWeight: '700',
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
   placeholder: {
     width: '100%',
     height: '256px',
+    backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
   },
 });
 
@@ -144,6 +145,7 @@ class Dashboard extends PureComponent {
       nightMode,
       removeFromLayout,
       sidebarActive,
+      toggleSidebar,
       saveLayout,
     } = this.props;
 
@@ -191,9 +193,11 @@ class Dashboard extends PureComponent {
               dashboardItems={dashboardItems}
               data={data}
               nightMode={nightMode}
+              toggleSidebar={toggleSidebar}
               removeFromLayout={removeFromLayout}
               saveLayout={saveLayout}
             />
+            
             <div className={css(styles.placeholder, nightMode && styles.gridNightContainer)}>
             </div>
           </Sidebar>
