@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   body: {
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
-    padding: '0px 20px',
+    padding: '0px 15px',
     boxSizing: 'content-box',
     backgroundColor: 'white',
     display: 'flex',
