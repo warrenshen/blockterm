@@ -54,6 +54,7 @@ class DashboardTabs extends PureComponent {
   render()
   {
     const {
+      changeSelectedTab,
       dashboard,
       dashboardAction,
       dashboardItems,
@@ -63,14 +64,15 @@ class DashboardTabs extends PureComponent {
       nightMode,
       removeFromLayout,
       saveLayout,
+      selectedTab,
       toggleSidebar,
     } = this.props;
 
     return (
       <div className={css(styles.container, nightMode && styles.nightContainer)}>
         <Tabs
-          onSelect={(tabIndex) => this.setState({ tabIndex })}
-          selectedIndex={0}
+          onSelect={(tabIndex) => changeSelectedTab(tabIndex)}
+          selectedIndex={selectedTab}
         >
           <TabList>
             <Tab>
