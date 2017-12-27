@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     backgroundColor: STYLES.LIGHTNIGHT,
   },
   mainContent: {
-    //width: '80vw',
     width: '100vw',
   },
   sidebar: {
@@ -212,7 +211,7 @@ class Home extends PureComponent {
                         </El>
                       </td>
                       <td className={css(styles.element)}>
-                        <Link to={`/subreddit/${subreddit.id}`}>
+                        <Link to={`/subreddit/${subreddit.name}`}>
                           <El
                             nightMode={nightMode}
                             type={'h5'}
@@ -259,7 +258,7 @@ class Home extends PureComponent {
                           data={data}
                           options={{
                             legend: { display: false },
-                            tooltips: { enabled: false }, 
+                            tooltips: { enabled: false },
                             scales: {
                               xAxes: [{
                                 ticks: {

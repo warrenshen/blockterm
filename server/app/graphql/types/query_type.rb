@@ -52,7 +52,7 @@ module Types
       argument :name, !types.String
 
       resolve -> (obj, args, ctx) {
-        Subreddit.find_by(name: args[:name])
+        QueryHelper::find_subreddit_by_name(args[:name])
       }
     end
 
@@ -73,6 +73,16 @@ module Types
 
       resolve -> (obj, args, ctx) {
         Token.find(args[:id])
+      }
+    end
+
+    field :tokenByShortName, Types::TokenType do
+      description 'Gets the token associated with given short name'
+
+      argument :shortName, !types.String
+
+      resolve -> (obj, args, ctx) {
+        Token.find_by_short_name(args[:shortName])
       }
     end
 

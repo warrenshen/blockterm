@@ -29,10 +29,10 @@ export const MainRoutes = () => {
       <Route exact path='/subreddits' component={ConnectedSubreddits} />
       <Route exact path='/subreddits/compare' component={ConnectedSubredditsCompare} />
 
-      <Route exact path='/subreddit/:id' component={ConnectedSubreddit} />
+      <Route exact path='/subreddit/:name' component={ConnectedSubreddit} />
 
       <Route exact path='/tokens' component={ConnectedTokens} />
-      <Route exact path='/token/:id' component={ConnectedToken} />
+      <Route exact path='/token/:shortName' component={ConnectedToken} />
     </Switch>
   );
 };

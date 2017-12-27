@@ -95,7 +95,7 @@ class Token extends PureComponent {
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         <div className={css(styles.mainContent)}>
-          { data && data.tokenById && this.renderToken(data.tokenById) }
+          { data && data.tokenByShortName && this.renderToken(data.tokenByShortName) }
         </div>
       </div>
     );
