@@ -110,6 +110,7 @@ const mapStateToProps = (state) => {
     keySelectValue: state.dashboard.keySelectValue,
     nightMode: state.globals.nightMode,
     scrollActive: state.dashboard.scrollActive,
+    selectedTab: state.dashboard.selectedTab,
     sidebarActive: state.globals.sidebarActive,
     valueSelectValue: state.dashboard.valueSelectValue,
   };
@@ -121,6 +122,7 @@ const mapDispatchToProps = (dispatch) => {
       changeDashboardItemPlotRange: dashboardActions.changeDashboardItemPlotRange,
       changeKeySelectValue: dashboardActions.changeKeySelectValue,
       changeScrollActive: dashboardActions.changeScrollActive,
+      changeSelectedTab: dashboardActions.changeSelectedTab,
       changeValueSelectValue: dashboardActions.changeValueSelectValue,
       createDashboardItemLocal: dashboardActions.createDashboardItemLocal,
       destroyDashboardItemLocal: dashboardActions.destroyDashboardItemLocal,

@@ -185,6 +185,7 @@ class Dashboard extends PureComponent {
   {
     const {
       changeKeySelectValue,
+      changeSelectedTab,
       dashboard,
       dashboardAction,
       dashboardItems,
@@ -196,6 +197,7 @@ class Dashboard extends PureComponent {
       removeFromLayout,
       saveLayout,
       scrollActive,
+      selectedTab,
       sidebarActive,
       toggleSidebar,
     } = this.props;
@@ -249,6 +251,7 @@ class Dashboard extends PureComponent {
           >
             {this.renderScrollShield()}
             <DashboardTabs
+              changeSelectedTab={changeSelectedTab}
               dashboard={dashboard}
               dashboardAction={dashboardAction}
               dashboardItems={dashboardItems}
@@ -258,6 +261,7 @@ class Dashboard extends PureComponent {
               nightMode={nightMode}
               removeFromLayout={removeFromLayout}
               saveLayout={saveLayout}
+              selectedTab={selectedTab}
               toggleSidebar={toggleSidebar}
             />
           </Sidebar>

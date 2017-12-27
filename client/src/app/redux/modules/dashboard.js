@@ -34,6 +34,7 @@ const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_DASHBOARD_ITEM_PLOT_RANGE = 'CHANGE_DASHBOARD_ITEM_PLOT_RANGE';
 const CHANGE_KEY_SELECT_VALUE = 'CHANGE_KEY_SELECT_VALUE';
 const CHANGE_SCROLL_ACTIVE = 'CHANGE_SCROLL_ACTIVE';
+const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
 const CHANGE_VALUE_SELECT_VALUE = 'CHANGE_VALUE_SELECT_VALUE';
 const CREATE_DASHBOARD_ITEM_LOCAL = 'CREATE_DASHBOARD_ITEM_LOCAL';
 const DESTROY_DASHBOARD_ITEM_LOCAL = 'DESTROY_DASHBOARD_ITEM_LOCAL';
@@ -134,6 +135,11 @@ export default function(state = initialState, action)
         ...state,
         scrollActive: action.value,
       };
+    case CHANGE_SELECTED_TAB:
+      return {
+        ...state,
+        selectedTab: action.value,
+      };
     case CHANGE_VALUE_SELECT_VALUE:
       return {
         ...state,
@@ -209,6 +215,22 @@ export function changeKeySelectValue(value)
   };
 }
 
+export function changeScrollActive(value)
+{
+  return {
+    type: CHANGE_SCROLL_ACTIVE,
+    value: value,
+  };
+}
+
+export function changeSelectedTab(value)
+{
+  return {
+    type: CHANGE_SELECTED_TAB,
+    value: value,
+  };
+}
+
 export function changeValueSelectValue(value)
 {
   return {
@@ -252,13 +274,5 @@ export function logDashboardActionStop()
 {
   return {
     type: LOG_DASHBOARD_ACTION_STOP,
-  };
-}
-
-export function changeScrollActive(value)
-{
-  return {
-    type: CHANGE_SCROLL_ACTIVE,
-    value: value,
   };
 }
