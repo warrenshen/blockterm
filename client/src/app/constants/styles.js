@@ -8,7 +8,7 @@ export const LIGHTBACKGROUNDGRAY = '#ececec !important';
 
 //borders
 export const BORDERLIGHT = '#999';
-export const BORDERDARK = '#666';
+export const BORDERDARK = '#777';
 
 export const BLOOMYBLUE = '#2900EA';
 export const LAVENDER = '#6447ED';

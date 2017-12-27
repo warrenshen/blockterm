@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
   },
   night: {
     backgroundColor:'black',
-    color:'#fff',
+    color:'#fff !important',
+    borderColor: '#fff !important',
   },
   nightSelect: {
     backgroundColor:'black',
@@ -167,6 +168,7 @@ class BarChartWithSelect extends PureComponent {
                 options={selectOptions}
                 onChange={onChange}
                 searchable={false}
+                //inputProps={{'style':'background-color:black; color:#fff !important; borderColor: #fff !important;'}}
                 value={selectValue}
               />
             </div>
