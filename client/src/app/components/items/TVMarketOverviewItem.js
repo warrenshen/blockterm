@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '110%',
-    //paddingBottom: '15px',
     overflowY: 'hidden',
     marginTop: '-55px',
   },
