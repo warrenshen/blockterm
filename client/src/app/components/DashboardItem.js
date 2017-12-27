@@ -46,8 +46,10 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   grabBar: {
+    zIndex: '2',
     display: 'flex',
     flexDirection: 'row',
+    backgroundColor: '#fff',
     justifyContent: 'space-between',
     lineHeight: '4px',
     width: '100%',
@@ -55,6 +57,9 @@ const styles = StyleSheet.create({
     ':hover': {
       cursor: 'move',
     },
+  },
+  nightBar: {
+    backgroundColor: '#000',
   },
   widgetTitle: {
     lineHeight: '12px',
@@ -159,7 +164,7 @@ class DashboardItem extends Component {
         className={css(styles.container)}
         key={id}
       >
-        <div className={css(styles.grabBar)}>
+        <div className={css(styles.grabBar, nightMode && styles.nightBar)}>
           <div className={css(styles.section)}>
             <El
               style={styles.widgetTitle}
