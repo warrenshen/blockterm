@@ -106,12 +106,15 @@ function wrapDynamicGraphQL(ComponentToWrap)
     componentWillReceiveProps(nextProps)
     {
       if (this.wrapped === null ||
-          (this.props.dashboardItems !== nextProps.dashboardItems &&
-          this.props.dashboardItems.length !== nextProps.dashboardItems.length))
+          this.props.selectedTab !== nextProps.selectedTab ||
+          this.props.dashboardPages[this.props.selectedTab].length !== nextProps.dashboardPages[nextProps.selectedTab].length)
       {
         const {
-          dashboardItems,
+          dashboardPages,
+          selectedTab,
         } = nextProps;
+
+        const dashboardItems = dashboardPages[selectedTab];
         const { query, config } = queryBuilder(dashboardItems);
         this.wrapped = graphql(query, config)(ComponentToWrap);
       }
@@ -174,25 +177,24 @@ function wrapDynamicGraphQL(ComponentToWrap)
     {
       const {
         data,
-        dashboardItems,
+        dashboardPages,
         saveDashboardItemsLocal,
+        selectedTab,
         updateDashboardItems,
       } = this.props;
 
       var layoutChanged = false;
       const newDashboardItemsMap = {};
       layout.forEach((dashboardItem) => {
-        if (dashboardItem.i !== 'ADD_DASHBOARD_ITEM_ELEMENT')
-        {
-          newDashboardItemsMap[dashboardItem.i] = {
-            id: dashboardItem.i,
-            w: dashboardItem.w,
-            h: dashboardItem.h,
-            x: dashboardItem.x,
-            y: dashboardItem.y,
-          };
-        }
+        newDashboardItemsMap[dashboardItem.i] = {
+          id: dashboardItem.i,
+          w: dashboardItem.w,
+          h: dashboardItem.h,
+          x: dashboardItem.x,
+          y: dashboardItem.y,
+        };
       });
+      const dashboardItems = dashboardPages[selectedTab];
       dashboardItems.forEach((dashboardItem) => {
         const matchItem = newDashboardItemsMap[dashboardItem.id];
         layoutChanged = layoutChanged || dashboardItem.w != matchItem.w;
@@ -232,7 +234,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
           changeValueSelectValue,
           dashboard,
           dashboardAction,
-          dashboardItems,
+          dashboardPages,
           data,
           keySelectValue,
           logDashboardActionStart,
@@ -257,7 +259,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
             changeValueSelectValue={changeValueSelectValue}
             dashboard={dashboard}
             dashboardAction={dashboardAction}
-            dashboardItems={dashboardItems}
+            dashboardPages={dashboardPages}
             keySelectValue={keySelectValue}
             nightMode={nightMode}
             toggleSidebar={toggleSidebar}

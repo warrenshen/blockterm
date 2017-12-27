@@ -75,13 +75,41 @@ const styles = StyleSheet.create({
 });
 
 class DashboardTabs extends PureComponent {
-  render()
+
+  renderTabList()
+  {
+    return (
+      <TabList className={css(styles.tabBar)}>
+        <Tab className={css(styles.tab)}>
+          <button>
+            Tab 1
+          </button>
+        </Tab>
+        <Tab className={css(styles.tab)}>
+          <button>
+            Tab 2
+          </button>
+        </Tab>
+        <Tab className={css(styles.tab)}>
+          <button>
+            Tab 3
+          </button>
+        </Tab>
+        <Tab className={css(styles.tab)}>
+          <button>
+            Tab 4
+          </button>
+        </Tab>
+      </TabList>
+    );
+  }
+
+  renderTabPanels()
   {
     const {
-      changeSelectedTab,
       dashboard,
       dashboardAction,
-      dashboardItems,
+      dashboardPages,
       data,
       logDashboardActionStart,
       logDashboardActionStop,
@@ -92,76 +120,57 @@ class DashboardTabs extends PureComponent {
       toggleSidebar,
     } = this.props;
 
+    return Object.entries(dashboardPages).map((arr) => {
+      const tabIndex = arr[0];
+      const dashboardItems = arr[1];
+      return (
+        <TabPanel key={tabIndex}>
+          <DashboardGrid
+            dashboard={dashboard}
+            dashboardAction={dashboardAction}
+            dashboardItems={dashboardItems}
+            data={data}
+            logDashboardActionStart={logDashboardActionStart}
+            logDashboardActionStop={logDashboardActionStop}
+            nightMode={nightMode}
+            removeFromLayout={removeFromLayout}
+            saveLayout={saveLayout}
+            toggleSidebar={toggleSidebar}
+          />
+          <div
+            className={css(styles.placeholder, nightMode && styles.nightContainer)}
+          >
+            <div
+              className={css(styles.item, styles.addItem, styles.addToButton, nightMode && styles.nightMode)}
+            >
+              <button
+                className={css(styles.button, nightMode && styles.darkAddButton)}
+                onClick={(event) => toggleSidebar()} >
+                Add Widget [+]
+              </button>
+            </div>
+          </div>
+        </TabPanel>
+      );
+    });
+  }
+
+  render()
+  {
+    const {
+      changeSelectedTab,
+      nightMode,
+      selectedTab,
+    } = this.props;
+
     return (
       <div className={css(styles.container, nightMode && styles.nightContainer)}>
         <Tabs
           onSelect={(tabIndex) => changeSelectedTab(tabIndex)}
           selectedIndex={selectedTab}
         >
-          <TabList className={css(styles.tabBar)}>
-            <Tab className={css(styles.tab)}>
-              <button>
-                Tab 1
-              </button>
-            </Tab>
-            <Tab className={css(styles.tab)}>
-              <button>
-                Tab 2
-              </button>
-            </Tab>
-            <Tab className={css(styles.tab)}>
-              <button>
-                Tab 3
-              </button>
-            </Tab>
-            <Tab className={css(styles.tab)}>
-              <button>
-                Tab 4
-              </button>
-            </Tab>
-          </TabList>
-          <TabPanel>
-            <DashboardGrid
-              dashboard={dashboard}
-              dashboardAction={dashboardAction}
-              dashboardItems={dashboardItems}
-              data={data}
-              logDashboardActionStart={logDashboardActionStart}
-              logDashboardActionStop={logDashboardActionStop}
-              nightMode={nightMode}
-              toggleSidebar={toggleSidebar}
-              removeFromLayout={removeFromLayout}
-              saveLayout={saveLayout}
-            />
-            <div
-              className={css(styles.placeholder, nightMode && styles.nightContainer)}
-            >
-              <div
-                className={css(styles.item, styles.addItem, styles.addToButton, nightMode && styles.nightMode)}
-              >
-                <button
-                  className={css(styles.button, nightMode && styles.darkAddButton)}
-                  onClick={(event) => toggleSidebar()} >
-                  Add Widget [+]
-                </button>
-              </div>
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div
-              className={css(styles.placeholder, nightMode && styles.gridNightContainer)}
-            >
-              <div
-                className={css(styles.item, styles.addItem, styles.addToButton, nightMode && styles.nightMode)}
-              >
-                <button
-                  className={css(styles.button, nightMode && styles.darkAddButton)}
-                  onClick={(event) => toggleSidebar()} >
-                  Add Widget [+]
-                </button>
-              </div>
-            </div>
-          </TabPanel>
+          {this.renderTabList()}
+          {this.renderTabPanels()}
         </Tabs>
       </div>
     );
