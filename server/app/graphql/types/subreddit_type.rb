@@ -19,7 +19,7 @@ module Types
     end
     field :updatedAt, types.String do
       resolve -> (obj, args, ctx) {
-        obj.updated_at.to_s
+        QueryHelper::localize_timestamp(obj.updated_at).to_s
       }
     end
 
