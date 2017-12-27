@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
   closeButton: {
     color: '#000',
     borderLeft: `1px solid ${STYLES.BORDERLIGHT}`,
-    padding: '0px 2px',
-    lineHeight: '12px',
+    padding: '2px 4px',
+    lineHeight: '14px',
   },
   darkCloseButton: {
     backgroundColor: '#000',
@@ -62,12 +62,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
   widgetTitle: {
-    lineHeight: '12px',
-    fontSize: '12px',
+    lineHeight: '16px',
+    fontSize: '14px',
     textTransform: 'uppercase',
     letterSpacing: '1px',
-    marginLeft: '2px',
-    marginTop: '2px',
+    marginLeft: '4px',
+    marginTop: '1px',
+    fontWeight: '500',
   },
   section: {
     flex: '1',
