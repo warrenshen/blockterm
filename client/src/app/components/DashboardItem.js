@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   closeButton: {
     color: '#000',
     borderLeft: `1px solid ${STYLES.BORDERLIGHT}`,
-    padding: '2px 4px',
+    padding: '1px 4px',
     lineHeight: '14px',
   },
   darkCloseButton: {

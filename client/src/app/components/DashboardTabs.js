@@ -59,6 +59,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     color: '#fff',
   },
+  tabBar: {
+    position: 'fixed',
+    bottom: '0px',
+    zIndex: '1',
+    backgroundColor: 'white',
+    border: '1px solid #666',
+  },
+  tab: {
+    fontWeight: '500',
+  },
+  tabText: {
+    //nothing yet
+  },
 });
 
 class DashboardTabs extends PureComponent {
@@ -85,12 +98,26 @@ class DashboardTabs extends PureComponent {
           onSelect={(tabIndex) => changeSelectedTab(tabIndex)}
           selectedIndex={selectedTab}
         >
-          <TabList>
-            <Tab>
-              <h2>Tab 1</h2>
+          <TabList className={css(styles.tabBar)}>
+            <Tab className={css(styles.tab)}>
+              <button>
+                Tab 1
+              </button>
             </Tab>
-            <Tab>
-              <h2>Tab 2</h2>
+            <Tab className={css(styles.tab)}>
+              <button>
+                Tab 2
+              </button>
+            </Tab>
+            <Tab className={css(styles.tab)}>
+              <button>
+                Tab 3
+              </button>
+            </Tab>
+            <Tab className={css(styles.tab)}>
+              <button>
+                Tab 4
+              </button>
             </Tab>
           </TabList>
           <TabPanel>

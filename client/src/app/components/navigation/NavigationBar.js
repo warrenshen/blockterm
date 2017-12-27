@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
   },
   hoverColor: {
-    fontSize: '18px',
+    fontSize: '20px',
     fontWeight: 'inherit',
   },
   nightHover: {
@@ -94,8 +94,8 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: '2px',
     position: 'absolute',
-    left: '135px',
-    top: '15px',
+    left: '148px',
+    top: '14px',
     fontSize: '10px',
     fontWeight: '500',
   }
