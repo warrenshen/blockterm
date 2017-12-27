@@ -48,6 +48,7 @@ const initialState = {
   dashboardAction: false,
   dashboardItems: [],
   keySelectValue: '',
+  selectedTab: 0,
   scrollActive: false,
   valueSelectValue: '',
 };
