@@ -208,7 +208,7 @@ class Dashboard extends PureComponent {
     {
       const overlayStyle = {
         transition: 'opacity .2s ease-out, visibility .2s ease-out',
-        backgroundColor: `rgba(0, 0, 0, ${nightMode ? 0.3 : 0.1})`,
+        backgroundColor: `rgba(0, 0, 0, ${nightMode ? 0.4 : 0.18})`,
       };
 
       const selectOptions = Object.entries(ITEM_KEY_TO_LABELS).map((arr) => ({
@@ -237,7 +237,9 @@ class Dashboard extends PureComponent {
             docked={false}
             open={sidebarActive}
             pullRight={true}
-            shadow={false}
+            shadow={true}
+            transitions={false}
+            onSetOpen={toggleSidebar}
             styles={
               {
                 root: { height: '100%', overflowY: 'visible',  overflowX: 'hidden'},
