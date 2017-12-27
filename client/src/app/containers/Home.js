@@ -106,7 +106,7 @@ const mapStateToProps = (state) => {
   return {
     dashboard: state.dashboard,
     dashboardAction: state.dashboard.dashboardAction,
-    dashboardItems: state.dashboard.dashboardItems,
+    dashboardPages: state.dashboard.dashboardPages,
     keySelectValue: state.dashboard.keySelectValue,
     nightMode: state.globals.nightMode,
     scrollActive: state.dashboard.scrollActive,

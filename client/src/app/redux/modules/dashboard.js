@@ -47,7 +47,7 @@ const SAVE_DASHBOARD_ITEMS_LOCAL = 'SAVE_DASHBOARD_ITEMS_LOCAL';
  ------------------------------------------*/
 const initialState = {
   dashboardAction: false,
-  dashboardItems: [],
+  dashboardPages: {},
   keySelectValue: '',
   selectedTab: 0,
   scrollActive: false,
@@ -59,40 +59,10 @@ export default function(state = initialState, action)
   let newDashboardItems;
   let data;
   let dashboardItems;
+  let dashboardPages;
 
   switch (action.type)
   {
-    case APOLLO_QUERY_RESULT:
-      switch (action.operationName)
-      {
-        case 'DashboardItemsQuery':
-          data = action.result.data;
-          if (data)
-          {
-            if (data.user === null)
-            {
-              const cookieDashboardItems = getItem(DASHBOARD_COOKIE);
-              if (cookieDashboardItems)
-              {
-                dashboardItems = cookieDashboardItems;
-              }
-              else
-              {
-                setItem(DASHBOARD_COOKIE, DEFAULT_ITEM_OBJECTS);
-                dashboardItems = DEFAULT_ITEM_OBJECTS;
-              }
-            }
-            else
-            {
-              dashboardItems = data.user.dashboardItems;
-            }
-            return {
-              ...state,
-              dashboardItems: dashboardItems,
-            };
-          }
-      }
-      return state;
     case APOLLO_MUTATION_RESULT:
       switch (action.operationName)
       {
@@ -116,6 +86,37 @@ export default function(state = initialState, action)
             ...state,
             dashboardItems: dashboardItems,
           };
+      }
+      return state;
+    case APOLLO_QUERY_RESULT:
+      switch (action.operationName)
+      {
+        case 'DashboardItemsQuery':
+          data = action.result.data;
+          if (data)
+          {
+            if (data.user === null)
+            {
+              const cookieDashboardPages = getItem(DASHBOARD_COOKIE);
+              if (cookieDashboardPages)
+              {
+                dashboardPages = cookieDashboardPages;
+              }
+              else
+              {
+                setItem(DASHBOARD_COOKIE, DEFAULT_ITEM_OBJECTS);
+                dashboardPages = DEFAULT_ITEM_OBJECTS;
+              }
+            }
+            else
+            {
+              dashboardItems = data.user.dashboardItems;
+            }
+            return {
+              ...state,
+              dashboardPages: dashboardPages,
+            };
+          }
       }
       return state;
     case CHANGE_DASHBOARD_ITEM_PLOT_RANGE:
@@ -173,10 +174,14 @@ export default function(state = initialState, action)
       };
     case SAVE_DASHBOARD_ITEMS_LOCAL:
       newDashboardItems = action.value;
-      setItem(DASHBOARD_COOKIE, newDashboardItems);
+      const newDashboardPages = {
+        ...state.dashboardPages,
+        [state.selectedTab]: newDashboardItems,
+      };
+      setItem(DASHBOARD_COOKIE, newDashboardPages);
       return {
         ...state,
-        dashboardItems: newDashboardItems,
+        dashboardPages: newDashboardPages,
       };
     // case REGISTER_DASHBOARD_ITEM:
     //   const dashboardItem = action.value;

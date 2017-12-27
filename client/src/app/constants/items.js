@@ -13,12 +13,23 @@ export const ITEM_KEY_WHITELIST = [
   TV_MARKET_OVERVIEW,
 ];
 
-export const DEFAULT_ITEM_OBJECTS = [
-{"id":"2","w":3,"h":3,"x":5,"y":8,"identifier":"SUBREDDIT_POST_COUNTS__Bitcoin"},
-{"id":"3","w":5,"h":4,"x":0,"y":0,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
-{"id":"6","w":5,"h":4,"x":0,"y":4,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
-{"id":"7","w":3,"h":8,"x":5,"y":0,"identifier":"TV_MARKET_OVERVIEW__Default"},
-{"id":"8","w":5,"h":3,"x":0,"y":8,"identifier":"TV_CANDLE_CHART__BITSTAMP:LTCUSD"}];
+// Key => tab/page #, value => array of dashboard items.
+export const DEFAULT_ITEM_OBJECTS = {
+  0: [
+    {'id':'2','w':3,'h':3,'x':5,'y':8,'identifier':'SUBREDDIT_POST_COUNTS__Bitcoin'},
+    {'id':'3','w':5,'h':4,'x':0,'y':0,'identifier':'TV_CANDLE_CHART__BITSTAMP:BTCUSD'},
+    {'id':'6','w':5,'h':4,'x':0,'y':4,'identifier':'TV_CANDLE_CHART__BITSTAMP:ETHUSD'},
+    {'id':'7','w':3,'h':8,'x':5,'y':0,'identifier':'TV_MARKET_OVERVIEW__Default'},
+    {'id':'8','w':5,'h':3,'x':0,'y':8,'identifier':'TV_CANDLE_CHART__BITSTAMP:LTCUSD'},
+  ],
+  1: [
+    {'id':'7','w':3,'h':8,'x':5,'y':0,'identifier':'TV_MARKET_OVERVIEW__Default'},
+  ],
+  2: [
+  ],
+  3: [
+  ],
+};
 
 // Keys should be all lowercase.
 export const DEFAULT_ITEM_OBJECTS_BY_SUBREDDIT = {

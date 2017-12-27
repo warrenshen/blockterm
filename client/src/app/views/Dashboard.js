@@ -183,7 +183,7 @@ class Dashboard extends PureComponent {
       changeSelectedTab,
       dashboard,
       dashboardAction,
-      dashboardItems,
+      dashboardPages,
       data,
       keySelectValue,
       logDashboardActionStart,
@@ -249,7 +249,7 @@ class Dashboard extends PureComponent {
               changeSelectedTab={changeSelectedTab}
               dashboard={dashboard}
               dashboardAction={dashboardAction}
-              dashboardItems={dashboardItems}
+              dashboardPages={dashboardPages}
               data={data}
               logDashboardActionStart={logDashboardActionStart}
               logDashboardActionStop={logDashboardActionStop}
