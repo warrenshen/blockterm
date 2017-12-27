@@ -5,13 +5,7 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import {
-  Tab,
-  TabList,
-  TabPanel,
-  Tabs,
-} from 'react-tabs';
-import DashboardGrid from '../components/DashboardGrid';
+import Sidebar             from 'react-sidebar';
 import * as STYLES from '../constants/styles';
 import Select from 'react-select';
 import {
@@ -20,7 +14,7 @@ import {
   ITEM_VALUE_TO_LABELS,
   generateIdentifier,
 } from '../constants/items';
-import Sidebar from 'react-sidebar';
+import DashboardTabs       from '../components/DashboardTabs';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,27 +22,6 @@ const styles = StyleSheet.create({
     minHeight: '100%',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-  },
-  subContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-  },
-  item: {
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#fff',
-    border: `1px solid ${STYLES.BORDERLIGHT}`,
-    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
-  },
-  nightMode: {
-    backgroundColor: '#000 !important',
-    border: `1px solid ${STYLES.BORDERDARK}`,
-    borderBottom: `2px solid ${STYLES.BORDERDARK}`,
-  },
-  gridNightContainer: {
-    paddingTop: '4px',
-    backgroundColor: STYLES.SOFTGRAY,
   },
   sidebar: {
     width: '256px',
@@ -78,11 +51,6 @@ const styles = StyleSheet.create({
   nightButton: {
     color: 'white',
     backgroundColor: '#bbb',
-  },
-  placeholder: {
-    width: '100%',
-    height: '128px',
-    backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
   },
   shield: {
     position: 'fixed',
@@ -226,10 +194,10 @@ class Dashboard extends PureComponent {
       logDashboardActionStop,
       nightMode,
       removeFromLayout,
+      saveLayout,
       scrollActive,
       sidebarActive,
       toggleSidebar,
-      saveLayout,
     } = this.props;
 
     if (data.loading)
@@ -240,7 +208,7 @@ class Dashboard extends PureComponent {
     {
       const overlayStyle = {
         transition: 'opacity .2s ease-out, visibility .2s ease-out',
-        backgroundColor: `rgba(0,0,0,${nightMode ? 0.3 : 0.1})`,
+        backgroundColor: `rgba(0, 0, 0, ${nightMode ? 0.3 : 0.1})`,
       };
 
       const selectOptions = Object.entries(ITEM_KEY_TO_LABELS).map((arr) => ({
@@ -278,61 +246,18 @@ class Dashboard extends PureComponent {
             }}
           >
             {this.renderScrollShield()}
-            <div className={css(styles.subContainer, nightMode && styles.gridNightContainer)}>
-              <Tabs>
-                <TabList>
-                  <Tab>
-                    <h2>Tab 1</h2>
-                  </Tab>
-                  <Tab>
-                    <h2>Tab 2</h2>
-                  </Tab>
-                </TabList>
-
-                <TabPanel>
-                  <DashboardGrid
-                    dashboard={dashboard}
-                    dashboardAction={dashboardAction}
-                    dashboardItems={dashboardItems}
-                    data={data}
-                    logDashboardActionStart={logDashboardActionStart}
-                    logDashboardActionStop={logDashboardActionStop}
-                    nightMode={nightMode}
-                    toggleSidebar={toggleSidebar}
-                    removeFromLayout={removeFromLayout}
-                    saveLayout={saveLayout}
-                  />
-                  <div
-                    className={css(styles.placeholder, nightMode && styles.gridNightContainer)}
-                  >
-                    <div
-                      className={css(styles.item, styles.addItem, styles.addToButton, nightMode && styles.nightMode)}
-                    >
-                      <button
-                        className={css(styles.button, nightMode && styles.darkAddButton)}
-                        onClick={(event) => toggleSidebar()} >
-                        Add Widget [+]
-                      </button>
-                    </div>
-                  </div>
-                </TabPanel>
-                <TabPanel>
-                  <div
-                    className={css(styles.placeholder, nightMode && styles.gridNightContainer)}
-                  >
-                    <div
-                      className={css(styles.item, styles.addItem, styles.addToButton, nightMode && styles.nightMode)}
-                    >
-                      <button
-                        className={css(styles.button, nightMode && styles.darkAddButton)}
-                        onClick={(event) => toggleSidebar()} >
-                        Add Widget [+]
-                      </button>
-                    </div>
-                  </div>
-                </TabPanel>
-              </Tabs>
-            </div>
+            <DashboardTabs
+              dashboard={dashboard}
+              dashboardAction={dashboardAction}
+              dashboardItems={dashboardItems}
+              data={data}
+              logDashboardActionStart={logDashboardActionStart}
+              logDashboardActionStop={logDashboardActionStop}
+              nightMode={nightMode}
+              removeFromLayout={removeFromLayout}
+              saveLayout={saveLayout}
+              toggleSidebar={toggleSidebar}
+            />
           </Sidebar>
         </div>
       );
