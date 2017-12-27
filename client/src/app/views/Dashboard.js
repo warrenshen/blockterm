@@ -160,7 +160,7 @@ class Dashboard extends PureComponent {
       return (
         <Select
           inputProps={{'id':'widget_search_2'}}
-          placeholder={'Search Coin'}
+          placeholder={'Search Specific'}
           className={css(styles.select, styles.bolded)}
           optionClassName={css(styles.bolded, styles.options)}
           options={selectOptions}
@@ -266,7 +266,7 @@ class Dashboard extends PureComponent {
             shadow={false}
             styles={
               {
-                root: { height: '100%', overflow: 'visible', },
+                root: { height: '100%', overflowY: 'visible',  overflowX: 'hidden'},
                 overlay: overlayStyle,
                 content: { overflowY: 'visible' },
             }}
