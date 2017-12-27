@@ -107,7 +107,7 @@ const RightNav = ({
         />,
         <RightNavButton
           key={'join'}
-          label={'Join'}
+          label={'Join/FAQ'}
           link={'/join'}
           nightMode={nightMode}
           nightModeStyle={styles.nightModeButton}
