@@ -99,7 +99,7 @@ class Tokens extends PureComponent {
                 return (
                   <li className={css(styles.item)} key={token.id}>
                     <img className={css(styles.image)} src={token.imageUrl} width={36} height={36}></img>
-                    <Link to={`/token/${token.id}`}>
+                    <Link to={`/token/${token.shortName}`}>
                       <El
                         nightMode={nightMode}
                         type={'h4'}

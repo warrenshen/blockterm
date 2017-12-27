@@ -15,11 +15,11 @@ import * as plotsActions      from '../../redux/modules/plots';
  ------------------------------------------*/
 
 const query = gql`
- query ($id: ID!,
-        $pricePlotRange: String,
+ query ($shortName: String!,
         $mentionSubredditPlotRange: String,
-        $mentionTotalPlotRange: String) {
-    tokenById(id: $id) {
+        $mentionTotalPlotRange: String,
+        $pricePlotRange: String) {
+    tokenByShortName(shortName: $shortName) {
       id
       shortName
       longName
@@ -71,10 +71,10 @@ const queryOptions = {
   }) => {
     return {
       variables: {
-        id: match.params.id,
         mentionSubredditPlotRange: mentionSubredditPlotRange,
         mentionTotalPlotRange: mentionTotalPlotRange,
         pricePlotRange: pricePlotRange,
+        shortName: match.params.shortName,
       },
     };
   },
