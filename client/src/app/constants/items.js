@@ -14,39 +14,11 @@ export const ITEM_KEY_WHITELIST = [
 ];
 
 export const DEFAULT_ITEM_OBJECTS = [
-  {
-    id: '1',
-    identifier: generateIdentifier(TV_CANDLE_CHART, 'BITSTAMP:BTCUSD'),
-    w: 4,
-    h: 4,
-    x: 0,
-    y: 0,
-  },
-  {
-    id: '2',
-    identifier: generateIdentifier(SUBREDDIT_POST_COUNTS, 'Bitcoin'),
-    w: 4,
-    h: 4,
-    x: 4,
-    y: 0,
-  },
-  {
-    id: '3',
-    identifier: generateIdentifier(TV_CANDLE_CHART, 'BITSTAMP:ETHUSD'),
-    w: 4,
-    h: 4,
-    x: 0,
-    y: 4,
-  },
-  {
-    id: '4',
-    identifier: generateIdentifier(SUBREDDIT_POST_COUNTS, 'ethereum'),
-    w: 4,
-    h: 4,
-    x: 4,
-    y: 4,
-  },
-];
+{"id":"2","w":3,"h":3,"x":5,"y":8,"identifier":"SUBREDDIT_POST_COUNTS__Bitcoin"},
+{"id":"3","w":5,"h":4,"x":0,"y":0,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
+{"id":"6","w":5,"h":4,"x":0,"y":4,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
+{"id":"7","w":3,"h":8,"x":5,"y":0,"identifier":"TV_MARKET_OVERVIEW__Default"},
+{"id":"8","w":5,"h":3,"x":0,"y":8,"identifier":"TV_CANDLE_CHART__BITSTAMP:LTCUSD"}];
 
 // Keys should be all lowercase.
 export const DEFAULT_ITEM_OBJECTS_BY_SUBREDDIT = {

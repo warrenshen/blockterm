@@ -84,19 +84,6 @@ const styles = StyleSheet.create({
       cursor: 'move',
     },
   },
-  addToButton: {
-    minHeight: '47px',
-    height: '-webkit-fill-available',
-    borderBottom: '1px solid #777',
-    color: '#444 !important',
-    letterSpacing: '1px !important',
-    fontSize: '12px',
-  },
-  darkAddButton: {
-    borderColor: '#555',
-    backgroundColor: '#000',
-    color: '#fff',
-  },
 });
 
 class DashboardGrid extends Component {
@@ -172,7 +159,7 @@ class DashboardGrid extends Component {
       <ResponsiveReactGridLayout
         className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
         cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
-        compactType={'vertical'}
+        compactType={null}
         onDragStart={logDashboardActionStart}
         onDragStop={logDashboardActionStop}
         onResizeStart={logDashboardActionStart}

@@ -33,8 +33,8 @@ class TVChartItem extends PureComponent {
       'https://s.tradingview.com/widgetembed/?' +
       `symbol=${value}&` +
       'interval=15&' +
-      'hidetoptoolbar=1&' + 
-//      'hidesidetoolbar=1&' +
+//     'hidetoptoolbar=1&' + 
+      'hidesidetoolbar=1&' +
       'symboledit=0&' +
       'saveimage=0&' +
       'toolbarbg=rgba(0,0,0,0)&' +

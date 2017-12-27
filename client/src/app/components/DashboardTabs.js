@@ -48,6 +48,17 @@ const styles = StyleSheet.create({
     height: '128px',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
   },
+  addToButton: {
+    letterSpacing: '1px !important',
+    fontSize: '12px',
+    margin: '10px',
+    marginTop: '2px',
+  },
+  darkAddButton: {
+    borderColor: '#555',
+    backgroundColor: '#000',
+    color: '#fff',
+  },
 });
 
 class DashboardTabs extends PureComponent {
