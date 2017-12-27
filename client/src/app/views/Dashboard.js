@@ -61,11 +61,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0)',
     zIndex: '9000',
   },
-  addToButton: {
-    //paddingTop: 5px,
-    margin: '10px',
-    marginTop: '2px',
-  },
   options: {
     borderBottom: '1px solid #ddd',
   },

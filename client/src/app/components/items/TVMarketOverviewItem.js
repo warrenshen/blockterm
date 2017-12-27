@@ -11,17 +11,22 @@ const styles = StyleSheet.create({
     overflowY: 'hidden',
     marginTop: '-55px',
   },
+  nightContainer: {
+    filter: 'hue-rotate(180deg) !important',
+  },
   frame: {
-    width: '100%',
-    height: '110%',
+    width: '105% !important',
+    height: '110% !important',
+    marginLeft: '-10px',
     border: 'none',
   },
   nightFrame: {
-    backgroundColor: '#000',
+    backgroundColor: '#000', 
+    filter: 'invert(100%) !important',
   },
   tradingView: {
     position: 'absolute',
-    bottom: '10px',
+    bottom: '35px',
     left: '10px',
     zIndex: '1',
   },
@@ -234,7 +239,7 @@ class TVChartItem extends PureComponent {
     } = this.props;
 
     return (
-      <div className={css(styles.container)}>
+      <div className={css(styles.container, nightMode && styles.nightContainer)}>
         <iframe
           className={css(styles.frame, nightMode && styles.nightFrame)}
           ref={(el) => this.instance = el}
