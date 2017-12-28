@@ -80,7 +80,7 @@ class BarChartWithSelect extends PureComponent {
     nightMode: PropTypes.bool.isRequired,
     rangeStart: PropTypes.string,
     rangeEnd: PropTypes.string,
-    redraw: PropTypes.boolean,
+    redraw: PropTypes.bool,
     selectOptions: PropTypes.array.isRequired,
     selectValue: PropTypes.string.isRequired,
     stacked: PropTypes.bool,
@@ -96,6 +96,7 @@ class BarChartWithSelect extends PureComponent {
       nightMode,
       rangeStart,
       rangeEnd,
+      redraw,
       selectOptions,
       selectValue,
       stacked,
@@ -179,8 +180,8 @@ class BarChartWithSelect extends PureComponent {
           <Bar
             height={312}
             data={data}
-            responsive={true}
             redraw={redraw}
+            responsive={true}
             options={{
               legend: legendConfig,
               maintainAspectRatio: false,
