@@ -72,6 +72,7 @@ export default function(state = initialState, action)
   let dashboardPagesStates;
   let newDashboardItems;
   let newDashboardPages;
+  let newDashboardPagesStates;
 
   switch (action.type)
   {
@@ -167,7 +168,7 @@ export default function(state = initialState, action)
         [id]: Object.assign({}, state[id], { plotRange: value }),
       };
     case CHANGE_DASHBOARD_PAGE_STATE:
-      const newDashboardPagesStates = {
+      newDashboardPagesStates = {
         ...state.dashboardPagesStates,
         [state.selectedTab]: {
           ...state.dashboardPagesStates[state.selectedTab],
@@ -202,15 +203,28 @@ export default function(state = initialState, action)
         valueSelectValue: action.value,
       };
     case CREATE_DASHBOARD_ITEM_LOCAL:
-      newDashboardItems = state.dashboardPages[state.selectedTab].concat([action.value]);
+      const newDashboardItem = action.value;
+      newDashboardItems = state.dashboardPages[state.selectedTab].concat([newDashboardItem]);
       newDashboardPages = {
         ...state.dashboardPages,
         [state.selectedTab]: newDashboardItems,
+      };
+      const newIdentifier = newDashboardItem.identifier;
+      const arr = parseIdentifer(newIdentifier);
+      const identifierKey = arr[0];
+
+      newDashboardPagesStates = {
+        ...state.dashboardPagesStates,
+        [state.selectedTab]: {
+          ...state.dashboardPagesStates[state.selectedTab],
+          [newIdentifier]: IDENTIFIER_KEY_TO_STATE_MAP[identifierKey],
+        },
       };
       setItem(DASHBOARD_COOKIE, newDashboardPages);
       return {
         ...state,
         dashboardPages: newDashboardPages,
+        dashboardPagesStates: newDashboardPagesStates,
       };
     case DESTROY_DASHBOARD_ITEM_LOCAL:
       newDashboardItems = state.dashboardPages[state.selectedTab].filter(
