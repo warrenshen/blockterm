@@ -50,6 +50,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     letterSpacing: '3px',
     textTransform: 'uppercase',
+    ':hover': {
+      color: STYLES.GOLDINVERSEBLUE,
+      borderColor: STYLES.GOLDINVERSEBLUE,
+    },
   },
   hoverColor: {
     fontSize: '20px',
@@ -79,13 +83,13 @@ const styles = StyleSheet.create({
     right: '0px',
     zIndex: '2',
     padding: '0px 10px',
-    backgroundColor: STYLES.GOLD,
+    backgroundColor: STYLES.BLAZINGREEN,
     justifyContent: 'right !important',
     alignItems: 'right !important',
     top: '-20px',
   },
   promotionNight: {
-    backgroundColor: STYLES.BLAZINGREEN,
+    backgroundColor: STYLES.GOLD,
   },
   semibolded: {
     fontWeight: '500 !important',

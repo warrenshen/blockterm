@@ -7,6 +7,7 @@ import { StyleSheet, css }  from 'aphrodite';
 import RightNavButton       from './RightNavButton';
 import Switch from 'react-toggle-switch'
 import El from '../El';
+import FontAwesome          from 'react-fontawesome';
 
 import {
   AUTH_TOKEN_COOKIE,
@@ -37,6 +38,15 @@ const styles = StyleSheet.create({
     },
   },
   switch: {
+    ':before': {
+      content: 'NIGHT',
+      position: 'absolute',
+      left: '-57px',
+      top: '3px',
+      letterSpacing: '2px',
+      fontWeight: '700',
+      fontSize: '13px',
+    },
     borderColor: '#555',
   },
   switchNight: {
@@ -64,6 +74,7 @@ function logOut(event, client)
   client.resetStore()
 }
 
+//<FontAwesome name='lightbulb-o' size='2x' style={{'position':'absolute', 'left':'-16px', 'top':'3px', 'fontSize':'20px',}}/>
 const RightNav = ({
   client,
   rightLinks,
@@ -74,7 +85,9 @@ const RightNav = ({
   user,
 }) => (
   <ul className={css(styles.container)}>
-    <Switch className={css(styles.switch, nightMode && styles.switchNight)} on={nightMode} onClick={toggleNightMode} />
+    <div>
+      <Switch className={css(styles.switch, nightMode && styles.switchNight)} on={nightMode} onClick={toggleNightMode} />
+    </div>
     {
       rightLinks.map((aLinkBtn, index) => (
         <RightNavButton

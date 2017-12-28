@@ -75,6 +75,10 @@ const styles = StyleSheet.create({
   semibolded: {
     fontWeight:'500',
   },
+  boldedColor: {
+    color: STYLES.GOLDINVERSEBLUE,
+    fontWeight: '700',
+  },
   inputField: {
     fontWeight:'700',
     display: 'block',
@@ -203,11 +207,11 @@ class Login extends PureComponent {
                 Why should I join?
               </El>
               <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
-                <li className={css(styles.blockli, styles.semibolded)}>Pre-Beta HODLers get grandfathered into any future premium-only features</li>
+                <li className={css(styles.blockli, styles.boldedColor)}>Pre-Beta HODLers get grandfathered into any future premium-only features</li>
                 <li className={css(styles.blockli)}>We have big plans for the near future</li>
-                <li className={css(styles.blockli, styles.semibolded)}>Customize and save your terminal/dashboard configuration</li>
+                <li className={css(styles.blockli, styles.boldedColor)}>Customize and save/load your configurations across workstations</li>
                 <li className={css(styles.blockli)}>We want your feedback!</li>
-                <li className={css(styles.blockli)}>Motivate us to continue developing this tool</li>
+                <li className={css(styles.blockli)}>Motivate us to continue improving this tool</li>
               </ul>
             </div>
           </div>

@@ -15,13 +15,22 @@ const styles = StyleSheet.create({
   boldedUpper: {
     fontWeight: '700 !important',
     textTransform: 'uppercase !important',
-    fontSize: '13px !important',
+    fontSize: '14px !important',
     letterSpacing: '2px !important',
+    ':hover': {
+      color: STYLES.GOLDINVERSEBLUE,
+      borderColor: STYLES.GOLDINVERSEBLUE,
+    },
   },
   flatButton: {
     background: 'none',
     border: 'none',
-    //padding: '4px 12px',
+  },
+  nightHover: {
+    ':hover': {
+      color: STYLES.GOLD,
+      borderColor: STYLES.GOLD,
+    },
   },
 });
 
@@ -32,7 +41,7 @@ const RightNavButton = ({ action, label, link, nightMode, nightModeStyle, style 
       <button className={css(styles.flatButton, style, nightMode && nightModeStyle)} onClick={action}>
         <El
           nightMode={nightMode}
-          //nightModeStyle={nightModeStyle}
+          nightModeStyle={styles.nightHover}
           style={styles.boldedUpper}
           type={'span'}>
           {label}
@@ -45,7 +54,7 @@ const RightNavButton = ({ action, label, link, nightMode, nightModeStyle, style 
       <Link to={link} className={css(style, nightMode&& nightModeStyle)}>
         <El
           nightMode={nightMode}
-          //nightModeStyle={nightModeStyle}
+          nightModeStyle={styles.nightHover}
           style={styles.boldedUpper}
           type={'span'}>
           {label}

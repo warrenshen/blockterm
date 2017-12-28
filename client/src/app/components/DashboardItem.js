@@ -20,6 +20,7 @@ import TVChartItem from './items/TVChartItem';
 import TVMarketOverviewItem from './items/TVMarketOverviewItem';
 import * as STYLES from '../constants/styles';
 import El                  from './El';
+import FontAwesome          from 'react-fontawesome';
 
 import {
   SUBREDDIT_COMMENT_COUNTS,
@@ -72,10 +73,11 @@ const styles = StyleSheet.create({
   },
   section: {
     flex: '1',
+    overflowX: 'hidden',
   },
   rightAlign: {
     textAlign: 'right',
-  }
+  },
 });
 
 class DashboardItem extends Component {
@@ -106,6 +108,7 @@ class DashboardItem extends Component {
         return (
           <SubredditCommentCountsItem
             data={data}
+            specific={identifierValue}
             id={dashboardItem.id}
             nightMode={nightMode}
             storeState={storeState}
@@ -115,6 +118,7 @@ class DashboardItem extends Component {
         return (
           <SubredditPostsItem
             data={data}
+            specific={identifierValue}
             id={dashboardItem.id}
             nightMode={nightMode}
             storeState={storeState}
@@ -176,10 +180,17 @@ class DashboardItem extends Component {
           </div>
           <div className={css(styles.section, styles.rightAlign)}>
             <button
+              //style={{'float':'left',}}
+              className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+            >
+              <FontAwesome name='arrows' style={{'fontSize':'13px',}}/>
+            </button>
+            
+            <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
               onClick={(event) => removeFromLayout(id)}
             >
-              <strong>x</strong>
+              <FontAwesome name='remove' />
             </button>
           </div>
         </div>
