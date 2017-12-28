@@ -75,6 +75,47 @@ class TVChartItem extends PureComponent {
       "symbolActiveColor": "rgba(242, 250, 254, 1)",
       "tabs": [
         {
+          "title": "Satoshi",
+          "symbols": [
+            {
+              "s": "BITTREX:ETHBTC",
+              "d": "Ethereum / Bitcoin"
+            },
+            {
+              "s": "BITTREX:LTCBTC",
+              "d": "Litecoin / Bitcoin"
+            },
+            {
+              "s": "BITFINEX:BCHBTC",
+              "d": "Bitcoin Cash / Bitcoin"
+            },
+            {
+              "s": "BITTREX:XRPBTC",
+              "d": "Ripple / Bitcoin"
+            },
+            {
+              "s": "BITTREX:XMRBTC",
+              "d": "Monero / Bitcoin"
+            },
+            {
+              "s": "BITTREX:DASHBTC",
+              "d": "Dash / BTC"
+            },
+            {
+              "s": "BITTREX:ZECBTC",
+              "d": "ZCash / BTC"
+            },
+            {
+              "s": "BITTREX:NEOBTC",
+              "d": "NEO / BTC"
+            },
+            {
+              "s": "BITFINEX:IOTBTC",
+              "d": "Iota / BTC"
+            }
+          ]
+        },
+        {
           "title": "Dollar",
           "symbols": [
             {
@@ -116,47 +157,6 @@ class TVChartItem extends PureComponent {
             {
               "s": "BITFINEX:IOTUSD",
               "d": "Iota / USD"
-            }
-          ]
-        },
-        {
-          "title": "Satoshi",
-          "symbols": [
-            {
-              "s": "BITTREX:ETHBTC",
-              "d": "Ethereum / Bitcoin"
-            },
-            {
-              "s": "BITTREX:LTCBTC",
-              "d": "Litecoin / Bitcoin"
-            },
-            {
-              "s": "BITFINEX:BCHBTC",
-              "d": "Bitcoin Cash / Bitcoin"
-            },
-            {
-              "s": "BITTREX:XRPBTC",
-              "d": "Ripple / Bitcoin"
-            },
-            {
-              "s": "BITTREX:XMRBTC",
-              "d": "Monero / Bitcoin"
-            },
-            {
-              "s": "BITTREX:DASHBTC",
-              "d": "Dash / BTC"
-            },
-            {
-              "s": "BITTREX:ZECBTC",
-              "d": "ZCash / BTC"
-            },
-            {
-              "s": "BITTREX:NEOBTC",
-              "d": "NEO / BTC"
-            },
-            {
-              "s": "BITFINEX:IOTBTC",
-              "d": "Iota / BTC"
             }
           ]
         },

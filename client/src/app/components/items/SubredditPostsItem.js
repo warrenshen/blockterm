@@ -4,9 +4,9 @@ import React               from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import moment              from 'moment';
-import BarChartWithSelect  from '../BarChartWithSelect';
+import LineChartWithSelect  from '../LineChartWithSelect';
 import {
-  generateCountChartData,
+  generateLineChartData,
   isPlotRangeBig,
 } from '../../helpers/chart';
 import {
@@ -29,6 +29,7 @@ const SubredditPostsItem = ({
   data,
   nightMode,
   storeState,
+  specific
 }) => {
   // const {
   //   plotRange,
@@ -42,21 +43,22 @@ const SubredditPostsItem = ({
   const postsX = postCounts.map(
     (postCount) => moment(postCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
   );
-  const postsData = generateCountChartData(
+  const postsData = generateLineChartData(
     postCounts,
     postCount,
     'last 24 hours',
-    isPlotRangeBig('1 week') ? 'M/D/YY' : 'MM/DD'
+    isPlotRangeBig('1 week') ? 'M/D/YY' : 'MM/DD',
+    nightMode,
   );
 
   return (
     <div className={css(styles.container)}>
-      <BarChartWithSelect
+      <LineChartWithSelect
         data={postsData}
         nightMode={nightMode}
         selectOptions={RANGE_SELECT_OPTIONS}
         selectValue={'1 week'}
-        title={'Number of new posts'}
+        title={`# of daily posts in r/${specific}`}
         onChange={(option) => changeDashboardItemPlotRange(dashboardItem.id, option.value)}
       />
     </div>

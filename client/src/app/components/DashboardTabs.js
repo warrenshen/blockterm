@@ -13,6 +13,7 @@ import {
 }                          from 'react-tabs';
 import DashboardGrid       from '../components/DashboardGrid';
 import * as STYLES         from '../constants/styles';
+import FontAwesome         from 'react-fontawesome';
 
 const styles = StyleSheet.create({
   container: {
@@ -98,6 +99,11 @@ class DashboardTabs extends PureComponent {
         <Tab className={css(styles.tab)}>
           <button>
             Tab 4
+          </button>
+        </Tab>
+        <Tab className={css(styles.tab)}>
+          <button>
+            <FontAwesome name='rotate-left'/>
           </button>
         </Tab>
       </TabList>

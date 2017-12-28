@@ -195,7 +195,7 @@ class Login extends PureComponent {
               <El style={styles.bolded, styles.bottomHeavy}
                   nightMode={nightMode}
                   type={'h4'}>
-                  Latest Updates:
+                  Latest Updates: (v. 0.1.2)
               </El>
               <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
                 <li className={css(styles.blockli)}>In-depth chart widget added </li>

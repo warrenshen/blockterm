@@ -146,7 +146,7 @@ export const LINE_CHART_DATA_STYLES = [
   },
   {
     historical: {
-      backgroundColor: 'rgba(255,141,25,0.5)',
+      backgroundColor: 'rgba(255,141,25,0.4)',
       borderColor: '#FF6519',
       borderWidth: 2,
       borderCapStyle: 'rgba(255,81,0,0.2)',

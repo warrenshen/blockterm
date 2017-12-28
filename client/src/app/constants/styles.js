@@ -6,13 +6,15 @@ export const SOFTGRAY = '#121515';
 export const BLUEGRAY = '#0E1120';
 export const LIGHTBACKGROUNDGRAY = '#ececec !important';
 
+export const GOLD = '#FFD000';
+export const GOLDINVERSEBLUE = "#2224FF !important";
+
 //borders
 export const BORDERLIGHT = '#999';
 export const BORDERDARK = '#777';
 
 export const BLOOMYBLUE = '#2900EA';
 export const LAVENDER = '#6447ED';
-export const GOLD = '#FFD000';
 export const ORANGE = '#FF8000';
 export const FIREORANGE = '#FF5200';
 export const PURPLE = '#640BD3';
