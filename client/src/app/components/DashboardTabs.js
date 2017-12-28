@@ -107,7 +107,6 @@ class DashboardTabs extends PureComponent {
   renderTabPanels()
   {
     const {
-      dashboard,
       dashboardAction,
       dashboardPages,
       data,
@@ -126,7 +125,6 @@ class DashboardTabs extends PureComponent {
       return (
         <TabPanel key={tabIndex}>
           <DashboardGrid
-            dashboard={dashboard}
             dashboardAction={dashboardAction}
             dashboardItems={dashboardItems}
             data={data}
@@ -166,8 +164,8 @@ class DashboardTabs extends PureComponent {
     return (
       <div className={css(styles.container, nightMode && styles.nightContainer)}>
         <Tabs
-          onSelect={(tabIndex) => changeSelectedTab(tabIndex)}
-          selectedIndex={selectedTab}
+          onSelect={(tabIndex) => changeSelectedTab(String(tabIndex))}
+          selectedIndex={parseInt(selectedTab)}
         >
           {this.renderTabList()}
           {this.renderTabPanels()}

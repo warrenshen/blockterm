@@ -125,21 +125,23 @@ function wrapDynamicGraphQL(ComponentToWrap)
       const {
         createDashboardItem,
         createDashboardItemLocal,
-        dashboardItems,
+        dashboardPages,
         data,
+        selectedTab,
       } = this.props;
 
+      const dashboardItems = dashboardPages[selectedTab];
       const arr = computeDashboardFreeValues(dashboardItems);
 
       if (data.user)
       {
-        createDashboardItem(
-          identifier,
-          3,
-          3,
-          0,
-          arr[0],
-        );
+        // createDashboardItem(
+        //   identifier,
+        //   3,
+        //   3,
+        //   0,
+        //   arr[0],
+        // );
       }
       else
       {
@@ -157,15 +159,14 @@ function wrapDynamicGraphQL(ComponentToWrap)
     removeFromLayout(id)
     {
       const {
+        data,
         destroyDashboardItem,
         destroyDashboardItemLocal,
-        dashboardItems,
-        data,
       } = this.props;
 
       if (data.user)
       {
-        destroyDashboardItem(id);
+        // destroyDashboardItem(id);
       }
       else
       {
@@ -183,6 +184,8 @@ function wrapDynamicGraphQL(ComponentToWrap)
         updateDashboardItems,
       } = this.props;
 
+      const dashboardItems = dashboardPages[selectedTab];
+
       var layoutChanged = false;
       const newDashboardItemsMap = {};
       layout.forEach((dashboardItem) => {
@@ -194,7 +197,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
           y: dashboardItem.y,
         };
       });
-      const dashboardItems = dashboardPages[selectedTab];
+
       dashboardItems.forEach((dashboardItem) => {
         const matchItem = newDashboardItemsMap[dashboardItem.id];
         layoutChanged = layoutChanged || dashboardItem.w != matchItem.w;
@@ -232,7 +235,6 @@ function wrapDynamicGraphQL(ComponentToWrap)
           changeScrollActive,
           changeSelectedTab,
           changeValueSelectValue,
-          dashboard,
           dashboardAction,
           dashboardPages,
           data,
@@ -257,7 +259,6 @@ function wrapDynamicGraphQL(ComponentToWrap)
             changeScrollActive={changeScrollActive}
             changeSelectedTab={changeSelectedTab}
             changeValueSelectValue={changeValueSelectValue}
-            dashboard={dashboard}
             dashboardAction={dashboardAction}
             dashboardPages={dashboardPages}
             keySelectValue={keySelectValue}

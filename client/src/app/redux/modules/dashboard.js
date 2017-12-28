@@ -49,17 +49,18 @@ const initialState = {
   dashboardAction: false,
   dashboardPages: {},
   keySelectValue: '',
-  selectedTab: 0,
+  selectedTab: '0',
   scrollActive: false,
   valueSelectValue: '',
 };
 
 export default function(state = initialState, action)
 {
-  let newDashboardItems;
   let data;
   let dashboardItems;
   let dashboardPages;
+  let newDashboardItems;
+  let newDashboardPages;
 
   switch (action.type)
   {
@@ -147,20 +148,28 @@ export default function(state = initialState, action)
         valueSelectValue: action.value,
       };
     case CREATE_DASHBOARD_ITEM_LOCAL:
-      newDashboardItems = state.dashboardItems.concat([action.value]);
-      setItem(DASHBOARD_COOKIE, newDashboardItems);
+      newDashboardItems = state.dashboardPages[state.selectedTab].concat([action.value]);
+      newDashboardPages = {
+        ...state.dashboardPages,
+        [state.selectedTab]: newDashboardItems,
+      };
+      setItem(DASHBOARD_COOKIE, newDashboardPages);
       return {
         ...state,
-        dashboardItems: newDashboardItems,
+        dashboardPages: newDashboardPages,
       };
     case DESTROY_DASHBOARD_ITEM_LOCAL:
-      newDashboardItems = state.dashboardItems.filter(
-        (dashboardItem) => dashboardItem.id != action.value
+      newDashboardItems = state.dashboardPages[state.selectedTab].filter(
+        (dashboardItem) => dashboardItem.id !== action.value
       );
-      setItem(DASHBOARD_COOKIE, newDashboardItems);
+      newDashboardPages = {
+        ...state.dashboardPages,
+        [state.selectedTab]: newDashboardItems,
+      };
+      setItem(DASHBOARD_COOKIE, newDashboardPages);
       return {
         ...state,
-        dashboardItems: newDashboardItems,
+        dashboardPages: newDashboardPages,
       };
     case LOG_DASHBOARD_ACTION_START:
       return {
@@ -174,7 +183,7 @@ export default function(state = initialState, action)
       };
     case SAVE_DASHBOARD_ITEMS_LOCAL:
       newDashboardItems = action.value;
-      const newDashboardPages = {
+      newDashboardPages = {
         ...state.dashboardPages,
         [state.selectedTab]: newDashboardItems,
       };

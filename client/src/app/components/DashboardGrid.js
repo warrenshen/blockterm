@@ -5,6 +5,7 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { isEqual }         from 'underscore';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import DashboardItem from '../components/DashboardItem';
 import { isIdentifierValid } from '../constants/items.js'
@@ -90,7 +91,9 @@ class DashboardGrid extends Component {
 
   shouldComponentUpdate(nextProps, nextState)
   {
-    return this.props !== nextProps;
+    return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+           !isEqual(this.props.dashboardItems, nextProps.dashboardItems) ||
+           !isEqual(this.props.nightMode, nextProps.nightMode);
   }
 
   renderItem(dashboardItem)
