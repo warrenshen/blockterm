@@ -1,10 +1,13 @@
 // @flow weak
 
-import React               from 'react';
+import React, {
+  Component,
+}                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { isEqual }         from 'underscore';
 import moment              from 'moment';
-import LineChartWithSelect  from '../LineChartWithSelect';
+import LineChartWithSelect from '../LineChartWithSelect';
 import {
   generateLineChartData,
   isPlotRangeBig,
@@ -25,48 +28,63 @@ const styles = StyleSheet.create({
   },
 });
 
-const SubredditPostsItem = ({
-  changeDashboardPageState,
-  dashboardState,
-  data,
-  identifier,
-  nightMode,
-  specific,
-}) => {
-  const {
-    plotRange,
-  } = dashboardState;
+class SubredditPostsItem extends Component {
 
-  const {
-    postCount,
-    postCounts,
-  } = data;
+  shouldComponentUpdate(nextProps, nextState)
+  {
+    return !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
+           !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
+           !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
+           !isEqual(this.props.nightMode, nextProps.nightMode);
+  }
 
-  const postsX = postCounts.map(
-    (postCount) => moment(postCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
-  );
-  const postsData = generateLineChartData(
-    postCounts,
-    postCount,
-    'last 24 hours',
-    isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD',
-    nightMode,
-  );
-  const onChange = (option) =>
-    changeDashboardPageState(identifier, 'plotRange', option.value);
+  render()
+  {
+    const {
+      changeDashboardPageState,
+      dashboardData,
+      dashboardState,
+      identifier,
+      nightMode,
+      specific,
+    } = this.props;
 
-  return (
-    <div className={css(styles.container)}>
-      <LineChartWithSelect
-        data={postsData}
-        nightMode={nightMode}
-        selectOptions={RANGE_SELECT_OPTIONS}
-        selectValue={plotRange}
-        title={`# of daily posts in r/${specific}`}
-        onChange={onChange}
-      />
-    </div>
-  );
+    const {
+      plotRange,
+    } = dashboardState;
+
+    const {
+      postCount,
+      postCounts,
+    } = dashboardData;
+
+    const postsX = postCounts.map(
+      (postCount) => moment(postCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
+    );
+    const postsData = generateLineChartData(
+      postCounts,
+      postCount,
+      'last 24 hours',
+      isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD',
+      nightMode,
+    );
+    const onChange = (option) =>
+      changeDashboardPageState(identifier, 'plotRange', option.value);
+    console.log('rerender');
+    return (
+      <div className={css(styles.container)}>
+        <LineChartWithSelect
+          data={postsData}
+          nightMode={nightMode}
+          redraw={false}
+          selectOptions={RANGE_SELECT_OPTIONS}
+          selectValue={plotRange}
+          title={`# of daily posts in r/${specific}`}
+          onChange={onChange}
+        />
+      </div>
+    );
+  }
 }
 
 export default SubredditPostsItem;

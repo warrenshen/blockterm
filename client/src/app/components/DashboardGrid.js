@@ -91,7 +91,8 @@ class DashboardGrid extends Component {
 
   shouldComponentUpdate(nextProps, nextState)
   {
-    return !isEqual(this.props.dashboardItems, nextProps.dashboardItems) ||
+    return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+           !isEqual(this.props.dashboardItems, nextProps.dashboardItems) ||
            !isEqual(this.props.nightMode, nextProps.nightMode);
   }
 
@@ -101,8 +102,8 @@ class DashboardGrid extends Component {
       changeDashboardItemPlotRange,
       changeDashboardPageState,
       dashboardAction,
+      dashboardData,
       dashboardStates,
-      data,
       destroyDashboardItem,
       nightMode,
       removeFromLayout,
@@ -138,9 +139,9 @@ class DashboardGrid extends Component {
           changeDashboardItemPlotRange={changeDashboardItemPlotRange}
           changeDashboardPageState={changeDashboardPageState}
           dashboardAction={dashboardAction}
+          dashboardData={dashboardData[identifier]}
           dashboardItem={dashboardItem}
           dashboardState={dashboardStates[identifier]}
-          data={data[identifier]}
           destroyDashboardItem={destroyDashboardItem}
           nightMode={nightMode}
           removeFromLayout={removeFromLayout}

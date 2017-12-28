@@ -104,7 +104,9 @@ const updateDashboardItemsMutationOptions = {
 
 const mapStateToProps = (state) => {
   return {
+    apollo: state.apollo,
     dashboardAction: state.dashboard.dashboardAction,
+    dashboardData: state.dashboard.dashboardData,
     dashboardPages: state.dashboard.dashboardPages,
     dashboardPagesStates: state.dashboard.dashboardPagesStates,
     keySelectValue: state.dashboard.keySelectValue,
@@ -119,6 +121,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      // fetchDashboardPages:
       changeDashboardItemPlotRange: dashboardActions.changeDashboardItemPlotRange,
       changeDashboardPageState: dashboardActions.changeDashboardPageState,
       changeKeySelectValue: dashboardActions.changeKeySelectValue,

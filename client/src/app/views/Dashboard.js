@@ -20,8 +20,8 @@ import DashboardTabs       from '../components/DashboardTabs';
 
 const styles = StyleSheet.create({
   container: {
+    flex: '1',
     display: 'flex',
-    minHeight: '100%',
     flexDirection: 'column',
     justifyContent: 'flex-start',
   },
@@ -108,8 +108,6 @@ class Dashboard extends Component {
         changeScrollActive(false);
       }, 256);
     };
-
-    this.loaded = false;
   }
 
   componentDidMount()
@@ -122,18 +120,16 @@ class Dashboard extends Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  shouldComponentUpdate(nextProps, nextState)
-  {
-    console.log(this.props.data);
-    console.log(nextProps.data);
-    const shouldUpdate = this.props.data.loading !== nextProps.data.loading;
-    if (shouldUpdate && !this.loaded)
-    {
-      this.loaded = true;
-      return true;
-    }
-    return false;
-  }
+  // shouldComponentUpdate(nextProps, nextState)
+  // {
+  //   const shouldUpdate = this.props.data.loading !== nextProps.data.loading;
+  //   if (shouldUpdate && !this.loaded)
+  //   {
+  //     this.loaded = true;
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   addItem(event)
   {
@@ -221,9 +217,10 @@ class Dashboard extends Component {
       changeKeySelectValue,
       changeSelectedTab,
       dashboardAction,
+      dashboardData,
       dashboardPages,
       dashboardPagesStates,
-      data,
+      dashboardState,
       keySelectValue,
       logDashboardActionStart,
       logDashboardActionStop,
@@ -236,7 +233,7 @@ class Dashboard extends Component {
       toggleSidebar,
     } = this.props;
 
-    if (data.loading)
+    if (!dashboardData)
     {
       return <div>Loading...</div>;
     }
@@ -294,19 +291,31 @@ class Dashboard extends Component {
             onSetOpen={toggleSidebar}
             styles={
               {
-                root: { height: '100%', overflowY: 'visible',  overflowX: 'hidden'},
+                root: {
+                  flex: '1',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  position: 'relative',
+                  overflowX: 'hidden',
+                  overflowY: 'visible',
+                },
                 overlay: overlayStyle,
-                content: { overflowY: 'visible' },
+                content: {
+                  flex: '1',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  position: 'relative',
+                  overflowY: 'visible',
+                },
             }}
           >
             {this.renderScrollShield()}
             <DashboardTabs
-              changeDashboardPageState={changeDashboardPageState}
               changeSelectedTab={changeSelectedTab}
               dashboardAction={dashboardAction}
+              dashboardData={dashboardData}
               dashboardPages={dashboardPages}
               dashboardPagesStates={dashboardPagesStates}
-              data={data}
               logDashboardActionStart={logDashboardActionStart}
               logDashboardActionStop={logDashboardActionStop}
               nightMode={nightMode}
@@ -321,5 +330,7 @@ class Dashboard extends Component {
     }
   }
 }
+
+
 
 export default Dashboard;
