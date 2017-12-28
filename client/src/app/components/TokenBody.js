@@ -174,7 +174,6 @@ class TokenBody extends PureComponent {
           >
             Historical activity
           </El>
-          {this.renderMarkets(token.markets)}
           {this.renderMentionTotalCounts()}
           {this.renderMentionSubredditCounts()}
         </div>

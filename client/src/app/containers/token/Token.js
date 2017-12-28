@@ -27,6 +27,7 @@ const query = gql`
       website
 
       markets {
+        id
         name
         lastPrice
 
