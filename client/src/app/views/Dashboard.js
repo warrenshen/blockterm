@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import Sidebar             from 'react-sidebar';
 import * as STYLES from '../constants/styles';
+import PROJECT_VERSION     from '../constants/items';
 import Select from 'react-select';
 import {
   ITEM_KEY_TO_LABELS,
@@ -14,6 +15,7 @@ import {
   ITEM_VALUE_TO_LABELS,
   generateIdentifier,
 } from '../constants/items';
+import El                  from '../components/El';
 import DashboardTabs       from '../components/DashboardTabs';
 
 const styles = StyleSheet.create({
@@ -64,7 +66,31 @@ const styles = StyleSheet.create({
   options: {
     borderBottom: '1px solid #ddd',
   },
+  topHalf: {
+    height: '300px',
+    //backgroundColor: '#eeffee',
+    borderBottom: `1px dashed ${STYLES.BORDERLIGHT}`,
+  },
+  bottomHalf: {
+    padding: '5px 10px',
+  },
+  addToButton: {
+    letterSpacing: '1px !important',
+    fontSize: '12px',
+    fontWeight: '700',
+    borderBottom: '2px solid #777',
+  },
+  p: {
+    fontSize: '13px',
+  },
+  ccVersion: {
+    position: 'fixed',
+    'bottom': '10px',
+  },
 });
+//<div className={css(styles.ccVersion)}>
+//  <p>© BLOCKTERM 2017-2018</p>
+//</div>
 
 var isScrolling;
 
@@ -151,7 +177,7 @@ class Dashboard extends PureComponent {
     {
       return (
         <button
-          className={css(styles.button)}
+          className={css(styles.button, styles.addToButton)}
           onClick={(event) => this.addItem(event)}
         >
           Add to Dashboard
@@ -217,17 +243,33 @@ class Dashboard extends PureComponent {
           <Sidebar
             sidebar={
               <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
-                <Select
-                  inputProps={{'id': 'widget_search'}}
-                  placeholder={'Search Widget Type'}
-                  className={css(styles.select, styles.bolded)}
-                  optionClassName={css(styles.bolded, styles.options)}
-                  options={selectOptions}
-                  onChange={(option) => changeKeySelectValue(option ? option.value : '')}
-                  value={keySelectValue}
-                />
-                {this.renderValueSelect()}
-                {this.renderSubmit()}
+                <div className={css(styles.topHalf)}>
+                  <Select
+                    inputProps={{'id': 'widget_search'}}
+                    placeholder={'Search Widget Type'}
+                    className={css(styles.select, styles.bolded)}
+                    optionClassName={css(styles.bolded, styles.options)}
+                    options={selectOptions}
+                    onChange={(option) => changeKeySelectValue(option ? option.value : '')}
+                    value={keySelectValue}
+                  />
+                  {this.renderValueSelect()}
+                  {this.renderSubmit()}
+                </div>
+                <div className={css(styles.bottomHalf)}>
+                  <El nightMode={nightMode} type={'h5'}>
+                    Adding elements to dashboard:
+                  </El>
+                  <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
+                    1) Enter the type of widget you would like to add, e.g. Market Overview, Candle Chart, Subreddit Posts, Subreddit Comments.
+                  </El>
+                  <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
+                    2) Enter the widget specific type. For example the currency/coin you would like for a Candle Chart, or Subreddit.
+                  </El>
+                  <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
+                    3) Click 'Add to Dashboard'!
+                  </El>
+                </div>
               </div>
             }
             docked={false}

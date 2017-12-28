@@ -57,6 +57,20 @@ const styles = StyleSheet.create({
     padding: '15px 15px',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
     borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
+    display:'flex',
+    flexDirection:'column',
+    minHeight: '500px',
+  },
+  row: {
+    display:'flex',
+    flex: '1',
+    flexDirection: 'row',
+  },
+  column: {
+    display:'flex',
+    flex: '1',
+    flexDirection: 'column',
+    height: '100%',
   },
   panelsNight: {
     backgroundColor: '#000',
@@ -78,6 +92,9 @@ const styles = StyleSheet.create({
   boldedColor: {
     color: STYLES.GOLDINVERSEBLUE,
     fontWeight: '700',
+  },
+  nightBoldedColor: {
+    color: STYLES.GOLD,
   },
   inputField: {
     fontWeight:'700',
@@ -102,7 +119,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   bottomHeavy: {
-    marginBottom: '12px',
+    marginBottom: '4px',
   },
   squareList: {
     listStyleType: 'square',
@@ -193,7 +210,7 @@ class Login extends PureComponent {
                 </div>
                 <div className={css(styles.section, styles.rightAlign)}>
                   <El nightMode={nightMode} type={'span'}>
-                    Already have an account? <Link to={'/login'}><u>Login here.</u></Link>
+                    Already have an account? <Link className={css(styles.boldedColor, nightMode && styles.nightBoldedColor)} to={'/login'}><u>Login here.</u></Link>
                   </El>
                 </div>
               </div>
@@ -207,23 +224,63 @@ class Login extends PureComponent {
                 Why should I join?
               </El>
               <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
-                <li className={css(styles.blockli, styles.boldedColor)}>Pre-Beta HODLers get grandfathered into any future premium-only features</li>
-                <li className={css(styles.blockli)}>We have big plans for the near future</li>
-                <li className={css(styles.blockli, styles.boldedColor)}>Customize and save/load your configurations across workstations</li>
+                <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>Pre-Beta HODLers get grandfathered into any future premium-only features!</li>
+                <li className={css(styles.blockli)}>We have big plans for the near future.</li>
+                <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>Customize and save/load your configurations across workstations.</li>
                 <li className={css(styles.blockli)}>We want your feedback!</li>
-                <li className={css(styles.blockli)}>Motivate us to continue improving this tool</li>
+                <li className={css(styles.blockli)}>Motivate us to continue improving this tool.</li>
               </ul>
             </div>
           </div>
 
           <div className={css(styles.faqPanel, nightMode && styles.panelsLightNight)}>
-            <El
-              style={styles.bolded, styles.bottomHeavy}
-              nightMode={nightMode}
-              type={'h4'}
-            >
-              FAQ:
-            </El>
+            <div className={css(styles.row)}>
+              <El
+                style={styles.bolded, styles.bottomHeavy}
+                nightMode={nightMode}
+                type={'h4'}
+              >
+                FAQ:
+              </El>
+            </div>
+            
+            <div className={css(styles.row)}>
+              <div className={css(styles.column)}>
+                <El
+                  style={styles.bolded}
+                  nightMode={nightMode}
+                  type={'h5'}
+                >
+                  What is Blockterm?
+                </El>
+              </div>
+
+              <div className={css(styles.column)}>
+                <El
+                  style={styles.bolded}
+                  nightMode={nightMode}
+                  type={'h5'}
+                >
+                  How do I use Blockterm?
+                </El>
+                <El
+                  nightMode={nightMode}
+                  type={'p'}
+                >
+                  The Subreddits tab is used to monitor activity on each respective coin/token's subreddit. The data is updated live every few minutes and has in the past shown extremely high correlation to price movements of the coins in the past.
+                </El>
+              </div>
+
+              <div className={css(styles.column)}>
+                <El
+                  style={styles.bolded}
+                  nightMode={nightMode}
+                  type={'h5'}
+                >
+                  What is Blockterm?
+                </El>
+              </div>
+            </div>
           </div>
         </div>
       </div>
