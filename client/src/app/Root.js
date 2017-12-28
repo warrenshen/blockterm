@@ -3,15 +3,11 @@
 import React, {
   Component
 }                               from 'react';
-// static website: uncomment createHashHistory, otherwise uncomment createBrowserHistory
 import {
-  // BrowserRouter as Router,
-  HashRouter as Router
+  BrowserRouter as Router,
 }                               from 'react-router-dom';
-// static website: uncomment createHashHistory, otherwise uncomment createBrowserHistory
 import {
-// createBrowserHistory as createHistory,
-  createHashHistory as createHistory
+  createBrowserHistory as createHistory,
 }                               from 'history';
 import {
   ApolloProvider
@@ -30,7 +26,7 @@ const client = apolloClient;
 class Root extends Component {
   render() {
     return (
-      <ApolloProvider store={store} client={client}>
+      <ApolloProvider client={client} store={store}>
         <div>
           <Router history={syncedHistory}>
             <App />
