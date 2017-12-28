@@ -70,7 +70,7 @@ class SubredditPostsItem extends Component {
     );
     const onChange = (option) =>
       changeDashboardPageState(identifier, 'plotRange', option.value);
-    console.log('rerender');
+
     return (
       <div className={css(styles.container)}>
         <LineChartWithSelect
