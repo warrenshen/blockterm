@@ -63,27 +63,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class TokenBody extends PureComponent {
-
-  renderMarkets(markets)
-  {
-    const {
-      nightMode,
-    } = this.props;
-
-    const market = markets[2];
-    const chartData = generateChartData(market.marketTickers);
-    return (
-      <LineChartWithSelect
-        data={chartData}
-        nightMode={nightMode}
-        selectOptions={RANGE_SELECT_OPTIONS}
-        selectValue={''}
-        title={`${market.name}`}
-        onChange={(option) => option.value}
-      />
-    );
-  }
+class TokenHead extends PureComponent {
 
   renderMarkets(markets)
   {
@@ -191,4 +171,4 @@ class TokenBody extends PureComponent {
   }
 }
 
-export default TokenBody;
+export default TokenHead;
