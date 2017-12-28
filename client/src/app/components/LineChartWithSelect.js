@@ -55,6 +55,7 @@ const LineChartWithSelect = ({
   data,
   displayLegend,
   nightMode,
+  redraw,
   selectOptions,
   selectValue,
   title,
@@ -103,8 +104,8 @@ const LineChartWithSelect = ({
         <Line
           height={312}
           data={data}
+          redraw={redraw}
           responsive={true}
-          redraw={true}
           options={{
             legend: legendConfig,
             maintainAspectRatio: false,
