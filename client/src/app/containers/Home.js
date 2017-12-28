@@ -11,7 +11,7 @@ import {
 import { DashboardItemsQuery } from '../queries';
 import * as dashboardActions   from '../redux/modules/dashboard';
 import Dashboard               from './Dashboard';
-import * as globalsActions    from '../redux/modules/globals';
+import * as globalsActions     from '../redux/modules/globals';
 
 /* -----------------------------------------
   GraphQL - Apollo client
@@ -106,6 +106,7 @@ const mapStateToProps = (state) => {
   return {
     dashboardAction: state.dashboard.dashboardAction,
     dashboardPages: state.dashboard.dashboardPages,
+    dashboardPagesStates: state.dashboard.dashboardPagesStates,
     keySelectValue: state.dashboard.keySelectValue,
     nightMode: state.globals.nightMode,
     scrollActive: state.dashboard.scrollActive,
@@ -119,6 +120,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       changeDashboardItemPlotRange: dashboardActions.changeDashboardItemPlotRange,
+      changeDashboardPageState: dashboardActions.changeDashboardPageState,
       changeKeySelectValue: dashboardActions.changeKeySelectValue,
       changeScrollActive: dashboardActions.changeScrollActive,
       changeSelectedTab: dashboardActions.changeSelectedTab,

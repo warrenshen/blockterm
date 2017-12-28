@@ -1,10 +1,11 @@
 // @flow weak
 
 import React, {
-  PureComponent,
+  Component,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { isEqual }         from 'underscore';
 import {
   Tab,
   TabList,
@@ -75,7 +76,12 @@ const styles = StyleSheet.create({
   },
 });
 
-class DashboardTabs extends PureComponent {
+class DashboardTabs extends Component {
+
+  shouldComponentUpdate(nextProps, nextState)
+  {
+    return !isEqual(this.props.nightMode, nextProps.nightMode);
+  }
 
   renderTabList()
   {
@@ -113,8 +119,10 @@ class DashboardTabs extends PureComponent {
   renderTabPanels()
   {
     const {
+      changeDashboardPageState,
       dashboardAction,
       dashboardPages,
+      dashboardPagesStates,
       data,
       logDashboardActionStart,
       logDashboardActionStop,
@@ -131,8 +139,10 @@ class DashboardTabs extends PureComponent {
       return (
         <TabPanel key={tabIndex}>
           <DashboardGrid
+            changeDashboardPageState={changeDashboardPageState}
             dashboardAction={dashboardAction}
             dashboardItems={dashboardItems}
+            dashboardStates={dashboardPagesStates[parseInt(tabIndex)]}
             data={data}
             logDashboardActionStart={logDashboardActionStart}
             logDashboardActionStop={logDashboardActionStop}

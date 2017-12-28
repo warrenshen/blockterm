@@ -6,9 +6,11 @@ import {
   ONE_MONTH,
 } from '../../constants/plots';
 import {
-  DEFAULT_ITEM_OBJECTS,
+  DEFAULT_PAGES_OBJECTS,
+  SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
   TV_CANDLE_CHART,
+  TV_MARKET_OVERVIEW,
   parseIdentifer,
 } from '../../constants/items';
 import {
@@ -19,8 +21,13 @@ import {
 
 const IDENTIFIER_KEY_TO_STATE_MAP = {
   [SUBREDDIT_POST_COUNTS]: {
-    plotRange: ONE_WEEK,
+    plotRange: ONE_MONTH,
   },
+  [SUBREDDIT_COMMENT_COUNTS]: {
+    plotRange: ONE_MONTH,
+  },
+  [TV_CANDLE_CHART]: {},
+  [TV_MARKET_OVERVIEW]: {},
   'TOKEN-PRICE': {
     plotRange: ONE_DAY,
   },
@@ -32,6 +39,7 @@ const IDENTIFIER_KEY_TO_STATE_MAP = {
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_DASHBOARD_ITEM_PLOT_RANGE = 'CHANGE_DASHBOARD_ITEM_PLOT_RANGE';
+const CHANGE_DASHBOARD_PAGE_STATE = 'CHANGE_DASHBOARD_PAGE_STATE';
 const CHANGE_KEY_SELECT_VALUE = 'CHANGE_KEY_SELECT_VALUE';
 const CHANGE_SCROLL_ACTIVE = 'CHANGE_SCROLL_ACTIVE';
 const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
@@ -49,6 +57,7 @@ const initialState = {
   dashboardAction: false,
   dashboardPages: {},
   keySelectValue: '',
+  dashboardPagesStates: {},
   selectedTab: '0',
   scrollActive: false,
   valueSelectValue: '',
@@ -59,6 +68,7 @@ export default function(state = initialState, action)
   let data;
   let dashboardItems;
   let dashboardPages;
+  let dashboardPagesStates;
   let newDashboardItems;
   let newDashboardPages;
 
@@ -81,7 +91,7 @@ export default function(state = initialState, action)
           data = action.result.data;
           if (data.destroyDashboardItem)
           {
-            dashboardItems = data.destroyDashboardItem.dashboardItems;
+            DashboardItemsQuery = data.destroyDashboardItem.dashboardItems;
           }
           return {
             ...state,
@@ -105,19 +115,41 @@ export default function(state = initialState, action)
               }
               else
               {
-                setItem(DASHBOARD_COOKIE, DEFAULT_ITEM_OBJECTS);
-                dashboardPages = DEFAULT_ITEM_OBJECTS;
+                setItem(DASHBOARD_COOKIE, DEFAULT_PAGES_OBJECTS);
+                dashboardPages = DEFAULT_PAGES_OBJECTS;
               }
             }
             else
             {
-              dashboardItems = data.user.dashboardItems;
+              // dashboardItems = data.user.dashboardItems;
             }
-            return {
-              ...state,
-              dashboardPages: dashboardPages,
-            };
           }
+
+          dashboardPagesStates = {};
+
+          Object.entries(dashboardPages).forEach((arr) => {
+            let pageId = arr[0]
+            dashboardItems = arr[1];
+            let dashboardPageStates = {};
+            dashboardItems.forEach((dashboardItem) => {
+              let {
+                id,
+                identifier,
+              } = dashboardItem;
+
+              const arr = parseIdentifer(identifier);
+              const identifierKey = arr[0];
+              dashboardPageStates[identifier] = IDENTIFIER_KEY_TO_STATE_MAP[identifierKey];
+            });
+
+            dashboardPagesStates[pageId] = dashboardPageStates;
+          });
+
+          return {
+            ...state,
+            dashboardPages: dashboardPages,
+            dashboardPagesStates: dashboardPagesStates,
+          };
       }
       return state;
     case CHANGE_DASHBOARD_ITEM_PLOT_RANGE:
@@ -126,6 +158,21 @@ export default function(state = initialState, action)
       return {
         ...state,
         [id]: Object.assign({}, state[id], { plotRange: value }),
+      };
+    case CHANGE_DASHBOARD_PAGE_STATE:
+      const newDashboardPagesStates = {
+        ...state.dashboardPagesStates,
+        [state.selectedTab]: {
+          ...state.dashboardPagesStates[state.selectedTab],
+          [action.identifier]: {
+            ...state.dashboardPagesStates[state.selectedTab][action.identifier],
+            [action.key]: action.value,
+          },
+        },
+      };
+      return {
+        ...state,
+        dashboardPagesStates: newDashboardPagesStates,
       };
     case CHANGE_KEY_SELECT_VALUE:
       return {
@@ -192,31 +239,17 @@ export default function(state = initialState, action)
         ...state,
         dashboardPages: newDashboardPages,
       };
-    // case REGISTER_DASHBOARD_ITEM:
-    //   const dashboardItem = action.value;
-    //   var {
-    //     id,
-    //     identifier,
-    //   } = dashboardItem;
-
-    //   const arr = parseIdentifer(identifier);
-    //   const identifierKey = arr[0];
-    //   const identifierValue = arr[1];
-
-    //   return {
-    //     ...state,
-    //     [id]: Object.assign({}, IDENTIFIER_KEY_TO_STATE_MAP[identifierKey]),
-    //   };
     default:
       return state;
   }
 }
 
-export function changeDashboardItemPlotRange(dashboardItemId, value)
+export function changeDashboardPageState(identifier, key, value)
 {
   return {
-    id: dashboardItemId,
-    type: CHANGE_DASHBOARD_ITEM_PLOT_RANGE,
+    identifier: identifier,
+    key: key,
+    type: CHANGE_DASHBOARD_PAGE_STATE,
     value: value,
   };
 }

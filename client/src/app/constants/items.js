@@ -16,7 +16,7 @@ export const ITEM_KEY_WHITELIST = [
 ];
 
 // Key => tab/page #, value => array of dashboard items.
-export const DEFAULT_ITEM_OBJECTS = {
+export const DEFAULT_PAGES_OBJECTS = {
   0: [
     {"id":"3","w":5,"h":4,"x":0,"y":0,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
     {"id":"6","w":5,"h":4,"x":0,"y":4,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
