@@ -71,6 +71,11 @@ const styles = StyleSheet.create({
     flex: '1',
     flexDirection: 'column',
     height: '100%',
+    paddingLeft: '10px',
+    paddingRight: '10px',
+  },
+  dashBorder: {
+    borderRight: `1px dashed ${STYLES.BORDERLIGHT}`,
   },
   panelsNight: {
     backgroundColor: '#000',
@@ -245,7 +250,7 @@ class Login extends PureComponent {
             </div>
             
             <div className={css(styles.row)}>
-              <div className={css(styles.column)}>
+              <div className={css(styles.column, styles.dashBorder)}>
                 <El
                   style={styles.bolded}
                   nightMode={nightMode}
@@ -255,19 +260,19 @@ class Login extends PureComponent {
                 </El>
               </div>
 
-              <div className={css(styles.column)}>
+              <div className={css(styles.column, styles.dashBorder)}>
                 <El
                   style={styles.bolded}
                   nightMode={nightMode}
                   type={'h5'}
                 >
-                  How do I use Blockterm?
+                  What is the Subreddits tab for?
                 </El>
                 <El
                   nightMode={nightMode}
                   type={'p'}
                 >
-                  The Subreddits tab is used to monitor activity on each respective coin/token's subreddit. The data is updated live every few minutes and has in the past shown extremely high correlation to price movements of the coins in the past.
+                  The 'subreddits' tab is used to monitor activity on each respective coin/token's subreddit on <a href="https://www.reddit.com" target="_blank" style={{'text-decoration':'underline'}}>Reddit.com.</a> The data is updated live every few minutes and has in the past shown extremely high correlation to price movements of the coins in the past.
                 </El>
               </div>
 
