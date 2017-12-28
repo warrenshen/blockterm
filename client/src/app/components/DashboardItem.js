@@ -87,6 +87,7 @@ class DashboardItem extends Component {
   {
     return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
            !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
+           !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
            !isEqual(this.props.data, nextProps.data) ||
            !isEqual(this.props.nightMode, nextProps.nightMode);
   }
@@ -95,13 +96,15 @@ class DashboardItem extends Component {
   {
     const {
       changeDashboardItemPlotRange,
+      changeDashboardPageState,
       dashboardAction,
+      dashboardState,
       data,
       nightMode,
       storeState,
     } = this.props;
-
-    const arr = parseIdentifer(dashboardItem.identifier);
+    const identifier = dashboardItem.identifier;
+    const arr = parseIdentifer(identifier);
     const identifierKey = arr[0];
     const identifierValue = arr[1];
 
@@ -110,31 +113,23 @@ class DashboardItem extends Component {
       case SUBREDDIT_COMMENT_COUNTS:
         return (
           <SubredditCommentCountsItem
+            changeDashboardPageState={changeDashboardPageState}
+            dashboardState={dashboardState}
             data={data}
+            identifier={identifier}
             specific={identifierValue}
-            id={dashboardItem.id}
             nightMode={nightMode}
-            storeState={storeState}
           />
         );
       case SUBREDDIT_POST_COUNTS:
         return (
           <SubredditPostsItem
+            changeDashboardPageState={changeDashboardPageState}
+            dashboardState={dashboardState}
             data={data}
+            identifier={identifier}
             specific={identifierValue}
-            id={dashboardItem.id}
             nightMode={nightMode}
-            storeState={storeState}
-          />
-        );
-      case 'TOKEN-PRICE':
-        return (
-          <TokenPriceItem
-            changeDashboardItemPlotRange={changeDashboardItemPlotRange}
-            id={dashboardItem.id}
-            nightMode={nightMode}
-            storeState={storeState}
-            token={data}
           />
         );
       case TV_CANDLE_CHART:
@@ -190,9 +185,9 @@ class DashboardItem extends Component {
             >
               <FontAwesome name='arrows' style={{'fontSize':'13px',}}/>
             </button>
-            
+
             <button
-              title="Press to remove element" 
+              title="Press to remove element"
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
               onClick={(event) => removeFromLayout(id)}
             >

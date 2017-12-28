@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, {
-  PureComponent,
+  Component,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
@@ -88,13 +88,10 @@ const styles = StyleSheet.create({
     'bottom': '10px',
   },
 });
-//<div className={css(styles.ccVersion)}>
-//  <p>© BLOCKTERM 2017-2018</p>
-//</div>
 
 var isScrolling;
 
-class Dashboard extends PureComponent {
+class Dashboard extends Component {
 
   constructor(props)
   {
@@ -111,6 +108,8 @@ class Dashboard extends PureComponent {
         changeScrollActive(false);
       }, 256);
     };
+
+    this.loaded = false;
   }
 
   componentDidMount()
@@ -121,6 +120,19 @@ class Dashboard extends PureComponent {
   componentWillUnmount()
   {
     window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  shouldComponentUpdate(nextProps, nextState)
+  {
+    console.log(this.props.data);
+    console.log(nextProps.data);
+    const shouldUpdate = this.props.data.loading !== nextProps.data.loading;
+    if (shouldUpdate && !this.loaded)
+    {
+      this.loaded = true;
+      return true;
+    }
+    return false;
   }
 
   addItem(event)
@@ -205,10 +217,12 @@ class Dashboard extends PureComponent {
   render()
   {
     const {
+      changeDashboardPageState,
       changeKeySelectValue,
       changeSelectedTab,
       dashboardAction,
       dashboardPages,
+      dashboardPagesStates,
       data,
       keySelectValue,
       logDashboardActionStart,
@@ -287,9 +301,11 @@ class Dashboard extends PureComponent {
           >
             {this.renderScrollShield()}
             <DashboardTabs
+              changeDashboardPageState={changeDashboardPageState}
               changeSelectedTab={changeSelectedTab}
               dashboardAction={dashboardAction}
               dashboardPages={dashboardPages}
+              dashboardPagesStates={dashboardPagesStates}
               data={data}
               logDashboardActionStart={logDashboardActionStart}
               logDashboardActionStop={logDashboardActionStop}

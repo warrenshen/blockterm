@@ -6,10 +6,13 @@ import { bindActionCreators }     from 'redux';
 import gql                        from 'graphql-tag';
 import { Dashboard }              from '../views';
 import { graphql }                from 'react-apollo';
+import { isEqual }                from 'underscore';
 
 import {
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
+  TV_CANDLE_CHART,
+  TV_MARKET_OVERVIEW,
   computeDashboardFreeValues,
   parseIdentifer,
 }                                 from '../constants/items';
@@ -19,7 +22,7 @@ import {
   setItem,
 }                                 from '../services/cookie';
 
-function f(identifier)
+function f(identifier, extras)
 {
   const arr = parseIdentifer(identifier);
   const identifierKey = arr[0];
@@ -33,7 +36,7 @@ function f(identifier)
           id
           displayName
 
-          commentCounts {
+          commentCounts(timeRange: "${extras.plotRange}") {
             count
             timestamp
           }
@@ -45,14 +48,20 @@ function f(identifier)
           id
           displayName
 
-          postCounts {
+          postCounts(timeRange: "${extras.plotRange}") {
             count
             timestamp
           }
         }
       `;
+    case TV_CANDLE_CHART:
+    case TV_MARKET_OVERVIEW:
+      return null;
     default:
-      console.log('Missing query');
+      if (process.env.NODE_ENV == 'dev')
+      {
+        console.log('MISSING QUERY');
+      }
       return null;
   }
   // else if (identifier.indexOf('TOKEN-PRICE') === 0)
@@ -76,10 +85,10 @@ function f(identifier)
   // }
 };
 
-function queryBuilder(dashboardItems)
+function queryBuilder(dashboardItems, dashboardStates)
 {
   const queries = dashboardItems.map(
-    (dashboardItem) => f(dashboardItem.identifier)
+    (dashboardItem) => f(dashboardItem.identifier, dashboardStates[dashboardItem.identifier])
   );
   const queriesWithPlaceholder = queries.concat([
     'placeholder'
@@ -107,15 +116,19 @@ function wrapDynamicGraphQL(ComponentToWrap)
     {
       if (this.wrapped === null ||
           this.props.selectedTab !== nextProps.selectedTab ||
-          this.props.dashboardPages[this.props.selectedTab].length !== nextProps.dashboardPages[nextProps.selectedTab].length)
+          this.props.dashboardPages[this.props.selectedTab].length !== nextProps.dashboardPages[nextProps.selectedTab].length ||
+          !isEqual(this.props.dashboardPagesStates, nextProps.dashboardPagesStates))
       {
         const {
           dashboardPages,
+          dashboardPagesStates,
           selectedTab,
         } = nextProps;
 
         const dashboardItems = dashboardPages[selectedTab];
-        const { query, config } = queryBuilder(dashboardItems);
+        const dashboardStates = dashboardPagesStates[selectedTab];
+        console.log(dashboardStates);
+        const { query, config } = queryBuilder(dashboardItems, dashboardStates);
         this.wrapped = graphql(query, config)(ComponentToWrap);
       }
     }
@@ -231,12 +244,14 @@ function wrapDynamicGraphQL(ComponentToWrap)
       {
         const {
           changeDashboardItemPlotRange,
+          changeDashboardPageState,
           changeKeySelectValue,
           changeScrollActive,
           changeSelectedTab,
           changeValueSelectValue,
           dashboardAction,
           dashboardPages,
+          dashboardPagesStates,
           data,
           keySelectValue,
           logDashboardActionStart,
@@ -255,12 +270,14 @@ function wrapDynamicGraphQL(ComponentToWrap)
           <Wrapped
             addToLayout={(identifier) => this.addToLayout(identifier)}
             changeDashboardItemPlotRange={changeDashboardItemPlotRange}
+            changeDashboardPageState={changeDashboardPageState}
             changeKeySelectValue={changeKeySelectValue}
             changeScrollActive={changeScrollActive}
             changeSelectedTab={changeSelectedTab}
             changeValueSelectValue={changeValueSelectValue}
             dashboardAction={dashboardAction}
             dashboardPages={dashboardPages}
+            dashboardPagesStates={dashboardPagesStates}
             keySelectValue={keySelectValue}
             nightMode={nightMode}
             toggleSidebar={toggleSidebar}

@@ -351,7 +351,10 @@ Subreddit.first(3).each do |subreddit|
 end
 
 Subreddit.all[3..-1].each do |subreddit|
-  create_comment_counts_for_subreddit(subreddit, 14)
+  create_post_counts_for_subreddit(subreddit, 90)
+  create_comment_counts_for_subreddit(subreddit, 90)
+  create_subscriber_counts_for_subreddit(subreddit, 90)
+  create_active_user_counts_for_subreddit(subreddit, 90)
 end
 
 Token.all.each do |token|

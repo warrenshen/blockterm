@@ -26,14 +26,16 @@ const styles = StyleSheet.create({
 });
 
 const SubredditPostsItem = ({
+  changeDashboardPageState,
+  dashboardState,
   data,
+  identifier,
   nightMode,
-  storeState,
-  specific
+  specific,
 }) => {
-  // const {
-  //   plotRange,
-  // } = storeState;
+  const {
+    plotRange,
+  } = dashboardState;
 
   const {
     postCount,
@@ -47,9 +49,11 @@ const SubredditPostsItem = ({
     postCounts,
     postCount,
     'last 24 hours',
-    isPlotRangeBig('1 week') ? 'M/D/YY' : 'MM/DD',
+    isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD',
     nightMode,
   );
+  const onChange = (option) =>
+    changeDashboardPageState(identifier, 'plotRange', option.value);
 
   return (
     <div className={css(styles.container)}>
@@ -57,9 +61,9 @@ const SubredditPostsItem = ({
         data={postsData}
         nightMode={nightMode}
         selectOptions={RANGE_SELECT_OPTIONS}
-        selectValue={'1 week'}
+        selectValue={plotRange}
         title={`# of daily posts in r/${specific}`}
-        onChange={(option) => changeDashboardItemPlotRange(dashboardItem.id, option.value)}
+        onChange={onChange}
       />
     </div>
   );
