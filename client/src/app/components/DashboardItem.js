@@ -85,7 +85,8 @@ class DashboardItem extends Component {
 
   shouldComponentUpdate(nextProps, nextState)
   {
-    return !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
+    return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+           !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
            !isEqual(this.props.data, nextProps.data) ||
            !isEqual(this.props.nightMode, nextProps.nightMode);
   }
@@ -94,6 +95,7 @@ class DashboardItem extends Component {
   {
     const {
       changeDashboardItemPlotRange,
+      dashboardAction,
       data,
       nightMode,
       storeState,
@@ -138,6 +140,7 @@ class DashboardItem extends Component {
       case TV_CANDLE_CHART:
         return (
           <TVChartItem
+            dashboardAction={dashboardAction}
             nightMode={nightMode}
             value={identifierValue}
           />
@@ -145,6 +148,7 @@ class DashboardItem extends Component {
       case TV_MARKET_OVERVIEW:
         return (
           <TVMarketOverviewItem
+            dashboardAction={dashboardAction}
             nightMode={nightMode}
           />
         );
