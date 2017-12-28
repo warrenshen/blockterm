@@ -10,6 +10,7 @@ import El from '../components/El';
 
 import { withRouter } from 'react-router-dom'
 import * as STYLES from '../constants/styles';
+import { PROJECT_VERSION } from '../constants/items';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -118,7 +119,14 @@ const styles = StyleSheet.create({
   },
   rightAlign: {
     textAlign: 'right',
-  }
+  },
+  boldedColor: {
+    color: STYLES.GOLDINVERSEBLUE,
+    fontWeight: '700',
+  },
+  nightBoldedColor: {
+    color: STYLES.GOLD,
+  },
 });
 
 class Login extends PureComponent {
@@ -186,7 +194,7 @@ class Login extends PureComponent {
                 </div>
                 <div className={css(styles.section, styles.rightAlign)}>
                   <El nightMode={nightMode} type={'span'}>
-                    Need an account? <Link to={'/join'}><u>Register here.</u></Link>
+                    Need an account? <Link className={css(styles.boldedColor, nightMode && styles.nightBoldedColor)} to={'/join'}><u>Register here.</u></Link>
                   </El>
                 </div>
               </div>
@@ -195,12 +203,13 @@ class Login extends PureComponent {
               <El style={styles.bolded, styles.bottomHeavy}
                   nightMode={nightMode}
                   type={'h4'}>
-                  Latest Updates: (v. 0.1.2)
+                  Latest Updates: (v. {PROJECT_VERSION})
               </El>
               <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
-                <li className={css(styles.blockli)}>In-depth chart widget added </li>
-                <li className={css(styles.blockli)}>Accounts and dashboard arrangement/state saving</li>
-                <li className={css(styles.blockli)}>Subreddit tracking data added by sub </li>
+                <li className={css(styles.blockli)}>Market Overview widget added!</li>
+                <li className={css(styles.blockli)}>In-depth chart widget added. </li>
+                <li className={css(styles.blockli)}>Accounts and dashboard arrangement/state saving.</li>
+                <li className={css(styles.blockli)}>Subreddit tracking data added by sub. </li>
                 <li className={css(styles.blockli)}>Launch of Blockterm!</li>
               </ul>
             </div>

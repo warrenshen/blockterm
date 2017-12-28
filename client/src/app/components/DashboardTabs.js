@@ -82,28 +82,28 @@ class DashboardTabs extends PureComponent {
     return (
       <TabList className={css(styles.tabBar)}>
         <Tab className={css(styles.tab)}>
-          <button>
+          <button title="Go to tab 1">
             Tab 1
           </button>
         </Tab>
         <Tab className={css(styles.tab)}>
-          <button>
+          <button title="Go to tab 2">
             Tab 2
           </button>
         </Tab>
         <Tab className={css(styles.tab)}>
-          <button>
+          <button title="Go to tab 3">
             Tab 3
           </button>
         </Tab>
         <Tab className={css(styles.tab)}>
-          <button>
+          <button title="Go to tab 4">
             Tab 4
           </button>
         </Tab>
         <Tab className={css(styles.tab)}>
           <button>
-            <FontAwesome name='rotate-left'/>
+            <FontAwesome title="Reset to preset" name='rotate-left'/>
           </button>
         </Tab>
       </TabList>
@@ -140,6 +140,7 @@ class DashboardTabs extends PureComponent {
             removeFromLayout={removeFromLayout}
             saveLayout={saveLayout}
             toggleSidebar={toggleSidebar}
+            useCSSTransforms={true}
           />
           <div
             className={css(styles.placeholder, nightMode && styles.nightContainer)}
@@ -148,6 +149,7 @@ class DashboardTabs extends PureComponent {
               className={css(styles.item, styles.addItem, styles.addToButton, nightMode && styles.nightMode)}
             >
               <button
+                title="Press to open up sidebar and add widgets to dashboard"
                 className={css(styles.button, nightMode && styles.darkAddButton)}
                 onClick={(event) => toggleSidebar()} >
                 Add Widget [+]

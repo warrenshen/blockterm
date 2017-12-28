@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   section: {
     flex: '1',
     overflowX: 'hidden',
+    backgroundColor: 'none',
   },
   rightAlign: {
     textAlign: 'right',
@@ -180,13 +181,14 @@ class DashboardItem extends Component {
           </div>
           <div className={css(styles.section, styles.rightAlign)}>
             <button
-              //style={{'float':'left',}}
+              title="Drag and drop to move widget around"
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
             >
               <FontAwesome name='arrows' style={{'fontSize':'13px',}}/>
             </button>
             
             <button
+              title="Press to remove element" 
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
               onClick={(event) => removeFromLayout(id)}
             >

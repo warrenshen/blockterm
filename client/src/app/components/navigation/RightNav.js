@@ -86,7 +86,7 @@ const RightNav = ({
 }) => (
   <ul className={css(styles.container)}>
     <div>
-      <Switch className={css(styles.switch, nightMode && styles.switchNight)} on={nightMode} onClick={toggleNightMode} />
+      <Switch title="Toggle on/off night mode" className={css(styles.switch, nightMode && styles.switchNight)} on={nightMode} onClick={toggleNightMode} />
     </div>
     {
       rightLinks.map((aLinkBtn, index) => (

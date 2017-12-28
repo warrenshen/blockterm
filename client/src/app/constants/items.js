@@ -1,3 +1,5 @@
+export const PROJECT_VERSION = '0.1.2';
+
 const DELIMETER = '__';
 
 export const SUBREDDIT_COMMENT_COUNTS = 'SUBREDDIT_COMMENT_COUNTS';
@@ -16,11 +18,11 @@ export const ITEM_KEY_WHITELIST = [
 // Key => tab/page #, value => array of dashboard items.
 export const DEFAULT_ITEM_OBJECTS = {
   0: [
-    {'id':'2','w':3,'h':3,'x':5,'y':8,'identifier':'SUBREDDIT_POST_COUNTS__Bitcoin'},
-    {'id':'3','w':5,'h':4,'x':0,'y':0,'identifier':'TV_CANDLE_CHART__BITSTAMP:BTCUSD'},
-    {'id':'6','w':5,'h':4,'x':0,'y':4,'identifier':'TV_CANDLE_CHART__BITSTAMP:ETHUSD'},
-    {'id':'7','w':3,'h':8,'x':5,'y':0,'identifier':'TV_MARKET_OVERVIEW__Default'},
-    {'id':'8','w':5,'h':3,'x':0,'y':8,'identifier':'TV_CANDLE_CHART__BITSTAMP:LTCUSD'},
+    {"id":"3","w":5,"h":4,"x":0,"y":0,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
+    {"id":"6","w":5,"h":4,"x":0,"y":4,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
+    {"id":"7","w":3,"h":8,"x":5,"y":0,"identifier":"TV_MARKET_OVERVIEW__Default"},
+    {"id":"8","w":5,"h":3,"x":0,"y":8,"identifier":"TV_CANDLE_CHART__BITSTAMP:LTCUSD"},
+    {"id":"9","w":3,"h":3,"x":5,"y":8,"identifier":"SUBREDDIT_COMMENT_COUNTS__Bitcoin"},
   ],
   1: [
     {'id':'7','w':3,'h':8,'x':5,'y':0,'identifier':'TV_MARKET_OVERVIEW__Default'},
