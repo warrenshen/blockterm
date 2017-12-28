@@ -55,6 +55,7 @@ const SAVE_DASHBOARD_ITEMS_LOCAL = 'SAVE_DASHBOARD_ITEMS_LOCAL';
  ------------------------------------------*/
 const initialState = {
   dashboardAction: false,
+  dashboardData: null,
   dashboardPages: {},
   keySelectValue: '',
   dashboardPagesStates: {},
@@ -149,6 +150,12 @@ export default function(state = initialState, action)
             ...state,
             dashboardPages: dashboardPages,
             dashboardPagesStates: dashboardPagesStates,
+          };
+        case 'DynamicDashboardQuery':
+
+          return {
+            ...state,
+            dashboardData: action.result.data,
           };
       }
       return state;

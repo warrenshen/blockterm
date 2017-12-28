@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     height: '100vh',
     padding: '0% 0%',
     margin: '0% 0%',
-    display: 'block',
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 

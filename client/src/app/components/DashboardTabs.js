@@ -18,6 +18,7 @@ import FontAwesome         from 'react-fontawesome';
 
 const styles = StyleSheet.create({
   container: {
+    flex: '1',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -80,7 +81,9 @@ class DashboardTabs extends Component {
 
   shouldComponentUpdate(nextProps, nextState)
   {
-    return !isEqual(this.props.nightMode, nextProps.nightMode);
+    return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+           !isEqual(this.props.dashboardPages, nextProps.dashboardPages) ||
+           !isEqual(this.props.nightMode, nextProps.nightMode);
   }
 
   renderTabList()
@@ -121,9 +124,9 @@ class DashboardTabs extends Component {
     const {
       changeDashboardPageState,
       dashboardAction,
+      dashboardData,
       dashboardPages,
       dashboardPagesStates,
-      data,
       logDashboardActionStart,
       logDashboardActionStop,
       nightMode,
@@ -141,9 +144,9 @@ class DashboardTabs extends Component {
           <DashboardGrid
             changeDashboardPageState={changeDashboardPageState}
             dashboardAction={dashboardAction}
+            dashboardData={dashboardData}
             dashboardItems={dashboardItems}
             dashboardStates={dashboardPagesStates[parseInt(tabIndex)]}
-            data={data}
             logDashboardActionStart={logDashboardActionStart}
             logDashboardActionStop={logDashboardActionStop}
             nightMode={nightMode}
