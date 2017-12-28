@@ -11,14 +11,14 @@ import {
 }                               from 'history';
 import {
   ApolloProvider
-}                               from 'react-apollo'; // replace Provider from react-redux
+}                               from 'react-apollo';
 import { apolloClient }         from './services/apollo';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore           from './redux/store/configureStore';
 import App                      from './containers/app/App';
 
-const store           = configureStore();
 const history         = createHistory();
+const store           = configureStore();
 const syncedHistory   = syncHistoryWithStore(history, store);
 
 const client = apolloClient;
