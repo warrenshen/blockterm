@@ -100,6 +100,7 @@ class DashboardGrid extends Component {
   {
     const {
       changeDashboardItemPlotRange,
+      dashboardAction,
       data,
       destroyDashboardItem,
       nightMode,
@@ -135,6 +136,7 @@ class DashboardGrid extends Component {
         <DashboardItem
           changeDashboardItemPlotRange={changeDashboardItemPlotRange}
           dashboardItem={dashboardItem}
+          dashboardAction={dashboardAction}
           data={data[identifier]}
           destroyDashboardItem={destroyDashboardItem}
           nightMode={nightMode}

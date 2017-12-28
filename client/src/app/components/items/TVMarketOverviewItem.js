@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
   nightContainer: {
     filter: 'hue-rotate(180deg) !important',
   },
+  noPointerEvents: {
+    pointerEvents: 'none',
+  },
   frame: {
     width: '105% !important',
     height: '110% !important',
@@ -21,7 +24,7 @@ const styles = StyleSheet.create({
     border: 'none',
   },
   nightFrame: {
-    backgroundColor: '#000', 
+    backgroundColor: '#000',
     filter: 'invert(100%) !important',
   },
   tradingView: {
@@ -40,11 +43,6 @@ const styles = StyleSheet.create({
 class TVChartItem extends PureComponent {
 
   componentDidMount()
-  {
-    this.update();
-  }
-
-  componentDidUpdate()
   {
     this.update();
   }
@@ -235,13 +233,14 @@ class TVChartItem extends PureComponent {
   render()
   {
     const {
+      dashboardAction,
       nightMode,
     } = this.props;
 
     return (
       <div className={css(styles.container, nightMode && styles.nightContainer)}>
         <iframe
-          className={css(styles.frame, nightMode && styles.nightFrame)}
+          className={css(styles.frame, nightMode && styles.nightFrame, dashboardAction && styles.noPointerEvents)}
           ref={(el) => this.instance = el}
         />
         <span id="tradingview-copyright" className={css(styles.tradingView)}><a target="_blank" href="http://www.tradingview.com" className={css(styles.tradingViewText)}>Market Quotes by <span>TradingView</span></a></span>

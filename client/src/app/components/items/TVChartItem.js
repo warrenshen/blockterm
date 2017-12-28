@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingBottom: '15px',
   },
+  noPointerEvents: {
+    pointerEvents: 'none',
+  },
   frame: {
     width: '100%',
     height: '100%',
@@ -25,6 +28,7 @@ class TVChartItem extends PureComponent {
   render()
   {
     const {
+      dashboardAction,
       nightMode,
       value,
     } = this.props;
@@ -33,7 +37,7 @@ class TVChartItem extends PureComponent {
       'https://s.tradingview.com/widgetembed/?' +
       `symbol=${value}&` +
       'interval=15&' +
-//     'hidetoptoolbar=1&' + 
+//     'hidetoptoolbar=1&' +
       'hidesidetoolbar=1&' +
       'symboledit=0&' +
       'saveimage=0&' +
@@ -46,7 +50,7 @@ class TVChartItem extends PureComponent {
     return (
       <div className={css(styles.container)}>
         <iframe
-          className={css(styles.frame, nightMode && styles.nightFrame)}
+          className={css(styles.frame, nightMode && styles.nightFrame, dashboardAction && styles.noPointerEvents)}
           src={url}
         />
       </div>
