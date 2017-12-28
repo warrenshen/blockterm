@@ -181,7 +181,6 @@ class Dashboard extends PureComponent {
     const {
       changeKeySelectValue,
       changeSelectedTab,
-      dashboard,
       dashboardAction,
       dashboardPages,
       data,
@@ -247,7 +246,6 @@ class Dashboard extends PureComponent {
             {this.renderScrollShield()}
             <DashboardTabs
               changeSelectedTab={changeSelectedTab}
-              dashboard={dashboard}
               dashboardAction={dashboardAction}
               dashboardPages={dashboardPages}
               data={data}

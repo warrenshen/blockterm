@@ -104,7 +104,6 @@ const updateDashboardItemsMutationOptions = {
 
 const mapStateToProps = (state) => {
   return {
-    dashboard: state.dashboard,
     dashboardAction: state.dashboard.dashboardAction,
     dashboardPages: state.dashboard.dashboardPages,
     keySelectValue: state.dashboard.keySelectValue,
