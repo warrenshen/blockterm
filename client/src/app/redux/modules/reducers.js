@@ -21,7 +21,7 @@ const appReducers = {
 const reducers = combineReducers({
   ...appReducers,
   apollo:   apolloClient.reducer(), // apollo reducer
-  routing:  routerReducer
+  routing:  routerReducer,
 });
 
 export default reducers;

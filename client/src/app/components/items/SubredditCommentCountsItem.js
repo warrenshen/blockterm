@@ -1,8 +1,11 @@
 // @flow weak
 
-import React               from 'react';
+import React, {
+  Component,
+}                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { isEqual }         from 'underscore';
 import moment              from 'moment';
 import LineChartWithSelect  from '../LineChartWithSelect';
 import {
@@ -25,48 +28,63 @@ const styles = StyleSheet.create({
   },
 });
 
-const SubredditCommentCountsItem = ({
-  changeDashboardPageState,
-  dashboardState,
-  data,
-  identifier,
-  nightMode,
-  specific,
-}) => {
-  const {
-    plotRange,
-  } = dashboardState;
+class SubredditCommentCountsItem extends Component {
 
-  const {
-    commentCount,
-    commentCounts,
-  } = data;
+  shouldComponentUpdate(nextProps, nextState)
+  {
+    return !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
+           !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
+           !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
+           !isEqual(this.props.nightMode, nextProps.nightMode);
+  }
 
-  const commentsX = commentCounts.map(
-    (commentCount) => moment(commentCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
-  );
-  const commentsData = generateLineChartData(
-    commentCounts,
-    commentCount,
-    'last 24 hours',
-    isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD',
-    nightMode,
-  );
-  const onChange = (option) =>
-    changeDashboardPageState(identifier, 'plotRange', option.value);
+  render()
+  {
+    const {
+      changeDashboardPageState,
+      dashboardData,
+      dashboardState,
+      identifier,
+      nightMode,
+      specific,
+    } = this.props;
 
-  return (
-    <div className={css(styles.container)}>
-      <LineChartWithSelect
-        data={commentsData}
-        nightMode={nightMode}
-        selectOptions={RANGE_SELECT_OPTIONS}
-        selectValue={plotRange}
-        title={`# of daily comments in r/${specific}`}
-        onChange={onChange}
-      />
-    </div>
-  );
+    const {
+      plotRange,
+    } = dashboardState;
+
+    const {
+      commentCount,
+      commentCounts,
+    } = dashboardData;
+
+    const commentsX = commentCounts.map(
+      (commentCount) => moment(commentCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
+    );
+    const commentsData = generateLineChartData(
+      commentCounts,
+      commentCount,
+      'last 24 hours',
+      isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD',
+      nightMode,
+    );
+    const onChange = (option) =>
+      changeDashboardPageState(identifier, 'plotRange', option.value);
+
+    return (
+      <div className={css(styles.container)}>
+        <LineChartWithSelect
+          data={commentsData}
+          nightMode={nightMode}
+          redraw={false}
+          selectOptions={RANGE_SELECT_OPTIONS}
+          selectValue={plotRange}
+          title={`# of daily comments in r/${specific}`}
+          onChange={onChange}
+        />
+      </div>
+    );
+  }
 }
 
 export default SubredditCommentCountsItem;

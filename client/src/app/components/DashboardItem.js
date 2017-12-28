@@ -86,9 +86,9 @@ class DashboardItem extends Component {
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+           !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
            !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
-           !isEqual(this.props.data, nextProps.data) ||
            !isEqual(this.props.nightMode, nextProps.nightMode);
   }
 
@@ -98,8 +98,8 @@ class DashboardItem extends Component {
       changeDashboardItemPlotRange,
       changeDashboardPageState,
       dashboardAction,
+      dashboardData,
       dashboardState,
-      data,
       nightMode,
       storeState,
     } = this.props;
@@ -114,8 +114,8 @@ class DashboardItem extends Component {
         return (
           <SubredditCommentCountsItem
             changeDashboardPageState={changeDashboardPageState}
+            dashboardData={dashboardData}
             dashboardState={dashboardState}
-            data={data}
             identifier={identifier}
             specific={identifierValue}
             nightMode={nightMode}
@@ -125,8 +125,8 @@ class DashboardItem extends Component {
         return (
           <SubredditPostsItem
             changeDashboardPageState={changeDashboardPageState}
+            dashboardData={dashboardData}
             dashboardState={dashboardState}
-            data={data}
             identifier={identifier}
             specific={identifierValue}
             nightMode={nightMode}

@@ -1,10 +1,14 @@
 // @flow weak
 
 import React, { PureComponent }   from 'react';
+import { StyleSheet, css }        from 'aphrodite';
 import { connect }                from 'react-redux';
 import { bindActionCreators }     from 'redux';
 import gql                        from 'graphql-tag';
-import { Dashboard }              from '../views';
+import {
+  Dashboard,
+  Wrapped as WrappedComponent,
+}                                 from '../views';
 import { graphql }                from 'react-apollo';
 import { isEqual }                from 'underscore';
 
@@ -93,7 +97,7 @@ function queryBuilder(dashboardItems, dashboardStates)
   const queriesWithPlaceholder = queries.concat([
     'placeholder'
   ]);
-  const query = `query {
+  const query = `query DynamicDashboardQuery {
     ${queriesWithPlaceholder.join('')}
   }`;
 
@@ -102,6 +106,17 @@ function queryBuilder(dashboardItems, dashboardStates)
     config: {},
   };
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  hidden: {
+    display: 'none',
+  },
+});
 
 function wrapDynamicGraphQL(ComponentToWrap)
 {
@@ -127,10 +142,19 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
         const dashboardItems = dashboardPages[selectedTab];
         const dashboardStates = dashboardPagesStates[selectedTab];
-        console.log(dashboardStates);
-        const { query, config } = queryBuilder(dashboardItems, dashboardStates);
-        this.wrapped = graphql(query, config)(ComponentToWrap);
+
+        if (dashboardItems)
+        {
+          const { query, config } = queryBuilder(dashboardItems, dashboardStates);
+          this.wrapped = graphql(query, config)(ComponentToWrap);
+        }
       }
+    }
+
+    componentWillUnmount()
+    {
+      // TODO: is this necessary?
+      this.wrapped = null;
     }
 
     addToLayout(identifier)
@@ -236,38 +260,34 @@ function wrapDynamicGraphQL(ComponentToWrap)
     }
 
     render() {
-      if (this.wrapped === null)
-      {
-        return null;
-      }
-      else
-      {
-        const {
-          changeDashboardItemPlotRange,
-          changeDashboardPageState,
-          changeKeySelectValue,
-          changeScrollActive,
-          changeSelectedTab,
-          changeValueSelectValue,
-          dashboardAction,
-          dashboardPages,
-          dashboardPagesStates,
-          data,
-          keySelectValue,
-          logDashboardActionStart,
-          logDashboardActionStop,
-          nightMode,
-          toggleSidebar,
-          scrollActive,
-          selectedTab,
-          sidebarActive,
-          valueSelectValue,
-        } = this.props;
+      const {
+        changeDashboardItemPlotRange,
+        changeDashboardPageState,
+        changeKeySelectValue,
+        changeScrollActive,
+        changeSelectedTab,
+        changeValueSelectValue,
+        dashboardAction,
+        dashboardData,
+        dashboardPages,
+        dashboardPagesStates,
+        data,
+        keySelectValue,
+        logDashboardActionStart,
+        logDashboardActionStop,
+        nightMode,
+        toggleSidebar,
+        scrollActive,
+        selectedTab,
+        sidebarActive,
+        valueSelectValue,
+      } = this.props;
 
-        const Wrapped = this.wrapped;
+      const Wrapped = this.wrapped;
 
-        return (
-          <Wrapped
+      return (
+        <div className={css(styles.container)}>
+          <Dashboard
             addToLayout={(identifier) => this.addToLayout(identifier)}
             changeDashboardItemPlotRange={changeDashboardItemPlotRange}
             changeDashboardPageState={changeDashboardPageState}
@@ -276,6 +296,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
             changeSelectedTab={changeSelectedTab}
             changeValueSelectValue={changeValueSelectValue}
             dashboardAction={dashboardAction}
+            dashboardData={dashboardData}
             dashboardPages={dashboardPages}
             dashboardPagesStates={dashboardPagesStates}
             keySelectValue={keySelectValue}
@@ -290,12 +311,15 @@ function wrapDynamicGraphQL(ComponentToWrap)
             sidebarActive={sidebarActive}
             valueSelectValue={valueSelectValue}
           />
-        );
-      }
+          <div className={css(styles.hidden)}>
+            {this.wrapped && <Wrapped />}
+          </div>
+        </div>
+      );
     }
   }
 
   return Wrapped;
 }
 
-export default wrapDynamicGraphQL(Dashboard);
+export default wrapDynamicGraphQL(WrappedComponent);

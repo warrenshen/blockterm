@@ -6,3 +6,4 @@ export { default as Subreddits }      from './Subreddits';
 export { default as SubredditsCompare } from './SubredditsCompare';
 export { default as Token }     from './token/Token';
 export { default as Tokens }    from './Tokens';
+export { default as Wrapped }   from './Wrapped';
