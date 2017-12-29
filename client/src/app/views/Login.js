@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
   infoPanel: {
     backgroundColor: '#fff',
     marginTop: '20px',
+    display: 'flex',
+    flexDirection: 'column',
     padding: '15px 15px',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
     borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     borderBottom: `2px solid ${STYLES.BORDERDARK}`,
   },
   bolded: {
-    fontWeight:'700',
+    fontWeight:'700 !important',
     display: 'block',
   },
   inputField: {
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   bottomHeavy: {
-    marginBottom: '12px',
+    marginBottom: '8px',
   },
   squareList: {
     listStyleType: 'square',
@@ -110,13 +112,6 @@ const styles = StyleSheet.create({
   submitButton: {
     border: `1px solid #000`,
   },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  section: {
-    flex: '1',
-  },
   rightAlign: {
     textAlign: 'right',
   },
@@ -126,6 +121,34 @@ const styles = StyleSheet.create({
   },
   nightBoldedColor: {
     color: STYLES.GOLD,
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    flex: '1',
+  },
+  section: {
+    flex: '1',
+  },
+  column: {
+    display:'flex',
+    flex: '1',
+    flexDirection: 'column',
+    height: '100%',
+  },
+  growOne: {
+    flex: '1 1 auto',
+  },
+  para: {
+    lineHeight: '24px',
+  },
+  a: {
+    fontWeight: '500',
+    textDecoration: 'underline',
+  },
+  boldedBottomHeavy: {
+    fontWeight: '700',
+    marginBottom: '8px',
   },
 });
 
@@ -166,7 +189,7 @@ class Login extends PureComponent {
         <div className={css(styles.mainContent)}>
           <div className={css(styles.loginPanel, nightMode && styles.panelsNight)}>
             <div className={css(styles.halfPanel)}>
-              <El style={styles.bolded, styles.bottomHeavy}
+              <El style={styles.boldedBottomHeavy}
                   nightMode={nightMode}
                   type={'h4'}>
                   Login to your account:
@@ -200,7 +223,7 @@ class Login extends PureComponent {
               </div>
             </div>
             <div className={css(styles.halfPanel, styles.rightHalf)}>
-              <El style={styles.bolded, styles.bottomHeavy}
+              <El style={styles.boldedBottomHeavy}
                   nightMode={nightMode}
                   type={'h4'}>
                   Latest Updates: (v. {PROJECT_VERSION})
@@ -216,11 +239,41 @@ class Login extends PureComponent {
           </div>
 
           <div className={css(styles.infoPanel, nightMode && styles.panelsLightNight)}>
-            <El style={styles.bolded, styles.bottomHeavy}
-                nightMode={nightMode}
-                type={'h4'}>
-                How to Buy and Sell Altcoins (such as XMR, DASH, XRP, IOT, SUB, etc.):
-            </El>
+            <div className={css(styles.row)}>
+              <div className={css(styles.column)}>
+                <div className={css(styles.row)}>
+                  <El style={styles.boldedBottomHeavy}
+                    nightMode={nightMode}
+                    type={'h4'}>
+                    Roadmap:
+                  </El>
+                </div>
+                <div className={css(styles.row)}>
+                  <El nightMode={nightMode}
+                  style={styles.para}
+                  type={'p'}>
+                    Alerts, Profit Loss, Correlation Graphs, More widgets
+                  </El>
+                </div>
+              </div>
+              <div className={css(styles.column)}>
+                <El style={styles.boldedBottomHeavy}
+                    nightMode={nightMode}
+                    type={'h5'}>
+                    How to Buy and Sell Altcoins (such as XMR, XRP, SUB, ICX etc.):
+                </El>
+                <El nightMode={nightMode}
+                    style={styles.para}
+                    type={'p'}>
+                    2018 is undoubtedly the year of altcoins (alternative cryptocurrencies), with Bitcoin stealing the show of 2017. With altcoins like <a href="https://coinmarketcap.com/currencies/substratum/" className={css(styles.a)} target="_blank">Substratum (SUB)</a> and <a href="https://coinmarketcap.com/currencies/icon/" className={css(styles.a)} target="_blank">Icon (ICX)</a> rallying hard, it's wise to learn how to get a part of the action. There is lots of money to be made in the more volatile, fast-paced altcoin market.<br /><br />
+                    Thus the natural question is: How does one get involved?
+                    Our preferred answer is: <a href="https://www.binance.com/?ref=11786793" className={css(styles.a, styles.boldedColor, nightMode && styles.nightBoldedColor)} target="_blank">with Binance.</a> 
+                    Currently most altcoins can only be purchased using Bitcoin, and are seldom available by dollar-to-cryptocurrency vendors. Thus you will first need a traditional Dollar-to-Bitcoin broker such as <a href="https://www.coinbase.com/join/59d710a13d5d8000d2267f0c" className={css(styles.a, styles.boldedColor, nightMode && styles.nightBoldedColor)} target="_blank">Coinbase</a> to trade dollars for BTC/LTC.<br /><br />
+                    Then, using your Binance account, you would trade BTC for any altcoin you desire. We prefer Binance as they have one of the largest, if not the largest, selections of altcoins available, and immediately pay out coin-fork distributions when they are announced (similar to dividends for the stock market). They also have some of the lowest, if not the lowest fees, at 0.5%!<br /><br />
+                    <span style={{'fontWeight':'500'}}>Important note: in order to save on Bitcoin's costly transaction fees, it is recommended to buy LTC off of Coinbase or other vendors and then send the LTC to Binance. After doing so, trade LTC to BTC and then BTC for your preferred altcoin.</span>
+                </El>
+              </div>
+            </div>
           </div>
         </div>
       </div>

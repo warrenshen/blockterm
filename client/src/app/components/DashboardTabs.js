@@ -73,6 +73,9 @@ const styles = StyleSheet.create({
   },
   tab: {
     fontWeight: '500',
+    borderColor: '#333',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
   },
   tabText: {
     //nothing yet
@@ -96,23 +99,23 @@ class DashboardTabs extends Component {
     return (
       <div className={css(styles.tabBar)}>
         <TabList>
-          <Tab className={css(styles.tab)}>
-            <button title="Go to tab 1">
+          <Tab>
+            <button className={css(styles.tab)} title="Go to tab 1">
               Tab 1
             </button>
           </Tab>
-          <Tab className={css(styles.tab)}>
-            <button title="Go to tab 2">
+          <Tab>
+            <button className={css(styles.tab)} title="Go to tab 2">
               Tab 2
             </button>
           </Tab>
-          <Tab className={css(styles.tab)}>
-            <button title="Go to tab 3">
+          <Tab>
+            <button className={css(styles.tab)} title="Go to tab 3">
               Tab 3
             </button>
           </Tab>
-          <Tab className={css(styles.tab)}>
-            <button title="Go to tab 4">
+          <Tab>
+            <button className={css(styles.tab)} title="Go to tab 4">
               Tab 4
             </button>
           </Tab>
