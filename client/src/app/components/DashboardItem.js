@@ -100,8 +100,7 @@ class DashboardItem extends Component {
   renderItem(dashboardItem)
   {
     const {
-      changeDashboardItemPlotRange,
-      changeDashboardPageState,
+      changeDashboardItemState,
       dashboardAction,
       dashboardData,
       dashboardState,
@@ -119,7 +118,7 @@ class DashboardItem extends Component {
       case SUBREDDIT_COMMENT_COUNTS:
         return (
           <SubredditCommentCountsItem
-            changeDashboardPageState={changeDashboardPageState}
+            changeDashboardItemState={changeDashboardItemState}
             dashboardData={dashboardData}
             dashboardState={dashboardState}
             identifier={identifier}
@@ -130,7 +129,7 @@ class DashboardItem extends Component {
       case SUBREDDIT_POST_COUNTS:
         return (
           <SubredditPostCountsItem
-            changeDashboardPageState={changeDashboardPageState}
+            changeDashboardItemState={changeDashboardItemState}
             dashboardData={dashboardData}
             dashboardState={dashboardState}
             identifier={identifier}

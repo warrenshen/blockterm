@@ -4,19 +4,24 @@ import gql from 'graphql-tag';
   Queries
 ------------------------------------------*/
 
-export const DashboardItemsQuery = gql`
-  query DashboardItemsQuery {
-     user {
-       dashboardItems {
-         id
-         identifier
-         w
-         h
-         x
-         y
-       }
-     }
-   }
+export const DashboardPagesQuery = gql`
+  query DashboardPagesQuery {
+    user {
+      dashboardPages {
+        index
+        name
+
+        dashboardItems {
+          id
+          identifier
+          w
+          h
+          x
+          y
+        }
+      }
+    }
+  }
 `;
 
 export const UserQuery = gql`

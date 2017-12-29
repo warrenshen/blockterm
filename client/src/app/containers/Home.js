@@ -8,9 +8,9 @@ import {
   DestroyDashboardItemMutation,
   UpdateDashboardItemsMutation,
 }                              from '../queries';
-import { DashboardItemsQuery } from '../queries';
-import * as dashboardActions   from '../redux/modules/dashboard';
+import { DashboardPagesQuery } from '../queries';
 import Dashboard               from './Dashboard';
+import * as dashboardActions   from '../redux/modules/dashboard';
 import * as globalsActions     from '../redux/modules/globals';
 
 /* -----------------------------------------
@@ -107,8 +107,8 @@ const mapStateToProps = (state) => {
     apollo: state.apollo,
     dashboardAction: state.dashboard.dashboardAction,
     dashboardData: state.dashboard.dashboardData,
+    dashboardItemStates: state.dashboard.dashboardItemStates,
     dashboardPages: state.dashboard.dashboardPages,
-    dashboardPagesStates: state.dashboard.dashboardPagesStates,
     keySelectValue: state.dashboard.keySelectValue,
     nightMode: state.globals.nightMode,
     scrollActive: state.dashboard.scrollActive,
@@ -121,9 +121,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      // fetchDashboardPages:
-      changeDashboardItemPlotRange: dashboardActions.changeDashboardItemPlotRange,
-      changeDashboardPageState: dashboardActions.changeDashboardPageState,
+      changeDashboardItemState: dashboardActions.changeDashboardItemState,
       changeKeySelectValue: dashboardActions.changeKeySelectValue,
       changeScrollActive: dashboardActions.changeScrollActive,
       changeSelectedTab: dashboardActions.changeSelectedTab,
@@ -140,7 +138,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
-  graphql(DashboardItemsQuery),
+  graphql(DashboardPagesQuery),
   graphql(CreateDashboardItemMutation, createDashboardItemMutationOptions),
   graphql(DestroyDashboardItemMutation, destroyDashboardItemMutationOptions),
   graphql(UpdateDashboardItemsMutation, updateDashboardItemsMutationOptions),

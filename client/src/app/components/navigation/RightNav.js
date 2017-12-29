@@ -71,18 +71,18 @@ const styles = StyleSheet.create({
 function logOut(event, client)
 {
   clearItem(AUTH_TOKEN_COOKIE);
-  client.resetStore()
+  client.resetStore();
 }
 
 function truncateEmail(email)
 {
-  const TARGETLENGTH = 6;
+  const TARGET_LENGTH = 6;
   var re =/.+(?=@.+)/;
   var result = re.exec(email);
   if(!result) {
-    return email.length > TARGETLENGTH ? email.substring(0, TARGETLENGTH) + "**": email.substring(0, TARGETLENGTH);
+    return email.length > TARGET_LENGTH ? email.substring(0, TARGET_LENGTH) + "**": email.substring(0, TARGETLENGTH);
   } else {
-    return result[0].substring(0, TARGETLENGTH) + "**"; //truncate email
+    return result[0].substring(0, TARGET_LENGTH) + "**"; //truncate email
   }
 }
 
@@ -97,7 +97,12 @@ const RightNav = ({
   user,
 }) => (
   <ul className={css(styles.container)}>
-    <Switch title="Toggle on/off night mode" className={css(styles.switch, nightMode && styles.switchNight)} on={nightMode} onClick={toggleNightMode} />
+    <Switch
+      className={css(styles.switch, nightMode && styles.switchNight)}
+      on={nightMode}
+      onClick={toggleNightMode}
+      title="Toggle on/off night mode"
+    />
     {
       rightLinks.map((aLinkBtn, index) => (
         <RightNavButton
