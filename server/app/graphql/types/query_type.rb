@@ -116,6 +116,7 @@ module Types
       description 'Gets the current user if logged in'
 
       resolve -> (obj, args, ctx) {
+        # User.first
         ctx[:current_user]
       }
     end
