@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class SubredditPostsItem extends Component {
+class SubredditPostCountsItem extends Component {
 
   shouldComponentUpdate(nextProps, nextState)
   {
@@ -87,4 +87,4 @@ class SubredditPostsItem extends Component {
   }
 }
 
-export default SubredditPostsItem;
+export default SubredditPostCountsItem;

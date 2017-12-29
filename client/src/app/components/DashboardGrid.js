@@ -92,7 +92,9 @@ class DashboardGrid extends Component {
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+           !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardItems, nextProps.dashboardItems) ||
+           !isEqual(this.props.dashboardStates, nextProps.dashboardStates) ||
            !isEqual(this.props.nightMode, nextProps.nightMode);
   }
 

@@ -82,8 +82,11 @@ class DashboardTabs extends Component {
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+           !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardPages, nextProps.dashboardPages) ||
-           !isEqual(this.props.nightMode, nextProps.nightMode);
+           !isEqual(this.props.dashboardPagesStates, nextProps.dashboardPagesStates) ||
+           !isEqual(this.props.nightMode, nextProps.nightMode) ||
+           !isEqual(this.props.selectedTab, nextProps.selectedTab);
   }
 
   renderTabList()
