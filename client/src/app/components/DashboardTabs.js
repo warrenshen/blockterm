@@ -89,7 +89,7 @@ class DashboardTabs extends Component {
     return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
            !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardPages, nextProps.dashboardPages) ||
-           !isEqual(this.props.dashboardPagesStates, nextProps.dashboardPagesStates) ||
+           !isEqual(this.props.dashboardItemStates, nextProps.dashboardItemStates) ||
            !isEqual(this.props.nightMode, nextProps.nightMode) ||
            !isEqual(this.props.selectedTab, nextProps.selectedTab);
   }
@@ -130,11 +130,11 @@ class DashboardTabs extends Component {
   renderTabPanels()
   {
     const {
-      changeDashboardPageState,
+      changeDashboardItemState,
       dashboardAction,
       dashboardData,
+      dashboardItemStates,
       dashboardPages,
-      dashboardPagesStates,
       logDashboardActionStart,
       logDashboardActionStop,
       nightMode,
@@ -144,24 +144,22 @@ class DashboardTabs extends Component {
       toggleSidebar,
     } = this.props;
 
-    return Object.entries(dashboardPages).map((arr) => {
-      const tabIndex = arr[0];
-      const dashboardItems = arr[1];
+    return dashboardPages.map((dashboardPage) => {
+      const dashboardItems = dashboardPage.dashboardItems;
       return (
-        <TabPanel key={tabIndex}>
+        <TabPanel key={dashboardPage.index}>
           <DashboardGrid
-            changeDashboardPageState={changeDashboardPageState}
+            changeDashboardItemState={changeDashboardItemState}
             dashboardAction={dashboardAction}
             dashboardData={dashboardData}
             dashboardItems={dashboardItems}
-            dashboardStates={dashboardPagesStates[parseInt(tabIndex)]}
+            dashboardItemStates={dashboardItemStates}
             logDashboardActionStart={logDashboardActionStart}
             logDashboardActionStop={logDashboardActionStop}
             nightMode={nightMode}
             removeFromLayout={removeFromLayout}
             saveLayout={saveLayout}
             toggleSidebar={toggleSidebar}
-            useCSSTransforms={true}
           />
           <div
             className={css(styles.placeholder, nightMode && styles.nightContainer)}
@@ -193,8 +191,8 @@ class DashboardTabs extends Component {
     return (
       <div className={css(styles.container, nightMode && styles.nightContainer)}>
         <Tabs
-          onSelect={(tabIndex) => changeSelectedTab(String(tabIndex))}
-          selectedIndex={parseInt(selectedTab)}
+          onSelect={(tabIndex) => changeSelectedTab(tabIndex)}
+          selectedIndex={selectedTab}
         >
           {this.renderTabList()}
           {this.renderTabPanels()}

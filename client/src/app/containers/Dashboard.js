@@ -83,10 +83,10 @@ function f(identifier, extras)
   }
 };
 
-function queryBuilder(dashboardItems, dashboardStates)
+function queryBuilder(dashboardItems, dashboardItemStates)
 {
   const queries = dashboardItems.map(
-    (dashboardItem) => f(dashboardItem.identifier, dashboardStates[dashboardItem.identifier])
+    (dashboardItem) => f(dashboardItem.identifier, dashboardItemStates[dashboardItem.identifier])
   );
   const queriesWithPlaceholder = queries.concat([
     'placeholder'
@@ -127,27 +127,31 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
       if (this.wrapped !== null &&
           props.selectedTab === nextProps.selectedTab &&
-          isEqual(props.dashboardPages, nextProps.dashboardPages) &&
-          isEqual(props.dashboardPagesStates, nextProps.dashboardPagesStates))
+          isEqual(props.dashboardItemStates, nextProps.dashboardItemStates) &&
+          isEqual(props.dashboardPages, nextProps.dashboardPages))
       {
         return;
       }
 
       const {
+        dashboardItemStates,
         dashboardPages,
-        dashboardPagesStates,
         selectedTab,
       } = nextProps;
 
-      const dashboardItems = dashboardPages[selectedTab];
-      const dashboardStates = dashboardPagesStates[selectedTab];
-
-      if (!dashboardItems || !dashboardStates)
+      if (dashboardPages.length <= 0)
       {
         return;
       }
 
-      const { query, config } = queryBuilder(dashboardItems, dashboardStates);
+      const dashboardItems = dashboardPages[selectedTab].dashboardItems;
+
+      if (!dashboardItems || !dashboardItemStates)
+      {
+        return;
+      }
+
+      const { query, config } = queryBuilder(dashboardItems, dashboardItemStates);
       this.wrapped = graphql(query, config)(ComponentToWrap);
     }
 
@@ -178,7 +182,7 @@ class Container extends PureComponent
       selectedTab,
     } = this.props;
 
-    const dashboardItems = dashboardPages[selectedTab];
+    const dashboardItems = dashboardPages[selectedTab].dashboardItems;
     const arr = computeDashboardFreeValues(dashboardItems);
 
     if (data.user)
@@ -232,7 +236,7 @@ class Container extends PureComponent
       updateDashboardItems,
     } = this.props;
 
-    const dashboardItems = dashboardPages[selectedTab];
+    const dashboardItems = dashboardPages[selectedTab].dashboardItems;
 
     var layoutChanged = false;
     const newDashboardItemsMap = {};
@@ -273,16 +277,15 @@ class Container extends PureComponent
   render()
   {
     const {
-      changeDashboardItemPlotRange,
-      changeDashboardPageState,
+      changeDashboardItemState,
       changeKeySelectValue,
       changeScrollActive,
       changeSelectedTab,
       changeValueSelectValue,
       dashboardAction,
       dashboardData,
+      dashboardItemStates,
       dashboardPages,
-      dashboardPagesStates,
       keySelectValue,
       logDashboardActionStart,
       logDashboardActionStop,
@@ -301,16 +304,15 @@ class Container extends PureComponent
         />
         <Dashboard
           addToLayout={(identifier) => this.addToLayout(identifier)}
-          changeDashboardItemPlotRange={changeDashboardItemPlotRange}
-          changeDashboardPageState={changeDashboardPageState}
+          changeDashboardItemState={changeDashboardItemState}
           changeKeySelectValue={changeKeySelectValue}
           changeScrollActive={changeScrollActive}
           changeSelectedTab={changeSelectedTab}
           changeValueSelectValue={changeValueSelectValue}
           dashboardAction={dashboardAction}
           dashboardData={dashboardData}
+          dashboardItemStates={dashboardItemStates}
           dashboardPages={dashboardPages}
-          dashboardPagesStates={dashboardPagesStates}
           keySelectValue={keySelectValue}
           nightMode={nightMode}
           toggleSidebar={toggleSidebar}

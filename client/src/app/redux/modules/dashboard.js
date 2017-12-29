@@ -1,5 +1,6 @@
-// @flow weak
+ // @flow weak
 
+import { List, Map } from 'immutable';
 import {
   ONE_DAY,
   ONE_WEEK,
@@ -43,8 +44,7 @@ const IDENTIFIER_KEY_TO_STATE_MAP = {
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
 const APOLLO_QUERY_RESULT_CLIENT = 'APOLLO_QUERY_RESULT_CLIENT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
-const CHANGE_DASHBOARD_ITEM_PLOT_RANGE = 'CHANGE_DASHBOARD_ITEM_PLOT_RANGE';
-const CHANGE_DASHBOARD_PAGE_STATE = 'CHANGE_DASHBOARD_PAGE_STATE';
+const CHANGE_DASHBOARD_ITEM_STATE = 'CHANGE_DASHBOARD_PAGE_STATE';
 const CHANGE_KEY_SELECT_VALUE = 'CHANGE_KEY_SELECT_VALUE';
 const CHANGE_SCROLL_ACTIVE = 'CHANGE_SCROLL_ACTIVE';
 const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
@@ -61,23 +61,42 @@ const SAVE_DASHBOARD_ITEMS_LOCAL = 'SAVE_DASHBOARD_ITEMS_LOCAL';
 const initialState = {
   dashboardAction: false,
   dashboardData: null,
-  dashboardPages: {},
+  dashboardItemStates: {},
+  dashboardPages: [],
   keySelectValue: '',
-  dashboardPagesStates: {},
-  selectedTab: '0',
+  selectedTab: 0,
   scrollActive: false,
   valueSelectValue: '',
 };
+
+function generateItemStatesFromPages(dashboardPages)
+{
+  const dashboardItemStates = {};
+
+  dashboardPages.forEach((dashboardPage) => {
+    dashboardPage.dashboardItems.forEach((dashboardItem) => {
+      let {
+        id,
+        identifier,
+      } = dashboardItem;
+
+      const arr = parseIdentifer(identifier);
+      const identifierKey = arr[0];
+      dashboardItemStates[identifier] = IDENTIFIER_KEY_TO_STATE_MAP[identifierKey];
+    });
+  });
+
+  return dashboardItemStates;
+}
 
 export default function(state = initialState, action)
 {
   let data;
   let dashboardItems;
   let dashboardPages;
-  let dashboardPagesStates;
   let newDashboardItems;
+  let newDashboardItemStates;
   let newDashboardPages;
-  let newDashboardPagesStates;
 
   switch (action.type)
   {
@@ -98,7 +117,7 @@ export default function(state = initialState, action)
           data = action.result.data;
           if (data.destroyDashboardItem)
           {
-            DashboardItemsQuery = data.destroyDashboardItem.dashboardItems;
+            dashboardItems = data.destroyDashboardItem.dashboardItems;
           }
           return {
             ...state,
@@ -110,7 +129,7 @@ export default function(state = initialState, action)
     case APOLLO_QUERY_RESULT_CLIENT:
       switch (action.operationName)
       {
-        case 'DashboardItemsQuery':
+        case 'DashboardPagesQuery':
           data = action.result.data;
           if (data)
           {
@@ -130,37 +149,16 @@ export default function(state = initialState, action)
             }
             else
             {
-              // dashboardItems = data.user.dashboardItems;
+              dashboardPages = data.user.dashboardPages;
             }
           }
 
-          dashboardPagesStates = {};
-
-          Object.entries(dashboardPages).forEach((arr) => {
-            let pageId = arr[0]
-            dashboardItems = arr[1];
-            let dashboardPageStates = {};
-            dashboardItems.forEach((dashboardItem) => {
-              let {
-                id,
-                identifier,
-              } = dashboardItem;
-
-              const arr = parseIdentifer(identifier);
-              const identifierKey = arr[0];
-              dashboardPageStates[identifier] = IDENTIFIER_KEY_TO_STATE_MAP[identifierKey];
-            });
-
-            dashboardPagesStates[pageId] = dashboardPageStates;
-          });
-
           return {
             ...state,
+            dashboardItemStates: generateItemStatesFromPages(dashboardPages),
             dashboardPages: dashboardPages,
-            dashboardPagesStates: dashboardPagesStates,
           };
         case 'DynamicDashboardQuery':
-
           return {
             ...state,
             dashboardData: {
@@ -170,27 +168,17 @@ export default function(state = initialState, action)
           };
       }
       return state;
-    case CHANGE_DASHBOARD_ITEM_PLOT_RANGE:
-      let id = action.id;
-      let value = action.value;
-      return {
-        ...state,
-        [id]: Object.assign({}, state[id], { plotRange: value }),
-      };
-    case CHANGE_DASHBOARD_PAGE_STATE:
-      newDashboardPagesStates = {
-        ...state.dashboardPagesStates,
-        [state.selectedTab]: {
-          ...state.dashboardPagesStates[state.selectedTab],
-          [action.identifier]: {
-            ...state.dashboardPagesStates[state.selectedTab][action.identifier],
-            [action.key]: action.value,
-          },
+    case CHANGE_DASHBOARD_ITEM_STATE:
+      newDashboardItemStates = {
+        ...state.dashboardItemStates,
+        [action.identifier]: {
+          ...state.dashboardItemStates[action.identifier],
+          [action.key]: action.value,
         },
       };
       return {
         ...state,
-        dashboardPagesStates: newDashboardPagesStates,
+        dashboardItemStates: newDashboardItemStates,
       };
     case CHANGE_KEY_SELECT_VALUE:
       return {
@@ -214,40 +202,42 @@ export default function(state = initialState, action)
       };
     case CREATE_DASHBOARD_ITEM_LOCAL:
       const newDashboardItem = action.value;
-      newDashboardItems = state.dashboardPages[state.selectedTab].concat([newDashboardItem]);
-      newDashboardPages = {
-        ...state.dashboardPages,
-        [state.selectedTab]: newDashboardItems,
-      };
+      dashboardPage = Map(state.dashboardPages[state.selectedTab]);
+      newDashboardItems = List(dashboardPage.dashboardItems).push(newDashboardItem);
+      newDashboardPage = dashboardPage.set('dashboardItems', newDashboardItems);
+
       const newIdentifier = newDashboardItem.identifier;
       const arr = parseIdentifer(newIdentifier);
       const identifierKey = arr[0];
 
-      newDashboardPagesStates = {
+      newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
+      console.log(newDashboardPages);
+      newDashboardItemStates = {
         ...state.dashboardPagesStates,
-        [state.selectedTab]: {
-          ...state.dashboardPagesStates[state.selectedTab],
-          [newIdentifier]: IDENTIFIER_KEY_TO_STATE_MAP[identifierKey],
-        },
+        [newIdentifier]: IDENTIFIER_KEY_TO_STATE_MAP[identifierKey],
       };
+      console.log(newDashboardPages);
+      console.log(newDashboardItemStates);
       setItem(DASHBOARD_COOKIE, newDashboardPages);
+
       return {
         ...state,
+        newDashboardItemStates: newDashboardItemStates,
         dashboardPages: newDashboardPages,
-        dashboardPagesStates: newDashboardPagesStates,
       };
     case DESTROY_DASHBOARD_ITEM_LOCAL:
-      newDashboardItems = state.dashboardPages[state.selectedTab].filter(
+      let oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
+      console.log(oldDashboardPage);
+      let oldDashboardItems = oldDashboardPage.get('dashboardItems');
+      let newDashboardItems = oldDashboardItems.filter(
         (dashboardItem) => dashboardItem.id !== action.value
       );
-      newDashboardPages = {
-        ...state.dashboardPages,
-        [state.selectedTab]: newDashboardItems,
-      };
+      let newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
+      let newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
       setItem(DASHBOARD_COOKIE, newDashboardPages);
       return {
         ...state,
-        dashboardPages: newDashboardPages,
+        dashboardPages: newDashboardPages.toJS(),
       };
     case LOG_DASHBOARD_ACTION_START:
       return {
@@ -275,12 +265,12 @@ export default function(state = initialState, action)
   }
 }
 
-export function changeDashboardPageState(identifier, key, value)
+export function changeDashboardItemState(identifier, key, value)
 {
   return {
     identifier: identifier,
     key: key,
-    type: CHANGE_DASHBOARD_PAGE_STATE,
+    type: CHANGE_DASHBOARD_ITEM_STATE,
     value: value,
   };
 }
