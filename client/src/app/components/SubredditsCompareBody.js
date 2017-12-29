@@ -73,6 +73,7 @@ class SubredditsCompareBody extends PureComponent {
       <div className={css(styles.container, nightMode && styles.nightMode)}>
         <LineChartWithSelect
           data={postCountsData}
+          displayLegend={true}
           nightMode={nightMode}
           selectOptions={RANGE_SELECT_OPTIONS}
           selectValue={postCountPlotRange}
@@ -81,6 +82,7 @@ class SubredditsCompareBody extends PureComponent {
         />
         <LineChartWithSelect
           data={commentCountsData}
+          displayLegend={true}
           nightMode={nightMode}
           selectOptions={RANGE_SELECT_OPTIONS}
           selectValue={commentCountPlotRange}
@@ -89,6 +91,7 @@ class SubredditsCompareBody extends PureComponent {
         />
         <LineChartWithSelect
           data={activeUserCountsData}
+          displayLegend={true}
           nightMode={nightMode}
           selectOptions={RANGE_SELECT_OPTIONS}
           selectValue={activeUserCountPlotRange}
