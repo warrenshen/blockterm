@@ -149,6 +149,7 @@
     "helmet": "^3.8.1",
     "history": "^4.6.3",
     "ify-loader": "^1.1.0",
+    "immutable": "^3.8.2",
     "jquery": "^2.2.1",
     "js-base64": "^2.1.9",
     "jwt-decode": "^2.2.0",
