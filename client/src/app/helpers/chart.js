@@ -176,3 +176,30 @@ export function generateLineChartData(
     ],
   };
 }
+
+// Same as above function but uses .value instead of .count.
+// TODO: refactoring.
+export function generateLineChartDataValue(
+  historicalCounts,
+  recentCount=undefined,
+  recentLabel='today',
+  timeFormat='MM/DD',
+  nightMode=false)
+{
+  var x = historicalCounts.map(
+    (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format(timeFormat)
+  );
+  return {
+    labels: x,
+    datasets: [
+      Object.assign(
+        {},
+        {
+          data: historicalCounts.map((historicalCount) => historicalCount.value),
+          // yAxisID: index,
+        },
+        nightMode ? LINE_CHART_DATA_STYLES[1].historical : LINE_CHART_DATA_STYLES[0].historical
+      )
+    ],
+  };
+}
