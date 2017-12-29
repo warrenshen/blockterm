@@ -4,6 +4,7 @@ const DELIMETER = '__';
 
 export const SUBREDDIT_COMMENT_COUNTS = 'SUBREDDIT_COMMENT_COUNTS';
 export const SUBREDDIT_POST_COUNTS = 'SUBREDDIT_POST_COUNTS';
+export const TOTAL_MARKET_CAP = 'TOTAL_MARKET_CAP';
 export const TV_CANDLE_CHART = 'TV_CANDLE_CHART';
 export const TV_MARKET_OVERVIEW = 'TV_MARKET_OVERVIEW';
 
@@ -11,6 +12,7 @@ export const ITEM_KEY_WHITELIST = [
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
   'TOKEN-PRICE',
+  TOTAL_MARKET_CAP,
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
 ];
@@ -76,48 +78,37 @@ export const ITEM_KEY_TO_LABELS = {
   [TV_MARKET_OVERVIEW]: 'Market overview',
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
   [SUBREDDIT_COMMENT_COUNTS]: 'Subreddit comments chart',
+  [TOTAL_MARKET_CAP]: 'Total market cap chart',
 };
 
+// These array values should be in user-facing order.
+// The order does affect user-facing order.
+const SUBREDDITS_IN_USER_FACING_ORDER = [
+  'Bitcoin',
+  'ethereum',
+  'litecoin',
+  'Bitcoincash',
+  'altcoin',
+  'btc',
+  'CryptoCurrency',
+  'CryptoMarkets',
+  'Monero',
+  'SubstratumNetwork',
+  'dogecoin',
+  'Ripple',
+  'Vertcoin',
+  'NEO',
+  'Electroneum',
+  'Groestlcoin',
+  'Iota',
+  'Lisk',
+];
+
 export const ITEM_KEY_TO_VALUES = {
-  [SUBREDDIT_COMMENT_COUNTS]: [
-    'Bitcoin',
-    'ethereum',
-    'litecoin',
-    'Bitcoincash',
-    'altcoin',
-    'btc',
-    'CryptoCurrency',
-    'CryptoMarkets',
-    'Monero',
-    'SubstratumNetwork',
-    'dogecoin',
-    'Ripple',
-    'Vertcoin',
-    'NEO',
-    'Electroneum',
-    'Groestlcoin',
-    'Iota',
-    'Lisk',
-  ],
-  [SUBREDDIT_POST_COUNTS]: [
-    'Bitcoin',
-    'ethereum',
-    'litecoin',
-    'Bitcoincash',
-    'altcoin',
-    'btc',
-    'CryptoCurrency',
-    'CryptoMarkets',
-    'Monero',
-    'SubstratumNetwork',
-    'dogecoin',
-    'Ripple',
-    'Vertcoin',
-    'NEO',
-    'Electroneum',
-    'Groestlcoin',
-    'Iota',
-    'Lisk',
+  [SUBREDDIT_COMMENT_COUNTS]: SUBREDDITS_IN_USER_FACING_ORDER,
+  [SUBREDDIT_POST_COUNTS]: SUBREDDITS_IN_USER_FACING_ORDER,
+  [TOTAL_MARKET_CAP]: [
+    'Default',
   ],
   [TV_CANDLE_CHART]: [
     'COINBASE:BTCUSD',
@@ -180,25 +171,27 @@ export const ITEM_KEY_TO_VALUES = {
   ],
 };
 
+// This map should be alphabetical for ease of development.
+// The order does not affect user-facing order.
 export const ITEM_VALUE_TO_LABELS = {
-  'Bitcoin' : 'r/Bitcoin',
-  'ethereum' : 'r/Ethereum',
-  'litecoin' : 'r/Litecoin',
-  'Bitcoincash' : 'r/Bitcoincash',
   'altcoin' : 'r/Altcoin',
+  'Bitcoin' : 'r/Bitcoin',
+  'Bitcoincash' : 'r/Bitcoincash',
   'btc' : 'r/BTC',
+  'dogecoin' : 'r/Dogecoin',
+  'Electroneum' : 'r/Electroneum',
+  'ethereum' : 'r/Ethereum',
   'CryptoCurrency' : 'r/Cryptocurrency',
   'CryptoMarkets' : 'r/Cryptomarkets',
-  'Monero' : 'r/Monero',
-  'SubstratumNetwork' : 'r/Substratumnetwork',
-  'dogecoin' : 'r/Dogecoin',
-  'Ripple' : 'r/Ripple',
-  'Vertcoin' : 'r/Vertcoin',
-  'NEO' : 'r/NEO',
-  'Electroneum' : 'r/Electroneum',
   'Groestlcoin' : 'r/Groestlcoin',
   'Iota' : 'r/Iota',
+  'litecoin' : 'r/Litecoin',
   'Lisk' : 'r/Lisk',
+  'Monero' : 'r/Monero',
+  'NEO' : 'r/NEO',
+  'Ripple' : 'r/Ripple',
+  'SubstratumNetwork' : 'r/Substratumnetwork',
+  'Vertcoin' : 'r/Vertcoin',
 };
 
 // Returns an array of [next Y coordinate to use, next id to use].

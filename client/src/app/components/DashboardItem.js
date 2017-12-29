@@ -14,17 +14,19 @@ import {
   RANGE_SELECT_OPTIONS,
 } from '../constants/plots';
 import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
-import SubredditPostCountsItem from './items/SubredditPostCountsItem';
-import TokenPriceItem from './items/TokenPriceItem';
-import TVChartItem from './items/TVChartItem';
-import TVMarketOverviewItem from './items/TVMarketOverviewItem';
-import * as STYLES from '../constants/styles';
-import El                  from './El';
-import FontAwesome          from 'react-fontawesome';
+import SubredditPostCountsItem    from './items/SubredditPostCountsItem';
+import TokenPriceItem             from './items/TokenPriceItem';
+import TotalMarketCapItem         from './items/TotalMarketCapItem';
+import TVChartItem                from './items/TVChartItem';
+import TVMarketOverviewItem       from './items/TVMarketOverviewItem';
+import * as STYLES                from '../constants/styles';
+import El                         from './El';
+import FontAwesome                from 'react-fontawesome';
 
 import {
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
+  TOTAL_MARKET_CAP,
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
   parseIdentifer,
@@ -133,6 +135,15 @@ class DashboardItem extends Component {
             dashboardState={dashboardState}
             identifier={identifier}
             specific={identifierValue}
+            nightMode={nightMode}
+          />
+        );
+      case TOTAL_MARKET_CAP:
+        return (
+          <TotalMarketCapItem
+            dashboardData={dashboardData}
+            dashboardState={dashboardState}
+            identifier={identifier}
             nightMode={nightMode}
           />
         );
