@@ -49,7 +49,7 @@ User.all.each do |user|
     dashboard_page = DashboardPage.create(
       user_id: user.id,
       index: i,
-      name: "Tab #{i}"
+      name: "Tab #{i + 1}"
     )
     dashboard_item_infos.each do |dashboard_item_info|
       DashboardItem.create(

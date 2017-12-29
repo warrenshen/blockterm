@@ -25,5 +25,6 @@
 #
 
 class DashboardItem < ApplicationRecord
+  belongs_to :dashboard_page
   belongs_to :user
 end
