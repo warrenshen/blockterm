@@ -15,6 +15,7 @@ import { isEqual }                from 'underscore';
 import {
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
+  TOTAL_MARKET_CAP,
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
   computeDashboardFreeValues,
@@ -54,6 +55,18 @@ function f(identifier, extras)
 
           postCounts(timeRange: "${extras.plotRange}") {
             count
+            timestamp
+          }
+        }
+      `;
+    case TOTAL_MARKET_CAP:
+      return `
+        ${identifier}: marketByName(name: "TOTAL") {
+          id
+          name
+
+          marketTickers(timeRange: "${extras.plotRange}") {
+            value
             timestamp
           }
         }

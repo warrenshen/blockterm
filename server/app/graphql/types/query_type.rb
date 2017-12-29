@@ -36,6 +36,16 @@ module Types
       }
     end
 
+    field :marketByName, Types::MarketType do
+      description 'Gets the market associated with given name'
+
+      argument :name, !types.String
+
+      resolve -> (obj, args, ctx) {
+        Market.find_by_name(args[:name])
+      }
+    end
+
     field :subredditById, Types::SubredditType do
       description 'Gets the subreddit associated with given subreddit id'
 
