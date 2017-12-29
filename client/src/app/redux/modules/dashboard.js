@@ -119,6 +119,7 @@ export default function(state = initialState, action)
               const cookieDashboardPages = getItem(DASHBOARD_COOKIE);
               if (cookieDashboardPages)
               {
+                // TODO: validate cookie here and clear if invalid.
                 dashboardPages = cookieDashboardPages;
               }
               else
