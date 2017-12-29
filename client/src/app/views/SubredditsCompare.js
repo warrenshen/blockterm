@@ -10,20 +10,34 @@ import { Link }              from 'react-router-dom';
 import Select                from 'react-select';
 import SubredditsCompareBody from '../components/SubredditsCompareBody';
 import El                    from '../components/El';
+import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
   wrapper: {
     width: '100vw',
     minHeight: '100vh',
-    padding: '0% 15%',
+    display: 'flex',
+    flexDirection: 'column',
+    //padding: '0% 15%',
     backgroundColor: '#ecf0f1',
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
   nightMode: {
     backgroundColor: '#232b2e',
   },
+  select: {
+    flex: '1',
+    //maxWidth: '250px',
+  },
   container: {
-    gridColumn: '3 / 7',
+    flex: '1',
+    maxHeight: '100%',
+  },
+  row: {
+    flexDirection: 'row',
+    flex: '1',
+    backgroundColor: 'white',
+    borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   description: {
     paddingTop: '12px',
@@ -50,16 +64,35 @@ const styles = StyleSheet.create({
   },
   comparables: {
     width: '100%',
-    padding: '24px 0px',
+    padding: '10px 10px',
     display: 'flex',
   },
   comparable: {
     flex: 1,
+    fontWeight: '700',
+    paddingTop: '5px',
+    //textTransform: 'uppercase',
+    letterSpacing: '1px',
   },
   newComparable: {
-    width: '172px',
+    display: 'flex',
+    flexDirection: 'row',
+    flexGrow: '1',
+  },
+  header: {
+    height:'100%',
+  },
+  instruction: {
     display: 'flex',
     flexDirection: 'column',
+    textAlign: 'center',
+    padding: '30px',
+    color: "#777",
+  },
+  addText: {
+    'marginTop':'5px',
+    'marginRight':'5px',
+    'fontSize':'14px',
   },
 });
 
@@ -99,8 +132,15 @@ class SubredditsCompare extends PureComponent {
           })
         }
         <div className={css(styles.newComparable)}>
-          <h4>+ compare</h4>
+          <El
+            nightMode={nightMode}
+            style={styles.addText}
+            type={'h4'}
+          >
+            Add comparable:
+          </El>
           <Select
+            className={css(styles.select)}
             clearable={false}
             searchable={true}
             value={''}
@@ -127,23 +167,32 @@ class SubredditsCompare extends PureComponent {
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        { data && data.allSubreddits && this.renderOptions(data.allSubreddits, data.subredditsByIds) }
-        <div className={css(styles.container)}>
-          {
-            data &&
-            data.subredditsByIds &&
-            data.subredditsByIds.length > 0 &&
-            <SubredditsCompareBody
-              subreddits={data.subredditsByIds}
-              changeActiveUserCountPlotRange={changeActiveUserCountPlotRange}
-              changeCommentCountPlotRange={changeCommentCountPlotRange}
-              changePostCountPlotRange={changePostCountPlotRange}
-              activeUserCountPlotRange={activeUserCountPlotRange}
-              commentCountPlotRange={commentCountPlotRange}
-              postCountPlotRange={postCountPlotRange}
-              nightMode={nightMode}
-            />
-          }
+        <div className={styles.header}>
+          { data && data.allSubreddits && this.renderOptions(data.allSubreddits, data.subredditsByIds) }
+        </div>
+        <div className={css(styles.row)}>
+          <div className={css(styles.container)}>
+            {
+              data &&
+              data.subredditsByIds &&
+              data.subredditsByIds.length > 0 ?
+              <SubredditsCompareBody
+                subreddits={data.subredditsByIds}
+                changeActiveUserCountPlotRange={changeActiveUserCountPlotRange}
+                changeCommentCountPlotRange={changeCommentCountPlotRange}
+                changePostCountPlotRange={changePostCountPlotRange}
+                activeUserCountPlotRange={activeUserCountPlotRange}
+                commentCountPlotRange={commentCountPlotRange}
+                postCountPlotRange={postCountPlotRange}
+                nightMode={nightMode}
+              />
+              :
+              <div className={css(styles.instruction)}>
+                Select subreddits to compare using the above selection menu.<br />
+                Graphs will then be rendered showing the comparison. 
+              </div>
+            }
+          </div>
         </div>
       </div>
     );

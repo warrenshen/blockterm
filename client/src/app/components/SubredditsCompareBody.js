@@ -20,12 +20,11 @@ import El                  from './El';
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    padding: '0px 24px 24px',
+    padding: '10px 10px',
     boxSizing: 'content-box',
-    backgroundColor: 'white',
-    borderRadius: '6px',
+    //borderRadius: '6px',
     display: 'flex',
+    flex: '1',
     flexDirection: 'column',
   },
   nightMode: {
