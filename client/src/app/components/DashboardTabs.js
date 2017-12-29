@@ -68,6 +68,8 @@ const styles = StyleSheet.create({
     zIndex: '1',
     backgroundColor: 'white',
     border: '1px solid #666',
+    display: 'flex',
+    flexDirection: 'row',
   },
   tab: {
     fontWeight: '500',
@@ -92,33 +94,33 @@ class DashboardTabs extends Component {
   renderTabList()
   {
     return (
-      <TabList className={css(styles.tabBar)}>
-        <Tab className={css(styles.tab)}>
-          <button title="Go to tab 1">
-            Tab 1
-          </button>
-        </Tab>
-        <Tab className={css(styles.tab)}>
-          <button title="Go to tab 2">
-            Tab 2
-          </button>
-        </Tab>
-        <Tab className={css(styles.tab)}>
-          <button title="Go to tab 3">
-            Tab 3
-          </button>
-        </Tab>
-        <Tab className={css(styles.tab)}>
-          <button title="Go to tab 4">
-            Tab 4
-          </button>
-        </Tab>
-        <Tab className={css(styles.tab)}>
-          <button>
-            <FontAwesome title="Reset to preset" name='rotate-left'/>
-          </button>
-        </Tab>
-      </TabList>
+      <div className={css(styles.tabBar)}>
+        <TabList>
+          <Tab className={css(styles.tab)}>
+            <button title="Go to tab 1">
+              Tab 1
+            </button>
+          </Tab>
+          <Tab className={css(styles.tab)}>
+            <button title="Go to tab 2">
+              Tab 2
+            </button>
+          </Tab>
+          <Tab className={css(styles.tab)}>
+            <button title="Go to tab 3">
+              Tab 3
+            </button>
+          </Tab>
+          <Tab className={css(styles.tab)}>
+            <button title="Go to tab 4">
+              Tab 4
+            </button>
+          </Tab>
+        </TabList>
+        <button className={css(styles.tab)}>
+          <FontAwesome title="Reset to preset" name='rotate-left'/>
+        </button>
+      </div>
     );
   }
 

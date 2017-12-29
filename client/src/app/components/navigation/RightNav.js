@@ -74,6 +74,18 @@ function logOut(event, client)
   client.resetStore()
 }
 
+function truncateEmail(email)
+{
+  const TARGETLENGTH = 6;
+  var re =/.+(?=@.+)/;
+  var result = re.exec(email);
+  if(!result) {
+    return email.length > TARGETLENGTH ? email.substring(0, TARGETLENGTH) + "**": email.substring(0, TARGETLENGTH);
+  } else {
+    return result[0].substring(0, TARGETLENGTH) + "**"; //truncate email
+  }
+}
+
 //<FontAwesome name='lightbulb-o' size='2x' style={{'position':'absolute', 'left':'-16px', 'top':'3px', 'fontSize':'20px',}}/>
 const RightNav = ({
   client,
@@ -85,9 +97,7 @@ const RightNav = ({
   user,
 }) => (
   <ul className={css(styles.container)}>
-    <div>
-      <Switch title="Toggle on/off night mode" className={css(styles.switch, nightMode && styles.switchNight)} on={nightMode} onClick={toggleNightMode} />
-    </div>
+    <Switch title="Toggle on/off night mode" className={css(styles.switch, nightMode && styles.switchNight)} on={nightMode} onClick={toggleNightMode} />
     {
       rightLinks.map((aLinkBtn, index) => (
         <RightNavButton
@@ -103,7 +113,7 @@ const RightNav = ({
       (
         <RightNavButton
           action={(event) => logOut(event, client)}
-          label={'Logout'}
+          label={`${truncateEmail(user.email)} | Logout`}
           nightMode={nightMode}
           nightModeStyle={styles.nightModeButton}
           style={styles.logoutButton}

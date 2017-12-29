@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
     overflowX: 'hidden',
     backgroundColor: 'none',
   },
+  leftSection: {
+    flex: '1 2 auto !important',
+  },
   rightAlign: {
     textAlign: 'right',
   },
@@ -171,7 +174,7 @@ class DashboardItem extends Component {
         key={id}
       >
         <div className={css(styles.grabBar, nightMode && styles.nightBar)}>
-          <div className={css(styles.section)}>
+          <div className={css(styles.section, styles.leftSection)}>
             <El
               style={styles.widgetTitle}
               nightMode={nightMode}

@@ -150,7 +150,7 @@ class TokenBody extends PureComponent {
           selectOptions={RANGE_SELECT_OPTIONS}
           selectValue={mentionSubredditPlotRange}
           stacked={true}
-          title={`${token.shortName} activity by subreddits`}
+          title={`${token.shortName} activity distribution by subreddits`}
           onChange={(option) => changeMentionSubredditPlotRange(option.value)}
         />
       );
