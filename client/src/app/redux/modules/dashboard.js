@@ -9,6 +9,7 @@ import {
   DEFAULT_PAGES_OBJECTS,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
+  TOTAL_MARKET_CAP,
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
   parseIdentifer,
@@ -24,6 +25,9 @@ const IDENTIFIER_KEY_TO_STATE_MAP = {
     plotRange: ONE_MONTH,
   },
   [SUBREDDIT_COMMENT_COUNTS]: {
+    plotRange: ONE_MONTH,
+  },
+  [TOTAL_MARKET_CAP] : {
     plotRange: ONE_MONTH,
   },
   [TV_CANDLE_CHART]: {},
