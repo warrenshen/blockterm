@@ -41,7 +41,7 @@ class SubredditCommentCountsItem extends Component {
   render()
   {
     const {
-      changeDashboardPageState,
+      changeDashboardItemState,
       dashboardData,
       dashboardState,
       identifier,
@@ -69,7 +69,7 @@ class SubredditCommentCountsItem extends Component {
       nightMode,
     );
     const onChange = (option) =>
-      changeDashboardPageState(identifier, 'plotRange', option.value);
+      changeDashboardItemState(identifier, 'plotRange', option.value);
 
     return (
       <div className={css(styles.container)}>

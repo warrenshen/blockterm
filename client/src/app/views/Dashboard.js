@@ -213,13 +213,13 @@ class Dashboard extends Component {
   render()
   {
     const {
-      changeDashboardPageState,
+      changeDashboardItemState,
       changeKeySelectValue,
       changeSelectedTab,
       dashboardAction,
       dashboardData,
+      dashboardItemStates,
       dashboardPages,
-      dashboardPagesStates,
       dashboardState,
       keySelectValue,
       logDashboardActionStart,
@@ -311,12 +311,12 @@ class Dashboard extends Component {
           >
             {this.renderScrollShield()}
             <DashboardTabs
-              changeDashboardPageState={changeDashboardPageState}
+              changeDashboardItemState={changeDashboardItemState}
               changeSelectedTab={changeSelectedTab}
               dashboardAction={dashboardAction}
               dashboardData={dashboardData}
+              dashboardItemStates={dashboardItemStates}
               dashboardPages={dashboardPages}
-              dashboardPagesStates={dashboardPagesStates}
               logDashboardActionStart={logDashboardActionStart}
               logDashboardActionStop={logDashboardActionStop}
               nightMode={nightMode}
