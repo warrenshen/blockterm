@@ -158,7 +158,10 @@ export default function(state = initialState, action)
 
           return {
             ...state,
-            dashboardData: action.result.data,
+            dashboardData: {
+              ...state.dashboardData,
+              ...action.result.data,
+            },
           };
       }
       return state;
