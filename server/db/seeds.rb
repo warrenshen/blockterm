@@ -12,7 +12,7 @@ user_infos.each do |user_info|
   User.create(user_info)
 end
 
-puts 'Seeding dashboard item infos'
+puts 'Seeding dashboard pages and items'
 dashboard_item_infos = [
   {
     identifier: 'TV_CANDLE_CHART__BITSTAMP:BTCUSD',
@@ -45,8 +45,19 @@ dashboard_item_infos = [
 ]
 
 User.all.each do |user|
-  dashboard_item_infos.each do |dashboard_item_info|
-    DashboardItem.create({ user_id: user.id }.merge(dashboard_item_info))
+  for i in (0..3)
+    dashboard_page = DashboardPage.create(
+      user_id: user.id,
+      index: i,
+      name: "Tab #{i}"
+    )
+    dashboard_item_infos.each do |dashboard_item_info|
+      DashboardItem.create(
+        {
+          user_id: user.id,
+          dashboard_page_id: dashboard_page.id,
+        }.merge(dashboard_item_info))
+    end
   end
 end
 
@@ -249,14 +260,14 @@ Market.all.each do |market|
 end
 
 subreddit_tokens = [
-  {
-    subreddit_id: Subreddit.find_by(name: 'Satoshi').id,
-    token_id: Token.find_by(long_name: 'Satoshi').id,
-  },
-  {
-    subreddit_id: Subreddit.find_by(name: 'SatoshiTrader').id,
-    token_id: Token.find_by(long_name: 'Satoshi').id,
-  },
+  # {
+  #   subreddit_id: Subreddit.find_by(name: 'Satoshi').id,
+  #   token_id: Token.find_by(long_name: 'Satoshi').id,
+  # },
+  # {
+  #   subreddit_id: Subreddit.find_by(name: 'SatoshiTrader').id,
+  #   token_id: Token.find_by(long_name: 'Satoshi').id,
+  # },
   {
     subreddit_id: Subreddit.find_by(name: 'Bitcoin').id,
     token_id: Token.find_by(long_name: 'Bitcoin').id,

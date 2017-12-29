@@ -588,7 +588,7 @@ module Types
       }
     end
 
-    field :updateDashboardItems, Types::UserType do
+    field :updateDashboardPage, Types::UserType do
       # description ''
 
       argument :dashboardItemsString, !types.String

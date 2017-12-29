@@ -13,4 +13,5 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :dashboard_items
+  has_many :dashboard_pages
 end
