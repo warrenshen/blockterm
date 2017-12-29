@@ -37,6 +37,7 @@ const IDENTIFIER_KEY_TO_STATE_MAP = {
   constants
  ------------------------------------------*/
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
+const APOLLO_QUERY_RESULT_CLIENT = 'APOLLO_QUERY_RESULT_CLIENT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_DASHBOARD_ITEM_PLOT_RANGE = 'CHANGE_DASHBOARD_ITEM_PLOT_RANGE';
 const CHANGE_DASHBOARD_PAGE_STATE = 'CHANGE_DASHBOARD_PAGE_STATE';
@@ -102,6 +103,7 @@ export default function(state = initialState, action)
       }
       return state;
     case APOLLO_QUERY_RESULT:
+    case APOLLO_QUERY_RESULT_CLIENT:
       switch (action.operationName)
       {
         case 'DashboardItemsQuery':

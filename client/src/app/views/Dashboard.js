@@ -311,6 +311,7 @@ class Dashboard extends Component {
           >
             {this.renderScrollShield()}
             <DashboardTabs
+              changeDashboardPageState={changeDashboardPageState}
               changeSelectedTab={changeSelectedTab}
               dashboardAction={dashboardAction}
               dashboardData={dashboardData}

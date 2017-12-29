@@ -14,7 +14,7 @@ import {
   RANGE_SELECT_OPTIONS,
 } from '../constants/plots';
 import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
-import SubredditPostsItem from './items/SubredditPostsItem';
+import SubredditPostCountsItem from './items/SubredditPostCountsItem';
 import TokenPriceItem from './items/TokenPriceItem';
 import TVChartItem from './items/TVChartItem';
 import TVMarketOverviewItem from './items/TVMarketOverviewItem';
@@ -103,6 +103,7 @@ class DashboardItem extends Component {
       nightMode,
       storeState,
     } = this.props;
+
     const identifier = dashboardItem.identifier;
     const arr = parseIdentifer(identifier);
     const identifierKey = arr[0];
@@ -123,7 +124,7 @@ class DashboardItem extends Component {
         );
       case SUBREDDIT_POST_COUNTS:
         return (
-          <SubredditPostsItem
+          <SubredditPostCountsItem
             changeDashboardPageState={changeDashboardPageState}
             dashboardData={dashboardData}
             dashboardState={dashboardState}

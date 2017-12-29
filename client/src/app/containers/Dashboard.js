@@ -247,7 +247,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
       {
         if (data.user)
         {
-          updateDashboardItems(Object.values(newDashboardItemsMap));
+          // updateDashboardItems(Object.values(newDashboardItemsMap));
         }
         else
         {
