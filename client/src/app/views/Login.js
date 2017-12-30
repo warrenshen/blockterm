@@ -271,6 +271,11 @@ class Login extends PureComponent {
                   <El nightMode={nightMode}
                   style={styles.para}
                   type={'p'}>
+                    <strong><u>Low Intensity Mode:</u></strong> &nbsp;a mode with less frequent updates of data is planned for the less aggressive trader/investor, or for leaving the terminal on idle.
+                  </El>
+                  <El nightMode={nightMode}
+                  style={styles.para}
+                  type={'p'}>
                     <strong><u>More widgets:</u></strong> &nbsp;tons of more widgets are in the works. We would love your feedback! This will help us decide what to prioritize.
                   </El>
                 </div>

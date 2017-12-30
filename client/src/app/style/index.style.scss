@@ -169,6 +169,7 @@ input {
   border-bottom: '1px solid #aaa';
   filter: contrast(5);
   -webkit-filter: contrast(5);
+  z-index: 2;
 }
 
 /* Version 3 */
@@ -181,13 +182,13 @@ input {
 
 .Select-control {
   border-radius: 0px !important;
-  border-color: #777;
+  border-color: #333;
 }
 
 .Select-value-label, .Select-control, .Select-placeholder, .Select--single > .Select-control .Select-value, .Select-input, .Select {
   font-weight: 700 !important;
   font-size: 12px;
-  color: #777;
+  color: #333;
 }
 
 $hamburger-padding-x                       : 12px !default;
