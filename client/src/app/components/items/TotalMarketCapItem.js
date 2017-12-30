@@ -7,7 +7,6 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { isEqual }         from 'underscore';
 import moment              from 'moment';
-import LineChartWithSelect from '../LineChartWithSelect';
 import {
   generateLineChartDataValue,
   isPlotRangeBig,
@@ -15,18 +14,7 @@ import {
 import {
   RANGE_SELECT_OPTIONS,
 } from '../../constants/plots';
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '0px !important',
-    position: 'relative',
-    paddingBottom: '15px',
-  },
-});
+import LineChartWithSelectItem from './LineChartWithSelectItem';
 
 class TotalMarketCapItem extends Component {
 
@@ -72,17 +60,14 @@ class TotalMarketCapItem extends Component {
       changeDashboardPageState(identifier, 'plotRange', option.value);
 
     return (
-      <div className={css(styles.container)}>
-        <LineChartWithSelect
-          data={data}
-          nightMode={nightMode}
-          redraw={false}
-          selectOptions={RANGE_SELECT_OPTIONS}
-          selectValue={plotRange}
-          title={`Total market cap over time`}
-          onChange={onChange}
-        />
-      </div>
+      <LineChartWithSelectItem
+        data={data}
+        onChange={onChange}
+        options={RANGE_SELECT_OPTIONS}
+        nightMode={nightMode}
+        selectValue={plotRange}
+        title={`Total market cap over time`}
+      />
     );
   }
 }
