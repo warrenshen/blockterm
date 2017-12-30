@@ -4,10 +4,8 @@ import React, {
   Component,
 }                          from 'react';
 import PropTypes           from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
 import { isEqual }         from 'underscore';
 import moment              from 'moment';
-import LineChartWithSelect  from '../LineChartWithSelect';
 import {
   generateLineChartData,
   isPlotRangeBig,
@@ -15,18 +13,7 @@ import {
 import {
   RANGE_SELECT_OPTIONS,
 } from '../../constants/plots';
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '0px !important',
-    position: 'relative',
-    paddingBottom: '15px',
-  },
-});
+import LineChartWithSelectItem from './LineChartWithSelectItem';
 
 class SubredditCommentCountsItem extends Component {
 
@@ -70,7 +57,7 @@ class SubredditCommentCountsItem extends Component {
     const commentsX = commentCounts.map(
       (commentCount) => moment(commentCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
     );
-    const commentsData = generateLineChartData(
+    const data = generateLineChartData(
       commentCounts,
       commentCount,
       'last 24 hours',
@@ -81,17 +68,14 @@ class SubredditCommentCountsItem extends Component {
       changeDashboardItemState(identifier, 'plotRange', option.value);
 
     return (
-      <div className={css(styles.container)}>
-        <LineChartWithSelect
-          data={commentsData}
-          nightMode={nightMode}
-          redraw={true}
-          selectOptions={RANGE_SELECT_OPTIONS}
-          selectValue={plotRange}
-          title={`# of daily comments in r/${specific}`}
-          onChange={onChange}
-        />
-      </div>
+      <LineChartWithSelectItem
+        data={data}
+        onChange={onChange}
+        options={RANGE_SELECT_OPTIONS}
+        nightMode={nightMode}
+        selectValue={plotRange}
+        title={`# of daily comments in r/${specific}`}
+      />
     );
   }
 }
