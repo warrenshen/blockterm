@@ -2,7 +2,7 @@ module QueryHelper
   def self.bin_relation_by_k(relation, bin_strategy, k=2)
     result = []
     relation = relation.each_slice(k) do |records|
-      total_count = MentionTotalCount.new(records[0].subreddit_id, records[0].timestamp)
+      total_count = MentionTotalCount.new(records[0].timestamp)
       records.each do |record|
         if bin_strategy == 'total'
           total_count.increment_by(record.count)
