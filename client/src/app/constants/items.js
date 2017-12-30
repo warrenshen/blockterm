@@ -254,3 +254,16 @@ export function parseIdentifer(identifier)
     return identifier.split(DELIMETER, 2);
   }
 }
+
+export function parseIdentiferKey(identifier)
+{
+  const arr = parseIdentifer(identifier);
+  if (arr)
+  {
+    return arr[0];
+  }
+  else
+  {
+    return null;
+  }
+}

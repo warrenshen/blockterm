@@ -53,10 +53,19 @@ class SubredditCommentCountsItem extends Component {
       plotRange,
     } = dashboardState;
 
-    const {
-      commentCount,
-      commentCounts,
-    } = dashboardData;
+    let commentCount;
+    let commentCounts;
+
+    if (dashboardData)
+    {
+      commentCount = dashboardData.commentCount;
+      commentCounts = dashboardData.commentCounts;
+    }
+    else
+    {
+      commentCount = undefined;
+      commentCounts = [];
+    }
 
     const commentsX = commentCounts.map(
       (commentCount) => moment(commentCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')

@@ -201,7 +201,7 @@ class Container extends PureComponent
         id: arr[1],
         identifier: identifier,
         w: 3,
-        h: 3,
+        h: 4,
         x: 0,
         y: arr[0],
       });
