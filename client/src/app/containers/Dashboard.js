@@ -20,6 +20,7 @@ import {
   TV_MARKET_OVERVIEW,
   computeDashboardFreeValues,
   parseIdentifer,
+  parseIdentiferKey,
 }                                 from '../constants/items';
 import {
   DASHBOARD_COOKIE,
@@ -189,10 +190,16 @@ class Container extends PureComponent
     const dashboardItems = dashboardPages[selectedTab].dashboardItems;
     const arr = computeDashboardFreeValues(dashboardItems);
 
-    const w = 3;
-    const h = 4;
-    const x = 0;
-    const y = arr[0];
+    let w = 3;
+    let h = 4;
+    let x = 0;
+    let y = arr[0];
+
+    if (parseIdentiferKey(identifier) === TV_MARKET_OVERVIEW)
+    {
+      w = 3;
+      h = 9;
+    }
 
     if (user)
     {
