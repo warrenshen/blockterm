@@ -185,25 +185,31 @@ class Container extends PureComponent
     const dashboardItems = dashboardPages[selectedTab].dashboardItems;
     const arr = computeDashboardFreeValues(dashboardItems);
 
+    const w = 3;
+    const h = 4;
+    const x = 0;
+    const y = arr[0];
+
     if (data.user)
     {
-      // createDashboardItem(
-      //   identifier,
-      //   3,
-      //   3,
-      //   0,
-      //   arr[0],
-      // );
+      createDashboardItem(
+        dashboardPages[selectedTab].id,
+        identifier,
+        w,
+        h,
+        x,
+        y,
+      );
     }
     else
     {
       createDashboardItemLocal({
         id: arr[1],
         identifier: identifier,
-        w: 3,
-        h: 4,
-        x: 0,
-        y: arr[0],
+        w: w,
+        h: h,
+        x: x,
+        y: y,
       });
     }
   }
@@ -211,14 +217,19 @@ class Container extends PureComponent
   removeFromLayout(id)
   {
     const {
+      dashboardPages,
       data,
       destroyDashboardItem,
       destroyDashboardItemLocal,
+      selectedTab,
     } = this.props;
 
     if (data.user)
     {
-      // destroyDashboardItem(id);
+      destroyDashboardItem(
+        dashboardPages[selectedTab].id,
+        id,
+      );
     }
     else
     {
@@ -262,7 +273,10 @@ class Container extends PureComponent
     {
       if (data.user)
       {
-        // updateDashboardItems(Object.values(newDashboardItemsMap));
+        updateDashboardItems(
+          dashboardPages[selectedTab].id,
+          Object.values(newDashboardItemsMap),
+        );
       }
       else
       {

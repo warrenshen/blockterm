@@ -41,10 +41,10 @@ export const CreateDashboardItemMutation = gql`
   mutation CreateDashboardItemMutation(
     $dashboardPageId: ID!,
     $identifier: String!,
-    $w: Int,
-    $h: Int,
-    $x: Int,
-    $y: Int,
+    $w: Int!,
+    $h: Int!,
+    $x: Int!,
+    $y: Int!,
   ) {
     createDashboardItem(
       dashboardPageId: $dashboardPageId,
@@ -71,6 +71,39 @@ export const CreateDashboardItemMutation = gql`
     }
   }
 `;
+
+export const CreateDashboardItemMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    createDashboardItem(dashboardPageId, identifier, w, h, x, y) {
+      return mutate({
+        updateQueries: {
+          DashboardItemsQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.createDashboardItem,
+          }),
+        },
+        variables: {
+          dashboardPageId,
+          identifier,
+          w,
+          h,
+          x,
+          y
+        },
+      })
+      .then(
+        (response) => {
+          return Promise.resolve();
+        }
+      )
+      .catch(
+        (error) => {
+          console.log(error);
+          return Promise.reject();
+        }
+      );
+    }
+  }),
+};
 
 export const CreateUserMutation = gql`
   mutation CreateUserMutation($email: String!, $password: String!) {
@@ -107,6 +140,34 @@ export const DestroyDashboardItemMutation = gql`
     }
   }
 `;
+
+export const DestroyDashboardItemMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    destroyDashboardItem(dashboardPageId, id) {
+      return mutate({
+        variables: {
+          dashboardPageId,
+          id,
+        },
+        updateQueries: {
+          DashboardItemsQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.destroyDashboardItem,
+          }),
+        },
+      })
+      .then(
+        (response) => {
+          return Promise.resolve();
+        }
+      )
+      .catch(
+        (error) => {
+          return Promise.reject();
+        }
+      );
+    }
+  }),
+};
 
 export const LogInMutation = gql`
   mutation LogInMutation($email: String!, $password: String!) {
@@ -146,3 +207,31 @@ export const UpdateDashboardItemsMutation = gql`
     }
   }
 `;
+
+export const UpdateDashboardItemsMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    updateDashboardItems(dashboardPageId, dashboardItems) {
+      return mutate({
+        updateQueries: {
+          DashboardItemsQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.updateDashboardItems,
+          }),
+        },
+        variables: {
+          dashboardPageId,
+          dashboardItemsString: JSON.stringify(dashboardItems),
+        },
+      })
+      .then(
+        (response) => {
+          return Promise.resolve();
+        }
+      )
+      .catch(
+        (error) => {
+          return Promise.reject();
+        }
+      );
+    }
+  }),
+};

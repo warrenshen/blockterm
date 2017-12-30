@@ -5,98 +5,16 @@ import { bindActionCreators }  from 'redux';
 import { compose, graphql }    from 'react-apollo';
 import {
   CreateDashboardItemMutation,
+  CreateDashboardItemMutationOptions,
   DestroyDashboardItemMutation,
+  DestroyDashboardItemMutationOptions,
   UpdateDashboardItemsMutation,
+  UpdateDashboardItemsMutationOptions,
 }                              from '../queries';
 import { DashboardPagesQuery } from '../queries';
 import Dashboard               from './Dashboard';
 import * as dashboardActions   from '../redux/modules/dashboard';
 import * as globalsActions     from '../redux/modules/globals';
-
-/* -----------------------------------------
-  GraphQL - Apollo client
- ------------------------------------------*/
-const createDashboardItemMutationOptions = {
-  props: ({ mutate, ownProps }) => ({
-    createDashboardItem(identifier, w, h, x, y) {
-      return mutate({
-        updateQueries: {
-          DashboardItemsQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.createDashboardItem,
-          }),
-        },
-        variables: {
-          identifier,
-          w,
-          h,
-          x,
-          y
-        },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve();
-        }
-      )
-      .catch(
-        (error) => {
-          console.log(error);
-          return Promise.reject();
-        }
-      );
-    }
-  }),
-};
-
-const destroyDashboardItemMutationOptions = {
-  props: ({ mutate, ownProps }) => ({
-    destroyDashboardItem(id) {
-      return mutate({
-        variables: { id },
-        updateQueries: {
-          DashboardItemsQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.destroyDashboardItem,
-          }),
-        },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve();
-        }
-      )
-      .catch(
-        (error) => {
-          return Promise.reject();
-        }
-      );
-    }
-  }),
-};
-
-const updateDashboardItemsMutationOptions = {
-  props: ({ mutate, ownProps }) => ({
-    updateDashboardItems(dashboardItems) {
-      return mutate({
-        updateQueries: {
-          DashboardItemsQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.updateDashboardItems,
-          }),
-        },
-        variables: { dashboardItemsString: JSON.stringify(dashboardItems) },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve();
-        }
-      )
-      .catch(
-        (error) => {
-          return Promise.reject();
-        }
-      );
-    }
-  }),
-};
 
 /* -----------------------------------------
   Redux
@@ -139,8 +57,8 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
   graphql(DashboardPagesQuery),
-  graphql(CreateDashboardItemMutation, createDashboardItemMutationOptions),
-  graphql(DestroyDashboardItemMutation, destroyDashboardItemMutationOptions),
-  graphql(UpdateDashboardItemsMutation, updateDashboardItemsMutationOptions),
+  graphql(CreateDashboardItemMutation, CreateDashboardItemMutationOptions),
+  graphql(DestroyDashboardItemMutation, DestroyDashboardItemMutationOptions),
+  graphql(UpdateDashboardItemsMutation, UpdateDashboardItemsMutationOptions),
   connect(mapStateToProps, mapDispatchToProps)
 )(Dashboard);
