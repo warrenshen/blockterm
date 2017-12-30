@@ -129,6 +129,7 @@ class Dashboard extends Component {
     const {
       keySelectValue,
       valueSelectValue,
+
       addToLayout,
     } = this.props;
 

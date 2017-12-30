@@ -1,16 +1,18 @@
 // @flow weak
 
+import { connect }         from 'react-redux';
 import React, {
-  Component
+  PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { withRouter }      from 'react-router';
 import {
   ConnectedNavigationBar,
 }                          from '../../containers';
 import MainRoutes          from '../../routes/MainRoutes';
-import { withRouter }      from 'react-router-dom';
-import Notifications       from '../../components/Notifications';
+import Notifications       from 'react-notification-system-redux';
+import * as STYLES         from '../../constants/styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,20 +25,49 @@ const styles = StyleSheet.create({
   },
 });
 
-class App extends Component {
+const notificationsStyle = {
+  NotificationItem: { // Override the notification item
+    DefaultStyle: { // Applied to every notification, regardless of the notification level
+      'borderRadius':'0px',
+      'boxShadow':'none',
+      'borderColor':STYLES.BLAZINGREEN,
+      'fontWeight':'500',
+    },
+
+    success: { // Applied only to the success notification item
+      color: 'red'
+    }
+  }
+}
+
+class App extends PureComponent {
 
   render() {
+    const {
+      notifications,
+    } = this.props;
+
     return (
       <div className={css(styles.container)}>
         <ConnectedNavigationBar />
         <MainRoutes />
-        <div style={{ height: '100px' }}>
-          Hello
-          <Notifications />
-        </div>
+        <Notifications
+          notifications={notifications}
+          style={notificationsStyle}
+        />
       </div>
     );
   }
 }
 
-export default withRouter(App);
+/* -----------------------------------------
+  Redux
+ ------------------------------------------*/
+
+const mapStateToProps = (state) => {
+  return {
+    notifications: state.notifications,
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(App));

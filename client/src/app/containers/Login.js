@@ -9,7 +9,6 @@ import {
 }                             from '../queries';
 import Login                  from '../views/Login';
 import * as loginActions      from '../redux/modules/login';
-
 import {
   AUTH_TOKEN_COOKIE,
   setItem,
@@ -22,7 +21,6 @@ import {
 const logInMutationOptions = {
   props: ({ mutate, ownProps }) => ({
     logIn(email, password) {
-
       return mutate({
         updateQueries: {
           UserQuery: (prev, { mutationResult }) => {
@@ -73,5 +71,5 @@ const mapDispatchToProps = (dispatch) => {
 export default compose(
   graphql(UserQuery),
   graphql(LogInMutation, logInMutationOptions),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
 )(Login);
