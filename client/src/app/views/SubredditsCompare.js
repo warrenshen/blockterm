@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
   nightMode: {
-    backgroundColor: '#232b2e',
+    backgroundColor: STYLES.SOFTGRAY,
   },
   select: {
     flex: '1',
@@ -38,6 +38,9 @@ const styles = StyleSheet.create({
     flex: '1',
     backgroundColor: 'white',
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  nightRow: {
+    backgroundColor: '#000',
   },
   description: {
     paddingTop: '12px',
@@ -74,6 +77,9 @@ const styles = StyleSheet.create({
     //textTransform: 'uppercase',
     letterSpacing: '1px',
   },
+  nightComparable: {
+    color: '#fff',
+  },
   newComparable: {
     display: 'flex',
     flexDirection: 'row',
@@ -88,6 +94,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: '30px',
     color: "#777",
+  },
+  nightModeInstruction: {
+    
   },
   addText: {
     'marginTop':'5px',
@@ -123,7 +132,7 @@ class SubredditsCompare extends PureComponent {
           selectedSubreddits.map((subreddit) => {
             return (
               <div
-                className={css(styles.comparable)}
+                className={css(styles.comparable, nightMode && styles.nightComparable)}
                 key={subreddit.id}
               >
                 {subreddit.displayName}
@@ -174,7 +183,7 @@ class SubredditsCompare extends PureComponent {
         <div className={styles.header}>
           { data && data.allSubreddits && this.renderOptions(data.allSubreddits, data.subredditsByIds) }
         </div>
-        <div className={css(styles.row)}>
+        <div className={css(styles.row, styles.nightRow)}>
           <div className={css(styles.container)}>
             {
               data &&
@@ -191,7 +200,7 @@ class SubredditsCompare extends PureComponent {
                 nightMode={nightMode}
               />
               :
-              <div className={css(styles.instruction)}>
+              <div className={css(styles.instruction, nightMode && styles.nightModeInstruction)}>
                 Select subreddits to compare using the above selection menu.<br />
                 Graphs will then be rendered showing the comparison.
               </div>

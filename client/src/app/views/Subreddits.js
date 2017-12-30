@@ -68,6 +68,30 @@ const styles = StyleSheet.create({
   bolded: {
     fontWeight: '700',
   },
+  flatButton: {
+    top:'7px',
+    right: '10px',
+    position: 'absolute',
+    border: '1px solid #000',
+    borderRadius: '1px',
+    padding: '4px 12px',
+    backgroundColor: STYLES.BLAZINGREEN,
+  },
+  nightModeButton: {
+    backgroundColor: STYLES.GOLD,
+    borderColor: '#fff',
+    color: '#000 !important',
+  },
+  boldedUpper: {
+    color: '#000 !important',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+    fontWeight: '700',
+    ':hover': {
+      color: STYLES.GOLDINVERSEBLUE,
+      borderColor: STYLES.GOLDINVERSEBLUE,
+    },
+  },
 });
 
 class Home extends PureComponent {
@@ -185,6 +209,15 @@ class Home extends PureComponent {
           </El>
         </div>
         <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
+          <Link to={'/subreddits/compare'} className={css(styles.flatButton, nightMode && styles.nightModeButton)}>
+            <El
+              nightMode={nightMode}
+              style={styles.boldedUpper}
+              nightModeStyle={styles.boldedUpper}
+              type={'span'}>
+              Compare Subreddits
+            </El>
+          </Link>
           <table className={css(styles.table)}>
             <tbody>
               {this.renderHeader()}

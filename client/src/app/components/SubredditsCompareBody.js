@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   nightMode: {
-    backgroundColor: '#373b3e',
+    //backgroundColor: '#373b3e',
   },
   section: {
     width: '100%',

@@ -93,6 +93,10 @@ const styles = StyleSheet.create({
   },
   semibolded: {
     fontWeight: '500 !important',
+    ':hover': {
+      color: STYLES.GOLDINVERSEBLUE,
+      borderColor: STYLES.GOLDINVERSEBLUE,
+    },
   },
   floatingBeta: {
     textTransform: 'uppercase',
