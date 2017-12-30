@@ -60,7 +60,7 @@ module QueryHelper
     if earliest_instance.nil?
       nil
     else
-      earliest_instance.timestamp.to_s
+      self.localize_timestamp(earliest_instance.timestamp).to_s
     end
   end
 

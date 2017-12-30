@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { isEqual }         from 'underscore';
 import moment              from 'moment';
 import {
+  disableChartOptions,
   generateLineChartData,
   isPlotRangeBig,
 } from '../../helpers/chart';
@@ -40,17 +41,19 @@ class SubredditPostCountsItem extends Component {
       plotRange,
     } = dashboardState;
 
-
+    let earliestPostCountDate;
     let postCount;
     let postCounts;
 
     if (dashboardData)
     {
+      earliestPostCountDate = dashboardData.earliestPostCountDate;
       postCount = dashboardData.postCount;
       postCounts = dashboardData.postCounts;
     }
     else
     {
+      earliestPostCountDate = undefined;
       postCount = undefined;
       postCounts = [];
     }
@@ -65,6 +68,11 @@ class SubredditPostCountsItem extends Component {
       isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD',
       nightMode,
     );
+    const selectOptions = disableChartOptions(
+      earliestPostCountDate,
+      RANGE_SELECT_OPTIONS,
+    );
+
     const onChange = (option) =>
       changeDashboardItemState(identifier, 'plotRange', option.value);
 
@@ -72,7 +80,7 @@ class SubredditPostCountsItem extends Component {
       <LineChartWithSelectItem
         data={data}
         onChange={onChange}
-        options={RANGE_SELECT_OPTIONS}
+        options={selectOptions}
         nightMode={nightMode}
         selectValue={plotRange}
         title={`# of daily posts in r/${specific}`}

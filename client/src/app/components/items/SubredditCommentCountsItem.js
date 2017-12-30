@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { isEqual }         from 'underscore';
 import moment              from 'moment';
 import {
+  disableChartOptions,
   generateLineChartData,
   isPlotRangeBig,
 } from '../../helpers/chart';
@@ -42,16 +43,19 @@ class SubredditCommentCountsItem extends Component {
 
     let commentCount;
     let commentCounts;
+    let earliestCommentCountDate;
 
     if (dashboardData)
     {
       commentCount = dashboardData.commentCount;
       commentCounts = dashboardData.commentCounts;
+      earliestCommentCountDate = dashboardData.earliestCommentCountDate;
     }
     else
     {
       commentCount = undefined;
       commentCounts = [];
+      earliestCommentCountDate = undefined;
     }
 
     const commentsX = commentCounts.map(
@@ -64,6 +68,11 @@ class SubredditCommentCountsItem extends Component {
       isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD',
       nightMode,
     );
+    const selectOptions = disableChartOptions(
+      earliestCommentCountDate,
+      RANGE_SELECT_OPTIONS,
+    );
+
     const onChange = (option) =>
       changeDashboardItemState(identifier, 'plotRange', option.value);
 
@@ -71,7 +80,7 @@ class SubredditCommentCountsItem extends Component {
       <LineChartWithSelectItem
         data={data}
         onChange={onChange}
-        options={RANGE_SELECT_OPTIONS}
+        options={selectOptions}
         nightMode={nightMode}
         selectValue={plotRange}
         title={`# of daily comments in r/${specific}`}

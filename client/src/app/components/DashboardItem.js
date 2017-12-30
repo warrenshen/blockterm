@@ -145,6 +145,7 @@ class DashboardItem extends Component {
       case TOTAL_MARKET_CAP:
         return (
           <TotalMarketCapItem
+            changeDashboardItemState={changeDashboardItemState}
             dashboardData={dashboardData}
             dashboardState={dashboardState}
             identifier={identifier}
