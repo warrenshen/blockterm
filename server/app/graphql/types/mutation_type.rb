@@ -535,11 +535,12 @@ module Types
     field :createDashboardItem, Types::UserType do
       # description ''
 
+      argument :dashboardPageId, !types.ID
       argument :identifier, !types.String
-      argument :w, types.Int
-      argument :h, types.Int
-      argument :x, types.Int
-      argument :y, types.Int
+      argument :w, !types.Int
+      argument :h, !types.Int
+      argument :x, !types.Int
+      argument :y, !types.Int
 
       resolve -> (obj, args, ctx) {
         current_user = ctx[:current_user]
@@ -547,14 +548,20 @@ module Types
           return GraphQL::ExecutionError.new('No current user')
         end
 
+        dashboard_page = DashboardPage.find(args[:dashboardPageId])
+        if dashboard_page.nil?
+          return GraphQL::ExecutionError.new('Could not find dashboard page')
+        end
+
         # TODO: verify that identifier arg is in whitelist.
         dashboard_item = DashboardItem.create(
+          dashboard_page_id: dashboard_page.id,
           user_id: current_user.id,
           identifier: args[:identifier],
-          w: 3,
-          h: 3,
-          x: 0,
-          y: 0,
+          w: args[:w],
+          h: args[:h],
+          x: args[:x],
+          y: args[:y],
         )
 
         if dashboard_item.valid?
@@ -568,6 +575,7 @@ module Types
     field :destroyDashboardItem, Types::UserType do
       # description ''
 
+      argument :dashboardPageId, !types.ID
       argument :id, !types.ID
 
       resolve -> (obj, args, ctx) {
@@ -576,7 +584,17 @@ module Types
           return GraphQL::ExecutionError.new('No current user')
         end
 
+        dashboard_page = DashboardPage.find(args[:dashboardPageId])
+        if dashboard_page.nil?
+          return GraphQL::ExecutionError.new('Could not find dashboard page')
+        end
+
         dashboard_item = DashboardItem.find(args[:id])
+
+        if dashboard_item.dashboard_page_id != dashboard_page.id
+          return GraphQL::ExecutionError.new('Dashboard item does not belong to dashboard page')
+        end
+
         if !dashboard_item.nil?
           dashboard_item.destroy
           if !dashboard_item.destroyed?

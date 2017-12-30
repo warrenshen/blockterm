@@ -108,23 +108,25 @@ export default function(state = initialState, action)
       {
         case 'CreateDashboardItemMutation':
           data = action.result.data;
+          dashboardPages = state.dashboardPages;
           if (data.createDashboardItem)
           {
-            dashboardItems = data.createDashboardItem.dashboardItems;
+            dashboardPages = data.createDashboardItem.dashboardPages;
           }
           return {
             ...state,
-            dashboardItems: dashboardItems,
+            dashboardPages: dashboardPages,
           };
         case 'DestroyDashboardItemMutation':
           data = action.result.data;
+          dashboardPages = state.dashboardPages;
           if (data.destroyDashboardItem)
           {
-            dashboardItems = data.destroyDashboardItem.dashboardItems;
+            dashboardPages = data.destroyDashboardItem.dashboardPages;
           }
           return {
             ...state,
-            dashboardItems: dashboardItems,
+            dashboardPages: dashboardPages,
           };
       }
       return state;
