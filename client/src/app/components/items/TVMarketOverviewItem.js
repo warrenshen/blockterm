@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
     width: '100% !important',
     height: '100% !important',
     border: 'none',
+    transform: 'scale(1.05)',
   },
   nightFrame: {
-    backgroundColor: '#000',
-    filter: 'invert(100%) !important',
+    filter: 'invert(100%) brightness(2) !important',
   },
   tradingView: {
     position: 'absolute',

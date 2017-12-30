@@ -58,15 +58,21 @@ class SubredditsCompareBody extends PureComponent {
 
     const postCountsData = generateCountChartData2(
       subreddits.map((subreddit) => subreddit.postCounts),
-      subreddits.map((subreddit) => subreddit.displayName)
+      subreddits.map((subreddit) => subreddit.displayName),
+      'MM/DD',
+      'compare'
     );
     const commentCountsData = generateCountChartData2(
       subreddits.map((subreddit) => subreddit.commentCounts),
-      subreddits.map((subreddit) => subreddit.displayName)
+      subreddits.map((subreddit) => subreddit.displayName),
+      'MM/DD',
+      'compare'
     );
     const activeUserCountsData = generateCountChartData2(
       subreddits.map((subreddit) => subreddit.activeUserCounts),
-      subreddits.map((subreddit) => subreddit.displayName)
+      subreddits.map((subreddit) => subreddit.displayName),
+      'MM/DD',
+      'compare'
     );
 
     return (

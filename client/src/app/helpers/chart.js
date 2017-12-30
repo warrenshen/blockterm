@@ -2,6 +2,7 @@ import moment from 'moment';
 import {
   BAR_CHART_DATA_STYLES,
   LINE_CHART_DATA_STYLES,
+  COMPARE_CHART_DATA_STYLES,
   THREE_MONTHS,
   SIX_MONTHS,
   ONE_YEAR,
@@ -128,7 +129,8 @@ export function generateCountChartData(
 export function generateCountChartData2(
   historicalCountsList,
   legendLabels,
-  timeFormat='MM/DD')
+  timeFormat='MM/DD',
+  colorScheme='normal')
 {
   const labels = historicalCountsList[0].map(
     (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
@@ -142,7 +144,7 @@ export function generateCountChartData2(
         label: legendLabels[index],
         // yAxisID: index,
       },    //offset index by one so as to not interfere with sub line graph color
-      LINE_CHART_DATA_STYLES[index + 2].historical
+      (colorScheme == 'compare') ? COMPARE_CHART_DATA_STYLES[index].historical : LINE_CHART_DATA_STYLES[index + 2].historical
     );
   });
 

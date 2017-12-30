@@ -10,6 +10,7 @@ import {
 }                          from '../../containers';
 import MainRoutes          from '../../routes/MainRoutes';
 import { withRouter }      from 'react-router-dom';
+import Notifications       from '../../components/Notifications';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,6 +30,10 @@ class App extends Component {
       <div className={css(styles.container)}>
         <ConnectedNavigationBar />
         <MainRoutes />
+        <div style={{ height: '100px' }}>
+          Hello
+          <Notifications />
+        </div>
       </div>
     );
   }

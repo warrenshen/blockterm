@@ -75,12 +75,12 @@ const styles = StyleSheet.create({
     border: '1px solid #000',
     borderRadius: '1px',
     padding: '4px 12px',
-    backgroundColor: STYLES.GOLD,
+    //backgroundColor: STYLES.GOLD,
   },
   nightModeButton: {
-    backgroundColor: STYLES.BLAZINGREEN,
-    borderColor: '#ccc',
-    color: '#000 !important',
+    //backgroundColor: STYLES.BLAZINGREEN,
+    borderColor: '#fff',
+    color: '#fff !important',
   },
   boldedUpper: {
     color: '#000 !important',
@@ -90,6 +90,13 @@ const styles = StyleSheet.create({
     ':hover': {
       color: STYLES.GOLDINVERSEBLUE,
       borderColor: STYLES.GOLDINVERSEBLUE,
+    },
+  },
+  nightBoldedUpper: {
+    color: '#fff',
+    ':hover': {
+      color: STYLES.GOLD,
+      borderColor: STYLES.GOLD,
     },
   },
 });
@@ -213,7 +220,7 @@ class Home extends PureComponent {
             <El
               nightMode={nightMode}
               style={styles.boldedUpper}
-              nightModeStyle={styles.boldedUpper}
+              nightModeStyle={styles.nightBoldedUpper}
               type={'span'}>
               Compare Subreddits
             </El>
