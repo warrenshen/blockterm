@@ -112,11 +112,19 @@ export default function(state = initialState, action)
           if (data.createDashboardItem)
           {
             dashboardPages = data.createDashboardItem.dashboardPages;
+            newDashboardItemStates = generateItemStatesFromPages(dashboardPages);
+            return {
+              ...state,
+              dashboardItemStates: {
+                // Note `newDashboardItemStates` is before, this is because
+                // we don't want to overwrite previous dashboard item state.
+                ...newDashboardItemStates,
+                ...state.dashboardItemStates,
+              },
+              dashboardPages: dashboardPages,
+            };
           }
-          return {
-            ...state,
-            dashboardPages: dashboardPages,
-          };
+          return state;
         case 'DestroyDashboardItemMutation':
           data = action.result.data;
           dashboardPages = state.dashboardPages;
