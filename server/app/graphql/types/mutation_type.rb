@@ -577,7 +577,7 @@ module Types
         end
 
         dashboard_item = DashboardItem.find(args[:id])
-        if dashboard_item.valid?
+        if !dashboard_item.nil?
           dashboard_item.destroy
           if !dashboard_item.destroyed?
             return GraphQL::ExecutionError.new('Failed to destroy dashboard item')
@@ -588,9 +588,10 @@ module Types
       }
     end
 
-    field :updateDashboardPage, Types::UserType do
+    field :updateDashboardItems, Types::UserType do
       # description ''
 
+      argument :dashboardPageId, !types.ID
       argument :dashboardItemsString, !types.String
 
       resolve -> (obj, args, ctx) {
@@ -599,15 +600,25 @@ module Types
           return GraphQL::ExecutionError.new('No current user')
         end
 
-        temp = JSON.parse(args[:dashboardItemsString])
-        temp.each do |item|
-          dashboard_item_id = item['id']
+        dashboard_page = DashboardPage.find(args[:dashboardPageId])
+        if dashboard_page.nil?
+          return GraphQL::ExecutionError.new('Could not find dashboard page')
+        end
+
+        dashboard_items_hashes = JSON.parse(args[:dashboardItemsString])
+        dashboard_items_hashes.each do |dashboard_item_hash|
+          dashboard_item_id = dashboard_item_hash['id']
           dashboard_item = DashboardItem.find(dashboard_item_id)
+
+          if dashboard_item.dashboard_page_id != dashboard_page.id
+            return GraphQL::ExecutionError.new('Dashboard item does not belong to dashboard page')
+          end
+
           dashboard_item.assign_attributes(
-            w: item['w'],
-            h: item['h'],
-            x: item['x'],
-            y: item['y'],
+            w: dashboard_item_hash['w'],
+            h: dashboard_item_hash['h'],
+            x: dashboard_item_hash['x'],
+            y: dashboard_item_hash['y'],
           )
           if dashboard_item.changed?
             if !dashboard_item.save
