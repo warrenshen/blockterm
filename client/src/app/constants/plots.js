@@ -221,3 +221,84 @@ export const LINE_CHART_DATA_STYLES = [
     },
   },
 ]
+
+export const COMPARE_CHART_DATA_STYLES = [
+  {
+    historical: {
+      backgroundColor: '#006DDB',
+      borderColor: '#006DDB',
+      borderWidth: 3,
+      borderCapStyle: 'rgba(255,99,132,0.2)',
+      borderJoinStyle: 'rgba(255,99,132,0.2)',
+      fill: false,
+      lineTension: 0,
+       pointBorderWidth: 0,
+       pointRadius: 0,
+    },
+  },
+  {
+    historical: {
+      backgroundColor: '#e74c3c',
+      borderColor: '#e74c3c',
+      borderWidth: 3,
+      borderCapStyle: 'rgba(255,99,132,0.2)',
+      borderJoinStyle: 'rgba(255,99,132,0.2)',
+      fill: false,
+      lineTension: 0,
+       pointBorderWidth: 0,
+       pointRadius: 0,
+    },
+  },
+  { //used for sats
+    historical: {
+      backgroundColor: '#2ecc71',
+      borderColor: '#2ecc71',
+      borderWidth: 3,
+      borderCapStyle: 'rgba(255,99,132,0.2)',
+      borderJoinStyle: 'rgba(255,99,132,0.2)',
+      fill: false,
+      lineTension: 0,
+       pointBorderWidth: 0,
+       pointRadius: 0,
+    },
+  },
+  { //used for sats multi-bar graph
+    historical: {
+      backgroundColor: '#e67e22',
+      borderColor: '#e67e22',
+      borderWidth: 3,
+      borderCapStyle: 'rgba(255,99,132,0.2)',
+      borderJoinStyle: 'rgba(255,99,132,0.2)',
+      fill: false,
+      lineTension: 0,
+       pointBorderWidth: 0,
+       pointRadius: 0,
+    },
+  },
+  {
+    historical: {
+      backgroundColor: '#8e44ad',
+      borderColor: '#8e44ad',
+      borderWidth: 3,
+      borderCapStyle: 'rgba(255,99,132,0.2)',
+      borderJoinStyle: 'rgba(255,99,132,0.2)',
+      fill: false,
+      lineTension: 0,
+       pointBorderWidth: 0,
+       pointRadius: 0,
+    },
+  },
+  {
+    historical: {
+      backgroundColor: '#f1c40f',
+      borderColor: '#f1c40f',
+      borderWidth: 3,
+      borderCapStyle: 'rgba(255,99,132,0.2)',
+      borderJoinStyle: 'rgba(255,99,132,0.2)',
+      fill: false,
+      lineTension: 0,
+       pointBorderWidth: 0,
+       pointRadius: 0,
+    },
+  },
+]

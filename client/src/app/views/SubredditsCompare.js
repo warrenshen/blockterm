@@ -103,6 +103,9 @@ const styles = StyleSheet.create({
     'marginRight':'5px',
     'fontSize':'14px',
   },
+  semibolded: {
+    fontWeight: '500',
+  },
 });
 
 class SubredditsCompare extends PureComponent {
@@ -200,7 +203,7 @@ class SubredditsCompare extends PureComponent {
                 nightMode={nightMode}
               />
               :
-              <div className={css(styles.instruction, nightMode && styles.nightModeInstruction)}>
+              <div className={css(styles.instruction, styles.semibolded, nightMode && styles.nightModeInstruction)}>
                 Select subreddits to compare using the above selection menu.<br />
                 Graphs will then be rendered showing the comparison.
               </div>

@@ -166,6 +166,7 @@
     "react-grid-layout": "^0.16.2",
     "react-motion": "^0.5.0",
     "react-notification": "^5.0.1",
+    "react-notification-system": "^0.2.16",
     "react-plotly.js": "^1.0.3",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.2",
