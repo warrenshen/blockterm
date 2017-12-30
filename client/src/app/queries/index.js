@@ -8,6 +8,7 @@ export const DashboardPagesQuery = gql`
   query DashboardPagesQuery {
     user {
       dashboardPages {
+        id
         index
         name
 
@@ -38,6 +39,7 @@ export const UserQuery = gql`
 
 export const CreateDashboardItemMutation = gql`
   mutation CreateDashboardItemMutation(
+    $dashboardPageId: ID!,
     $identifier: String!,
     $w: Int,
     $h: Int,
@@ -45,19 +47,26 @@ export const CreateDashboardItemMutation = gql`
     $y: Int,
   ) {
     createDashboardItem(
+      dashboardPageId: $dashboardPageId,
       identifier: $identifier,
       w: $w,
       h: $h,
       x: $x,
       y: $y,
     ) {
-      dashboardItems {
+      dashboardPages {
         id
-        identifier
-        w
-        h
-        x
-        y
+        index
+        name
+
+        dashboardItems {
+          id
+          identifier
+          w
+          h
+          x
+          y
+        }
       }
     }
   }
@@ -76,15 +85,24 @@ export const CreateUserMutation = gql`
 `;
 
 export const DestroyDashboardItemMutation = gql`
-  mutation DestroyDashboardItemMutation($id: ID!) {
-    destroyDashboardItem(id: $id) {
-      dashboardItems {
+  mutation DestroyDashboardItemMutation(
+    $id: ID!
+    $dashboardPageId: ID!,
+  ) {
+    destroyDashboardItem(id: $id, dashboardPageId: $dashboardPageId) {
+      dashboardPages {
         id
-        identifier
-        w
-        h
-        x
-        y
+        index
+        name
+
+        dashboardItems {
+          id
+          identifier
+          w
+          h
+          x
+          y
+        }
       }
     }
   }
@@ -103,15 +121,27 @@ export const LogInMutation = gql`
 `;
 
 export const UpdateDashboardItemsMutation = gql`
-  mutation UpdateDashboardItemsMutation($dashboardItemsString: String!) {
-    updateDashboardItems(dashboardItemsString: $dashboardItemsString) {
-      dashboardItems {
+  mutation UpdateDashboardItemsMutation(
+    $dashboardPageId: ID!,
+    $dashboardItemsString: String!,
+  ) {
+    updateDashboardItems(
+      dashboardPageId: $dashboardPageId,
+      dashboardItemsString: $dashboardItemsString,
+    ) {
+      dashboardPages {
         id
-        identifier
-        w
-        h
-        x
-        y
+        index
+        name
+
+        dashboardItems {
+          id
+          identifier
+          w
+          h
+          x
+          y
+        }
       }
     }
   }
