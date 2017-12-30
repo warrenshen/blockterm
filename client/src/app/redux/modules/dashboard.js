@@ -18,6 +18,7 @@ import {
 } from '../../constants/items';
 import {
   DASHBOARD_COOKIE,
+  SELECTED_TAB_COOKIE,
   getItem,
   setItem,
 } from '../../services/cookie';
@@ -59,13 +60,14 @@ const SAVE_DASHBOARD_ITEMS_LOCAL = 'SAVE_DASHBOARD_ITEMS_LOCAL';
 /* -----------------------------------------
   Reducer
  ------------------------------------------*/
+const cookieSelectedTab = getItem(SELECTED_TAB_COOKIE) || 0;
 const initialState = {
   dashboardAction: false,
   dashboardData: null,
   dashboardItemStates: {},
   dashboardPages: [],
   keySelectValue: '',
-  selectedTab: 0,
+  selectedTab: cookieSelectedTab,
   scrollActive: false,
   user: null,
   valueSelectValue: '',
@@ -206,6 +208,7 @@ export default function(state = initialState, action)
         scrollActive: action.value,
       };
     case CHANGE_SELECTED_TAB:
+      setItem(SELECTED_TAB_COOKIE, action.value);
       return {
         ...state,
         selectedTab: action.value,
