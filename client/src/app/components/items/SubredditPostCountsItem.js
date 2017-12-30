@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   chart: {
     flex: '1',
     display: 'inline-flex',
-    paddingBottom: '8px',
   },
   select: {
     width: '128px',
@@ -116,10 +115,6 @@ class SubredditPostCountsItem extends Component {
       },
     };
 
-    // menuStyle={nightMode ? selectNight : selectDay}
-    // menuContainerStyle={nightMode ? selectNight : selectDay}
-    // optionClassName={css(nightMode && styles.night)}
-    // Need redraw to be true so the axis ticks are rerendered on night mode change.
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.header)}>
