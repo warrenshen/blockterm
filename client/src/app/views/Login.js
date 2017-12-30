@@ -248,11 +248,26 @@ class Login extends PureComponent {
                     Roadmap:
                   </El>
                 </div>
-                <div className={css(styles.row)}>
+                <div className={css(styles.column)}>
                   <El nightMode={nightMode}
                   style={styles.para}
                   type={'p'}>
-                    Alerts, Profit Loss, Correlation Graphs, More widgets
+                    Desktop Alerts
+                  </El>
+                  <El nightMode={nightMode}
+                  style={styles.para}
+                  type={'p'}>
+                    Profit Loss Widget/Tool
+                  </El>
+                  <El nightMode={nightMode}
+                  style={styles.para}
+                  type={'p'}>
+                    Correlation Graphs
+                  </El>
+                  <El nightMode={nightMode}
+                  style={styles.para}
+                  type={'p'}>
+                    More widgets
                   </El>
                 </div>
               </div>
