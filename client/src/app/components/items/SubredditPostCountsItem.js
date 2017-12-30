@@ -7,7 +7,8 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { isEqual }         from 'underscore';
 import moment              from 'moment';
-import LineChartWithSelect from '../LineChartWithSelect';
+import Select              from 'react-select';
+import { Line }            from 'react-chartjs-2';
 import {
   generateLineChartData,
   isPlotRangeBig,
@@ -15,18 +16,44 @@ import {
 import {
   RANGE_SELECT_OPTIONS,
 } from '../../constants/plots';
+import El                  from '../El';
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
+    flex: '1',
     display: 'flex',
     flexDirection: 'column',
-    padding: '0px !important',
-    position: 'relative',
-    paddingBottom: '15px',
+    padding: '0px 16px',
+  },
+  header: {
+    display: 'inline-flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '8px 0px',
+  },
+  chart: {
+    flex: '1',
+    display: 'inline-flex',
+    paddingBottom: '8px',
+  },
+  select: {
+    width: '128px',
+    zIndex: '1',
+    // backgroundColor:'white !important',
+    color:'#777 !important',
+    // borderColor: '#777 !important',
   },
 });
+
+const selectDay = {
+  backgroundColor:'white !important',
+  color:'#777 !important',
+  borderColor: '#777 !important',
+};
+const selectNight = {
+  backgroundColor:'black',
+  color:'#fff',
+};
 
 class SubredditPostCountsItem extends Component {
 
@@ -81,17 +108,73 @@ class SubredditPostCountsItem extends Component {
     const onChange = (option) =>
       changeDashboardItemState(identifier, 'plotRange', option.value);
 
+    const gridLinesConfig = {
+      color: nightMode ? 'rgba(255, 255, 255, 0.15)' :
+                         'rgba(0, 0, 0, 0.15)',
+      zeroLineColor: nightMode ? 'rgba(255, 255, 255, 0.15)' :
+                                 'rgba(0, 0, 0, 0.15)',
+    };
+    const ticksConfig = {
+      beginAtZero: true,
+      fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
+                             'rgba(0, 0, 0, 0.5)',
+      padding: 6,
+    };
+    const legendConfig = {
+      display: false,
+      labels: {
+        fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
+                               'rgba(0, 0, 0, 0.5)',
+      },
+    };
+
     return (
       <div className={css(styles.container)}>
-        <LineChartWithSelect
-          data={postsData}
-          nightMode={nightMode}
-          redraw={false}
-          selectOptions={RANGE_SELECT_OPTIONS}
-          selectValue={plotRange}
-          title={`# of daily posts in r/${specific}`}
-          onChange={onChange}
-        />
+        <div className={css(styles.header)}>
+          <El nightMode={nightMode} type={'h4'}>
+            {`# of daily posts in r/${specific}`}
+          </El>
+          <div className={css(styles.select)}>
+            <Select
+              className={css(styles.select)}
+              style={nightMode ? selectNight : selectDay}
+              menuStyle={nightMode ? selectNight : selectDay}
+              menuContainerStyle={nightMode ? selectNight : selectDay}
+              optionClassName={css(nightMode && styles.night)}
+              clearable={false}
+              searchable={false}
+              options={RANGE_SELECT_OPTIONS}
+              onChange={onChange}
+              value={plotRange}
+            />
+          </div>
+        </div>
+        <div className={css(styles.chart)}>
+          <Line
+            data={postsData}
+            redraw={false}
+            responsive={true}
+            options={{
+              legend: legendConfig,
+              maintainAspectRatio: false,
+              tooltips: { displayColors: true, intersect: false, mode: 'x' },
+              scales: {
+                xAxes: [
+                  {
+                    gridLines: gridLinesConfig,
+                    ticks: ticksConfig,
+                  },
+                ],
+                yAxes: [
+                  {
+                    gridLines: gridLinesConfig,
+                    ticks: ticksConfig,
+                  },
+                ],
+              },
+            }}
+          />
+        </div>
       </div>
     );
   }

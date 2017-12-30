@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     padding: '10px',
-    //paddingTop: '12px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -42,14 +41,14 @@ const styles = StyleSheet.create({
 });
 
 const selectDay = {
-    backgroundColor:'white !important',
-    color:'#777 !important',
-    borderColor: '#777 !important',
-  };
+  backgroundColor:'white !important',
+  color:'#777 !important',
+  borderColor: '#777 !important',
+};
 const selectNight = {
-    backgroundColor:'black',
-    color:'#fff',
-  };
+  backgroundColor:'black',
+  color:'#fff',
+};
 
 const LineChartWithSelect = ({
   data,

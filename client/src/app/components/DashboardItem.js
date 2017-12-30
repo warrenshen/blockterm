@@ -34,9 +34,10 @@ import {
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
+    flexDirection: 'column',
     width: '100%',
     height: '100%',
-    overflow: 'hidden',
   },
   closeButton: {
     color: '#000',
