@@ -45,7 +45,7 @@ module Types
         timestamp_to_mention_counts = {}
         mention_counts.each do |mention_count|
           timestamp = mention_count.timestamp.to_s
-          timestamp_to_mention_counts[timestamp] ||= MentionTotalCount.new(nil, timestamp)
+          timestamp_to_mention_counts[timestamp] ||= MentionTotalCount.new(timestamp)
           timestamp_to_mention_counts[timestamp].increment_by(mention_count.count)
         end
 
@@ -71,7 +71,7 @@ module Types
           subreddit_id = mention_count.subreddit_id
           timestamp = mention_count.timestamp.to_s
           subreddit_id_to_mention_counts[subreddit_id] ||= {}
-          subreddit_id_to_mention_counts[subreddit_id][timestamp] ||= MentionTotalCount.new(subreddit_id, timestamp)
+          subreddit_id_to_mention_counts[subreddit_id][timestamp] ||= MentionTotalCount.new(timestamp)
           subreddit_id_to_mention_counts[subreddit_id][timestamp].increment_by(mention_count.count)
         end
 

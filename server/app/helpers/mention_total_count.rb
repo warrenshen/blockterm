@@ -1,7 +1,6 @@
 class MentionTotalCount
 
-  def initialize(subreddit_id, timestamp)
-    @subreddit_id = subreddit_id
+  def initialize(timestamp)
     @timestamp = timestamp
     @total_count = 0
     self
@@ -17,10 +16,6 @@ class MentionTotalCount
 
   def count
     @total_count
-  end
-
-  def subreddit_id
-    @subreddit_id
   end
 
   def timestamp
