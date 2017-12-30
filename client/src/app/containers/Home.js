@@ -15,6 +15,9 @@ import { DashboardPagesQuery } from '../queries';
 import Dashboard               from './Dashboard';
 import * as dashboardActions   from '../redux/modules/dashboard';
 import * as globalsActions     from '../redux/modules/globals';
+import {
+  success as createNotificationSuccess,
+} from 'react-notification-system-redux';
 
 /* -----------------------------------------
   Redux
@@ -34,11 +37,28 @@ const mapStateToProps = (state) => {
   };
 };
 
+function createDashboardItemLocalWithNotification(newDashboardItem)
+{
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      if (dispatch(dashboardActions.createDashboardItemLocal(newDashboardItem)))
+      {
+        resolve();
+      }
+    })
+    .then(
+      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Success' })),
+      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Failure' })),
+    );
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       changeKeySelectValue: dashboardActions.changeKeySelectValue,
       changeScrollActive: dashboardActions.changeScrollActive,
+      createDashboardItemLocal: createDashboardItemLocalWithNotification,
       changeValueSelectValue: dashboardActions.changeValueSelectValue,
       toggleSidebar: globalsActions.toggleSidebar,
     },

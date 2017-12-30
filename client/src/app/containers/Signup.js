@@ -26,7 +26,7 @@ const createUserMutationOptions = {
       return mutate({
         updateQueries: {
           UserQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.logIn.user,
+            user: mutationResult.data.createUser.user,
           }),
         },
         variables: { email, password },

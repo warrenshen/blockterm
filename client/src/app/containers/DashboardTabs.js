@@ -34,7 +34,6 @@ const mapDispatchToProps = (dispatch) => {
     {
       changeDashboardItemState: dashboardActions.changeDashboardItemState,
       changeSelectedTab: dashboardActions.changeSelectedTab,
-      createDashboardItemLocal: dashboardActions.createDashboardItemLocal,
       destroyDashboardItemLocal: dashboardActions.destroyDashboardItemLocal,
       logDashboardActionStart: dashboardActions.logDashboardActionStart,
       logDashboardActionStop: dashboardActions.logDashboardActionStop,
