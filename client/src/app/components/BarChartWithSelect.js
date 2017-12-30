@@ -11,25 +11,18 @@ import El from './El';
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
-    padding: '10px',
-    //paddingTop: '12px',
+    flex: '1',
     display: 'flex',
     flexDirection: 'column',
-  },
-  chart: {
     width: '100%',
-    height: '100%',
-    marginTop: '-4px',
   },
   header: {
+    flex: '1',
+    display: 'inline-flex',
     width: '100%',
-    minHeight: '20px',
-    padding: '0px 5px',
-    display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    padding: '12px 0px',
   },
   headerRight: {
     display: 'flex',
@@ -50,28 +43,12 @@ const styles = StyleSheet.create({
     color:'#777',
     borderColor: '#777',
   },
-  night: {
-    backgroundColor:'black',
-    color:'#fff !important',
-    borderColor: '#fff !important',
-  },
-  nightSelect: {
-    backgroundColor:'black',
-    color:'#fff !important',
-    borderColor: '#fff !important',
+  chart: {
+    flex: '1',
+    display: 'inline-flex',
+    width: '100%',
   },
 });
-
-const selectDay = {
-    backgroundColor:'white !important',
-    color:'#777',
-    borderColor: '#777',
-  };
-const selectNight = {
-    backgroundColor:'black',
-    color:'#fff !important',
-    borderColor: '#fff !important',
-  };
 
 class BarChartWithSelect extends PureComponent {
   static propTypes = {
@@ -80,7 +57,6 @@ class BarChartWithSelect extends PureComponent {
     nightMode: PropTypes.bool.isRequired,
     rangeStart: PropTypes.string,
     rangeEnd: PropTypes.string,
-    redraw: PropTypes.bool,
     selectOptions: PropTypes.array.isRequired,
     selectValue: PropTypes.string.isRequired,
     stacked: PropTypes.bool,
@@ -96,7 +72,6 @@ class BarChartWithSelect extends PureComponent {
       nightMode,
       rangeStart,
       rangeEnd,
-      redraw,
       selectOptions,
       selectValue,
       stacked,
@@ -162,15 +137,10 @@ class BarChartWithSelect extends PureComponent {
             <div className={css(styles.select, nightMode && styles.night)}>
               <Select
                 className={css(styles.select, nightMode && styles.nightSelect)}
-                style={nightMode ? selectNight : selectDay}
-                menuStyle={nightMode ? selectNight : selectDay}
-                menuContainerStyle={nightMode ? selectNight : selectDay}
-                optionClassName={css(nightMode && styles.night)}
                 clearable={false}
                 options={selectOptions}
                 onChange={onChange}
                 searchable={false}
-                //inputProps={{'style':'background-color:black; color:#fff !important; borderColor: #fff !important;'}}
                 value={selectValue}
               />
             </div>
@@ -180,7 +150,7 @@ class BarChartWithSelect extends PureComponent {
           <Bar
             height={312}
             data={data}
-            redraw={redraw}
+            redraw={true}
             responsive={true}
             options={{
               legend: legendConfig,

@@ -9,52 +9,37 @@ import El                  from './El';
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
-    padding: '10px',
+    flex: '1',
     display: 'flex',
     flexDirection: 'column',
-  },
-  chart: {
     width: '100%',
-    height: '100%',
-    marginTop: '-4px',
   },
   header: {
+    flex: '1',
+    display: 'inline-flex',
     width: '100%',
-    display: 'flex',
-    minHeight: '20px',
     justifyContent: 'space-between',
     alignItems: 'center',
+    padding: '12px 0px',
   },
   select: {
     width: '128px',
     zIndex: '1',
-    backgroundColor:'white !important',
-    color:'#777 !important',
-    borderColor: '#777 !important',
+    backgroundColor:'white',
+    color:'#777',
+    borderColor: '#777',
   },
-  night: {
-    backgroundColor:'black',
-    color:'#fff',
+  chart: {
+    flex: '1',
+    display: 'inline-flex',
+    width: '100%',
   },
 });
-
-const selectDay = {
-  backgroundColor:'white !important',
-  color:'#777 !important',
-  borderColor: '#777 !important',
-};
-const selectNight = {
-  backgroundColor:'black',
-  color:'#fff',
-};
 
 const LineChartWithSelect = ({
   data,
   displayLegend,
   nightMode,
-  redraw,
   selectOptions,
   selectValue,
   title,
@@ -87,15 +72,11 @@ const LineChartWithSelect = ({
         <div className={css(styles.select)}>
           <Select
             className={css(styles.select)}
-            style={nightMode ? selectNight : selectDay}
-            menuStyle={nightMode ? selectNight : selectDay}
-            menuContainerStyle={nightMode ? selectNight : selectDay}
-            optionClassName={css(nightMode && styles.night)}
             clearable={false}
+            onChange={onChange}
+            options={selectOptions}
             searchable={false}
             value={selectValue}
-            options={selectOptions}
-            onChange={onChange}
           />
         </div>
       </div>
@@ -103,7 +84,7 @@ const LineChartWithSelect = ({
         <Line
           height={312}
           data={data}
-          redraw={redraw}
+          redraw={true}
           responsive={true}
           options={{
             legend: legendConfig,
