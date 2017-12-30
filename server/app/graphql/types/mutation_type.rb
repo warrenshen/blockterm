@@ -512,6 +512,7 @@ module Types
 
       argument :email, !types.String
       argument :password, !types.String
+      argument :dashboardPagesString, types.String
 
       resolve -> (obj, args, ctx) {
         user = User.create(
@@ -520,6 +521,15 @@ module Types
         )
 
         if user.valid?
+          if args[:dashboardPagesString].nil?
+            MutationHelper::create_default_dashboard_pages(user)
+          else
+            MutationHelper::parse_dashboard_pages_string(
+              user,
+              args[:dashboardPagesString],
+            )
+          end
+
           command = AuthenticateUser.call(args[:email], args[:password])
 
           if command.success?
