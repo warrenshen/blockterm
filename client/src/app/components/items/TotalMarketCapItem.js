@@ -8,6 +8,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { isEqual }         from 'underscore';
 import moment              from 'moment';
 import {
+  disableChartOptions,
   generateLineChartDataValue,
   isPlotRangeBig,
 } from '../../helpers/chart';
@@ -29,7 +30,7 @@ class TotalMarketCapItem extends Component {
   render()
   {
     const {
-      changeDashboardPageState,
+      changeDashboardItemState,
       dashboardData,
       dashboardState,
       identifier,
@@ -41,9 +42,19 @@ class TotalMarketCapItem extends Component {
       plotRange,
     } = dashboardState;
 
-    const {
-      marketTickers,
-    } = dashboardData;
+    let earliestMarketTickerDate;
+    let marketTickers;
+
+    if (dashboardData)
+    {
+      earliestMarketTickerDate = dashboardData.earliestMarketTickerDate;
+      marketTickers = dashboardData.marketTickers;
+    }
+    else
+    {
+      earliestMarketTickerDate = undefined;
+      marketTickers = [];
+    }
 
     const marketTickersX = marketTickers.map(
       (marketTicker) => moment(marketTicker.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
@@ -55,15 +66,19 @@ class TotalMarketCapItem extends Component {
       isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD',
       nightMode,
     );
+    const selectOptions = disableChartOptions(
+      earliestMarketTickerDate,
+      RANGE_SELECT_OPTIONS,
+    );
 
     const onChange = (option) =>
-      changeDashboardPageState(identifier, 'plotRange', option.value);
+      changeDashboardItemState(identifier, 'plotRange', option.value);
 
     return (
       <LineChartWithSelectItem
         data={data}
         onChange={onChange}
-        options={RANGE_SELECT_OPTIONS}
+        options={selectOptions}
         nightMode={nightMode}
         selectValue={plotRange}
         title={`Total market cap over time`}

@@ -40,6 +40,7 @@ function f(identifier, extras)
         ${identifier}: subredditByName(name: "${identifierValue}") {
           id
           displayName
+          earliestCommentCountDate
 
           commentCounts(timeRange: "${extras.plotRange}") {
             count
@@ -52,6 +53,7 @@ function f(identifier, extras)
         ${identifier}: subredditByName(name: "${identifierValue}") {
           id
           displayName
+          earliestPostCountDate
 
           postCounts(timeRange: "${extras.plotRange}") {
             count
@@ -64,6 +66,7 @@ function f(identifier, extras)
         ${identifier}: marketByName(name: "TOTAL") {
           id
           name
+          earliestMarketTickerDate
 
           marketTickers(timeRange: "${extras.plotRange}") {
             value

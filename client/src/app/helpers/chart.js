@@ -22,6 +22,11 @@ export function isPlotRangeBig(plotRange)
 
 export function disableChartOptions(earliestDate, options)
 {
+  if (!earliestDate)
+  {
+    return [];
+  }
+
   const earliest = moment(earliestDate, 'YYYY-M-D H:m:s Z').startOf('day');
   return options.map((option) => {
     if (option.subtract)

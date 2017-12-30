@@ -20,6 +20,14 @@ module Types
       }
     end
 
+    field :earliestMarketTickerDate, types.String do
+      description 'The date time of earliest market ticker associated with market'
+
+      resolve -> (obj, args, ctx) {
+        QueryHelper::get_earliest_instance_timestamp(obj.market_tickers)
+      }
+    end
+
     field :marketTickers, types[Types::MarketTickerType] do
       description 'The tickers associated with the market'
 
