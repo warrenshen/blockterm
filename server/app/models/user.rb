@@ -14,4 +14,6 @@ class User < ApplicationRecord
 
   has_many :dashboard_items
   has_many :dashboard_pages
+
+  validates :email, uniqueness: true
 end
