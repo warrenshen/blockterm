@@ -6,6 +6,54 @@ module MutationHelper
         index: i,
         name: "Tab #{i + 1}"
       )
+
+      if i == 0
+        DashboardItem.create(
+          user_id: user.id,
+          dashboard_page_id: dashboard_page.id,
+          identifier: 'TV_CANDLE_CHART__BITSTAMP:BTCUSD',
+          w: 5,
+          h: 4,
+          x: 0,
+          y: 0,
+        )
+        DashboardItem.create(
+          user_id: user.id,
+          dashboard_page_id: dashboard_page.id,
+          identifier: 'TV_CANDLE_CHART__BITSTAMP:ETHUSD',
+          w: 5,
+          h: 4,
+          x: 0,
+          y: 4,
+        )
+        DashboardItem.create(
+          user_id: user.id,
+          dashboard_page_id: dashboard_page.id,
+          identifier: 'TV_MARKET_OVERVIEW__Default',
+          w: 3,
+          h: 8,
+          x: 5,
+          y: 0,
+        )
+        DashboardItem.create(
+          user_id: user.id,
+          dashboard_page_id: dashboard_page.id,
+          identifier: 'TV_CANDLE_CHART__BITSTAMP:LTCUSD',
+          w: 5,
+          h: 4,
+          x: 0,
+          y: 8,
+        )
+        DashboardItem.create(
+          user_id: user.id,
+          dashboard_page_id: dashboard_page.id,
+          identifier: 'SUBREDDIT_COMMENT_COUNTS__Bitcoin',
+          w: 3,
+          h: 3,
+          x: 5,
+          y: 8,
+        )
+      end
     end
   end
 

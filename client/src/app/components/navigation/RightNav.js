@@ -5,8 +5,8 @@ import PropTypes            from 'prop-types';
 import { withApollo }       from 'react-apollo';
 import { StyleSheet, css }  from 'aphrodite';
 import RightNavButton       from './RightNavButton';
-import Switch from 'react-toggle-switch'
-import El from '../El';
+import Switch               from 'react-toggle-switch'
+import El                   from '../El';
 import FontAwesome          from 'react-fontawesome';
 
 import {
@@ -72,6 +72,7 @@ function logOut(event, client)
 {
   clearItem(AUTH_TOKEN_COOKIE);
   client.resetStore();
+  window.location.reload();
 }
 
 function truncateEmail(email)
