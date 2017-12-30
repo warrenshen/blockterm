@@ -1,4 +1,4 @@
-export const PROJECT_VERSION = '0.1.3';
+export const PROJECT_VERSION = '0.1.4';
 
 const DELIMETER = '__';
 
