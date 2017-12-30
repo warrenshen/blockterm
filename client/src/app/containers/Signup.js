@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { compose, graphql }   from 'react-apollo';
 import {
   CreateUserMutation,
+  CreateUserMutationOptions,
   UserQuery,
 }                             from '../queries';
 import Signup                 from '../views/Signup';
@@ -14,37 +15,6 @@ import {
   AUTH_TOKEN_COOKIE,
   setItem,
 } from '../services/cookie';
-
-/* -----------------------------------------
-  GraphQL - Apollo client
- ------------------------------------------*/
-
-const createUserMutationOptions = {
-  props: ({ mutate, ownProps }) => ({
-    createUser(email, password) {
-
-      return mutate({
-        updateQueries: {
-          UserQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.createUser.user,
-          }),
-        },
-        variables: { email, password },
-      })
-      .then(
-        (response) => {
-          setItem(AUTH_TOKEN_COOKIE, response.data.createUser.authToken);
-          return Promise.resolve();
-        }
-      )
-      .catch(
-        (error) => {
-          return Promise.reject();
-        }
-      );
-    }
-  })
-};
 
 /* -----------------------------------------
   Redux
@@ -70,6 +40,6 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
   graphql(UserQuery),
-  graphql(CreateUserMutation, createUserMutationOptions),
+  graphql(CreateUserMutation, CreateUserMutationOptions),
   connect(mapStateToProps, mapDispatchToProps)
 )(Signup);
