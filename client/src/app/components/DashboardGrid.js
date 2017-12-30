@@ -168,7 +168,7 @@ class DashboardGrid extends Component {
     return (
       <ResponsiveReactGridLayout
         className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
-        cols={{ lg: 8, md: 8, sm: 4, xs: 4, xxs: 2 }}
+        cols={{ lg: 8, md: 8, sm: 8, xs: 8, xxs: 1 }}
         compactType={'vertical'}
         onDragStart={logDashboardActionStart}
         onDragStop={logDashboardActionStop}

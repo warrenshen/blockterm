@@ -47,8 +47,8 @@ function createDashboardItemLocalWithNotification(newDashboardItem)
       }
     })
     .then(
-      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Success' })),
-      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Failure' })),
+      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Success!' })),
+      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Failure.' })),
     );
   }
 }
