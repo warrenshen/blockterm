@@ -14,7 +14,7 @@ import { withRouter }      from 'react-router-dom';
 const styles = StyleSheet.create({
   container: {
     width: '100vw',
-    height: '100vh',
+    minHeight: '100vh',
     padding: '0% 0%',
     margin: '0% 0%',
     display: 'flex',
