@@ -17,6 +17,11 @@ export default function(state = initialState, action)
   switch (action.type)
   {
     case ADD_SUBREDDIT_ID:
+      if (state.subredditIds.length >= 5)
+      {
+        return state;
+      }
+
       return {
         ...state,
         subredditIds: state.subredditIds.concat([action.value])
