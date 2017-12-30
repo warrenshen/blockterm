@@ -5,11 +5,16 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
+    overflowY: 'hidden',
+  },
   container: {
     width: '100%',
-    height: '110%',
-    overflowY: 'hidden',
-    marginTop: '-55px',
+    height: '100%',
+    marginTop: '-35px',
   },
   nightContainer: {
     filter: 'hue-rotate(180deg) !important',
@@ -18,9 +23,8 @@ const styles = StyleSheet.create({
     pointerEvents: 'none',
   },
   frame: {
-    width: '105% !important',
-    height: '110% !important',
-    marginLeft: '-10px',
+    width: '100% !important',
+    height: '100% !important',
     border: 'none',
   },
   nightFrame: {
@@ -238,12 +242,13 @@ class TVChartItem extends PureComponent {
     } = this.props;
 
     return (
-      <div className={css(styles.container, nightMode && styles.nightContainer)}>
-        <iframe
-          className={css(styles.frame, nightMode && styles.nightFrame, dashboardAction && styles.noPointerEvents)}
-          ref={(el) => this.instance = el}
-        />
-        <span id="tradingview-copyright" className={css(styles.tradingView)}><a target="_blank" href="http://www.tradingview.com" className={css(styles.tradingViewText)}>Market Quotes by <span>TradingView</span></a></span>
+      <div className={css(styles.wrapper)}>
+        <div className={css(styles.container, nightMode && styles.nightContainer)}>
+          <iframe
+            className={css(styles.frame, nightMode && styles.nightFrame, dashboardAction && styles.noPointerEvents)}
+            ref={(el) => this.instance = el}
+          />
+        </div>
       </div>
     );
   }
