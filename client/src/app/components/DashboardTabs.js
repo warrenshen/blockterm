@@ -170,35 +170,31 @@ class DashboardTabs extends Component {
     }
   }
 
+  // <button className={css(styles.tab)}>
+  //   <FontAwesome title="Reset to preset" name='rotate-left'/>
+  // </button>
   renderTabList()
   {
+    const {
+      dashboardPages,
+    } = this.props;
+
     return (
       <div className={css(styles.tabBar)}>
         <TabList>
-          <Tab>
-            <button className={css(styles.tab)} title="Go to tab 1">
-              Tab 1
-            </button>
-          </Tab>
-          <Tab>
-            <button className={css(styles.tab)} title="Go to tab 2">
-              Tab 2
-            </button>
-          </Tab>
-          <Tab>
-            <button className={css(styles.tab)} title="Go to tab 3">
-              Tab 3
-            </button>
-          </Tab>
-          <Tab>
-            <button className={css(styles.tab)} title="Go to tab 4">
-              Tab 4
-            </button>
-          </Tab>
+        {
+          dashboardPages.map((dashboardPage) => (
+            <Tab key={dashboardPage.index}>
+              <button
+                className={css(styles.tab)}
+                title={`Go to ${dashboardPage.name}`}
+              >
+                {dashboardPage.name}
+              </button>
+            </Tab>
+          ))
+        }
         </TabList>
-        <button className={css(styles.tab)}>
-          <FontAwesome title="Reset to preset" name='rotate-left'/>
-        </button>
       </div>
     );
   }
