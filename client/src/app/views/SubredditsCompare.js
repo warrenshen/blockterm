@@ -131,23 +131,27 @@ class SubredditsCompare extends PureComponent {
             );
           })
         }
-        <div className={css(styles.newComparable)}>
-          <El
-            nightMode={nightMode}
-            style={styles.addText}
-            type={'h4'}
-          >
-            Add comparable:
-          </El>
-          <Select
-            className={css(styles.select)}
-            clearable={false}
-            searchable={true}
-            value={''}
-            options={selectOptions}
-            onChange={(option) => addSubredditId(option.value)}
-          />
-        </div>
+        {
+          selectedSubreddits.length < 5 && (
+            <div className={css(styles.newComparable)}>
+              <El
+                nightMode={nightMode}
+                style={styles.addText}
+                type={'h4'}
+              >
+                Add comparable:
+              </El>
+              <Select
+                className={css(styles.select)}
+                clearable={false}
+                searchable={true}
+                value={''}
+                options={selectOptions}
+                onChange={(option) => addSubredditId(option.value)}
+              />
+            </div>
+          )
+        }
       </div>
     );
   }
@@ -189,7 +193,7 @@ class SubredditsCompare extends PureComponent {
               :
               <div className={css(styles.instruction)}>
                 Select subreddits to compare using the above selection menu.<br />
-                Graphs will then be rendered showing the comparison. 
+                Graphs will then be rendered showing the comparison.
               </div>
             }
           </div>
