@@ -39,21 +39,9 @@ const styles = StyleSheet.create({
   select: {
     width: '128px',
     zIndex: '1',
-    // backgroundColor:'white !important',
     color:'#777 !important',
-    // borderColor: '#777 !important',
   },
 });
-
-const selectDay = {
-  backgroundColor:'white !important',
-  color:'#777 !important',
-  borderColor: '#777 !important',
-};
-const selectNight = {
-  backgroundColor:'black',
-  color:'#fff',
-};
 
 class SubredditPostCountsItem extends Component {
 
@@ -128,6 +116,10 @@ class SubredditPostCountsItem extends Component {
       },
     };
 
+    // menuStyle={nightMode ? selectNight : selectDay}
+    // menuContainerStyle={nightMode ? selectNight : selectDay}
+    // optionClassName={css(nightMode && styles.night)}
+    // Need redraw to be true so the axis ticks are rerendered on night mode change.
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.header)}>
@@ -136,11 +128,6 @@ class SubredditPostCountsItem extends Component {
           </El>
           <div className={css(styles.select)}>
             <Select
-              className={css(styles.select)}
-              style={nightMode ? selectNight : selectDay}
-              menuStyle={nightMode ? selectNight : selectDay}
-              menuContainerStyle={nightMode ? selectNight : selectDay}
-              optionClassName={css(nightMode && styles.night)}
               clearable={false}
               searchable={false}
               options={RANGE_SELECT_OPTIONS}
@@ -152,7 +139,7 @@ class SubredditPostCountsItem extends Component {
         <div className={css(styles.chart)}>
           <Line
             data={postsData}
-            redraw={false}
+            redraw={true}
             responsive={true}
             options={{
               legend: legendConfig,

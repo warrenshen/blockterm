@@ -85,7 +85,7 @@ class SubredditCommentCountsItem extends Component {
         <LineChartWithSelect
           data={commentsData}
           nightMode={nightMode}
-          redraw={false}
+          redraw={true}
           selectOptions={RANGE_SELECT_OPTIONS}
           selectValue={plotRange}
           title={`# of daily comments in r/${specific}`}
