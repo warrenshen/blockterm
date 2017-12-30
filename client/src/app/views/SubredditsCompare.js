@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     flex: '1',
-    backgroundColor: 'white',
+    backgroundColor: '#fff',
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   nightRow: {
@@ -183,7 +183,7 @@ class SubredditsCompare extends PureComponent {
         <div className={styles.header}>
           { data && data.allSubreddits && this.renderOptions(data.allSubreddits, data.subredditsByIds) }
         </div>
-        <div className={css(styles.row, styles.nightRow)}>
+        <div className={css(styles.row, nightMode && styles.nightRow)}>
           <div className={css(styles.container)}>
             {
               data &&

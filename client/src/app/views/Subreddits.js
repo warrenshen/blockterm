@@ -75,11 +75,11 @@ const styles = StyleSheet.create({
     border: '1px solid #000',
     borderRadius: '1px',
     padding: '4px 12px',
-    backgroundColor: STYLES.BLAZINGREEN,
+    backgroundColor: STYLES.GOLD,
   },
   nightModeButton: {
-    backgroundColor: STYLES.GOLD,
-    borderColor: '#fff',
+    backgroundColor: STYLES.BLAZINGREEN,
+    borderColor: '#ccc',
     color: '#000 !important',
   },
   boldedUpper: {
