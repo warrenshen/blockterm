@@ -1,7 +1,9 @@
 import gql from 'graphql-tag';
 import {
+  AUTH_TOKEN_COOKIE,
   DASHBOARD_COOKIE,
   getItem,
+  setItem,
 } from '../services/cookie';
 
 /* -----------------------------------------
@@ -135,9 +137,12 @@ export const CreateUserMutationOptions = {
       const dashboardPagesString = getItem(DASHBOARD_COOKIE, true);
       return mutate({
         updateQueries: {
-          UserQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.createUser.user,
-          }),
+          UserQuery: (prev, { mutationResult }) => {
+            setItem(AUTH_TOKEN_COOKIE, mutationResult.data.createUser.authToken);
+            return {
+              user: mutationResult.data.createUser.user,
+            };
+          },
         },
         variables: {
           dashboardPagesString,
@@ -223,6 +228,34 @@ export const LogInMutation = gql`
     }
   }
 `;
+
+export const LogInMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    logIn(email, password) {
+      return mutate({
+        updateQueries: {
+          UserQuery: (prev, { mutationResult }) => {
+            setItem(AUTH_TOKEN_COOKIE, mutationResult.data.logIn.authToken);
+            return {
+              user: mutationResult.data.logIn.user,
+            };
+          },
+        },
+        variables: { email, password },
+      })
+      .then(
+        (response) => {
+          return Promise.resolve();
+        }
+      )
+      .catch(
+        (error) => {
+          return Promise.reject();
+        }
+      );
+    }
+  })
+};
 
 export const UpdateDashboardItemsMutation = gql`
   mutation UpdateDashboardItemsMutation(
