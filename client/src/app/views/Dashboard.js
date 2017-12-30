@@ -29,7 +29,9 @@ const styles = StyleSheet.create({
     width: '256px',
     backgroundColor:'#fff',
     borderLeft: '1px solid #666',
-    height: '100%', //might be overzealous
+   // height: '100%', //might be overzealous
+   flex: '1',
+   flexDirection: 'column',
   },
   nightSidebar: {
     backgroundColor: STYLES.LIGHTNIGHT,

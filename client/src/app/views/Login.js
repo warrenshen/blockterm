@@ -141,10 +141,14 @@ const styles = StyleSheet.create({
   },
   para: {
     lineHeight: '24px',
+    marginBottom: '16px',
   },
   a: {
     fontWeight: '500',
     textDecoration: 'underline',
+  },
+  nightA: {
+    color: '#fff',
   },
   boldedBottomHeavy: {
     fontWeight: '700',
@@ -248,30 +252,30 @@ class Login extends PureComponent {
                     Roadmap:
                   </El>
                 </div>
-                <div className={css(styles.column)}>
+                <div className={css(styles.column)} style={{'paddingRight':'15px'}}>
                   <El nightMode={nightMode}
                   style={styles.para}
                   type={'p'}>
-                    Desktop Alerts
+                    <strong><u>Desktop Alerts:</u></strong> &nbsp;alerts/notifications is one of the features we feel most strongly about. We intend to add this as soon as possible in the next version of Blockterm.
                   </El>
                   <El nightMode={nightMode}
                   style={styles.para}
                   type={'p'}>
-                    Profit Loss Widget/Tool
+                    <strong><u>Profit Loss Tracking Tool:</u></strong> &nbsp;profit/loss tracking via a widget on the dashboard is another feature we see high demand for. We look forward to adding this feature and helping the community, and ourselves better track collective investments.
                   </El>
                   <El nightMode={nightMode}
                   style={styles.para}
                   type={'p'}>
-                    Correlation Graphs
+                    <strong><u>Correlation Graphs:</u></strong> &nbsp;cross coin correlation graphs have been requested, and seem lacking in the current cryptocurrency space. We intend to remedy this.
                   </El>
                   <El nightMode={nightMode}
                   style={styles.para}
                   type={'p'}>
-                    More widgets
+                    <strong><u>More widgets:</u></strong> &nbsp;tons of more widgets are in the works. We would love your feedback! This will help us decide what to prioritize.
                   </El>
                 </div>
               </div>
-              <div className={css(styles.column)}>
+              <div className={css(styles.column)} style={{'paddingLeft':'15px', 'borderLeft':'1px dashed #777'}}>
                 <El style={styles.boldedBottomHeavy}
                     nightMode={nightMode}
                     type={'h5'}>
@@ -280,10 +284,10 @@ class Login extends PureComponent {
                 <El nightMode={nightMode}
                     style={styles.para}
                     type={'p'}>
-                    2018 is undoubtedly the year of altcoins (alternative cryptocurrencies), with Bitcoin stealing the show of 2017. With altcoins like <a href="https://coinmarketcap.com/currencies/substratum/" className={css(styles.a)} target="_blank">Substratum (SUB)</a> and <a href="https://coinmarketcap.com/currencies/icon/" className={css(styles.a)} target="_blank">Icon (ICX)</a> rallying hard, it's wise to learn how to get a part of the action. There is lots of money to be made in the more volatile, fast-paced altcoin market.<br /><br />
+                    2018 is undoubtedly the year of altcoins (alternative cryptocurrencies), with Bitcoin stealing the show of 2017. With altcoins like <a href="https://coinmarketcap.com/currencies/substratum/" className={css(styles.a, nightMode && styles.nightA)} target="_blank">Substratum (SUB)</a> and <a href="https://coinmarketcap.com/currencies/icon/" className={css(styles.a, nightMode && styles.nightA)} target="_blank">Icon (ICX)</a> rallying hard, it's wise to learn how to get a part of the action. There is lots of money to be made in the more volatile, fast-paced altcoin market.<br /><br />
                     Thus the natural question is: How does one get involved?
                     Our preferred answer is: <a href="https://www.binance.com/?ref=11786793" className={css(styles.a, styles.boldedColor, nightMode && styles.nightBoldedColor)} target="_blank">with Binance.</a> 
-                    Currently most altcoins can only be purchased using Bitcoin, and are seldom available by dollar-to-cryptocurrency vendors. Thus you will first need a traditional Dollar-to-Bitcoin broker such as <a href="https://www.coinbase.com/join/59d710a13d5d8000d2267f0c" className={css(styles.a, styles.boldedColor, nightMode && styles.nightBoldedColor)} target="_blank">Coinbase</a> to trade dollars for BTC/LTC.<br /><br />
+                    &nbsp;Currently most altcoins can only be purchased using Bitcoin, and are seldom available by dollar-to-cryptocurrency vendors. Thus you will first need a traditional Dollar-to-Bitcoin broker such as <a href="https://www.coinbase.com/join/59d710a13d5d8000d2267f0c" className={css(styles.a, styles.boldedColor, nightMode && styles.nightBoldedColor)} target="_blank">Coinbase</a> to trade dollars for BTC/LTC.<br /><br />
                     Then, using your Binance account, you would trade BTC for any altcoin you desire. We prefer Binance as they have one of the largest, if not the largest, selections of altcoins available, and immediately pay out coin-fork distributions when they are announced (similar to dividends for the stock market). They also have some of the lowest, if not the lowest fees, at 0.5%!<br /><br />
                     <span style={{'fontWeight':'500'}}>Important note: in order to save on Bitcoin's costly transaction fees, it is recommended to buy LTC off of Coinbase or other vendors and then send the LTC to Binance. After doing so, trade LTC to BTC and then BTC for your preferred altcoin.</span>
                 </El>
