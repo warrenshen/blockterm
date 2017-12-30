@@ -279,7 +279,11 @@ class Dashboard extends Component {
                 position: 'relative',
                 overflowY: 'visible',
               },
-          }}
+              sidebar: {
+                display: 'flex',
+              },
+            }
+          }
         >
           {this.renderScrollShield()}
           <DashboardTabs />

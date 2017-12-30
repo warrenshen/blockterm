@@ -80,10 +80,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'none',
   },
   leftSection: {
-    flex: '1 2 auto !important',
+    flex: '1',
   },
-  rightAlign: {
+  rightAlignSmall: {
     textAlign: 'right',
+    width: '50px',
   },
   item: {
     flex: '1',
@@ -198,7 +199,7 @@ class DashboardItem extends Component {
               {dashboardItem.identifier}
             </El>
           </div>
-          <div className={css(styles.section, styles.rightAlign)}>
+          <div className={css(styles.section, styles.rightAlignSmall)}>
             <button
               title="Drag and drop to move widget around"
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}

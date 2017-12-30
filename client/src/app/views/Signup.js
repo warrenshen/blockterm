@@ -153,6 +153,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     textDecoration: 'underline',
   },
+  nightA: {
+    color: '#fff',
+  },
   boldedBottomHeavy: {
     fontWeight: '700',
     marginBottom: '8px',
@@ -315,7 +318,7 @@ class Login extends PureComponent {
                   type={'p'}
                   style={styles.para}
                 >
-                  The 'subreddits' tab is used to monitor activity on each respective coin/token's subreddit on <a href="https://www.reddit.com" target="_blank" className={css(styles.a)}>Reddit.com.</a> The data is updated live every few minutes and has in the past shown extremely high correlation to price movements of the coins/tokens in the past.<br /><br />
+                  The 'subreddits' tab is used to monitor activity on each respective coin/token's subreddit on <a href="https://www.reddit.com" target="_blank" className={css(styles.a, nightMode && styles.nightA)}>Reddit.com.</a> The data is updated live every few minutes and has in the past shown extremely high correlation to price movements of the coins/tokens in the past.<br /><br />
                   You can also use this page to follow the approximate size of the community surrounding a given coin in order to understand how much developer support, community input, and mainstream adoption looks like.
                 </El>
               </div>

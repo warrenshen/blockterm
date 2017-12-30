@@ -28,16 +28,16 @@ const styles = StyleSheet.create({
 const notificationsStyle = {
   NotificationItem: { // Override the notification item
     DefaultStyle: { // Applied to every notification, regardless of the notification level
-      'borderRadius':'0px',
-      'boxShadow':'none',
-      'borderColor':STYLES.BLAZINGREEN,
-      'fontWeight':'500',
+      borderRadius:'0px',
+      boxShadow:'none',
+      color:'#092715 !important',
+      borderColor:STYLES.BLAZINGREEN,
+      fontWeight:'500',
     },
-
-    success: { // Applied only to the success notification item
-      color: 'red'
+    success: {
+      color:'#092715 !important',
     }
-  }
+  },
 }
 
 class App extends PureComponent {
