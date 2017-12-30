@@ -14,6 +14,7 @@ import {
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
   parseIdentifer,
+  parseIdentiferKey,
 } from '../../constants/items';
 import {
   DASHBOARD_COOKIE,
@@ -80,8 +81,7 @@ function generateItemStatesFromPages(dashboardPages)
         identifier,
       } = dashboardItem;
 
-      const arr = parseIdentifer(identifier);
-      const identifierKey = arr[0];
+      const identifierKey = parseIdentiferKey(identifier);
       dashboardItemStates[identifier] = IDENTIFIER_KEY_TO_STATE_MAP[identifierKey];
     });
   });
@@ -96,7 +96,10 @@ export default function(state = initialState, action)
   let dashboardPages;
   let newDashboardItems;
   let newDashboardItemStates;
+  let newDashboardPage;
   let newDashboardPages;
+  let oldDashboardItems;
+  let oldDashboardPage;
 
   switch (action.type)
   {
@@ -202,39 +205,34 @@ export default function(state = initialState, action)
       };
     case CREATE_DASHBOARD_ITEM_LOCAL:
       const newDashboardItem = action.value;
-      dashboardPage = Map(state.dashboardPages[state.selectedTab]);
-      newDashboardItems = List(dashboardPage.dashboardItems).push(newDashboardItem);
-      newDashboardPage = dashboardPage.set('dashboardItems', newDashboardItems);
+      oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
+      oldDashboardItems = oldDashboardPage.get('dashboardItems');
+      newDashboardItems = List(oldDashboardItems).push(newDashboardItem);
+      newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
+      newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
 
       const newIdentifier = newDashboardItem.identifier;
-      const arr = parseIdentifer(newIdentifier);
-      const identifierKey = arr[0];
-
-      newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
-      console.log(newDashboardPages);
+      const identifierKey = parseIdentiferKey(newIdentifier);
       newDashboardItemStates = {
-        ...state.dashboardPagesStates,
+        ...state.dashboardItemStates,
         [newIdentifier]: IDENTIFIER_KEY_TO_STATE_MAP[identifierKey],
       };
-      console.log(newDashboardPages);
-      console.log(newDashboardItemStates);
-      setItem(DASHBOARD_COOKIE, newDashboardPages);
 
+      setItem(DASHBOARD_COOKIE, newDashboardPages.toJS());
       return {
         ...state,
-        newDashboardItemStates: newDashboardItemStates,
-        dashboardPages: newDashboardPages,
+        dashboardItemStates: newDashboardItemStates,
+        dashboardPages: newDashboardPages.toJS(),
       };
     case DESTROY_DASHBOARD_ITEM_LOCAL:
-      let oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
-      console.log(oldDashboardPage);
-      let oldDashboardItems = oldDashboardPage.get('dashboardItems');
-      let newDashboardItems = oldDashboardItems.filter(
+      oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
+      oldDashboardItems = oldDashboardPage.get('dashboardItems');
+      newDashboardItems = oldDashboardItems.filter(
         (dashboardItem) => dashboardItem.id !== action.value
       );
-      let newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
-      let newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
-      setItem(DASHBOARD_COOKIE, newDashboardPages);
+      newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
+      newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
+      setItem(DASHBOARD_COOKIE, newDashboardPages.toJS());
       return {
         ...state,
         dashboardPages: newDashboardPages.toJS(),
@@ -250,15 +248,13 @@ export default function(state = initialState, action)
         dashboardAction: false,
       };
     case SAVE_DASHBOARD_ITEMS_LOCAL:
-      newDashboardItems = action.value;
-      newDashboardPages = {
-        ...state.dashboardPages,
-        [state.selectedTab]: newDashboardItems,
-      };
-      setItem(DASHBOARD_COOKIE, newDashboardPages);
+      oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
+      newDashboardPage = oldDashboardPage.set('dashboardItems', action.value);
+      newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
+      setItem(DASHBOARD_COOKIE, newDashboardPages.toJS());
       return {
         ...state,
-        dashboardPages: newDashboardPages,
+        dashboardPages: newDashboardPages.toJS(),
       };
     default:
       return state;

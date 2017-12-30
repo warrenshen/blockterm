@@ -53,10 +53,20 @@ class SubredditPostCountsItem extends Component {
       plotRange,
     } = dashboardState;
 
-    const {
-      postCount,
-      postCounts,
-    } = dashboardData;
+
+    let postCount;
+    let postCounts;
+
+    if (dashboardData)
+    {
+      postCount = dashboardData.postCount;
+      postCounts = dashboardData.postCounts;
+    }
+    else
+    {
+      postCount = undefined;
+      postCounts = [];
+    }
 
     const postsX = postCounts.map(
       (postCount) => moment(postCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
