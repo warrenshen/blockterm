@@ -10,17 +10,20 @@ const styles = StyleSheet.create({
     flex: '1',
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
     padding: '0px 16px',
   },
   header: {
     display: 'inline-flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    width: '100%',
     padding: '8px 0px',
   },
   chart: {
     flex: '1',
     display: 'inline-flex',
+    width: '100%',
   },
   select: {
     width: '128px',

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   grabBar: {
     zIndex: '2',
-    display: 'flex',
+    display: 'inline-flex',
     flexDirection: 'row',
     backgroundColor: '#fff',
     justifyContent: 'space-between',
@@ -84,6 +84,10 @@ const styles = StyleSheet.create({
   },
   rightAlign: {
     textAlign: 'right',
+  },
+  item: {
+    flex: '1',
+    display: 'inline-flex',
   },
 });
 
@@ -210,7 +214,9 @@ class DashboardItem extends Component {
             </button>
           </div>
         </div>
-        {this.renderItem(dashboardItem)}
+        <div className={css(styles.item)}>
+          {this.renderItem(dashboardItem)}
+        </div>
       </div>
     );
   }
