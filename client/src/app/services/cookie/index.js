@@ -12,11 +12,17 @@ export const NIGHT_MODE_COOKIE = 'NIGHT_MODE_COOKIE';
 const parse = JSON.parse;
 const stringify = JSON.stringify;
 
-export function getItem(itemKey, fromStorage=APP_PERSIST_STORES_TYPES[0])
+export function getItem(itemKey, asString=false, fromStorage=APP_PERSIST_STORES_TYPES[0])
 {
   // localStorage:
   if (fromStorage === APP_PERSIST_STORES_TYPES[0] && localStorage) {
-    const value = parse(localStorage.getItem(itemKey));
+    let value = localStorage.getItem(itemKey);
+
+    if (!asString)
+    {
+      value = parse(value);
+    }
+
     if (value === 'true')
     {
       return true;

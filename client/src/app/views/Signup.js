@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class Login extends PureComponent {
+class Signup extends PureComponent {
 
   componentWillReceiveProps(nextProps)
   {
@@ -172,10 +172,12 @@ class Login extends PureComponent {
   submit(event)
   {
     event.preventDefault();
+
     const {
-      createUser,
       email,
       password,
+
+      createUser,
     } = this.props;
 
     createUser(email, password);
@@ -365,4 +367,4 @@ class Login extends PureComponent {
   }
 }
 
-export default withRouter(Login);
+export default withRouter(Signup);
