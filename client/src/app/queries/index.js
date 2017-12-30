@@ -105,7 +105,7 @@ export const CreateDashboardItemMutationOptions = {
           return Promise.reject();
         }
       );
-    }
+    },
   }),
 };
 
@@ -129,11 +129,10 @@ export const CreateUserMutation = gql`
   }
 `;
 
-const CreateUserMutationOptions = {
+export const CreateUserMutationOptions = {
   props: ({ mutate, ownProps }) => ({
     createUser(email, password) {
-      const dashboardPagesString = getItem(DASHBOARD_COOKIE);
-      console.log(dashboardPagesString);
+      const dashboardPagesString = getItem(DASHBOARD_COOKIE, true);
       return mutate({
         updateQueries: {
           UserQuery: (prev, { mutationResult }) => ({
@@ -157,7 +156,7 @@ const CreateUserMutationOptions = {
           return Promise.reject();
         }
       );
-    }
+    },
   })
 };
 
@@ -209,7 +208,7 @@ export const DestroyDashboardItemMutationOptions = {
           return Promise.reject();
         }
       );
-    }
+    },
   }),
 };
 
@@ -276,6 +275,6 @@ export const UpdateDashboardItemsMutationOptions = {
           return Promise.reject();
         }
       );
-    }
+    },
   }),
 };
