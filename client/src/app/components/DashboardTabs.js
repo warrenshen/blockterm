@@ -78,6 +78,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: '1px',
   },
+  chosenTab: {
+    backgroundColor: STYLES.GOLD,
+  },
   tabText: {
     //nothing yet
   },
@@ -174,7 +177,7 @@ class DashboardTabs extends Component {
   // <button className={css(styles.tab)}>
   //   <FontAwesome title="Reset to preset" name='rotate-left'/>
   // </button>
-  renderTabList()
+  renderTabList(selectedTab)
   {
     const {
       dashboardPages,
@@ -187,7 +190,7 @@ class DashboardTabs extends Component {
           dashboardPages.map((dashboardPage) => (
             <Tab key={dashboardPage.index}>
               <button
-                className={css(styles.tab)}
+                className={css(styles.tab, (dashboardPage.index == selectedTab) && styles.chosenTab)}
                 title={`Go to ${dashboardPage.name}`}
               >
                 {dashboardPage.name}
@@ -267,7 +270,7 @@ class DashboardTabs extends Component {
           onSelect={(tabIndex) => changeSelectedTab(tabIndex)}
           selectedIndex={selectedTab}
         >
-          {this.renderTabList()}
+          {this.renderTabList(selectedTab)}
           {this.renderTabPanels()}
         </Tabs>
       </div>
