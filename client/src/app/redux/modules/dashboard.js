@@ -67,6 +67,7 @@ const initialState = {
   keySelectValue: '',
   selectedTab: 0,
   scrollActive: false,
+  user: null,
   valueSelectValue: '',
 };
 
@@ -170,6 +171,7 @@ export default function(state = initialState, action)
             ...state,
             dashboardItemStates: generateItemStatesFromPages(dashboardPages),
             dashboardPages: dashboardPages,
+            user: data.user,
           };
         case 'DynamicDashboardQuery':
           return {

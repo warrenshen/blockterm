@@ -4,15 +4,12 @@ import { connect }             from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import { compose, graphql }    from 'react-apollo';
 import {
-  CreateDashboardItemMutation,
-  CreateDashboardItemMutationOptions,
   DestroyDashboardItemMutation,
   DestroyDashboardItemMutationOptions,
   UpdateDashboardItemsMutation,
   UpdateDashboardItemsMutationOptions,
 }                              from '../queries';
-import { DashboardPagesQuery } from '../queries';
-import Dashboard               from './Dashboard';
+import DashboardTabs           from '../components/DashboardTabs';
 import * as dashboardActions   from '../redux/modules/dashboard';
 import * as globalsActions     from '../redux/modules/globals';
 
@@ -22,24 +19,26 @@ import * as globalsActions     from '../redux/modules/globals';
 
 const mapStateToProps = (state) => {
   return {
+    dashboardAction: state.dashboard.dashboardAction,
+    dashboardData: state.dashboard.dashboardData,
     dashboardItemStates: state.dashboard.dashboardItemStates,
     dashboardPages: state.dashboard.dashboardPages,
-    keySelectValue: state.dashboard.keySelectValue,
     nightMode: state.globals.nightMode,
-    scrollActive: state.dashboard.scrollActive,
     selectedTab: state.dashboard.selectedTab,
-    sidebarActive: state.globals.sidebarActive,
     user: state.dashboard.user,
-    valueSelectValue: state.dashboard.valueSelectValue,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      changeKeySelectValue: dashboardActions.changeKeySelectValue,
-      changeScrollActive: dashboardActions.changeScrollActive,
-      changeValueSelectValue: dashboardActions.changeValueSelectValue,
+      changeDashboardItemState: dashboardActions.changeDashboardItemState,
+      changeSelectedTab: dashboardActions.changeSelectedTab,
+      createDashboardItemLocal: dashboardActions.createDashboardItemLocal,
+      destroyDashboardItemLocal: dashboardActions.destroyDashboardItemLocal,
+      logDashboardActionStart: dashboardActions.logDashboardActionStart,
+      logDashboardActionStop: dashboardActions.logDashboardActionStop,
+      saveDashboardItemsLocal: dashboardActions.saveDashboardItemsLocal,
       toggleSidebar: globalsActions.toggleSidebar,
     },
     dispatch
@@ -47,7 +46,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
-  graphql(DashboardPagesQuery),
-  graphql(CreateDashboardItemMutation, CreateDashboardItemMutationOptions),
+  graphql(DestroyDashboardItemMutation, DestroyDashboardItemMutationOptions),
+  graphql(UpdateDashboardItemsMutation, UpdateDashboardItemsMutationOptions),
   connect(mapStateToProps, mapDispatchToProps)
-)(Dashboard);
+)(DashboardTabs);

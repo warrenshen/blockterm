@@ -105,12 +105,12 @@ class DashboardItem extends Component {
   renderItem(dashboardItem)
   {
     const {
-      changeDashboardItemState,
       dashboardAction,
       dashboardData,
       dashboardState,
       nightMode,
-      storeState,
+
+      changeDashboardItemState,
     } = this.props;
 
     const identifier = dashboardItem.identifier;

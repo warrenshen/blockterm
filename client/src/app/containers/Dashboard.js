@@ -178,11 +178,12 @@ class Container extends PureComponent
   addToLayout(identifier)
   {
     const {
+      dashboardPages,
+      selectedTab,
+      user,
+
       createDashboardItem,
       createDashboardItemLocal,
-      dashboardPages,
-      data,
-      selectedTab,
     } = this.props;
 
     const dashboardItems = dashboardPages[selectedTab].dashboardItems;
@@ -193,7 +194,7 @@ class Container extends PureComponent
     const x = 0;
     const y = arr[0];
 
-    if (data.user)
+    if (user)
     {
       createDashboardItem(
         dashboardPages[selectedTab].id,
@@ -217,101 +218,19 @@ class Container extends PureComponent
     }
   }
 
-  removeFromLayout(id)
-  {
-    const {
-      dashboardPages,
-      data,
-      destroyDashboardItem,
-      destroyDashboardItemLocal,
-      selectedTab,
-    } = this.props;
-
-    if (data.user)
-    {
-      destroyDashboardItem(
-        dashboardPages[selectedTab].id,
-        id,
-      );
-    }
-    else
-    {
-      destroyDashboardItemLocal(id);
-    }
-  }
-
-  saveLayout(layout)
-  {
-    const {
-      data,
-      dashboardPages,
-      saveDashboardItemsLocal,
-      selectedTab,
-      updateDashboardItems,
-    } = this.props;
-
-    const dashboardItems = dashboardPages[selectedTab].dashboardItems;
-
-    var layoutChanged = false;
-    const newDashboardItemsMap = {};
-    layout.forEach((dashboardItem) => {
-      newDashboardItemsMap[dashboardItem.i] = {
-        id: dashboardItem.i,
-        w: dashboardItem.w,
-        h: dashboardItem.h,
-        x: dashboardItem.x,
-        y: dashboardItem.y,
-      };
-    });
-
-    dashboardItems.forEach((dashboardItem) => {
-      const matchItem = newDashboardItemsMap[dashboardItem.id];
-      layoutChanged = layoutChanged || dashboardItem.w != matchItem.w;
-      layoutChanged = layoutChanged || dashboardItem.h != matchItem.h;
-      layoutChanged = layoutChanged || dashboardItem.x != matchItem.x;
-      layoutChanged = layoutChanged || dashboardItem.y != matchItem.y;
-    });
-
-    if (layoutChanged)
-    {
-      if (data.user)
-      {
-        updateDashboardItems(
-          dashboardPages[selectedTab].id,
-          Object.values(newDashboardItemsMap),
-        );
-      }
-      else
-      {
-        dashboardItems.map((item) => {
-          newDashboardItemsMap[item.id].identifier = item.identifier;
-        });
-        saveDashboardItemsLocal(Object.values(newDashboardItemsMap));
-      }
-    }
-  }
-
   render()
   {
     const {
-      changeDashboardItemState,
-      changeKeySelectValue,
-      changeScrollActive,
-      changeSelectedTab,
-      changeValueSelectValue,
-      dashboardAction,
-      dashboardData,
-      dashboardItemStates,
-      dashboardPages,
       keySelectValue,
-      logDashboardActionStart,
-      logDashboardActionStop,
       nightMode,
-      toggleSidebar,
       scrollActive,
-      selectedTab,
       sidebarActive,
       valueSelectValue,
+
+      changeKeySelectValue,
+      changeScrollActive,
+      changeValueSelectValue,
+      toggleSidebar,
     } = this.props;
 
     return (
@@ -320,27 +239,17 @@ class Container extends PureComponent
           {...this.props}
         />
         <Dashboard
-          addToLayout={(identifier) => this.addToLayout(identifier)}
-          changeDashboardItemState={changeDashboardItemState}
-          changeKeySelectValue={changeKeySelectValue}
-          changeScrollActive={changeScrollActive}
-          changeSelectedTab={changeSelectedTab}
-          changeValueSelectValue={changeValueSelectValue}
-          dashboardAction={dashboardAction}
-          dashboardData={dashboardData}
-          dashboardItemStates={dashboardItemStates}
-          dashboardPages={dashboardPages}
           keySelectValue={keySelectValue}
           nightMode={nightMode}
-          toggleSidebar={toggleSidebar}
-          logDashboardActionStart={logDashboardActionStart}
-          logDashboardActionStop={logDashboardActionStop}
-          removeFromLayout={(id) => this.removeFromLayout(id)}
-          saveLayout={(layout) => this.saveLayout(layout)}
-          selectedTab={selectedTab}
           scrollActive={scrollActive}
           sidebarActive={sidebarActive}
           valueSelectValue={valueSelectValue}
+
+          addToLayout={(identifier) => this.addToLayout(identifier)}
+          changeKeySelectValue={changeKeySelectValue}
+          changeScrollActive={changeScrollActive}
+          changeValueSelectValue={changeValueSelectValue}
+          toggleSidebar={toggleSidebar}
         />
       </div>
     );

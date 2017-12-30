@@ -16,7 +16,7 @@ import {
   generateIdentifier,
 } from '../constants/items';
 import El                  from '../components/El';
-import DashboardTabs       from '../components/DashboardTabs';
+import DashboardTabs       from '../containers/DashboardTabs';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,12 +26,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   sidebar: {
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
     width: '256px',
     backgroundColor:'#fff',
     borderLeft: '1px solid #666',
-   // height: '100%', //might be overzealous
-   flex: '1',
-   flexDirection: 'column',
   },
   nightSidebar: {
     backgroundColor: STYLES.LIGHTNIGHT,
@@ -122,17 +122,6 @@ class Dashboard extends Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  // shouldComponentUpdate(nextProps, nextState)
-  // {
-  //   const shouldUpdate = this.props.data.loading !== nextProps.data.loading;
-  //   if (shouldUpdate && !this.loaded)
-  //   {
-  //     this.loaded = true;
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   addItem(event)
   {
     event.preventDefault();
@@ -204,11 +193,7 @@ class Dashboard extends Component {
 
     if (scrollActive)
     {
-      return (
-        <div className={css(styles.shield)}>
-
-        </div>
-      );
+      return <div className={css(styles.shield)} />;
     }
   }
 
@@ -218,119 +203,88 @@ class Dashboard extends Component {
       changeDashboardItemState,
       changeKeySelectValue,
       changeSelectedTab,
-      dashboardAction,
-      dashboardData,
-      dashboardItemStates,
-      dashboardPages,
-      dashboardState,
       keySelectValue,
-      logDashboardActionStart,
-      logDashboardActionStop,
       nightMode,
-      removeFromLayout,
-      saveLayout,
       scrollActive,
-      selectedTab,
       sidebarActive,
       toggleSidebar,
     } = this.props;
 
-    if (!dashboardData)
-    {
-      return <div>Loading...</div>;
-    }
-    else
-    {
-      const overlayStyle = {
-        transition: 'opacity .2s ease-out, visibility .2s ease-out',
-        backgroundColor: `rgba(0, 0, 0, ${nightMode ? 0.4 : 0.18})`,
-      };
+    const overlayStyle = {
+      transition: 'opacity .2s ease-out, visibility .2s ease-out',
+      backgroundColor: `rgba(0, 0, 0, ${nightMode ? 0.4 : 0.18})`,
+    };
 
-      const selectOptions = Object.entries(ITEM_KEY_TO_LABELS).map((arr) => ({
-        label: arr[1],
-        value: arr[0],
-      }));
+    const selectOptions = Object.entries(ITEM_KEY_TO_LABELS).map((arr) => ({
+      label: arr[1],
+      value: arr[0],
+    }));
 
-      return (
-        <div className={css(styles.container)}>
-          <Sidebar
-            sidebar={
-              <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
-                <div className={css(styles.topHalf)}>
-                  <Select
-                    inputProps={{'id': 'widget_search'}}
-                    placeholder={'Search Widget Type'}
-                    className={css(styles.select, styles.bolded)}
-                    optionClassName={css(styles.bolded, styles.options)}
-                    options={selectOptions}
-                    onChange={(option) => changeKeySelectValue(option ? option.value : '')}
-                    value={keySelectValue}
-                  />
-                  {this.renderValueSelect()}
-                  {this.renderSubmit()}
-                </div>
-                <div className={css(styles.bottomHalf)}>
-                  <El nightMode={nightMode} type={'h5'}>
-                    Adding elements to dashboard:
-                  </El>
-                  <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
-                    1) Enter the type of widget you would like to add, e.g. Market Overview, Candle Chart, Subreddit Posts, Subreddit Comments.
-                  </El>
-                  <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
-                    2) Enter the widget specific type. For example the currency/coin you would like for a Candle Chart, or Subreddit.
-                  </El>
-                  <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
-                    3) Click 'Add to Dashboard'!
-                  </El>
-                </div>
+    return (
+      <div className={css(styles.container)}>
+        <Sidebar
+          sidebar={
+            <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
+              <div className={css(styles.topHalf)}>
+                <Select
+                  inputProps={{'id': 'widget_search'}}
+                  placeholder={'Search Widget Type'}
+                  className={css(styles.select, styles.bolded)}
+                  optionClassName={css(styles.bolded, styles.options)}
+                  options={selectOptions}
+                  onChange={(option) => changeKeySelectValue(option ? option.value : '')}
+                  value={keySelectValue}
+                />
+                {this.renderValueSelect()}
+                {this.renderSubmit()}
               </div>
-            }
-            docked={false}
-            open={sidebarActive}
-            pullRight={true}
-            shadow={true}
-            transitions={false}
-            onSetOpen={toggleSidebar}
-            styles={
-              {
-                root: {
-                  flex: '1',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  position: 'relative',
-                  overflowX: 'hidden',
-                  overflowY: 'visible',
-                },
-                overlay: overlayStyle,
-                content: {
-                  flex: '1',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  position: 'relative',
-                  overflowY: 'visible',
-                },
-            }}
-          >
-            {this.renderScrollShield()}
-            <DashboardTabs
-              changeDashboardItemState={changeDashboardItemState}
-              changeSelectedTab={changeSelectedTab}
-              dashboardAction={dashboardAction}
-              dashboardData={dashboardData}
-              dashboardItemStates={dashboardItemStates}
-              dashboardPages={dashboardPages}
-              logDashboardActionStart={logDashboardActionStart}
-              logDashboardActionStop={logDashboardActionStop}
-              nightMode={nightMode}
-              removeFromLayout={removeFromLayout}
-              saveLayout={saveLayout}
-              selectedTab={selectedTab}
-              toggleSidebar={toggleSidebar}
-            />
-          </Sidebar>
-        </div>
-      );
-    }
+              <div className={css(styles.bottomHalf)}>
+                <El nightMode={nightMode} type={'h5'}>
+                  Adding elements to dashboard:
+                </El>
+                <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
+                  1) Enter the type of widget you would like to add, e.g. Market Overview, Candle Chart, Subreddit Posts, Subreddit Comments.
+                </El>
+                <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
+                  2) Enter the widget specific type. For example the currency/coin you would like for a Candle Chart, or Subreddit.
+                </El>
+                <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
+                  3) Click 'Add to Dashboard'!
+                </El>
+              </div>
+            </div>
+          }
+          docked={false}
+          open={sidebarActive}
+          pullRight={true}
+          shadow={true}
+          transitions={false}
+          onSetOpen={toggleSidebar}
+          styles={
+            {
+              root: {
+                flex: '1',
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative',
+                overflowX: 'hidden',
+                overflowY: 'visible',
+              },
+              overlay: overlayStyle,
+              content: {
+                flex: '1',
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative',
+                overflowY: 'visible',
+              },
+          }}
+        >
+          {this.renderScrollShield()}
+          <DashboardTabs />
+        </Sidebar>
+      </div>
+    );
   }
 }
 
