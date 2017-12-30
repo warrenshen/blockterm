@@ -14,11 +14,10 @@ import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
   wrapper: {
-    width: '100vw',
-    minHeight: '100vh',
+    flex: '1',
     display: 'flex',
     flexDirection: 'column',
-    //padding: '0% 15%',
+    width: '100%',
     backgroundColor: '#ecf0f1',
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
@@ -27,15 +26,15 @@ const styles = StyleSheet.create({
   },
   select: {
     flex: '1',
-    //maxWidth: '250px',
   },
   container: {
     flex: '1',
-    maxHeight: '100%',
+    width: '100%',
   },
   row: {
-    flexDirection: 'row',
     flex: '1',
+    display: 'inline-flex',
+    flexDirection: 'row',
     backgroundColor: '#fff',
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
   },
@@ -86,7 +85,8 @@ const styles = StyleSheet.create({
     flexGrow: '1',
   },
   header: {
-    height:'100%',
+    display: 'inline-flex',
+    zIndex: 2,
   },
   instruction: {
     display: 'flex',
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     color: "#777",
   },
   nightModeInstruction: {
-    
+
   },
   addText: {
     'marginTop':'5px',
