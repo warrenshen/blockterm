@@ -204,6 +204,7 @@ class Login extends PureComponent {
                   Join our army of HODLers:
               </El>
               <input
+                autoFocus={true}
                 className={css(styles.inputField, nightMode && styles.fieldNight)}
                 placeholder='email/username'
                 onChange={(event) => changeEmail(event.target.value)}
@@ -259,7 +260,7 @@ class Login extends PureComponent {
                 FAQ:
               </El>
             </div>
-            
+
             <div className={css(styles.row)} style={{'marginBottom':'32px'}}>
               <div className={css(styles.column, styles.dashBorder)}>
                 <El
@@ -297,7 +298,7 @@ class Login extends PureComponent {
                 </El>
               </div>
 
-              
+
             </div>
 
             <div className={css(styles.row)}>
@@ -355,7 +356,7 @@ class Login extends PureComponent {
                   <strong>ETH:</strong> 0x72fB44C1a3F910ed4a979fBDed2c600f7c14f3B7<br />
                 </El>
               </div>
-              
+
             </div>
           </div>
         </div>
