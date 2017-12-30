@@ -101,13 +101,13 @@ class DashboardGrid extends Component {
   renderItem(dashboardItem)
   {
     const {
-      changeDashboardItemPlotRange,
-      changeDashboardItemState,
       dashboardAction,
       dashboardData,
       dashboardItemStates,
-      destroyDashboardItem,
       nightMode,
+
+      changeDashboardItemState,
+      destroyDashboardItem,
       removeFromLayout,
     } = this.props;
 
@@ -140,7 +140,7 @@ class DashboardGrid extends Component {
         <DashboardItem
           changeDashboardItemState={changeDashboardItemState}
           dashboardAction={dashboardAction}
-          dashboardData={dashboardData[identifier]}
+          dashboardData={dashboardData ? dashboardData[identifier] : null}
           dashboardItem={dashboardItem}
           dashboardState={dashboardItemStates[identifier]}
           destroyDashboardItem={destroyDashboardItem}

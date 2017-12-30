@@ -94,6 +94,82 @@ class DashboardTabs extends Component {
            !isEqual(this.props.selectedTab, nextProps.selectedTab);
   }
 
+  removeFromLayout(id)
+  {
+    const {
+      dashboardPages,
+      selectedTab,
+      user,
+
+      destroyDashboardItem,
+      destroyDashboardItemLocal,
+    } = this.props;
+
+    if (user)
+    {
+      destroyDashboardItem(
+        dashboardPages[selectedTab].id,
+        id,
+      );
+    }
+    else
+    {
+      destroyDashboardItemLocal(id);
+    }
+  }
+
+  saveLayout(layout)
+  {
+    const {
+      dashboardPages,
+      selectedTab,
+      user,
+
+      saveDashboardItemsLocal,
+      updateDashboardItems,
+    } = this.props;
+
+    const dashboardItems = dashboardPages[selectedTab].dashboardItems;
+
+    var layoutChanged = false;
+    const newDashboardItemsMap = {};
+    layout.forEach((dashboardItem) => {
+      newDashboardItemsMap[dashboardItem.i] = {
+        id: dashboardItem.i,
+        w: dashboardItem.w,
+        h: dashboardItem.h,
+        x: dashboardItem.x,
+        y: dashboardItem.y,
+      };
+    });
+
+    dashboardItems.forEach((dashboardItem) => {
+      const matchItem = newDashboardItemsMap[dashboardItem.id];
+      layoutChanged = layoutChanged || dashboardItem.w != matchItem.w;
+      layoutChanged = layoutChanged || dashboardItem.h != matchItem.h;
+      layoutChanged = layoutChanged || dashboardItem.x != matchItem.x;
+      layoutChanged = layoutChanged || dashboardItem.y != matchItem.y;
+    });
+
+    if (layoutChanged)
+    {
+      if (user)
+      {
+        updateDashboardItems(
+          dashboardPages[selectedTab].id,
+          Object.values(newDashboardItemsMap),
+        );
+      }
+      else
+      {
+        dashboardItems.map((item) => {
+          newDashboardItemsMap[item.id].identifier = item.identifier;
+        });
+        saveDashboardItemsLocal(Object.values(newDashboardItemsMap));
+      }
+    }
+  }
+
   renderTabList()
   {
     return (
@@ -130,17 +206,15 @@ class DashboardTabs extends Component {
   renderTabPanels()
   {
     const {
-      changeDashboardItemState,
       dashboardAction,
       dashboardData,
       dashboardItemStates,
       dashboardPages,
+      nightMode,
+
+      changeDashboardItemState,
       logDashboardActionStart,
       logDashboardActionStop,
-      nightMode,
-      removeFromLayout,
-      saveLayout,
-      selectedTab,
       toggleSidebar,
     } = this.props;
 
@@ -149,16 +223,17 @@ class DashboardTabs extends Component {
       return (
         <TabPanel key={dashboardPage.index}>
           <DashboardGrid
-            changeDashboardItemState={changeDashboardItemState}
             dashboardAction={dashboardAction}
             dashboardData={dashboardData}
             dashboardItems={dashboardItems}
             dashboardItemStates={dashboardItemStates}
+            nightMode={nightMode}
+
+            changeDashboardItemState={changeDashboardItemState}
             logDashboardActionStart={logDashboardActionStart}
             logDashboardActionStop={logDashboardActionStop}
-            nightMode={nightMode}
-            removeFromLayout={removeFromLayout}
-            saveLayout={saveLayout}
+            removeFromLayout={(id) => this.removeFromLayout(id)}
+            saveLayout={(layout) => this.saveLayout(layout)}
             toggleSidebar={toggleSidebar}
           />
           <div
@@ -183,9 +258,10 @@ class DashboardTabs extends Component {
   render()
   {
     const {
-      changeSelectedTab,
       nightMode,
       selectedTab,
+
+      changeSelectedTab,
     } = this.props;
 
     return (
