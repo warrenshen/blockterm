@@ -165,6 +165,10 @@ subreddit_infos = [
     start_date: '2009-10-14',
   },
   {
+    name: 'steemit',
+    start_date: '2016-02-23',
+  },
+  {
     name: 'SubstratumNetwork',
     start_date: '2017-07-31',
   },
