@@ -1,7 +1,9 @@
 SUBREDDITS = [
   'altcoin',
+  'binance',
   'Bitcoin',
   'Bitcoincash',
+  'BNBtrader',
   'btc',
   'CryptoCurrency',
   'CryptoMarkets',
@@ -9,6 +11,8 @@ SUBREDDITS = [
   'Electroneum',
   'ethereum',
   'groestlcoin',
+  'helloicon',
+  'icon',
   'Iota',
   'Lisk',
   'litecoin',
