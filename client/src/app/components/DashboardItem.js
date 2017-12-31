@@ -199,7 +199,7 @@ class DashboardItem extends Component {
               {dashboardItem.identifier}
             </El>
           </div>
-          <div className={css(styles.section, styles.rightAlignSmall)}>
+          <div className={css(styles.rightAlignSmall)}>
             <button
               title="Drag and drop to move widget around"
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
