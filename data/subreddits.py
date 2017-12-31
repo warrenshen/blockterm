@@ -19,6 +19,7 @@ SUBREDDITS = [
   'Monero',
   'NEO',
   'Ripple',
+  'steemit',
   'SubstratumNetwork',
   'Vertcoin',
 ]
