@@ -3,6 +3,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import Select              from 'react-select';
 import { Line }            from 'react-chartjs-2';
+import numeral             from 'numeral';
 import El                  from '../El';
 
 const styles = StyleSheet.create({
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
 });
 
 export default ({
+  chartOptions,
   data,
   onChange,
   options,
@@ -81,10 +83,17 @@ export default ({
           data={data}
           redraw={true}
           responsive={true}
-          options={{
+          options={chartOptions ? chartOptions : {
             legend: legendConfig,
             maintainAspectRatio: false,
-            tooltips: { displayColors: true, intersect: false, mode: 'x' },
+            tooltips: {
+              callbacks: {
+                label: (tooltipItem, data) => numeral(tooltipItem.yLabel).format('0,0'),
+              },
+              displayColors: true,
+              intersect: false,
+              mode: 'nearest',
+            },
             scales: {
               xAxes: [
                 {
