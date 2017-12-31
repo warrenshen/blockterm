@@ -36,7 +36,10 @@ module Types
       resolve -> (obj, args, ctx) {
         QueryHelper::filter_relation_by_time_range(
           obj.market_tickers,
-          args[:timeRange]
+          args[:timeRange],
+          'max',
+          7.days,
+          :value
         )
       }
     end

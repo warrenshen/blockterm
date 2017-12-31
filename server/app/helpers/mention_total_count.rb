@@ -21,4 +21,8 @@ class MentionTotalCount
   def timestamp
     @timestamp
   end
+
+  def value
+    @total_count
+  end
 end

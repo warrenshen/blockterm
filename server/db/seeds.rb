@@ -237,25 +237,40 @@ token_infos.each do |token_info|
   end
 end
 
-Market.create(
+total_cap_market = Market.create(
   name: 'TOTAL',
 )
-
 
 puts "Created tokens, keywords, and markets"
 
 Market.all.each do |market|
-  today = DateTime.now.beginning_of_day
-  last_value = 1000
+  if market.name == 'TOTAL'
+    last_value = 10000000
+    today = DateTime.now.beginning_of_day
 
-  for i in (-90..0)
-    date = today + i.day
-    last_value += rand(5)
-    MarketTicker.create(
-      market_id: market.id,
-      timestamp: date,
-      value: last_value,
-    )
+    for i in (-365 * 2..0)
+      date = today + i.day
+      last_value += rand(50000)
+      MarketTicker.create(
+        market_id: total_cap_market.id,
+        timestamp: date,
+        value: last_value,
+      )
+      total_cap_market
+    end
+  else
+    today = DateTime.now.beginning_of_day
+    last_value = 1000
+
+    for i in (-90..0)
+      date = today + i.day
+      last_value += rand(5)
+      MarketTicker.create(
+        market_id: market.id,
+        timestamp: date,
+        value: last_value,
+      )
+    end
   end
 end
 
