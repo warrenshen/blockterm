@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   sectionHeader: {
+    display: 'inline-flex',
+    justifyContent: 'space-between',
+    width: '100%',
     marginBottom: '8px',
     borderBottom: '1px solid #bdc3c7',
   },
@@ -46,26 +49,32 @@ class SubredditBody extends PureComponent {
   render()
   {
     const {
+      activeUserCountPlotRange,
+      commentCountPlotRange,
       nightMode,
+      postCountPlotRange,
+      subscriberCountPlotRange,
       subreddit,
+
       changeActiveUserCountPlotRange,
       changeCommentCountPlotRange,
       changePostCountPlotRange,
       changeSubscriberCountPlotRange,
-      activeUserCountPlotRange,
-      commentCountPlotRange,
-      postCountPlotRange,
-      subscriberCountPlotRange,
     } = this.props;
 
     const {
       activeUserCount,
-      commentCount,
-      postCount,
-      subscriberCount,
       activeUserCounts,
+      commentCount,
       commentCounts,
+      earliestActiveUserCountDate,
+      earliestCommentCountDate,
+      earliestPostCountDate,
+      earliestSubscriberCountDate,
+      postCount,
       postCounts,
+      startDate,
+      subscriberCount,
       subscriberCounts,
     } = subreddit;
 
@@ -109,19 +118,19 @@ class SubredditBody extends PureComponent {
     );
 
     const activeUsersSelectOptions = disableChartOptions(
-      subreddit.earliestActiveUserCountDate,
+      earliestActiveUserCountDate,
       RANGE_SELECT_OPTIONS
     );
     const commentsSelectOptions = disableChartOptions(
-      subreddit.earliestCommentCountDate,
+      earliestCommentCountDate,
       RANGE_SELECT_OPTIONS
     );
     const postsSelectOptions = disableChartOptions(
-      subreddit.earliestPostCountDate,
+      earliestPostCountDate,
       RANGE_SELECT_OPTIONS
     );
     const subscribersSelectOptions = disableChartOptions(
-      subreddit.earliestSubscriberCountDate,
+      earliestSubscriberCountDate,
       RANGE_SELECT_OPTIONS
     );
 
@@ -150,13 +159,22 @@ class SubredditBody extends PureComponent {
           </El>
         </div>
         <div className={css(styles.section)}>
-          <El
-            style={styles.sectionHeader}
-            nightMode={nightMode}
-            type={'h4'}
-          >
-            Historical activity
-          </El>
+          <div className={css(styles.sectionHeader)}>
+            <El
+              nightMode={nightMode}
+              type={'h4'}
+            >
+              Historical activity
+            </El>
+            {
+              <El
+                nightMode={nightMode}
+                type={'h5'}
+              >
+                Note: posts and comments data collection still in progress, data may not be complete
+              </El>
+            }
+          </div>
           <BarChartWithSelect
             data={postsData}
             nightMode={nightMode}

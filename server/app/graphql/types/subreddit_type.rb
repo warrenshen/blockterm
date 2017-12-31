@@ -14,7 +14,7 @@ module Types
     field :subscriberCount, types.Int, property: :subscriber_count
     field :startDate, !types.String do
       resolve -> (obj, args, ctx) {
-         QueryHelper::localize_timestamp(obj.start_date).to_s
+         obj.start_date.to_s
       }
     end
     field :updatedAt, types.String do
@@ -27,21 +27,21 @@ module Types
       description 'The date time of earliest active user count associated with subreddit'
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::get_earliest_instance_timestamp(obj.active_user_counts)
+        QueryHelper::get_earliest_instance_date(obj.active_user_counts)
       }
     end
     field :earliestCommentCountDate, types.String do
       description 'The date time of earliest comment count associated with subreddit'
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::get_earliest_instance_timestamp(obj.comment_counts)
+        QueryHelper::get_earliest_instance_date(obj.comment_counts)
       }
     end
     field :earliestPostCountDate, types.String do
       description 'The date time of earliest post count associated with subreddit'
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::get_earliest_instance_timestamp(obj.post_counts)
+        QueryHelper::get_earliest_instance_date(obj.post_counts)
       }
     end
 

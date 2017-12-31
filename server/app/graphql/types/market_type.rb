@@ -24,7 +24,7 @@ module Types
       description 'The date time of earliest market ticker associated with market'
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::get_earliest_instance_timestamp(obj.market_tickers)
+        QueryHelper::get_earliest_instance_date(obj.market_tickers)
       }
     end
 
