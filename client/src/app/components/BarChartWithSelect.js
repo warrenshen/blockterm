@@ -12,7 +12,7 @@ import El from './El';
 const styles = StyleSheet.create({
   container: {
     flex: '1',
-    display: 'flex',
+    display: 'inline-flex',
     flexDirection: 'column',
     width: '100%',
   },

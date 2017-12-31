@@ -11,7 +11,7 @@ module Types
       description 'The date time of earliest mention count associated with token'
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::get_earliest_instance_timestamp(obj.mention_counts)
+        QueryHelper::get_earliest_instance_date(obj.mention_counts)
       }
     end
 

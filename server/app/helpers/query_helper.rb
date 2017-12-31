@@ -61,12 +61,12 @@ module QueryHelper
     relation
   end
 
-  def self.get_earliest_instance_timestamp(relation)
+  def self.get_earliest_instance_date(relation)
     earliest_instance = relation.order(timestamp: :asc).first
     if earliest_instance.nil?
       nil
     else
-      self.localize_timestamp(earliest_instance.timestamp).to_s
+      self.localize_timestamp(earliest_instance.timestamp).to_date.to_s
     end
   end
 
