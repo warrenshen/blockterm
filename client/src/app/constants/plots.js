@@ -129,7 +129,7 @@ export const LINE_CHART_DATA_STYLES = [
       // pointHitRadius: 3,
       pointBorderWidth: 2,
       pointRadius: 2,
-      pointHitRadius: 3,
+      pointHitRadius: 1.5,
       // pointHoverBackgroundColor
       // pointHoverBorderColor
       // pointHoverBorderWidth
