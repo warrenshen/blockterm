@@ -1,13 +1,13 @@
 module QueryHelper
-  def self.bin_relation_by_k(relation, bin_strategy, k=2)
+  def self.bin_relation_by_k(relation, bin_strategy, key_symbol, k=2)
     result = []
     relation = relation.each_slice(k) do |records|
       total_count = MentionTotalCount.new(records[0].timestamp)
       records.each do |record|
         if bin_strategy == 'total'
-          total_count.increment_by(record.count)
+          total_count.increment_by(record.send(key_symbol))
         else
-          total_count.max_by(record.count)
+          total_count.max_by(record.send(key_symbol))
         end
       end
       result << total_count
@@ -19,7 +19,8 @@ module QueryHelper
     relation,
     time_range,
     bin_strategy='total',
-    default_time_range=7.days
+    default_time_range=7.days,
+    key_symbol=:count
   )
     clause = 'timestamp > ?'
     now = DateTime.now
@@ -49,7 +50,12 @@ module QueryHelper
 
     relation_count = relation.length
     if relation_count > 365
-      relation = self.bin_relation_by_k(relation, bin_strategy, relation_count / 365)
+      relation = self.bin_relation_by_k(
+        relation,
+        bin_strategy,
+        key_symbol,
+        relation_count / 365,
+      )
     end
 
     relation
