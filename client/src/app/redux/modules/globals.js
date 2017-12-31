@@ -17,7 +17,7 @@ const TOGGLE_NIGHT_MODE = 'TOGGLE_NIGHT_MODE';
  ------------------------------------------*/
 const cookieNightMode = getItem(NIGHT_MODE_COOKIE);
 const initialState = {
-  nightMode: cookieNightMode !== null ? cookieNightMode : false,
+  nightMode: cookieNightMode !== null ? cookieNightMode : true,
   sidebarActive: false,
 };
 document.body.classList.toggle('darkClass', initialState.nightMode);
