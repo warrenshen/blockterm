@@ -15,7 +15,6 @@ const stringify = JSON.stringify;
 
 export function getItem(itemKey, asString=false, fromStorage=APP_PERSIST_STORES_TYPES[0])
 {
-
   // localStorage:
   if (fromStorage === APP_PERSIST_STORES_TYPES[0] && localStorage) {
     let value = localStorage.getItem(itemKey);
@@ -61,7 +60,7 @@ export function getItem(itemKey, asString=false, fromStorage=APP_PERSIST_STORES_
 export function setItem(itemKey, value, toStorage=APP_PERSIST_STORES_TYPES[0])
 {
   const json = stringify(value);
-  console.log(json);
+
   // localStorage:
   if (toStorage === APP_PERSIST_STORES_TYPES[0]) {
     if (localStorage) {
