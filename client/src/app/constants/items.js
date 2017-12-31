@@ -24,8 +24,9 @@ export const DEFAULT_PAGES_OBJECTS = [
       {"id":"3","w":5,"h":4,"x":0,"y":0,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
       {"id":"6","w":5,"h":4,"x":0,"y":4,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
       {"id":"7","w":3,"h":8,"x":5,"y":0,"identifier":"TV_MARKET_OVERVIEW__Default"},
-      {"id":"8","w":5,"h":4,"x":0,"y":8,"identifier":"TV_CANDLE_CHART__BITSTAMP:LTCUSD"},
       {"id":"9","w":3,"h":3,"x":5,"y":8,"identifier":"SUBREDDIT_COMMENT_COUNTS__Bitcoin"},
+      {"id":"10","w":3,"h":3,"x":0,"y":8,"identifier":"TOTAL_MARKET_CAP__Default"},
+      {"id":"11","w":2,"h":3,"x":3,"y":8,"identifier":"SUBREDDIT_POST_COUNTS__Bitcoin"}
     ],
     index: 0,
     name: 'Tab 1',
