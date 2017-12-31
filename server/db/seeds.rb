@@ -87,12 +87,20 @@ subreddit_infos = [
     start_date: '2013-03-12',
   },
   {
+    name: 'binance',
+    start_date: '2017-06-30',
+  },
+  {
     name: 'Bitcoin',
     start_date: '2010-09-09',
   },
   {
     name: 'Bitcoincash',
     start_date: '2014-11-09',
+  },
+  {
+    name: 'BNBtrader',
+    start_date: '2017-08-15',
   },
   {
     name: 'btc',
@@ -123,6 +131,14 @@ subreddit_infos = [
   {
     name: 'Groestlcoin',
     start_date: '2014-04-03',
+  },
+  {
+    name: 'helloicon',
+    start_date: '2017-08-15',
+  },
+  {
+    name: 'icon',
+    start_date: '2010-08-31',
   },
   {
     name: 'Iota',
