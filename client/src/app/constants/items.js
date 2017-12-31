@@ -108,6 +108,7 @@ const SUBREDDITS_IN_USER_FACING_ORDER = [
   'CryptoCurrency',
   'CryptoMarkets',
   'Monero',
+  'steemit',
   'SubstratumNetwork',
   'dogecoin',
   'Ripple',
@@ -215,6 +216,7 @@ export const ITEM_VALUE_TO_LABELS = {
   'Monero' : 'r/Monero',
   'NEO' : 'r/NEO',
   'Ripple' : 'r/Ripple',
+  'steemit', : 'r/steemit',
   'SubstratumNetwork' : 'r/Substratumnetwork',
   'Vertcoin' : 'r/Vertcoin',
 };
