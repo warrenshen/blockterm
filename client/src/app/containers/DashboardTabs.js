@@ -6,6 +6,8 @@ import { compose, graphql }    from 'react-apollo';
 import {
   DestroyDashboardItemMutation,
   DestroyDashboardItemMutationOptions,
+  UpdateDashboardItemMutation,
+  UpdateDashboardItemMutationOptions,
   UpdateDashboardItemsMutation,
   UpdateDashboardItemsMutationOptions,
 }                              from '../queries';
@@ -47,6 +49,7 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
   graphql(DestroyDashboardItemMutation, DestroyDashboardItemMutationOptions),
+  graphql(UpdateDashboardItemMutation, UpdateDashboardItemMutationOptions),
   graphql(UpdateDashboardItemsMutation, UpdateDashboardItemsMutationOptions),
   connect(mapStateToProps, mapDispatchToProps)
 )(DashboardTabs);

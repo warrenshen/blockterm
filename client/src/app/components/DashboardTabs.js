@@ -155,6 +155,7 @@ class DashboardTabs extends Component {
       layoutChanged = layoutChanged || dashboardItem.h != matchItem.h;
       layoutChanged = layoutChanged || dashboardItem.x != matchItem.x;
       layoutChanged = layoutChanged || dashboardItem.y != matchItem.y;
+      layoutChanged = layoutChanged || dashboardItem.static != matchItem.static;
     });
 
     if (layoutChanged)
@@ -173,6 +174,33 @@ class DashboardTabs extends Component {
         });
         saveDashboardItemsLocal(Object.values(newDashboardItemsMap));
       }
+    }
+  }
+
+  updateLayoutItem(id, newStatic)
+  {
+    const {
+      dashboardPages,
+      selectedTab,
+      user,
+
+      toggleDashboardItemStatic,
+      updateDashboardItem,
+    } = this.props;
+
+    const dashboardPage = dashboardPages[selectedTab];
+
+    if (user)
+    {
+      updateDashboardItem(
+        dashboardPage.id,
+        id,
+        newStatic,
+      );
+    }
+    else
+    {
+      toggleDashboardItemStatic(id, newStatic);
     }
   }
 
@@ -217,7 +245,6 @@ class DashboardTabs extends Component {
       changeDashboardItemState,
       logDashboardActionStart,
       logDashboardActionStop,
-      toggleDashboardItemStatic,
       toggleSidebar,
     } = this.props;
 
@@ -237,8 +264,8 @@ class DashboardTabs extends Component {
             logDashboardActionStop={logDashboardActionStop}
             removeFromLayout={(id) => this.removeFromLayout(id)}
             saveLayout={(layout) => this.saveLayout(layout)}
-            toggleDashboardItemStatic={toggleDashboardItemStatic}
             toggleSidebar={toggleSidebar}
+            updateLayoutItem={(id, staticActive) => this.updateLayoutItem(id, staticActive)}
           />
           <div
             className={css(styles.placeholder, nightMode && styles.nightContainer)}
