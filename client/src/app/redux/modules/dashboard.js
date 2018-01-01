@@ -103,6 +103,8 @@ export default function(state = initialState, action)
   let newDashboardItemStates;
   let newDashboardPage;
   let newDashboardPages;
+  let oldDashboardItem;
+  let oldDashboardItemIndex;
   let oldDashboardItems;
   let oldDashboardPage;
 
@@ -279,10 +281,11 @@ export default function(state = initialState, action)
       oldDashboardItemIndex = oldDashboardItems.findIndex((dashboardItem) =>
         dashboardItem.id === action.value
       );
-      oldDashboardItem = oldDashboardItems.get(oldDashboardItemIndex);
+      oldDashboardItem = Map(oldDashboardItems.get(oldDashboardItemIndex));
       newDashboardItem = oldDashboardItem.set('static', !oldDashboardItem.get('static'));
       newDashboardItems = oldDashboardItems.set(oldDashboardItemIndex, newDashboardItem);
       newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
+      newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
       setItem(DASHBOARD_COOKIE, newDashboardPages.toJS());
       return {
         ...state,
