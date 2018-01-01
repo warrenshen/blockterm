@@ -129,6 +129,8 @@ class DashboardGrid extends Component {
       minW: 1,
       maxW: 8,
       minH: 2,
+      // `static` is a reserved word so can't assign it to variable above.
+      static: dashboardItem.static,
     };
 
     return (
