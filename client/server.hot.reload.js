@@ -26,6 +26,7 @@ app.use(devMiddleware(compiler, {
 
 app.use(hotMiddleware(compiler));
 
+app.get('/health', (req, res) => res.sendStatus(200));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
