@@ -44,10 +44,18 @@ const styles = StyleSheet.create({
     borderLeft: `1px solid ${STYLES.BORDERLIGHT}`,
     padding: '1px 4px',
     lineHeight: '14px',
+    width:'20px',
   },
   darkCloseButton: {
     backgroundColor: '#000',
+    borderColor: '#ccc',
     color: '#fff',
+  },
+  floatingResizeButton: {
+    position: 'absolute',
+    'bottom':'0px',
+    right:'0px',
+    zIndex:'1',
   },
   grabBar: {
     zIndex: '2',
@@ -228,6 +236,12 @@ class DashboardItem extends Component {
         </div>
         <div className={css(styles.item)}>
           {this.renderItem(dashboardItem)}
+          <button
+              title="Press to resize element"
+              className={'drag-handle ' + css(styles.closeButton, styles.floatingResizeButton, nightMode && styles.darkCloseButton)}
+            >
+            <FontAwesome name='expand' style={{'transform':'rotate(90deg)'}} />
+          </button>
         </div>
       </div>
     );
