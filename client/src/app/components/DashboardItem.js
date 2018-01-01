@@ -179,6 +179,7 @@ class DashboardItem extends Component {
       dashboardItem,
       nightMode,
       removeFromLayout,
+      staticActive,
     } = this.props;
 
     const {
@@ -200,13 +201,22 @@ class DashboardItem extends Component {
             </El>
           </div>
           <div className={css(styles.rightAlignSmall)}>
+            {
+              staticActive && (
+                <button
+                  title="Lock and unlock element in place"
+                  className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+                >
+                  <FontAwesome name='remove' style={{'fontSize':'13px'}}/>
+                </button>
+              )
+            }
             <button
               title="Drag and drop to move widget around"
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
             >
               <FontAwesome name='arrows' style={{'fontSize':'13px'}}/>
             </button>
-
             <button
               title="Press to remove element"
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
