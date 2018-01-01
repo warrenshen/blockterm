@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     marginTop: '2px',
   },
   darkAddButton: {
-    borderColor: '#555',
+    borderColor: '#ccc',
     backgroundColor: '#000',
     color: '#fff',
   },

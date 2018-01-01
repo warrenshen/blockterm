@@ -178,6 +178,7 @@ class DashboardGrid extends Component {
         onResizeStart={logDashboardActionStart}
         onResizeStop={logDashboardActionStop}
         onLayoutChange={(layout, layouts) => saveLayout(layout)}
+        draggableHandle={'.drag-handle'}
         rowHeight={64}
       >
         {

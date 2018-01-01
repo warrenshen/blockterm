@@ -39,7 +39,7 @@ class TVChartItem extends PureComponent {
       'interval=15&' +
 //     'hidetoptoolbar=1&' +
       'hidesidetoolbar=1&' +
-      'symboledit=0&' +
+      'symboledit=1&' +
       'saveimage=0&' +
       'toolbarbg=rgba(0,0,0,0)&' +
       'hideideas=1&' +
