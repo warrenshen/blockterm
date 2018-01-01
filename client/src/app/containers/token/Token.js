@@ -32,7 +32,6 @@ const query = gql`
         lastPrice
 
         marketTickers(timeRange: $pricePlotRange) {
-          id
           value
           timestamp
         }

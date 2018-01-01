@@ -204,7 +204,7 @@ class DashboardItem extends Component {
               title="Drag and drop to move widget around"
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
             >
-              <FontAwesome name='arrows' style={{'fontSize':'13px',}}/>
+              <FontAwesome name='arrows' style={{'fontSize':'13px'}}/>
             </button>
 
             <button
