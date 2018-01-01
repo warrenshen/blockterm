@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
   },
   rightAlignSmall: {
     textAlign: 'right',
-    width: '50px',
   },
   item: {
     flex: '1',
@@ -210,14 +209,12 @@ class DashboardItem extends Component {
           </div>
           <div className={css(styles.rightAlignSmall)}>
             {
-              staticActive && (
-                <button
-                  title="Lock and unlock element in place"
-                  className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-                >
-                  <FontAwesome name='remove' style={{'fontSize':'13px'}}/>
-                </button>
-              )
+              <button
+                title="Lock and unlock element position and sizing"
+                className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+              >
+                <FontAwesome name={staticActive ? 'lock' : 'unlock'} style={{'fontSize':'13px'}}/>
+              </button>
             }
             <button
               title="Drag and drop to move widget around"
