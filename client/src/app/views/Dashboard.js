@@ -169,11 +169,12 @@ class Dashboard extends Component {
     }
   }
 
-  renderSubmit(nightMode=true)
+  renderSubmit()
   {
     const {
       createDashboardItem,
       valueSelectValue,
+      nightMode,
     } = this.props;
 
     if (valueSelectValue)
