@@ -10,6 +10,7 @@ SUBREDDITS = [
   'dogecoin',
   'Electroneum',
   'ethereum',
+  'gridcoin',
   'groestlcoin',
   'helloicon',
   'icon',
