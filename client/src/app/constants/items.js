@@ -245,6 +245,8 @@ export const ITEM_KEY_TO_VALUES = {
     'BINANCE:VENETH',
     'BINANCE:REQBTC',
     'BINANCE:REQETH',
+    'BINANCE:SUBBTC',
+    'BINANCE:SUBETH',
   ],
   [TV_MARKET_OVERVIEW]: [
     'Default',
