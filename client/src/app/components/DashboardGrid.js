@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     height: '100%', //might be overzealous
   },
   nightSidebar: {
-    backgroundColor:STYLES.LIGHTNIGHT,
+    backgroundColor: STYLES.LIGHTNIGHT,
   },
   bolded: {
     fontWeight: '700',
@@ -129,6 +129,8 @@ class DashboardGrid extends Component {
       minW: 1,
       maxW: 8,
       minH: 2,
+      // `static` is a reserved word so can't assign it to variable above.
+      static: dashboardItem.static,
     };
 
     return (
@@ -146,6 +148,7 @@ class DashboardGrid extends Component {
           destroyDashboardItem={destroyDashboardItem}
           nightMode={nightMode}
           removeFromLayout={removeFromLayout}
+          staticActive={dashboardItem.static}
         />
       </div>
     );

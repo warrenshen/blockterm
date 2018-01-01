@@ -56,6 +56,7 @@ const DESTROY_DASHBOARD_ITEM_LOCAL = 'DESTROY_DASHBOARD_ITEM_LOCAL';
 const LOG_DASHBOARD_ACTION_START = 'LOG_DASHBOARD_ACTION_START';
 const LOG_DASHBOARD_ACTION_STOP = 'LOG_DASHBOARD_ACTION_STOP';
 const SAVE_DASHBOARD_ITEMS_LOCAL = 'SAVE_DASHBOARD_ITEMS_LOCAL';
+const TOGGLE_DASHBOARD_ITEM_STATIC = 'TOGGLE_DASHBOARD_ITEM_STATIC';
 
 /* -----------------------------------------
   Reducer
@@ -97,6 +98,7 @@ export default function(state = initialState, action)
   let data;
   let dashboardItems;
   let dashboardPages;
+  let newDashboardItem;
   let newDashboardItems;
   let newDashboardItemStates;
   let newDashboardPage;
@@ -219,7 +221,7 @@ export default function(state = initialState, action)
         valueSelectValue: action.value,
       };
     case CREATE_DASHBOARD_ITEM_LOCAL:
-      const newDashboardItem = action.value;
+      newDashboardItem = action.value;
       oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
       oldDashboardItems = oldDashboardPage.get('dashboardItems');
       newDashboardItems = List(oldDashboardItems).push(newDashboardItem);
@@ -266,6 +268,21 @@ export default function(state = initialState, action)
       oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
       newDashboardPage = oldDashboardPage.set('dashboardItems', action.value);
       newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
+      setItem(DASHBOARD_COOKIE, newDashboardPages.toJS());
+      return {
+        ...state,
+        dashboardPages: newDashboardPages.toJS(),
+      };
+    case TOGGLE_DASHBOARD_ITEM_STATIC:
+      oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
+      oldDashboardItems = List(oldDashboardPage.get('dashboardItems'));
+      oldDashboardItemIndex = oldDashboardItems.findIndex((dashboardItem) =>
+        dashboardItem.id === action.value
+      );
+      oldDashboardItem = oldDashboardItems.get(oldDashboardItemIndex);
+      newDashboardItem = oldDashboardItem.set('static', !oldDashboardItem.get('static'));
+      newDashboardItems = oldDashboardItems.set(oldDashboardItemIndex, newDashboardItem);
+      newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
       setItem(DASHBOARD_COOKIE, newDashboardPages.toJS());
       return {
         ...state,
@@ -354,4 +371,12 @@ export function logDashboardActionStop()
   return {
     type: LOG_DASHBOARD_ACTION_STOP,
   };
+}
+
+export function toggleDashboardItemStatic(value)
+{
+  return {
+    type: TOGGLE_DASHBOARD_ITEM_STATIC,
+    value: value,
+  }
 }
