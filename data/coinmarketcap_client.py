@@ -44,7 +44,7 @@ class CoinmarketcapClient(Client):
       datetime_string
     )
     if 'errors' in response:
-      logger.log('Something went wrong with saving total market ticker')
+      logger.info('Something went wrong with saving total market ticker')
       return False
     else:
       return True
