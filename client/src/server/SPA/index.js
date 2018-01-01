@@ -16,6 +16,7 @@ app.set('ipAdress', IP_ADRESS);
 
 app.use(express.static(path.join(__dirname, DOCS_PATH)));
 
+app.get('/health', (req, res) => res.sendStatus(200));
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, DOCS_PATH, 'index.html')));
 
 /* eslint-disable no-console */
