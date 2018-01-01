@@ -616,8 +616,49 @@ module Types
       }
     end
 
+    field :updateDashboardItem, Types::UserType do
+      description 'Update the dashboard item of the dashboard page associated with given dashboard page id'
+
+      argument :dashboardPageId, !types.ID
+      argument :id, !types.ID
+      argument :static, !types.Boolean
+
+      resolve -> (obj, args, ctx) {
+        current_user = ctx[:current_user]
+        if ctx[:current_user].nil?
+          return GraphQL::ExecutionError.new('No current user')
+        end
+
+        dashboard_page = DashboardPage.find(args[:dashboardPageId])
+        if dashboard_page.nil?
+          return GraphQL::ExecutionError.new('Could not find dashboard page')
+        end
+
+        dashboard_item = DashboardItem.find(args[:id])
+        if dashboard_item.nil?
+          return GraphQL::ExecutionError.new('Could not find dashboard item')
+        end
+
+        if dashboard_item.dashboard_page_id != dashboard_page.id
+          return GraphQL::ExecutionError.new('Dashboard item does not belong to dashboard page')
+        end
+
+        dashboard_item.assign_attributes(
+          static: args[:static],
+        )
+
+        if dashboard_item.changed?
+          if !dashboard_item.save
+            return GraphQL::ExecutionError.new('Could not save dashboard item')
+          end
+        end
+
+        current_user.reload
+      }
+    end
+
     field :updateDashboardItems, Types::UserType do
-      # description ''
+      description 'Updates the dashboard items of the dashboard page associated with given dashboard page id'
 
       argument :dashboardPageId, !types.ID
       argument :dashboardItemsString, !types.String
@@ -647,6 +688,7 @@ module Types
             h: dashboard_item_hash['h'],
             x: dashboard_item_hash['x'],
             y: dashboard_item_hash['y'],
+            static: dashboard_item_hash['static'],
           )
           if dashboard_item.changed?
             if !dashboard_item.save
