@@ -129,6 +129,10 @@ subreddit_infos = [
     start_date: '2013-12-14',
   },
   {
+    name: 'gridcoin',
+    start_date: '2013-12-27',
+  },
+  {
     name: 'Groestlcoin',
     start_date: '2014-04-03',
   },
