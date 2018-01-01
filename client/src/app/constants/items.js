@@ -240,6 +240,11 @@ export const ITEM_KEY_TO_VALUES = {
     'BINANCE:MCOETH',
     'BINANCE:ICXBTC',
     'BINANCE:ICXETH',
+    'BINANCE:VENBTC',
+    'BINANCE:VENBNB',
+    'BINANCE:VENETH',
+    'BINANCE:REQBTC',
+    'BINANCE:REQETH',
   ],
   [TV_MARKET_OVERVIEW]: [
     'Default',
