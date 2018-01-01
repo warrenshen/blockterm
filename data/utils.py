@@ -35,8 +35,8 @@ def unix_timestamp_to_datetime_string(timestamp_unix):
   localized = tz.localize(datetime_object, is_dst=None)
   return localized.strftime('%Y-%m-%d %H:%M:%S')
 
-def unix_timestamps_until_today(start_date):
-  start_date = datetime.datetime.strptime(start_date, '%Y-%m-%d').date()
+def unix_timestamps_until_today(start_date, string_format='%Y-%m-%d %H:%M:%S %z'):
+  start_date = datetime.datetime.strptime(start_date, string_format).date()
   today = datetime.datetime.now(tz).date()
 
   total_days = (today - start_date).days
