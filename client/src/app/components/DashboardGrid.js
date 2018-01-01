@@ -109,6 +109,7 @@ class DashboardGrid extends Component {
       changeDashboardItemState,
       destroyDashboardItem,
       removeFromLayout,
+      toggleDashboardItemStatic,
     } = this.props;
 
     const {
@@ -149,6 +150,7 @@ class DashboardGrid extends Component {
           nightMode={nightMode}
           removeFromLayout={removeFromLayout}
           staticActive={dashboardItem.static}
+          toggleDashboardItemStatic={toggleDashboardItemStatic}
         />
       </div>
     );

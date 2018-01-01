@@ -221,6 +221,7 @@ class Container extends PureComponent
         h: h,
         x: x,
         y: y,
+        static: false,
       });
     }
   }
