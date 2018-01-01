@@ -38,6 +38,7 @@ const mapDispatchToProps = (dispatch) => {
       logDashboardActionStart: dashboardActions.logDashboardActionStart,
       logDashboardActionStop: dashboardActions.logDashboardActionStop,
       saveDashboardItemsLocal: dashboardActions.saveDashboardItemsLocal,
+      toggleDashboardItemStatic: dashboardActions.toggleDashboardItemStatic,
       toggleSidebar: globalsActions.toggleSidebar,
     },
     dispatch

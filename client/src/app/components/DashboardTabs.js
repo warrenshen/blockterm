@@ -144,6 +144,7 @@ class DashboardTabs extends Component {
         h: dashboardItem.h,
         x: dashboardItem.x,
         y: dashboardItem.y,
+        static: dashboardItem.static,
       };
     });
 
@@ -215,6 +216,7 @@ class DashboardTabs extends Component {
       changeDashboardItemState,
       logDashboardActionStart,
       logDashboardActionStop,
+      toggleDashboardItemStatic,
       toggleSidebar,
     } = this.props;
 
@@ -234,6 +236,7 @@ class DashboardTabs extends Component {
             logDashboardActionStop={logDashboardActionStop}
             removeFromLayout={(id) => this.removeFromLayout(id)}
             saveLayout={(layout) => this.saveLayout(layout)}
+            toggleDashboardItemStatic={toggleDashboardItemStatic}
             toggleSidebar={toggleSidebar}
           />
           <div
