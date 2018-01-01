@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     fontSize: '12px',
     margin: '10px',
     marginTop: '2px',
+    borderColor: '#666',
   },
   darkAddButton: {
     borderColor: '#ccc',
