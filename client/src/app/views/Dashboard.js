@@ -82,6 +82,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     borderBottom: '2px solid #777',
   },
+  sidebarAddButtonNight: {
+    //borderColor: '#ccc !important',
+  },
   p: {
     fontSize: '13px',
   },
@@ -166,7 +169,7 @@ class Dashboard extends Component {
     }
   }
 
-  renderSubmit()
+  renderSubmit(nightMode=true)
   {
     const {
       createDashboardItem,
@@ -177,7 +180,7 @@ class Dashboard extends Component {
     {
       return (
         <button
-          className={css(styles.button, styles.addToButton)}
+          className={css(styles.button, styles.addToButton, nightMode && styles.sidebarAddButtonNight)}
           onClick={(event) => this.addItem(event)}
         >
           Add to Dashboard
@@ -237,7 +240,7 @@ class Dashboard extends Component {
                   value={keySelectValue}
                 />
                 {this.renderValueSelect()}
-                {this.renderSubmit()}
+                {this.renderSubmit(nightMode)}
               </div>
               <div className={css(styles.bottomHalf)}>
                 <El nightMode={nightMode} type={'h5'}>
