@@ -17,7 +17,7 @@ const PORT      = 80;
 const IP_ADRESS = '0.0.0.0';
 
 // Don't redirect if the hostname is `localhost:port` or the route is `/insecure`.
-app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/]));
+// app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/]));
 
 app.set('port', PORT);
 app.set('ipAdress', IP_ADRESS);
@@ -40,11 +40,11 @@ app.listen(
 );
 /* eslint-enable no-console */
 
-var options = {
-  key: fs.readFileSync(sslPath + 'privkey.pem'),
-  cert: fs.readFileSync(sslPath + 'fullchain.pem')
-};
+// var options = {
+//   key: fs.readFileSync(sslPath + 'privkey.pem'),
+//   cert: fs.readFileSync(sslPath + 'fullchain.pem')
+// };
 
-this.server = http.createServer(options, this.app);
-this.io = require('socket.io').listen(this.server);
-this.server.listen(443);
+// this.server = http.createServer(options, this.app);
+// this.io = require('socket.io').listen(this.server);
+// this.server.listen(443);
