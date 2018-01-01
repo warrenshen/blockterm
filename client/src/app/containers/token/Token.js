@@ -45,6 +45,7 @@ const query = gql`
       subreddits {
         id
         displayName
+        name
         imageUrl
       }
 
