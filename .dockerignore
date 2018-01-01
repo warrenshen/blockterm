@@ -1,0 +1,25 @@
+# Ignore OS X file.
+.DS_Store
+
+# Ignore bundler config.
+server/.bundle
+
+# Ignore all logfiles and tempfiles.
+server/log/*
+server/tmp/*
+!server/log/.keep
+!server/tmp/.keep
+
+# Ignore Byebug command history file.
+server/.byebug_history
+
+server/challenge/challenge
+server/key/keyfile.pem
+
+client/node_modules/
+client/.vscode/
+client/.idea/
+client/*.log
+client/coverage
+client/.nyc_output
+client/docs/assets/

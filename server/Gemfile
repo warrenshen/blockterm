@@ -31,7 +31,6 @@ gem 'graphiql-rails'
 gem 'search_object'
 gem 'search_object_graphql'
 
-gem 'annotate'
 gem 'rack-cors', require: 'rack/cors'
 gem 'seed_dump'
 
@@ -39,7 +38,10 @@ gem 'bcrypt'
 gem 'jwt'
 gem 'simple_command'
 
+gem 'letsencrypt_plugin'
+
 group :development, :test do
+  gem 'annotate'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
 end

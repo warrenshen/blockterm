@@ -2,6 +2,8 @@ FROM node:carbon
 
 MAINTAINER Bob Chen <jtcdbob@gmail.com>
 
+RUN apt-get update
+
 ENV APP_PATH /blockterm
 
 COPY ./client/package.json $APP_PATH/client/

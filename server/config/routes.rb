@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount LetsencryptPlugin::Engine, at: '/'
+
   get '/health', to: 'static#health'
   post '/graphql', to: 'graphql#execute'
 
