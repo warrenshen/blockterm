@@ -155,10 +155,10 @@ export default function(state = initialState, action)
           {
             if (data.user === null)
             {
-              const cookieDashboardPages = getItem(DASHBOARD_COOKIE);
+              let cookieDashboardPages = getItem(DASHBOARD_COOKIE);
               if (cookieDashboardPages)
               {
-                // TODO: validate cookie here and clear if invalid.
+
                 dashboardPages = cookieDashboardPages;
               }
               else

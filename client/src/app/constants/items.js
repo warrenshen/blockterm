@@ -28,7 +28,7 @@ export const DEFAULT_PAGES_OBJECTS = [
         "x":0,
         "y":0,
         "identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD",
-        static: true,
+        static: false,
       },
       {
         "id":"6",
