@@ -159,7 +159,7 @@ class DashboardGrid extends Component {
       x: dashboardItem.x,
       y: dashboardItem.y,
       minW: 2,
-      maxW: 8,
+      maxW: 9,
       minH: 2,
       // `static` is a reserved word so can't assign it to variable above.
       static: dashboardItem.static,
@@ -175,7 +175,7 @@ class DashboardGrid extends Component {
     return (
       <ResponsiveReactGridLayout
         className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
-        cols={{ lg: 8, md: 8, sm: 8, xs: 8, xxs: 1 }}
+        cols={{ lg: 9, md: 9, sm: 9, xs: 9, xxs: 1 }}
         compactType={'vertical'}
         layouts={layouts}
         onDragStart={logDashboardActionStart}
