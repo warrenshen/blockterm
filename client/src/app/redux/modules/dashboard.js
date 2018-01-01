@@ -294,7 +294,7 @@ export default function(state = initialState, action)
         dashboardItem.id === action.id
       );
       oldDashboardItem = Map(oldDashboardItems.get(oldDashboardItemIndex));
-      newDashboardItem = oldDashboardItem.set('static', !action.value);
+      newDashboardItem = oldDashboardItem.set('static', action.value);
       newDashboardItems = oldDashboardItems.set(oldDashboardItemIndex, newDashboardItem);
       newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
       newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
