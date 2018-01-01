@@ -165,6 +165,10 @@ subreddit_infos = [
     start_date: '2008-08-07',
   },
   {
+    name: 'RequestNetwork',
+    start_date: '2017-07-20',
+  },
+  {
     name: 'Ripple',
     start_date: '2009-10-14',
   },

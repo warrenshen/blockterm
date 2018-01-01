@@ -19,6 +19,7 @@ SUBREDDITS = [
   'litecoin',
   'Monero',
   'NEO',
+  'RequestNetwork',
   'Ripple',
   'steemit',
   'SubstratumNetwork',
