@@ -143,8 +143,20 @@ export default function(state = initialState, action)
             ...state,
             dashboardPages: dashboardPages,
           };
+        case 'UpdateDashboardItemMutation':
+          data = action.result.data;
+          dashboardPages = state.dashboardPages;
+          if (data.updateDashboardItem)
+          {
+            dashboardPages = data.updateDashboardItem.dashboardPages;
+          }
+          return {
+            ...state,
+            dashboardPages: dashboardPages,
+          };
+        default:
+          return state;
       }
-      return state;
     case APOLLO_QUERY_RESULT:
     case APOLLO_QUERY_RESULT_CLIENT:
       switch (action.operationName)
@@ -279,10 +291,10 @@ export default function(state = initialState, action)
       oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
       oldDashboardItems = List(oldDashboardPage.get('dashboardItems'));
       oldDashboardItemIndex = oldDashboardItems.findIndex((dashboardItem) =>
-        dashboardItem.id === action.value
+        dashboardItem.id === action.id
       );
       oldDashboardItem = Map(oldDashboardItems.get(oldDashboardItemIndex));
-      newDashboardItem = oldDashboardItem.set('static', !oldDashboardItem.get('static'));
+      newDashboardItem = oldDashboardItem.set('static', !action.value);
       newDashboardItems = oldDashboardItems.set(oldDashboardItemIndex, newDashboardItem);
       newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
       newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
@@ -376,9 +388,10 @@ export function logDashboardActionStop()
   };
 }
 
-export function toggleDashboardItemStatic(value)
+export function toggleDashboardItemStatic(id, value)
 {
   return {
+    id: id,
     type: TOGGLE_DASHBOARD_ITEM_STATIC,
     value: value,
   }

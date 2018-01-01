@@ -12,6 +12,7 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  dashboard_page_id :integer          not null
+#  static            :boolean          default(FALSE), not null
 #
 # Indexes
 #

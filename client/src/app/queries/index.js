@@ -21,6 +21,7 @@ export const DashboardPagesQuery = gql`
         dashboardItems {
           id
           identifier
+          static
           w
           h
           x
@@ -68,6 +69,7 @@ export const CreateDashboardItemMutation = gql`
         dashboardItems {
           id
           identifier
+          static
           w
           h
           x
@@ -167,8 +169,8 @@ export const CreateUserMutationOptions = {
 
 export const DestroyDashboardItemMutation = gql`
   mutation DestroyDashboardItemMutation(
-    $id: ID!
     $dashboardPageId: ID!,
+    $id: ID!,
   ) {
     destroyDashboardItem(id: $id, dashboardPageId: $dashboardPageId) {
       dashboardPages {
@@ -179,6 +181,7 @@ export const DestroyDashboardItemMutation = gql`
         dashboardItems {
           id
           identifier
+          static
           w
           h
           x
@@ -257,6 +260,65 @@ export const LogInMutationOptions = {
   })
 };
 
+export const UpdateDashboardItemMutation = gql`
+  mutation UpdateDashboardItemMutation(
+    $dashboardPageId: ID!,
+    $id: ID!,
+    $static: Boolean!,
+  ) {
+    updateDashboardItem(
+      dashboardPageId: $dashboardPageId,
+      id: $id,
+      static: $static,
+    ) {
+      dashboardPages {
+        id
+        index
+        name
+
+        dashboardItems {
+          id
+          identifier
+          static
+          w
+          h
+          x
+          y
+        }
+      }
+    }
+  }
+`;
+
+export const UpdateDashboardItemMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    updateDashboardItem(dashboardPageId, id, staticActive) {
+      return mutate({
+        updateQueries: {
+          DashboardItemsQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.updateDashboardItem,
+          }),
+        },
+        variables: {
+          dashboardPageId,
+          id,
+          static: staticActive,
+        },
+      })
+      .then(
+        (response) => {
+          return Promise.resolve();
+        }
+      )
+      .catch(
+        (error) => {
+          return Promise.reject();
+        }
+      );
+    },
+  }),
+};
+
 export const UpdateDashboardItemsMutation = gql`
   mutation UpdateDashboardItemsMutation(
     $dashboardPageId: ID!,
@@ -274,6 +336,7 @@ export const UpdateDashboardItemsMutation = gql`
         dashboardItems {
           id
           identifier
+          static
           w
           h
           x

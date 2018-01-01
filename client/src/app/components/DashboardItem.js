@@ -195,7 +195,7 @@ class DashboardItem extends Component {
       nightMode,
       removeFromLayout,
       staticActive,
-      toggleDashboardItemStatic,
+      updateLayoutItem,
     } = this.props;
 
     const {
@@ -219,7 +219,7 @@ class DashboardItem extends Component {
           <div className={css(styles.rightAlignSmall)}>
             <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-              onClick={(event) => toggleDashboardItemStatic(id)}
+              onClick={(event) => updateLayoutItem(id, !staticActive)}
               title="Lock and unlock element position and sizing"
             >
               <FontAwesome name={staticActive ? 'lock' : 'unlock'} style={{'fontSize':'13px'}}/>
