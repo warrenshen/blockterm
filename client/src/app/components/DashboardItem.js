@@ -210,8 +210,9 @@ class DashboardItem extends Component {
           </div>
           <div className={css(styles.rightAlignSmall)}>
             <button
-              title="Lock and unlock element position and sizing"
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+              onClick={(event) => toggleDashboardItemStatic(id)}
+              title="Lock and unlock element position and sizing"
             >
               <FontAwesome name={staticActive ? 'lock' : 'unlock'} style={{'fontSize':'13px'}}/>
             </button>
@@ -233,9 +234,10 @@ class DashboardItem extends Component {
         <div className={css(styles.item)}>
           {this.renderItem(dashboardItem)}
           <button
-              title="Press to resize element"
-              className={'drag-handle ' + css(styles.closeButton, styles.floatingResizeButton, nightMode && styles.darkCloseButton)}
-            >
+            className={'drag-handle ' + css(styles.closeButton, styles.floatingResizeButton, nightMode && styles.darkCloseButton)}
+            disabled={staticActive}
+            title="Press to resize element"
+          >
             <FontAwesome name='expand' style={{'transform':'rotate(90deg)'}} />
           </button>
         </div>
