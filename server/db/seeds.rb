@@ -165,6 +165,10 @@ subreddit_infos = [
     start_date: '2008-08-07',
   },
   {
+    name: 'Raiblocks',
+    start_date: '2014-12-13',
+  },
+  {
     name: 'RequestNetwork',
     start_date: '2017-07-20',
   },
