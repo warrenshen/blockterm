@@ -203,6 +203,7 @@ class Login extends PureComponent {
                 className={css(styles.inputField, nightMode && styles.fieldNight)}
                 placeholder='email/username'
                 onChange={(event) => changeEmail(event.target.value)}
+                required='required'
                 value={email}
               />
               <input
@@ -210,6 +211,7 @@ class Login extends PureComponent {
                 placeholder='password'
                 onChange={(event) => changePassword(event.target.value)}
                 type='password'
+                required='required'
                 value={password}
               />
               <div className={css(styles.row)}>

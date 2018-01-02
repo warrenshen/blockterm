@@ -81,7 +81,7 @@ function truncateEmail(email)
   var re =/.+(?=@.+)/;
   var result = re.exec(email);
   if(!result) {
-    return email.length > TARGET_LENGTH ? email.substring(0, TARGET_LENGTH) + "**": email.substring(0, TARGETLENGTH);
+    return email.length > TARGET_LENGTH ? email.substring(0, TARGET_LENGTH) + "**": email.substring(0, TARGET_LENGTH);
   } else {
     return result[0].substring(0, TARGET_LENGTH) + "**"; //truncate email
   }
