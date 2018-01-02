@@ -3,6 +3,7 @@ import sqlite3
 import time
 
 from praw.models import MoreComments
+from prawcore.exceptions import RequestException
 
 from api import Api
 from database import SQLite3Database
@@ -46,6 +47,16 @@ def backfill_posts_and_comments(subreddit_name, praw_subreddit, start, end):
         except sqlite3.IntegrityError:
             pass
         db.close()
+
+        for i in range(10):
+          try:
+            post_comments = post.comments.list()
+            break
+          except RequestException:
+            time.sleep(10)
+            if i >= 9:
+              logger.info('Request exception after 10 tries')
+              raise Exception('Request exception after 10 tries')
 
         post_comments = post.comments.list()
 
@@ -97,7 +108,7 @@ def run_for_subreddit(subreddit_name):
 
     start_date = api_subreddit['startDate']
 
-    for unix_timestamp in unix_timestamps_until_today(start_date):
+    for unix_timestamp in unix_timestamps_until_today('2017-12-30', '%Y-%m-%d'):
         backfill_posts_and_comments(
             subreddit_name,
             praw_subreddit,
