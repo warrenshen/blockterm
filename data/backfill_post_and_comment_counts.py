@@ -60,7 +60,7 @@ def run_for_subreddit(subreddit_name):
 
   start_date = api_subreddit['startDate']
 
-  for unix_timestamp in unix_timestamps_until_today(start_date):
+  for unix_timestamp in unix_timestamps_until_today(start_date, '%Y-%m-%d'):
     success = create_counts_for_subreddit(
       subreddit_name,
       unix_timestamp,
@@ -71,7 +71,7 @@ def run_for_subreddit(subreddit_name):
       break
 
     # Don't need to sleep much since we aren't using reddit API.
-    time.sleep(0.25)
+    time.sleep(0.1)
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(
