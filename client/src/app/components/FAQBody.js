@@ -81,7 +81,7 @@ class FAQBody extends PureComponent {
         </div>
 
         <div className={css(styles.row)} style={{'marginBottom':'24px'}}>
-          <div className={css(styles.column, styles.dashBorder)}>
+          <div className={css(styles.column)}>
             <El
               style={styles.bolded}
               nightMode={nightMode}
@@ -99,7 +99,7 @@ class FAQBody extends PureComponent {
             </El>
           </div>
 
-          <div className={css(styles.column)}>
+          <div className={css(styles.column)} style={{'paddingLeft':'15px', 'borderLeft':'1px dashed #777'}}>
             <El
               style={styles.bolded}
               nightMode={nightMode}
@@ -112,8 +112,8 @@ class FAQBody extends PureComponent {
               type={'p'}
               style={styles.para}
             >
-              The 'dashboard' tab is your workbench/playground to build your perfect cryptocurrency monitoring/trading terminal. By default it has real time charts on Bitcoin, Ethereum, and Litecoin's prices. You can customize it to fulfill your needs by adding or removing other widgets for different coins/tokens such as XMR, NEO, ZEC, etc. You can also re-position and scale the different panels to suit your needs! Your feedback is appreciated!<br /><br />
-              To add widgets, use the 'add widget' button located near the bottom of the dashboard panel, or the menu bar button while on the dashboard page.
+              The 'dashboard' tab is your workbench/playground to build your perfect cryptocurrency monitoring/trading terminal. By default it has real time charts on Bitcoin, Ethereum, and Litecoin's prices. You can customize it to fulfill your needs by adding or removing other widgets for different coins/tokens such as XMR, NEO, ZEC, etc. You can also re-position and scale any/all widgets to suit your needs! Your feedback is appreciated!<br /><br />
+              To add widgets, use the 'Add Widget' button located near the bottom of the dashboard page, or the menu bar button at the top-right corner. Type to search for your preferred widget e.g. 'Candle Chart' > 'XRPUSD' for a Ripple : US Dollar chart.
             </El>
           </div>
         </div>
@@ -170,7 +170,7 @@ class FAQBody extends PureComponent {
             >
               We love you back! First and foremost, the best way to contribute is to SEND US YOUR BEAUTIFUL feedback! Send us every issue, no matter how big or small, here! We'll try to nail each one.<br /><br />
               If you like us even more than that. You could send some coins our way at:<br />
-              <strong>ETH:</strong> 0x72fB44C1a3F910ed4a979fBDed2c600f7c14f3B7<br />
+              <strong>ETH: 0x72fB44C1a3F910ed4a979fBDed2c600f7c14f3B7</strong><br />
             </El>
           </div>
         </div>
