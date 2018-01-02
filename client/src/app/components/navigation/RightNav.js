@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   nightModeButton: {
     border: '1px solid #fff',
     borderRadius: '1px',
-    padding: '4px 12px',
+    //padding: '4px 12px',
     ':before': {
       color: "#fff !important",
     },
@@ -65,6 +65,11 @@ const styles = StyleSheet.create({
   },
   nightBurger: {
     backgroundColor: 'white',
+  },
+  signOutButton: {
+    border: '1px solid #000',
+    borderRadius: '1px',
+    padding: '4px 8px 4px 13px !important',
   }
 });
 
@@ -116,15 +121,22 @@ const RightNav = ({
     }
     {
       user ?
-      (
+      [
+        <RightNavButton
+          key={'faq'}
+          label={'FAQ'}
+          link={'/faq'}
+          nightMode={nightMode}
+        />,
         <RightNavButton
           action={(event) => logOut(event, client)}
-          label={`${truncateEmail(user.email)} | Logout`}
+          label={`${truncateEmail(user.email)} | `}
+          icon='sign-out'
           nightMode={nightMode}
           nightModeStyle={styles.nightModeButton}
-          style={styles.logoutButton}
+          style={styles.signOutButton}
         />
-      ) :
+      ] :
       [
         <RightNavButton
           key={'login'}
