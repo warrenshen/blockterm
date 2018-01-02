@@ -234,11 +234,9 @@ class Login extends PureComponent {
                   Latest Updates: (v. {PROJECT_VERSION})
               </El>
               <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
-                <li className={css(styles.blockli)}>Market Overview widget added!</li>
-                <li className={css(styles.blockli)}>In-depth chart widget added. </li>
-                <li className={css(styles.blockli)}>Accounts and dashboard arrangement/state saving.</li>
-                <li className={css(styles.blockli)}>Subreddit tracking data added by sub. </li>
-                <li className={css(styles.blockli)}>Launch of Blockterm!</li>
+                <li className={css(styles.blockli)}>All Binance coins/currencies now supported via Candle Chart.</li>
+                <li className={css(styles.blockli)}>Locking and unlocking of widgets now supported.</li>
+                <li className={css(styles.blockli)}>[...]</li>
               </ul>
             </div>
           </div>
