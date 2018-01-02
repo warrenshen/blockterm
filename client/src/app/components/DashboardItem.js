@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   lockedResize: {
-    opacity: '0.5',
+    opacity: '0.33',
   },
   grabBar: {
     zIndex: '2',

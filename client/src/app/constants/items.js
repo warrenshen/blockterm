@@ -1,4 +1,4 @@
-export const PROJECT_VERSION = '0.1.6.0';
+export const PROJECT_VERSION = '0.1.6.2';
 
 const DELIMETER = '__';
 
@@ -22,62 +22,26 @@ export const DEFAULT_PAGES_OBJECTS = [
   {
     dashboardItems: [
       {
-        "id":"3",
-        "w":5,
-        "h":4,
-        "x":0,
-        "y":0,
-        "identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD",
-        static: false,
+        "id":"3","w":6,"h":4,"x":0,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"
       },
       {
-        "id":"6",
-        "w":5,
-        "h":4,
-        "x":0,
-        "y":4,
-        "identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD",
-        static: false,
+        "id":"6","w":6,"h":4,"x":0,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"
       },
       {
-        "id":"7",
-        "w":3,
-        "h":8,
-        "x":5,
-        "y":0,
-        "identifier":"TV_MARKET_OVERVIEW__Default",
-        static: false,
+        "id":"7","w":3,"h":8,"x":6,"y":0,"static":false,"identifier":"TV_MARKET_OVERVIEW__Default"
       },
       {
-        "id":"9",
-        "w":3,
-        "h":3,
-        "x":5,
-        "y":8,
-        "identifier":"SUBREDDIT_COMMENT_COUNTS__Bitcoin",
-        static: false,
+        "id":"9","w":3,"h":3,"x":6,"y":8,"static":false,"identifier":"SUBREDDIT_COMMENT_COUNTS__Bitcoin"
       },
       {
-        "id":"10",
-        "w":3,
-        "h":3,
-        "x":0,
-        "y":8,
-        "identifier":"TOTAL_MARKET_CAP__Default",
-        static: false,
+        "id":"10","w":3,"h":3,"x":0,"y":8,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"
       },
       {
-        "id":"11",
-        "w":2,
-        "h":3,
-        "x":3,
-        "y":8,
-        "identifier":"SUBREDDIT_POST_COUNTS__Bitcoin",
-        static: false,
-      },
+        "id":"11","w":3,"h":3,"x":3,"y":8,"static":false,"identifier":"SUBREDDIT_POST_COUNTS__Bitcoin"
+      }
     ],
-    index: 0,
-    name: 'Tab 1',
+    "index":0,
+    "name":"Tab 1",
   },
   {
     dashboardItems: [
