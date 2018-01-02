@@ -198,6 +198,18 @@ input {
   color: #222;
   letter-spacing: 2px;
 }
+input:invalid {
+  color: red !important;
+}
+input:focus:invalid {
+  color: black !important;
+}
+input:focus:required:invalid {
+  border-color: red !important;
+}
+input:focus:required:valid {
+  border-color: green !important;
+}
 
 $hamburger-padding-x                       : 12px !default;
 $hamburger-padding-y                       : 12px !default;
