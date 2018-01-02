@@ -81,7 +81,7 @@ def backfill_posts_and_comments(subreddit_name, praw_subreddit, start, end):
 
         db.close()
 
-        time.sleep(3)
+        time.sleep(5)
 
     logger.info('Backfilled %s posts for subreddit %s' % (post_success_count, subreddit_name))
     logger.info('Backfilled %s comments for subreddit %s' % (comment_success_count, subreddit_name))
@@ -105,7 +105,7 @@ def run_for_subreddit(subreddit_name):
             unix_timestamp + ONE_DAY
         )
 
-        time.sleep(5)
+        time.sleep(3)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Backfill comments in a subreddit', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
