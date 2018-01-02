@@ -10,7 +10,7 @@ import El from '../components/El';
 
 import { withRouter } from 'react-router-dom'
 import * as STYLES from '../constants/styles';
-import { PROJECT_VERSION } from '../constants/items';
+import { PROJECT_VERSION, PATCH_NOTES } from '../constants/items';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -236,9 +236,11 @@ class Login extends PureComponent {
                   Latest Updates: (v. {PROJECT_VERSION})
               </El>
               <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
-                <li className={css(styles.blockli)}>All Binance coins/currencies now supported via Candle Chart.</li>
-                <li className={css(styles.blockli)}>Locking and unlocking of widgets now supported.</li>
-                <li className={css(styles.blockli)}>[...]</li>
+                {
+                  PATCH_NOTES.map((string, index) => (
+                    <li key={index} className={css(styles.blockli)}>{string}</li>
+                  ))
+                }
               </ul>
             </div>
           </div>
