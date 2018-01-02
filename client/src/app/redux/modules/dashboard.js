@@ -185,9 +185,21 @@ export default function(state = initialState, action)
             }
           }
 
+          let dashboardItemStates;
+          try
+          {
+            dashboardItemStates = generateItemStatesFromPages(dashboardPages);
+          }
+          catch (err)
+          {
+            // TODO: log these errors to server.
+            dashboardPages = DEFAULT_PAGES_OBJECTS;
+            dashboardItemStates = generateItemStatesFromPages(dashboardPages);
+          }
+
           return {
             ...state,
-            dashboardItemStates: generateItemStatesFromPages(dashboardPages),
+            dashboardItemStates: dashboardItemStates,
             dashboardPages: dashboardPages,
             user: data.user,
           };
