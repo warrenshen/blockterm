@@ -12,19 +12,21 @@ module MutationHelper
           user_id: user.id,
           dashboard_page_id: dashboard_page.id,
           identifier: 'TV_CANDLE_CHART__BITSTAMP:BTCUSD',
-          w: 5,
+          w: 6,
           h: 4,
           x: 0,
           y: 0,
+          static: false,
         )
         DashboardItem.create(
           user_id: user.id,
           dashboard_page_id: dashboard_page.id,
           identifier: 'TV_CANDLE_CHART__BITSTAMP:ETHUSD',
-          w: 5,
+          w: 6,
           h: 4,
           x: 0,
           y: 4,
+          static: false,
         )
         DashboardItem.create(
           user_id: user.id,
@@ -32,17 +34,19 @@ module MutationHelper
           identifier: 'TV_MARKET_OVERVIEW__Default',
           w: 3,
           h: 8,
-          x: 5,
+          x: 6,
           y: 0,
+          static: false,
         )
         DashboardItem.create(
           user_id: user.id,
           dashboard_page_id: dashboard_page.id,
-          identifier: 'TV_CANDLE_CHART__BITSTAMP:LTCUSD',
-          w: 5,
-          h: 4,
-          x: 0,
+          identifier: 'SUBREDDIT_POST_COUNTS__Bitcoin',
+          w: 3,
+          h: 3,
+          x: 3,
           y: 8,
+          static: false,
         )
         DashboardItem.create(
           user_id: user.id,
@@ -50,8 +54,19 @@ module MutationHelper
           identifier: 'SUBREDDIT_COMMENT_COUNTS__Bitcoin',
           w: 3,
           h: 3,
-          x: 5,
+          x: 6,
           y: 8,
+          static: false,
+        )
+        DashboardItem.create(
+          user_id: user.id,
+          dashboard_page_id: dashboard_page.id,
+          identifier: 'TOTAL_MARKET_CAP__Default',
+          w: 3,
+          h: 3,
+          x: 0,
+          y: 8,
+          static: false,
         )
       end
     end

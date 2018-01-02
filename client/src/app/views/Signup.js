@@ -4,7 +4,7 @@ import React, {
   PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite/no-important';
 import { Link }            from 'react-router-dom';
 import El from '../components/El';
 
@@ -183,34 +183,39 @@ class Signup extends PureComponent {
               >
                   Join our army of HODLers:
               </El>
-              <input
-                autoFocus={true}
-                className={css(styles.inputField, nightMode && styles.fieldNight)}
-                placeholder='email/username'
-                onChange={(event) => changeEmail(event.target.value)}
-                value={email}
-              />
-              <input
-                className={css(styles.inputField, nightMode && styles.fieldNight)}
-                placeholder='password'
-                onChange={(event) => changePassword(event.target.value)}
-                type='password'
-                value={password}
-              />
-              <div className={css(styles.row)}>
-                <div className={css(styles.section)}>
-                  <input
-                    className={css(styles.bolded, styles.submitButton)}
-                    onClick={(event) => this.submit(event)}
-                    type='submit'
-                  />
+              <form>
+                <input
+                  autoFocus={true}
+                  className={css(styles.inputField, nightMode && styles.fieldNight)}
+                  placeholder='email/username'
+                  type='email'
+                  required="required"
+                  onChange={(event) => changeEmail(event.target.value)}
+                  value={email}
+                />
+                <input
+                  className={css(styles.inputField, nightMode && styles.fieldNight)}
+                  placeholder='password'
+                  onChange={(event) => changePassword(event.target.value)}
+                  type='password'
+                  required="required"
+                  value={password}
+                />
+                <div className={css(styles.row)}>
+                  <div className={css(styles.section)}>
+                    <input
+                      className={css(styles.bolded, styles.submitButton)}
+                      onClick={(event) => this.submit(event)}
+                      type='submit'
+                    />
+                  </div>
+                  <div className={css(styles.section, styles.rightAlign)}>
+                    <El nightMode={nightMode} type={'span'}>
+                      Already have an account? <Link className={css(styles.boldedColor, nightMode && styles.nightBoldedColor)} to={'/login'}><u>Login here.</u></Link>
+                    </El>
+                  </div>
                 </div>
-                <div className={css(styles.section, styles.rightAlign)}>
-                  <El nightMode={nightMode} type={'span'}>
-                    Already have an account? <Link className={css(styles.boldedColor, nightMode && styles.nightBoldedColor)} to={'/login'}><u>Login here.</u></Link>
-                  </El>
-                </div>
-              </div>
+              </form>
             </div>
             <div className={css(styles.halfPanel, styles.rightHalf)}>
               <El
