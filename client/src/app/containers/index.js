@@ -10,3 +10,4 @@ export { default as ConnectedSubreddits }        from './Subreddits';
 export { default as ConnectedSubredditsCompare } from './SubredditsCompare';
 export { default as ConnectedToken }             from './token/Token';
 export { default as ConnectedTokens }            from './Tokens';
+export { default as ConnectedFAQ }               from './FAQ';

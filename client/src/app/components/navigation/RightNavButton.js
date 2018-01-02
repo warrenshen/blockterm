@@ -6,10 +6,11 @@ import { StyleSheet, css } from 'aphrodite';
 import { Link }       from 'react-router-dom';
 import El from '../El';
 import * as STYLES from '../../constants/styles';
+import FontAwesome    from 'react-fontawesome';
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: '24px',
+    marginLeft: '28px',
     display: 'flex',
   },
   boldedUpper: {
@@ -32,9 +33,13 @@ const styles = StyleSheet.create({
       borderColor: STYLES.GOLD,
     },
   },
+  icon: {
+    //fontSize: '16px',
+    //marginTop: '2px',
+  },
 });
 
-const RightNavButton = ({ action, label, link, nightMode, nightModeStyle, style }) => {
+const RightNavButton = ({ action, label, link, icon, nightMode, nightModeStyle, style }) => {
   return action ?
   (
     <li className={css(styles.container)}>
@@ -44,7 +49,7 @@ const RightNavButton = ({ action, label, link, nightMode, nightModeStyle, style 
           nightModeStyle={styles.nightHover}
           style={styles.boldedUpper}
           type={'span'}>
-          {label}
+          {label}{icon && <FontAwesome name={`${icon}`} className={css(styles.icon)}/>}
         </El>
       </button>
     </li>
