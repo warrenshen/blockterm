@@ -9,7 +9,7 @@ import { Link }            from 'react-router-dom';
 import El from '../components/El';
 
 import { withRouter } from 'react-router-dom'
-import FAQ from './FAQ';
+import FAQBody from '../components/FAQBody';
 import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
@@ -235,7 +235,7 @@ class Signup extends PureComponent {
             </div>
           </div>
 
-          <FAQ nightMode={nightMode} />
+          <FAQBody nightMode={nightMode} />
 
         </div>
       </div>

@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class FAQ extends PureComponent {
+class FAQBody extends PureComponent {
 
   render()
   {
@@ -80,7 +80,7 @@ class FAQ extends PureComponent {
           </El>
         </div>
 
-        <div className={css(styles.row)} style={{'marginBottom':'32px'}}>
+        <div className={css(styles.row)} style={{'marginBottom':'24px'}}>
           <div className={css(styles.column, styles.dashBorder)}>
             <El
               style={styles.bolded}
@@ -179,4 +179,4 @@ class FAQ extends PureComponent {
   }
 }
 
-export default FAQ;
+export default FAQBody;
