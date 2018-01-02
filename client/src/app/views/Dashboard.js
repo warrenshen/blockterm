@@ -251,10 +251,13 @@ class Dashboard extends Component {
                   1) Enter the type of widget you would like to add, e.g. Market Overview, Candle Chart, Subreddit Posts, Subreddit Comments.
                 </El>
                 <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
-                  2) Enter the widget specific type. For example the currency/coin you would like for a Candle Chart, or Subreddit.
+                  2) Enter the widget specific type. For a candle chart, enter the ticker/symbol you are interested in. For example: BTCUSD, ETHUSD, LTCEUR, REQBTC, etc. For subreddits, enter the relevant subreddit name. For example: r/Bitcoin, r/Monero, r/Cryptocurrency, etc.
                 </El>
                 <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
                   3) Click 'Add to Dashboard'!
+                </El>
+                <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
+                  4) Resize and reposition the widget how you see fit, and click the lock button if you would like to lock its configuration.
                 </El>
               </div>
             </div>

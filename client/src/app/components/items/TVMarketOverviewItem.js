@@ -245,6 +245,7 @@ class TVChartItem extends PureComponent {
       <div className={css(styles.wrapper)}>
         <div className={css(styles.container, nightMode && styles.nightContainer)}>
           <iframe
+            scrolling="no"
             className={css(styles.frame, nightMode && styles.nightFrame, dashboardAction && styles.noPointerEvents)}
             ref={(el) => this.instance = el}
           />
