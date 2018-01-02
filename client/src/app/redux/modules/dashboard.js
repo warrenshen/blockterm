@@ -19,6 +19,7 @@ import {
 import {
   DASHBOARD_COOKIE,
   SELECTED_TAB_COOKIE,
+  clearItem,
   getItem,
   setItem,
 } from '../../services/cookie';
@@ -195,6 +196,7 @@ export default function(state = initialState, action)
             // TODO: log these errors to server.
             dashboardPages = DEFAULT_PAGES_OBJECTS;
             dashboardItemStates = generateItemStatesFromPages(dashboardPages);
+            clearItem(DASHBOARD_COOKIE);
           }
 
           return {
