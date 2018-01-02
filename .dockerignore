@@ -1,6 +1,8 @@
 # Ignore OS X file.
 .DS_Store
 
+.git/
+
 # Ignore bundler config.
 server/.bundle
 
@@ -14,7 +16,6 @@ server/tmp/*
 server/.byebug_history
 
 server/challenge/challenge
-server/key/keyfile.pem
 
 client/node_modules/
 client/.vscode/
