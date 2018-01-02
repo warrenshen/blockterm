@@ -4,7 +4,7 @@ import React, {
 PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite/no-important';
 import { Link }            from 'react-router-dom';
 import El                  from '../components/El';
 import Sidebar             from '../components/Sidebar';
@@ -63,15 +63,21 @@ const styles = StyleSheet.create({
     borderBottom: `1px solid #ccc`,
   },
   graphElement: {
-    maxHeight:'40px',
+    width: '450px',
   },
   bolded: {
     fontWeight: '700',
   },
+  commentsTitle: {
+    fontWeight: '700',
+    flex:'1',
+    marginTop:'6px',
+  },
   flatButton: {
-    top:'7px',
-    right: '10px',
-    position: 'absolute',
+    marginRight: '-12px',
+    // top:'7px',
+    // right: '10px',
+    // position: 'absolute',
     border: '1px solid #000',
     borderRadius: '1px',
     padding: '4px 12px',
@@ -173,14 +179,23 @@ class Home extends PureComponent {
             Comments (24h)
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element)} style={{'display':'flex', 'borderBottom':'none'}}>
           <El
-            style={styles.bolded}
+            style={styles.commentsTitle}
             nightMode={nightMode}
             type={'span'}
           >
             Comments graph (14d)
           </El>
+          <Link to={'/subreddits/compare'} className={css(styles.flatButton, nightMode && styles.nightModeButton)}>
+            <El
+              nightMode={nightMode}
+              style={styles.boldedUpper}
+              nightModeStyle={styles.nightBoldedUpper}
+              type={'span'}>
+              Compare Subreddits
+            </El>
+          </Link>
         </td>
       </tr>
     );
@@ -216,15 +231,6 @@ class Home extends PureComponent {
           </El>
         </div>
         <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
-          <Link to={'/subreddits/compare'} className={css(styles.flatButton, nightMode && styles.nightModeButton)}>
-            <El
-              nightMode={nightMode}
-              style={styles.boldedUpper}
-              nightModeStyle={styles.nightBoldedUpper}
-              type={'span'}>
-              Compare Subreddits
-            </El>
-          </Link>
           <table className={css(styles.table)}>
             <tbody>
               {this.renderHeader()}
@@ -294,15 +300,22 @@ class Home extends PureComponent {
                       </td>
                       <td className={css(styles.graphElement)}>
                         <Line
-                          height={40}
+                          height={68}
+                          responsive={true}
                           data={data}
+                          redraw={true}
                           options={{
+                            tooltips: {
+                              xAlign: 'right',
+                              yAlign:'no-transform',
+                              xPadding: 11,
+                            },
+                            maintainAspectRatio : false,
                             legend: { display: false },
-                            tooltips: { enabled: false },
                             scales: {
                               xAxes: [{
                                 ticks: {
-                                  display: false
+                                  display: false,
                                 }
                               }],
                               yAxes: [
