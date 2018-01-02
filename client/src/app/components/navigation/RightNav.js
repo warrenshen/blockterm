@@ -129,6 +129,7 @@ const RightNav = ({
           nightMode={nightMode}
         />,
         <RightNavButton
+          key={'sign-out'}
           action={(event) => logOut(event, client)}
           label={`${truncateEmail(user.email)} | `}
           icon='sign-out'

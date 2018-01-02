@@ -6,7 +6,6 @@ import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
 import El from '../components/El';
 
-import { withRouter } from 'react-router-dom'
 import * as STYLES from '../constants/styles';
 import FAQBody from '../components/FAQBody';
 
