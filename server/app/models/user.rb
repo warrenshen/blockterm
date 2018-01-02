@@ -15,5 +15,7 @@ class User < ApplicationRecord
   has_many :dashboard_items
   has_many :dashboard_pages
 
-  validates :email, uniqueness: true
+  validates :email, presence: true, uniqueness: true
+  validates_length_of :email, minimum: 5, maximum: 30
+  validates :password, presence: true, length: { within: 5..30 }
 end
