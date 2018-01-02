@@ -34,8 +34,6 @@ const styles = StyleSheet.create({
     },
   },
   icon: {
-    //fontSize: '16px',
-    //marginTop: '2px',
   },
 });
 
@@ -49,7 +47,8 @@ const RightNavButton = ({ action, label, link, icon, nightMode, nightModeStyle, 
           nightModeStyle={styles.nightHover}
           style={styles.boldedUpper}
           type={'span'}>
-          {label}{icon && <FontAwesome name={`${icon}`} className={css(styles.icon)}/>}
+          {label}
+          {icon && <FontAwesome name={`${icon}`} className={css(styles.icon)}/>}
         </El>
       </button>
     </li>
