@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   annotations:
     kompose.cmd: kompose convert
-    kompose.service.type: LoadBalancer
+    kompose.service.type: NodePort
     kompose.version: 1.4.0 ()
   creationTimestamp: null
   labels:
@@ -38,7 +38,7 @@ kind: Service
 metadata:
   annotations:
     kompose.cmd: kompose convert
-    kompose.service.type: LoadBalancer
+    kompose.service.type: NodePort
     kompose.version: 1.4.0 ()
   creationTimestamp: null
   labels:
@@ -54,7 +54,6 @@ spec:
     targetPort: 443
   selector:
     io.kompose.service: client
-  type: LoadBalancer
-  loadBalancerIP: "35.197.20.135"
+  type: NodePort
 status:
   loadBalancer: {}

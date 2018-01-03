@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: blockterm-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: blockterm-ip
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "gce"
+spec:
+  tls:
+  - secretName: blockterm-tls
+    hosts:
+    - blockterm.com
+    - api.blockterm.com
+  rules:
+    - host: blockterm.com
+      http:
+        paths:
+        - path: /*
+          backend:
+            serviceName: client
+            servicePort: 80
+    - host: www.blockterm.com
+      http:
+        paths:
+        - path: /*
+          backend:
+            serviceName: client
+            servicePort: 80
+    - host: api.blockterm.com
+      http:
+        paths:
+        - path: /*
+          backend:
+            serviceName: server
+            servicePort: 80
