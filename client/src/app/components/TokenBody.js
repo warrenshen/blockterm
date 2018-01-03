@@ -50,6 +50,14 @@ const styles = StyleSheet.create({
     marginBottom: '8px',
     borderBottom: '1px solid #bdc3c7',
   },
+  frame: {
+    width: '100%',
+    height: '500px',
+    border: 'none',
+  },
+  nightFrame: {
+    backgroundColor: '#000',
+  },
 });
 
 class TokenBody extends PureComponent {
@@ -157,6 +165,36 @@ class TokenBody extends PureComponent {
     }
   }
 
+  renderTVGraph()
+  {
+    const {
+      nightMode,
+      token,
+    } = this.props;
+    const url =
+      'https://s.tradingview.com/widgetembed/?' +
+      //`symbol=${token}&` +
+      `symbol=BITSTAMP:BTCUSD&` +
+      'interval=15&' +
+      'hidetoptoolbar=1&' +
+      'hidesidetoolbar=1&' +
+      'symboledit=0&' +
+      'saveimage=1&' +
+      'toolbarbg=rgba(0,0,0,0)&' +
+      'hideideas=0&' +
+      `theme=${nightMode ? "Dark" : "Light"}&` +
+      'timezone=exchange'
+    ;
+
+    return (
+      <iframe
+        scrolling="no"
+        className={css(styles.frame, nightMode && styles.nightFrame)}
+        src={url}
+      />
+    );
+  }
+
   render()
   {
     const {
@@ -167,6 +205,8 @@ class TokenBody extends PureComponent {
     return (
       <div className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
+          {this.renderTVGraph()}
+
           <El
             style={styles.sectionHeader}
             nightMode={nightMode}
