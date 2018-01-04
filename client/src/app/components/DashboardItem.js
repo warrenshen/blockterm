@@ -223,9 +223,16 @@ class DashboardItem extends Component {
           </div>
           <div className={css(styles.rightAlignSmall)}>
             <button
+              className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
+              onClick={(event) => updateLayoutItem(id, !staticActive)}
+              title="Edit this widget and or swap it out for another."
+            >
+              <FontAwesome name='pencil' style={{'fontSize':'13px'}}/>
+            </button>
+            <button
               title="Drag and drop to move widget around"
               className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
-            >
+              >
               <FontAwesome name='arrows' style={{'fontSize':'13px'}}/>
             </button>
             <button
@@ -236,7 +243,7 @@ class DashboardItem extends Component {
               <FontAwesome name={staticActive ? 'lock' : 'unlock'} style={{'fontSize':'13px'}}/>
             </button>
             <button
-              title="Press to remove element"
+              title="Press to remove this widget from the dashboard."
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
               onClick={(event) => removeFromLayout(id)}
             >
