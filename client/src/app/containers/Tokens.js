@@ -17,6 +17,16 @@ const TokensQuery = gql`
       shortName
       longName
       imageUrl
+      priceUSD
+      priceBTC
+      volumeUSD24h
+      marketCapUSD
+      availableSupply
+      totalSupply
+      maxSupply
+      percentChange1h
+      percentChange24h
+      percentChange7d
     }
   }
 `;
