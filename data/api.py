@@ -178,13 +178,51 @@ class Api:
     query = { 'query': '''
       mutation {
         updateSubredditBlob(%s) {
-        id
-        name
-        blob
-        activeUserCount
-        commentCount
-        postCount
-        subscriberCount
+          id
+          name
+          blob
+          activeUserCount
+          commentCount
+          postCount
+          subscriberCount
+        }
+      }''' % params
+    }
+    return self._get_query_response(query)
+
+  def update_token(
+    self,
+    short_name,
+    price_usd,
+    price_btc,
+    volume_usd_24h,
+    market_cap_usd,
+    available_supply,
+    total_supply,
+    max_supply,
+    percent_change_1h,
+    percent_change_24h,
+    percent_change_7d
+  ):
+    params = 'shortName: "%s"' % short_name
+    params += ', priceUSD: %s' % price_usd
+    params += ', priceBTC: %s' % price_btc
+    params += ', volumeUSD24h: %s' % volume_usd_24h
+    params += ', marketCapUSD: %s' % market_cap_usd
+    params += ', availableSupply: %s' % available_supply
+    params += ', totalSupply: %s' % total_supply
+    params += ', maxSupply: %s' % max_supply
+    params += ', percentChange1h: %s' % percent_change_1h
+    params += ', percentChange24h: %s' % percent_change_24h
+    params += ', percentChange7d: %s' % percent_change_7d
+    params = self._inject_api_key(params)
+
+    query = { 'query': '''
+      mutation {
+        updateToken(%s) {
+          id
+          shortName
+          priceUSD
         }
       }''' % params
     }
