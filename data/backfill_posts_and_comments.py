@@ -58,8 +58,6 @@ def backfill_posts_and_comments(subreddit_name, praw_subreddit, start, end):
               logger.info('Request exception after 10 tries')
               raise Exception('Request exception after 10 tries')
 
-        post_comments = post.comments.list()
-
         db = SQLite3Database('comments.db')
         last_created_utc = None
 
