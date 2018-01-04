@@ -205,26 +205,22 @@ puts 'Seeding tokens and keywords...'
 
 token_infos = [
   {
-    long_name: 'Satoshi',
-    short_name: 'SAT',
-    image_url: 'https://bitcoin.org/img/icons/opengraph.png',
-    website: 'https://www.bitcoin.com',
-    keywords: ['SAT', 'Satoshi'],
-  },
-  {
-    long_name: 'Nakamoto',
-    short_name: 'NAK',
-    image_url: 'https://bitcoin.org/img/icons/opengraph.png',
-    website: 'https://www.bitcoin.com',
-    keywords: ['NAK', 'Nakamotos'],
-  },
-  {
     short_name: 'BTC',
     long_name: 'Bitcoin',
     image_url: 'https://bitcoin.org/img/icons/opengraph.png',
     website: 'https://www.bitcoin.com',
     keywords: ['BTC', 'Bitcoin'],
     markets: ['USD-BTC', 'USDT-BTC'],
+    price_usd: 14543.78,
+    price_btc: 1.0,
+    volume_usd_24h: 18966300000,
+    market_cap_usd: 251403067744,
+    available_supply: 16781237,
+    total_supply: 16781237,
+    max_supply: 21000000,
+    percent_change_1h: 7.4,
+    percent_change_24h: -5.8,
+    percent_change_7d: 23.6,
   },
   {
     short_name: 'ETH',
@@ -307,14 +303,6 @@ Market.all.each do |market|
 end
 
 subreddit_tokens = [
-  # {
-  #   subreddit_id: Subreddit.find_by(name: 'Satoshi').id,
-  #   token_id: Token.find_by(long_name: 'Satoshi').id,
-  # },
-  # {
-  #   subreddit_id: Subreddit.find_by(name: 'SatoshiTrader').id,
-  #   token_id: Token.find_by(long_name: 'Satoshi').id,
-  # },
   {
     subreddit_id: Subreddit.find_by(name: 'Bitcoin').id,
     token_id: Token.find_by(long_name: 'Bitcoin').id,
