@@ -414,6 +414,80 @@ module Types
       }
     end
 
+    field :updateToken, Types::TokenType do
+      description 'Updates columns of token'
+
+      argument :apiKey, !types.String
+      argument :shortName, !types.String
+      argument :priceUSD, types.Float
+      argument :priceBTC, types.Float
+      argument :volumeUSD24h, types.Float
+      argument :marketCapUSD, types.Float
+      argument :availableSupply, types.Float
+      argument :totalSupply, types.Float
+      argument :maxSupply, types.Float
+      argument :percentChange1h, types.Float
+      argument :percentChange24h, types.Float
+      argument :percentChange7d, types.Float
+
+      resolve -> (obj, args, ctx) {
+        puts 'hello'
+        if QueryHelper::api_key_invalid?(args[:apiKey])
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
+        token = Token.find_by_short_name(args[:shortName])
+
+        puts 'hello'
+        if token.nil?
+          return GraphQL::ExecutionError.new(
+            "No token found for given short name"
+          )
+        end
+
+        if !args[:priceUSD].nil?
+          token.price_usd = args[:priceUSD]
+        end
+        if !args[:priceBTC].nil?
+          token.price_btc = args[:priceBTC]
+        end
+        if !args[:volumeUSD24h].nil?
+          token.volume_usd_24h = args[:volumeUSD24h]
+        end
+        if !args[:marketCapUSD].nil?
+          token.market_cap_usd = args[:marketCapUSD]
+        end
+        if !args[:availableSupply].nil?
+          token.available_supply = args[:availableSupply]
+        end
+        if !args[:totalSupply].nil?
+          token.total_supply = args[:totalSupply]
+        end
+        if !args[:maxSupply].nil?
+          token.max_supply = args[:maxSupply]
+        end
+        if !args[:percentChange1h].nil?
+          token.percent_change_1h = args[:percentChange1h]
+        end
+        if !args[:percentChange24h].nil?
+          token.percent_change_24h = args[:percentChange24h]
+        end
+        if !args[:percentChange7d].nil?
+          token.percent_change_7d = args[:percentChange7d]
+        end
+
+        if token.changed?
+          if token.save
+            token
+          else
+            return GraphQL::ExecutionError.new('Could not save token')
+          end
+        else
+          token
+        end
+      }
+    end
+
     field :createMarket, Types::MarketType do
       description 'Creates a market'
 
