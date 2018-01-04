@@ -93,6 +93,27 @@ class TokenHead extends PureComponent {
                 >
                   {market.lastPrice}
                 </El>
+                <El
+                  nightMode={nightMode}
+                  type={'span'}
+                >
+                  Trading Volume (24h): + Rank
+                  (change in volume percent in last week)
+                </El>
+                <El
+                  nightMode={nightMode}
+                  type={'span'}
+                >
+                  Market Cap + Rank
+                  (change in mcap percent in last week)
+                </El>
+                <El
+                  nightMode={nightMode}
+                  type={'span'}
+                >
+                  Market Dominance + Rank
+                  (change in dominance percent in last week)
+                </El>
               </div>
             ))
           }

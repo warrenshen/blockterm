@@ -62,8 +62,13 @@ const styles = StyleSheet.create({
   nightResizeButton: {
     color: '#fff',
   },
+  lockedElement: {
+    opacity: '0.5',
+    pointerEvents: 'none',
+  },
   lockedResize: {
-    opacity: '0.33',
+    opacity: '0.4',
+    pointerEvents: 'none',
   },
   grabBar: {
     zIndex: '2',
@@ -218,17 +223,17 @@ class DashboardItem extends Component {
           </div>
           <div className={css(styles.rightAlignSmall)}>
             <button
+              title="Drag and drop to move widget around"
+              className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
+            >
+              <FontAwesome name='arrows' style={{'fontSize':'13px'}}/>
+            </button>
+            <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
               onClick={(event) => updateLayoutItem(id, !staticActive)}
               title="Lock and unlock element position and sizing"
             >
               <FontAwesome name={staticActive ? 'lock' : 'unlock'} style={{'fontSize':'13px'}}/>
-            </button>
-            <button
-              title="Drag and drop to move widget around"
-              className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-            >
-              <FontAwesome name='arrows' style={{'fontSize':'13px'}}/>
             </button>
             <button
               title="Press to remove element"
