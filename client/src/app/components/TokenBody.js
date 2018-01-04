@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '500px',
     border: 'none',
+    marginBottom: '20px',
   },
   nightFrame: {
     backgroundColor: '#000',
