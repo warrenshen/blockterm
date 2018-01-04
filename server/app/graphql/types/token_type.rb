@@ -7,6 +7,17 @@ module Types
     field :longName, !types.String, property: :long_name
     field :imageUrl, !types.String, property: :image_url
     field :website, !types.String
+    field :priceUSD, !types.Float, property: :price_usd
+    field :priceBTC, !types.Float, property: :price_btc
+    field :volumeUSD24h, !types.Float, property: :volume_usd_24h
+    field :marketCapUSD, !types.Float, property: :market_cap_usd
+    field :availableSupply, !types.Float, property: :available_supply
+    field :totalSupply, !types.Float, property: :total_supply
+    field :maxSupply, !types.Float, property: :max_supply
+    field :percentChange1h, !types.Float, property: :percent_change_1h
+    field :percentChange24h, !types.Float, property: :percent_change_24h
+    field :percentChange7d, !types.Float, property: :percent_change_7d
+
     field :earliestMentionCountDate, types.String do
       description 'The date time of earliest mention count associated with token'
 
