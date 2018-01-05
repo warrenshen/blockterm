@@ -51,7 +51,6 @@ def create_counts_for_subreddit(subreddit_name, start, end):
 
   return 'errors' not in post_response and 'errors' not in comment_response
 
-# Note that `api` refers to Rails API and `praw` refers to Reddit API.
 def run_for_subreddit(subreddit_name):
   api_subreddit = get_subreddit_by_name(subreddit_name)
   if not api_subreddit:
