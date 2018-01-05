@@ -407,7 +407,7 @@ Token.all.each do |token|
   keywords = token.keywords
 
   keywords.each do |keyword|
-    Subreddit.first(5).each do |subreddit|
+    Subreddit.where(name: ['CryptoCurrency', 'CryptoMarkets']).each do |subreddit|
       today = DateTime.now.beginning_of_day
 
       for i in (-90..0)
