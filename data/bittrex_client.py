@@ -110,14 +110,14 @@ class BittrexClientRunner:
     if self.debug:
       print('[INFO] Data committed to sqlite database {}'.format('market_tickers.db'))
 
-    for _, summary in self.client.market_summaries.items():
-      pst_timestamp = datetime_string_utc_to_pst(summary['TimeStamp'], '%Y-%m-%dT%H:%M:%S.%f')
-      if summary['MarketName'] in self.market_id_map:
-        self.api.create_market_ticker(
-          self.market_id_map[summary['MarketName']],
-          summary['Last'],
-          pst_timestamp
-        )
+    # for _, summary in self.client.market_summaries.items():
+    #   pst_timestamp = datetime_string_utc_to_pst(summary['TimeStamp'], '%Y-%m-%dT%H:%M:%S.%f')
+    #   if summary['MarketName'] in self.market_id_map:
+    #     self.api.create_market_ticker(
+    #       self.market_id_map[summary['MarketName']],
+    #       summary['Last'],
+    #       pst_timestamp
+    #     )
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='Get market tickers', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
