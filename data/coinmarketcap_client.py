@@ -91,7 +91,7 @@ class CoinmarketcapClient:
 
   def run(self):
     self._get_globals()
-    self._get_tickers()
+    # self._get_tickers()
 
 if __name__ == '__main__':
   logger.info('Starting coinmarketcap script...')
