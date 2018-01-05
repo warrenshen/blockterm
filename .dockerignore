@@ -15,8 +15,6 @@ server/tmp/*
 # Ignore Byebug command history file.
 server/.byebug_history
 
-server/challenge/challenge
-
 client/node_modules/
 client/.vscode/
 client/.idea/
