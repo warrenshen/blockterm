@@ -104,7 +104,7 @@ def run_for_subreddit(subreddit_name):
 
   start_date = api_subreddit['startDate']
 
-  for unix_timestamp in unix_timestamps_until_today('2017-12-30', '%Y-%m-%d'):
+  for unix_timestamp in unix_timestamps_until_today(start_date, '%Y-%m-%d'):
     backfill_posts_and_comments(
       subreddit_name,
       praw_subreddit,
