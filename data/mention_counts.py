@@ -1,7 +1,6 @@
 from api import Api
 from database import SQLite3Database
 from logger import logger
-from subreddits import SUBREDDITS
 from utils import unix_timestamp_today, unix_timestamp_to_datetime_string
 
 ONE_DAY = 86400
@@ -36,6 +35,11 @@ def create_mention_counts_for_subreddit(subreddit_name, keyword_id_to_words, sta
       mention_count,
       datetime_string
     )
+
+SUBREDDITS = [
+  'CryptoCurrency',
+  'CryptoMarkets',
+]
 
 for subreddit_name in SUBREDDITS:
     # End timestamp is start of today, since we are getting mention count for yesterday.
