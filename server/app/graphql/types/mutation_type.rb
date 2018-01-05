@@ -431,18 +431,21 @@ module Types
       argument :percentChange7d, types.Float
 
       resolve -> (obj, args, ctx) {
-        puts 'hello'
         if QueryHelper::api_key_invalid?(args[:apiKey])
           return GraphQL::ExecutionError.new('Invalid api key')
         end
 
         token = Token.find_by_short_name(args[:shortName])
 
-        puts 'hello'
         if token.nil?
-          return GraphQL::ExecutionError.new(
-            "No token found for given short name"
+          token = Token.create(
+            short_name: args[:shortName],
+            long_name: args[:shortName],
           )
+
+          if !token.valid?
+            return GraphQL::ExecutionError.new('Could not create new token')
+          end
         end
 
         if !args[:priceUSD].nil?

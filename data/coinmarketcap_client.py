@@ -1,5 +1,6 @@
 import json
 import requests
+import time
 
 from api import Api
 from base_client_runner import Client
@@ -59,8 +60,14 @@ class CoinmarketcapClient:
       logger.info('Something went wrong with fetching market tickers')
       return
 
+    db = SQLite3Database('cmc_tickers.db')
+
     # [{'id': 'bitcoin', 'name': 'Bitcoin', ... }, { ... }]
     for token_dict in result:
+      timestamp = int(token_dict['last_updated'])
+      datetime_string = unix_timestamp_to_datetime_string(timestamp)
+      db.insert_cmc_ticker(str(result), timestamp)
+
       response = self.api.update_token(
         token_dict['symbol'],
         token_dict['price_usd'],
@@ -75,8 +82,12 @@ class CoinmarketcapClient:
         token_dict['percent_change_7d']
       )
 
-      if 'errors' in response:
-        logger.info('Something went wrong with saving market ticker: %s' % response['errors'])
+      time.sleep(0.025)
+
+    db.close()
+
+    if 'errors' in response:
+      logger.info('Something went wrong with saving market ticker: %s' % response['errors'])
 
   def run(self):
     self._get_globals()
