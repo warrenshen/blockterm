@@ -172,21 +172,33 @@ module Types
           subreddit_id = subreddit.id
         end
 
+        keyword_id = args[:keywordId]
         timestamp = QueryHelper::localize_timestamp(args[:timestamp])
 
-        mention_count = MentionCount.create(
-          keyword_id: args[:keywordId],
+        existing_mention_count = MentionCount.find_by(
+          keyword_id: keyword_id,
           subreddit_id: subreddit_id,
-          count: args[:count],
           timestamp: timestamp,
         )
 
-        if mention_count.valid?
-          mention_count
-        else
-          return GraphQL::ExecutionError.new(
-            'Failed to create mention count'
+        if existing_mention_count.nil?
+          mention_count = MentionCount.create(
+            keyword_id: keyword_id,
+            subreddit_id: subreddit_id,
+            count: args[:count],
+            timestamp: timestamp,
           )
+
+          if mention_count.valid?
+            mention_count
+          else
+            return GraphQL::ExecutionError.new(
+              'Failed to create mention count'
+            )
+          end
+        else
+          existing_mention_count.update_attribute(:count, args[:count])
+          existing_mention_count
         end
       }
     end
