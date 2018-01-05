@@ -16,7 +16,7 @@ job.minute.every(5)
 cron_tab.write()
 
 job = cron_tab.new(command=get_command_for_script('sync_markets.py %s/config.yaml' % SRC_PATH))
-job.minute.every(1)
+job.minute.every(2)
 cron_tab.write()
 
 job = cron_tab.new(command=get_command_for_script('sync_blob_and_comments.py'))
