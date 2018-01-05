@@ -36,7 +36,7 @@ class Subreddit < ApplicationRecord
   end
 
   def display_name
-    '/r/' + name
+    'r/' + name
   end
 
   def subreddit_blob

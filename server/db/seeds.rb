@@ -125,6 +125,10 @@ subreddit_infos = [
     start_date: '2017-08-17',
   },
   {
+    name: 'enigmacatalyst',
+    start_date: '2017-06-05',
+  },
+  {
     name: 'ethereum',
     start_date: '2013-12-14',
   },
