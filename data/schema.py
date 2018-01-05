@@ -16,6 +16,17 @@ db.close()
 
 ########################################
 
+db = SQLite3Database('cmc_tickers.db')
+db.execute('''
+  CREATE TABLE IF NOT EXISTS cmc_tickers (
+    blob string,
+    last_updated int
+  )
+''')
+db.close()
+
+########################################
+
 db = SQLite3Database('comments.db')
 db.execute('''
     CREATE TABLE IF NOT EXISTS comments (

@@ -127,9 +127,33 @@ class SQLite3Database:
     except:
       return False
 
+
+  def insert_cmc_ticker(self, blob, last_updated):
+    assert self.db_name == 'cmc_tickers.db'
+
+    try:
+      self.execute(
+        '''
+        INSERT INTO cmc_tickers (
+          blob,
+          last_updated
+        ) VALUES (?, ?)
+        ''',
+        (blob, last_updated)
+      )
+    except Exception as e:
+      print('Database insertion error: {}'.format(e))
+      return False
+
+    try:
+      self.conn.commit()
+      return True
+    except:
+      return False
+
   def insert_total_ticker(self, blob, last_updated):
     assert self.db_name == 'total_market_caps.db'
-    print(blob)
+
     try:
       self.execute(
         '''

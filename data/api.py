@@ -205,16 +205,26 @@ class Api:
     percent_change_7d
   ):
     params = 'shortName: "%s"' % short_name
-    params += ', priceUSD: %s' % price_usd
-    params += ', priceBTC: %s' % price_btc
-    params += ', volumeUSD24h: %s' % volume_usd_24h
-    params += ', marketCapUSD: %s' % market_cap_usd
-    params += ', availableSupply: %s' % available_supply
-    params += ', totalSupply: %s' % total_supply
-    params += ', maxSupply: %s' % max_supply
-    params += ', percentChange1h: %s' % percent_change_1h
-    params += ', percentChange24h: %s' % percent_change_24h
-    params += ', percentChange7d: %s' % percent_change_7d
+    if price_usd:
+      params += ', priceUSD: %s' % price_usd
+    if price_btc:
+      params += ', priceBTC: %s' % price_btc
+    if volume_usd_24h:
+      params += ', volumeUSD24h: %s' % volume_usd_24h
+    if market_cap_usd:
+      params += ', marketCapUSD: %s' % market_cap_usd
+    if available_supply:
+      params += ', availableSupply: %s' % available_supply
+    if total_supply:
+      params += ', totalSupply: %s' % total_supply
+    if max_supply:
+      params += ', maxSupply: %s' % max_supply
+    if percent_change_1h:
+      params += ', percentChange1h: %s' % percent_change_1h
+    if percent_change_24h:
+      params += ', percentChange24h: %s' % percent_change_24h
+    if percent_change_7d:
+      params += ', percentChange7d: %s' % percent_change_7d
     params = self._inject_api_key(params)
 
     query = { 'query': '''
