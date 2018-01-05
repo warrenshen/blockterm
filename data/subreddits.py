@@ -9,6 +9,7 @@ SUBREDDITS = [
   'CryptoMarkets',
   'dogecoin',
   'Electroneum',
+  'enigmacatalyst',
   'ethereum',
   'gridcoin',
   'groestlcoin',
