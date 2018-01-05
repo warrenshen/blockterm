@@ -64,7 +64,12 @@ class CoinmarketcapClient:
 
     # [{'id': 'bitcoin', 'name': 'Bitcoin', ... }, { ... }]
     for token_dict in result:
-      timestamp = int(token_dict['last_updated'])
+      str_timestamp = token_dict['last_updated']
+      if str_timestamp is None:
+        continue
+      else:
+        timestamp = int(str_timestamp)
+
       datetime_string = unix_timestamp_to_datetime_string(timestamp)
       db.insert_cmc_ticker(str(result), timestamp)
 
@@ -82,7 +87,7 @@ class CoinmarketcapClient:
         token_dict['percent_change_7d']
       )
 
-      time.sleep(0.025)
+      time.sleep(0.01)
 
     db.close()
 
@@ -91,7 +96,7 @@ class CoinmarketcapClient:
 
   def run(self):
     self._get_globals()
-    # self._get_tickers()
+    self._get_tickers()
 
 if __name__ == '__main__':
   logger.info('Starting coinmarketcap script...')
