@@ -24,7 +24,7 @@ module Types
       description 'Gets all subreddits'
 
       resolve -> (obj, args, ctx) {
-        Subreddit.all.order(subscriber_count: :desc)
+        Subreddit.all.order(active_user_count: :desc)
       }
     end
 

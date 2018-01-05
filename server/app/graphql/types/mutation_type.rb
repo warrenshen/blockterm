@@ -455,7 +455,12 @@ module Types
             long_name: args[:shortName],
           )
 
-          if !token.valid?
+          keyword = Keyword.create(
+            token_id: token.id,
+            word: args[:shortName],
+          )
+
+          if !token.valid? || !keyword.valid?
             return GraphQL::ExecutionError.new('Could not create new token')
           end
         end
