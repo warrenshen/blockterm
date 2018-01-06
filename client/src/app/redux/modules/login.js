@@ -4,6 +4,7 @@
   constants
  ------------------------------------------*/
 const CHANGE_EMAIL = 'CHANGE_EMAIL';
+const CHANGE_ERROR = 'CHANGE_ERROR';
 const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
 
 /* -----------------------------------------
@@ -11,6 +12,7 @@ const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
  ------------------------------------------*/
 const initialState = {
   email: '',
+  error: null,
   password: '',
 };
 
@@ -22,10 +24,17 @@ export default function(state = initialState, action)
       return {
         ...state,
         email: action.value,
+        error: null,
+      };
+    case CHANGE_ERROR:
+      return {
+        ...state,
+        error: action.value,
       };
     case CHANGE_PASSWORD:
       return {
         ...state,
+        error: null,
         password: action.value,
       };
     default:
@@ -37,6 +46,14 @@ export function changeEmail(value)
 {
   return {
     type: CHANGE_EMAIL,
+    value: value,
+  };
+}
+
+export function changeError(value)
+{
+  return {
+    type: CHANGE_ERROR,
     value: value,
   };
 }
