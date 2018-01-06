@@ -169,13 +169,17 @@ class Login extends PureComponent {
   submit(event)
   {
     event.preventDefault();
+
     const {
       email,
       logIn,
       password,
+
+      changeError,
     } = this.props;
 
-    logIn(email, password);
+    logIn(email, password)
+      .catch((error) => changeError(error.graphQLErrors[0].message));
   }
 
   render()
@@ -184,6 +188,7 @@ class Login extends PureComponent {
       changeEmail,
       changePassword,
       email,
+      error,
       password,
       nightMode,
     } = this.props;
@@ -193,9 +198,11 @@ class Login extends PureComponent {
         <div className={css(styles.mainContent)}>
           <div className={css(styles.loginPanel, nightMode && styles.panelsNight)}>
             <div className={css(styles.halfPanel)}>
-              <El style={styles.boldedBottomHeavy}
-                  nightMode={nightMode}
-                  type={'h4'}>
+              <El
+                style={styles.boldedBottomHeavy}
+                nightMode={nightMode}
+                type={'h4'}
+              >
                   Login to your account:
               </El>
               <input
@@ -214,6 +221,14 @@ class Login extends PureComponent {
                 required='required'
                 value={password}
               />
+              {error && (
+                <El
+                  nightMode={nightMode}
+                  type={'span'}
+                >
+                  {error}
+                </El>
+              )}
               <div className={css(styles.row)}>
                 <div className={css(styles.section)}>
                   <input

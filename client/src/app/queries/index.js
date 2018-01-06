@@ -164,7 +164,7 @@ export const CreateUserMutationOptions = {
         }
       );
     },
-  })
+  }),
 };
 
 export const DestroyDashboardItemMutation = gql`
@@ -248,16 +248,16 @@ export const LogInMutationOptions = {
       })
       .then(
         (response) => {
-          return Promise.resolve();
+          return Promise.resolve(response);
         }
       )
       .catch(
         (error) => {
-          return Promise.reject();
+          return Promise.reject(error);
         }
       );
     }
-  })
+  }),
 };
 
 export const UpdateDashboardItemMutation = gql`

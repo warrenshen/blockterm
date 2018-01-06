@@ -18,6 +18,7 @@ import * as loginActions      from '../redux/modules/login';
 const mapStateToProps = (state) => {
   return {
     email: state.login.email,
+    error: state.login.error,
     password: state.login.password,
     nightMode: state.globals.nightMode,
   };
@@ -27,6 +28,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       changeEmail: loginActions.changeEmail,
+      changeError: loginActions.changeError,
       changePassword: loginActions.changePassword,
     },
     dispatch
