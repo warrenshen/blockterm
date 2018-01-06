@@ -48,8 +48,10 @@ data/configs.py
 data/secrets.py
 data/.ipynb_checkpoints/
 data/*.pyc
-data/dbs/
-data/logs/
+data/dbs/*.db
+!data/dbs/.keep
+data/logs/*.log
+!data/logs/.keep
 
 # Other
 
