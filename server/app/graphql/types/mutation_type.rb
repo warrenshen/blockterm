@@ -630,9 +630,9 @@ module Types
             result = command.result
             return Auth.new(result[:user], result[:auth_token])
           end
+        else
+          return GraphQL::ExecutionError.new(user.errors.full_messages)
         end
-
-        return GraphQL::ExecutionError.new('Failed to create user')
       }
     end
 
