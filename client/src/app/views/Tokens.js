@@ -8,6 +8,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
 import El from '../components/El';
 import Sidebar from '../components/Sidebar';
+import numeral             from 'numeral';
 import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
@@ -66,6 +67,10 @@ const styles = StyleSheet.create({
   image: {
     marginRight: '8px',
   },
+  element: {
+    padding: '12px',
+    borderBottom: `1px solid #ccc`,
+  },
 });
 
 class Tokens extends PureComponent {
@@ -87,35 +92,79 @@ class Tokens extends PureComponent {
 
     return (
       <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
-        {
-          tokens.map((token, index) => {
-            return (
-              <tr className={css(styles.row)} key={token.id}>
-                <td className={css(styles.element)}>
-                  <El
-                    nightMode={nightMode}
-                    type={'span'}
-                  >
-                    {index + 1}
-                  </El>
-                </td>
-                <td className={css(styles.element)}>
-                  <img className={css(styles.image)} src={token.imageUrl} width={36} height={36}></img>
-                </td>
-                <td className={css(styles.element)}>
-                  <Link to={`/token/${token.shortName}`}>
+        <table className={css(styles.table)}>
+          <tbody>
+          {
+            tokens.map((token, index) => {
+              return (
+                <tr className={css(styles.row)} key={token.id}>
+                  <td className={css(styles.element)}>
                     <El
                       nightMode={nightMode}
-                      type={'h4'}
+                      type={'span'}
                     >
-                      {token.longName}
+                      {index + 1}
                     </El>
-                  </Link>
-                </td>
-              </tr>
-            );
-          })
-        }
+                  </td>
+                  <td className={css(styles.element)}>
+                    <img className={css(styles.image)} src={token.imageUrl} width={36} height={36}></img>
+                  </td>
+                  <td className={css(styles.element)}>
+                    <Link to={`/token/${token.shortName}`}>
+                      <El
+                        nightMode={nightMode}
+                        type={'h4'}
+                      >
+                        {token.longName}
+                      </El>
+                    </Link>
+                  </td>
+                  <td className={css(styles.element)}>
+                    <El
+                        nightMode={nightMode}
+                        type={'h4'}
+                    >
+                      {numeral(token.priceUSD).format('$0,0.00')}
+                    </El>
+                  </td>
+                  <td className={css(styles.element)}>
+                    <El
+                        nightMode={nightMode}
+                        type={'h4'}
+                    >
+                      {numeral(token.volumeUSD24h).format('$0,0')}
+                    </El>
+                  </td>
+                  <td className={css(styles.element)}>
+                    <El
+                        nightMode={nightMode}
+                        type={'h4'}
+                    >
+                      {numeral(token.marketCapUSD).format('$0,0')}
+                    </El>
+                  </td>
+                  <td className={css(styles.element)}>
+                    <El
+                        nightMode={nightMode}
+                        type={'h4'}
+                    >
+                      {token.availableSupply}%
+                    </El>
+                  </td>
+                  <td className={css(styles.element)}>
+                    <El
+                        nightMode={nightMode}
+                        type={'h4'}
+                    >
+                      {token.percentChange24h}%
+                    </El>
+                  </td>
+                </tr>
+              );
+            })
+          }
+          </tbody>
+        </table>
       </div>
     );
   }
