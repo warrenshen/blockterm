@@ -8,7 +8,7 @@ import El from './El';
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: '6px',
+    paddingTop: '4px',
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -35,7 +35,7 @@ const SubredditWidget = ({
     <div className={css(styles.container, styles.sideSpacing)}>
       <img src={subreddit.imageUrl} width={48} height={48}></img>
       <Link to={`/subreddit/${subreddit.name}`}>
-        <El nightMode={nightMode} type={'span'}>
+        <El nightMode={nightMode} type={'h5'}>
           {subreddit.displayName}
         </El>
       </Link>
