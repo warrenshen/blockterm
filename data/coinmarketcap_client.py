@@ -1,3 +1,4 @@
+import argparse
 import json
 import requests
 import time
@@ -22,7 +23,7 @@ class CoinmarketcapClient:
       print('Failure with error message {}'.format(e))
     return result
 
-  def _get_globals(self):
+  def _get_global(self):
     target_url = 'https://api.coinmarketcap.com/v1/global/'
     result = self._curl_result(target_url)
 
@@ -71,7 +72,7 @@ class CoinmarketcapClient:
         timestamp = int(str_timestamp)
 
       datetime_string = unix_timestamp_to_datetime_string(timestamp)
-      db.insert_cmc_ticker(str(result), timestamp)
+      db.insert_cmc_ticker(str(token_dict), timestamp)
 
       response = self.api.update_token(
         token_dict['symbol'],
@@ -94,12 +95,30 @@ class CoinmarketcapClient:
     if 'errors' in response:
       logger.info('Something went wrong with saving market ticker: %s' % response['errors'])
 
-  def run(self):
-    self._get_globals()
+  def run_global(self):
+    self._get_global()
+
+  def run_tickers(self):
     self._get_tickers()
 
 if __name__ == '__main__':
+  parser = argparse.ArgumentParser(description='Collection coinmarketcap data', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+  parser.add_argument(
+    '-t',
+    dest='type',
+    help='What type of data to collect',
+    required=True,
+    type=str
+  )
+  args = parser.parse_args()
+
   logger.info('Starting coinmarketcap script...')
   client = CoinmarketcapClient()
-  client.run()
+
+  if args.type == 'global':
+    client.run_global()
+  elif args.type == 'tickers':
+    client.run_tickers()
+  else:
+    raise Exception('Invalid type argument')
   logger.info('Ending coinmarketcap script...')
