@@ -25,9 +25,6 @@ server/*.orig
 server/rerun.txt
 server/pickle-email-*.html
 
-server/challenge/challenge
-server/key/keyfile.pem
-
 .env
 
 /.bundle
@@ -51,8 +48,8 @@ data/configs.py
 data/secrets.py
 data/.ipynb_checkpoints/
 data/*.pyc
-data/*.db
-data/*.log
+data/dbs/
+data/logs/
 
 # Other
 
