@@ -155,10 +155,12 @@ class Signup extends PureComponent {
       email,
       password,
 
+      changeError,
       createUser,
     } = this.props;
 
-    createUser(email, password);
+    createUser(email, password)
+      .catch((error) => changeError(error.graphQLErrors[0].message));;
   }
 
   render()
@@ -167,6 +169,7 @@ class Signup extends PureComponent {
       changeEmail,
       changePassword,
       email,
+      error,
       password,
       nightMode,
     } = this.props;
@@ -201,6 +204,14 @@ class Signup extends PureComponent {
                   required="required"
                   value={password}
                 />
+                {error && (
+                  <El
+                    nightMode={nightMode}
+                    type={'span'}
+                  >
+                    {error}
+                  </El>
+                )}
                 <div className={css(styles.row)}>
                   <div className={css(styles.section)}>
                     <input

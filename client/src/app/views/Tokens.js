@@ -85,7 +85,6 @@ class Tokens extends PureComponent {
 
   renderTokens(tokens)
   {
-    console.log(tokens);
     const {
       nightMode,
     } = this.props;
