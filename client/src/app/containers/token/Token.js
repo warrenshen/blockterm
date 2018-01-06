@@ -25,6 +25,16 @@ const query = gql`
       longName
       imageUrl
       website
+      priceUSD
+      priceBTC
+      volumeUSD24h
+      marketCapUSD
+      availableSupply
+      totalSupply
+      maxSupply
+      percentChange1h
+      percentChange24h
+      percentChange7d
 
       markets {
         id

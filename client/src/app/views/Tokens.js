@@ -57,9 +57,11 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: '10px',
-    display: 'flex',
     alignItems: 'center',
     borderBottom: '1px solid #ccc',
+    display: 'flex',
+    flex: '1',
+    flexDirection: 'row',
   },
   image: {
     marginRight: '8px',
@@ -84,36 +86,36 @@ class Tokens extends PureComponent {
     } = this.props;
 
     return (
-      <div>
-        <div className={css(styles.header)}>
-          <El
-            nightMode={nightMode}
-            type={'h3'}
-          >
-            Coins
-          </El>
-        </div>
-        <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
-          <ul className={css(styles.list)}>
-            {
-              tokens.map((token) => {
-                return (
-                  <li className={css(styles.item)} key={token.id}>
-                    <img className={css(styles.image)} src={token.imageUrl} width={36} height={36}></img>
-                    <Link to={`/token/${token.shortName}`}>
-                      <El
-                        nightMode={nightMode}
-                        type={'h4'}
-                      >
-                        {token.longName}
-                      </El>
-                    </Link>
-                  </li>
-                );
-              })
-            }
-          </ul>
-        </div>
+      <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
+        {
+          tokens.map((token, index) => {
+            return (
+              <tr className={css(styles.row)} key={token.id}>
+                <td className={css(styles.element)}>
+                  <El
+                    nightMode={nightMode}
+                    type={'span'}
+                  >
+                    {index + 1}
+                  </El>
+                </td>
+                <td className={css(styles.element)}>
+                  <img className={css(styles.image)} src={token.imageUrl} width={36} height={36}></img>
+                </td>
+                <td className={css(styles.element)}>
+                  <Link to={`/token/${token.shortName}`}>
+                    <El
+                      nightMode={nightMode}
+                      type={'h4'}
+                    >
+                      {token.longName}
+                    </El>
+                  </Link>
+                </td>
+              </tr>
+            );
+          })
+        }
       </div>
     );
   }
@@ -127,6 +129,14 @@ class Tokens extends PureComponent {
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         <div className={css(styles.mainContent)}>
+          <div className={css(styles.header)}>
+            <El
+              nightMode={nightMode}
+              type={'h3'}
+            >
+              Coins
+            </El>
+          </div>
           {
             data.allTokens &&
             this.renderTokens(data.allTokens)

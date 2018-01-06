@@ -21,6 +21,7 @@ import {
 import BarChartWithSelect  from './BarChartWithSelect';
 import LineChartWithSelect from './LineChartWithSelect';
 import El                  from './El';
+import Select from 'react-select';
 import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
@@ -38,7 +39,7 @@ const styles = StyleSheet.create({
   },
   section: {
     width: '100%',
-    paddingTop: '24px',
+    paddingTop: '4px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
     paddingTop: '12px',
   },
   sectionHeader: {
+    paddingTop: '0px',
     marginBottom: '8px',
     borderBottom: '1px solid #bdc3c7',
   },
@@ -58,6 +60,15 @@ const styles = StyleSheet.create({
   },
   nightFrame: {
     backgroundColor: '#000',
+  },
+  row: {
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  column: {
+    flex:'1',
+    flexDirection: 'column',
   },
 });
 
@@ -188,11 +199,37 @@ class TokenBody extends PureComponent {
     ;
 
     return (
-      <iframe
-        scrolling="no"
-        className={css(styles.frame, nightMode && styles.nightFrame)}
-        src={url}
-      />
+      <div className={css(styles.section)}>
+        <div className={css(styles.row)}>
+          <div className={css(styles.column)}>
+            <Select
+              className={css(styles.select, nightMode && styles.nightSelect)}
+              clearable={false}
+              //options={selectOptions}
+              //onChange={onChange}
+              searchable={false}
+              //value={selectValue}
+            />
+          </div>
+          <div className={css(styles.column)}>
+            <Select
+              className={css(styles.select, nightMode && styles.nightSelect)}
+              clearable={false}
+              //options={selectOptions}
+              //onChange={onChange}
+              searchable={false}
+              //value={selectValue}
+            />
+          </div>
+        </div>
+        <div className={css(styles.row)}>
+          <iframe
+            scrolling="no"
+            className={css(styles.frame, nightMode && styles.nightFrame)}
+            src={url}
+          />
+        </div>
+      </div>
     );
   }
 
@@ -207,7 +244,6 @@ class TokenBody extends PureComponent {
       <div className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
           {this.renderTVGraph()}
-
           <El
             style={styles.sectionHeader}
             nightMode={nightMode}
