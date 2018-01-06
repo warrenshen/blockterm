@@ -187,8 +187,8 @@ class Tokens extends PureComponent {
             </El>
           </div>
           {
-            data.allTokens &&
-            this.renderTokens(data.allTokens)
+            data.tokensByPage &&
+            this.renderTokens(data.tokensByPage)
           }
         </div>
       </div>
