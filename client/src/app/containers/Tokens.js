@@ -12,7 +12,7 @@ import { graphql }            from 'react-apollo';
 
 const TokensQuery = gql`
  query {
-    allTokens {
+    tokensByPage {
       id
       shortName
       longName

@@ -20,6 +20,22 @@ module Types
       }
     end
 
+    field :allMarkets, types[Types::MarketType] do
+      description 'Gets all the markets'
+
+      resolve -> (obj, args, ctx) {
+        Market.all
+      }
+    end
+
+    field :allMarketTickers, types[Types::MarketTickerType] do
+      description 'Gets all the market tickers'
+
+      resolve -> (obj, args, ctx) {
+        MarketTicker.all
+      }
+    end
+
     field :allSubreddits, types[Types::SubredditType] do
       description 'Gets all subreddits'
 
@@ -96,19 +112,11 @@ module Types
       }
     end
 
-    field :allMarkets, types[Types::MarketType] do
-      description 'Gets all the markets'
+    field :tokensByPage, types[Types::TokenType] do
+      argument :page, types.Int
 
       resolve -> (obj, args, ctx) {
-        Market.all
-      }
-    end
-
-    field :allMarketTickers, types[Types::MarketTickerType] do
-      description 'Gets all the market tickers'
-
-      resolve -> (obj, args, ctx) {
-        MarketTicker.all
+        TokenSearch.new.results
       }
     end
 
