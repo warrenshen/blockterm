@@ -154,13 +154,12 @@ export const CreateUserMutationOptions = {
       })
       .then(
         (response) => {
-          setItem(AUTH_TOKEN_COOKIE, response.data.createUser.authToken);
-          return Promise.resolve();
+          return Promise.resolve(response);
         }
       )
       .catch(
         (error) => {
-          return Promise.reject();
+          return Promise.reject(error);
         }
       );
     },
