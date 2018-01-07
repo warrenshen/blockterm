@@ -131,13 +131,30 @@ class Dashboard extends Component {
 
     const {
       keySelectValue,
+      sidebarMode,
       valueSelectValue,
 
       addToLayout,
+      updateLayoutItem,
     } = this.props;
 
-    const identifier = generateIdentifier(keySelectValue, valueSelectValue);
-    addToLayout(identifier);
+    const newIdentifier = generateIdentifier(keySelectValue, valueSelectValue);
+
+    if (sidebarMode === 'add')
+    {
+      addToLayout(newIdentifier);
+    }
+    else if (sidebarMode === 'edit')
+    {
+      updateLayoutItem(newIdentifier, false);
+    }
+    else
+    {
+      if (process.env.NODE_ENV == 'dev')
+      {
+        console.log('Invalid sidebar mode');
+      }
+    }
   }
 
   renderValueSelect()
@@ -157,7 +174,7 @@ class Dashboard extends Component {
       }));
       return (
         <Select
-          inputProps={{'id':'widget_search_2'}}
+          inputProps={{ id: 'widget_search_2' }}
           placeholder={'Search Specific'}
           className={css(styles.select, styles.bolded)}
           optionClassName={css(styles.bolded, styles.options)}
@@ -172,7 +189,6 @@ class Dashboard extends Component {
   renderSubmit()
   {
     const {
-      createDashboardItem,
       valueSelectValue,
       nightMode,
     } = this.props;
@@ -211,8 +227,7 @@ class Dashboard extends Component {
       keySelectValue,
       nightMode,
       scrollActive,
-      sidebarActive,
-      toggleSidebar,
+      sidebarMode,
     } = this.props;
 
     const overlayStyle = {
@@ -231,6 +246,9 @@ class Dashboard extends Component {
           sidebar={
             <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
               <div className={css(styles.topHalf)}>
+                <El nightMode={nightMode} type={'h5'}>
+                  {sidebarMode === 'edit' ? 'Edit' : 'Add'}
+                </El>
                 <Select
                   inputProps={{'id': 'widget_search'}}
                   placeholder={'Search Widget Type'}
@@ -263,11 +281,11 @@ class Dashboard extends Component {
             </div>
           }
           docked={false}
-          open={sidebarActive}
+          open={sidebarMode !== null}
           pullRight={true}
           shadow={true}
           transitions={false}
-          onSetOpen={toggleSidebar}
+          // onSetOpen={toggleSidebar}
           styles={
             {
               root: {

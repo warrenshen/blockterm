@@ -107,6 +107,7 @@ class DashboardGrid extends Component {
       nightMode,
 
       changeDashboardItemState,
+      changeSidebarMode,
       destroyDashboardItem,
       removeFromLayout,
       updateLayoutItem,
@@ -124,6 +125,7 @@ class DashboardGrid extends Component {
       >
         <DashboardItem
           changeDashboardItemState={changeDashboardItemState}
+          changeSidebarMode={changeSidebarMode}
           dashboardAction={dashboardAction}
           dashboardData={dashboardData ? dashboardData[identifier] : null}
           dashboardItem={dashboardItem}

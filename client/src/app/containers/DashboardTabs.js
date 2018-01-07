@@ -27,6 +27,7 @@ const mapStateToProps = (state) => {
     dashboardPages: state.dashboard.dashboardPages,
     nightMode: state.globals.nightMode,
     selectedTab: state.dashboard.selectedTab,
+    sidebarMode: state.dashboard.sidebarMode,
     user: state.dashboard.user,
   };
 };
@@ -36,12 +37,12 @@ const mapDispatchToProps = (dispatch) => {
     {
       changeDashboardItemState: dashboardActions.changeDashboardItemState,
       changeSelectedTab: dashboardActions.changeSelectedTab,
+      changeSidebarMode: dashboardActions.changeSidebarMode,
       destroyDashboardItemLocal: dashboardActions.destroyDashboardItemLocal,
       logDashboardActionStart: dashboardActions.logDashboardActionStart,
       logDashboardActionStop: dashboardActions.logDashboardActionStop,
       saveDashboardItemsLocal: dashboardActions.saveDashboardItemsLocal,
-      toggleDashboardItemStatic: dashboardActions.toggleDashboardItemStatic,
-      toggleSidebar: globalsActions.toggleSidebar,
+      updateDashboardItemLocal: dashboardActions.updateDashboardItemLocal,
     },
     dispatch
   );
