@@ -10,6 +10,7 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import DashboardItem from '../components/DashboardItem';
 import { isIdentifierValid } from '../constants/items.js'
 import * as STYLES from '../constants/styles';
+import FontAwesome                from 'react-fontawesome';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -18,12 +19,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     minHeight: '100%',
   },
-  item: {
+  dashboardItem: {
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
     borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
+    overflow: 'hidden',
   },
   gridContainer: {
     display: 'flex',
@@ -85,6 +87,21 @@ const styles = StyleSheet.create({
       cursor: 'move',
     },
   },
+  floatingResizeButton: {
+    position: 'absolute',
+    bottom:'-2px',
+    right:'0px',
+    zIndex:'1',
+    color: '#333',
+    pointerEvents: 'none',
+  },
+  nightResizeButton: {
+    color: '#fff',
+  },
+  lockedResize: {
+    opacity: '0.4',
+    pointerEvents: 'none',
+  },
 });
 
 class DashboardGrid extends Component {
@@ -119,7 +136,7 @@ class DashboardGrid extends Component {
 
     return (
       <div
-        className={css(styles.item, nightMode && styles.nightMode)}
+        className={css(styles.dashboardItem, nightMode && styles.nightMode)}
         key={id}
       >
         <DashboardItem
@@ -134,6 +151,7 @@ class DashboardGrid extends Component {
           staticActive={dashboardItem.static}
           updateLayoutItem={updateLayoutItem}
         />
+        <FontAwesome name='caret-up' className={css(styles.floatingResizeButton, nightMode && styles.nightResizeButton, dashboardItem.static && styles.lockedResize)} style={{'transform':'rotate(135deg)'}} />
       </div>
     );
   }

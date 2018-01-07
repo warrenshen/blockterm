@@ -1,6 +1,6 @@
 import React               from 'react';
 import PropTypes           from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite/no-important';
 import Select              from 'react-select';
 import { Line }            from 'react-chartjs-2';
 import numeral             from 'numeral';
@@ -12,14 +12,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    padding: '0px 16px',
+    padding: '0px 8px',
   },
   header: {
     display: 'inline-flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    padding: '8px 0px',
+    padding: '4px 0px',
   },
   chart: {
     flex: '1',

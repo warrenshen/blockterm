@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    height: '100%',
+    flex: '1',
   },
   closeButton: {
     color: '#000',
@@ -51,23 +51,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     color: '#fff',
   },
-  floatingResizeButton: {
-    position: 'absolute',
-    bottom:'-2px',
-    right:'0px',
-    zIndex:'1',
-    color: '#333',
-    pointerEvents: 'none',
-  },
-  nightResizeButton: {
-    color: '#fff',
-  },
   lockedElement: {
     opacity: '0.5',
-    pointerEvents: 'none',
-  },
-  lockedResize: {
-    opacity: '0.4',
     pointerEvents: 'none',
   },
   grabBar: {
@@ -253,7 +238,6 @@ class DashboardItem extends Component {
         </div>
         <div className={css(styles.item)}>
           {this.renderItem(dashboardItem)}
-          <FontAwesome name='caret-up' className={css(styles.floatingResizeButton, nightMode && styles.nightResizeButton, staticActive && styles.lockedResize)} style={{'transform':'rotate(135deg)'}} />
         </div>
       </div>
     );

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '0px 0px 12px',
+    padding: '12px 0px',
   },
   headerRight: {
     display: 'flex',
