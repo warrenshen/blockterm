@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180107173348) do
+ActiveRecord::Schema.define(version: 20180107225501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20180107173348) do
     t.string   "name",       default: "", null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.index ["user_id", "index"], name: "index_dashboard_pages_on_user_id_and_index", unique: true, using: :btree
     t.index ["user_id"], name: "index_dashboard_pages_on_user_id", using: :btree
   end
 
@@ -159,6 +160,7 @@ ActiveRecord::Schema.define(version: 20180107173348) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.index ["token_id"], name: "index_token_users_on_token_id", using: :btree
+    t.index ["user_id", "index"], name: "index_token_users_on_user_id_and_index", unique: true, using: :btree
     t.index ["user_id"], name: "index_token_users_on_user_id", using: :btree
   end
 

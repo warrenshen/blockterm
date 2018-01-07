@@ -24,4 +24,7 @@
 class TokenUser < ApplicationRecord
   belongs_to :token
   belongs_to :user
+
+  validates :token_id, uniqueness: { scope: :user_id }
+  validates :index, uniqueness: { scope: :user_id }
 end
