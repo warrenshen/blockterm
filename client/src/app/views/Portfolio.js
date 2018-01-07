@@ -49,6 +49,63 @@ class Portfolio extends PureComponent
     }
   }
 
+  renderHeader()
+  {
+    const {
+      nightMode,
+    } = this.props;
+
+    return (
+      <tr className={css(styles.row)}>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Token
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Holding amount
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Price USD
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            24h change
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Holding total value
+          </El>
+        </td>
+      </tr>
+    );
+  }
+
   renderTokenUsers(tokenUsers)
   {
     const {
@@ -58,6 +115,7 @@ class Portfolio extends PureComponent
     return (
       <div className={css(styles.mainContent)}>
         <table className={css(styles.table)}>
+          {this.renderHeader()}
           <tbody>
             {
               tokenUsers.map((tokenUser) => {
@@ -104,6 +162,14 @@ class Portfolio extends PureComponent
                         type={'span'}
                       >
                         {percentChange24h}
+                      </El>
+                    </td>
+                    <td>
+                      <El
+                        nightMode={nightMode}
+                        type={'span'}
+                      >
+                        {amount * priceUSD}
                       </El>
                     </td>
                   </tr>
