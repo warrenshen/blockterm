@@ -44,6 +44,7 @@ const IDENTIFIER_KEY_TO_STATE_MAP = {
 /* -----------------------------------------
   constants
  ------------------------------------------*/
+const APOLLO_QUERY_ERROR = 'APOLLO_QUERY_ERROR';
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
 const APOLLO_QUERY_RESULT_CLIENT = 'APOLLO_QUERY_RESULT_CLIENT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
@@ -158,6 +159,8 @@ export default function(state = initialState, action)
         default:
           return state;
       }
+    case APOLLO_QUERY_ERROR:
+      return state;
     case APOLLO_QUERY_RESULT:
     case APOLLO_QUERY_RESULT_CLIENT:
       switch (action.operationName)
@@ -309,6 +312,7 @@ export default function(state = initialState, action)
       );
       oldDashboardItem = Map(oldDashboardItems.get(oldDashboardItemIndex));
       newDashboardItem = oldDashboardItem.set('static', action.value);
+      newDashboardItem = newDashboardItem.set('identifier', action.identifier);
       newDashboardItems = oldDashboardItems.set(oldDashboardItemIndex, newDashboardItem);
       newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
       newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
@@ -402,11 +406,12 @@ export function logDashboardActionStop()
   };
 }
 
-export function toggleDashboardItemStatic(id, value)
+export function toggleDashboardItemStatic(id, identifier, staticActive)
 {
   return {
     id: id,
+    identifier: identifier,
     type: TOGGLE_DASHBOARD_ITEM_STATIC,
-    value: value,
+    value: staticActive,
   }
 }

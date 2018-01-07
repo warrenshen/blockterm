@@ -177,7 +177,7 @@ class DashboardTabs extends Component {
     }
   }
 
-  updateLayoutItem(id, newStatic)
+  updateLayoutItem(id, identifier, newStatic)
   {
     const {
       dashboardPages,
@@ -195,12 +195,13 @@ class DashboardTabs extends Component {
       updateDashboardItem(
         dashboardPage.id,
         id,
+        identifier,
         newStatic,
       );
     }
     else
     {
-      toggleDashboardItemStatic(id, newStatic);
+      toggleDashboardItemStatic(id, identifier, newStatic);
     }
   }
 
@@ -265,7 +266,7 @@ class DashboardTabs extends Component {
             removeFromLayout={(id) => this.removeFromLayout(id)}
             saveLayout={(layout) => this.saveLayout(layout)}
             toggleSidebar={toggleSidebar}
-            updateLayoutItem={(id, staticActive) => this.updateLayoutItem(id, staticActive)}
+            updateLayoutItem={(id, identifier, staticActive) => this.updateLayoutItem(id, identifier, staticActive)}
           />
           <div
             className={css(styles.placeholder, nightMode && styles.nightContainer)}
