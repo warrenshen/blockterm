@@ -226,7 +226,7 @@ class Container extends PureComponent
     }
   }
 
-  updateLayoutItem(newIdentifier, staticActive)
+  updateLayoutItem(newIdentifier)
   {
     const {
       dashboardPages,
@@ -247,12 +247,12 @@ class Container extends PureComponent
         dashboardPage.id,
         sidebarDashboardItemId,
         newIdentifier,
-        staticActive,
+        null,
       );
     }
     else
     {
-      updateDashboardItemLocal(sidebarDashboardItemId, newIdentifier, staticActive);
+      updateDashboardItemLocal(sidebarDashboardItemId, newIdentifier, null);
     }
   }
 
@@ -287,7 +287,7 @@ class Container extends PureComponent
           changeKeySelectValue={changeKeySelectValue}
           changeScrollActive={changeScrollActive}
           changeValueSelectValue={changeValueSelectValue}
-          updateLayoutItem={(newIdentifier, staticActive) => this.updateLayoutItem(newIdentifier, staticActive)}
+          updateLayoutItem={(newIdentifier) => this.updateLayoutItem(newIdentifier)}
         />
       </div>
     );

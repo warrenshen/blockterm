@@ -263,8 +263,8 @@ export const UpdateDashboardItemMutation = gql`
   mutation UpdateDashboardItemMutation(
     $dashboardPageId: ID!,
     $id: ID!,
-    $identifier: String!,
-    $static: Boolean!,
+    $identifier: String,
+    $static: Boolean,
   ) {
     updateDashboardItem(
       dashboardPageId: $dashboardPageId,

@@ -715,8 +715,8 @@ module Types
 
       argument :dashboardPageId, !types.ID
       argument :id, !types.ID
-      argument :identifier, !types.String
-      argument :static, !types.Boolean
+      argument :identifier, types.String
+      argument :static, types.Boolean
 
       resolve -> (obj, args, ctx) {
         current_user = ctx[:current_user]
