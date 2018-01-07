@@ -1,7 +1,9 @@
 // @flow weak
 
 import {
+  AUTH_TOKEN_COOKIE,
   NIGHT_MODE_COOKIE,
+  clearItem,
   getItem,
   setItem,
 } from '../../services/cookie';
@@ -9,6 +11,7 @@ import {
 /* -----------------------------------------
   constants
  ------------------------------------------*/
+ const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
 const TOGGLE_NIGHT_MODE = 'TOGGLE_NIGHT_MODE';
 
 /* -----------------------------------------
@@ -33,6 +36,18 @@ export default function(state = initialState, action)
     //     ...state,
     //     sidebarActive: !state.sidebarActive,
     //   };
+    case APOLLO_QUERY_RESULT:
+      switch (action.operationName)
+      {
+        case 'UserQuery':
+          let data = action.result.data;
+          if (data && data.user === null)
+          {
+            clearItem(AUTH_TOKEN_COOKIE);
+          }
+          return state;
+      }
+      return state;
     case TOGGLE_NIGHT_MODE:
       const newNightMode = !state.nightMode;
       setItem(NIGHT_MODE_COOKIE, newNightMode);
