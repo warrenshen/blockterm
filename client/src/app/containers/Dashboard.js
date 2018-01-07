@@ -268,6 +268,7 @@ class Container extends PureComponent
 
       changeKeySelectValue,
       changeScrollActive,
+      changeSidebarMode,
       changeValueSelectValue,
     } = this.props;
 
@@ -286,6 +287,7 @@ class Container extends PureComponent
           addToLayout={(identifier) => this.addToLayout(identifier)}
           changeKeySelectValue={changeKeySelectValue}
           changeScrollActive={changeScrollActive}
+          changeSidebarMode={changeSidebarMode}
           changeValueSelectValue={changeValueSelectValue}
           updateLayoutItem={(newIdentifier) => this.updateLayoutItem(newIdentifier)}
         />

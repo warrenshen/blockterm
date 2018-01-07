@@ -257,9 +257,11 @@ export default function(state = initialState, action)
     case CHANGE_SIDEBAR_MODE:
       return {
         ...state,
+        keySelectValue: initialState.keySelectValue,
+        valueSelectValue: initialState.valueSelectValue,
         sidebarDashboardItemId: action.dashboardItemId,
         sidebarMode: action.sidebarMode,
-      }
+      };
     case CHANGE_VALUE_SELECT_VALUE:
       return {
         ...state,
