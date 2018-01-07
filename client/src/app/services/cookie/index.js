@@ -16,41 +16,63 @@ const stringify = JSON.stringify;
 export function getItem(itemKey, asString=false, fromStorage=APP_PERSIST_STORES_TYPES[0])
 {
   // localStorage:
-  if (fromStorage === APP_PERSIST_STORES_TYPES[0] && localStorage) {
-    let value = localStorage.getItem(itemKey);
+  if (fromStorage === APP_PERSIST_STORES_TYPES[0] && localStorage)
+  {
+    try
+    {
+      let value = localStorage.getItem(itemKey);
 
-    if (!asString)
-    {
-      value = parse(value);
-    }
+      if (!asString)
+      {
+        value = parse(value);
+      }
 
-    if (String(value) === 'true')
-    {
-      return true;
+      if (String(value) === 'true')
+      {
+        return true;
+      }
+      else if (String(value) === 'false')
+      {
+        return false;
+      }
+      else
+      {
+        return value || null;
+      }
     }
-    else if (String(value) === 'false')
+    catch (err)
     {
-      return false;
-    }
-    else
-    {
-      return value || null;
+      clearItem(itemKey);
     }
   }
   // sessionStorage:
-  if (fromStorage === APP_PERSIST_STORES_TYPES[1] && sessionStorage) {
-    const value = sessionStorage.getItem(itemKey);
-    if (value === 'true')
+  if (fromStorage === APP_PERSIST_STORES_TYPES[1] && sessionStorage)
+  {
+    try
     {
-      return true;
+      let value = sessionStorage.getItem(itemKey);
+
+      if (!asString)
+      {
+        value = parse(value);
+      }
+
+      if (String(value) === 'true')
+      {
+        return true;
+      }
+      else if (String(value) === 'false')
+      {
+        return false;
+      }
+      else
+      {
+        return value || null;
+      }
     }
-    else if (value == 'false')
+    catch (err)
     {
-      return false;
-    }
-    else
-    {
-      return value || null;
+      clearItem(itemKey);
     }
   }
   // default:

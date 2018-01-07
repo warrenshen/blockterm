@@ -44,6 +44,7 @@ const IDENTIFIER_KEY_TO_STATE_MAP = {
 /* -----------------------------------------
   constants
  ------------------------------------------*/
+const APOLLO_QUERY_ERROR = 'APOLLO_QUERY_ERROR';
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
 const APOLLO_QUERY_RESULT_CLIENT = 'APOLLO_QUERY_RESULT_CLIENT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
@@ -51,13 +52,17 @@ const CHANGE_DASHBOARD_ITEM_STATE = 'CHANGE_DASHBOARD_PAGE_STATE';
 const CHANGE_KEY_SELECT_VALUE = 'CHANGE_KEY_SELECT_VALUE';
 const CHANGE_SCROLL_ACTIVE = 'CHANGE_SCROLL_ACTIVE';
 const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
+const CHANGE_SIDEBAR_MODE = 'CHANGE_SIDEBAR_MODE';
 const CHANGE_VALUE_SELECT_VALUE = 'CHANGE_VALUE_SELECT_VALUE';
 const CREATE_DASHBOARD_ITEM_LOCAL = 'CREATE_DASHBOARD_ITEM_LOCAL';
 const DESTROY_DASHBOARD_ITEM_LOCAL = 'DESTROY_DASHBOARD_ITEM_LOCAL';
 const LOG_DASHBOARD_ACTION_START = 'LOG_DASHBOARD_ACTION_START';
 const LOG_DASHBOARD_ACTION_STOP = 'LOG_DASHBOARD_ACTION_STOP';
 const SAVE_DASHBOARD_ITEMS_LOCAL = 'SAVE_DASHBOARD_ITEMS_LOCAL';
-const TOGGLE_DASHBOARD_ITEM_STATIC = 'TOGGLE_DASHBOARD_ITEM_STATIC';
+const UPDATE_DASHBOARD_ITEM_LOCAL = 'UPDATE_DASHBOARD_ITEM_LOCAL';
+
+const SIDEBAR_MODE_ADD = 'SIDEBAR_MODE_ADD';
+const SIDEBAR_MODE_EDIT = 'SIDEBAR_MODE_EDIT';
 
 /* -----------------------------------------
   Reducer
@@ -69,8 +74,10 @@ const initialState = {
   dashboardItemStates: {},
   dashboardPages: [],
   keySelectValue: '',
-  selectedTab: cookieSelectedTab,
   scrollActive: false,
+  selectedTab: cookieSelectedTab,
+  sidebarDashboardItemId: null,
+  sidebarMode: null,
   user: null,
   valueSelectValue: '',
 };
@@ -99,11 +106,13 @@ export default function(state = initialState, action)
   let data;
   let dashboardItems;
   let dashboardPages;
+  let identifierKey;
   let newDashboardItem;
   let newDashboardItems;
   let newDashboardItemStates;
   let newDashboardPage;
   let newDashboardPages;
+  let newIdentifier;
   let oldDashboardItem;
   let oldDashboardItemIndex;
   let oldDashboardItems;
@@ -158,6 +167,8 @@ export default function(state = initialState, action)
         default:
           return state;
       }
+    case APOLLO_QUERY_ERROR:
+      return state;
     case APOLLO_QUERY_RESULT:
     case APOLLO_QUERY_RESULT_CLIENT:
       switch (action.operationName)
@@ -243,6 +254,14 @@ export default function(state = initialState, action)
         ...state,
         selectedTab: action.value,
       };
+    case CHANGE_SIDEBAR_MODE:
+      return {
+        ...state,
+        keySelectValue: initialState.keySelectValue,
+        valueSelectValue: initialState.valueSelectValue,
+        sidebarDashboardItemId: action.dashboardItemId,
+        sidebarMode: action.sidebarMode,
+      };
     case CHANGE_VALUE_SELECT_VALUE:
       return {
         ...state,
@@ -256,8 +275,8 @@ export default function(state = initialState, action)
       newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
       newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
 
-      const newIdentifier = newDashboardItem.identifier;
-      const identifierKey = parseIdentiferKey(newIdentifier);
+      newIdentifier = newDashboardItem.identifier;
+      identifierKey = parseIdentiferKey(newIdentifier);
       newDashboardItemStates = {
         ...state.dashboardItemStates,
         [newIdentifier]: IDENTIFIER_KEY_TO_STATE_MAP[identifierKey],
@@ -301,20 +320,38 @@ export default function(state = initialState, action)
         ...state,
         dashboardPages: newDashboardPages.toJS(),
       };
-    case TOGGLE_DASHBOARD_ITEM_STATIC:
+    case UPDATE_DASHBOARD_ITEM_LOCAL:
       oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
       oldDashboardItems = List(oldDashboardPage.get('dashboardItems'));
       oldDashboardItemIndex = oldDashboardItems.findIndex((dashboardItem) =>
         dashboardItem.id === action.id
       );
       oldDashboardItem = Map(oldDashboardItems.get(oldDashboardItemIndex));
-      newDashboardItem = oldDashboardItem.set('static', action.value);
+      newDashboardItem = oldDashboardItem;
+      if (action.static !== null)
+      {
+        newDashboardItem = newDashboardItem.set('static', action.static);
+      }
+      if (action.identifier !== null)
+      {
+        newDashboardItem = newDashboardItem.set('identifier', action.identifier);
+      }
       newDashboardItems = oldDashboardItems.set(oldDashboardItemIndex, newDashboardItem);
       newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
       newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
+
+      // TODO: shouldn't always set item states.
+      newIdentifier = newDashboardItem.get('identifier');
+      identifierKey = parseIdentiferKey(newIdentifier);
+      newDashboardItemStates = {
+        ...state.dashboardItemStates,
+        [newIdentifier]: IDENTIFIER_KEY_TO_STATE_MAP[identifierKey],
+      };
+
       setItem(DASHBOARD_COOKIE, newDashboardPages.toJS());
       return {
         ...state,
+        dashboardItemStates: newDashboardItemStates,
         dashboardPages: newDashboardPages.toJS(),
       };
     default:
@@ -353,6 +390,15 @@ export function changeSelectedTab(value)
   return {
     type: CHANGE_SELECTED_TAB,
     value: value,
+  };
+}
+
+export function changeSidebarMode(sidebarMode, dashboardItemId=null)
+{
+  return {
+    type: CHANGE_SIDEBAR_MODE,
+    dashboardItemId,
+    sidebarMode,
   };
 }
 
@@ -402,11 +448,12 @@ export function logDashboardActionStop()
   };
 }
 
-export function toggleDashboardItemStatic(id, value)
+export function updateDashboardItemLocal(id, identifier, staticActive)
 {
   return {
+    type: UPDATE_DASHBOARD_ITEM_LOCAL,
     id: id,
-    type: TOGGLE_DASHBOARD_ITEM_STATIC,
-    value: value,
-  }
+    identifier: identifier,
+    static: staticActive,
+  };
 }

@@ -184,8 +184,8 @@ class DashboardTabs extends Component {
       selectedTab,
       user,
 
-      toggleDashboardItemStatic,
       updateDashboardItem,
+      updateDashboardItemLocal,
     } = this.props;
 
     const dashboardPage = dashboardPages[selectedTab];
@@ -195,12 +195,13 @@ class DashboardTabs extends Component {
       updateDashboardItem(
         dashboardPage.id,
         id,
+        null,
         newStatic,
       );
     }
     else
     {
-      toggleDashboardItemStatic(id, newStatic);
+      updateDashboardItemLocal(id, null, newStatic);
     }
   }
 
@@ -243,9 +244,9 @@ class DashboardTabs extends Component {
       nightMode,
 
       changeDashboardItemState,
+      changeSidebarMode,
       logDashboardActionStart,
       logDashboardActionStop,
-      toggleSidebar,
     } = this.props;
 
     return dashboardPages.map((dashboardPage) => {
@@ -260,11 +261,11 @@ class DashboardTabs extends Component {
             nightMode={nightMode}
 
             changeDashboardItemState={changeDashboardItemState}
+            changeSidebarMode={changeSidebarMode}
             logDashboardActionStart={logDashboardActionStart}
             logDashboardActionStop={logDashboardActionStop}
             removeFromLayout={(id) => this.removeFromLayout(id)}
             saveLayout={(layout) => this.saveLayout(layout)}
-            toggleSidebar={toggleSidebar}
             updateLayoutItem={(id, staticActive) => this.updateLayoutItem(id, staticActive)}
           />
           <div
@@ -276,7 +277,7 @@ class DashboardTabs extends Component {
               <button
                 title="Press to open up sidebar and add widgets to dashboard"
                 className={css(styles.button, nightMode && styles.darkAddButton)}
-                onClick={(event) => toggleSidebar()} >
+                onClick={(event) => changeSidebarMode('add')} >
                 Add Widget [+]
               </button>
             </div>

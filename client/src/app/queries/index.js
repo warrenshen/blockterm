@@ -263,11 +263,13 @@ export const UpdateDashboardItemMutation = gql`
   mutation UpdateDashboardItemMutation(
     $dashboardPageId: ID!,
     $id: ID!,
-    $static: Boolean!,
+    $identifier: String,
+    $static: Boolean,
   ) {
     updateDashboardItem(
       dashboardPageId: $dashboardPageId,
       id: $id,
+      identifier: $identifier,
       static: $static,
     ) {
       dashboardPages {
@@ -291,7 +293,7 @@ export const UpdateDashboardItemMutation = gql`
 
 export const UpdateDashboardItemMutationOptions = {
   props: ({ mutate, ownProps }) => ({
-    updateDashboardItem(dashboardPageId, id, staticActive) {
+    updateDashboardItem(dashboardPageId, id, identifier, staticActive) {
       return mutate({
         updateQueries: {
           DashboardItemsQuery: (prev, { mutationResult }) => ({
@@ -301,6 +303,7 @@ export const UpdateDashboardItemMutationOptions = {
         variables: {
           dashboardPageId,
           id,
+          identifier,
           static: staticActive,
         },
       })
