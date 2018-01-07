@@ -367,6 +367,69 @@ module Types
       }
     end
 
+    field :createTokenUser, Types::TokenUserType do
+      description 'Creates a token user'
+
+      argument :tokenId, !types.ID
+      argument :amount, !types.Float
+      argument :index, !types.Int
+
+      resolve -> (obj, args, ctx) {
+        current_user = ctx[:current_user]
+        if ctx[:current_user].nil?
+          current_user = User.first
+          # return GraphQL::ExecutionError.new('No current user')
+        end
+
+        token_user = TokenUser.create(
+          token_id: args[:tokenId],
+          user_id: current_user.id,
+          amount: args[:amount],
+          index: args[:index],
+        )
+
+        if token_user.valid?
+          token_user
+        else
+          return GraphQL::ExecutionError.new(token_user.errors.full_messages)
+        end
+      }
+    end
+
+    field :updateTokenUser, Types::TokenUserType do
+      description 'Updates a token user'
+
+      argument :tokenUserId, !types.ID
+      argument :amount, !types.Float
+      # argument :index, !types.Int
+
+      resolve -> (obj, args, ctx) {
+        current_user = ctx[:current_user]
+        if ctx[:current_user].nil?
+          current_user = User.first
+          # return GraphQL::ExecutionError.new('No current user')
+        end
+
+        token_user = TokenUser.find(args[:tokenUserId])
+
+        if token_user.nil?
+          return GraphQL::ExecutionError.new(
+            'No token user found for given token user id'
+          )
+        end
+
+        token_user.amount = args[:amount]
+
+        if token_user.changed?
+          if token_user.save
+            token_user
+          else
+            return GraphQL::ExecutionError.new(token_user.errors.full_messages)
+          end
+        end
+      }
+    end
+
     field :updateSubredditBlob, Types::SubredditType do
       description 'Updates blob column of subreddit'
 

@@ -289,7 +289,7 @@ token_infos.each do |token_info|
   end
 end
 
-Token.all.each_with_index do |token, index|
+Token.first(2).each_with_index do |token, index|
   TokenUser.create(
     token_id: token.id,
     user_id: User.first.id,
