@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     flex: '1',
     display: 'flex',
     flexDirection: 'column',
-    overflowY: 'hidden',
+    overflow: 'hidden',
   },
   container: {
     width: '100%',
