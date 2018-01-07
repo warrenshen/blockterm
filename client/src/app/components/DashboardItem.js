@@ -211,7 +211,7 @@ class DashboardItem extends Component {
     const staticActive = dashboardItem.static;
 
     const onClickEdit = (event) => changeSidebarMode('edit', id);
-    const onClickLock = (event) => updateLayoutItem(id, identifier, !staticActive);
+    const onClickLock = (event) => updateLayoutItem(id, !staticActive);
     const onClickRemove = (event) => removeFromLayout(id);
 
     return (
@@ -224,8 +224,9 @@ class DashboardItem extends Component {
             <El
               style={styles.widgetTitle}
               nightMode={nightMode}
-              type={'h5'}>
-              {dashboardItem.identifier}
+              type={'h5'}
+            >
+              {identifier}
             </El>
           </div>
           <div className={css(styles.rightAlignSmall)}>

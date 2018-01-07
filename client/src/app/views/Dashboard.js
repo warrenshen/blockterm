@@ -142,11 +142,13 @@ class Dashboard extends Component {
 
     if (sidebarMode === 'add')
     {
+      // Add a new dashboard item.
       addToLayout(newIdentifier);
     }
     else if (sidebarMode === 'edit')
     {
-      updateLayoutItem(newIdentifier, false);
+      // Edit an existing dashboard item.
+      updateLayoutItem(newIdentifier);
     }
     else
     {

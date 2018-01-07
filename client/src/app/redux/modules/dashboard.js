@@ -325,12 +325,20 @@ export default function(state = initialState, action)
         dashboardItem.id === action.id
       );
       oldDashboardItem = Map(oldDashboardItems.get(oldDashboardItemIndex));
-      newDashboardItem = oldDashboardItem.set('static', action.value);
-      newDashboardItem = newDashboardItem.set('identifier', action.identifier);
+      newDashboardItem = oldDashboardItem;
+      if (action.static !== null)
+      {
+        newDashboardItem = newDashboardItem.set('static', action.static);
+      }
+      if (action.identifier !== null)
+      {
+        newDashboardItem = newDashboardItem.set('identifier', action.identifier);
+      }
       newDashboardItems = oldDashboardItems.set(oldDashboardItemIndex, newDashboardItem);
       newDashboardPage = oldDashboardPage.set('dashboardItems', newDashboardItems);
       newDashboardPages = List(state.dashboardPages).set(state.selectedTab, newDashboardPage);
 
+      // TODO: shouldn't always set item states.
       newIdentifier = newDashboardItem.get('identifier');
       identifierKey = parseIdentiferKey(newIdentifier);
       newDashboardItemStates = {
@@ -441,9 +449,9 @@ export function logDashboardActionStop()
 export function updateDashboardItemLocal(id, identifier, staticActive)
 {
   return {
+    type: UPDATE_DASHBOARD_ITEM_LOCAL,
     id: id,
     identifier: identifier,
-    type: UPDATE_DASHBOARD_ITEM_LOCAL,
-    value: staticActive,
-  }
+    static: staticActive,
+  };
 }
