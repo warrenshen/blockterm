@@ -71,6 +71,9 @@ const styles = StyleSheet.create({
     padding: '12px',
     borderBottom: `1px solid #ccc`,
   },
+  bolded: {
+    fontWeight: '700',
+  },
 });
 
 class Tokens extends PureComponent {
@@ -83,6 +86,90 @@ class Tokens extends PureComponent {
     nightMode: PropTypes.bool.isRequired,
   };
 
+  renderHeader()
+  {
+    const {
+      nightMode,
+    } = this.props;
+
+    return (
+      <tr className={css(styles.row)}>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            #
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+          
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Name
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Price
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Trading Volume (24h)
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Market Cap
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Circulating Supply
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            style={styles.bolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Change (24h)
+          </El>
+        </td>
+      </tr>
+    );
+  }
+
   renderTokens(tokens)
   {
     const {
@@ -93,6 +180,7 @@ class Tokens extends PureComponent {
       <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
         <table className={css(styles.table)}>
           <tbody>
+          {this.renderHeader()}
           {
             tokens.map((token, index) => {
               return (
@@ -112,7 +200,7 @@ class Tokens extends PureComponent {
                     <Link to={`/token/${token.shortName}`}>
                       <El
                         nightMode={nightMode}
-                        type={'h4'}
+                        type={'span'}
                       >
                         {token.longName}
                       </El>
@@ -121,7 +209,7 @@ class Tokens extends PureComponent {
                   <td className={css(styles.element)}>
                     <El
                         nightMode={nightMode}
-                        type={'h4'}
+                        type={'span'}
                     >
                       {numeral(token.priceUSD).format('$0,0.00')}
                     </El>
@@ -129,7 +217,7 @@ class Tokens extends PureComponent {
                   <td className={css(styles.element)}>
                     <El
                         nightMode={nightMode}
-                        type={'h4'}
+                        type={'span'}
                     >
                       {numeral(token.volumeUSD24h).format('$0,0')}
                     </El>
@@ -137,7 +225,7 @@ class Tokens extends PureComponent {
                   <td className={css(styles.element)}>
                     <El
                         nightMode={nightMode}
-                        type={'h4'}
+                        type={'span'}
                     >
                       {numeral(token.marketCapUSD).format('$0,0')}
                     </El>
@@ -145,7 +233,7 @@ class Tokens extends PureComponent {
                   <td className={css(styles.element)}>
                     <El
                         nightMode={nightMode}
-                        type={'h4'}
+                        type={'span'}
                     >
                       {token.availableSupply}%
                     </El>
@@ -153,7 +241,7 @@ class Tokens extends PureComponent {
                   <td className={css(styles.element)}>
                     <El
                         nightMode={nightMode}
-                        type={'h4'}
+                        type={'span'}
                     >
                       {token.percentChange24h}%
                     </El>
