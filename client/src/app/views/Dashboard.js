@@ -68,6 +68,10 @@ const styles = StyleSheet.create({
   options: {
     borderBottom: '1px solid #ddd',
   },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
   topHalf: {
     height: '300px',
     //backgroundColor: '#eeffee',
@@ -226,6 +230,7 @@ class Dashboard extends Component {
       changeDashboardItemState,
       changeKeySelectValue,
       changeSelectedTab,
+      changeSidebarMode,
       keySelectValue,
       nightMode,
       scrollActive,
@@ -247,10 +252,17 @@ class Dashboard extends Component {
         <Sidebar
           sidebar={
             <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
-              <div className={css(styles.topHalf)}>
+              <div className={css(styles.header)}>
                 <El nightMode={nightMode} type={'h5'}>
                   {sidebarMode === 'edit' ? 'Edit' : 'Add'}
                 </El>
+                <button
+                  onClick={(event) => changeSidebarMode(null)}
+                >
+                  x
+                </button>
+              </div>
+              <div className={css(styles.topHalf)}>
                 <Select
                   inputProps={{'id': 'widget_search'}}
                   placeholder={'Search Widget Type'}

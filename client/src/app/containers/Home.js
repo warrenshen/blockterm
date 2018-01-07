@@ -57,6 +57,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       changeKeySelectValue: dashboardActions.changeKeySelectValue,
       changeScrollActive: dashboardActions.changeScrollActive,
+      changeSidebarMode: dashboardActions.changeSidebarMode,
       createDashboardItemLocal: createDashboardItemLocalWithNotification,
       changeValueSelectValue: dashboardActions.changeValueSelectValue,
       updateDashboardItemLocal: dashboardActions.updateDashboardItemLocal,
