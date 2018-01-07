@@ -108,7 +108,7 @@ export const BAR_CHART_DATA_STYLES = [
 ];
 
 export const LINE_CHART_DATA_STYLES = [
-  {
+  { //day mode default color for line charts used in LineChartWithSelect(Item)
     historical: {
       backgroundColor: 'rgba(52,152,219,0.4)',
       borderColor: '#006DDB',
@@ -144,7 +144,7 @@ export const LINE_CHART_DATA_STYLES = [
     //   hoverBorderColor: 'rgba(54, 162, 235, 1)',
     // },
   },
-  {
+  { //night mode default color for line charts used in LineChartWithSelect(Item)
     historical: {
       backgroundColor: 'rgba(255,141,25,0.4)',
       borderColor: '#FF6519',
@@ -160,7 +160,7 @@ export const LINE_CHART_DATA_STYLES = [
       pointHitRadius: 3,
     },
   },
-  { //used for sats
+  { //used for sats activity graphs in token.js
     historical: {
       backgroundColor: '#ffce00',
       borderColor: '#ffce00',
@@ -188,7 +188,7 @@ export const LINE_CHART_DATA_STYLES = [
       pointHitRadius: 3,
     },
   },
-  {
+  { //used for sats multi-bar graph
     historical: {
       backgroundColor: '#ff9a00',
       borderColor: '#ff9a00',
@@ -204,7 +204,7 @@ export const LINE_CHART_DATA_STYLES = [
       pointHitRadius: 3,
     },
   },
-  {
+  { //used for sats multi-bar graph
     historical: {
       backgroundColor: '#00E96D',
       borderColor: '#00E96D',
@@ -220,7 +220,42 @@ export const LINE_CHART_DATA_STYLES = [
       pointHitRadius: 3,
     },
   },
-]
+];
+
+export const LINE_CHART_AUXILLARY_STYLES = [
+  { //day total market cap color
+    historical: {
+      backgroundColor: 'rgba(52,152,219,0.4)',
+      borderColor: '#006DDB',
+      borderWidth: 2,
+      borderCapStyle: 'rgba(255,99,132,0.2)',
+      borderJoinStyle: 'rgba(255,99,132,0.2)',
+      fill: true,
+      lineTension: 0,
+      pointBackgroundColor: 'rgba(255,255,255,0.1)',
+      pointBorderColor: '#007DEB',
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 1.5,
+    },
+  },
+  { //night total market cap graph color
+    historical: {
+      backgroundColor: 'rgba(52,152,219,0.4)',
+      borderColor: '#006DDB',
+      borderWidth: 2,
+      borderCapStyle: 'rgba(255,99,132,0.2)',
+      borderJoinStyle: 'rgba(255,99,132,0.2)',
+      fill: true,
+      lineTension: 0,
+      pointBackgroundColor: 'rgba(255,255,255,0.1)',
+      pointBorderColor: '#007DEB',
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 1.5,
+    },
+  },
+];
 
 export const COMPARE_CHART_DATA_STYLES = [
   {
@@ -301,4 +336,4 @@ export const COMPARE_CHART_DATA_STYLES = [
        pointRadius: 0,
     },
   },
-]
+];

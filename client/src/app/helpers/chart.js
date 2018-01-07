@@ -2,6 +2,7 @@ import moment from 'moment';
 import {
   BAR_CHART_DATA_STYLES,
   LINE_CHART_DATA_STYLES,
+  LINE_CHART_AUXILLARY_STYLES,
   COMPARE_CHART_DATA_STYLES,
   THREE_MONTHS,
   SIX_MONTHS,
@@ -164,11 +165,14 @@ export function generateLineChartData(
   recentCount=undefined,
   recentLabel='today',
   timeFormat='MM/DD',
-  nightMode=false)
+  nightMode=false,
+  auxillaryColor=false,)
 {
   var x = historicalCounts.map(
     (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format(timeFormat)
   );
+  var style = nightMode ? LINE_CHART_DATA_STYLES[1].historical : LINE_CHART_DATA_STYLES[0].historical;
+  if(!auxillaryColor) style = nightMode ? LINE_CHART_AUXILLARY_STYLES[1].historical : LINE_CHART_AUXILLARY_STYLES[0].historical;
   return {
     labels: x,
     datasets: [
