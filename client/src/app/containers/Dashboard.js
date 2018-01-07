@@ -79,7 +79,7 @@ function f(identifier, extras)
     case TV_MARKET_OVERVIEW:
       return null;
     default:
-      if (process.env.NODE_ENV == 'dev')
+      if (process.env.NODE_ENV === 'dev')
       {
         console.log('MISSING QUERY');
       }
@@ -226,19 +226,50 @@ class Container extends PureComponent
     }
   }
 
+  updateLayoutItem(newIdentifier)
+  {
+    const {
+      dashboardPages,
+      selectedTab,
+      sidebarDashboardItemId,
+      sidebarMode,
+      user,
+
+      updateDashboardItem,
+      updateDashboardItemLocal,
+    } = this.props;
+
+    const dashboardPage = dashboardPages[selectedTab];
+
+    if (user)
+    {
+      updateDashboardItem(
+        dashboardPage.id,
+        sidebarDashboardItemId,
+        newIdentifier,
+        null,
+      );
+    }
+    else
+    {
+      updateDashboardItemLocal(sidebarDashboardItemId, newIdentifier, null);
+    }
+  }
+
   render()
   {
     const {
       keySelectValue,
       nightMode,
       scrollActive,
-      sidebarActive,
+      sidebarDashboardItemId,
+      sidebarMode,
       valueSelectValue,
 
       changeKeySelectValue,
       changeScrollActive,
+      changeSidebarMode,
       changeValueSelectValue,
-      toggleSidebar,
     } = this.props;
 
     return (
@@ -250,14 +281,15 @@ class Container extends PureComponent
           keySelectValue={keySelectValue}
           nightMode={nightMode}
           scrollActive={scrollActive}
-          sidebarActive={sidebarActive}
+          sidebarMode={sidebarMode}
           valueSelectValue={valueSelectValue}
 
           addToLayout={(identifier) => this.addToLayout(identifier)}
           changeKeySelectValue={changeKeySelectValue}
           changeScrollActive={changeScrollActive}
+          changeSidebarMode={changeSidebarMode}
           changeValueSelectValue={changeValueSelectValue}
-          toggleSidebar={toggleSidebar}
+          updateLayoutItem={(newIdentifier) => this.updateLayoutItem(newIdentifier)}
         />
       </div>
     );

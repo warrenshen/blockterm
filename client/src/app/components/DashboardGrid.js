@@ -124,6 +124,7 @@ class DashboardGrid extends Component {
       nightMode,
 
       changeDashboardItemState,
+      changeSidebarMode,
       destroyDashboardItem,
       removeFromLayout,
       updateLayoutItem,
@@ -141,6 +142,7 @@ class DashboardGrid extends Component {
       >
         <DashboardItem
           changeDashboardItemState={changeDashboardItemState}
+          changeSidebarMode={changeSidebarMode}
           dashboardAction={dashboardAction}
           dashboardData={dashboardData ? dashboardData[identifier] : null}
           dashboardItem={dashboardItem}
@@ -148,7 +150,6 @@ class DashboardGrid extends Component {
           destroyDashboardItem={destroyDashboardItem}
           nightMode={nightMode}
           removeFromLayout={removeFromLayout}
-          staticActive={dashboardItem.static}
           updateLayoutItem={updateLayoutItem}
         />
         <FontAwesome name='caret-up' className={css(styles.floatingResizeButton, nightMode && styles.nightResizeButton, dashboardItem.static && styles.lockedResize)} style={{'transform':'rotate(135deg)'}} />

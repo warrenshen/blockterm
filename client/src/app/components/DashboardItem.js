@@ -183,14 +183,21 @@ class DashboardItem extends Component {
     const {
       dashboardItem,
       nightMode,
+
+      changeSidebarMode,
       removeFromLayout,
-      staticActive,
       updateLayoutItem,
     } = this.props;
 
     const {
       id,
+      identifier,
     } = dashboardItem;
+    const staticActive = dashboardItem.static;
+
+    const onClickEdit = (event) => changeSidebarMode('edit', id);
+    const onClickLock = (event) => updateLayoutItem(id, !staticActive);
+    const onClickRemove = (event) => removeFromLayout(id);
 
     return (
       <div
@@ -202,14 +209,15 @@ class DashboardItem extends Component {
             <El
               style={styles.widgetTitle}
               nightMode={nightMode}
-              type={'h5'}>
-              {dashboardItem.identifier}
+              type={'h5'}
+            >
+              {identifier}
             </El>
           </div>
           <div className={css(styles.rightAlignSmall)}>
             <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
-              onClick={(event) => updateLayoutItem(id, !staticActive)}
+              onClick={onClickEdit}
               title="Edit this widget and or swap it out for another."
             >
               <FontAwesome name='pencil' style={{'fontSize':'13px'}}/>
@@ -222,7 +230,7 @@ class DashboardItem extends Component {
             </button>
             <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-              onClick={(event) => updateLayoutItem(id, !staticActive)}
+              onClick={onClickLock}
               title="Lock and unlock element position and sizing"
             >
               <FontAwesome name={staticActive ? 'lock' : 'unlock'} style={{'fontSize':'13px'}}/>
@@ -230,7 +238,7 @@ class DashboardItem extends Component {
             <button
               title="Press to remove this widget from the dashboard."
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-              onClick={(event) => removeFromLayout(id)}
+              onClick={onClickRemove}
             >
               <FontAwesome name='remove' />
             </button>

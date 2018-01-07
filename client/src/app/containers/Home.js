@@ -6,10 +6,8 @@ import { compose, graphql }    from 'react-apollo';
 import {
   CreateDashboardItemMutation,
   CreateDashboardItemMutationOptions,
-  DestroyDashboardItemMutation,
-  DestroyDashboardItemMutationOptions,
-  UpdateDashboardItemsMutation,
-  UpdateDashboardItemsMutationOptions,
+  UpdateDashboardItemMutation,
+  UpdateDashboardItemMutationOptions,
 }                              from '../queries';
 import { DashboardPagesQuery } from '../queries';
 import Dashboard               from './Dashboard';
@@ -31,7 +29,8 @@ const mapStateToProps = (state) => {
     nightMode: state.globals.nightMode,
     scrollActive: state.dashboard.scrollActive,
     selectedTab: state.dashboard.selectedTab,
-    sidebarActive: state.globals.sidebarActive,
+    sidebarDashboardItemId: state.dashboard.sidebarDashboardItemId,
+    sidebarMode: state.dashboard.sidebarMode,
     user: state.dashboard.user,
     valueSelectValue: state.dashboard.valueSelectValue,
   };
@@ -58,9 +57,10 @@ const mapDispatchToProps = (dispatch) => {
     {
       changeKeySelectValue: dashboardActions.changeKeySelectValue,
       changeScrollActive: dashboardActions.changeScrollActive,
+      changeSidebarMode: dashboardActions.changeSidebarMode,
       createDashboardItemLocal: createDashboardItemLocalWithNotification,
       changeValueSelectValue: dashboardActions.changeValueSelectValue,
-      toggleSidebar: globalsActions.toggleSidebar,
+      updateDashboardItemLocal: dashboardActions.updateDashboardItemLocal,
     },
     dispatch
   );
@@ -69,5 +69,6 @@ const mapDispatchToProps = (dispatch) => {
 export default compose(
   graphql(DashboardPagesQuery),
   graphql(CreateDashboardItemMutation, CreateDashboardItemMutationOptions),
+  graphql(UpdateDashboardItemMutation, UpdateDashboardItemMutationOptions),
   connect(mapStateToProps, mapDispatchToProps)
 )(Dashboard);

@@ -68,6 +68,10 @@ const styles = StyleSheet.create({
   options: {
     borderBottom: '1px solid #ddd',
   },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
   topHalf: {
     height: '300px',
     //backgroundColor: '#eeffee',
@@ -131,13 +135,32 @@ class Dashboard extends Component {
 
     const {
       keySelectValue,
+      sidebarMode,
       valueSelectValue,
 
       addToLayout,
+      updateLayoutItem,
     } = this.props;
 
-    const identifier = generateIdentifier(keySelectValue, valueSelectValue);
-    addToLayout(identifier);
+    const newIdentifier = generateIdentifier(keySelectValue, valueSelectValue);
+
+    if (sidebarMode === 'add')
+    {
+      // Add a new dashboard item.
+      addToLayout(newIdentifier);
+    }
+    else if (sidebarMode === 'edit')
+    {
+      // Edit an existing dashboard item.
+      updateLayoutItem(newIdentifier);
+    }
+    else
+    {
+      if (process.env.NODE_ENV == 'dev')
+      {
+        console.log('Invalid sidebar mode');
+      }
+    }
   }
 
   renderValueSelect()
@@ -157,7 +180,7 @@ class Dashboard extends Component {
       }));
       return (
         <Select
-          inputProps={{'id':'widget_search_2'}}
+          inputProps={{ id: 'widget_search_2' }}
           placeholder={'Search Specific'}
           className={css(styles.select, styles.bolded)}
           optionClassName={css(styles.bolded, styles.options)}
@@ -172,7 +195,6 @@ class Dashboard extends Component {
   renderSubmit()
   {
     const {
-      createDashboardItem,
       valueSelectValue,
       nightMode,
     } = this.props;
@@ -208,11 +230,11 @@ class Dashboard extends Component {
       changeDashboardItemState,
       changeKeySelectValue,
       changeSelectedTab,
+      changeSidebarMode,
       keySelectValue,
       nightMode,
       scrollActive,
-      sidebarActive,
-      toggleSidebar,
+      sidebarMode,
     } = this.props;
 
     const overlayStyle = {
@@ -230,6 +252,16 @@ class Dashboard extends Component {
         <Sidebar
           sidebar={
             <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
+              <div className={css(styles.header)}>
+                <El nightMode={nightMode} type={'h5'}>
+                  {sidebarMode === 'edit' ? 'Edit' : 'Add'}
+                </El>
+                <button
+                  onClick={(event) => changeSidebarMode(null)}
+                >
+                  x
+                </button>
+              </div>
               <div className={css(styles.topHalf)}>
                 <Select
                   inputProps={{'id': 'widget_search'}}
@@ -263,11 +295,11 @@ class Dashboard extends Component {
             </div>
           }
           docked={false}
-          open={sidebarActive}
+          open={sidebarMode !== null}
           pullRight={true}
           shadow={true}
           transitions={false}
-          onSetOpen={toggleSidebar}
+          // onSetOpen={toggleSidebar}
           styles={
             {
               root: {
