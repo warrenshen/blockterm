@@ -199,6 +199,7 @@ class DashboardItem extends Component {
       dashboardItem,
       nightMode,
 
+      changeSidebarMode,
       removeFromLayout,
       updateLayoutItem,
     } = this.props;
@@ -209,7 +210,7 @@ class DashboardItem extends Component {
     } = dashboardItem;
     const staticActive = dashboardItem.static;
 
-    const onClickEdit = (event) => console.log('helo');
+    const onClickEdit = (event) => changeSidebarMode('edit', id);
     const onClickLock = (event) => updateLayoutItem(id, identifier, !staticActive);
     const onClickRemove = (event) => removeFromLayout(id);
 

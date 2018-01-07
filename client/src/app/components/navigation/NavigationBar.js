@@ -148,8 +148,6 @@ const NavigationBar = ({
             nightMode={nightMode}
             rightLinks={navigationModel.rightLinks}
             toggleNightMode={toggleNightMode}
-            toggleSidebar={toggleSidebar}
-            sidebarActive={sidebarActive}
           />
         </div>
       </nav>
@@ -175,7 +173,7 @@ NavigationBar.propTypes = {
   }),
   nightMode: PropTypes.bool.isRequired,
   toggleNightMode: PropTypes.func.isRequired,
-  toggleSidebar: PropTypes.func.isRequired,
+  // toggleSidebar: PropTypes.func.isRequired,
 };
 
 export default NavigationBar;

@@ -98,8 +98,8 @@ const RightNav = ({
   rightLinks,
   nightMode,
   toggleNightMode,
-  sidebarActive,
-  toggleSidebar,
+  // sidebarActive,
+  // toggleSidebar,
   user,
 }) => (
   <ul className={css(styles.container)}>
@@ -157,17 +157,19 @@ const RightNav = ({
         />,
       ]
     }
-    <button
-      className={`hamburger hamburger--arrow ${sidebarActive ? 'is-active' : ''}  ${nightMode ? css(styles.nightBurger) : ''}`}
-      type="button"
-      aria-label="Menu"
-      aria-controls="navigation"
-      onClick={(event) => toggleSidebar()}
-    >
-      <span className="hamburger-box">
-        <span className="hamburger-inner"></span>
-      </span>
-    </button>
+    {
+    // <button
+    //   className={`hamburger hamburger--arrow ${sidebarActive ? 'is-active' : ''}  ${nightMode ? css(styles.nightBurger) : ''}`}
+    //   type="button"
+    //   aria-label="Menu"
+    //   aria-controls="navigation"
+    //   onClick={(event) => toggleSidebar()}
+    // >
+    //   <span className="hamburger-box">
+    //     <span className="hamburger-inner"></span>
+    //   </span>
+    // </button>
+    }
   </ul>
 );
 
@@ -181,7 +183,7 @@ RightNav.propTypes = {
     })
   ),
   toggleNightMode: PropTypes.func.isRequired,
-  toggleSidebar: PropTypes.func.isRequired,
+  // toggleSidebar: PropTypes.func.isRequired,
   user: PropTypes.object,
 };
 
