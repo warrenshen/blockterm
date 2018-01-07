@@ -338,3 +338,10 @@ $hamburger-types: (
     bottom: ($hamburger-layer-spacing + $hamburger-layer-height) * -1 !important;
   }
 }
+
+.react-grid-layout {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */ 
+}
