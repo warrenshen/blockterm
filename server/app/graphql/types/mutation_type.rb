@@ -715,6 +715,7 @@ module Types
 
       argument :dashboardPageId, !types.ID
       argument :id, !types.ID
+      argument :identifier, !types.String
       argument :static, !types.Boolean
 
       resolve -> (obj, args, ctx) {
@@ -737,9 +738,12 @@ module Types
           return GraphQL::ExecutionError.new('Dashboard item does not belong to dashboard page')
         end
 
-        dashboard_item.assign_attributes(
-          static: args[:static],
-        )
+        if !args[:identifier].nil?
+          dashboard_item.identifier = args[:identifier]
+        end
+        if !args[:static].nil?
+          dashboard_item.static = args[:static]
+        end
 
         if dashboard_item.changed?
           if !dashboard_item.save

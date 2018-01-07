@@ -131,7 +131,6 @@ class DashboardGrid extends Component {
           destroyDashboardItem={destroyDashboardItem}
           nightMode={nightMode}
           removeFromLayout={removeFromLayout}
-          staticActive={dashboardItem.static}
           updateLayoutItem={updateLayoutItem}
         />
       </div>
