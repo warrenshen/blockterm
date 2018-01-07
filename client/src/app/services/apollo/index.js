@@ -14,7 +14,7 @@ import { appConfig }      from '../../config';
 
 const networkInterface = createNetworkInterface({
   uri: appConfig.apollo.networkInterface,
-  connectToDevTools: true,
+  // connectToDevTools: true,
   // transportBatching: true
 });
 

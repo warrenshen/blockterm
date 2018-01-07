@@ -5,10 +5,12 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import { Link }            from 'react-router-dom';
+import {
+  Link,
+  withRouter,
+}                          from 'react-router-dom';
 import El from '../components/El';
 
-import { withRouter } from 'react-router-dom'
 import * as STYLES from '../constants/styles';
 import { PROJECT_VERSION, PATCH_NOTES } from '../constants/items';
 

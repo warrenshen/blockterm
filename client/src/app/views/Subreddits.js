@@ -20,13 +20,14 @@ const styles = StyleSheet.create({
     minHeight: '100vh',
     display: 'flex',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
-    gridTemplateColumns: 'repeat(8, 1fr)',
   },
   nightMode: {
     backgroundColor: STYLES.LIGHTNIGHT,
   },
   mainContent: {
-    width: '100vw',
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
   },
   sidebar: {
     width: '20vw',
@@ -221,7 +222,7 @@ class Home extends PureComponent {
     };
 
     return (
-      <div>
+      <div className={css(styles.mainContent)}>
         <div className={css(styles.header)}>
           <El
             nightMode={nightMode}
@@ -350,12 +351,10 @@ class Home extends PureComponent {
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        <div className={css(styles.mainContent)}>
-          {
-            data.allSubreddits &&
-            this.renderSubreddits(data.allSubreddits)
-          }
-        </div>
+        {
+          data.allSubreddits &&
+          this.renderSubreddits(data.allSubreddits)
+        }
       </div>
     );
   }

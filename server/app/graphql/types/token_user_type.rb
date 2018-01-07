@@ -6,21 +6,11 @@ module Types
     field :index, !types.Int
     field :amount, !types.Float
 
-    field :priceUSD, !types.Float do
-      resolve -> (obj, args, ctx) {
-        obj.token.price_usd
-      }
-    end
+    field :token, !Types::TokenType do
+      'The token associated with token user'
 
-    field :priceBTC, !types.Float do
       resolve -> (obj, args, ctx) {
-        obj.token.price_btc
-      }
-    end
-
-    field :percentChange24h, !types.Float do
-      resolve -> (obj, args, ctx) {
-        obj.token.percent_change_24h
+        obj.token
       }
     end
   end
