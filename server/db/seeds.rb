@@ -185,6 +185,10 @@ subreddit_infos = [
     start_date: '2016-02-23',
   },
   {
+    name: 'Stellar',
+    start_date: '2011-12-24'
+  },
+  {
     name: 'SubstratumNetwork',
     start_date: '2017-07-31',
   },

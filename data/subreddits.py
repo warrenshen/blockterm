@@ -24,6 +24,7 @@ SUBREDDITS = [
   'RequestNetwork',
   'Ripple',
   'steemit',
+  'Stellar',
   'SubstratumNetwork',
   'Vertcoin',
 ]
