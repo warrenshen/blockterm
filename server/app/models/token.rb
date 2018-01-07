@@ -31,6 +31,8 @@ class Token < ApplicationRecord
   has_many :mention_counts, through: :keywords
   has_many :subreddit_tokens
   has_many :subreddits, through: :subreddit_tokens
+  has_many :token_users
+  has_many :users, through: :token_users
 
   validates :short_name, uniqueness: true
   validates :long_name, uniqueness: true

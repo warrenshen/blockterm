@@ -14,6 +14,8 @@ class User < ApplicationRecord
 
   has_many :dashboard_items
   has_many :dashboard_pages
+  has_many :token_users
+  has_many :tokens, through: :token_users
 
   validates :email, presence: true, uniqueness: true
   validates_length_of :email, minimum: 5, maximum: 30
