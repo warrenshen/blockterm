@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104062201) do
+ActiveRecord::Schema.define(version: 20180107173348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,17 @@ ActiveRecord::Schema.define(version: 20180104062201) do
     t.index ["subreddit_id"], name: "index_subscriber_counts_on_subreddit_id", using: :btree
   end
 
+  create_table "token_users", force: :cascade do |t|
+    t.integer  "token_id",                   null: false
+    t.integer  "user_id",                    null: false
+    t.integer  "index",      default: 0,     null: false
+    t.decimal  "amount",     default: "0.0", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["token_id"], name: "index_token_users_on_token_id", using: :btree
+    t.index ["user_id"], name: "index_token_users_on_user_id", using: :btree
+  end
+
   create_table "tokens", force: :cascade do |t|
     t.string   "short_name",                         null: false
     t.string   "long_name",                          null: false
@@ -192,4 +203,6 @@ ActiveRecord::Schema.define(version: 20180104062201) do
   add_foreign_key "subreddit_tokens", "subreddits"
   add_foreign_key "subreddit_tokens", "tokens"
   add_foreign_key "subscriber_counts", "subreddits"
+  add_foreign_key "token_users", "tokens"
+  add_foreign_key "token_users", "users"
 end

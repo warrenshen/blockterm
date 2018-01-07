@@ -246,6 +246,22 @@ token_infos = [
     keywords: ['NEO', 'Antshare'],
     markets: ['BTC-NEO', 'ETH-NEO', 'USDT-NEO'],
   },
+  {
+    short_name: 'XRP',
+    long_name: 'Ripple',
+    keywords: ['XRP', 'Ripple'],
+    markets: [],
+    price_usd: 3.37,
+    price_btc: 0.00021126,
+    volume_usd_24h: 2,512,240,000,
+    market_cap_usd: 130,666,360,786,
+    available_supply: 38,739,144,847 ,
+    total_supply: 99,993,093,880,
+    max_supply: 100,000,000,000,
+    percent_change_1h: 9.44,
+    percent_change_24h: -0.8,
+    percent_change_7d: -16.6,
+  },
 ]
 
 token_infos.each do |token_info|
@@ -266,12 +282,22 @@ token_infos.each do |token_info|
   if !markets.nil?
     markets.each do |market|
       Market.create(
-        name: market,
         token_id: token.id,
+        name: market,
       )
     end
   end
 end
+
+Token.all.each_with_index do |token, index|
+  TokenUser.create(
+    token_id: token.id,
+    user_id: User.first.id,
+    index: index,
+    amount: rand(10),
+  )
+end
+puts "Created token users"
 
 total_cap_market = Market.create(
   name: 'TOTAL',

@@ -19,5 +19,12 @@ module Types
         obj.dashboard_pages.order(index: :asc)
       }
     end
+    field :tokenUsers, !types[Types::TokenUserType] do
+      description 'The token users associated with user'
+
+      resolve -> (obj, args, ctx) {
+        obj.token_users.order(index: :asc)
+      }
+    end
   end
 end
