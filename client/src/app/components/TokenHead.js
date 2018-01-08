@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   subreddits: {
     display: 'flex',
     flexDirection: 'row !important',
-    marginLeft: '64px',
+    //marginLeft: '64px',
     //paddingTop: '12px',
   },
   column: {
@@ -89,24 +89,32 @@ const styles = StyleSheet.create({
     marginRight: '8px',
   },
   informationItem: {
-    boxShadow: `inset 0px -3px 0px 0px ${STYLES.TICKERGREEN}`,
+    boxShadow: `inset 0px -3px 0px 0px ${STYLES.TICKER_GREEN}`,
     //boxShadow: 'inset 0px -75px 50px -80px rgba(76,255,97,1) !important',
     padding: '5px 0px 15px !important',
     marginRight: '5px',
     marginLeft: '5px',
   },
   itemRed: {
-    boxShadow: `inset 0px -3px 0px 0px ${STYLES.TICKERRED}`,
+    boxShadow: `inset 0px -3px 0px 0px ${STYLES.TICKER_RED}`,
     //boxShadow: 'inset 0px -75px 50px -80px rgba(255,46,46,1) !important',
   },
   semibolded: {
     fontWeight: '500',
   },
   coloredColumn: {
-    backgroundColor: STYLES.DARKHIGHLIGHTGREEN,
+    backgroundColor: STYLES.LIGHT_HIGHLIGHT_GREEN,
+    borderTop: '1px solid #aaa',
   },
   columnRed: {
-    backgroundColor: STYLES.DARKHIGHLIGHTRED,
+    backgroundColor: STYLES.LIGHT_HIGHLIGHT_RED,
+  },
+  darkColoredColumn: {
+    backgroundColor: STYLES.DARK_HIGHLIGHT_GREEN,
+    borderTop: '1px solid #555',
+  },
+  darkColumnRed: {
+    backgroundColor: STYLES.DARK_HIGHLIGHT_RED,
   }
 });
 
@@ -172,7 +180,7 @@ class TokenHead extends PureComponent {
     if (subreddits.length > 0)
     {
       return (
-        <div className={css(styles.column, styles.coloredColumn)}>
+        <div className={css(styles.column, styles.coloredColumn, nightMode && styles.darkColoredColumn)}>
           <div className={css(styles.subreddits)}>
             {
               subreddits.map((subreddit) => (

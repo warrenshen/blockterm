@@ -67,6 +67,9 @@ const styles = StyleSheet.create({
   image: {
     marginRight: '8px',
   },
+  thickElement: {
+    lineHeight: '38px',
+  },
   element: {
     padding: '12px',
     borderBottom: `1px solid #ccc`,
@@ -77,6 +80,19 @@ const styles = StyleSheet.create({
   bolded: {
     fontWeight: '700',
   },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    display: 'table',
+    //backgroundColor: STYLES.SOFTGRAY,
+  },
+  row: {
+    width: '100%',
+    display: 'flex',
+  },
+  flexible: {
+    flex: '1',
+  }
 });
 
 class Tokens extends PureComponent {
@@ -112,10 +128,10 @@ class Tokens extends PureComponent {
             nightMode={nightMode}
             type={'span'}
           >
-
+            Symbol
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexible)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -124,7 +140,7 @@ class Tokens extends PureComponent {
             Name
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexible)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -133,7 +149,7 @@ class Tokens extends PureComponent {
             Price
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexible)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -142,7 +158,7 @@ class Tokens extends PureComponent {
             Trading Volume (24h)
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexible)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -151,7 +167,7 @@ class Tokens extends PureComponent {
             Market Cap
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexible)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -160,7 +176,7 @@ class Tokens extends PureComponent {
             Circulating Supply
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexible)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -188,7 +204,7 @@ class Tokens extends PureComponent {
             tokens.map((token, index) => {
               return (
                 <tr className={css(styles.row)} key={token.id}>
-                  <td className={css(styles.element)}>
+                  <td className={css(styles.element, styles.thickElement)}>
                     <El
                       nightMode={nightMode}
                       type={'span'}
@@ -196,10 +212,10 @@ class Tokens extends PureComponent {
                       {index + 1}
                     </El>
                   </td>
-                  <td className={css(styles.element)}>
-                    <img className={css(styles.image)} src={token.imageUrl} width={36} height={36}></img>
+                  <td className={css(styles.element, styles.thickElement)}>
+                    <img className={css(styles.image)} src={token.imageUrl} width={40} height={40}></img>
                   </td>
-                  <td className={css(styles.element)}>
+                  <td className={css(styles.element, styles.thickElement, styles.flexible)}>
                     <Link to={`/token/${token.shortName}`}>
                       <El
                         nightMode={nightMode}
@@ -210,7 +226,7 @@ class Tokens extends PureComponent {
                       </El>
                     </Link>
                   </td>
-                  <td className={css(styles.element)}>
+                  <td className={css(styles.element, styles.thickElement, styles.flexible)}>
                     <El
                         nightMode={nightMode}
                         type={'span'}
@@ -218,15 +234,16 @@ class Tokens extends PureComponent {
                       {numeral(token.priceUSD).format('$0,0.00')}
                     </El>
                   </td>
-                  <td className={css(styles.element)}>
+                  <td className={css(styles.element, styles.thickElement, styles.flexible)}>
                     <El
                         nightMode={nightMode}
                         type={'span'}
+                        style={styles.semibolded}
                     >
                       {numeral(token.volumeUSD24h).format('$0,0')}
                     </El>
                   </td>
-                  <td className={css(styles.element)}>
+                  <td className={css(styles.element, styles.thickElement, styles.flexible)}>
                     <El
                         nightMode={nightMode}
                         type={'span'}
@@ -234,7 +251,7 @@ class Tokens extends PureComponent {
                       {numeral(token.marketCapUSD).format('$0,0')}
                     </El>
                   </td>
-                  <td className={css(styles.element)}>
+                  <td className={css(styles.element, styles.thickElement, styles.flexible)}>
                     <El
                         nightMode={nightMode}
                         type={'span'}
@@ -242,12 +259,13 @@ class Tokens extends PureComponent {
                       {numeral(token.availableSupply).format('0,0')}
                     </El>
                   </td>
-                  <td className={css(styles.element)}>
+                  <td className={css(styles.element, styles.thickElement, styles.flexible)}>
                     <El
                         nightMode={nightMode}
                         type={'span'}
+                        style={styles.semibolded}
                     >
-                      {token.percentChange24h}%
+                      {numeral(token.percentChange24h).format('0,0.00')}%
                     </El>
                   </td>
                 </tr>

@@ -76,16 +76,11 @@ const styles = StyleSheet.create({
   },
   flatButton: {
     marginRight: '-12px',
-    // top:'7px',
-    // right: '10px',
-    // position: 'absolute',
     border: '1px solid #000',
     borderRadius: '1px',
     padding: '4px 12px',
-    //backgroundColor: STYLES.GOLD,
   },
   nightModeButton: {
-    //backgroundColor: STYLES.BLAZINGREEN,
     borderColor: '#fff',
     color: '#fff !important',
   },
@@ -93,6 +88,7 @@ const styles = StyleSheet.create({
     color: '#000 !important',
     textTransform: 'uppercase',
     letterSpacing: '1px',
+    fontSize: '13px',
     fontWeight: '700',
     ':hover': {
       color: STYLES.GOLDINVERSEBLUE,

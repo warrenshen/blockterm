@@ -211,16 +211,6 @@ class TokenBody extends PureComponent {
               //value={selectValue}
             />
           </div>
-          <div className={css(styles.column)}>
-            <Select
-              className={css(styles.select, nightMode && styles.nightSelect)}
-              clearable={false}
-              //options={selectOptions}
-              //onChange={onChange}
-              searchable={false}
-              //value={selectValue}
-            />
-          </div>
         </div>
         <div className={css(styles.row)}>
           <iframe
