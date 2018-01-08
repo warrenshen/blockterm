@@ -60,11 +60,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   redDelta: {
-    color: `${STYLES.TICKERRED} !important`,
+    color: `${STYLES.TICKER_RED} !important`,
     fontWeight: '500',
   },
   greenDelta: {
-    color: `${STYLES.TICKERGREEN} !important`,
+    color: `${STYLES.TICKER_GREEN} !important`,
     fontWeight: '500',
   },
 });
