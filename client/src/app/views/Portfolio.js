@@ -49,6 +49,9 @@ const styles = StyleSheet.create({
   chartElement: {
     marginBottom: '24px',
   },
+  semibolded: {
+    fontWeight: '500',
+  },
 });
 
 class Portfolio extends PureComponent
@@ -71,7 +74,7 @@ class Portfolio extends PureComponent
       <tr className={css(styles.row)}>
         <td className={css(styles.element)}>
           <El
-            style={styles.bolded}
+            style={styles.semibolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -80,7 +83,7 @@ class Portfolio extends PureComponent
         </td>
         <td className={css(styles.element)}>
           <El
-            style={styles.bolded}
+            style={styles.semibolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -89,7 +92,7 @@ class Portfolio extends PureComponent
         </td>
         <td className={css(styles.element)}>
           <El
-            style={styles.bolded}
+            style={styles.semibolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -98,7 +101,7 @@ class Portfolio extends PureComponent
         </td>
         <td className={css(styles.element)}>
           <El
-            style={styles.bolded}
+            style={styles.semibolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -107,7 +110,7 @@ class Portfolio extends PureComponent
         </td>
         <td className={css(styles.element)}>
           <El
-            style={styles.bolded}
+            style={styles.semibolded}
             nightMode={nightMode}
             type={'span'}
           >
