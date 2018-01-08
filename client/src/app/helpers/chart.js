@@ -165,14 +165,11 @@ export function generateLineChartData(
   recentCount=undefined,
   recentLabel='today',
   timeFormat='MM/DD',
-  nightMode=false,
-  auxillaryColor=false,)
+  nightMode=false,)
 {
   var x = historicalCounts.map(
     (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format(timeFormat)
   );
-  var style = nightMode ? LINE_CHART_DATA_STYLES[1].historical : LINE_CHART_DATA_STYLES[0].historical;
-  if(!auxillaryColor) style = nightMode ? LINE_CHART_AUXILLARY_STYLES[1].historical : LINE_CHART_AUXILLARY_STYLES[0].historical;
   return {
     labels: x,
     datasets: [
@@ -195,11 +192,13 @@ export function generateLineChartDataValue(
   recentCount=undefined,
   recentLabel='today',
   timeFormat='MM/DD',
-  nightMode=false)
+  nightMode=false,
+  auxillaryColor=false,)
 {
   var x = historicalCounts.map(
     (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format(timeFormat)
   );
+  var style = auxillaryColor ? LINE_CHART_AUXILLARY_STYLES : LINE_CHART_DATA_STYLES;
   return {
     labels: x,
     datasets: [
@@ -209,7 +208,7 @@ export function generateLineChartDataValue(
           data: historicalCounts.map((historicalCount) => historicalCount.value),
           // yAxisID: index,
         },
-        nightMode ? LINE_CHART_DATA_STYLES[1].historical : LINE_CHART_DATA_STYLES[0].historical
+        nightMode ? style[1].historical : style[0].historical
       )
     ],
   };

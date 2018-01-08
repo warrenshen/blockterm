@@ -66,6 +66,7 @@ class TotalMarketCapItem extends Component {
       'now',
       isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD',
       nightMode,
+      true,
     );
     const selectOptions = disableChartOptions(
       earliestMarketTickerDate,

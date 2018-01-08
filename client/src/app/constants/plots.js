@@ -225,31 +225,31 @@ export const LINE_CHART_DATA_STYLES = [
 export const LINE_CHART_AUXILLARY_STYLES = [
   { //day total market cap color
     historical: {
-      backgroundColor: 'rgba(52,152,219,0.4)',
-      borderColor: '#006DDB',
+      backgroundColor: 'rgba(0, 80, 255, 0.4)',
+      borderColor: '#0050FF',
       borderWidth: 2,
       borderCapStyle: 'rgba(255,99,132,0.2)',
       borderJoinStyle: 'rgba(255,99,132,0.2)',
       fill: true,
       lineTension: 0,
       pointBackgroundColor: 'rgba(255,255,255,0.1)',
-      pointBorderColor: '#007DEB',
+      pointBorderColor: '#0050FF',
       pointBorderWidth: 2,
       pointRadius: 2,
       pointHitRadius: 1.5,
     },
   },
-  { //night total market cap graph color
+  { //night total market cap graph color 
     historical: {
-      backgroundColor: 'rgba(52,152,219,0.4)',
-      borderColor: '#006DDB',
+      backgroundColor: 'rgba(255, 185, 0, 0.4)',
+      borderColor: '#FFB900',
       borderWidth: 2,
       borderCapStyle: 'rgba(255,99,132,0.2)',
       borderJoinStyle: 'rgba(255,99,132,0.2)',
       fill: true,
       lineTension: 0,
       pointBackgroundColor: 'rgba(255,255,255,0.1)',
-      pointBorderColor: '#007DEB',
+      pointBorderColor: '#FFB900',
       pointBorderWidth: 2,
       pointRadius: 2,
       pointHitRadius: 1.5,

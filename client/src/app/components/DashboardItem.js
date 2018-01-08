@@ -68,6 +68,9 @@ const styles = StyleSheet.create({
       cursor: 'move',
     },
   },
+  lockedGrabBar: {
+    pointerEvents: 'none',
+  },
   nightBar: {
     backgroundColor: '#000',
   },
@@ -204,7 +207,7 @@ class DashboardItem extends Component {
         className={css(styles.container)}
         key={id}
       >
-        <div className={css(styles.grabBar, nightMode && styles.nightBar)}>
+        <div className={css(styles.grabBar, nightMode && styles.nightBar, staticActive && styles.lockedGrabBar)}>
           <div className={css(styles.section, styles.leftSection)}>
             <El
               style={styles.widgetTitle}

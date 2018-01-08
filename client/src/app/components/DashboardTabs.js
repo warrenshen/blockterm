@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
     borderColor: '#333',
     textTransform: 'uppercase',
     letterSpacing: '1px',
+    backgroundColor: '#fff',
   },
   chosenTab: {
     backgroundColor: STYLES.GOLD,
