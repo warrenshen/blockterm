@@ -3,7 +3,7 @@
 import React                from 'react';
 import PropTypes            from 'prop-types';
 import { withApollo }       from 'react-apollo';
-import { StyleSheet, css }  from 'aphrodite';
+import { StyleSheet, css }  from 'aphrodite/no-important';
 import RightNavButton       from './RightNavButton';
 import Switch               from 'react-toggle-switch'
 import El                   from '../El';
@@ -123,12 +123,12 @@ const RightNav = ({
     {
       user ?
       [
-        <RightNavButton
-          key={'portfolio'}
-          label={'Portfolio'}
-          link={'/portfolio'}
-          nightMode={nightMode}
-        />,
+        // <RightNavButton
+        //   key={'portfolio'}
+        //   label={'Portfolio'}
+        //   link={'/portfolio'}
+        //   nightMode={nightMode}
+        // />,
         <RightNavButton
           key={'faq'}
           label={'FAQ'}

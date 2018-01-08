@@ -7,7 +7,8 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { withRouter }      from 'react-router-dom'
 import El                  from '../components/El';
-import DonutChartWithSelect from '../components/DonutChartWithSelect';
+import DonutChartWithSelect from '../components/DonutChartWithSelect'
+import numeral             from 'numeral';
 import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
     boxSizing: 'content-box',
     backgroundColor: '#fff',
     flexDirection: 'column',
+    padding: '0px 12px'
   },
   bodyNightMode: {
     backgroundColor: '#000',
@@ -41,15 +43,28 @@ const styles = StyleSheet.create({
   },
   row: {
     width: '100%',
+    display: 'flex',
+  },
+  flexTwo: {
+    flex: '2',
   },
   element: {
     padding: '12px',
     borderBottom: `1px solid #ccc`,
+    flex: '1',
   },
   chartElement: {
     marginBottom: '24px',
   },
   semibolded: {
+    fontWeight: '500',
+  },
+  redDelta: {
+    color: `${STYLES.TICKERRED} !important`,
+    fontWeight: '500',
+  },
+  greenDelta: {
+    color: `${STYLES.TICKERGREEN} !important`,
     fontWeight: '500',
   },
 });
@@ -92,7 +107,7 @@ class Portfolio extends PureComponent
             Token
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -101,7 +116,7 @@ class Portfolio extends PureComponent
             Amount Held
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -110,7 +125,7 @@ class Portfolio extends PureComponent
             Price USD
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -119,13 +134,13 @@ class Portfolio extends PureComponent
             Change (24h)
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
             type={'span'}
           >
-            Total Value
+            Value
           </El>
         </td>
       </tr>
@@ -160,38 +175,41 @@ class Portfolio extends PureComponent
           <El
             nightMode={nightMode}
             type={'span'}
+            style={styles.semibolded}
           >
             {shortName}
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexTwo)}>
           <input
             onChange={onChange}
             value={amount}
           />
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexTwo)}>
           <El
             nightMode={nightMode}
             type={'span'}
           >
-            {priceUSD}
+            {numeral(priceUSD).format('$0,0.00')}
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexTwo)}>
           <El
             nightMode={nightMode}
             type={'span'}
+            style={(percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
+            nightModeStyle={(percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
           >
-            {percentChange24h}
+            {numeral(percentChange24h).format('0,0.00')}%
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.flexTwo)}>
           <El
             nightMode={nightMode}
             type={'span'}
           >
-            {amount * priceUSD}
+            {numeral(amount * priceUSD).format('$0,0.00')}
           </El>
         </td>
       </tr>

@@ -1,9 +1,11 @@
 import { StyleSheet } from 'aphrodite';
 
-export const TICKERGREEN = '#5dc892';
-export const TICKERRED = '#f35262';
-export const DARKHIGHLIGHTGREEN = '#001F12';
-export const DARKHIGHLIGHTRED = '#210600';
+export const TICKER_GREEN = '#5dc892';
+export const TICKER_RED = '#f35262';
+export const LIGHT_HIGHLIGHT_GREEN = '#EDFFEE';
+export const LIGHT_HIGHLIGHT_RED = '#FFEDED';
+export const DARK_HIGHLIGHT_GREEN = '#001F12';
+export const DARK_HIGHLIGHT_RED = '#210600';
 
 //export const BLUE = '#0000ff';
 export const LIGHTNIGHT = '#0b1010';
