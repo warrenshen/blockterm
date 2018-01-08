@@ -10,7 +10,7 @@ import FontAwesome    from 'react-fontawesome';
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: '28px',
+    marginLeft: '30px',
     display: 'flex',
   },
   boldedUpper: {

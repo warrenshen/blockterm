@@ -71,6 +71,9 @@ const styles = StyleSheet.create({
     padding: '12px',
     borderBottom: `1px solid #ccc`,
   },
+  semibolded: {
+    fontWeight: '500',
+  },
   bolded: {
     fontWeight: '700',
   },
@@ -201,6 +204,7 @@ class Tokens extends PureComponent {
                       <El
                         nightMode={nightMode}
                         type={'span'}
+                        style={styles.semibolded}
                       >
                         {token.longName}
                       </El>
@@ -268,9 +272,9 @@ class Tokens extends PureComponent {
           <div className={css(styles.header)}>
             <El
               nightMode={nightMode}
-              type={'h3'}
+              type={'h4'}
             >
-              Coins
+              Price, Volume, Market Cap by Coin
             </El>
           </div>
           {

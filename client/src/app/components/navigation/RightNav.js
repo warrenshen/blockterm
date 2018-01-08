@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
       fontSize: '13px',
     },
     borderColor: '#555',
+    backgroundColor:'#fff',
   },
   switchNight: {
     borderColor: '#fff',
@@ -122,6 +123,12 @@ const RightNav = ({
     {
       user ?
       [
+        <RightNavButton
+          key={'portfolio'}
+          label={'Portfolio'}
+          link={'/portfolio'}
+          nightMode={nightMode}
+        />,
         <RightNavButton
           key={'faq'}
           label={'FAQ'}
