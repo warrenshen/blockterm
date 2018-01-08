@@ -396,12 +396,10 @@ module Types
       }
     end
 
-    field :updateTokenUser, Types::TokenUserType do
-      description 'Updates a token user'
+    field :updateTokenUsers, Types::UserType do
+      description "Updates a user's token users"
 
-      argument :tokenUserId, !types.ID
-      argument :amount, !types.Float
-      # argument :index, !types.Int
+      argument :tokenUsersString, !types.String
 
       resolve -> (obj, args, ctx) {
         current_user = ctx[:current_user]
@@ -410,23 +408,24 @@ module Types
           # return GraphQL::ExecutionError.new('No current user')
         end
 
-        token_user = TokenUser.find(args[:tokenUserId])
+        token_users_hashes = JSON.parse(args[:tokenUsersString])
+        token_users_hashes.each do |token_user_hash|
+          token_user_id = token_user_hash['id']
+          token_user = TokenUser.find(token_user_id)
 
-        if token_user.nil?
-          return GraphQL::ExecutionError.new(
-            'No token user found for given token user id'
+          token_user.assign_attributes(
+            amount: token_user_hash['amount'],
+            index: token_user_hash['index'],
           )
-        end
 
-        token_user.amount = args[:amount]
-
-        if token_user.changed?
-          if token_user.save
-            token_user
-          else
-            return GraphQL::ExecutionError.new(token_user.errors.full_messages)
+          if token_user.changed?
+            if !token_user.save
+              return GraphQL::ExecutionError.new(token_user.errors.full_messages)
+            end
           end
         end
+
+        current_user.reload
       }
     end
 
@@ -851,9 +850,10 @@ module Types
             y: dashboard_item_hash['y'],
             static: dashboard_item_hash['static'],
           )
+
           if dashboard_item.changed?
             if !dashboard_item.save
-              return GraphQL::ExecutionError.new('Could not save dashboard item')
+              return GraphQL::ExecutionError.new(dashboard_item.errors.full_messages)
             end
           end
         end

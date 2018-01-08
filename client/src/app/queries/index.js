@@ -395,3 +395,52 @@ export const UpdateDashboardItemsMutationOptions = {
     },
   }),
 };
+
+export const UpdateTokenUsersMutation = gql`
+  mutation UpdateTokenUsersMutation(
+    $tokenUsersString: String!,
+  ) {
+    updateTokenUsers(tokenUsersString: $tokenUsersString)
+    {
+      tokenUsers {
+        id
+        index
+        amount
+
+        token {
+          shortName
+          priceUSD
+          priceBTC
+          percentChange24h
+        }
+      }
+    }
+  }
+`;
+
+export const UpdateTokenUsersMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    updateTokenUsers(tokenUsers) {
+      return mutate({
+        updateQueries: {
+          TokenUsersQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.updateTokenUsers,
+          }),
+        },
+        variables: {
+          tokenUsersString: JSON.stringify(tokenUsers),
+        },
+      })
+      .then(
+        (response) => {
+          return Promise.resolve();
+        }
+      )
+      .catch(
+        (error) => {
+          return Promise.reject();
+        }
+      );
+    },
+  }),
+};

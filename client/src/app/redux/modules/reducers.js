@@ -8,9 +8,8 @@ import globals                      from './globals';
 import dashboard                    from './dashboard';
 import login                        from './login';
 import plots                        from './plots';
+import portfolio                    from './portfolio';
 import subreddits                   from './subreddits';
-
-
 
 const appReducers = {
   dashboard,
@@ -18,6 +17,7 @@ const appReducers = {
   login,
   notifications,
   plots,
+  portfolio,
   subreddits,
 };
 

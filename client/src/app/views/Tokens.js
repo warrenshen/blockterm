@@ -109,7 +109,7 @@ class Tokens extends PureComponent {
             nightMode={nightMode}
             type={'span'}
           >
-          
+
           </El>
         </td>
         <td className={css(styles.element)}>
@@ -235,7 +235,7 @@ class Tokens extends PureComponent {
                         nightMode={nightMode}
                         type={'span'}
                     >
-                      {token.availableSupply}%
+                      {numeral(token.availableSupply).format('0,0')}
                     </El>
                   </td>
                   <td className={css(styles.element)}>

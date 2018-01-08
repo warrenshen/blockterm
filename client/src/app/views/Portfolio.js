@@ -64,6 +64,17 @@ class Portfolio extends PureComponent
     }
   }
 
+  savePortfolio()
+  {
+    const {
+      tokenUsers,
+
+      updateTokenUsers,
+    } = this.props;
+
+    updateTokenUsers(tokenUsers);
+  }
+
   renderHeader()
   {
     const {
@@ -121,78 +132,90 @@ class Portfolio extends PureComponent
     );
   }
 
-  renderTokenUsers(tokenUsers)
+  renderTokenUser(tokenUser)
   {
     const {
       nightMode,
+
+      changeTokenUserAmount,
+    } = this.props;
+
+    const {
+      id,
+      amount,
+      token,
+    } = tokenUser;
+
+    const {
+      shortName,
+      priceUSD,
+      percentChange24h,
+    } = token;
+
+    const onChange = (event) => changeTokenUserAmount(id, event.target.value);
+
+    return (
+      <tr className={css(styles.row)} key={tokenUser.id}>
+        <td className={css(styles.element)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            {shortName}
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <input
+            onChange={onChange}
+            value={amount}
+          />
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            {priceUSD}
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            {percentChange24h}
+          </El>
+        </td>
+        <td className={css(styles.element)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            {amount * priceUSD}
+          </El>
+        </td>
+      </tr>
+    );
+  }
+
+  renderTokenUsers()
+  {
+    const {
+      nightMode,
+      tokenUsers,
     } = this.props;
 
     return (
       <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
         <table className={css(styles.table)}>
-          {this.renderHeader()}
           <tbody>
-            {
-              tokenUsers.map((tokenUser) => {
-                const {
-                  amount,
-                  token,
-                } = tokenUser;
-
-                const {
-                  shortName,
-                  priceUSD,
-                  percentChange24h,
-                } = token;
-
-                return (
-                  <tr className={css(styles.row)} key={tokenUser.id}>
-                    <td className={css(styles.element)}>
-                      <El
-                        nightMode={nightMode}
-                        type={'span'}
-                      >
-                        {shortName}
-                      </El>
-                    </td>
-                    <td className={css(styles.element)}>
-                      <El
-                        nightMode={nightMode}
-                        type={'span'}
-                      >
-                        {amount}
-                      </El>
-                    </td>
-                    <td className={css(styles.element)}>
-                      <El
-                        nightMode={nightMode}
-                        type={'span'}
-                      >
-                        {priceUSD}
-                      </El>
-                    </td>
-                    <td className={css(styles.element)}>
-                      <El
-                        nightMode={nightMode}
-                        type={'span'}
-                      >
-                        {percentChange24h}
-                      </El>
-                    </td>
-                    <td className={css(styles.element)}>
-                      <El
-                        nightMode={nightMode}
-                        type={'span'}
-                      >
-                        {amount * priceUSD}
-                      </El>
-                    </td>
-                  </tr>
-                );
-              })
-            }
+            {this.renderHeader()}
+            {tokenUsers.map((tokenUser) => this.renderTokenUser(tokenUser))}
           </tbody>
         </table>
+        <button onClick={(event) => this.savePortfolio()}>
+          Save
+        </button>
       </div>
     );
   }
@@ -200,8 +223,8 @@ class Portfolio extends PureComponent
   render()
   {
     const {
-      data,
       nightMode,
+      tokenUsers,
     } = this.props;
 
     return (
@@ -209,7 +232,7 @@ class Portfolio extends PureComponent
         <div className={css(styles.chartElement)}>
           <DonutChartWithSelect title="Portfolio Distribution" nightMode={nightMode} />
         </div>
-        { data && data.user && this.renderTokenUsers(data.user.tokenUsers) }
+        {this.renderTokenUsers()}
       </div>
     );
   }
