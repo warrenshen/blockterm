@@ -32,6 +32,25 @@ export const DashboardPagesQuery = gql`
   }
 `;
 
+export const TokenUsersQuery = gql`
+  query TokenUsersQuery {
+    user {
+      tokenUsers {
+        id
+        index
+        amount
+
+        token {
+          shortName
+          priceUSD
+          priceBTC
+          percentChange24h
+        }
+      }
+    }
+  }
+`;
+
 export const UserQuery = gql`
   query UserQuery {
     user {

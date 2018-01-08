@@ -10,6 +10,7 @@ import {
   App,
   ConnectedHome,
   ConnectedLogin,
+  ConnectedPortfolio,
   ConnectedSignup,
   ConnectedSubreddit,
   ConnectedSubreddits,
@@ -27,6 +28,8 @@ export const MainRoutes = () => {
       <Route exact path='/login' component={ConnectedLogin} />
       <Route exact path='/join' component={ConnectedSignup} />
       <Route exact path='/faq' component={ConnectedFAQ} />
+
+      <Route exact path='/portfolio' component={ConnectedPortfolio} />
 
       <Route exact path='/subreddits' component={ConnectedSubreddits} />
       <Route exact path='/subreddits/compare' component={ConnectedSubredditsCompare} />

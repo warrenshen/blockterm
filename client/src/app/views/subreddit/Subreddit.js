@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
     minHeight: '100vh',
     display: 'flex',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
-    gridTemplateColumns: 'repeat(8, 1fr)',
   },
   nightMode: {
     backgroundColor: STYLES.LIGHTNIGHT,
@@ -28,7 +27,9 @@ const styles = StyleSheet.create({
     gridColumn: '3 / 7',
   },
   mainContent: {
-    width: '100vw',
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
   },
   sidebar: {
     width: '20vw',
@@ -144,7 +145,7 @@ class Subreddit extends PureComponent {
     } = subreddit;
 
     return (
-      <div>
+      <div className={css(styles.mainContent)}>
         <div className={css(styles.header)}>
           <div className={css(styles.headerLeft)}>
             <a
@@ -218,9 +219,7 @@ class Subreddit extends PureComponent {
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        <div className={css(styles.mainContent)}>
-          { data && data.subredditByName && this.renderSubreddit(data.subredditByName) }
-        </div>
+        { data && data.subredditByName && this.renderSubreddit(data.subredditByName) }
       </div>
     );
   }
