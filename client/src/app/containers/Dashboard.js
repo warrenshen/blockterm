@@ -13,6 +13,7 @@ import { graphql }                from 'react-apollo';
 import { isEqual }                from 'underscore';
 
 import {
+  PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
   TOTAL_MARKET_CAP,
@@ -36,6 +37,23 @@ function f(identifier, extras)
 
   switch (identifierKey)
   {
+    case PORTFOLIO_ITEM:
+      return `
+        ${identifier}: user {
+          tokenUsers {
+            id
+            index
+            amount
+
+            token {
+              shortName
+              priceUSD
+              priceBTC
+              percentChange24h
+            }
+          }
+        }
+      `;
     case SUBREDDIT_COMMENT_COUNTS:
       return `
         ${identifier}: subredditByName(name: "${identifierValue}") {

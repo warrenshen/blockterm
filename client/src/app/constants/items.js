@@ -1,5 +1,6 @@
-export const PROJECT_VERSION = '0.1.6.3';
+export const PROJECT_VERSION = '0.1.6.4';
 export const PATCH_NOTES = [
+  '0.1.6.4: Edit dashboard widget operation now supported.',
   '0.1.6.3: All Bittrex coins above 5MIL daily volume added to Candle Charts.',
   'FAQ added for users that are signed in.',
   'Join/Login bugs fixed, sorry about that!',
@@ -13,6 +14,7 @@ export const PATCH_NOTES = [
 
 const DELIMETER = '__';
 
+export const PORTFOLIO_ITEM = 'PORTFOLIO_ITEM';
 export const SUBREDDIT_COMMENT_COUNTS = 'SUBREDDIT_COMMENT_COUNTS';
 export const SUBREDDIT_POST_COUNTS = 'SUBREDDIT_POST_COUNTS';
 export const TOTAL_MARKET_CAP = 'TOTAL_MARKET_CAP';
@@ -20,9 +22,9 @@ export const TV_CANDLE_CHART = 'TV_CANDLE_CHART';
 export const TV_MARKET_OVERVIEW = 'TV_MARKET_OVERVIEW';
 
 export const ITEM_KEY_WHITELIST = [
+  PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
-  'TOKEN-PRICE',
   TOTAL_MARKET_CAP,
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
@@ -112,12 +114,15 @@ export const DEFAULT_ITEM_OBJECTS_BY_SUBREDDIT = {
   ],
 };
 
+// These array values should be in user-facing order.
+// The order does affect user-facing order.
 export const ITEM_KEY_TO_LABELS = {
   [TV_CANDLE_CHART]: 'Candle chart',
   [TV_MARKET_OVERVIEW]: 'Market overview',
+  [TOTAL_MARKET_CAP]: 'Total market cap chart',
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
   [SUBREDDIT_COMMENT_COUNTS]: 'Subreddit comments chart',
-  [TOTAL_MARKET_CAP]: 'Total market cap chart',
+  // [PORTFOLIO_ITEM]: 'Portfolio overview',
 };
 
 // These array values should be in user-facing order.
@@ -149,6 +154,9 @@ const SUBREDDITS_IN_USER_FACING_ORDER = [
 ];
 
 export const ITEM_KEY_TO_VALUES = {
+  [PORTFOLIO_ITEM]: [
+    'Default',
+  ],
   [SUBREDDIT_COMMENT_COUNTS]: SUBREDDITS_IN_USER_FACING_ORDER,
   [SUBREDDIT_POST_COUNTS]: SUBREDDITS_IN_USER_FACING_ORDER,
   [TOTAL_MARKET_CAP]: [

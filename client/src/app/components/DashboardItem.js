@@ -13,6 +13,7 @@ import {
 import {
   RANGE_SELECT_OPTIONS,
 } from '../constants/plots';
+import PortfolioItem              from './items/PortfolioItem';
 import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
 import SubredditPostCountsItem    from './items/SubredditPostCountsItem';
 import TokenPriceItem             from './items/TokenPriceItem';
@@ -24,6 +25,7 @@ import El                         from './El';
 import FontAwesome                from 'react-fontawesome';
 
 import {
+  PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
   TOTAL_MARKET_CAP,
@@ -129,6 +131,13 @@ class DashboardItem extends Component {
 
     switch (identifierKey)
     {
+      case PORTFOLIO_ITEM:
+        return (
+          <PortfolioItem
+            dashboardData={dashboardData}
+            nightMode={nightMode}
+          />
+        );
       case SUBREDDIT_COMMENT_COUNTS:
         return (
           <SubredditCommentCountsItem

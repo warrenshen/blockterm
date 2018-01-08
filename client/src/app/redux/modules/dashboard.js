@@ -8,6 +8,7 @@ import {
 } from '../../constants/plots';
 import {
   DEFAULT_PAGES_OBJECTS,
+  PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
   TOTAL_MARKET_CAP,
@@ -25,6 +26,7 @@ import {
 } from '../../services/cookie';
 
 const IDENTIFIER_KEY_TO_STATE_MAP = {
+  [PORTFOLIO_ITEM]: {},
   [SUBREDDIT_POST_COUNTS]: {
     plotRange: ONE_MONTH,
   },
