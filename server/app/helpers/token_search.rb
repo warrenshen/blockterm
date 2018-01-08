@@ -1,11 +1,10 @@
 class TokenSearch
   include SearchObject.module(:paging)
+  include SearchObject.module(:sorting)
 
   scope { Token.all }
 
-  per_page 100
+  per_page 50
 
-  option(:price_usd) do |scope, value|
-    value ? scope.order(price_usd: :desc) : scope
-  end
+  sort_by :volume_usd_24h
 end

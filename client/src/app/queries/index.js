@@ -32,6 +32,38 @@ export const DashboardPagesQuery = gql`
   }
 `;
 
+export const TokensByPageQuery = gql`
+  query TokensByPageQuery($page: Int!) {
+    tokensByPage(page: $page) {
+      id
+      shortName
+      longName
+      imageUrl
+      priceUSD
+      priceBTC
+      volumeUSD24h
+      marketCapUSD
+      availableSupply
+      totalSupply
+      maxSupply
+      percentChange1h
+      percentChange24h
+      percentChange7d
+    }
+  }
+`;
+export const TokensByPageQueryOptions = {
+  options: ({
+    match,
+  }) => {
+    return {
+      variables: {
+        page: match.params.page ? parseInt(match.params.page) : 1,
+      },
+    };
+  },
+};
+
 export const TokenUsersQuery = gql`
   query TokenUsersQuery {
     user {
