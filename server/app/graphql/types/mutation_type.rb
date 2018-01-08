@@ -377,8 +377,7 @@ module Types
       resolve -> (obj, args, ctx) {
         current_user = ctx[:current_user]
         if ctx[:current_user].nil?
-          current_user = User.first
-          # return GraphQL::ExecutionError.new('No current user')
+          return GraphQL::ExecutionError.new('No current user')
         end
 
         token_user = TokenUser.create(
@@ -404,8 +403,7 @@ module Types
       resolve -> (obj, args, ctx) {
         current_user = ctx[:current_user]
         if ctx[:current_user].nil?
-          current_user = User.first
-          # return GraphQL::ExecutionError.new('No current user')
+          return GraphQL::ExecutionError.new('No current user')
         end
 
         token_users_hashes = JSON.parse(args[:tokenUsersString])

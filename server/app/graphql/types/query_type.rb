@@ -113,10 +113,10 @@ module Types
     end
 
     field :tokensByPage, types[Types::TokenType] do
-      argument :page, types.Int
+      argument :page, !types.Int
 
       resolve -> (obj, args, ctx) {
-        TokenSearch.new.results
+        TokenSearch.results(filters: { sort: 'volume_usd_24h' }, page: args[:page])
       }
     end
 
@@ -124,8 +124,7 @@ module Types
       description 'Gets the current user if logged in'
 
       resolve -> (obj, args, ctx) {
-        User.first
-        # ctx[:current_user]
+        ctx[:current_user]
       }
     end
   end
