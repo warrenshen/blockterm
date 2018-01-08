@@ -7,12 +7,12 @@
       "link": "/"
     },
     {
-      "label": "Subreddits",
-      "link": "/subreddits"
-    },
-    {
       "label": "Prices/Volume",
       "link": "/tokens"
+    },
+    {
+      "label": "Subreddits",
+      "link": "/subreddits"
     }
   ]
 }
