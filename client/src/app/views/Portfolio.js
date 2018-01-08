@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { withRouter }      from 'react-router-dom'
 import El                  from '../components/El';
+import DonutChartWithSelect from '../components/DonutChartWithSelect';
 import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
@@ -14,15 +15,23 @@ const styles = StyleSheet.create({
     width: '100vw',
     minHeight: '100vh',
     display: 'flex',
+    flexDirection: 'column',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
   },
   nightMode: {
     backgroundColor: STYLES.LIGHTNIGHT,
   },
-  mainContent: {
-    flex: '1',
+  body: {
     display: 'flex',
+    borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
+    flex: '1',
+    boxSizing: 'content-box',
+    backgroundColor: '#fff',
     flexDirection: 'column',
+  },
+  bodyNightMode: {
+    backgroundColor: '#000',
+    borderTop: `1px solid ${STYLES.BORDERDARK}`,
   },
   table: {
     width: '100%',
@@ -36,6 +45,9 @@ const styles = StyleSheet.create({
   element: {
     padding: '12px',
     borderBottom: `1px solid #ccc`,
+  },
+  chartElement: {
+    marginBottom: '24px',
   },
 });
 
@@ -72,7 +84,7 @@ class Portfolio extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
-            Holding amount
+            Amount Held
           </El>
         </td>
         <td className={css(styles.element)}>
@@ -90,7 +102,7 @@ class Portfolio extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
-            24h change
+            Change (24h)
           </El>
         </td>
         <td className={css(styles.element)}>
@@ -99,7 +111,7 @@ class Portfolio extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
-            Holding total value
+            Total Value
           </El>
         </td>
       </tr>
@@ -113,7 +125,7 @@ class Portfolio extends PureComponent
     } = this.props;
 
     return (
-      <div className={css(styles.mainContent)}>
+      <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
         <table className={css(styles.table)}>
           {this.renderHeader()}
           <tbody>
@@ -132,7 +144,7 @@ class Portfolio extends PureComponent
 
                 return (
                   <tr className={css(styles.row)} key={tokenUser.id}>
-                    <td>
+                    <td className={css(styles.element)}>
                       <El
                         nightMode={nightMode}
                         type={'span'}
@@ -140,7 +152,7 @@ class Portfolio extends PureComponent
                         {shortName}
                       </El>
                     </td>
-                    <td>
+                    <td className={css(styles.element)}>
                       <El
                         nightMode={nightMode}
                         type={'span'}
@@ -148,7 +160,7 @@ class Portfolio extends PureComponent
                         {amount}
                       </El>
                     </td>
-                    <td>
+                    <td className={css(styles.element)}>
                       <El
                         nightMode={nightMode}
                         type={'span'}
@@ -156,7 +168,7 @@ class Portfolio extends PureComponent
                         {priceUSD}
                       </El>
                     </td>
-                    <td>
+                    <td className={css(styles.element)}>
                       <El
                         nightMode={nightMode}
                         type={'span'}
@@ -164,7 +176,7 @@ class Portfolio extends PureComponent
                         {percentChange24h}
                       </El>
                     </td>
-                    <td>
+                    <td className={css(styles.element)}>
                       <El
                         nightMode={nightMode}
                         type={'span'}
@@ -191,6 +203,9 @@ class Portfolio extends PureComponent
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
+        <div className={css(styles.chartElement)}>
+          <DonutChartWithSelect title="Portfolio Distribution" nightMode={nightMode} />
+        </div>
         { data && data.user && this.renderTokenUsers(data.user.tokenUsers) }
       </div>
     );
