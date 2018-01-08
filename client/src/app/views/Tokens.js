@@ -92,7 +92,15 @@ const styles = StyleSheet.create({
   },
   flexible: {
     flex: '1',
-  }
+  },
+  redDelta: {
+    color: `${STYLES.TICKER_RED} !important`,
+    fontWeight: '500',
+  },
+  greenDelta: {
+    color: `${STYLES.TICKER_GREEN} !important`,
+    fontWeight: '500',
+  },
 });
 
 class Tokens extends PureComponent {
@@ -263,7 +271,8 @@ class Tokens extends PureComponent {
                     <El
                         nightMode={nightMode}
                         type={'span'}
-                        style={styles.semibolded}
+                        style={(token.percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
+                        nightModeStyle={(token.percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
                     >
                       {numeral(token.percentChange24h).format('0,0.00')}%
                     </El>
