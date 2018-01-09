@@ -71,7 +71,19 @@ const styles = StyleSheet.create({
     border: '1px solid #000',
     borderRadius: '1px',
     padding: '4px 8px 4px 13px !important',
-  }
+  },
+  disabled: {
+    pointerEvents: 'none',
+    opacity: '0.7',
+  },
+  tooltip: {
+    opacity: '1 !important',
+    borderRadius: '0px',
+    backgroundColor: '#F50057 !important',
+    ':after': {
+      borderBottomColor: '#F50057 !important',
+    },
+  },
 });
 
 function logOut(event, client)
@@ -123,12 +135,13 @@ const RightNav = ({
     {
       user ?
       [
-        // <RightNavButton
-        //   key={'portfolio'}
-        //   label={'Portfolio'}
-        //   link={'/portfolio'}
-        //   nightMode={nightMode}
-        // />,
+        <RightNavButton
+          key={'portfolio'}
+          label={'Portfolio'}
+          link={'/portfolio'}
+          nightMode={nightMode}
+          key={'portfolio'}
+        />,
         <RightNavButton
           key={'faq'}
           label={'FAQ'}
@@ -146,6 +159,23 @@ const RightNav = ({
         />
       ] :
       [
+        <div
+          data-tip='LOGIN or JOIN to use portfolio.'
+          data-place='bottom'
+          data-type='info'
+          data-effect='solid'
+          data-class={css(styles.tooltip)}
+          key={'portfolio'}
+        >
+          <RightNavButton
+            style={styles.disabled}
+            key={'portfolio'}
+            label={'Portfolio '}
+            link={'#'}
+            icon='lock'
+            nightMode={nightMode}
+          />
+        </div>,
         <RightNavButton
           key={'login'}
           label={'Login'}
