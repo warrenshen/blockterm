@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     fontWeight: 'inherit',
   },
   nightHover: {
+    color: '#fff',
     ':hover': {
       color: STYLES.GOLD,
     },
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
     },
   },
   floatingBeta: {
+    color: '#fff',
     textTransform: 'uppercase',
     letterSpacing: '2px',
     position: 'absolute',
