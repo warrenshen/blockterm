@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '12px 0px 0px 0px',
+    //padding: '12px 0px 0px 0px',
   },
   headerRight: {
     display: 'flex',
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     flex: '1',
     display: 'inline-flex',
     width: '100%',
+    paddingBottom: '5px',
   },
   title: {
     width: '100%',

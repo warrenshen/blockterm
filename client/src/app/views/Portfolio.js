@@ -53,9 +53,12 @@ const styles = StyleSheet.create({
   },
   element: {
     padding: '12px',
-    borderBottom: `1px solid #ccc`,
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
     lineHeight: '38px',
     flex: '1',
+  },
+  darkElement: {
+    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
   },
   chartElement: {
     marginBottom: '24px',
@@ -73,17 +76,13 @@ const styles = StyleSheet.create({
   },
   addRow: {
     display: 'flex',
-    marginLeft: '-1px',
     marginBottom: '1px',
-  },
-  select: {
-    width: '128px',
   },
   flexItem: {
     flex: '1',
   },
   padded: {
-    padding: '16px 16px'
+    padding: '15px 10px'
   },
   block: {
     display: 'block',
@@ -93,17 +92,23 @@ const styles = StyleSheet.create({
     lineHeight: '36px',
   },
   heroTable: {
-    backgroundColor: '#000',
-    padding: '10px 10px',
+    backgroundColor: '#fff',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
     display: 'flex',
     flexDirection: 'row',
     flex: '1',
   },
-  column: {
+  darkHeroTable: {
+    backgroundColor: '#000',
+    border: `1px solid ${STYLES.BORDERDARK}`,
+  },
+  heroColumn: {
     flex: '1',
     display: 'flex',
     flexDirection: 'column',
+    paddingBottom: '10px',
+    padding: '5px 5px',
+    textAlign: 'center',
   },
   closeButton: {
     height: '100%',
@@ -116,7 +121,39 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontWeight: '700',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
+    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
+  darkBlockButton: {
+    border: `1px solid ${STYLES.BORDERDARK}`,
+    borderBottom: `2px solid ${STYLES.BORDERDARK}`,
+  },
+  donutBox: {
+    margin: '10px 0px 12px 10px',
+    backgroundColor: '#fff',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  darkDonutBox: {
+    backgroundColor: '#000',
+    border: `1px solid ${STYLES.BORDERDARK}`,
+  },
+  select: {
+    width: '128px',
+    zIndex: '1',
+    backgroundColor:'white',
+    color:'#777',
+    borderColor: '#777',
+  },
+  input: {
+    color:'#000',
+    borderColor: '#777',
+  },
+  borderRight: {
+    borderRight: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  darkBorderRight: {
+    borderRight: `1px solid ${STYLES.BORDERDARK}`,
+  }
 });
 
 const emptyDonut = {
@@ -145,9 +182,28 @@ function  calculateDistribution(tokenUsers) {
     datasets: [{
       data: distribution,
       backgroundColor: [
-        '#FF6384',
-        '#36A2EB',
-        '#FFCE56'
+        '#F44336',
+        '#3F51B5',
+        '#009688',
+        '#FFEB3B',
+        '#795548',
+
+        '#E91E63',
+        '#2196F3',
+        '#4CAF50',
+        '#FFC107',
+        '#607D8B',
+
+        '#9C27B0',
+        '#03A9F4',
+        '#8BC34A',
+        '#FF9800',
+        '#9E9E9E',
+
+        '#673AB7',
+        '#00BCD4',
+        '#CDDC39',
+        '#FF5722',
       ],
      // hoverBackgroundColor: [],
     }],
@@ -182,7 +238,7 @@ class Portfolio extends PureComponent
 
     return (
       <tr className={css(styles.row)}>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -191,7 +247,7 @@ class Portfolio extends PureComponent
             Token
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -200,7 +256,7 @@ class Portfolio extends PureComponent
             Amount Held
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -209,7 +265,7 @@ class Portfolio extends PureComponent
             Price USD
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -218,7 +274,7 @@ class Portfolio extends PureComponent
             Change (24h)
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -226,6 +282,9 @@ class Portfolio extends PureComponent
           >
             Value
           </El>
+        </td>
+        <td style={{'width':'40px', 'borderBottom': '1px solid #ccc',}}>
+
         </td>
       </tr>
     );
@@ -257,7 +316,7 @@ class Portfolio extends PureComponent
 
     return (
       <tr className={css(styles.row)} key={tokenUser.id}>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             type={'h4'}
@@ -266,13 +325,14 @@ class Portfolio extends PureComponent
             {shortName}
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <input
+            className={css(styles.input)}
             onChange={onChange}
             value={amount}
           />
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -280,7 +340,7 @@ class Portfolio extends PureComponent
             {priceUSD ? numeral(priceUSD).format('$0,0.00') : ''}
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -290,7 +350,7 @@ class Portfolio extends PureComponent
             {percentChange24h ? `${numeral(percentChange24h).format('0,0.00')}%` : ''}
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -328,7 +388,7 @@ class Portfolio extends PureComponent
         </table>
         {this.renderAdd()}
         <button
-          className={css(styles.blockButton)}
+          className={css(styles.blockButton, nightMode && styles.darkBlockButton)}
           disabled={!changeActive}
           onClick={(event) => this.savePortfolio()}
         >
@@ -375,8 +435,8 @@ class Portfolio extends PureComponent
     } = this.props;
 
     return (
-      <div className={css(styles.heroTable)}>
-        <div className={css(styles.column)}>
+      <div className={css(styles.heroTable, nightMode && styles.darkHeroTable)}>
+        <div className={css(styles.heroColumn, styles.borderRight, nightMode && styles.darkBorderRight)}>
           <El
             nightMode={nightMode}
             type={'h4'}
@@ -392,13 +452,13 @@ class Portfolio extends PureComponent
              {numeral(calculateTotalValue(tokenUsers)).format('$0,0.00')}
           </El>
         </div>
-        <div className={css(styles.column)}>
+        <div className={css(styles.heroColumn, styles.borderRight, nightMode && styles.darkBorderRight)}>
           <El
             nightMode={nightMode}
             type={'h4'}
             style={styles.block}
           >
-            Today's Change:
+            Change in last 24h:
           </El>
           <El
             nightMode={nightMode}
@@ -408,13 +468,13 @@ class Portfolio extends PureComponent
              {numeral(calculateTotalValue(tokenUsers)).format('$0,0.00')}
           </El>
         </div>
-        <div className={css(styles.column)}>
+        <div className={css(styles.heroColumn)}>
           <El
             nightMode={nightMode}
             type={'h4'}
             style={styles.block}
           >
-            Change in last 7 days:
+            Change in last 7d:
           </El>
           <El
             nightMode={nightMode}
@@ -438,7 +498,7 @@ class Portfolio extends PureComponent
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         <div className={css(styles.row)}>
-          <div className={css(styles.chartElement, styles.flexItem)}>
+          <div className={css(styles.chartElement, styles.flexItem, styles.donutBox, nightMode && styles.darkDonutBox)}>
             <DonutChartWithSelect
               title="Portfolio Distribution:"
               nightMode={nightMode}
