@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { isEqual }         from 'underscore';
 import numeral             from 'numeral';
+import { Link }            from 'react-router-dom';
 import {
   calculatePortfolioTotalValue,
   calculatePortfolioDonutData,
@@ -21,6 +22,18 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    padding: '5px 5px',
+  },
+  section: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+  },
+  bottomEdge: {
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  darkBottomEdge: {
+    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
   },
   nightMode: {
     backgroundColor: STYLES.LIGHTNIGHT,
@@ -39,9 +52,19 @@ const styles = StyleSheet.create({
   },
   element: {
     padding: '12px',
-    borderBottom: `1px solid #ccc`,
-    lineHeight: '38px',
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+    lineHeight: '18px',
     flex: '1',
+  },
+  darkElement: {
+    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
+  },
+  condensed: {
+    lineHeight: '15px',
+    paddingBottom: '8px',
+  },
+  bolded: {
+    fontWeight: '700',
   },
   semibolded: {
     fontWeight: '500',
@@ -56,6 +79,32 @@ const styles = StyleSheet.create({
   },
   flexItem: {
     flex: '1',
+  },
+  overflowScroll: {
+    overflowY: 'scroll',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  nightOverflowScroll: {
+    border: `1px solid ${STYLES.BORDERDARK}`,
+  },
+  flatButton: {
+    marginRight: '-12px',
+    border: '1px solid #000',
+    borderRadius: '1px',
+    padding: '4px 8px',
+    position: 'absolute',
+    bottom: '5px',
+    right: '12px',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+  },
+  nightModeButton: {
+    borderColor: '#fff',
+    color: '#fff !important',
+  },
+  boldedUpper: {
+    textTransform: 'uppercase',
+    fontWeight: '500',
   },
 });
 
@@ -75,7 +124,7 @@ class PortfolioItem extends Component
 
     return (
       <tr className={css(styles.row)}>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -84,7 +133,7 @@ class PortfolioItem extends Component
             Token
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -93,7 +142,7 @@ class PortfolioItem extends Component
             Amount Held
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -102,7 +151,7 @@ class PortfolioItem extends Component
             Price USD
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -111,9 +160,9 @@ class PortfolioItem extends Component
             Change (24h)
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed, styles.flexTwo)}>
           <El
-            style={styles.semibolded}
+            style={styles.bolded}
             nightMode={nightMode}
             type={'span'}
           >
@@ -147,7 +196,7 @@ class PortfolioItem extends Component
 
     return (
       <tr className={css(styles.row)} key={tokenUser.id}>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             type={'h4'}
@@ -156,7 +205,7 @@ class PortfolioItem extends Component
             {shortName}
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             nightMode={nightMode}
             type={'h4'}
@@ -165,7 +214,7 @@ class PortfolioItem extends Component
             {amount}
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -173,7 +222,7 @@ class PortfolioItem extends Component
             {priceUSD ? numeral(priceUSD).format('$0,0.00') : ''}
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -183,7 +232,7 @@ class PortfolioItem extends Component
             {percentChange24h ? `${numeral(percentChange24h).format('0,0.00')}%` : ''}
           </El>
         </td>
-        <td className={css(styles.element, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -213,34 +262,46 @@ class PortfolioItem extends Component
       tokenUsers = [];
     }
 
-    const data = calculatePortfolioDonutData(tokenUsers);
+    const data = calculatePortfolioDonutData(tokenUsers, nightMode);
     const totalValue = numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00');
 
     return (
       <div className={css(styles.container)}>
-        <DonutChartWithSelect
-          data={data}
-          height={172}
-          nightMode={nightMode}
-        />
-        <El
-          nightMode={nightMode}
-          type={'h3'}
-        >
-          Portfolio total value
-        </El>
-        <El
-          nightMode={nightMode}
-          type={'h3'}
-        >
-          {totalValue}
-        </El>
-        <table className={css(styles.table)}>
-          <tbody>
-            {this.renderHeader()}
-            {tokenUsers.map((tokenUser) => this.renderTokenUser(tokenUser))}
-          </tbody>
-        </table>
+        <div className={css(styles.section, styles.bottomEdge, nightMode && styles.darkBottomEdge)} style={{'height':'340px', 'paddingBottom':'8px', 'textAlign':'center',}}>
+          <DonutChartWithSelect
+            data={data}
+            nightMode={nightMode}
+          />
+          <El
+            nightMode={nightMode}
+            type={'h5'}
+          >
+            Portfolio total value:
+          </El>
+          <El
+            nightMode={nightMode}
+            type={'h2'}
+          >
+            {totalValue}
+          </El>
+          <Link to={'/portfolio'} className={css(styles.flatButton, nightMode && styles.nightModeButton)}>
+            <El
+              nightMode={nightMode}
+              style={styles.boldedUpper}
+              nightModeStyle={styles.nightBoldedUpper}
+              type={'span'}>
+              Edit
+            </El>
+          </Link>
+        </div>
+        <div className={css(styles.section, styles.flexItem, styles.overflowScroll, nightMode && styles.nightOverflowScroll)}>
+          <table className={css(styles.table)}>
+            <tbody>
+              {this.renderHeader()}
+              {tokenUsers.map((tokenUser) => this.renderTokenUser(tokenUser))}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     border: 'none',
   },
   nightHover: {
+    color: '#fff',
     ':hover': {
       color: STYLES.GOLD,
       borderColor: STYLES.GOLD,
