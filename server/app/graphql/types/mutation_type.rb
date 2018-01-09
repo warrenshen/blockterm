@@ -407,6 +407,13 @@ module Types
         end
 
         token_users_hashes = JSON.parse(args[:tokenUsersString])
+
+        token_user_ids = token_users_hashes.map do |token_user_hash|
+          token_user_hash['id']
+        end
+
+        destroyed_token_users = current_user.token_users.where.not(id: token_user_ids).destroy_all
+
         token_users_hashes.each do |token_user_hash|
           token_user_id = token_user_hash['id']
 

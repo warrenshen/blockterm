@@ -161,6 +161,7 @@ class Portfolio extends PureComponent
       nightMode,
 
       changeTokenUserAmount,
+      removeTokenUser,
     } = this.props;
 
     const {
@@ -176,6 +177,7 @@ class Portfolio extends PureComponent
     } = token;
 
     const onChange = (event) => changeTokenUserAmount(id, event.target.value);
+    const onClickRemove = (event) => removeTokenUser(id);
 
     return (
       <tr className={css(styles.row)} key={tokenUser.id}>
@@ -219,6 +221,13 @@ class Portfolio extends PureComponent
           >
             {priceUSD ? numeral(amount * priceUSD).format('$0,0.00') : ''}
           </El>
+        </td>
+        <td className={css(styles.element)}>
+          <button
+            onClick={onClickRemove}
+          >
+            x
+          </button>
         </td>
       </tr>
     );

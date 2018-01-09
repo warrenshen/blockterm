@@ -9,6 +9,7 @@ const ADD_TOKEN_USER = 'ADD_TOKEN_USER';
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_TOKEN_USER_AMOUNT = 'CHANGE_TOKEN_USER_AMOUNT';
+const REMOVE_TOKEN_USER = 'REMOVE_TOKEN_USER';
 
 /* -----------------------------------------
   Reducer
@@ -38,6 +39,7 @@ export default function(state = initialState, action)
 {
   let newTokenUsers;
   let oldTokenUsers;
+  let tokenUserIndex;
 
   switch (action.type)
   {
@@ -82,12 +84,26 @@ export default function(state = initialState, action)
       }
     case CHANGE_TOKEN_USER_AMOUNT:
       oldTokenUsers = fromJS(state.tokenUsers);
-      let tokenUserIndex = oldTokenUsers.findIndex(
+      tokenUserIndex = oldTokenUsers.findIndex(
         (tokenUser) => tokenUser.get('id') === action.tokenUserId
       );
       newTokenUsers = oldTokenUsers.setIn(
         [tokenUserIndex, 'amount'],
         action.amount,
+      );
+      return {
+        ...state,
+        changeActive: true,
+        tokenUsers: newTokenUsers.toJS(),
+      };
+    case REMOVE_TOKEN_USER:
+      oldTokenUsers = fromJS(state.tokenUsers);
+      tokenUserIndex = oldTokenUsers.findIndex(
+        (tokenUser) => tokenUser.get('id') === action.tokenUserId
+      );
+      newTokenUsers = oldTokenUsers.remove(tokenUserIndex);
+      newTokenUsers = newTokenUsers.map(
+        (tokenUser, index) => tokenUser.set('index', index)
       );
       return {
         ...state,
@@ -112,6 +128,14 @@ export function changeTokenUserAmount(tokenUserId, amount)
   return {
     type: CHANGE_TOKEN_USER_AMOUNT,
     amount,
+    tokenUserId,
+  };
+}
+
+export function removeTokenUser(tokenUserId)
+{
+  return {
+    type: REMOVE_TOKEN_USER,
     tokenUserId,
   };
 }

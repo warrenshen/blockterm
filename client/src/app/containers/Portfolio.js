@@ -29,6 +29,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       addTokenUser: portfolioActions.addTokenUser,
       changeTokenUserAmount: portfolioActions.changeTokenUserAmount,
+      removeTokenUser: portfolioActions.removeTokenUser,
     },
     dispatch
   );
