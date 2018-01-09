@@ -1,14 +1,24 @@
-const emptyDonut = {
-  labels: [
-    'N/A',
-  ],
-  datasets: [{
-    data: [1],
-    backgroundColor: [
-      '#ccc',
+
+export function generateEmptyDonut(nightMode=false) {
+    const emptyDonut = {
+    labels: [
+      'N/A',
     ],
-  }],
-};
+    datasets: [{
+      data: [1],
+      backgroundColor: [
+        nightMode? '#aaa': '#ddd',
+      ],
+      borderColor: [
+        nightMode ? '#fff' : '#000',
+      ],
+      borderWidth: [
+        1.5,
+      ],
+    }],
+  };
+  return emptyDonut;
+}
 
 export function calculatePortfolioTotalValue(tokenUsers)
 {
@@ -28,14 +38,15 @@ export function calculatePortfolioChangeIn7d(tokenUsers)
 
 }
 
-export function calculatePortfolioDonutData(tokenUsers)
+export function calculatePortfolioDonutData(tokenUsers, nightMode=false)
 {
-  if (calculatePortfolioTotalValue(tokenUsers) <= 0) return emptyDonut;
+  if (calculatePortfolioTotalValue(tokenUsers) <= 0) return generateEmptyDonut(nightMode);
 
   const legend = tokenUsers.map((tokenUser) => tokenUser.token.shortName);
   const distribution = tokenUsers.map(
     (tokenUser) => (tokenUser.amount * tokenUser.token.priceUSD)
   );
+  let borderColor = nightMode ? '#fff' : '#000';
 
   return ({
     labels: legend,
@@ -63,8 +74,10 @@ export function calculatePortfolioDonutData(tokenUsers)
         '#673AB7',
         '#00BCD4',
         '#CDDC39',
-        '#FF5722',
+        '#FF5722', //18 total right now
       ],
+      borderColor: [borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor, borderColor],
+      borderWidth: [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5],
     }],
   });
 }
