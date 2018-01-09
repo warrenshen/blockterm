@@ -10,7 +10,7 @@ export function generateEmptyDonut(nightMode=false) {
         nightMode? '#aaa': '#ddd',
       ],
       borderColor: [
-        nightMode ? '#fff' : '#000',
+        nightMode ? '#fff' : '#999',
       ],
       borderWidth: [
         1.5,
@@ -46,7 +46,7 @@ export function calculatePortfolioDonutData(tokenUsers, nightMode=false)
   const distribution = tokenUsers.map(
     (tokenUser) => (tokenUser.amount * tokenUser.token.priceUSD)
   );
-  let borderColor = nightMode ? '#fff' : '#000';
+  let borderColor = nightMode ? '#fff' : '#999';
 
   return ({
     labels: legend,
