@@ -77,6 +77,18 @@ const styles = StyleSheet.create({
   },
 });
 
+const emptyDonut = {
+  labels: [
+    'N/A',
+  ],
+  datasets: [{
+    data: [1],
+    backgroundColor: [
+      '#ccc',
+    ],
+  }]
+};
+
 class Portfolio extends PureComponent
 {
   componentWillReceiveProps(nextProps)
@@ -87,11 +99,39 @@ class Portfolio extends PureComponent
     }
   }
 
+  calculateDistribution(tokenUsers) {
+    //console.log(tokenUsers);
+    if (tokenUsers.length <= 0) return emptyDonut;
+
+    var total = tokenUsers.reduce((elem, accum) => accum + (elem.amount * elem.token.priceUSD));
+    var distribution = tokenUsers.map((elem) => (elem.amount * elem.token.priceUSD)/total);
+    
+    return ({
+      labels: [
+        'Red',
+        'Green',
+        'Yellow'
+      ],
+      datasets: [{
+        data: [1, 1, 1],
+        backgroundColor: [
+          '#FF6384',
+          '#36A2EB',
+          '#FFCE56'
+        ],
+        hoverBackgroundColor: [
+          '#FF6384',
+          '#36A2EB',
+          '#FFCE56'
+        ]
+      }],
+    });
+  }
+
   savePortfolio()
   {
     const {
       tokenUsers,
-
       updateTokenUsers,
     } = this.props;
 
@@ -299,7 +339,11 @@ class Portfolio extends PureComponent
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         <div className={css(styles.chartElement)}>
-          <DonutChartWithSelect title="Portfolio Distribution" nightMode={nightMode} />
+          <DonutChartWithSelect
+            title="Portfolio Distribution"
+            nightMode={nightMode}
+            data={this.calculateDistribution(tokenUsers)}
+          />
         </div>
         {this.renderTokenUsers()}
       </div>

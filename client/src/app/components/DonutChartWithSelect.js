@@ -59,27 +59,6 @@ function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const getState = () => ({
-  labels: [
-    'Red',
-    'Green',
-    'Yellow'
-  ],
-  datasets: [{
-    data: [getRandomInt(50, 200), getRandomInt(100, 150), getRandomInt(150, 250)],
-    backgroundColor: [
-    '#CCC',
-    '#36A2EB',
-    '#FFCE56'
-    ],
-    hoverBackgroundColor: [
-    '#FF6384',
-    '#36A2EB',
-    '#FFCE56'
-    ]
-  }]
-});
-
 class DonutChartWithSelect extends PureComponent {
   static propTypes = {
     //data: PropTypes.object.isRequired,
@@ -141,7 +120,7 @@ class DonutChartWithSelect extends PureComponent {
               maintainAspectRatio: false,
               legend: legendConfig,
             }}
-            data={getState()}
+            data={data}
           />
         </div>
       </div>
