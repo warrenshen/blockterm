@@ -11,6 +11,7 @@ import numeral             from 'numeral';
 import El                  from '../components/El';
 import DonutChartWithSelect from '../components/DonutChartWithSelect'
 
+import FontAwesome                from 'react-fontawesome';
 import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
   element: {
     padding: '12px',
     borderBottom: `1px solid #ccc`,
+    lineHeight: '38px',
     flex: '1',
   },
   chartElement: {
@@ -71,9 +73,49 @@ const styles = StyleSheet.create({
   },
   addRow: {
     display: 'flex',
+    marginLeft: '-1px',
+    marginBottom: '1px',
   },
   select: {
     width: '128px',
+  },
+  flexItem: {
+    flex: '1',
+  },
+  padded: {
+    padding: '16px 16px'
+  },
+  block: {
+    display: 'block',
+  },
+  block_h1: {
+    display: 'block',
+    lineHeight: '36px',
+  },
+  heroTable: {
+    backgroundColor: '#000',
+    padding: '10px 10px',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
+    display: 'flex',
+    flexDirection: 'row',
+    flex: '1',
+  },
+  column: {
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  closeButton: {
+    height: '100%',
+    //position: 'absolute',
+    //right: '0px',
+  },
+  blockButton: {
+    borderRadius: '0px',
+    backgroundColor: '#fff',
+    textTransform: 'uppercase',
+    letterSpacing: '2px',
+    fontWeight: '700',
   },
 });
 
@@ -89,6 +131,29 @@ const emptyDonut = {
   }]
 };
 
+function calculateTotalValue(tokenUsers) {
+  return tokenUsers.reduce((accum, elem) => accum + (elem.amount * elem.token.priceUSD), 0);
+}
+
+function  calculateDistribution(tokenUsers) {
+  if (calculateTotalValue(tokenUsers) <= 0) return emptyDonut;
+  var legend = tokenUsers.map(elem => elem.token.shortName);
+  var distribution = tokenUsers.map(elem => (elem.amount * elem.token.priceUSD));
+  
+  return ({
+    labels: legend,
+    datasets: [{
+      data: distribution,
+      backgroundColor: [
+        '#FF6384',
+        '#36A2EB',
+        '#FFCE56'
+      ],
+     // hoverBackgroundColor: [],
+    }],
+  });
+}
+
 class Portfolio extends PureComponent
 {
   componentWillReceiveProps(nextProps)
@@ -97,32 +162,6 @@ class Portfolio extends PureComponent
     {
       nextProps.history.push('/');
     }
-  }
-
-  calculateDistribution(tokenUsers) {
-    //console.log(tokenUsers);
-    if (tokenUsers.length <= 0) return emptyDonut;
-
-    var total = tokenUsers.reduce((elem, accum) => accum + (elem.amount * elem.token.priceUSD));
-    var legend = tokenUsers.map((elem) => elem.shortName);
-    var distribution = tokenUsers.map((elem) => (elem.amount * elem.token.priceUSD)/total);
-    
-    return ({
-      labels: legend,
-      datasets: [{
-        data: [1, 1, 1],
-        backgroundColor: [
-          '#FF6384',
-          '#36A2EB',
-          '#FFCE56'
-        ],
-        hoverBackgroundColor: [
-          '#FF6384',
-          '#36A2EB',
-          '#FFCE56'
-        ]
-      }],
-    });
   }
 
   savePortfolio()
@@ -221,7 +260,7 @@ class Portfolio extends PureComponent
         <td className={css(styles.element)}>
           <El
             nightMode={nightMode}
-            type={'span'}
+            type={'h4'}
             style={styles.semibolded}
           >
             {shortName}
@@ -259,11 +298,12 @@ class Portfolio extends PureComponent
             {priceUSD ? numeral(amount * priceUSD).format('$0,0.00') : ''}
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td>
           <button
             onClick={onClickRemove}
+            className={css(styles.closeButton)}
           >
-            x
+            <FontAwesome name='remove' />
           </button>
         </td>
       </tr>
@@ -288,6 +328,7 @@ class Portfolio extends PureComponent
         </table>
         {this.renderAdd()}
         <button
+          className={css(styles.blockButton)}
           disabled={!changeActive}
           onClick={(event) => this.savePortfolio()}
         >
@@ -317,6 +358,7 @@ class Portfolio extends PureComponent
           <Select
             className={css(styles.select)}
             clearable={false}
+            placeholder='Add Coin'
             options={selectOptions}
             searchable={true}
             onChange={(option) => addTokenUser(option.value)}
@@ -324,6 +366,66 @@ class Portfolio extends PureComponent
         </div>
       );
     }
+  }
+
+  renderHeroTable() {
+    const {
+      nightMode,
+      tokenUsers,
+    } = this.props;
+
+    return (
+      <div className={css(styles.heroTable)}>
+        <div className={css(styles.column)}>
+          <El
+            nightMode={nightMode}
+            type={'h4'}
+            style={styles.block}
+          >
+            Portfolio Value:
+          </El>
+          <El
+            nightMode={nightMode}
+            type={'h1'}
+            style={styles.block_h1}
+          >
+             {numeral(calculateTotalValue(tokenUsers)).format('$0,0.00')}
+          </El>
+        </div>
+        <div className={css(styles.column)}>
+          <El
+            nightMode={nightMode}
+            type={'h4'}
+            style={styles.block}
+          >
+            Today's Change:
+          </El>
+          <El
+            nightMode={nightMode}
+            type={'h2'}
+            style={styles.block}
+          >
+             {numeral(calculateTotalValue(tokenUsers)).format('$0,0.00')}
+          </El>
+        </div>
+        <div className={css(styles.column)}>
+          <El
+            nightMode={nightMode}
+            type={'h4'}
+            style={styles.block}
+          >
+            Change in last 7 days:
+          </El>
+          <El
+            nightMode={nightMode}
+            type={'h2'}
+            style={styles.block}
+          >
+             {numeral(calculateTotalValue(tokenUsers)).format('$0,0.00')}
+          </El>
+        </div>
+      </div>
+    );
   }
 
   render()
@@ -335,12 +437,17 @@ class Portfolio extends PureComponent
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        <div className={css(styles.chartElement)}>
-          <DonutChartWithSelect
-            title="Portfolio Distribution"
-            nightMode={nightMode}
-            data={this.calculateDistribution(tokenUsers)}
-          />
+        <div className={css(styles.row)}>
+          <div className={css(styles.chartElement, styles.flexItem)}>
+            <DonutChartWithSelect
+              title="Portfolio Distribution:"
+              nightMode={nightMode}
+              data={calculateDistribution(tokenUsers)}
+            />
+          </div>
+          <div className={css(styles.padded)} style={{'flex':'3'}}>
+            {this.renderHeroTable()}
+          </div>
         </div>
         {this.renderTokenUsers()}
       </div>
