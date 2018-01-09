@@ -451,7 +451,7 @@ class Portfolio extends PureComponent
       tokenUsers,
     } = this.props;
 
-    const data = calculatePortfolioDonutData(tokenUsers);
+    const data = calculatePortfolioDonutData(tokenUsers, nightMode);
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
