@@ -262,6 +262,22 @@ token_infos = [
     percent_change_24h: -0.8,
     percent_change_7d: -16.6,
   },
+  {
+    short_name: 'BCH',
+    long_name: 'Bitcoin Cash',
+    keywords: ['BCH', 'Bitcoin Cash'],
+    markets: [],
+    price_usd: 14543.78,
+    price_btc: 1.0,
+    volume_usd_24h: 18966300000,
+    market_cap_usd: 251403067744,
+    available_supply: 16781237,
+    total_supply: 16781237,
+    max_supply: 21000000,
+    percent_change_1h: 7.4,
+    percent_change_24h: -5.8,
+    percent_change_7d: 23.6,
+  },
 ]
 
 token_infos.each do |token_info|
