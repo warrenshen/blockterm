@@ -6,9 +6,11 @@ import React, {
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { withRouter }      from 'react-router-dom'
+import Select              from 'react-select';
+import numeral             from 'numeral';
 import El                  from '../components/El';
 import DonutChartWithSelect from '../components/DonutChartWithSelect'
-import numeral             from 'numeral';
+
 import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
@@ -66,6 +68,12 @@ const styles = StyleSheet.create({
   greenDelta: {
     color: `${STYLES.TICKER_GREEN} !important`,
     fontWeight: '500',
+  },
+  addRow: {
+    display: 'flex',
+  },
+  select: {
+    width: '128px',
   },
 });
 
@@ -153,6 +161,7 @@ class Portfolio extends PureComponent
       nightMode,
 
       changeTokenUserAmount,
+      removeTokenUser,
     } = this.props;
 
     const {
@@ -168,6 +177,7 @@ class Portfolio extends PureComponent
     } = token;
 
     const onChange = (event) => changeTokenUserAmount(id, event.target.value);
+    const onClickRemove = (event) => removeTokenUser(id);
 
     return (
       <tr className={css(styles.row)} key={tokenUser.id}>
@@ -191,7 +201,7 @@ class Portfolio extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
-            {numeral(priceUSD).format('$0,0.00')}
+            {priceUSD ? numeral(priceUSD).format('$0,0.00') : ''}
           </El>
         </td>
         <td className={css(styles.element, styles.flexTwo)}>
@@ -201,7 +211,7 @@ class Portfolio extends PureComponent
             style={(percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
             nightModeStyle={(percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
           >
-            {numeral(percentChange24h).format('0,0.00')}%
+            {percentChange24h ? `${numeral(percentChange24h).format('0,0.00')}%` : ''}
           </El>
         </td>
         <td className={css(styles.element, styles.flexTwo)}>
@@ -209,8 +219,15 @@ class Portfolio extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
-            {numeral(amount * priceUSD).format('$0,0.00')}
+            {priceUSD ? numeral(amount * priceUSD).format('$0,0.00') : ''}
           </El>
+        </td>
+        <td className={css(styles.element)}>
+          <button
+            onClick={onClickRemove}
+          >
+            x
+          </button>
         </td>
       </tr>
     );
@@ -219,6 +236,7 @@ class Portfolio extends PureComponent
   renderTokenUsers()
   {
     const {
+      changeActive,
       nightMode,
       tokenUsers,
     } = this.props;
@@ -231,11 +249,44 @@ class Portfolio extends PureComponent
             {tokenUsers.map((tokenUser) => this.renderTokenUser(tokenUser))}
           </tbody>
         </table>
-        <button onClick={(event) => this.savePortfolio()}>
+        {this.renderAdd()}
+        <button
+          disabled={!changeActive}
+          onClick={(event) => this.savePortfolio()}
+        >
           Save
         </button>
       </div>
     );
+  }
+
+  renderAdd()
+  {
+    const {
+      data,
+      nightMode,
+
+      addTokenUser,
+    } = this.props;
+
+    if (data.tokensAll)
+    {
+      const selectOptions = data.tokensAll.map((token) => ({
+        label: token.shortName,
+        value: token,
+      }));
+      return (
+        <div className={css(styles.addRow)}>
+          <Select
+            className={css(styles.select)}
+            clearable={false}
+            options={selectOptions}
+            searchable={true}
+            onChange={(option) => addTokenUser(option.value)}
+          />
+        </div>
+      );
+    }
   }
 
   render()

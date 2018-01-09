@@ -32,6 +32,15 @@ export const DashboardPagesQuery = gql`
   }
 `;
 
+export const TokensAllQuery = gql`
+  query TokensAllQuery {
+    tokensAll {
+      id
+      shortName
+    }
+  }
+`;
+
 export const TokensByPageQuery = gql`
   query TokensByPageQuery($page: Int!) {
     tokensByPage(page: $page) {

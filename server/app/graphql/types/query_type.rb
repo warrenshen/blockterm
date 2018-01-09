@@ -112,6 +112,14 @@ module Types
       }
     end
 
+    field :tokensAll, types[Types::TokenType] do
+      description 'Gets all tokens'
+
+      resolve -> (obj, args, ctx) {
+        Token.all.order(short_name: :asc)
+      }
+    end
+
     field :tokensByPage, types[Types::TokenType] do
       argument :page, !types.Int
 

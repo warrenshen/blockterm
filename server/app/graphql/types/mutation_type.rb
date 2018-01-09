@@ -407,18 +407,41 @@ module Types
         end
 
         token_users_hashes = JSON.parse(args[:tokenUsersString])
+
+        token_user_ids = token_users_hashes.map do |token_user_hash|
+          token_user_hash['id']
+        end
+
+        destroyed_token_users = current_user.token_users.where.not(id: token_user_ids).destroy_all
+
         token_users_hashes.each do |token_user_hash|
           token_user_id = token_user_hash['id']
-          token_user = TokenUser.find(token_user_id)
 
-          token_user.assign_attributes(
-            amount: token_user_hash['amount'],
-            index: token_user_hash['index'],
-          )
+          if token_user_id.index('t') == 0
+            token_hash = token_user_hash['token']
 
-          if token_user.changed?
-            if !token_user.save
+            token_user = TokenUser.create(
+              token_id: token_hash['id'],
+              user_id: current_user.id,
+              amount: token_user_hash['amount'],
+              index: token_user_hash['index'],
+            )
+
+            if !token_user.valid?
               return GraphQL::ExecutionError.new(token_user.errors.full_messages)
+            end
+          else
+            token_user = TokenUser.find(token_user_id)
+
+            token_user.assign_attributes(
+              amount: token_user_hash['amount'],
+              index: token_user_hash['index'],
+            )
+
+            if token_user.changed?
+              if !token_user.save
+                return GraphQL::ExecutionError.new(token_user.errors.full_messages)
+              end
             end
           end
         end
