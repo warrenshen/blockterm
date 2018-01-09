@@ -14,9 +14,8 @@ import * as STYLES from '../constants/styles';
 const styles = StyleSheet.create({
   wrapper: {
     width: '100vw',
-    minHeight: '100vh',
     display: 'flex',
-    //padding: '0% 15%',
+    flex: '1',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
@@ -26,6 +25,8 @@ const styles = StyleSheet.create({
   mainContent: {
     //width: '80vw',
     width: '100vw',
+    display: 'flex',
+    flexDirection: 'column',
   },
   sidebar: {
     width: '20vw',
@@ -37,15 +38,14 @@ const styles = StyleSheet.create({
     padding: '8px 10px',
   },
   body: {
-    //left: '-24px',
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
     width: '100%',
     padding: '0px 12px 0px',
     boxSizing: 'content-box',
     backgroundColor: '#fff',
-    //borderRadius: '6px',
     display: 'flex',
     flexDirection: 'column',
+    flex: '1',
   },
   bodyNightMode: {
     backgroundColor: '#000',
@@ -72,7 +72,10 @@ const styles = StyleSheet.create({
   },
   element: {
     padding: '12px 0px',
-    borderBottom: `1px solid #ccc`,
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  darkElement: {
+    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
   },
   semibolded: {
     fontWeight: '500',
@@ -84,14 +87,22 @@ const styles = StyleSheet.create({
     width: '100%',
     borderCollapse: 'collapse',
     display: 'table',
-    //backgroundColor: STYLES.SOFTGRAY,
   },
   row: {
     width: '100%',
     display: 'flex',
   },
-  flexible: {
+  flexXS: {
     flex: '1',
+  },
+  flexS: {
+    flex: '2',
+  },
+  flexM: {
+    flex: '3',
+  },
+  flexL: {
+    flex: '4',
   },
   redDelta: {
     color: `${STYLES.TICKER_RED} !important`,
@@ -100,6 +111,13 @@ const styles = StyleSheet.create({
   greenDelta: {
     color: `${STYLES.TICKER_GREEN} !important`,
     fontWeight: '500',
+  },
+  paginationButtons: {
+    padding: '2px 8px',
+    marginRight: '10px',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
+    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
+    borderRadius: '1px',
   },
 });
 
@@ -121,7 +139,7 @@ class Tokens extends PureComponent {
 
     return (
       <tr className={css(styles.row)}>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexXS)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -130,7 +148,7 @@ class Tokens extends PureComponent {
             #
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexS)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -139,7 +157,7 @@ class Tokens extends PureComponent {
             Symbol
           </El>
         </td>
-        <td className={css(styles.element, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -148,7 +166,7 @@ class Tokens extends PureComponent {
             Name
           </El>
         </td>
-        <td className={css(styles.element, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -157,16 +175,16 @@ class Tokens extends PureComponent {
             Price
           </El>
         </td>
-        <td className={css(styles.element, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexL)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
             type={'span'}
           >
-            Trading Volume (24h)
+            Trade Volume (24h)
           </El>
         </td>
-        <td className={css(styles.element, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexL)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -175,7 +193,7 @@ class Tokens extends PureComponent {
             Market Cap
           </El>
         </td>
-        <td className={css(styles.element, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexL)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -184,7 +202,7 @@ class Tokens extends PureComponent {
             Circulating Supply
           </El>
         </td>
-        <td className={css(styles.element, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -193,7 +211,7 @@ class Tokens extends PureComponent {
             Change (1h)
           </El>
         </td>
-        <td className={css(styles.element, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -202,7 +220,7 @@ class Tokens extends PureComponent {
             Change (24h)
           </El>
         </td>
-        <td className={css(styles.element, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -238,7 +256,7 @@ class Tokens extends PureComponent {
 
     return (
       <tr className={css(styles.row)} key={id}>
-        <td className={css(styles.element, styles.thickElement)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexXS)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -246,10 +264,10 @@ class Tokens extends PureComponent {
             {index + 1}
           </El>
         </td>
-        <td className={css(styles.element, styles.thickElement)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexS)}>
           <img className={css(styles.image)} src={imageUrl} width={40} height={40}></img>
         </td>
-        <td className={css(styles.element, styles.thickElement, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
           <Link to={`/token/${shortName}`}>
             <El
               nightMode={nightMode}
@@ -260,7 +278,7 @@ class Tokens extends PureComponent {
             </El>
           </Link>
         </td>
-        <td className={css(styles.element, styles.thickElement, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
           <El
               nightMode={nightMode}
               type={'span'}
@@ -268,7 +286,7 @@ class Tokens extends PureComponent {
             {numeral(priceUSD).format('$0,0.00')}
           </El>
         </td>
-        <td className={css(styles.element, styles.thickElement, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexL)}>
           <El
               nightMode={nightMode}
               type={'span'}
@@ -277,7 +295,7 @@ class Tokens extends PureComponent {
             {numeral(volumeUSD24h).format('$0,0')}
           </El>
         </td>
-        <td className={css(styles.element, styles.thickElement, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexL)}>
           <El
               nightMode={nightMode}
               type={'span'}
@@ -285,7 +303,7 @@ class Tokens extends PureComponent {
             {numeral(marketCapUSD).format('$0,0')}
           </El>
         </td>
-        <td className={css(styles.element, styles.thickElement, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexL)}>
           <El
               nightMode={nightMode}
               type={'span'}
@@ -293,7 +311,7 @@ class Tokens extends PureComponent {
             {numeral(availableSupply).format('0,0')}
           </El>
         </td>
-        <td className={css(styles.element, styles.thickElement, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
           <El
               nightMode={nightMode}
               type={'span'}
@@ -303,7 +321,7 @@ class Tokens extends PureComponent {
             {numeral(percentChange1h).format('0,0.00')}%
           </El>
         </td>
-        <td className={css(styles.element, styles.thickElement, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
           <El
               nightMode={nightMode}
               type={'span'}
@@ -313,7 +331,7 @@ class Tokens extends PureComponent {
             {numeral(percentChange24h).format('0,0.00')}%
           </El>
         </td>
-        <td className={css(styles.element, styles.thickElement, styles.flexible)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
           <El
               nightMode={nightMode}
               type={'span'}
@@ -341,10 +359,15 @@ class Tokens extends PureComponent {
             {tokens.map((token, index) => this.renderToken(token, index))}
           </tbody>
         </table>
-        <ul>
+        <ul style={{'marginTop':'10px',}}>
           {[1, 2, 3, 4].map((page) => (
-            <Link key={page} to={`/tokens/${page}`}>
-              {page}
+            <Link key={page} className={css(styles.paginationButtons)} to={`/tokens/${page}`}>
+              <El
+                nightMode={nightMode}
+                type={'span'}
+              >
+                {page}
+              </El>
             </Link>
           ))}
         </ul>

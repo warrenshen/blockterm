@@ -53,8 +53,7 @@ const styles = StyleSheet.create({
   subreddits: {
     display: 'flex',
     flexDirection: 'row !important',
-    //marginLeft: '64px',
-    //paddingTop: '12px',
+    paddingLeft: '10px',
   },
   column: {
     display: 'flex',
