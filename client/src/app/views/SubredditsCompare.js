@@ -122,12 +122,10 @@ class SubredditsCompare extends PureComponent {
     const selectOptions = subredditOptions
     .filter(
       (subreddit) => !selectedIds.includes(subreddit.id)
-    ).map((subreddit) => {
-      return {
-        label: subreddit.displayName,
-        value: subreddit.id,
-      };
-    });
+    ).map((subreddit) => ({
+      label: subreddit.displayName,
+      value: subreddit.id,
+    }));
 
     return (
       <div className={css(styles.comparables)}>
@@ -157,7 +155,6 @@ class SubredditsCompare extends PureComponent {
                 className={css(styles.select)}
                 clearable={false}
                 searchable={true}
-                value={''}
                 options={selectOptions}
                 onChange={(option) => addSubredditId(option.value)}
               />
