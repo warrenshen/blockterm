@@ -104,14 +104,11 @@ class Portfolio extends PureComponent
     if (tokenUsers.length <= 0) return emptyDonut;
 
     var total = tokenUsers.reduce((elem, accum) => accum + (elem.amount * elem.token.priceUSD));
+    var legend = tokenUsers.map((elem) => elem.shortName);
     var distribution = tokenUsers.map((elem) => (elem.amount * elem.token.priceUSD)/total);
     
     return ({
-      labels: [
-        'Red',
-        'Green',
-        'Yellow'
-      ],
+      labels: legend,
       datasets: [{
         data: [1, 1, 1],
         backgroundColor: [

@@ -120,6 +120,8 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     border: `1px solid #000`,
+    textTransform: 'uppercase',
+    letterSpacing: '2px',
   },
   row: {
     display: 'flex',
@@ -218,6 +220,7 @@ class Signup extends PureComponent {
                       className={css(styles.bolded, styles.submitButton)}
                       onClick={(event) => this.submit(event)}
                       type='submit'
+                      value='Join'
                     />
                   </div>
                   <div className={css(styles.section, styles.rightAlign)}>

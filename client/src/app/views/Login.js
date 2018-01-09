@@ -113,6 +113,8 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     border: `1px solid #000`,
+    textTransform: 'uppercase',
+    letterSpacing: '2px',
   },
   rightAlign: {
     textAlign: 'right',
@@ -127,7 +129,6 @@ const styles = StyleSheet.create({
   row: {
     display: 'flex',
     flexDirection: 'row',
-    flex: '1',
   },
   section: {
     flex: '1',
@@ -237,6 +238,7 @@ class Login extends PureComponent {
                     className={css(styles.bolded, styles.submitButton)}
                     onClick={(event) => this.submit(event)}
                     type='submit'
+                    value='Login'
                   />
                 </div>
                 <div className={css(styles.section, styles.rightAlign)}>
