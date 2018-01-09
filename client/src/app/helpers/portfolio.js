@@ -10,14 +10,26 @@ const emptyDonut = {
   }],
 };
 
-export function calculatePortfolioTotalValue(tokenUsers) {
+export function calculatePortfolioTotalValue(tokenUsers)
+{
   return tokenUsers.reduce(
     (accum, tokenUser) => accum + (tokenUser.amount * tokenUser.token.priceUSD),
     0,
   );
 }
 
-export function calculatePortfolioDonutData(tokenUsers) {
+export function calculatePortfolioChangeIn24h(tokenUsers)
+{
+
+}
+
+export function calculatePortfolioChangeIn7d(tokenUsers)
+{
+
+}
+
+export function calculatePortfolioDonutData(tokenUsers)
+{
   if (calculatePortfolioTotalValue(tokenUsers) <= 0) return emptyDonut;
 
   const legend = tokenUsers.map((tokenUser) => tokenUser.token.shortName);

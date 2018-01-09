@@ -390,11 +390,11 @@ class Portfolio extends PureComponent
             type={'h4'}
             style={styles.block}
           >
-            Portfolio Value:
+            Portfolio total value:
           </El>
           <El
             nightMode={nightMode}
-            type={'h1'}
+            type={'h2'}
             style={styles.blockTitle}
           >
              {numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00')}

@@ -227,6 +227,12 @@ class PortfolioItem extends Component
           nightMode={nightMode}
           type={'h3'}
         >
+          Portfolio total value
+        </El>
+        <El
+          nightMode={nightMode}
+          type={'h3'}
+        >
           {totalValue}
         </El>
         <table className={css(styles.table)}>

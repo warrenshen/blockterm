@@ -254,7 +254,7 @@ class Dashboard extends Component {
             <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
               <div className={css(styles.header)}>
                 <El nightMode={nightMode} type={'h5'}>
-                  {sidebarMode === 'edit' ? 'Edit' : 'Add'}
+                  {sidebarMode === 'edit' ? 'Edit widget' : 'Add widget'}
                 </El>
                 <button
                   onClick={(event) => changeSidebarMode(null)}
