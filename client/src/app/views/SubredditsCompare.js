@@ -117,11 +117,12 @@ class SubredditsCompare extends PureComponent {
       nightMode,
     } = this.props;
 
-    const selectedIds = selectedSubreddits.map((subreddit) => subreddit.id);
-
+    const selectedSubredditIds = selectedSubreddits.map(
+      (subreddit) => subreddit.id
+    );
     const selectOptions = subredditOptions
     .filter(
-      (subreddit) => !selectedIds.includes(subreddit.id)
+      (subreddit) => !selectedSubredditIds.includes(subreddit.id)
     ).map((subreddit) => ({
       label: subreddit.displayName,
       value: subreddit.id,

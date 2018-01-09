@@ -95,7 +95,7 @@ class DonutChartWithSelect extends PureComponent {
         padding: 6,
       },
     };
-    console.log(height);
+
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.header)}>

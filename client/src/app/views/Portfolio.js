@@ -351,16 +351,24 @@ class Portfolio extends PureComponent
     const {
       data,
       nightMode,
+      tokenUsers,
 
       addTokenUser,
     } = this.props;
 
     if (data.tokensAll)
     {
-      const selectOptions = data.tokensAll.map((token) => ({
+      const selectedTokenIds = tokenUsers.map(
+        (tokenUser) => tokenUser.token.id
+      );
+      const selectOptions = data.tokensAll.
+      filter(
+        (token) => !selectedTokenIds.includes(token.id)
+      ).map((token) => ({
         label: token.shortName,
         value: token,
       }));
+
       return (
         <div className={css(styles.addRow)}>
           <Select

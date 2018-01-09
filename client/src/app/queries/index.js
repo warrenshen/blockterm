@@ -82,6 +82,7 @@ export const TokenUsersQuery = gql`
         amount
 
         token {
+          id
           shortName
           priceUSD
           priceBTC
@@ -449,6 +450,7 @@ export const UpdateTokenUsersMutation = gql`
         amount
 
         token {
+          id
           shortName
           priceUSD
           priceBTC
