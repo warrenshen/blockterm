@@ -180,6 +180,7 @@
     "react-tabs": "^2.1.1",
     "react-tap-event-plugin": "^2.0.1",
     "react-toggle-switch": "^3.0.3",
+    "react-tooltip": "^3.4.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "serialize-javascript": "^1.4.0"
