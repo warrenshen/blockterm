@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     },
   },
   lockedGrabBar: {
-    pointerEvents: 'none',
+    cursor: 'default',
   },
   nightBar: {
     backgroundColor: '#000',
@@ -217,7 +217,7 @@ class DashboardItem extends Component {
         key={id}
       >
         <div className={css(styles.grabBar, nightMode && styles.nightBar, staticActive && styles.lockedGrabBar)}>
-          <div className={css(styles.section, styles.leftSection)}>
+          <div className={css(styles.section, styles.leftSection, staticActive && styles.lockedGrabBar)}>
             <El
               style={styles.widgetTitle}
               nightMode={nightMode}
@@ -226,7 +226,7 @@ class DashboardItem extends Component {
               {identifier}
             </El>
           </div>
-          <div className={css(styles.rightAlignSmall)}>
+          <div className={css(styles.rightAlignSmall, staticActive && styles.lockedGrabBar)}>
             <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
               onClick={onClickEdit}
