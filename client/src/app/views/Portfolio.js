@@ -59,6 +59,9 @@ const styles = StyleSheet.create({
     lineHeight: '38px',
     flex: '1',
   },
+  condensed: {
+    lineHeight: '20px',
+  },
   darkElement: {
     borderBottom: `1px solid ${STYLES.BORDERDARK}`,
   },
@@ -119,7 +122,7 @@ const styles = StyleSheet.create({
   },
   blockButton: {
     borderRadius: '0px',
-    backgroundColor: '#fff',
+    //backgroundColor: '#fff',
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontWeight: '700',
@@ -155,7 +158,11 @@ const styles = StyleSheet.create({
   },
   darkBorderRight: {
     borderRight: `1px solid ${STYLES.BORDERDARK}`,
-  }
+  },
+  fakeElement: {
+    width:'28px',
+    flex: '0 !important',
+  },
 });
 
 class Portfolio extends PureComponent
@@ -186,7 +193,7 @@ class Portfolio extends PureComponent
 
     return (
       <tr className={css(styles.row)}>
-        <td className={css(styles.element, nightMode && styles.darkElement)}>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -195,7 +202,7 @@ class Portfolio extends PureComponent
             Token
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -204,7 +211,7 @@ class Portfolio extends PureComponent
             Amount Held
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -213,7 +220,7 @@ class Portfolio extends PureComponent
             Price USD
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -222,7 +229,7 @@ class Portfolio extends PureComponent
             Change (24h)
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -231,8 +238,7 @@ class Portfolio extends PureComponent
             Value
           </El>
         </td>
-        <td style={{'width':'40px', 'borderBottom': '1px solid #ccc',}}>
-
+        <td className={css(styles.element, styles.condensed, styles.fakeElement)}>
         </td>
       </tr>
     );
