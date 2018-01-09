@@ -373,7 +373,7 @@ puts 'Created subreddit tokens'
 
 puts 'Seeding counts...'
 
-def create_post_counts_for_subreddit(subreddit, days=30, k=50)
+def create_post_counts_for_subreddit(subreddit, days=30, k=2000)
   today = DateTime.now.beginning_of_day
 
   for i in (-days..0)
@@ -388,7 +388,7 @@ def create_post_counts_for_subreddit(subreddit, days=30, k=50)
   puts "Created #{days} post counts for the #{subreddit.display_name} subreddit"
 end
 
-def create_comment_counts_for_subreddit(subreddit, days=30, k=500)
+def create_comment_counts_for_subreddit(subreddit, days=30, k=5000)
   today = DateTime.now.beginning_of_day
 
   for i in (-days..0)
