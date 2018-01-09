@@ -73,15 +73,16 @@ const styles = StyleSheet.create({
     padding: '4px 8px 4px 13px !important',
   },
   disabled: {
-    pointerEvents: 'none',
+    cursor: 'not-allowed',
     opacity: '0.7',
   },
   tooltip: {
+    fontWeight: '500',
     opacity: '1 !important',
     borderRadius: '0px',
-    backgroundColor: '#F50057 !important',
+    backgroundColor: '#304FFE !important',
     ':after': {
-      borderBottomColor: '#F50057 !important',
+      borderBottomColor: '#304FFE !important',
     },
   },
 });
