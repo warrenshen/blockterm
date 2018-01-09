@@ -5,12 +5,14 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import { withRouter }      from 'react-router-dom'
 import Select              from 'react-select';
 import numeral             from 'numeral';
+import {
+  calculatePortfolioTotalValue,
+  calculatePortfolioDonutData,
+}                               from '../helpers/portfolio';
 import El                  from '../components/El';
 import DonutChartWithSelect from '../components/DonutChartWithSelect'
-
 import FontAwesome                from 'react-fontawesome';
 import * as STYLES from '../constants/styles';
 
@@ -39,9 +41,9 @@ const styles = StyleSheet.create({
     borderTop: `1px solid ${STYLES.BORDERDARK}`,
   },
   table: {
+    display: 'table',
     width: '100%',
     borderCollapse: 'collapse',
-    display: 'table',
     //backgroundColor: STYLES.SOFTGRAY,
   },
   row: {
@@ -155,60 +157,6 @@ const styles = StyleSheet.create({
     borderRight: `1px solid ${STYLES.BORDERDARK}`,
   }
 });
-
-const emptyDonut = {
-  labels: [
-    'N/A',
-  ],
-  datasets: [{
-    data: [1],
-    backgroundColor: [
-      '#ccc',
-    ],
-  }]
-};
-
-function calculateTotalValue(tokenUsers) {
-  return tokenUsers.reduce((accum, elem) => accum + (elem.amount * elem.token.priceUSD), 0);
-}
-
-function  calculateDistribution(tokenUsers) {
-  if (calculateTotalValue(tokenUsers) <= 0) return emptyDonut;
-  var legend = tokenUsers.map(elem => elem.token.shortName);
-  var distribution = tokenUsers.map(elem => (elem.amount * elem.token.priceUSD));
-  
-  return ({
-    labels: legend,
-    datasets: [{
-      data: distribution,
-      backgroundColor: [
-        '#F44336',
-        '#3F51B5',
-        '#009688',
-        '#FFEB3B',
-        '#795548',
-
-        '#E91E63',
-        '#2196F3',
-        '#4CAF50',
-        '#FFC107',
-        '#607D8B',
-
-        '#9C27B0',
-        '#03A9F4',
-        '#8BC34A',
-        '#FF9800',
-        '#9E9E9E',
-
-        '#673AB7',
-        '#00BCD4',
-        '#CDDC39',
-        '#FF5722',
-      ],
-     // hoverBackgroundColor: [],
-    }],
-  });
-}
 
 class Portfolio extends PureComponent
 {
@@ -449,7 +397,7 @@ class Portfolio extends PureComponent
             type={'h1'}
             style={styles.block_h1}
           >
-             {numeral(calculateTotalValue(tokenUsers)).format('$0,0.00')}
+             {numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00')}
           </El>
         </div>
         <div className={css(styles.heroColumn, styles.borderRight, nightMode && styles.darkBorderRight)}>
@@ -465,7 +413,7 @@ class Portfolio extends PureComponent
             type={'h2'}
             style={styles.block}
           >
-             {numeral(calculateTotalValue(tokenUsers)).format('$0,0.00')}
+             {numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00')}
           </El>
         </div>
         <div className={css(styles.heroColumn)}>
@@ -481,7 +429,7 @@ class Portfolio extends PureComponent
             type={'h2'}
             style={styles.block}
           >
-             {numeral(calculateTotalValue(tokenUsers)).format('$0,0.00')}
+             {numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00')}
           </El>
         </div>
       </div>
@@ -495,14 +443,16 @@ class Portfolio extends PureComponent
       tokenUsers,
     } = this.props;
 
+    const data = calculatePortfolioDonutData(tokenUsers);
+
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         <div className={css(styles.row)}>
           <div className={css(styles.chartElement, styles.flexItem, styles.donutBox, nightMode && styles.darkDonutBox)}>
             <DonutChartWithSelect
-              title="Portfolio Distribution:"
+              data={data}
               nightMode={nightMode}
-              data={calculateDistribution(tokenUsers)}
+              title="Portfolio Distribution:"
             />
           </div>
           <div className={css(styles.padded)} style={{'flex':'3'}}>

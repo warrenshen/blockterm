@@ -122,7 +122,7 @@ export const ITEM_KEY_TO_LABELS = {
   [TOTAL_MARKET_CAP]: 'Total market cap chart',
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
   [SUBREDDIT_COMMENT_COUNTS]: 'Subreddit comments chart',
-  // [PORTFOLIO_ITEM]: 'Portfolio overview',
+  [PORTFOLIO_ITEM]: 'Portfolio overview',
 };
 
 // These array values should be in user-facing order.

@@ -62,12 +62,14 @@ function getRandomInt (min, max) {
 
 class DonutChartWithSelect extends PureComponent {
   static propTypes = {
-    //data: PropTypes.object.isRequired,
+    data: PropTypes.object.isRequired,
     displayLegend: PropTypes.bool,
+    hasSelect: PropTypes.bool,
+    height: PropTypes.number,
     nightMode: PropTypes.bool.isRequired,
     //selectOptions: PropTypes.array.isRequired,
     //selectValue: PropTypes.string.isRequired,
-    //title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     //onChange: PropTypes.func.isRequired,
   };
 
@@ -75,11 +77,12 @@ class DonutChartWithSelect extends PureComponent {
   {
     const {
       data,
-      displayLegend,
+      // displayLegend,
       hasSelect,
+      height,
       nightMode,
-      selectOptions,
-      selectValue,
+      // selectOptions,
+      // selectValue,
       title,
       //onChange,
     } = this.props;
@@ -92,6 +95,7 @@ class DonutChartWithSelect extends PureComponent {
         padding: 6,
       },
     };
+    console.log(height);
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.header)}>
@@ -116,7 +120,7 @@ class DonutChartWithSelect extends PureComponent {
         <div className={css(styles.chart)}>
           <Doughnut
             redraw={true}
-            height={300}
+            height={height ? height : 300}
             options={{
               maintainAspectRatio: false,
               legend: legendConfig,
