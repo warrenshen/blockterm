@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   block: {
     display: 'block',
   },
-  block_h1: {
+  blockTitle: {
     display: 'block',
     lineHeight: '36px',
   },
@@ -447,7 +447,7 @@ class Portfolio extends PureComponent
           <El
             nightMode={nightMode}
             type={'h1'}
-            style={styles.block_h1}
+            style={styles.blockTitle}
           >
              {numeral(calculateTotalValue(tokenUsers)).format('$0,0.00')}
           </El>
@@ -465,7 +465,7 @@ class Portfolio extends PureComponent
             type={'h2'}
             style={styles.block}
           >
-             {numeral(calculateTotalValue(tokenUsers)).format('$0,0.00')}
+             --
           </El>
         </div>
         <div className={css(styles.heroColumn)}>
@@ -481,7 +481,7 @@ class Portfolio extends PureComponent
             type={'h2'}
             style={styles.block}
           >
-             {numeral(calculateTotalValue(tokenUsers)).format('$0,0.00')}
+             --
           </El>
         </div>
       </div>

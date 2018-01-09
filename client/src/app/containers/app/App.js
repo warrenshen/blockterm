@@ -12,6 +12,7 @@ import {
 }                          from '../../containers';
 import MainRoutes          from '../../routes/MainRoutes';
 import Notifications       from 'react-notification-system-redux';
+import ReactTooltip        from 'react-tooltip';
 import * as STYLES         from '../../constants/styles';
 
 const styles = StyleSheet.create({
@@ -55,6 +56,7 @@ class App extends PureComponent {
           notifications={notifications}
           style={notificationsStyle}
         />
+        <ReactTooltip />
       </div>
     );
   }

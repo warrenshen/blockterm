@@ -62,6 +62,7 @@ const RightNavButton = ({ action, label, link, icon, nightMode, nightModeStyle, 
           style={styles.boldedUpper}
           type={'span'}>
           {label}
+          {icon && <FontAwesome name={`${icon}`} className={css(styles.icon)}/>}
         </El>
       </Link>
     </li>
