@@ -8,6 +8,8 @@ import { StyleSheet, css } from 'aphrodite';
 import Select              from 'react-select';
 import numeral             from 'numeral';
 import {
+  calculatePortfolioChangeIn24h,
+  calculatePortfolioChangeIn7d,
   calculatePortfolioTotalValue,
   calculatePortfolioDonutData,
 }                               from '../helpers/portfolio';
@@ -246,6 +248,15 @@ class Portfolio extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
+            Change (7d)
+          </El>
+        </td>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
+          <El
+            style={styles.semibolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
             Value
           </El>
         </td>
@@ -274,6 +285,7 @@ class Portfolio extends PureComponent
       shortName,
       priceUSD,
       percentChange24h,
+      percentChange7d,
     } = token;
 
     const onChange = (event) => changeTokenUserAmount(id, event.target.value);
@@ -313,6 +325,16 @@ class Portfolio extends PureComponent
             nightModeStyle={(percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
           >
             {percentChange24h ? `${numeral(percentChange24h).format('0,0.00')}%` : ''}
+          </El>
+        </td>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+            style={(percentChange7d < 0) ? styles.redDelta : styles.greenDelta}
+            nightModeStyle={(percentChange7d < 0) ? styles.redDelta : styles.greenDelta}
+          >
+            {percentChange7d ? `${numeral(percentChange7d).format('0,0.00')}%` : ''}
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
@@ -439,7 +461,7 @@ class Portfolio extends PureComponent
             type={'h2'}
             style={styles.block}
           >
-             {numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00')}
+             {numeral(calculatePortfolioChangeIn24h(tokenUsers)).format('0.00%')}
           </El>
         </div>
         <div className={css(styles.heroColumn)}>
@@ -455,7 +477,7 @@ class Portfolio extends PureComponent
             type={'h2'}
             style={styles.block}
           >
-             {numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00')}
+             {numeral(calculatePortfolioChangeIn7d(tokenUsers)).format('0.00%')}
           </El>
         </div>
       </div>

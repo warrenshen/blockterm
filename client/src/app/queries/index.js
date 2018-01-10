@@ -87,6 +87,7 @@ export const TokenUsersQuery = gql`
           priceUSD
           priceBTC
           percentChange24h
+          percentChange7d
         }
       }
     }

@@ -64,24 +64,6 @@ end
 puts 'Seeding subreddits...'
 
 subreddit_infos = [
-  # {
-  #   name: 'Satoshi',
-  #   description: 'Satoshi is the currency of the Internet: a distributed, worldwide, decentralized digital money. Unlike traditional currencies such as dollars, satoshis are issued and managed without any central authority whatsoever: there is no government, company, or bank in charge of Satoshi. As such, it is more resistant to wild inflation and corrupt banks. With Satoshi, you can be your own bank.',
-  #   start_date: Date.new(2017, 1, 1),
-  #   image_url: 'https://b.thumbs.redditmedia.com/QPWBJVeSoUDcA1Sc3dYL7eK_3bq2ZdVbOxNOdcBojNM.png',
-  # },
-  # {
-  #   name: 'SatoshiTrader',
-  #   description: 'A place to discuss trading opportunities for the Satoshi cryptocurrency.',
-  #   start_date: Date.new(2017, 6, 1),
-  #   image_url: 'https://b.thumbs.redditmedia.com/QPWBJVeSoUDcA1Sc3dYL7eK_3bq2ZdVbOxNOdcBojNM.png',
-  # },
-  # {
-  #   name: 'NakamotoMarket',
-  #   description: 'Nakamoto is a shit coin just like the rest of them.',
-  #   start_date: Date.new(2017, 11, 1),
-  #   image_url: 'https://b.thumbs.redditmedia.com/j_Y7S-sW6KsbVGYiXlKjGIOPvwJa0-BPGvZznNbwcgo.png',
-  # },
   {
     name: 'altcoin',
     start_date: '2013-03-12',
@@ -237,6 +219,16 @@ token_infos = [
     website: 'https://www.bitcoin.com',
     keywords: ['ETH', 'Ethereum'],
     markets: ['USD-ETH', 'BTC-ETH', 'USDT-ETH'],
+    price_usd: 1296.19,
+    price_btc: 0.09056550,
+    volume_usd_24h: 8063390000,
+    market_cap_usd: 125575833053,
+    available_supply: 96880730,
+    total_supply: 96880730,
+    max_supply: 96880730,
+    percent_change_1h: 3.44,
+    percent_change_24h: -0.85,
+    percent_change_7d: -9.6,
   },
   {
     short_name: 'NEO',
@@ -245,6 +237,16 @@ token_infos = [
     website: 'https://www.bitcoin.com',
     keywords: ['NEO', 'Antshare'],
     markets: ['BTC-NEO', 'ETH-NEO', 'USDT-NEO'],
+    price_usd: 125.04,
+    price_btc: 0.00873646,
+    volume_usd_24h: 536919000,
+    market_cap_usd: 8127470000,
+    available_supply: 96880730,
+    total_supply: 96880730,
+    max_supply: 96880730,
+    percent_change_1h: 3.44,
+    percent_change_24h: -0.85,
+    percent_change_7d: -9.6,
   },
   {
     short_name: 'XRP',

@@ -30,12 +30,20 @@ export function calculatePortfolioTotalValue(tokenUsers)
 
 export function calculatePortfolioChangeIn24h(tokenUsers)
 {
-
+  const totalValue = calculatePortfolioTotalValue(tokenUsers);
+  return tokenUsers.reduce(
+    (accum, tokenUser) => accum + tokenUser.amount * tokenUser.token.priceUSD / totalValue * tokenUser.token.percentChange24h / 100,
+    0,
+  );
 }
 
 export function calculatePortfolioChangeIn7d(tokenUsers)
 {
-
+  const totalValue = calculatePortfolioTotalValue(tokenUsers);
+  return tokenUsers.reduce(
+    (accum, tokenUser) => accum + tokenUser.amount * tokenUser.token.priceUSD / totalValue * tokenUser.token.percentChange7d / 100,
+    0,
+  );
 }
 
 export function calculatePortfolioDonutData(tokenUsers, nightMode=false)
