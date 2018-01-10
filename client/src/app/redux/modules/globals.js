@@ -27,15 +27,6 @@ export default function(state = initialState, action)
 {
   switch (action.type)
   {
-    // case TOGGLE_SIDEBAR:
-    //   var sidebarSearchField = document.getElementById('widget_search');
-    //   if (sidebarSearchField) {
-    //     sidebarSearchField.focus();
-    //   }
-    //   return {
-    //     ...state,
-    //     sidebarActive: !state.sidebarActive,
-    //   };
     case APOLLO_QUERY_RESULT:
       switch (action.operationName)
       {
