@@ -251,10 +251,13 @@ class Signup extends PureComponent {
                 Why should I join?
               </El>
               <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
-                <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>Beta-access HODLers get grandfathered into any future premium-only features!</li>
+                <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
+                  Create/save your portfolio and track it on your dashboard.
+                </li>
+                <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
+                  Customize and save/load your dashboard configuration across workstations.
+                </li>
                 <li className={css(styles.blockli)}>We have big plans for the near future.</li>
-                <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>Customize and save/load your configurations across workstations.</li>
-                <li className={css(styles.blockli)}>We want your feedback!</li>
                 <li className={css(styles.blockli)}>Motivate us to continue improving this tool.</li>
               </ul>
             </div>
