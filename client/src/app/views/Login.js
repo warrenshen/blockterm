@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
   wrapper: {
     minHeight: '100vh',
     display: 'flex',
-    //padding: '0% 15%',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
@@ -37,13 +36,11 @@ const styles = StyleSheet.create({
     padding: '15px 20px',
   },
   body: {
-    //left: '-24px',
     borderTop: '1px solid rgba(0,0,0,0.15)',
     padding: '0px 10px 0px',
     boxSizing: 'content-box',
     backgroundColor: '#fff',
     minHeight: '100vh',
-    //borderRadius: '6px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -169,10 +166,8 @@ class Login extends PureComponent {
     }
   }
 
-  submit(event)
+  submit()
   {
-    event.preventDefault();
-
     const {
       email,
       logIn,
@@ -196,6 +191,18 @@ class Login extends PureComponent {
       nightMode,
     } = this.props;
 
+    const onClickSubmit = (event) => {
+      event.preventDefault();
+      this.submit();
+    };
+    const onKeyPress = (event) => {
+      if (event.key === 'Enter')
+      {
+        event.preventDefault();
+        this.submit();
+      }
+    };
+
     return (
       <div className={css(styles.body, styles.wrapper, nightMode && styles.bodyNightMode)}>
         <div className={css(styles.mainContent)}>
@@ -212,17 +219,18 @@ class Login extends PureComponent {
                 autoFocus={true}
                 className={css(styles.inputField, nightMode && styles.fieldNight)}
                 placeholder='email/username'
-                onChange={(event) => changeEmail(event.target.value)}
                 required='required'
                 value={email}
+                onChange={(event) => changeEmail(event.target.value)}
               />
               <input
                 className={css(styles.inputField, nightMode && styles.fieldNight)}
                 placeholder='password'
-                onChange={(event) => changePassword(event.target.value)}
                 type='password'
                 required='required'
                 value={password}
+                onChange={(event) => changePassword(event.target.value)}
+                onKeyPress={onKeyPress}
               />
               {error && (
                 <El
@@ -236,9 +244,9 @@ class Login extends PureComponent {
                 <div className={css(styles.section)}>
                   <input
                     className={css(styles.bolded, styles.submitButton)}
-                    onClick={(event) => this.submit(event)}
                     type='submit'
                     value='Login'
+                    onClick={onClickSubmit}
                   />
                 </div>
                 <div className={css(styles.section, styles.rightAlign)}>

@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
   wrapper: {
     minHeight: '100vh',
     display: 'flex',
-    //padding: '0% 15%',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
     gridTemplateColumns: 'repeat(8, 1fr)',
   },
@@ -151,8 +150,6 @@ class Signup extends PureComponent {
 
   submit(event)
   {
-    event.preventDefault();
-
     const {
       email,
       password,
@@ -175,6 +172,18 @@ class Signup extends PureComponent {
       password,
       nightMode,
     } = this.props;
+
+    const onClickSubmit = (event) => {
+      event.preventDefault();
+      this.submit();
+    };
+    const onKeyPress = (event) => {
+      if (event.key === 'Enter')
+      {
+        event.preventDefault();
+        this.submit();
+      }
+    };
 
     return (
       <div className={css(styles.body, styles.wrapper, nightMode && styles.bodyNightMode)}>
@@ -201,10 +210,11 @@ class Signup extends PureComponent {
                 <input
                   className={css(styles.inputField, nightMode && styles.fieldNight)}
                   placeholder='password'
-                  onChange={(event) => changePassword(event.target.value)}
                   type='password'
                   required="required"
                   value={password}
+                  onChange={(event) => changePassword(event.target.value)}
+                  onKeyPress={onKeyPress}
                 />
                 {error && (
                   <El
@@ -221,6 +231,7 @@ class Signup extends PureComponent {
                       onClick={(event) => this.submit(event)}
                       type='submit'
                       value='Join'
+                      onClick={onClickSubmit}
                     />
                   </div>
                   <div className={css(styles.section, styles.rightAlign)}>
