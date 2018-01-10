@@ -117,9 +117,9 @@ export const ITEM_KEY_TO_LABELS = {
   [TV_CANDLE_CHART]: 'Candle chart',
   [TV_MARKET_OVERVIEW]: 'Market overview',
   [TOTAL_MARKET_CAP]: 'Total market cap chart',
+  [PORTFOLIO_ITEM]: 'Portfolio overview',
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
   [SUBREDDIT_COMMENT_COUNTS]: 'Subreddit comments chart',
-  [PORTFOLIO_ITEM]: 'Portfolio overview',
 };
 
 // These array values should be in user-facing order.
@@ -1096,7 +1096,7 @@ export const ITEM_VALUE_TO_IMAGE = {
     'BITTREX:DGBUSD': 'digibyte',
     'BITTREX:DGDBTC': 'digixdao',
     'BITTREX:DGDUSD': 'digixdao',
-   // 'BITTREX:DMDBTC': 
+   // 'BITTREX:DMDBTC':
    // 'BITTREX:DMDUSD',
     'BITTREX:DNTBTC': 'district0x',
     'BITTREX:DOGEBTC': 'dogecoin',
