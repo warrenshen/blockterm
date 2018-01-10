@@ -1,7 +1,11 @@
 import { StyleSheet } from 'aphrodite';
 
-export const TICKER_GREEN = '#5dc892';
-export const TICKER_RED = '#f35262';
+export const TICKER_GREEN = '#00aa44';
+export const TICKER_RED = '#ff0000';
+
+export const ALT_TICKER_GREEN = '#5dc892';  //from TradingView
+export const ALT_TICKER_RED = '#f35262';
+
 export const LIGHT_HIGHLIGHT_GREEN = '#EDFFEE';
 export const LIGHT_HIGHLIGHT_RED = '#FFEDED';
 export const DARK_HIGHLIGHT_GREEN = '#001F12';

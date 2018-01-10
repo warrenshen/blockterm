@@ -80,6 +80,10 @@ const styles = StyleSheet.create({
   semibolded: {
     fontWeight: '500',
   },
+  semiboldedLink: {
+    textDecoration:'underline',
+    fontWeight:'500',
+  },
   bolded: {
     fontWeight: '700',
   },
@@ -272,7 +276,7 @@ class Tokens extends PureComponent {
             <El
               nightMode={nightMode}
               type={'span'}
-              style={styles.semibolded}
+              style={styles.semiboldedLink}
             >
               {longName}
             </El>
@@ -364,6 +368,7 @@ class Tokens extends PureComponent {
             <Link key={page} className={css(styles.paginationButtons)} to={`/tokens/${page}`}>
               <El
                 nightMode={nightMode}
+                style={styles.semibolded}
                 type={'span'}
               >
                 {page}

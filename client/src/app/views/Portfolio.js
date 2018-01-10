@@ -117,19 +117,24 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     height: '100%',
-    //position: 'absolute',
-    //right: '0px',
   },
   blockButton: {
     borderRadius: '0px',
-    //backgroundColor: '#fff',
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontWeight: '700',
+    width: '100%',
+  },
+  darkBlockButton: {
+    color: '#fff',
+    backgroundColor: '#000',
+    borderBottom: '2px solid #777',
+  },
+  blockButtonWrapper: {
     border: `1px solid ${STYLES.BORDERLIGHT}`,
     borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
-  darkBlockButton: {
+  darkBlockButtonWrapper: {
     border: `1px solid ${STYLES.BORDERDARK}`,
     borderBottom: `2px solid ${STYLES.BORDERDARK}`,
   },
@@ -148,10 +153,12 @@ const styles = StyleSheet.create({
     backgroundColor:'white',
     color:'#777',
     borderColor: '#777',
+    borderBottom: '1px solid',
   },
   input: {
     color:'#000',
     borderColor: '#777',
+    fontWeight: '500',
   },
   borderRight: {
     borderRight: `1px solid ${STYLES.BORDERLIGHT}`,
@@ -162,6 +169,10 @@ const styles = StyleSheet.create({
   fakeElement: {
     width:'28px',
     flex: '0 !important',
+  },
+  disabled: {
+    opacity: '0.5',
+    pointerEvents: 'none',
   },
 });
 
@@ -341,13 +352,14 @@ class Portfolio extends PureComponent
           </tbody>
         </table>
         {this.renderAdd()}
-        <button
-          className={css(styles.blockButton, nightMode && styles.darkBlockButton)}
-          disabled={!changeActive}
-          onClick={(event) => this.savePortfolio()}
-        >
-          Save
-        </button>
+        <div className={css(styles.blockButtonWrapper, nightMode && styles.darkBlockButtonWrapper, !changeActive && styles.disabled)}>
+          <button
+            className={css(styles.blockButton, nightMode && styles.darkBlockButton)}
+            onClick={(event) => this.savePortfolio()}
+          >
+            Save
+          </button>
+        </div>
       </div>
     );
   }
