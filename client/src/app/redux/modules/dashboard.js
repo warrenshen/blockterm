@@ -265,6 +265,13 @@ export default function(state = initialState, action)
         selectedTab: action.value,
       };
     case CHANGE_SIDEBAR_MODE:
+      if (action.sidebarMode !== null)
+      {
+        let sidebarSearchField = document.getElementById('widget_search');
+        if (sidebarSearchField) {
+          sidebarSearchField.focus();
+        }
+      }
       return {
         ...state,
         keySelectValue: initialState.keySelectValue,
