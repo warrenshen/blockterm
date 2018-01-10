@@ -8,7 +8,7 @@ import { StyleSheet, css } from 'aphrodite';
 import { isEqual }         from 'underscore';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import DashboardItem from '../components/DashboardItem';
-import { isIdentifierValid } from '../constants/items.js'
+import { isIdentifierValid } from '../constants/items.js';
 import * as STYLES from '../constants/styles';
 import FontAwesome                from 'react-fontawesome';
 
