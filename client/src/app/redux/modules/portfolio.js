@@ -65,7 +65,9 @@ export default function(state = initialState, action)
           return {
             ...state,
             changeActive: initialState.changeActive,
-            tokenUsers: action.result.data.user.tokenUsers,
+            tokenUsers: action.result.data.user === null ?
+                          initialState.tokenUsers :
+                          action.result.data.user.tokenUsers,
           };
         default:
           return state;

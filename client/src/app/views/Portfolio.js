@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     display: 'table',
     width: '100%',
     borderCollapse: 'collapse',
-    //backgroundColor: STYLES.SOFTGRAY,
   },
   row: {
     width: '100%',
@@ -182,7 +181,7 @@ class Portfolio extends PureComponent
 {
   componentWillReceiveProps(nextProps)
   {
-    if (!nextProps.data.loading && nextProps.data.user === null)
+    if (!nextProps.data.loading && !nextProps.data.user === null)
     {
       nextProps.history.push('/');
     }

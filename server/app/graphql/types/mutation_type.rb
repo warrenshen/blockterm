@@ -431,7 +431,11 @@ module Types
               return GraphQL::ExecutionError.new(token_user.errors.full_messages)
             end
           else
-            token_user = TokenUser.find(token_user_id)
+            token_user = TokenUser.find_by_id(token_user_id)
+
+            if token_user.nil?
+              return GraphQL::ExecutionError.new('Token user could not be found')
+            end
 
             token_user.assign_attributes(
               amount: token_user_hash['amount'],
@@ -735,7 +739,7 @@ module Types
           return GraphQL::ExecutionError.new('No current user')
         end
 
-        dashboard_page = DashboardPage.find(args[:dashboardPageId])
+        dashboard_page = DashboardPage.find_by_id(args[:dashboardPageId])
         if dashboard_page.nil?
           return GraphQL::ExecutionError.new('Could not find dashboard page')
         end
@@ -771,12 +775,15 @@ module Types
           return GraphQL::ExecutionError.new('No current user')
         end
 
-        dashboard_page = DashboardPage.find(args[:dashboardPageId])
+        dashboard_page = DashboardPage.find_by_id(args[:dashboardPageId])
         if dashboard_page.nil?
           return GraphQL::ExecutionError.new('Could not find dashboard page')
         end
 
-        dashboard_item = DashboardItem.find(args[:id])
+        dashboard_item = DashboardItem.find_by_id(args[:id])
+        if dashboard_item.nil?
+          return GraphQL::ExecutionError.new('Could not find dashboard item')
+        end
 
         if dashboard_item.dashboard_page_id != dashboard_page.id
           return GraphQL::ExecutionError.new('Dashboard item does not belong to dashboard page')
@@ -807,12 +814,12 @@ module Types
           return GraphQL::ExecutionError.new('No current user')
         end
 
-        dashboard_page = DashboardPage.find(args[:dashboardPageId])
+        dashboard_page = DashboardPage.find_by_id(args[:dashboardPageId])
         if dashboard_page.nil?
           return GraphQL::ExecutionError.new('Could not find dashboard page')
         end
 
-        dashboard_item = DashboardItem.find(args[:id])
+        dashboard_item = DashboardItem.find_by_id(args[:id])
         if dashboard_item.nil?
           return GraphQL::ExecutionError.new('Could not find dashboard item')
         end
@@ -850,7 +857,7 @@ module Types
           return GraphQL::ExecutionError.new('No current user')
         end
 
-        dashboard_page = DashboardPage.find(args[:dashboardPageId])
+        dashboard_page = DashboardPage.find_by_id(args[:dashboardPageId])
         if dashboard_page.nil?
           return GraphQL::ExecutionError.new('Could not find dashboard page')
         end
@@ -858,7 +865,10 @@ module Types
         dashboard_items_hashes = JSON.parse(args[:dashboardItemsString])
         dashboard_items_hashes.each do |dashboard_item_hash|
           dashboard_item_id = dashboard_item_hash['id']
-          dashboard_item = DashboardItem.find(dashboard_item_id)
+          dashboard_item = DashboardItem.find_by_id(dashboard_item_id)
+          if dashboard_item.nil?
+            return GraphQL::ExecutionError.new('Could not find dashboard item')
+          end
 
           if dashboard_item.dashboard_page_id != dashboard_page.id
             return GraphQL::ExecutionError.new('Dashboard item does not belong to dashboard page')

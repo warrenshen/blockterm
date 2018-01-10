@@ -68,7 +68,7 @@ module Types
       argument :id, !types.ID
 
       resolve -> (obj, args, ctx) {
-        Subreddit.find(args[:id])
+        Subreddit.find_by_id(args[:id])
       }
     end
 
@@ -98,7 +98,7 @@ module Types
       argument :id, !types.ID
 
       resolve -> (obj, args, ctx) {
-        Token.find(args[:id])
+        Token.find_by_id(args[:id])
       }
     end
 
