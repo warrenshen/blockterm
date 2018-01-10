@@ -771,6 +771,15 @@ export const ITEM_VALUE_TO_LABELS = {
   'Vertcoin': 'r/Vertcoin',
 };
 
+export const ITEM_VALUE_TO_IMAGE = {
+  'BINANCE:ADABTC': 'cardano',
+};
+
+export function getImageUrl(imageName)
+{
+  return `https://files.coinmarketcap.com/static/img/coins/32x32/${imageName}.png`;
+}
+
 // Returns an array of [next Y coordinate to use, next id to use].
 export function computeDashboardFreeValues(dashboardItems)
 {
