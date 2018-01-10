@@ -319,7 +319,6 @@ class Dashboard extends Component {
           pullRight={true}
           shadow={true}
           transitions={false}
-          //onSetOpen={changeSidebarMode(null)}
           styles={
             {
               root: {
@@ -343,6 +342,7 @@ class Dashboard extends Component {
               },
             }
           }
+          onSetOpen={() => changeSidebarMode(null)}
         >
           {this.renderScrollShield()}
           <DashboardTabs />
