@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   image: {
-    marginRight: '8px',
+    //marginRight: '8px',
   },
   thickElement: {
     lineHeight: '38px',

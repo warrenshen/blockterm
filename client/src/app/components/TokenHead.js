@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   imageIcon: {
+    marginTop: '8px',
     marginRight: '8px',
   },
   informationItem: {

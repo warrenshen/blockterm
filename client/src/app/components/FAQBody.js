@@ -141,15 +141,15 @@ class FAQBody extends PureComponent {
               nightMode={nightMode}
               type={'h5'}
             >
-              What is the 'Coins/Tokens' tab for?
+              What is the 'Price/Volume' tab for?
             </El>
             <El
               nightMode={nightMode}
               type={'p'}
               style={styles.para}
             >
-              The 'coins/tokens' tab is currently in most need of work. We have plans for the coins page to include cross-coin correlation graphs, market cap data, etc.<br /><br />
-              However, at this time it contains the proportion/distribution of a given coin's Reddit forum activity across different subreddits. This is intended to show the interconnectivity of certain coins to others, for example, the LTC:BTC trading pair.
+              The 'price/volume' tab is used to keep track of the price, volume, and marketcap of the top 200 cryptocurrencies on the market. More currencies will be added soon! If you have a special request feel free to ask for it.<br /><br />
+              We currently sort this page by descending order of trading volume, as we believe that the highest trading volume for a particular day is more interesting than market cap, for the most part. This page should help day traders find the hottest coins and hunt the action.
             </El>
           </div>
 
@@ -168,7 +168,7 @@ class FAQBody extends PureComponent {
             >
               We love you back! First and foremost, the best way to contribute is to SEND US YOUR BEAUTIFUL feedback! Send us every issue, no matter how big or small, here! We'll try to nail each one.<br /><br />
               If you like us even more than that. You could send some coins our way at:<br />
-              <strong>ETH: 0x72fB44C1a3F910ed4a979fBDed2c600f7c14f3B7</strong><br />
+              <strong>ETH Wallet Address: 0x72fB44C1a3F910ed4a979fBDed2c600f7c14f3B7</strong><br />
             </El>
           </div>
         </div>

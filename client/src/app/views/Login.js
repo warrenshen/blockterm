@@ -314,7 +314,7 @@ class Login extends PureComponent {
                 <El style={styles.boldedBottomHeavy}
                     nightMode={nightMode}
                     type={'h5'}>
-                    How to Buy and Sell Altcoins (such as XMR, XRP, SUB, ICX etc.):
+                    How to Buy and Sell Altcoins (such as VEN, REQ, XRP, SUB, ICX etc.):
                 </El>
                 <El nightMode={nightMode}
                     style={styles.para}
