@@ -35,6 +35,7 @@ export const COMPOUNDAQUA = '#3BECD1';
 export const COMPOUNDGREEN = '#12B66F';
 export const BLAZINGREEN = '#00EB77';
 export const COMPBLUE = '#00CDE9';
+export const TVBLUE = '#131722';
 
 export const STYLES = StyleSheet.create({
   card: {

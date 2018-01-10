@@ -3,6 +3,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import * as STYLES         from '../../constants/styles';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -20,6 +22,13 @@ const styles = StyleSheet.create({
   },
   nightFrame: {
     backgroundColor: '#000',
+  },
+  floatingIcon: {
+    position: 'absolute',
+    top: '5px',
+    right: '5px',
+    zIndex: '1',
+    //backgroundColor: STYLES.TVBLUE,
   },
 });
 
@@ -48,6 +57,9 @@ class TVChartItem extends PureComponent {
 
     return (
       <div className={css(styles.container)}>
+        <div className={css(styles.floatingIcon)}>
+          <img className={css(styles.image)} src='https://files.coinmarketcap.com/static/img/coins/32x32/icon.png' width={30} height={30}></img>
+        </div>
         <iframe
           scrolling="no"
           className={css(styles.frame, nightMode && styles.nightFrame, dashboardAction && styles.noPointerEvents)}
