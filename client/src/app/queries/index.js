@@ -456,6 +456,7 @@ export const UpdateTokenUsersMutation = gql`
           priceUSD
           priceBTC
           percentChange24h
+          percentChange7d
         }
       }
     }
