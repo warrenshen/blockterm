@@ -257,7 +257,7 @@ class Login extends PureComponent {
               <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
                 {
                   PATCH_NOTES.map((string, index) => (
-                    <li key={index} className={css(styles.blockli)}>{string}</li>
+                    <li key={index} className={'patchlist ' + css(styles.blockli)}>{string}</li>
                   ))
                 }
               </ul>
