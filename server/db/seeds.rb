@@ -197,7 +197,7 @@ token_infos = [
   {
     short_name: 'BTC',
     long_name: 'Bitcoin',
-    image_url: 'https://bitcoin.org/img/icons/opengraph.png',
+    image_url: 'bitcoin',
     website: 'https://www.bitcoin.com',
     keywords: ['BTC', 'Bitcoin'],
     markets: ['USD-BTC', 'USDT-BTC'],
@@ -215,7 +215,7 @@ token_infos = [
   {
     short_name: 'ETH',
     long_name: 'Ethereum',
-    image_url: 'https://bitcoin.org/img/icons/opengraph.png',
+    image_url: 'ethereum',
     website: 'https://www.bitcoin.com',
     keywords: ['ETH', 'Ethereum'],
     markets: ['USD-ETH', 'BTC-ETH', 'USDT-ETH'],
@@ -233,7 +233,7 @@ token_infos = [
   {
     short_name: 'NEO',
     long_name: 'NEO',
-    image_url: 'https://bitcoin.org/img/icons/opengraph.png',
+    image_url: 'neo',
     website: 'https://www.bitcoin.com',
     keywords: ['NEO', 'Antshare'],
     markets: ['BTC-NEO', 'ETH-NEO', 'USDT-NEO'],
@@ -251,6 +251,7 @@ token_infos = [
   {
     short_name: 'XRP',
     long_name: 'Ripple',
+    image_url: 'ripple',
     keywords: ['XRP', 'Ripple'],
     markets: [],
     price_usd: 3.37,
@@ -267,6 +268,7 @@ token_infos = [
   {
     short_name: 'BCH',
     long_name: 'Bitcoin Cash',
+    image_url: 'bitcoin-cash',
     keywords: ['BCH', 'Bitcoin Cash'],
     markets: [],
     price_usd: 14543.78,

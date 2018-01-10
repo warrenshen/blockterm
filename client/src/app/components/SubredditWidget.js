@@ -33,7 +33,6 @@ const SubredditWidget = ({
 }) => {
   return (
     <div className={css(styles.container, styles.sideSpacing)}>
-      <img src={subreddit.imageUrl} width={48} height={48}></img>
       <Link to={`/subreddit/${subreddit.name}`}>
         <El nightMode={nightMode} type={'h5'}>
           {subreddit.displayName}

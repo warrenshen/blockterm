@@ -1352,7 +1352,9 @@ export const ITEM_VALUE_TO_IMAGE = {
 
 export function getImageUrl(imageName)
 {
-  return `https://files.coinmarketcap.com/static/img/coins/32x32/${imageName}.png`;
+  return imageName ?
+    `https://files.coinmarketcap.com/static/img/coins/32x32/${imageName}.png` :
+    null;
 }
 
 // Returns an array of [next Y coordinate to use, next id to use].

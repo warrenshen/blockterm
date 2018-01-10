@@ -22,6 +22,9 @@ import LineChartWithSelect from './LineChartWithSelect';
 import El                  from './El';
 import numeral             from 'numeral';
 import * as STYLES from '../constants/styles';
+import {
+  getImageUrl,
+} from '../constants/items.js';
 
 
 const styles = StyleSheet.create({
@@ -190,7 +193,9 @@ class TokenHead extends PureComponent {
                 />
               ))
             }
-            {this.renderMarkets(token.markets)}
+            {
+              //this.renderMarkets(token.markets)}
+            }
           </div>
         </div>
       );
@@ -204,6 +209,7 @@ class TokenHead extends PureComponent {
     } = this.props;
 
     const {
+      imageUrl,
       priceUSD,
       priceBTC,
       volumeUSD24h,
@@ -219,7 +225,12 @@ class TokenHead extends PureComponent {
     return (
         <div className={css(styles.row, styles.information, nightMode && styles.nightInformation)}>
           <div className={css(styles.names)}>
-            <img className={css(styles.imageIcon)} src={token.imageUrl} width={48} height={48}></img>
+            <img
+              className={css(styles.imageIcon)}
+              src={getImageUrl(imageUrl)}
+              width={32}
+              height={32}
+            />
             <El
               nightMode={nightMode}
               type={'h3'}
@@ -233,14 +244,14 @@ class TokenHead extends PureComponent {
               nightMode={nightMode}
               nightModeStyle={styles.trueWhite}
               type={'h5'}
-            > 
+            >
               Price:
             </El>
             <El
               nightMode={nightMode}
               nightModeStyle={styles.trueWhite}
               type={'h4'}
-            > 
+            >
               {numeral(priceUSD).format('$0,0.00')} USD ({percentChange24h}%)<br />
             </El>
             <El
@@ -256,7 +267,7 @@ class TokenHead extends PureComponent {
               nightMode={nightMode}
               nightModeStyle={styles.trueWhite}
               type={'h5'}
-            > 
+            >
               Volume (24h):
             </El>
             <El
@@ -278,7 +289,7 @@ class TokenHead extends PureComponent {
             <El
               nightMode={nightMode}
               type={'h5'}
-            > 
+            >
               Market Cap:
             </El>
             <El
@@ -301,7 +312,7 @@ class TokenHead extends PureComponent {
               nightMode={nightMode}
               nightModeStyle={styles.trueWhite}
               type={'h5'}
-            > 
+            >
               Supply:
             </El>
             <El

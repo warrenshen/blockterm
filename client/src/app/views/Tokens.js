@@ -10,6 +10,9 @@ import El                  from '../components/El';
 import Sidebar             from '../components/Sidebar';
 import numeral             from 'numeral';
 import * as STYLES from '../constants/styles';
+import {
+  getImageUrl,
+} from '../constants/items.js';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -269,7 +272,12 @@ class Tokens extends PureComponent {
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexS)}>
-          <img className={css(styles.image)} src={imageUrl} width={40} height={40}></img>
+          <img
+            className={css(styles.image)}
+            src={getImageUrl(imageUrl)}
+            width={32}
+            height={32}
+          />
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
           <Link to={`/token/${shortName}`}>

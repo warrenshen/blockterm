@@ -213,7 +213,8 @@ class Container extends PureComponent
     let x = 0;
     let y = arr[0];
 
-    if (parseIdentiferKey(identifier) === TV_MARKET_OVERVIEW)
+    if (parseIdentiferKey(identifier) === TV_MARKET_OVERVIEW ||
+        parseIdentiferKey(identifier) === PORTFOLIO_ITEM)
     {
       w = 3;
       h = 9;
