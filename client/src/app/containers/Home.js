@@ -27,7 +27,7 @@ const mapStateToProps = (state) => {
     dashboardPages: state.dashboard.dashboardPages,
     keySelectValue: state.dashboard.keySelectValue,
     nightMode: state.globals.nightMode,
-    scrollActive: state.dashboard.scrollActive,
+    scrollActive: state.globals.scrollActive,
     selectedTab: state.dashboard.selectedTab,
     sidebarDashboardItemId: state.dashboard.sidebarDashboardItemId,
     sidebarMode: state.dashboard.sidebarMode,
@@ -56,7 +56,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       changeKeySelectValue: dashboardActions.changeKeySelectValue,
-      changeScrollActive: dashboardActions.changeScrollActive,
+      changeScrollActive: globalsActions.changeScrollActive,
       changeSidebarMode: dashboardActions.changeSidebarMode,
       createDashboardItemLocal: createDashboardItemLocalWithNotification,
       changeValueSelectValue: dashboardActions.changeValueSelectValue,
