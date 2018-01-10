@@ -313,7 +313,7 @@ class Portfolio extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
-            {priceUSD ? numeral(priceUSD).format('$0,0.00') : ''}
+            {priceUSD ? numeral(priceUSD).format('$0,0.00') : 'Save to load price'}
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
@@ -429,6 +429,9 @@ class Portfolio extends PureComponent
       tokenUsers,
     } = this.props;
 
+    const portfolioChangeIn24h = calculatePortfolioChangeIn24h(tokenUsers);
+    const portfolioChangeIn7d = calculatePortfolioChangeIn7d(tokenUsers);
+
     return (
       <div className={css(styles.heroTable, nightMode && styles.darkHeroTable)}>
         <div className={css(styles.heroColumn, styles.borderRight, nightMode && styles.darkBorderRight)}>
@@ -458,9 +461,10 @@ class Portfolio extends PureComponent
           <El
             nightMode={nightMode}
             type={'h2'}
-            style={styles.block}
+            style={(portfolioChangeIn24h < 0) ? styles.redDelta : styles.greenDelta}
+            nightModeStyle={(portfolioChangeIn24h < 0) ? styles.redDelta : styles.greenDelta}
           >
-             {numeral(calculatePortfolioChangeIn24h(tokenUsers)).format('0.00%')}
+             {numeral(portfolioChangeIn24h).format('0.00%')}
           </El>
         </div>
         <div className={css(styles.heroColumn)}>
@@ -474,9 +478,10 @@ class Portfolio extends PureComponent
           <El
             nightMode={nightMode}
             type={'h2'}
-            style={styles.block}
+            style={(portfolioChangeIn7d < 0) ? styles.redDelta : styles.greenDelta}
+            nightModeStyle={(portfolioChangeIn7d < 0) ? styles.redDelta : styles.greenDelta}
           >
-             {numeral(calculatePortfolioChangeIn7d(tokenUsers)).format('0.00%')}
+             {numeral(portfolioChangeIn7d).format('0.00%')}
           </El>
         </div>
       </div>
