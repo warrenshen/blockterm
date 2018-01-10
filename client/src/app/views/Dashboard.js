@@ -17,6 +17,7 @@ import {
 } from '../constants/items';
 import El                  from '../components/El';
 import DashboardTabs       from '../containers/DashboardTabs';
+import FontAwesome    from 'react-fontawesome';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,6 +36,7 @@ const styles = StyleSheet.create({
   },
   nightSidebar: {
     backgroundColor: STYLES.LIGHTNIGHT,
+    borderLeft: '1px solid #BBB',
   },
   bolded: {
     fontWeight: '700',
@@ -44,6 +46,7 @@ const styles = StyleSheet.create({
   },
   select: {
     borderBottom: '1px solid #666 !important',
+    marginLeft: '-1px',
   },
   button: {
     width:'100%',
@@ -71,6 +74,14 @@ const styles = StyleSheet.create({
   header: {
     display: 'flex',
     justifyContent: 'space-between',
+    paddingLeft:'5px',
+  },
+  darkHeader: {
+    backgroundColor: '#000',
+  },
+  darkCloseButton: {
+    backgroundColor: '#000',
+    color: '#fff',
   },
   topHalf: {
     height: '300px',
@@ -95,6 +106,13 @@ const styles = StyleSheet.create({
   ccVersion: {
     position: 'fixed',
     'bottom': '10px',
+  },
+  sidebarTitle: {
+    fontWeight: '700',
+    flex: '1',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    letterSpacing: '3px',
   },
 });
 
@@ -197,6 +215,7 @@ class Dashboard extends Component {
     const {
       valueSelectValue,
       nightMode,
+      sidebarMode
     } = this.props;
 
     if (valueSelectValue)
@@ -206,7 +225,7 @@ class Dashboard extends Component {
           className={css(styles.button, styles.addToButton, nightMode && styles.sidebarAddButtonNight)}
           onClick={(event) => this.addItem(event)}
         >
-          Add to Dashboard
+          {sidebarMode === 'edit' ? 'Edit Selected Widget' : 'Add to Dashboard'}
         </button>
       );
     }
@@ -252,14 +271,15 @@ class Dashboard extends Component {
         <Sidebar
           sidebar={
             <div className={css(styles.sidebar, nightMode && styles.nightSidebar)}>
-              <div className={css(styles.header)}>
-                <El nightMode={nightMode} type={'h5'}>
+              <div className={css(styles.header, nightMode && styles.darkHeader)}>
+                <El nightMode={nightMode} type={'h5'} style={styles.sidebarTitle}>
                   {sidebarMode === 'edit' ? 'Edit widget' : 'Add widget'}
                 </El>
                 <button
+                  className={css(nightMode && styles.darkCloseButton)}
                   onClick={(event) => changeSidebarMode(null)}
                 >
-                  x
+                  <FontAwesome name='close' className={css(styles.icon)}/>
                 </button>
               </div>
               <div className={css(styles.topHalf)}>
@@ -299,7 +319,7 @@ class Dashboard extends Component {
           pullRight={true}
           shadow={true}
           transitions={false}
-          // onSetOpen={toggleSidebar}
+          //onSetOpen={changeSidebarMode(null)}
           styles={
             {
               root: {
