@@ -8,6 +8,7 @@ import {
   CreateDashboardItemMutation,
 }                             from '../../queries';
 import { Token }              from '../../views'
+import * as globalsActions     from '../../redux/modules/globals';
 import * as plotsActions      from '../../redux/modules/plots';
 
 /* -----------------------------------------
@@ -15,10 +16,12 @@ import * as plotsActions      from '../../redux/modules/plots';
  ------------------------------------------*/
 
 const query = gql`
- query ($shortName: String!,
-        $mentionSubredditPlotRange: String,
-        $mentionTotalPlotRange: String,
-        $pricePlotRange: String) {
+  query (
+    $shortName: String!,
+    $mentionSubredditPlotRange: String,
+    $mentionTotalPlotRange: String,
+    $pricePlotRange: String
+  ) {
     tokenByShortName(shortName: $shortName) {
       id
       shortName
@@ -127,6 +130,7 @@ const mapStateToProps = (state) => {
     mentionTotalPlotRange: state.plots.mentionTotalPlotRange,
     nightMode: state.globals.nightMode,
     pricePlotRange: state.plots.pricePlotRange,
+    scrollActive: state.globals.scrollActive,
   };
 };
 
@@ -136,6 +140,7 @@ const mapDispatchToProps = (dispatch) => {
     changeMentionSubredditPlotRange: plotsActions.changeMentionSubredditPlotRange,
     changeMentionTotalPlotRange: plotsActions.changeMentionTotalPlotRange,
     changePricePlotRange: plotsActions.changePricePlotRange,
+    changeScrollActive: globalsActions.changeScrollActive,
   },
     dispatch
   );

@@ -35,7 +35,18 @@ const styles = StyleSheet.create({
     minWidth: '20vw',
     backgroundColor: STYLES.SOFTGRAY,
   },
+  shield: {
+    position: 'fixed',
+    top: '0px',
+    left: '0px',
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: 'rgba(255, 255, 255, 0)',
+    zIndex: '9000',
+  },
 });
+
+var isScrolling;
 
 class Token extends PureComponent {
   static propTypes = {
@@ -52,6 +63,33 @@ class Token extends PureComponent {
     nightMode: PropTypes.bool.isRequired,
   };
 
+  constructor(props)
+  {
+    super(props);
+
+    const {
+      changeScrollActive,
+    } = props;
+
+    this.handleScroll = (event) => {
+      changeScrollActive(true);
+      window.clearTimeout(isScrolling);
+      isScrolling = setTimeout(function() {
+        changeScrollActive(false);
+      }, 256);
+    };
+  }
+
+  componentDidMount()
+  {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount()
+  {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
   renderToken(token)
   {
     const {
@@ -66,7 +104,7 @@ class Token extends PureComponent {
     } = this.props;
 
     return (
-      <div>
+      <div className={css(styles.mainContent)}>
         <TokenHead
           nightMode={nightMode}
           token={token}
@@ -86,6 +124,18 @@ class Token extends PureComponent {
     );
   }
 
+  renderScrollShield()
+  {
+    const {
+      scrollActive,
+    } = this.props;
+
+    if (scrollActive)
+    {
+      return <div className={css(styles.shield)} />;
+    }
+  }
+
   render() {
     const {
       data,
@@ -94,9 +144,8 @@ class Token extends PureComponent {
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        <div className={css(styles.mainContent)}>
-          { data && data.tokenByShortName && this.renderToken(data.tokenByShortName) }
-        </div>
+        {this.renderScrollShield()}
+        { data && data.tokenByShortName && this.renderToken(data.tokenByShortName) }
       </div>
     );
   }

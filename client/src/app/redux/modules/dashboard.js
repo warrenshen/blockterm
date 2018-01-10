@@ -52,7 +52,6 @@ const APOLLO_QUERY_RESULT_CLIENT = 'APOLLO_QUERY_RESULT_CLIENT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_DASHBOARD_ITEM_STATE = 'CHANGE_DASHBOARD_PAGE_STATE';
 const CHANGE_KEY_SELECT_VALUE = 'CHANGE_KEY_SELECT_VALUE';
-const CHANGE_SCROLL_ACTIVE = 'CHANGE_SCROLL_ACTIVE';
 const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
 const CHANGE_SIDEBAR_MODE = 'CHANGE_SIDEBAR_MODE';
 const CHANGE_VALUE_SELECT_VALUE = 'CHANGE_VALUE_SELECT_VALUE';
@@ -76,7 +75,6 @@ const initialState = {
   dashboardItemStates: {},
   dashboardPages: [],
   keySelectValue: '',
-  scrollActive: false,
   selectedTab: cookieSelectedTab,
   sidebarDashboardItemId: null,
   sidebarMode: null,
@@ -253,11 +251,6 @@ export default function(state = initialState, action)
         ...state,
         keySelectValue: action.value,
       };
-    case CHANGE_SCROLL_ACTIVE:
-      return {
-        ...state,
-        scrollActive: action.value,
-      };
     case CHANGE_SELECTED_TAB:
       setItem(SELECTED_TAB_COOKIE, action.value);
       return {
@@ -390,14 +383,6 @@ export function changeKeySelectValue(value)
 {
   return {
     type: CHANGE_KEY_SELECT_VALUE,
-    value: value,
-  };
-}
-
-export function changeScrollActive(value)
-{
-  return {
-    type: CHANGE_SCROLL_ACTIVE,
     value: value,
   };
 }
