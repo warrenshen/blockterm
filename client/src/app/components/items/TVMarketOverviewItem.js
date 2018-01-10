@@ -3,6 +3,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import El from '../El';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -41,7 +42,19 @@ const styles = StyleSheet.create({
     color: '#3BB3E4 !important',
     fontFamily: 'Tahoma, Arial, sans-serif',
     fontSize: '13px',
-  }
+  },
+  tryChrome: {
+    position: 'absolute',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    top: '50px',
+    left: '0',
+    right: '0',
+    textAlign: 'center',
+  },
+  softColor: {
+    color: '#888',
+  },
 });
 
 class TVChartItem extends PureComponent {
@@ -243,6 +256,13 @@ class TVChartItem extends PureComponent {
 
     return (
       <div className={css(styles.wrapper)}>
+        <El
+          nightMode={nightMode}
+          style={styles.tryChrome}
+          nightModeStyle={styles.softColor}
+          type={'span'}>
+          If nothing renders here, please try Google Chrome.
+        </El>
         <div className={css(styles.container, nightMode && styles.nightContainer)}>
           <iframe
             scrolling="no"

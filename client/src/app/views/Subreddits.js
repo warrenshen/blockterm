@@ -102,6 +102,9 @@ const styles = StyleSheet.create({
       borderColor: STYLES.GOLD,
     },
   },
+  link: {
+    textDecoration: 'underline',
+  },
 });
 
 class Home extends PureComponent {
@@ -256,6 +259,7 @@ class Home extends PureComponent {
                       <td className={css(styles.element)}>
                         <Link to={`/subreddit/${subreddit.name}`}>
                           <El
+                            style={styles.link}
                             nightMode={nightMode}
                             type={'h5'}
                           >
