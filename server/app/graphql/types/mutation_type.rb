@@ -698,29 +698,33 @@ module Types
       argument :dashboardPagesString, types.String
 
       resolve -> (obj, args, ctx) {
-        user = User.create(
-          email: args[:email],
-          password: args[:password],
-        )
+        ActiveRecord::Base.transaction do
+          user = User.create(
+            email: args[:email],
+            password: args[:password],
+          )
 
-        if user.valid?
-          if args[:dashboardPagesString].nil?
-            MutationHelper::create_default_dashboard_pages(user)
+          if user.valid?
+            if args[:dashboardPagesString].nil?
+              MutationHelper::create_default_dashboard_pages(user)
+            else
+              MutationHelper::parse_dashboard_pages_string(
+                user,
+                args[:dashboardPagesString],
+              )
+            end
+
+            command = AuthenticateUser.call(args[:email], args[:password])
+
+            if command.success?
+              result = command.result
+              return Auth.new(result[:user], result[:auth_token])
+            else
+              return GraphQL::ExecutionError('Failed to create user')
+            end
           else
-            MutationHelper::parse_dashboard_pages_string(
-              user,
-              args[:dashboardPagesString],
-            )
+            return GraphQL::ExecutionError.new(user.errors.full_messages)
           end
-
-          command = AuthenticateUser.call(args[:email], args[:password])
-
-          if command.success?
-            result = command.result
-            return Auth.new(result[:user], result[:auth_token])
-          end
-        else
-          return GraphQL::ExecutionError.new(user.errors.full_messages)
         end
       }
     end
