@@ -18,6 +18,6 @@ class User < ApplicationRecord
   has_many :tokens, through: :token_users
 
   validates :email, presence: true, uniqueness: true
-  validates_length_of :email, minimum: 5, maximum: 30
+  validates_email_format_of :email
   validates :password, presence: true, length: { within: 5..30 }
 end

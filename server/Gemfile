@@ -36,6 +36,7 @@ gem 'seed_dump'
 gem 'bcrypt'
 gem 'jwt'
 gem 'simple_command'
+gem 'validates_email_format_of'
 
 group :development, :test do
   gem 'annotate'
