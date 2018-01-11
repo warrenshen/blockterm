@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     marginTop: '20px',
     backgroundColor: '#fff',
     border: `1px solid #000`,
-    borderBottom: `2px solid #000`,
+    //borderBottom: `2px solid #000`,
   },
   infoPanel: {
     backgroundColor: '#fff',
@@ -60,17 +60,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     padding: '15px 15px',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
-    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
+    //borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
   panelsNight: {
     backgroundColor: '#000',
     border: `1px solid #fff`,
-    borderBottom: `2px solid #fff`,
+    //borderBottom: `2px solid #fff`,
   },
   panelsLightNight: {
     backgroundColor: '#000',
     border: `1px solid ${STYLES.BORDERDARK}`,
-    borderBottom: `2px solid ${STYLES.BORDERDARK}`,
+    //borderBottom: `2px solid ${STYLES.BORDERDARK}`,
   },
   bolded: {
     fontWeight:'700 !important',

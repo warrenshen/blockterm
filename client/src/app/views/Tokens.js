@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     padding: '2px 8px',
     marginRight: '10px',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
-    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
+    //borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
     borderRadius: '1px',
   },
   centered: {
@@ -136,10 +136,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#001c00',
   },
   lightRedSquare: {
-    backgroundColor: '#ffecec',
+    backgroundColor: '#ffe6e6',
   },
   lightGreenSquare: {
-    backgroundColor: '#ecffec',
+    backgroundColor: '#e6ffe6',
   },
 });
 

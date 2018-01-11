@@ -49,14 +49,14 @@ const styles = StyleSheet.create({
     marginTop: '20px',
     backgroundColor: '#fff',
     border: `1px solid #000`,
-    borderBottom: `2px solid #000`,
+    //borderBottom: `2px solid #000`,
   },
   faqPanel: {
     backgroundColor: '#fff',
     marginTop: '20px',
     padding: '15px 15px',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
-    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
+    //borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
     display:'flex',
     flexDirection:'column',
     minHeight: '450px',
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   panelsNight: {
     backgroundColor: '#000',
     border: `1px solid #fff`,
-    borderBottom: `2px solid #fff`,
+    //borderBottom: `2px solid #fff`,
   },
   bolded: {
     fontWeight:'700',

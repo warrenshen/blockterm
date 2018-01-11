@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     letterSpacing: '1px !important',
     fontSize: '12px',
     fontWeight: '700',
-    borderBottom: '2px solid #777',
+    borderBottom: '1px solid #777',
   },
   sidebarAddButtonNight: {
     //borderColor: '#ccc !important',
@@ -319,6 +319,7 @@ class Dashboard extends Component {
           pullRight={true}
           shadow={true}
           transitions={false}
+          //onSetOpen={changeSidebarMode(null)}
           styles={
             {
               root: {
@@ -342,7 +343,6 @@ class Dashboard extends Component {
               },
             }
           }
-          onSetOpen={() => changeSidebarMode(null)}
         >
           {this.renderScrollShield()}
           <DashboardTabs />
