@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     },
   },
   icon: {
+    marginLeft: '3px',
   },
 });
 

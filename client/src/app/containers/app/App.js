@@ -9,11 +9,13 @@ import { StyleSheet, css } from 'aphrodite';
 import { withRouter }      from 'react-router';
 import {
   ConnectedNavigationBar,
+  ConnectedFooter,
 }                          from '../../containers';
 import MainRoutes          from '../../routes/MainRoutes';
 import Notifications       from 'react-notification-system-redux';
 import ReactTooltip        from 'react-tooltip';
 import * as STYLES         from '../../constants/styles';
+import Footer              from '../../components/Footer';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,6 +59,7 @@ class App extends PureComponent {
           style={notificationsStyle}
         />
         <ReactTooltip />
+        <ConnectedFooter />
       </div>
     );
   }

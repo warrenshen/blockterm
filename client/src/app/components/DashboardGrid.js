@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
-    //borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
     overflow: 'hidden',
   },
   gridContainer: {
@@ -35,7 +34,6 @@ const styles = StyleSheet.create({
   nightMode: {
     backgroundColor: '#000 !important',
     border: `1px solid ${STYLES.BORDERDARK}`,
-    //borderBottom: `2px solid ${STYLES.BORDERDARK}`,
   },
   gridNightContainer: {
     backgroundColor: STYLES.SOFTGRAY,

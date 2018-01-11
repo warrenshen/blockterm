@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   nightContainer: {
-    paddingTop: '4px',
     backgroundColor: STYLES.SOFTGRAY,
   },
   item: {
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     width: '100%',
-    height: '128px',
+    height: '64px',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
   },
   addToButton: {

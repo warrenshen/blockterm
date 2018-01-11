@@ -17,8 +17,8 @@ import * as STYLES from '../constants/styles';
 const styles = StyleSheet.create({
   wrapper: {
     width: '100vw',
-    minHeight: '100vh',
     display: 'flex',
+    flex: '1',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
   },
   nightMode: {

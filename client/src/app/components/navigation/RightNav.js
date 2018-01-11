@@ -171,7 +171,7 @@ const RightNav = ({
           <RightNavButton
             style={styles.disabled}
             key={'portfolio'}
-            label={'Portfolio '}
+            label={'Portfolio'}
             link={'#'}
             icon='lock'
             nightMode={nightMode}

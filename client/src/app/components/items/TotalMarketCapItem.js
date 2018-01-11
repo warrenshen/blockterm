@@ -136,7 +136,7 @@ class TotalMarketCapItem extends Component {
         options={selectOptions}
         nightMode={nightMode}
         selectValue={plotRange}
-        title={`Total market cap over time`}
+        title={`Total Market Cap:`}
       />
     );
   }

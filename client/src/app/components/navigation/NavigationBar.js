@@ -130,7 +130,7 @@ const NavigationBar = ({
         <div className={css(styles.promotion, nightMode && styles.promotionNight)}>
           <a href='https://www.kucoin.com/#/?r=7Na6rQ' target='_blank'>
             <El style={styles.semibolded} type={'span'}>
-              Trade altcoins with KuCoin
+              Trade altcoins with KuCoin!
             </El>
           </a>
         </div>

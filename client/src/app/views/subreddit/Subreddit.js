@@ -16,7 +16,7 @@ import * as STYLES from '../../constants/styles';
 const styles = StyleSheet.create({
   wrapper: {
     width: '100vw',
-    minHeight: '100vh',
+    flex: '1',
     display: 'flex',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
   },
