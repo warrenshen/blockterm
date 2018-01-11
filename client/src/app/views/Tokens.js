@@ -126,6 +126,21 @@ const styles = StyleSheet.create({
     borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
     borderRadius: '1px',
   },
+  centered: {
+    textAlign: 'center',
+  },
+  darkRedSquare: {
+    backgroundColor: '#200000',
+  },
+  darkGreenSquare: {
+    backgroundColor: '#001c00',
+  },
+  lightRedSquare: {
+    backgroundColor: '#ffecec',
+  },
+  lightGreenSquare: {
+    backgroundColor: '#ecffec',
+  },
 });
 
 class Tokens extends PureComponent {
@@ -200,7 +215,7 @@ class Tokens extends PureComponent {
             Market Cap
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexL)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -209,7 +224,7 @@ class Tokens extends PureComponent {
             Circulating Supply
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM, styles.centered)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -218,7 +233,7 @@ class Tokens extends PureComponent {
             Change (1h)
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM, styles.centered)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -227,7 +242,7 @@ class Tokens extends PureComponent {
             Change (24h)
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM, styles.centered)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -260,6 +275,14 @@ class Tokens extends PureComponent {
       percentChange24h,
       percentChange7d,
     } = token;
+
+    let light7d = (percentChange7d < 0) ? styles.lightRedSquare : styles.lightGreenSquare;
+    let light24h = (percentChange24h < 0) ? styles.lightRedSquare : styles.lightGreenSquare;
+    let light1h = (percentChange1h < 0) ? styles.lightRedSquare : styles.lightGreenSquare;
+
+    let dark7d = (percentChange7d < 0) ? styles.darkRedSquare : styles.darkGreenSquare;
+    let dark24h = (percentChange24h < 0) ? styles.darkRedSquare : styles.darkGreenSquare;
+    let dark1h = (percentChange1h < 0) ? styles.darkRedSquare : styles.darkGreenSquare;
 
     return (
       <tr className={css(styles.row)} key={id}>
@@ -315,7 +338,7 @@ class Tokens extends PureComponent {
             {numeral(marketCapUSD).format('$0,0')}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexL)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
           <El
               nightMode={nightMode}
               type={'span'}
@@ -323,7 +346,7 @@ class Tokens extends PureComponent {
             {numeral(availableSupply).format('0,0')}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM, styles.centered, light1h, nightMode && dark1h)}>
           <El
               nightMode={nightMode}
               type={'span'}
@@ -333,7 +356,7 @@ class Tokens extends PureComponent {
             {numeral(percentChange1h).format('0,0.00')}%
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM, styles.centered, light24h, nightMode && dark24h)}>
           <El
               nightMode={nightMode}
               type={'span'}
@@ -343,7 +366,7 @@ class Tokens extends PureComponent {
             {numeral(percentChange24h).format('0,0.00')}%
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM, styles.centered, light7d, nightMode && dark7d)}>
           <El
               nightMode={nightMode}
               type={'span'}
@@ -402,7 +425,7 @@ class Tokens extends PureComponent {
               nightMode={nightMode}
               type={'h4'}
             >
-              Price, Volume, Market Cap by Coin
+              Price, Volume, Market Cap per Coin, sorted by Volume
             </El>
           </div>
           {

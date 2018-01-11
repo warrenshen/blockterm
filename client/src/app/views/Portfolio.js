@@ -183,6 +183,12 @@ const styles = StyleSheet.create({
   tokenImage: {
     marginRight: '6px',
   },
+  boldedColor: {
+    color: STYLES.GOLDINVERSEBLUE,
+  },
+  nightBoldedColor: {
+    color: STYLES.GOLD,
+  },
 });
 
 class Portfolio extends PureComponent
@@ -480,7 +486,8 @@ class Portfolio extends PureComponent
           <El
             nightMode={nightMode}
             type={'h2'}
-            style={styles.blockTitle}
+            style={styles.boldedColor}
+            nightModeStyle={styles.nightBoldedColor}
           >
              {numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00')}
           </El>
