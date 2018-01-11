@@ -23,6 +23,7 @@ import LineChartWithSelect from './LineChartWithSelect';
 import El                  from './El';
 import Select from 'react-select';
 import * as STYLES from '../constants/styles';
+import { TV_CANDLE_CHART, ITEM_KEY_TO_VALUES } from '../constants/items';
 
 const styles = StyleSheet.create({
   container: {
@@ -71,6 +72,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
 });
+
+function generateTVSymbols(token) {
+  let options = ITEM_KEY_TO_VALUES[TV_CANDLE_CHART];
+  let result = options.filter(symbol => (symbol.substring(symbol.indexOf(':') + 1, symbol.indexOf(':') + 6).includes(token.shortName)));
+  return result;
+}
+
+function toObjectArray(arr) {
+  for (let i = 0; i < arr.length; ++i)
+    arr[i] = {label: arr[i], value: arr[i]};
+  return arr;
+}
 
 class TokenBody extends PureComponent {
 
@@ -177,16 +190,30 @@ class TokenBody extends PureComponent {
     }
   }
 
-  renderTVGraph()
-  {
+  componentDidMount() {
     const {
-      nightMode,
+      changeSelectedTicker,
+      selectedTicker,
       token,
     } = this.props;
+
+    let relevantSymbols = generateTVSymbols(token);
+    changeSelectedTicker(relevantSymbols[0]);
+  }
+
+  renderTVGraphAndSelect()
+  {
+    const {
+      changeSelectedTicker,
+      nightMode,
+      selectedTicker,
+      token,
+    } = this.props;
+
+    let relevantSymbols = generateTVSymbols(token)
     const url =
       'https://s.tradingview.com/widgetembed/?' +
-      //`symbol=${token}&` +
-      `symbol=BITSTAMP:BTCUSD&` +
+      `symbol=${selectedTicker}&` +
       'interval=15&' +
       'hidetoptoolbar=1&' +
       'hidesidetoolbar=1&' +
@@ -204,11 +231,11 @@ class TokenBody extends PureComponent {
           <div className={css(styles.column)}>
             <Select
               className={css(styles.select, nightMode && styles.nightSelect)}
-              clearable={false}
-              //options={selectOptions}
-              //onChange={onChange}
+              clearable={true}
+              options={toObjectArray(relevantSymbols)}
               searchable={false}
-              //value={selectValue}
+              onChange={(option) => changeSelectedTicker(option ? option.value : '')}
+              value={selectedTicker}
             />
           </div>
         </div>
@@ -233,7 +260,7 @@ class TokenBody extends PureComponent {
     return (
       <div className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
-          {this.renderTVGraph()}
+          {this.renderTVGraphAndSelect()}
           <El
             style={styles.sectionHeader}
             nightMode={nightMode}
