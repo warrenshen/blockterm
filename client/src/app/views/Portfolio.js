@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     pointerEvents: 'none',
   },
   tokenImage: {
-    marginRight: '6px',
+    marginRight: '8px',
   },
   boldedColor: {
     color: STYLES.GOLDINVERSEBLUE,
