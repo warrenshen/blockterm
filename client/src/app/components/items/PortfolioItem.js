@@ -141,7 +141,7 @@ class PortfolioItem extends Component
             Token
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -150,7 +150,7 @@ class PortfolioItem extends Component
             Amount Held
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -159,7 +159,7 @@ class PortfolioItem extends Component
             Price USD
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -168,7 +168,7 @@ class PortfolioItem extends Component
             Change (24h)
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -209,27 +209,27 @@ class PortfolioItem extends Component
           <img
             className={css(styles.tokenImage)}
             src={getImageUrl(imageUrl)}
-            width={32}
-            height={32}
+            width={24}
+            height={24}
           />
           <El
             nightMode={nightMode}
-            type={'h4'}
+            type={'span'}
             style={styles.semibolded}
           >
             {shortName}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
-            type={'h4'}
+            type={'span'}
             style={styles.semibolded}
           >
             {amount}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -237,7 +237,7 @@ class PortfolioItem extends Component
             {priceUSD ? numeral(priceUSD).format('$0,0.00') : ''}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -247,7 +247,7 @@ class PortfolioItem extends Component
             {percentChange24h ? `${numeral(percentChange24h).format('0,0.00')}%` : ''}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             type={'span'}
