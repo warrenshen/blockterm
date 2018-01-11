@@ -37,6 +37,7 @@ export const TokensAllQuery = gql`
     tokensAll {
       id
       shortName
+      imageUrl
     }
   }
 `;
@@ -84,6 +85,7 @@ export const TokenUsersQuery = gql`
         token {
           id
           shortName
+          imageUrl
           priceUSD
           priceBTC
           percentChange24h
@@ -453,6 +455,7 @@ export const UpdateTokenUsersMutation = gql`
         token {
           id
           shortName
+          imageUrl
           priceUSD
           priceBTC
           percentChange24h

@@ -17,6 +17,9 @@ import El                  from '../components/El';
 import DonutChartWithSelect from '../components/DonutChartWithSelect'
 import FontAwesome                from 'react-fontawesome';
 import * as STYLES from '../constants/styles';
+import {
+  getImageUrl,
+} from '../constants/items.js';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -55,10 +58,12 @@ const styles = StyleSheet.create({
     flex: '2',
   },
   element: {
+    flex: '1',
+    display: 'flex',
+    alignItems: 'center',
     padding: '12px',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
     lineHeight: '38px',
-    flex: '1',
   },
   condensed: {
     lineHeight: '20px',
@@ -175,6 +180,9 @@ const styles = StyleSheet.create({
     opacity: '0.5',
     pointerEvents: 'none',
   },
+  tokenImage: {
+    marginRight: '6px',
+  },
 });
 
 class Portfolio extends PureComponent
@@ -256,7 +264,16 @@ class Portfolio extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
-            Value
+            Total Value
+          </El>
+        </td>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
+          <El
+            style={styles.semibolded}
+            nightMode={nightMode}
+            type={'span'}
+          >
+            Percent of portfolio
           </El>
         </td>
         <td className={css(styles.element, styles.condensed, styles.fakeElement)}>
@@ -265,10 +282,11 @@ class Portfolio extends PureComponent
     );
   }
 
-  renderTokenUser(tokenUser)
+  renderTokenUser(tokenUser, portfolioTotalValue)
   {
     const {
       nightMode,
+      tokenUsers,
 
       changeTokenUserAmount,
       removeTokenUser,
@@ -282,6 +300,7 @@ class Portfolio extends PureComponent
 
     const {
       shortName,
+      imageUrl,
       priceUSD,
       percentChange24h,
       percentChange7d,
@@ -293,6 +312,12 @@ class Portfolio extends PureComponent
     return (
       <tr className={css(styles.row)} key={tokenUser.id}>
         <td className={css(styles.element, nightMode && styles.darkElement)}>
+          <img
+            className={css(styles.tokenImage)}
+            src={getImageUrl(imageUrl)}
+            width={32}
+            height={32}
+          />
           <El
             nightMode={nightMode}
             type={'h4'}
@@ -344,6 +369,14 @@ class Portfolio extends PureComponent
             {priceUSD ? numeral(amount * priceUSD).format('$0,0.00') : ''}
           </El>
         </td>
+        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            {priceUSD ? numeral(amount * priceUSD / portfolioTotalValue).format('0.0%') : ''}
+          </El>
+        </td>
         <td>
           <button
             onClick={onClickRemove}
@@ -364,12 +397,14 @@ class Portfolio extends PureComponent
       tokenUsers,
     } = this.props;
 
+    const portfolioTotalValue = calculatePortfolioTotalValue(tokenUsers);
+
     return (
       <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
         <table className={css(styles.table)}>
           <tbody>
             {this.renderHeader()}
-            {tokenUsers.map((tokenUser) => this.renderTokenUser(tokenUser))}
+            {tokenUsers.map((tokenUser) => this.renderTokenUser(tokenUser, portfolioTotalValue))}
           </tbody>
         </table>
         {this.renderAdd()}

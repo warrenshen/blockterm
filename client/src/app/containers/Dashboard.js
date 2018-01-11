@@ -47,6 +47,7 @@ function f(identifier, extras)
 
             token {
               shortName
+              imageUrl
               priceUSD
               priceBTC
               percentChange24h
