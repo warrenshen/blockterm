@@ -168,12 +168,14 @@ class SubredditBody extends PureComponent {
               Historical activity
             </El>
             {
-              <El
-                nightMode={nightMode}
-                type={'h5'}
-              >
-                Note: posts and comments data collection still in progress, data may not be complete
-              </El>
+              earliestPostCountDate !== startDate && (
+                <El
+                  nightMode={nightMode}
+                  type={'h5'}
+                >
+                  Note: posts and comments data collection still in progress, data may not be complete
+                </El>
+              )
             }
           </div>
           <BarChartWithSelect
