@@ -20,6 +20,7 @@ import TokenPriceItem             from './items/TokenPriceItem';
 import TotalMarketCapItem         from './items/TotalMarketCapItem';
 import TVChartItem                from './items/TVChartItem';
 import TVMarketOverviewItem       from './items/TVMarketOverviewItem';
+import TwitterItem                from './items/TwitterItem';
 import * as STYLES                from '../constants/styles';
 import El                         from './El';
 import FontAwesome                from 'react-fontawesome';
@@ -31,6 +32,7 @@ import {
   TOTAL_MARKET_CAP,
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
+  TWITTER_ITEM,
   parseIdentifer,
 }                             from '../constants/items';
 
@@ -183,6 +185,14 @@ class DashboardItem extends Component {
           <TVMarketOverviewItem
             dashboardAction={dashboardAction}
             nightMode={nightMode}
+          />
+        );
+      case TWITTER_ITEM:
+        return (
+          <TwitterItem
+            dashboardAction={dashboardAction}
+            nightMode={nightMode}
+            value={identifierValue}
           />
         );
       default:

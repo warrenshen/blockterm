@@ -17,6 +17,7 @@ export const SUBREDDIT_POST_COUNTS = 'SUBREDDIT_POST_COUNTS';
 export const TOTAL_MARKET_CAP = 'TOTAL_MARKET_CAP';
 export const TV_CANDLE_CHART = 'TV_CANDLE_CHART';
 export const TV_MARKET_OVERVIEW = 'TV_MARKET_OVERVIEW';
+export const TWITTER_ITEM = 'TWITTER_ITEM';
 
 export const ITEM_KEY_WHITELIST = [
   PORTFOLIO_ITEM,
@@ -25,6 +26,7 @@ export const ITEM_KEY_WHITELIST = [
   TOTAL_MARKET_CAP,
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
+  TWITTER_ITEM,
 ];
 
 // Array of dashboard page objects.
@@ -120,6 +122,7 @@ export const ITEM_KEY_TO_LABELS = {
   [PORTFOLIO_ITEM]: 'Portfolio overview',
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
   [SUBREDDIT_COMMENT_COUNTS]: 'Subreddit comments chart',
+  [TWITTER_ITEM]: 'Twitter feed',
 };
 
 // These array values should be in user-facing order.
@@ -812,8 +815,12 @@ export const ITEM_KEY_TO_VALUES = {
   [TV_MARKET_OVERVIEW]: [
     'Default',
   ],
+  [TWITTER_ITEM]: [
+    'Exchanges',
+  ],
 };
 
+// const TWITTER_
 export const ITEM_VALUE_TO_IMAGE = {
     'BINANCE:ADABTC': 'cardano',
     'BINANCE:ADAETH': 'cardano',
@@ -1121,7 +1128,7 @@ export const ITEM_VALUE_TO_IMAGE = {
     'BITTREX:DGBUSD': 'digibyte',
     'BITTREX:DGDBTC': 'digixdao',
     'BITTREX:DGDUSD': 'digixdao',
-    'BITTREX:DMDBTC': 'diamond', 
+    'BITTREX:DMDBTC': 'diamond',
     'BITTREX:DMDUSD': 'diamond',
     'BITTREX:DNTBTC': 'district0x',
     'BITTREX:DOGEBTC': 'dogecoin',
