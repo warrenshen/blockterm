@@ -97,10 +97,12 @@ class Token extends PureComponent {
       changePricePlotRange,
       changeMentionTotalPlotRange,
       changeMentionSubredditPlotRange,
+      changeSelectedTicker,
       pricePlotRange,
       mentionTotalPlotRange,
       mentionSubredditPlotRange,
       nightMode,
+      selectedTicker,
     } = this.props;
 
     return (
@@ -110,6 +112,7 @@ class Token extends PureComponent {
           token={token}
         />
         <TokenBody
+          changeSelectedTicker={changeSelectedTicker}
           changePricePlotRange={changePricePlotRange}
           changeMentionTotalPlotRange={changeMentionTotalPlotRange}
           changeMentionSubredditPlotRange={changeMentionSubredditPlotRange}
@@ -118,6 +121,7 @@ class Token extends PureComponent {
           mentionTotalPlotRange={mentionTotalPlotRange}
           mentionSubredditPlotRange={mentionSubredditPlotRange}
           nightMode={nightMode}
+          selectedTicker={selectedTicker}
           token={token}
         />
       </div>

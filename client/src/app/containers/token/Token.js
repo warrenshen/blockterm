@@ -8,8 +8,9 @@ import {
   CreateDashboardItemMutation,
 }                             from '../../queries';
 import { Token }              from '../../views'
-import * as globalsActions     from '../../redux/modules/globals';
+import * as globalsActions    from '../../redux/modules/globals';
 import * as plotsActions      from '../../redux/modules/plots';
+import * as tokenActions      from '../../redux/modules/token';
 
 /* -----------------------------------------
   GraphQL - Apollo client
@@ -131,6 +132,7 @@ const mapStateToProps = (state) => {
     nightMode: state.globals.nightMode,
     pricePlotRange: state.plots.pricePlotRange,
     scrollActive: state.globals.scrollActive,
+    selectedTicker: state.token.selectedTicker,
   };
 };
 
@@ -141,6 +143,7 @@ const mapDispatchToProps = (dispatch) => {
     changeMentionTotalPlotRange: plotsActions.changeMentionTotalPlotRange,
     changePricePlotRange: plotsActions.changePricePlotRange,
     changeScrollActive: globalsActions.changeScrollActive,
+    changeSelectedTicker: tokenActions.changeSelectedTicker,
   },
     dispatch
   );

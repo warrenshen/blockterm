@@ -10,6 +10,7 @@ import login                        from './login';
 import plots                        from './plots';
 import portfolio                    from './portfolio';
 import subreddits                   from './subreddits';
+import token                        from './token'
 
 const appReducers = {
   dashboard,
@@ -19,6 +20,7 @@ const appReducers = {
   plots,
   portfolio,
   subreddits,
+  token,
 };
 
 // combine reducers -> createStore reducer
