@@ -76,6 +76,9 @@ const styles = StyleSheet.create({
   element: {
     padding: '12px 0px',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   darkElement: {
     borderBottom: `1px solid ${STYLES.BORDERDARK}`,
@@ -115,10 +118,14 @@ const styles = StyleSheet.create({
   redDelta: {
     color: `${STYLES.TICKER_RED} !important`,
     fontWeight: '500',
+    lineHeight: '56px',
+    backgroundColor: 'rgba(255, 0, 0, 0.1)',
   },
   greenDelta: {
     color: `${STYLES.TICKER_GREEN} !important`,
     fontWeight: '500',
+    lineHeight: '56px',
+    backgroundColor: 'rgba(0, 255, 0, 0.1)',
   },
   paginationButtons: {
     padding: '2px 8px',
@@ -130,17 +137,8 @@ const styles = StyleSheet.create({
   centered: {
     textAlign: 'center',
   },
-  darkRedSquare: {
-    backgroundColor: '#200000',
-  },
-  darkGreenSquare: {
-    backgroundColor: '#001c00',
-  },
-  lightRedSquare: {
-    backgroundColor: '#ffe6e6',
-  },
-  lightGreenSquare: {
-    backgroundColor: '#e6ffe6',
+  noPadding: {
+    padding: '0px',
   },
 });
 
@@ -277,13 +275,21 @@ class Tokens extends PureComponent {
       percentChange7d,
     } = token;
 
-    let light7d = (percentChange7d < 0) ? styles.lightRedSquare : styles.lightGreenSquare;
-    let light24h = (percentChange24h < 0) ? styles.lightRedSquare : styles.lightGreenSquare;
-    let light1h = (percentChange1h < 0) ? styles.lightRedSquare : styles.lightGreenSquare;
-
-    let dark7d = (percentChange7d < 0) ? styles.darkRedSquare : styles.darkGreenSquare;
-    let dark24h = (percentChange24h < 0) ? styles.darkRedSquare : styles.darkGreenSquare;
-    let dark1h = (percentChange1h < 0) ? styles.darkRedSquare : styles.darkGreenSquare;
+    let generatedBackground1h = {
+        fontWeight: '500', lineHeight: '62px', width: '100%', height: '100%',
+        color: (percentChange1h < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 90)}, 0)`,
+        backgroundColor: (percentChange1h < 0) ? `rgba(255,0,0,${Math.min(percentChange1h/-100, 0.5)})` : `rgba(0,255,0,${Math.min(percentChange1h/100, 0.5)})`,
+    };
+    let generatedBackground24h = {
+        fontWeight: '500', lineHeight: '62px', width: '100%', height: '100%',
+        color: (percentChange24h < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 90)}, 0)`,
+        backgroundColor: (percentChange24h < 0) ? `rgba(255,0,0,${Math.min(percentChange24h/-100, 0.5)})` : `rgba(0,255,0,${Math.min(percentChange24h/100, 0.5)})`,
+    };
+    let generatedBackground7d = {
+        fontWeight: '500', lineHeight: '62px', width: '100%', height: '100%',
+        color: (percentChange7d < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 90)}, 0)`,
+        backgroundColor: (percentChange7d < 0) ? `rgba(255,0,0,${Math.min(percentChange7d/-100, 0.5)})` : `rgba(0,255,0,${Math.min(percentChange7d/100, 0.5)})`,
+    };
 
     return (
       <tr className={css(styles.row)} key={id}>
@@ -347,35 +353,26 @@ class Tokens extends PureComponent {
             {numeral(availableSupply).format('0,0')}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM, styles.centered, light1h, nightMode && dark1h)}>
-          <El
-              nightMode={nightMode}
-              type={'span'}
-              style={(percentChange1h < 0) ? styles.redDelta : styles.greenDelta}
-              nightModeStyle={(percentChange1h < 0) ? styles.redDelta : styles.greenDelta}
+        <td className={css(styles.element, styles.noPadding, nightMode && styles.darkElement, styles.thickElement, styles.flexM, styles.centered)}>
+          <span
+            style={generatedBackground1h}
           >
             {numeral(percentChange1h).format('0,0.00')}%
-          </El>
+          </span>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM, styles.centered, light24h, nightMode && dark24h)}>
-          <El
-              nightMode={nightMode}
-              type={'span'}
-              style={(percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
-              nightModeStyle={(percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
+        <td className={css(styles.element, styles.noPadding, nightMode && styles.darkElement, styles.thickElement, styles.flexM, styles.centered)}>
+          <span
+            style={generatedBackground24h}
           >
             {numeral(percentChange24h).format('0,0.00')}%
-          </El>
+          </span>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM, styles.centered, light7d, nightMode && dark7d)}>
-          <El
-              nightMode={nightMode}
-              type={'span'}
-              style={(percentChange7d < 0) ? styles.redDelta : styles.greenDelta}
-              nightModeStyle={(percentChange7d < 0) ? styles.redDelta : styles.greenDelta}
+        <td className={css(styles.element, styles.noPadding, nightMode && styles.darkElement, styles.thickElement, styles.flexM, styles.centered)}>
+          <span
+            style={generatedBackground7d}
           >
             {numeral(percentChange7d).format('0,0.00')}%
-          </El>
+          </span>
         </td>
       </tr>
     );
