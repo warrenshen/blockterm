@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
   semiboldedLink: {
     textDecoration:'underline',
     fontWeight:'500',
+    fontSize: '15px',
   },
   bolded: {
     fontWeight: '700',
