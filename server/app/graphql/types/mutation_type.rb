@@ -412,39 +412,41 @@ module Types
           token_user_hash['id']
         end
 
-        destroyed_token_users = current_user.token_users.where.not(id: token_user_ids).destroy_all
+        ActiveRecord::Base.transaction do
+          destroyed_token_users = current_user.token_users.where.not(id: token_user_ids).destroy_all
 
-        token_users_hashes.each do |token_user_hash|
-          token_user_id = token_user_hash['id']
+          token_users_hashes.each do |token_user_hash|
+            token_user_id = token_user_hash['id']
 
-          if token_user_id.index('t') == 0
-            token_hash = token_user_hash['token']
+            if token_user_id.index('t') == 0
+              token_hash = token_user_hash['token']
 
-            token_user = TokenUser.create(
-              token_id: token_hash['id'],
-              user_id: current_user.id,
-              amount: token_user_hash['amount'],
-              index: token_user_hash['index'],
-            )
+              token_user = TokenUser.create(
+                token_id: token_hash['id'],
+                user_id: current_user.id,
+                amount: token_user_hash['amount'],
+                index: token_user_hash['index'],
+              )
 
-            if !token_user.valid?
-              return GraphQL::ExecutionError.new(token_user.errors.full_messages)
-            end
-          else
-            token_user = TokenUser.find_by_id(token_user_id)
-
-            if token_user.nil?
-              return GraphQL::ExecutionError.new('Token user could not be found')
-            end
-
-            token_user.assign_attributes(
-              amount: token_user_hash['amount'],
-              index: token_user_hash['index'],
-            )
-
-            if token_user.changed?
-              if !token_user.save
+              if !token_user.valid?
                 return GraphQL::ExecutionError.new(token_user.errors.full_messages)
+              end
+            else
+              token_user = TokenUser.find_by_id(token_user_id)
+
+              if token_user.nil?
+                return GraphQL::ExecutionError.new('Token user could not be found')
+              end
+
+              token_user.assign_attributes(
+                amount: token_user_hash['amount'],
+                index: token_user_hash['index'],
+              )
+
+              if token_user.changed?
+                if !token_user.save
+                  return GraphQL::ExecutionError.new(token_user.errors.full_messages)
+                end
               end
             end
           end
@@ -862,29 +864,31 @@ module Types
           return GraphQL::ExecutionError.new('Could not find dashboard page')
         end
 
-        dashboard_items_hashes = JSON.parse(args[:dashboardItemsString])
-        dashboard_items_hashes.each do |dashboard_item_hash|
-          dashboard_item_id = dashboard_item_hash['id']
-          dashboard_item = DashboardItem.find_by_id(dashboard_item_id)
-          if dashboard_item.nil?
-            return GraphQL::ExecutionError.new('Could not find dashboard item')
-          end
+        ActiveRecord::Base.transaction do
+          dashboard_items_hashes = JSON.parse(args[:dashboardItemsString])
+          dashboard_items_hashes.each do |dashboard_item_hash|
+            dashboard_item_id = dashboard_item_hash['id']
+            dashboard_item = DashboardItem.find_by_id(dashboard_item_id)
+            if dashboard_item.nil?
+              return GraphQL::ExecutionError.new('Could not find dashboard item')
+            end
 
-          if dashboard_item.dashboard_page_id != dashboard_page.id
-            return GraphQL::ExecutionError.new('Dashboard item does not belong to dashboard page')
-          end
+            if dashboard_item.dashboard_page_id != dashboard_page.id
+              return GraphQL::ExecutionError.new('Dashboard item does not belong to dashboard page')
+            end
 
-          dashboard_item.assign_attributes(
-            w: dashboard_item_hash['w'],
-            h: dashboard_item_hash['h'],
-            x: dashboard_item_hash['x'],
-            y: dashboard_item_hash['y'],
-            static: dashboard_item_hash['static'],
-          )
+            dashboard_item.assign_attributes(
+              w: dashboard_item_hash['w'],
+              h: dashboard_item_hash['h'],
+              x: dashboard_item_hash['x'],
+              y: dashboard_item_hash['y'],
+              static: dashboard_item_hash['static'],
+            )
 
-          if dashboard_item.changed?
-            if !dashboard_item.save
-              return GraphQL::ExecutionError.new(dashboard_item.errors.full_messages)
+            if dashboard_item.changed?
+              if !dashboard_item.save
+                return GraphQL::ExecutionError.new(dashboard_item.errors.full_messages)
+              end
             end
           end
         end
