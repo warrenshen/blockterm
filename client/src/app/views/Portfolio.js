@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     width: '100vw',
     minHeight: '100vh',
     display: 'flex',
-    flexDirection: 'column',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
   },
   nightMode: {
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
   },
   body: {
     display: 'flex',
-    borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
     flex: '1',
     boxSizing: 'content-box',
     backgroundColor: '#fff',
@@ -43,7 +42,7 @@ const styles = StyleSheet.create({
   },
   bodyNightMode: {
     backgroundColor: '#000',
-    borderTop: `1px solid ${STYLES.BORDERDARK}`,
+    border: `1px solid ${STYLES.BORDERDARK}`,
   },
   table: {
     display: 'table',
@@ -73,6 +72,8 @@ const styles = StyleSheet.create({
   },
   chartElement: {
     marginBottom: '24px',
+    alignSelf: 'flex-start',
+    paddingBottom: '10px',
   },
   semibolded: {
     fontWeight: '500',
@@ -89,11 +90,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     marginBottom: '1px',
   },
-  flexItem: {
-    flex: '1',
+  donutChart: {
+    width: '300px',
   },
   padded: {
-    padding: '15px 10px'
+    padding: '10px 10px',
+    display: 'flex',
+    flex: '1',
+    flexDirection: 'column',
   },
   block: {
     display: 'block',
@@ -104,10 +108,8 @@ const styles = StyleSheet.create({
   },
   heroTable: {
     backgroundColor: '#fff',
-    border: `1px solid ${STYLES.BORDERLIGHT}`,
     display: 'flex',
-    flexDirection: 'row',
-    flex: '1',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   darkHeroTable: {
     backgroundColor: '#000',
@@ -134,15 +136,15 @@ const styles = StyleSheet.create({
   darkBlockButton: {
     color: '#fff',
     backgroundColor: '#000',
-    borderBottom: '2px solid #777',
+    //borderBottom: '2px solid #777',
   },
   blockButtonWrapper: {
     border: `1px solid ${STYLES.BORDERLIGHT}`,
-    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
+    //borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
   darkBlockButtonWrapper: {
     border: `1px solid ${STYLES.BORDERDARK}`,
-    borderBottom: `2px solid ${STYLES.BORDERDARK}`,
+    //borderBottom: `2px solid ${STYLES.BORDERDARK}`,
   },
   donutBox: {
     margin: '10px 0px 12px 10px',
@@ -188,6 +190,15 @@ const styles = StyleSheet.create({
   },
   nightBoldedColor: {
     color: STYLES.GOLD,
+  },
+  tableColumn: {
+    flex: 3,
+    display: 'flex',
+    flexDirection: 'column',
+    //backgroundColor: '#fff',
+  },
+  blackTableColumn: {
+    //backgroundColor: '#000',
   },
 });
 
@@ -541,19 +552,19 @@ class Portfolio extends PureComponent
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        <div className={css(styles.row)}>
-          <div className={css(styles.chartElement, styles.flexItem, styles.donutBox, nightMode && styles.darkDonutBox)}>
-            <DonutChartWithSelect
-              data={data}
-              nightMode={nightMode}
-              title="Portfolio Distribution:"
-            />
-          </div>
-          <div className={css(styles.padded)} style={{'flex':'3'}}>
+        <div className={css(styles.chartElement, styles.donutChart, styles.donutBox, nightMode && styles.darkDonutBox)}>
+          <DonutChartWithSelect
+            data={data}
+            nightMode={nightMode}
+            title="Portfolio Distribution:"
+          />
+        </div>
+        <div className={css(styles.tableColumn, styles.blackTableColumn)}>
+          <div className={css(styles.padded)}>
             {this.renderHeroTable()}
+            {this.renderTokenUsers()}
           </div>
         </div>
-        {this.renderTokenUsers()}
       </div>
     );
   }

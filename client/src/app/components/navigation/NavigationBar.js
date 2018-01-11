@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 1,
     //borderTop: '1px solid rgba(0,0,0,0.2)',
-    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   banner: {
     width: '100vw',
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   nightMode: {
     backgroundColor: '#000',
-    borderBottom: `2px solid ${STYLES.BORDERDARK}`,
+    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
     //backgroundColor: '#020b0e',
   },
   bannerNight: {

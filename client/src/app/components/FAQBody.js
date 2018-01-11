@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     marginTop: '20px',
     padding: '15px 15px',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
-    borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
+    //borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
     display:'flex',
     flexDirection:'column',
     minHeight: '450px',
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   panelsLightNight: {
     backgroundColor: '#000',
     border: `1px solid ${STYLES.BORDERDARK}`,
-    borderBottom: `2px solid ${STYLES.BORDERDARK}`,
+    //borderBottom: `2px solid ${STYLES.BORDERDARK}`,
   },
   row: {
     display: 'flex',
