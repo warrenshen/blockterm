@@ -15,6 +15,9 @@ import {
 import DonutChartWithSelect from '../../components/DonutChartWithSelect'
 import El                  from '../../components/El';
 import * as STYLES from '../../constants/styles';
+import {
+  getImageUrl,
+} from '../../constants/items.js';
 
 const styles = StyleSheet.create({
   container: {
@@ -51,10 +54,12 @@ const styles = StyleSheet.create({
     flex: '2',
   },
   element: {
+    flex: '1',
+    display: 'flex',
+    alignItems: 'center',
     padding: '12px',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
     lineHeight: '18px',
-    flex: '1',
   },
   darkElement: {
     borderBottom: `1px solid ${STYLES.BORDERDARK}`,
@@ -105,6 +110,9 @@ const styles = StyleSheet.create({
   boldedUpper: {
     textTransform: 'uppercase',
     fontWeight: '500',
+  },
+  tokenImage: {
+    marginRight: '6px',
   },
 });
 
@@ -190,6 +198,7 @@ class PortfolioItem extends Component
 
     const {
       shortName,
+      imageUrl,
       priceUSD,
       percentChange24h,
     } = token;
@@ -197,6 +206,12 @@ class PortfolioItem extends Component
     return (
       <tr className={css(styles.row)} key={tokenUser.id}>
         <td className={css(styles.element, nightMode && styles.darkElement)}>
+          <img
+            className={css(styles.tokenImage)}
+            src={getImageUrl(imageUrl)}
+            width={32}
+            height={32}
+          />
           <El
             nightMode={nightMode}
             type={'h4'}

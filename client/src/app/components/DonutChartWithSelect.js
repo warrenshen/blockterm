@@ -5,10 +5,10 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import Select from 'react-select';
-//import { Bar } from 'react-chartjs-2';
-import {Doughnut} from 'react-chartjs-2';
-import El from './El';
+import numeral             from 'numeral';
+import Select              from 'react-select';
+import { Doughnut }        from 'react-chartjs-2';
+import El                  from './El';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    //padding: '12px 0px 0px 0px',
   },
   headerRight: {
     display: 'flex',
@@ -56,8 +55,13 @@ const styles = StyleSheet.create({
   },
 });
 
-function getRandomInt (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+function getTooltip(tooltipItem, data)
+{
+  const itemValue = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+  const totalValue = data.datasets[tooltipItem.datasetIndex].data.reduce(
+    (accum, value) => accum + value
+  );
+  return `${numeral(itemValue / totalValue).format('0.0%')}, ${numeral(itemValue).format('$0,0.0')}`;
 }
 
 class DonutChartWithSelect extends PureComponent {
@@ -96,6 +100,16 @@ class DonutChartWithSelect extends PureComponent {
       },
     };
 
+    const chartOptions = {
+      legend: legendConfig,
+      maintainAspectRatio: false,
+      tooltips: {
+        callbacks: {
+          label: (tooltipItem, data) => getTooltip(tooltipItem, data),
+        },
+      },
+    };
+
     return (
       <div className={css(styles.container)}>
         <div className={css(styles.header)}>
@@ -119,13 +133,10 @@ class DonutChartWithSelect extends PureComponent {
         </div>
         <div className={css(styles.chart)}>
           <Doughnut
-            redraw={true}
-            height={height ? height : 300}
-            options={{
-              maintainAspectRatio: false,
-              legend: legendConfig,
-            }}
             data={data}
+            height={height ? height : 300}
+            options={chartOptions}
+            redraw={true}
           />
         </div>
       </div>
