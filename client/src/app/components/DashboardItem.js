@@ -33,6 +33,7 @@ import {
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
   TWITTER_ITEM,
+  convertIdentifierToTitle,
   parseIdentifer,
 }                             from '../constants/items';
 
@@ -217,6 +218,8 @@ class DashboardItem extends Component {
     } = dashboardItem;
     const staticActive = dashboardItem.static;
 
+    const title = convertIdentifierToTitle(identifier);
+
     const onClickEdit = (event) => changeSidebarMode('edit', id);
     const onClickLock = (event) => updateLayoutItem(id, !staticActive);
     const onClickRemove = (event) => removeFromLayout(id);
@@ -233,7 +236,7 @@ class DashboardItem extends Component {
               nightMode={nightMode}
               type={'h5'}
             >
-              {identifier}
+              {title}
             </El>
           </div>
           <div className={css(styles.rightAlignSmall, staticActive && styles.lockedGrabBar)}>

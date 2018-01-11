@@ -19,6 +19,7 @@ import {
   TOTAL_MARKET_CAP,
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
+  TWITTER_ITEM,
   computeDashboardFreeValues,
   parseIdentifer,
   parseIdentiferKey,
@@ -96,6 +97,7 @@ function f(identifier, extras)
       `;
     case TV_CANDLE_CHART:
     case TV_MARKET_OVERVIEW:
+    case TWITTER_ITEM:
       return null;
     default:
       if (process.env.NODE_ENV === 'dev')
@@ -214,10 +216,15 @@ class Container extends PureComponent
     let x = 0;
     let y = arr[0];
 
-    if (parseIdentiferKey(identifier) === TV_MARKET_OVERVIEW ||
-        parseIdentiferKey(identifier) === PORTFOLIO_ITEM)
+    if (parseIdentiferKey(identifier) === PORTFOLIO_ITEM ||
+        parseIdentiferKey(identifier) === TV_MARKET_OVERVIEW)
     {
       w = 3;
+      h = 9;
+    }
+    else if (parseIdentiferKey(identifier) === TWITTER_ITEM)
+    {
+      w = 2;
       h = 9;
     }
 
