@@ -1,26 +1,25 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.service.type: nodeport
-    kompose.version: 1.4.0 ()
-  creationTimestamp: null
   labels:
-    io.kompose.service: db
+    app: db
   name: db
 spec:
   replicas: 1
   strategy:
     type: Recreate
+  minReadySeconds: 5
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        io.kompose.service: db
+        app: db
     spec:
       containers:
-      - env:
+      - image: postgres:9.4.4
+        name: db
+        ports:
+        - containerPort: 5432
+        env:
         - name: POSTGRES_DB
           value: db
         - name: POSTGRES_USER
@@ -28,10 +27,6 @@ spec:
         - name: POSTGRES_PASSWORD
         - name: PGDATA
           value: /var/lib/postgresql/data/pgdata
-        image: postgres:9.4.4
-        name: db
-        ports:
-        - containerPort: 5432
         resources: {}
         volumeMounts:
         - mountPath: /var/lib/postgresql/data/pgdata
@@ -48,13 +43,8 @@ status: {}
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.service.type: nodeport
-    kompose.version: 1.4.0 ()
-  creationTimestamp: null
   labels:
-    io.kompose.service: db
+    app: db
   name: db
 spec:
   ports:
@@ -62,7 +52,7 @@ spec:
     port: 5432
     targetPort: 5432
   selector:
-    io.kompose.service: db
+    app: db
   type: NodePort
 status:
   loadBalancer: {}

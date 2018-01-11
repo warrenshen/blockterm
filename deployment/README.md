@@ -96,7 +96,7 @@ Initialize your tiler for helm, if not done yet: `helm init`.
 Install `nginx-ingress`: `helm install stable/nginx-ingress --name nginx-ingress -f infra/helm-nginx-ingress.yaml`, make sure you update the load balancer's ip. You should create a regional static ip for this if you haven't yet.
 Install `kube-lego`: `helm install stable/kube-lego --name lego -f infra/helm-lego.yaml`, make sure you update your email address for the certificate
 
-If they are already installed, use `update` command instead.
+If they are already installed, use `upgrade` command instead, e.g. `helm upgrade nginx-ingress stable/nginx-ingress -f infra/helm-nginx-ingress.yaml`.
 
 Once the nginx controller is ready, you can deploy the ingress: `kubectl apply -f ingress.yaml`
 
