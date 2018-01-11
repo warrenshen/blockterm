@@ -148,7 +148,45 @@ const SUBREDDITS_IN_USER_FACING_ORDER = [
   'Groestlcoin',
   'gridcoin',
   'icon',
+  'Stellar',
+  'binance',
+  'helloicon',
+  'enigmacatalyst',
+  'BNBtrader',
 ];
+
+// This map should be alphabetical for ease of development.
+// The order does not affect user-facing order.
+export const ITEM_VALUE_TO_LABELS = {
+  'altcoin': 'r/Altcoin',
+  'binance': 'r/binance',
+  'Bitcoin': 'r/Bitcoin',
+  'Bitcoincash': 'r/Bitcoincash',
+  'BNBtrader': 'r/BNBtrader',
+  'btc': 'r/BTC',
+  'CryptoCurrency': 'r/Cryptocurrency',
+  'CryptoMarkets': 'r/Cryptomarkets',
+  'dogecoin': 'r/Dogecoin',
+  'Electroneum': 'r/Electroneum',
+  'enigmacatalyst': 'r/enigmacatalyst',
+  'ethereum': 'r/Ethereum',
+  'gridcoin': 'r/gridcoin',
+  'Groestlcoin': 'r/Groestlcoin',
+  'helloicon': 'r/helloicon',
+  'icon': 'r/icon',
+  'Iota': 'r/Iota',
+  'litecoin': 'r/Litecoin',
+  'Lisk': 'r/Lisk',
+  'Monero': 'r/Monero',
+  'NEO': 'r/NEO',
+  'Raiblocks': 'r/Raiblocks',
+  'RequestNetwork': 'r/RequestNetwork',
+  'Ripple': 'r/Ripple',
+  'steemit': 'r/steemit',
+  'Stellar': 'r/Stellar',
+  'SubstratumNetwork': 'r/Substratumnetwork',
+  'Vertcoin': 'r/Vertcoin',
+};
 
 export const ITEM_KEY_TO_VALUES = {
   [PORTFOLIO_ITEM]: [
@@ -774,34 +812,6 @@ export const ITEM_KEY_TO_VALUES = {
   [TV_MARKET_OVERVIEW]: [
     'Default',
   ],
-};
-
-// This map should be alphabetical for ease of development.
-// The order does not affect user-facing order.
-export const ITEM_VALUE_TO_LABELS = {
-  'altcoin': 'r/Altcoin',
-  'Bitcoin': 'r/Bitcoin',
-  'Bitcoincash': 'r/Bitcoincash',
-  'btc': 'r/BTC',
-  'CryptoCurrency': 'r/Cryptocurrency',
-  'CryptoMarkets': 'r/Cryptomarkets',
-  'dogecoin': 'r/Dogecoin',
-  'Electroneum': 'r/Electroneum',
-  'ethereum': 'r/Ethereum',
-  'gridcoin': 'r/gridcoin',
-  'Groestlcoin': 'r/Groestlcoin',
-  'icon': 'r/icon',
-  'Iota': 'r/Iota',
-  'litecoin': 'r/Litecoin',
-  'Lisk': 'r/Lisk',
-  'Monero': 'r/Monero',
-  'NEO': 'r/NEO',
-  'Raiblocks': 'r/Raiblocks',
-  'RequestNetwork': 'r/RequestNetwork',
-  'Ripple': 'r/Ripple',
-  'steemit': 'r/steemit',
-  'SubstratumNetwork': 'r/Substratumnetwork',
-  'Vertcoin': 'r/Vertcoin',
 };
 
 export const ITEM_VALUE_TO_IMAGE = {
