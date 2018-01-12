@@ -69,6 +69,8 @@ const styles = StyleSheet.create({
     lineHeight: '4px',
     width: '100%',
     borderBottom: `1px solid #666`,
+    height: '19px',
+    overflowY: 'hidden',
     ':hover': {
       cursor: 'move',
     },

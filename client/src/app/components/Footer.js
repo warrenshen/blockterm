@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     display: 'block',
   },
   para: {
+    fontSize: '13px',
     lineHeight: '18px',
   },
   a: {
