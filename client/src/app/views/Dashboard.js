@@ -319,7 +319,7 @@ class Dashboard extends Component {
           pullRight={true}
           shadow={true}
           transitions={false}
-          //onSetOpen={changeSidebarMode(null)}
+          onSetOpen={() => changeSidebarMode(null)}
           styles={
             {
               root: {
