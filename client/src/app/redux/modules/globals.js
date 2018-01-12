@@ -1,8 +1,10 @@
 // @flow weak
 
+import moment from 'moment-timezone';
 import {
   AUTH_TOKEN_COOKIE,
   NIGHT_MODE_COOKIE,
+  TIME_ZONE_COOKIE,
   clearItem,
   getItem,
   setItem,
@@ -19,9 +21,17 @@ const TOGGLE_NIGHT_MODE = 'TOGGLE_NIGHT_MODE';
   Reducer
  ------------------------------------------*/
 const cookieNightMode = getItem(NIGHT_MODE_COOKIE);
+let cookieTimeZone = getItem(TIME_ZONE_COOKIE);
+if (cookieTimeZone === null)
+{
+  cookieTimeZone = moment.tz.guess();
+  setItem(TIME_ZONE_COOKIE, cookieTimeZone);
+}
+
 const initialState = {
-  scrollActive: false,
   nightMode: cookieNightMode !== null ? cookieNightMode : true,
+  scrollActive: false,
+  timeZone: cookieTimeZone,
 };
 document.body.classList.toggle('darkClass', initialState.nightMode);
 

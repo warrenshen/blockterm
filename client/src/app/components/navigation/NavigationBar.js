@@ -111,10 +111,10 @@ const styles = StyleSheet.create({
   }
 });
 
-// <a href='https://www.binance.com/?ref=10907326' target='_blank'>
-//  <El style={styles.semibolded} type={'span'}>
-//    Trade Altcoins with Binance
-//  </El>
+// <a href='https://www.kucoin.com/#/?r=7Na6rQ' target='_blank'>
+//   <El style={styles.semibolded} type={'span'}>
+//     Trade altcoins with KuCoin!
+//   </El>
 // </a>
 
 const NavigationBar = ({
@@ -128,10 +128,10 @@ const NavigationBar = ({
     <div className={css(styles.navbar)}>
       <nav className={css(styles.banner, nightMode && styles.bannerNight)}>
         <div className={css(styles.promotion, nightMode && styles.promotionNight)}>
-          <a href='https://www.kucoin.com/#/?r=7Na6rQ' target='_blank'>
-            <El style={styles.semibolded} type={'span'}>
-              Trade altcoins with KuCoin!
-            </El>
+          <a href='https://www.binance.com/?ref=10907326' target='_blank'>
+           <El style={styles.semibolded} type={'span'}>
+             Trade Altcoins with Binance
+           </El>
           </a>
         </div>
       </nav>

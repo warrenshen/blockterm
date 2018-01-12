@@ -9,6 +9,7 @@ export const AUTH_TOKEN_COOKIE = 'AUTH_TOKEN_COOKIE';
 export const DASHBOARD_COOKIE = 'DASHBOARD_COOKIE';
 export const NIGHT_MODE_COOKIE = 'NIGHT_MODE_COOKIE';
 export const SELECTED_TAB_COOKIE = 'SELECTED_TAB_COOKIE';
+export const TIME_ZONE_COOKIE = 'TIME_ZONE_COOKIE';
 
 const parse = JSON.parse;
 const stringify = JSON.stringify;

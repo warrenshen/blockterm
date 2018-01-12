@@ -1,5 +1,6 @@
 // @flow weak
 
+import moment from 'moment-timezone';
 import {
   AUTH_TOKEN_COOKIE,
   getItem,
@@ -13,9 +14,9 @@ import {
 import { appConfig }      from '../../config';
 
 const networkInterface = createNetworkInterface({
-  uri: appConfig.apollo.networkInterface,
   // connectToDevTools: true,
-  // transportBatching: true
+  // transportBatching: true,
+  uri: appConfig.apollo.networkInterface,
 });
 
 networkInterface.use([{
@@ -23,11 +24,13 @@ networkInterface.use([{
     if (!req.options.headers) {
       req.options.headers = {};  // Create the header object if needed.
     }
-    // Get the authentication token from local storage if it exists.
+
+    // Get headers from local storage.
     const authToken = getItem(AUTH_TOKEN_COOKIE);
-    if (authToken) {
-      req.options.headers.authorization = authToken ? `Bearer ${authToken}` : null;
-    }
+    const timeZone = getItem(timeZone);
+    req.options.headers.authorization = authToken ? `Bearer ${authToken}` : null;
+    req.options.headers['X-Time-Zone'] = timeZone ? timeZone : moment.tz.guess();
+
     next();
   }
 }]);
