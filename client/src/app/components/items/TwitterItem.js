@@ -5,6 +5,7 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { isEqual }         from 'underscore';
 import { Timeline }        from 'react-twitter-widgets';
 import {
   TWITTER_VALUE_TO_DATA_SOURCE,
@@ -24,6 +25,13 @@ const styles = StyleSheet.create({
 });
 
 class TwitterItem extends PureComponent {
+
+  shouldComponentUpdate(nextProps, nextState)
+  {
+    return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+           !isEqual(this.props.nightMode, nextProps.nightMode) ||
+           !isEqual(this.props.value, nextProps.value);
+  }
 
   render()
   {
