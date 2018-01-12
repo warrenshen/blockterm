@@ -3,7 +3,6 @@
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose, graphql }   from 'react-apollo';
-import { UserQuery }          from '../queries';
 import Footer          from '../components/Footer';
 import * as globalsActions    from '../redux/modules/globals';
 
@@ -17,16 +16,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-      toggleNightMode: globalsActions.toggleNightMode,
-    },
-    dispatch
-  );
-};
-
 export default compose(
-  graphql(UserQuery),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps)
 )(Footer);

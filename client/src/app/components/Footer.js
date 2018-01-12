@@ -11,7 +11,7 @@ import * as STYLES from '../constants/styles';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    padding: '10px 10px',
+    padding: '5px 10px 0px 10px !important',
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
     display:'flex',
   },
@@ -70,7 +70,7 @@ class Footer extends PureComponent {
             type={'p'}
             style={styles.para}
           >
-            <strong>Please send us your feedback!</strong> We want to hear every issue, no matter how big or small! We'll try to nail each one.
+            <strong>Please send us your feedback!</strong> We want to hear every issue, no matter how big/small! We'll try to nail each one.
           </El>
         </div>
         <div className={css(styles.column)}>
