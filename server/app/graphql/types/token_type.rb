@@ -22,7 +22,11 @@ module Types
       description 'The date time of earliest mention count associated with token'
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::get_earliest_instance_date(obj.mention_counts)
+        time_zone = ctx[:time_zone]
+        QueryHelper::get_earliest_instance_date(
+          obj.mention_counts,
+          time_zone,
+        )
       }
     end
 

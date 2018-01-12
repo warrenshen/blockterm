@@ -20,7 +20,11 @@ module Types
         if market_ticker.valid?
           market_ticker.created_at.to_s
         else
-          obj.created_at.to_s
+          time_zone = ctx[:time_zone]
+          QueryHelper::localize_timestamp(
+            obj.created_at,
+            time_zone,
+          ).to_s
         end
       }
     end
@@ -29,7 +33,11 @@ module Types
       description 'The date time of earliest market ticker associated with market'
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::get_earliest_instance_date(obj.market_tickers)
+        time_zone = ctx[:time_zone]
+        QueryHelper::get_earliest_instance_date(
+          obj.market_tickers,
+          time_zone,
+        )
       }
     end
 

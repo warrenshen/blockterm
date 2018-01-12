@@ -9,7 +9,11 @@ module Types
       type !types.String
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::localize_timestamp(obj.timestamp).to_s
+        time_zone = ctx[:time_zone]
+        QueryHelper::localize_timestamp(
+          obj.timestamp,
+          time_zone,
+        ).to_s
       }
     end
   end

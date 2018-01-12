@@ -61,12 +61,15 @@ module QueryHelper
     relation
   end
 
-  def self.get_earliest_instance_date(relation)
+  def self.get_earliest_instance_date(relation, time_zone_name)
     earliest_instance = relation.order(timestamp: :asc).first
     if earliest_instance.nil?
       nil
     else
-      self.localize_timestamp(earliest_instance.timestamp).to_date.to_s
+      self.localize_timestamp(
+        earliest_instance.timestamp,
+        time_zone_name,
+      ).to_date.to_s
     end
   end
 
@@ -74,8 +77,8 @@ module QueryHelper
     api_key != Rails.application.secrets.secret_key_api
   end
 
-  def self.localize_timestamp(timestamp)
-    timestamp.in_time_zone('Pacific Time (US & Canada)')
+  def self.localize_timestamp(timestamp, time_zone_name)
+    timestamp.in_time_zone(time_zone_name.nil? ? 'Pacific Time (US & Canada)' : time_zone_name)
   end
 
   def self.find_subreddit_by_name(subreddit_name)

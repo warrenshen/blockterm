@@ -10,21 +10,11 @@ module Types
       type !types.String
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::localize_timestamp(obj.timestamp).to_s
-      }
-    end
-    field :createdAt do
-      type !types.String
-
-      resolve -> (obj, args, ctx) {
-        obj.created_at.to_s
-      }
-    end
-    field :updatedAt do
-      type !types.String
-
-      resolve -> (obj, args, ctx) {
-        obj.updated_at.to_s
+        time_zone = ctx[:time_zone]
+        QueryHelper::localize_timestamp(
+          obj.timestamp,
+          time_zone,
+        ).to_s
       }
     end
   end

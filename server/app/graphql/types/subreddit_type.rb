@@ -19,7 +19,11 @@ module Types
     end
     field :updatedAt, types.String do
       resolve -> (obj, args, ctx) {
-        QueryHelper::localize_timestamp(obj.updated_at).to_s
+        time_zone = ctx[:time_zone]
+        QueryHelper::localize_timestamp(
+          obj.updated_at,
+          time_zone,
+        ).to_s
       }
     end
 
@@ -27,21 +31,33 @@ module Types
       description 'The date time of earliest active user count associated with subreddit'
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::get_earliest_instance_date(obj.active_user_counts)
+        time_zone = ctx[:time_zone]
+        QueryHelper::get_earliest_instance_date(
+          obj.active_user_counts,
+          time_zone,
+        )
       }
     end
     field :earliestCommentCountDate, types.String do
       description 'The date time of earliest comment count associated with subreddit'
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::get_earliest_instance_date(obj.comment_counts)
+        time_zone = ctx[:time_zone]
+        QueryHelper::get_earliest_instance_date(
+          obj.comment_counts,
+          time_zone,
+        )
       }
     end
     field :earliestPostCountDate, types.String do
       description 'The date time of earliest post count associated with subreddit'
 
       resolve -> (obj, args, ctx) {
-        QueryHelper::get_earliest_instance_date(obj.post_counts)
+        time_zone = ctx[:time_zone]
+        QueryHelper::get_earliest_instance_date(
+          obj.post_counts,
+          time_zone,
+        )
       }
     end
 

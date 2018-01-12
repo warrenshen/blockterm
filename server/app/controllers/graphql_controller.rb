@@ -3,11 +3,13 @@ class GraphqlController < ApplicationController
     variables = ensure_hash(params[:variables])
     # Note that `current_user` can be nil.
     current_user = authorize_request
+    time_zone = parse_request_time_zone
 
     query = params[:query]
     operation_name = params[:operationName]
     context = {
       current_user: current_user,
+      time_zone: time_zone,
     }
     result = BlocktermSchema.execute(
       query,
@@ -43,5 +45,9 @@ class GraphqlController < ApplicationController
 
   def authorize_request
     AuthorizeApiRequest.call(request.headers).result
+  end
+
+  def parse_request_time_zone
+    request.headers.include?(['X-Time-Zone']) ? request.headers['X-Time-Zone'] : nil
   end
 end
