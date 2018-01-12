@@ -9,8 +9,9 @@ import { isEqual }         from 'underscore';
 import numeral             from 'numeral';
 import { Link }            from 'react-router-dom';
 import {
-  calculatePortfolioTotalValue,
+  calculatePortfolioChangeIn24h,
   calculatePortfolioDonutData,
+  calculatePortfolioTotalValue,
 }                               from '../../helpers/portfolio';
 import DonutChartWithSelect from '../../components/DonutChartWithSelect'
 import El                  from '../../components/El';
@@ -279,26 +280,45 @@ class PortfolioItem extends Component
 
     const data = calculatePortfolioDonutData(tokenUsers, nightMode);
     const totalValue = numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00');
+    const totalChange24h = numeral(calculatePortfolioChangeIn24h(tokenUsers)).format('0.0%');
 
     return (
       <div className={css(styles.container)}>
-        <div className={css(styles.section, styles.bottomEdge, nightMode && styles.darkBottomEdge)} style={{'height':'340px', 'paddingBottom':'8px', 'textAlign':'center',}}>
+        <div className={css(styles.section, styles.bottomEdge, nightMode && styles.darkBottomEdge)} style={{'height':'296px', 'paddingBottom':'8px', 'textAlign':'center',}}>
           <DonutChartWithSelect
             data={data}
             nightMode={nightMode}
           />
-          <El
-            nightMode={nightMode}
-            type={'h5'}
-          >
-            Portfolio total value:
-          </El>
-          <El
-            nightMode={nightMode}
-            type={'h2'}
-          >
-            {totalValue}
-          </El>
+          <div>
+            <div>
+              <El
+                nightMode={nightMode}
+                type={'h5'}
+              >
+                Portfolio total value:
+              </El>
+              <El
+                nightMode={nightMode}
+                type={'h3'}
+              >
+                {totalValue}
+              </El>
+            </div>
+            <div>
+              <El
+                nightMode={nightMode}
+                type={'h5'}
+              >
+                Total change (24h):
+              </El>
+              <El
+                nightMode={nightMode}
+                type={'h3'}
+              >
+                {totalChange24h}
+              </El>
+            </div>
+          </div>
           <Link to={'/portfolio'} className={css(styles.flatButton, nightMode && styles.nightModeButton)}>
             <El
               nightMode={nightMode}
