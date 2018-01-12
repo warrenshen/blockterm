@@ -23,7 +23,6 @@ class TotalMarketCapItem extends Component {
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
-           !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
            !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
            !isEqual(this.props.nightMode, nextProps.nightMode);
   }
@@ -43,16 +42,19 @@ class TotalMarketCapItem extends Component {
       plotRange,
     } = dashboardState;
 
+    let lastPrice;
     let earliestMarketTickerDate;
     let marketTickers;
 
     if (dashboardData)
     {
+      lastPrice = dashboardData.lastPrice;
       earliestMarketTickerDate = dashboardData.earliestMarketTickerDate;
       marketTickers = dashboardData.marketTickers;
     }
     else
     {
+      lastPrice = undefined;
       earliestMarketTickerDate = undefined;
       marketTickers = [];
     }
@@ -136,7 +138,7 @@ class TotalMarketCapItem extends Component {
         options={selectOptions}
         nightMode={nightMode}
         selectValue={plotRange}
-        title={`Total Market Cap:`}
+        title={`Total Market Cap: ${numeral(lastPrice).format('$0,0')}`}
       />
     );
   }

@@ -6,7 +6,12 @@ module Types
     field :name, !types.String
     field :lastPrice, !types.String do
       resolve -> (obj, args, ctx) {
-        obj.market_tickers.order(timestamp: :desc).first.value
+        market_ticker = obj.market_tickers.order(timestamp: :desc).first
+        if market_ticker.valid?
+          market_ticker.value.to_s
+        else
+          '0'
+        end
       }
     end
     field :updatedAt, !types.String do

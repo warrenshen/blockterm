@@ -1444,11 +1444,6 @@ export function computeDashboardFreeValues(dashboardItems)
   return [maxY, String(maxId + 1)];
 }
 
-export function convertIdentifierToTitle(identifier)
-{
-  return identifier;
-}
-
 export function generateIdentifier(key, value)
 {
   if (!ITEM_KEY_WHITELIST.includes(key))
@@ -1494,4 +1489,10 @@ export function parseIdentiferKey(identifier)
   {
     return null;
   }
+}
+
+export function convertIdentifierToTitle(identifier)
+{
+  const [identifierKey, identifierValue] = parseIdentiferKey(identifier);
+  return identifier;
 }
