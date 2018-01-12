@@ -11,6 +11,7 @@ server/spec/examples.txt
 server/test/tmp/
 server/test/version_tmp/
 server/tmp/
+server/db/*.dump
 
 # Rails
 
