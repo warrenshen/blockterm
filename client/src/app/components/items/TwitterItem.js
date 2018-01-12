@@ -5,7 +5,11 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { isEqual }         from 'underscore';
 import { Timeline }        from 'react-twitter-widgets';
+import {
+  TWITTER_VALUE_TO_DATA_SOURCE,
+} from '../../constants/items.js';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,6 +26,13 @@ const styles = StyleSheet.create({
 
 class TwitterItem extends PureComponent {
 
+  shouldComponentUpdate(nextProps, nextState)
+  {
+    return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+           !isEqual(this.props.nightMode, nextProps.nightMode) ||
+           !isEqual(this.props.value, nextProps.value);
+  }
+
   render()
   {
     const {
@@ -33,10 +44,7 @@ class TwitterItem extends PureComponent {
     return (
       <div className={css(styles.container, dashboardAction && styles.noPointerEvents)}>
         <Timeline
-          dataSource={{
-            sourceType: 'url',
-            url: 'https://twitter.com/snowycrypto/lists/blockterm-exchanges',
-          }}
+          dataSource={TWITTER_VALUE_TO_DATA_SOURCE[value]}
           options={{
             chrome: 'noheader nofooter transparent',
             theme: nightMode ? 'dark' : 'light',

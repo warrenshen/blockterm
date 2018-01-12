@@ -191,6 +191,17 @@ export const ITEM_VALUE_TO_LABELS = {
   'Vertcoin': 'r/Vertcoin',
 };
 
+const TWITTER_VALUE_LIST_EXCHANGES = 'Exchanges';
+const TWITTER_VALUE_SEARCH_BITCOIN = 'Search - Bitcoin';
+
+export const TWITTER_VALUE_TO_DATA_SOURCE = {
+  [TWITTER_VALUE_LIST_EXCHANGES]: {
+    type: 'url',
+    url: 'https://twitter.com/snowycrypto/lists/blockterm-exchanges',
+  },
+  [TWITTER_VALUE_SEARCH_BITCOIN]: '948031797803151362',
+};
+
 export const ITEM_KEY_TO_VALUES = {
   [PORTFOLIO_ITEM]: [
     'Default',
@@ -816,7 +827,8 @@ export const ITEM_KEY_TO_VALUES = {
     'Default',
   ],
   [TWITTER_ITEM]: [
-    'Exchanges',
+    TWITTER_VALUE_LIST_EXCHANGES,
+    TWITTER_VALUE_SEARCH_BITCOIN,
   ],
 };
 
@@ -1430,6 +1442,11 @@ export function computeDashboardFreeValues(dashboardItems)
     maxY = Math.max(maxY, dashboardItem.y + dashboardItem.h);
   });
   return [maxY, String(maxId + 1)];
+}
+
+export function convertIdentifierToTitle(identifier)
+{
+  return identifier;
 }
 
 export function generateIdentifier(key, value)
