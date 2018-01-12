@@ -182,14 +182,15 @@ class TokenBody extends PureComponent
       'https://s.tradingview.com/widgetembed/?' +
       `symbol=${selectedTicker}&` +
       'interval=15&' +
-      'hidetoptoolbar=1&' +
-      'hidesidetoolbar=1&' +
+      'withdateranges=1' +
+      'hideideas=1&' +
+      'hidesidetoolbar=0&' +
       'symboledit=0&' +
       'saveimage=1&' +
       'toolbarbg=rgba(0,0,0,0)&' +
-      'hideideas=0&' +
       `theme=${nightMode ? "Dark" : "Light"}&` +
-      'timezone=exchange'
+      `timezone=${moment.tz.guess()}`
+      // news=stocktwits,headlines
     ;
 
     return (
