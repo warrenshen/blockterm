@@ -59,14 +59,11 @@ class TotalMarketCapItem extends Component
       marketTickers = [];
     }
 
-    const marketTickersX = marketTickers.map(
-      (marketTicker) => moment(marketTicker.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
-    );
     const data = generateLineChartDataValue(
       marketTickers,
       null,
       'now',
-      isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD',
+      isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD H:m',
       nightMode,
       true,
     );
@@ -85,6 +82,7 @@ class TotalMarketCapItem extends Component
                                  'rgba(0, 0, 0, 0.15)',
     };
     const xTicksConfig = {
+      callback: (tick) => tick.substring(0, 5),
       fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
                              'rgba(0, 0, 0, 0.5)',
       padding: 6,
@@ -109,8 +107,9 @@ class TotalMarketCapItem extends Component
       tooltips: {
         callbacks: {
           label: (tooltipItem, data) => numeral(tooltipItem.yLabel).format('$0,0'),
+          title: (tooltipItem, data) => data.labels[tooltipItem[0].index],
         },
-        displayColors: true,
+        displayColors: false,
         intersect: false,
         mode: 'nearest',
       },
