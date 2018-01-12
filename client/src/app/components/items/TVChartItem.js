@@ -3,6 +3,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import moment              from 'moment-timezone';
 import * as STYLES         from '../../constants/styles';
 import {
   ITEM_VALUE_TO_IMAGE,
@@ -30,12 +31,11 @@ const styles = StyleSheet.create({
     top: '5px',
     right: '5px',
     zIndex: '1',
-    //backgroundColor: STYLES.TVBLUE,
   },
 });
 
-class TVChartItem extends PureComponent {
-
+class TVChartItem extends PureComponent
+{
   renderImage()
   {
     const {
@@ -56,6 +56,7 @@ class TVChartItem extends PureComponent {
       );
     }
   }
+
   render()
   {
     const {
@@ -74,7 +75,7 @@ class TVChartItem extends PureComponent {
       'toolbarbg=rgba(0,0,0,0)&' +
       'hideideas=1&' +
       `theme=${nightMode ? "Dark" : "Light"}&` +
-      'timezone=exchange'
+      `timezone=${moment.tz.guess()}`
     ;
 
     return (

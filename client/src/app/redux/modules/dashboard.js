@@ -38,9 +38,6 @@ const IDENTIFIER_KEY_TO_STATE_MAP = {
   },
   [TV_CANDLE_CHART]: {},
   [TV_MARKET_OVERVIEW]: {},
-  'TOKEN-PRICE': {
-    plotRange: ONE_DAY,
-  },
 };
 
 /* -----------------------------------------

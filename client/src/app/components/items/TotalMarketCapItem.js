@@ -18,8 +18,8 @@ import {
 } from '../../constants/plots';
 import LineChartWithSelectItem from './LineChartWithSelectItem';
 
-class TotalMarketCapItem extends Component {
-
+class TotalMarketCapItem extends Component
+{
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
