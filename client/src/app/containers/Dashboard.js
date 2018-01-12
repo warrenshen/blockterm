@@ -87,6 +87,7 @@ function f(identifier, extras)
         ${identifier}: marketByName(name: "TOTAL") {
           id
           name
+          lastPrice
           earliestMarketTickerDate
 
           marketTickers(timeRange: "${extras.plotRange}") {
