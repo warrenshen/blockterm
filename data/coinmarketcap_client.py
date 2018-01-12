@@ -88,7 +88,7 @@ class CoinmarketcapClient:
         token_dict['percent_change_7d']
       )
 
-      time.sleep(0.25)
+      time.sleep(0.1)
 
     db.close()
 
