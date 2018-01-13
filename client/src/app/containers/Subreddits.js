@@ -2,37 +2,12 @@
 
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { compose, graphql }   from 'react-apollo';
+import {
+  SubredditsAllQuery,
+  SubredditsAllQueryOptions,
+}                             from '../queries';
 import { Subreddits }         from '../views';
-import gql                    from 'graphql-tag';
-import { graphql }            from 'react-apollo';
-
-
-/* -----------------------------------------
-  GraphQL - Apollo client
- ------------------------------------------*/
-
-const query = gql`
- query {
-    allSubreddits {
-      id
-      displayName
-      name
-      imageUrl
-      activeUserCount
-      commentCount
-      postCount
-      subscriberCount
-
-      commentCounts(timeRange: "TWO_WEEKS") {
-        id
-        count
-        timestamp
-      }
-    }
-  }
-`;
-
-const SubredditsContainer = graphql(query)(Subreddits);
 
 /* -----------------------------------------
   Redux
@@ -44,15 +19,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-    },
-    dispatch
-  );
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SubredditsContainer);
+export default compose(
+  graphql(SubredditsAllQuery, SubredditsAllQueryOptions),
+  connect(mapStateToProps),
+)(Subreddits);

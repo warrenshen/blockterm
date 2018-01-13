@@ -209,6 +209,8 @@ class Dashboard extends Component {
           inputProps={{ id: 'widget_search_specific' }}
           placeholder={'Search Specific'}
           className={css(styles.select, styles.bolded)}
+          menuContainerStyle={{ 'max-height': '412px' }}
+          menuStyle={{ 'max-height': '412px' }}
           optionClassName={css(styles.bolded, styles.options)}
           options={selectOptions}
           onChange={(option) => changeValueSelectValue(option ? option.value : '')}
@@ -303,6 +305,8 @@ class Dashboard extends Component {
                   inputProps={{'id': 'widget_search'}}
                   placeholder={'Search Widget Type'}
                   className={css(styles.select, styles.bolded)}
+                  menuContainerStyle={{ 'max-height': '412px' }}
+                  menuStyle={{ 'max-height': '412px' }}
                   optionClassName={css(styles.bolded, styles.options)}
                   options={selectOptions}
                   onChange={(option) => this.handleKeySelectChange(option)}

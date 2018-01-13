@@ -53,9 +53,6 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
   },
-  flexTwo: {
-    flex: '2',
-  },
   element: {
     flex: '1',
     display: 'flex',
@@ -239,7 +236,7 @@ class Portfolio extends PureComponent
             Token
           </El>
         </td>
-        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -248,7 +245,7 @@ class Portfolio extends PureComponent
             Amount Held
           </El>
         </td>
-        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -257,7 +254,7 @@ class Portfolio extends PureComponent
             Price USD
           </El>
         </td>
-        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -266,7 +263,7 @@ class Portfolio extends PureComponent
             Change (24h)
           </El>
         </td>
-        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -275,7 +272,7 @@ class Portfolio extends PureComponent
             Change (7d)
           </El>
         </td>
-        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -284,13 +281,13 @@ class Portfolio extends PureComponent
             Total Value
           </El>
         </td>
-        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
             type={'span'}
           >
-            Percent of portfolio
+            % of portfolio
           </El>
         </td>
         <td className={css(styles.element, styles.condensed, styles.fakeElement)}>
@@ -343,14 +340,14 @@ class Portfolio extends PureComponent
             {shortName}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <input
             className={css(styles.input)}
             onChange={onChange}
             value={amount}
           />
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -358,7 +355,7 @@ class Portfolio extends PureComponent
             {priceUSD ? numeral(priceUSD).format('$0,0.00') : 'Save to load price'}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -368,7 +365,7 @@ class Portfolio extends PureComponent
             {percentChange24h ? `${numeral(percentChange24h).format('0,0.00')}%` : ''}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -378,7 +375,7 @@ class Portfolio extends PureComponent
             {percentChange7d ? `${numeral(percentChange7d).format('0,0.00')}%` : ''}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             type={'span'}
@@ -386,7 +383,7 @@ class Portfolio extends PureComponent
             {priceUSD ? numeral(amount * priceUSD).format('$0,0.00') : ''}
           </El>
         </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.flexTwo)}>
+        <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             type={'span'}

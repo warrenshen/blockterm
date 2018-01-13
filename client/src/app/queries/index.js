@@ -32,6 +32,30 @@ export const DashboardPagesQuery = gql`
   }
 `;
 
+export const SubredditsAllQuery = gql`
+ query {
+    allSubreddits {
+      id
+      displayName
+      name
+      imageUrl
+      activeUserCount
+      commentCount
+      postCount
+      subscriberCount
+
+      commentCounts(timeRange: "TWO_WEEKS") {
+        id
+        count
+        timestamp
+      }
+    }
+  }
+`;
+export const SubredditsAllQueryOptions = {
+  options: { pollInterval: 30000 },
+};
+
 export const TokensAllQuery = gql`
   query TokensAllQuery {
     tokensAll {
@@ -67,6 +91,7 @@ export const TokensByPageQueryOptions = {
     match,
   }) => {
     return {
+      pollInterval: 30000,
       variables: {
         page: match.params.page ? parseInt(match.params.page) : 1,
       },
@@ -95,6 +120,9 @@ export const TokenUsersQuery = gql`
     }
   }
 `;
+export const TokenUsersQueryOptions = {
+  options: { pollInterval: 30000 },
+};
 
 export const UserQuery = gql`
   query UserQuery {
