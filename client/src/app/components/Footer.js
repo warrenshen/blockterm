@@ -5,13 +5,14 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import El from '../components/El';
 import { Link }       from 'react-router-dom';
+import RightNavButton       from './navigation/RightNavButton';
 
 import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    padding: '8px 10px 0px 10px !important',
+    padding: '10px 10px 0px 10px !important',
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
     display:'flex',
   },
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     display: 'block',
   },
   para: {
-    fontSize: '13px',
+    //fontSize: '13px',
     lineHeight: '18px',
   },
   a: {
@@ -52,6 +53,21 @@ const styles = StyleSheet.create({
   },
   nightA: {
     color: '#fff',
+  },
+  joinButton: {
+    border: '1px solid #000',
+    borderRadius: '1px',
+    padding: '4px 12px',
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+    border: '1px solid #111',
+    borderRadius: '1px',
+    fontWeight: '700',
+    textAlign: 'center',
+    marginTop: '4px',
+  },
+  nightModeButton: {
+    border: '1px solid #eee',
   },
 });
 
@@ -65,18 +81,6 @@ class Footer extends PureComponent {
 
     return(
       <div className={css(styles.container, nightMode && styles.panelsLightNight)}>
-        <div className={css(styles.column)}>
-          <El
-            nightMode={nightMode}
-            type={'p'}
-            style={styles.para}
-          >
-            <strong>Please send us your feedback!</strong> We want to hear every issue, no matter how big/small! We'll try to nail each one.
-          </El>
-        </div>
-        <div className={css(styles.column)}>
-
-        </div>
         <El
           nightMode={nightMode}
           type={'p'}
@@ -85,6 +89,16 @@ class Footer extends PureComponent {
           If you want to support this project further, you can send coins our way at:<br />
           <strong>ETH Wallet Address: 0x72fB44C1a3F910ed4a979fBDed2c600f7c14f3B7</strong><br />
         </El>
+        <div className={css(styles.column)} style={{'marginRight':'-10px'}}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+            style={styles.joinButton}
+            nightModeStyle={styles.nightModeButton}
+            >
+            Request Feature / Feedback
+          </El>
+        </div>
       </div>
     );
   }

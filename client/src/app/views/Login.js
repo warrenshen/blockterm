@@ -16,7 +16,6 @@ import { PROJECT_VERSION, PATCH_NOTES } from '../constants/items';
 
 const styles = StyleSheet.create({
   wrapper: {
-    minHeight: '100vh',
     display: 'flex',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
     gridTemplateColumns: 'repeat(8, 1fr)',
@@ -40,26 +39,27 @@ const styles = StyleSheet.create({
     padding: '0px 10px 0px',
     boxSizing: 'content-box',
     backgroundColor: '#fff',
-    minHeight: '100vh',
     display: 'flex',
+    flex: '1',
     flexDirection: 'column',
   },
   bodyNightMode: {
     backgroundColor: STYLES.LIGHTNIGHT,
   },
   loginPanel: {
-    marginTop: '20px',
+    marginTop: '10px',
     backgroundColor: '#fff',
     border: `1px solid #000`,
     //borderBottom: `2px solid #000`,
   },
   infoPanel: {
     backgroundColor: '#fff',
-    marginTop: '20px',
+    marginTop: '10px',
     display: 'flex',
     flexDirection: 'column',
     padding: '15px 15px',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
+    marginBottom: '10px',
     //borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
   panelsNight: {
