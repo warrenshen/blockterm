@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     flex: '1',
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
   },
   sidebar: {
     width: '20vw',

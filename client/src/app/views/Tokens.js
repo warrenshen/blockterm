@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
     backgroundColor: STYLES.LIGHTNIGHT,
   },
   mainContent: {
-    //width: '80vw',
-    width: '100vw',
+    flex: '1',
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
   },
   sidebar: {
     width: '20vw',

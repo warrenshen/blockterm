@@ -46,8 +46,6 @@ const notificationsStyle = {
   Title: {
     DefaultStyle: {
       color: '#FFF',
-      //textTransform: 'uppercase',
-      //letterSpacing: '2px',
     },
   },
   Dismiss: {
