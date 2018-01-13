@@ -16,7 +16,6 @@ import Notifications       from 'react-notification-system-redux';
 import ReactTooltip        from 'react-tooltip';
 import * as STYLES         from '../../constants/styles';
 import Footer              from '../../components/Footer';
-import Marquee             from '../../components/Marquee';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -24,12 +23,6 @@ const styles = StyleSheet.create({
     minHeight: '100vh',
     padding: '0% 0%',
     margin: '0% 0%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  container: {
-    width: '100vw',
-    minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -79,16 +72,13 @@ class App extends PureComponent {
 
     return (
       <div className={css(styles.wrapper)}>
-        <div className={css(styles.container)}>
-          <Marquee />
-          <ConnectedNavigationBar />
-          <MainRoutes />
-          <Notifications
-            notifications={notifications}
-            style={notificationsStyle}
-          />
-          <ReactTooltip />
-        </div>
+        <ConnectedNavigationBar />
+        <MainRoutes />
+        <Notifications
+          notifications={notifications}
+          style={notificationsStyle}
+        />
+        <ReactTooltip />
         <ConnectedFooter />
       </div>
     );

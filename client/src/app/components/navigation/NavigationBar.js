@@ -8,7 +8,7 @@ import { Link }       from 'react-router-dom';
 import navigationModel     from '../../models/navigation.json';
 import El from '../El';
 import * as STYLES from '../../constants/styles';
-
+import Marquee             from '../Marquee';
 
 const styles = StyleSheet.create({
   navbar: {
@@ -23,26 +23,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     zIndex: '3',
-    //borderTop: '1px solid rgba(0,0,0,0.2)',
-    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
-  },
-  banner: {
-    width: '100vw',
-    padding: '0px 20px',
-    backgroundColor: 'white',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    zIndex: 100,
-    //borderTop: '1px solid rgba(0,0,0,0.2)',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   nightMode: {
-    backgroundColor: '#000',
-    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
-    //backgroundColor: '#020b0e',
-  },
-  bannerNight: {
     backgroundColor: '#000',
     borderBottom: `1px solid ${STYLES.BORDERDARK}`,
   },
@@ -73,24 +56,6 @@ const styles = StyleSheet.create({
     ':hover': {
     //  borderBottom: '1px solid #000',
     },
-  },
-  tickerbar: {
-    overflow: 'hidden',
-    overflowX: 'scroll',
-    whiteSpace: 'nowrap',
-  },
-  promotion: {
-    position:'absolute',
-    right: '0px',
-    zIndex: '2',
-    padding: '0px 10px',
-    backgroundColor: STYLES.BLAZINGREEN,
-    justifyContent: 'right !important',
-    alignItems: 'right !important',
-    top: '-20px',
-  },
-  promotionNight: {
-    backgroundColor: STYLES.GOLD,
   },
   semibolded: {
     fontWeight: '500 !important',
@@ -126,16 +91,9 @@ const NavigationBar = ({
 }) => {
   return (
     <div className={css(styles.navbar)}>
-      <nav className={css(styles.banner, nightMode && styles.bannerNight)}>
-        <div className={'promotional ' + css(styles.promotion, nightMode && styles.promotionNight)}>
-          <a href='https://www.binance.com/?ref=10907326' target='_blank'>
-           <El style={styles.semibolded} type={'span'}>
-             Trade Altcoins with Binance!
-           </El>
-          </a>
-        </div>
-      </nav>
-
+      <Marquee
+        nightMode={nightMode}
+      />
       <nav className={css(styles.container, nightMode && styles.nightMode)}>
         <div className={css(styles.section)}>
           <El type={'span'} nightMode={nightMode} style={styles.floatingBeta}>BETA</El>

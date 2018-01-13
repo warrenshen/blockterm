@@ -68,7 +68,7 @@ class TVChartItem extends PureComponent
     const url =
       'https://s.tradingview.com/widgetembed/?' +
       `symbol=${value}&` +
-      'interval=5&' +
+      'interval=1&' +
       'withdateranges=1' +
       'hideideas=1&' +
       'hidesidetoolbar=1&' +
