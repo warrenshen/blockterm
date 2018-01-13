@@ -211,13 +211,8 @@ class Container extends PureComponent
       createDashboardItemLocal,
     } = this.props;
 
-    const dashboardItems = dashboardPages[selectedTab].dashboardItems;
-    const arr = computeDashboardFreeValues(dashboardItems);
-
     let w = 3;
     let h = 4;
-    let x = 0;
-    let y = arr[0];
 
     if (parseIdentiferKey(identifier) === PORTFOLIO_ITEM ||
         parseIdentiferKey(identifier) === TV_MARKET_OVERVIEW)
@@ -230,6 +225,9 @@ class Container extends PureComponent
       w = 2;
       h = 9;
     }
+
+    const dashboardItems = dashboardPages[selectedTab].dashboardItems;
+    const [x, y, newId] = computeDashboardFreeValues(dashboardItems, w, h);
 
     if (user)
     {
@@ -245,7 +243,7 @@ class Container extends PureComponent
     else
     {
       createDashboardItemLocal({
-        id: arr[1],
+        id: newId,
         identifier: identifier,
         w: w,
         h: h,
