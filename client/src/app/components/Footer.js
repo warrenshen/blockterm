@@ -74,6 +74,15 @@ const styles = StyleSheet.create({
 
 class Footer extends PureComponent {
 
+  componentDidMount()
+  {
+    const {
+      changeIsPageLoaded,
+    } = this.props;
+
+    window.onload = () => changeIsPageLoaded(true);
+  }
+
   render()
   {
     const {

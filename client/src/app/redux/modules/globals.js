@@ -14,6 +14,7 @@ import {
   constants
  ------------------------------------------*/
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
+const CHANGE_IS_PAGE_LOADED = 'CHANGE_IS_PAGE_LOADED';
 const CHANGE_SCROLL_ACTIVE = 'CHANGE_SCROLL_ACTIVE';
 const TOGGLE_NIGHT_MODE = 'TOGGLE_NIGHT_MODE';
 
@@ -29,6 +30,7 @@ if (cookieTimeZone === null)
 }
 
 const initialState = {
+  isPageLoaded: false,
   nightMode: cookieNightMode !== null ? cookieNightMode : true,
   scrollActive: false,
   timeZone: cookieTimeZone,
@@ -56,6 +58,11 @@ export default function(state = initialState, action)
         default:
           return state;
       }
+    case CHANGE_IS_PAGE_LOADED:
+      return {
+        ...state,
+        isPageLoaded: action.value,
+      };
     case CHANGE_SCROLL_ACTIVE:
       return {
         ...state,
@@ -73,6 +80,14 @@ export default function(state = initialState, action)
     default:
       return state;
   }
+}
+
+export function changeIsPageLoaded(value)
+{
+  return {
+    type: CHANGE_IS_PAGE_LOADED,
+    value: value,
+  };
 }
 
 export function changeScrollActive(value)

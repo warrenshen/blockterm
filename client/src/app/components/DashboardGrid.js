@@ -110,6 +110,7 @@ class DashboardGrid extends Component {
            !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardItems, nextProps.dashboardItems) ||
            !isEqual(this.props.dashboardStates, nextProps.dashboardStates) ||
+           !isEqual(this.props.isPageLoaded, nextProps.isPageLoaded) ||
            !isEqual(this.props.nightMode, nextProps.nightMode);
   }
 
@@ -119,6 +120,7 @@ class DashboardGrid extends Component {
       dashboardAction,
       dashboardData,
       dashboardItemStates,
+      isPageLoaded,
       nightMode,
 
       changeDashboardItemState,
@@ -138,18 +140,22 @@ class DashboardGrid extends Component {
         className={css(styles.dashboardItem, nightMode && styles.nightMode)}
         key={id}
       >
-        <DashboardItem
-          changeDashboardItemState={changeDashboardItemState}
-          changeSidebarMode={changeSidebarMode}
-          dashboardAction={dashboardAction}
-          dashboardData={dashboardData ? dashboardData[identifier] : null}
-          dashboardItem={dashboardItem}
-          dashboardState={dashboardItemStates[identifier]}
-          destroyDashboardItem={destroyDashboardItem}
-          nightMode={nightMode}
-          removeFromLayout={removeFromLayout}
-          updateLayoutItem={updateLayoutItem}
-        />
+        {
+          isPageLoaded && (
+            <DashboardItem
+              changeDashboardItemState={changeDashboardItemState}
+              changeSidebarMode={changeSidebarMode}
+              dashboardAction={dashboardAction}
+              dashboardData={dashboardData ? dashboardData[identifier] : null}
+              dashboardItem={dashboardItem}
+              dashboardState={dashboardItemStates[identifier]}
+              destroyDashboardItem={destroyDashboardItem}
+              nightMode={nightMode}
+              removeFromLayout={removeFromLayout}
+              updateLayoutItem={updateLayoutItem}
+            />
+          )
+        }
         <FontAwesome name='caret-up' className={css(styles.floatingResizeButton, nightMode && styles.nightResizeButton, dashboardItem.static && styles.lockedResize)} style={{'transform':'rotate(135deg)'}} />
       </div>
     );

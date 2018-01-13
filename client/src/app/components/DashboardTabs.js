@@ -99,6 +99,7 @@ class DashboardTabs extends Component {
            !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardPages, nextProps.dashboardPages) ||
            !isEqual(this.props.dashboardItemStates, nextProps.dashboardItemStates) ||
+           !isEqual(this.props.isPageLoaded, nextProps.isPageLoaded) ||
            !isEqual(this.props.nightMode, nextProps.nightMode) ||
            !isEqual(this.props.selectedTab, nextProps.selectedTab);
   }
@@ -209,9 +210,6 @@ class DashboardTabs extends Component {
     }
   }
 
-  // <button className={css(styles.tab)}>
-  //   <FontAwesome title="Reset to preset" name='rotate-left'/>
-  // </button>
   renderTabList(selectedTab)
   {
     const {
@@ -246,6 +244,7 @@ class DashboardTabs extends Component {
       dashboardData,
       dashboardItemStates,
       dashboardPages,
+      isPageLoaded,
       nightMode,
 
       changeDashboardItemState,
@@ -263,6 +262,7 @@ class DashboardTabs extends Component {
             dashboardData={dashboardData}
             dashboardItems={dashboardItems}
             dashboardItemStates={dashboardItemStates}
+            isPageLoaded={isPageLoaded}
             nightMode={nightMode}
 
             changeDashboardItemState={changeDashboardItemState}

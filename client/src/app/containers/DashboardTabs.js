@@ -25,6 +25,7 @@ const mapStateToProps = (state) => {
     dashboardData: state.dashboard.dashboardData,
     dashboardItemStates: state.dashboard.dashboardItemStates,
     dashboardPages: state.dashboard.dashboardPages,
+    isPageLoaded: state.globals.isPageLoaded,
     nightMode: state.globals.nightMode,
     selectedTab: state.dashboard.selectedTab,
     sidebarMode: state.dashboard.sidebarMode,
