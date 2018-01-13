@@ -31,15 +31,17 @@ const styles = StyleSheet.create({
 const notificationsStyle = {
   NotificationItem: { // Override the notification item
     DefaultStyle: { // Applied to every notification, regardless of the notification level
-      borderRadius:'0px',
-      boxShadow:'none',
-      color:'#092715 !important',
-      borderColor:STYLES.BLAZINGREEN,
-      fontWeight:'500',
+      padding: '18px 12px',
+      borderRadius: '0px',
+      boxShadow: 'none',
+      color: '#092715 !important',
+      borderColor: STYLES.BLAZINGREEN,
+      backgroundColor: STYLES.BLAZINGREEN,
+      fontWeight: '500',
     },
     success: {
       color:'#092715 !important',
-    }
+    },
   },
 }
 

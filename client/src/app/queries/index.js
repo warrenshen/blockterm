@@ -189,18 +189,7 @@ export const CreateDashboardItemMutationOptions = {
           x,
           y
         },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve();
-        }
-      )
-      .catch(
-        (error) => {
-          console.log(error);
-          return Promise.reject();
-        }
-      );
+      });
     },
   }),
 };
@@ -243,17 +232,7 @@ export const CreateUserMutationOptions = {
           email,
           password,
         },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve(response);
-        }
-      )
-      .catch(
-        (error) => {
-          return Promise.reject(error);
-        }
-      );
+      });
     },
   }),
 };
@@ -296,17 +275,7 @@ export const DestroyDashboardItemMutationOptions = {
             user: mutationResult.data.destroyDashboardItem,
           }),
         },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve();
-        }
-      )
-      .catch(
-        (error) => {
-          return Promise.reject();
-        }
-      );
+      });
     },
   }),
 };
@@ -336,17 +305,7 @@ export const LogInMutationOptions = {
           },
         },
         variables: { email, password },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve(response);
-        }
-      )
-      .catch(
-        (error) => {
-          return Promise.reject(error);
-        }
-      );
+      });
     }
   }),
 };
@@ -398,17 +357,7 @@ export const UpdateDashboardItemMutationOptions = {
           identifier,
           static: staticActive,
         },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve();
-        }
-      )
-      .catch(
-        (error) => {
-          return Promise.reject();
-        }
-      );
+      });
     },
   }),
 };
@@ -454,17 +403,7 @@ export const UpdateDashboardItemsMutationOptions = {
           dashboardPageId,
           dashboardItemsString: JSON.stringify(dashboardItems),
         },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve();
-        }
-      )
-      .catch(
-        (error) => {
-          return Promise.reject();
-        }
-      );
+      });
     },
   }),
 };
@@ -506,17 +445,7 @@ export const UpdateTokenUsersMutationOptions = {
         variables: {
           tokenUsersString: JSON.stringify(tokenUsers),
         },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve();
-        }
-      )
-      .catch(
-        (error) => {
-          return Promise.reject();
-        }
-      );
+      });
     },
   }),
 };
