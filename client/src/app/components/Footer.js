@@ -80,6 +80,8 @@ class Footer extends PureComponent {
       changeIsPageLoaded,
     } = this.props;
 
+    // This line is very important - it updates the store
+    // to know the page has been "loaded".
     window.onload = () => changeIsPageLoaded(true);
   }
 
