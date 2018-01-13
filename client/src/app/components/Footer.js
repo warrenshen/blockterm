@@ -11,10 +11,10 @@ import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
-    padding: '10px 10px 0px 10px !important',
-    borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
     display:'flex',
+    backgroundColor: '#fff',
+    padding: '10px 10px 20px 10px !important',
+    borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   panelsLightNight: {
     backgroundColor: '#000',
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
   nightA: {
     color: '#fff',
   },
-  joinButton: {
+  button: {
+    width: '100%',
     border: '1px solid #000',
     borderRadius: '1px',
     padding: '4px 12px',
@@ -90,14 +91,19 @@ class Footer extends PureComponent {
           <strong>ETH Wallet Address: 0x72fB44C1a3F910ed4a979fBDed2c600f7c14f3B7</strong><br />
         </El>
         <div className={css(styles.column)} style={{'marginRight':'-10px'}}>
-          <El
-            nightMode={nightMode}
-            type={'span'}
-            style={styles.joinButton}
-            nightModeStyle={styles.nightModeButton}
+          <a
+            href='https://docs.google.com/forms/d/e/1FAIpQLSc0r_OJiNCw8Bz9vXyTKyJoFPYxCRkJ4mQAkfOLfXiZjw6SVw/viewform'
+            target='_blank'
+          >
+            <El
+              nightMode={nightMode}
+              type={'span'}
+              style={styles.button}
+              nightModeStyle={styles.nightModeButton}
             >
-            Request Feature / Feedback
-          </El>
+              Request Feature / Feedback
+            </El>
+          </a>
         </div>
       </div>
     );
