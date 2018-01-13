@@ -80,12 +80,23 @@ function generateTVSymbols(token) {
 }
 
 function generateDefaultTVSymbol(token) {
-  let options = ITEM_KEY_TO_VALUES[TV_CANDLE_CHART];
-  let hasUSDPairing = options.find(symbol => (symbol.substring(symbol.indexOf(':') + 1).includes(token.shortName + 'USD')));
-  
+  const allOptions = ITEM_KEY_TO_VALUES[TV_CANDLE_CHART];
+  const tokenOptions = allOptions.filter(
+    (symbol) => symbol.substring(symbol.indexOf(':') + 1).includes(token.shortName)
+  );
+  console.log(tokenOptions);
+
+  let hasUSDPairing = tokenOptions.find(
+    (symbol) => symbol.substring(symbol.indexOf(':') + 1).includes('USD')
+  );
+  console.log(hasUSDPairing);
+
   if (!hasUSDPairing) {
-    let hasBTCPairing = options.find(symbol => (symbol.substring(symbol.indexOf(':') + 1).includes(token.shortName + 'BTC')));
-    return (hasBTCPairing ? hasBTCPairing : generateTVSymbols(token))[0];
+    let hasBTCPairing = tokenOptions.find(
+      (symbol) => symbol.substring(symbol.indexOf(':') + 1).includes('BTC')
+    );
+    console.log(hasBTCPairing);
+    return hasBTCPairing ? hasBTCPairing : generateTVSymbols(token)[0];
   } else {
     return hasUSDPairing;
   }
