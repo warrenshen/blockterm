@@ -33,27 +33,15 @@ export const ITEM_KEY_WHITELIST = [
 export const DEFAULT_PAGES_OBJECTS = [
   {
     dashboardItems: [
-      {
-        "id":"3","w":6,"h":4,"x":0,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"
-      },
-      {
-        "id":"6","w":6,"h":4,"x":0,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"
-      },
-      {
-        "id":"7","w":3,"h":8,"x":6,"y":0,"static":false,"identifier":"TV_MARKET_OVERVIEW__Default"
-      },
-      {
-        "id":"9","w":3,"h":3,"x":6,"y":8,"static":false,"identifier":"SUBREDDIT_COMMENT_COUNTS__Bitcoin"
-      },
-      {
-        "id":"10","w":3,"h":3,"x":0,"y":8,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"
-      },
-      {
-        "id":"11","w":3,"h":3,"x":3,"y":8,"static":false,"identifier":"SUBREDDIT_POST_COUNTS__Bitcoin"
-      }
+      {"id":"3","w":7,"h":4,"x":0,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
+      {"id":"6","w":7,"h":4,"x":0,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
+      {"id":"7","w":2,"h":6,"x":7,"y":0,"static":false,"identifier":"TWITTER_ITEM__#ethereum, #ETH, $ETH"},
+      {"id":"9","w":2,"h":6,"x":7,"y":6,"static":false,"identifier":"TWITTER_ITEM__#XRP, #ripple, @ripple, $XRP"},
+      {"id":"10","w":3,"h":4,"x":0,"y":8,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},
+      {"id":"11","w":4,"h":4,"x":3,"y":8,"static":false,"identifier":"SUBREDDIT_POST_COUNTS__Bitcoin"},
     ],
-    "index":0,
-    "name":"Tab 1",
+    index: 0,
+    name: 'Tab 1',
   },
   {
     dashboardItems: [
@@ -1606,6 +1594,18 @@ export function parseIdentiferKey(identifier)
 
 export function convertIdentifierToTitle(identifier)
 {
-  const [identifierKey, identifierValue] = parseIdentiferKey(identifier);
-  return identifier;
+  var [identifierKey, identifierValue] = parseIdentifer(identifier);
+  if (identifierKey === TV_CANDLE_CHART)
+  {
+    identifierKey = 'CANDLE_CHART';
+  }
+  else if (identifierKey === PORTFOLIO_ITEM)
+  {
+    identifierKey = 'PORTFOLIO';
+  }
+  else if (identifierKey === TWITTER_ITEM)
+  {
+    identifierKey = 'TWITTER';
+  }
+  return `${identifierKey}:${identifierValue}`;
 }
