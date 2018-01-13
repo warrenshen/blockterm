@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     width: '100vw',
     display: 'flex',
     flex: '1',
+    paddingBottom: '128px',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
   },
   nightMode: {
@@ -85,6 +86,7 @@ const styles = StyleSheet.create({
   },
   addRow: {
     display: 'flex',
+    padding: '12px',
     marginBottom: '1px',
   },
   donutChart: {
