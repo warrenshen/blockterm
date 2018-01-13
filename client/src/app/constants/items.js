@@ -1520,7 +1520,7 @@ function checkConflict(x, y, w, h, dashboardItems)
     {
       return false;
     }
-    if (y <= item.y + item.h || item.y >= y + h)
+    if (y >= item.y + item.h || item.y >= y + h)
     {
       return false;
     }
@@ -1532,28 +1532,30 @@ function checkConflict(x, y, w, h, dashboardItems)
 export function computeDashboardFreeValues(dashboardItems, w, h)
 {
   var maxId = 0;
+  var maxY = 0;
   dashboardItems.forEach((dashboardItem) => {
     maxId = Math.max(maxId, parseInt(dashboardItem.id));
+    maxY = Math.max(maxY, dashboardItem.y + dashboardItem.h);
   });
 
   var nextX = 0;
   var nextY = 0;
-
-  while (true)
+  while (nextY <= maxY + 1)
   {
-    while (nextX < 9 - w)
+    while (nextX <= 9 - w)
     {
-      if (!checkConflict(nextX, testY, w, h))
+      if (!checkConflict(nextX, nextY, w, h, dashboardItems))
       {
-        break;
+        return [nextX, nextY, String(maxId + 1)];
       }
       nextX += 1;
     }
-    testY += 1;
+    nextX = 0;
+    nextY += 1;
   }
 
-
-  return [nextX, nextY, String(maxId + 1)];
+  // Fail safe return.
+  return [0, maxY + 1, String(maxId + 1)];
 }
 
 export function generateIdentifier(key, value)
