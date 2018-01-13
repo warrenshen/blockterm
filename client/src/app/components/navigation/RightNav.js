@@ -175,6 +175,7 @@ const RightNav = ({
             label={'Portfolio'}
             link={'#'}
             icon='lock'
+            absolute={true}
             nightMode={nightMode}
           />
         </div>,

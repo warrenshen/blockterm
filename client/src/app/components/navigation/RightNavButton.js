@@ -36,18 +36,20 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: '3px',
+  },
+  absolutePositionIcon: {
     position: 'absolute',
     top: '3px',
   },
-  iconMargin: {
+  padRightIcon: {
     paddingRight: '11px',
   },
 });
 
-const RightNavButton = ({ action, label, link, icon, nightMode, nightModeStyle, style }) => {
+const RightNavButton = ({ absolute, action, label, link, icon, nightMode, nightModeStyle, style }) => {
   return action ?
   (
-    <li className={css(styles.container, icon && styles.iconMargin)}>
+    <li className={css(styles.container, icon && absolute && styles.padRightIcon)}>
       <button className={css(styles.flatButton, style, nightMode && nightModeStyle)} onClick={action}>
         <El
           nightMode={nightMode}
@@ -55,13 +57,13 @@ const RightNavButton = ({ action, label, link, icon, nightMode, nightModeStyle, 
           style={styles.boldedUpper}
           type={'span'}>
           {label}
-          {icon && <FontAwesome name={`${icon}`} className={css(styles.icon)}/>}
+          {icon && <FontAwesome name={`${icon}`} className={css(styles.icon, absolute && styles.absolutePositionIcon)}/>}
         </El>
       </button>
     </li>
   ) :
   (
-    <li className={css(styles.container, icon && styles.iconMargin)}>
+    <li className={css(styles.container, icon && absolute && styles.padRightIcon)}>
       <Link to={link} className={css(style, nightMode&& nightModeStyle)}>
         <El
           nightMode={nightMode}
@@ -69,7 +71,7 @@ const RightNavButton = ({ action, label, link, icon, nightMode, nightModeStyle, 
           style={styles.boldedUpper}
           type={'span'}>
           {label}
-          {icon && <FontAwesome name={`${icon}`} className={css(styles.icon)}/>}
+          {icon && <FontAwesome name={`${icon}`} className={css(styles.icon, absolute && styles.absolutePositionIcon)}/>}
         </El>
       </Link>
     </li>
