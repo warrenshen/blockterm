@@ -1513,16 +1513,47 @@ export function getImageUrl(imageName)
     null;
 }
 
-// Returns an array of [next Y coordinate to use, next id to use].
-export function computeDashboardFreeValues(dashboardItems)
+function checkConflict(x, y, w, h, dashboardItems)
+{
+  return dashboardItems.filter((item) => {
+    if (x >= item.x + item.w || item.x >= x + w)
+    {
+      return false;
+    }
+    if (y <= item.y + item.h || item.y >= y + h)
+    {
+      return false;
+    }
+    return true;
+  }).length > 0;
+}
+
+// Returns an array of [next X coordinate to use, next Y coordinate to use, next id to use].
+export function computeDashboardFreeValues(dashboardItems, w, h)
 {
   var maxId = 0;
-  var maxY = 0;
   dashboardItems.forEach((dashboardItem) => {
     maxId = Math.max(maxId, parseInt(dashboardItem.id));
-    maxY = Math.max(maxY, dashboardItem.y + dashboardItem.h);
   });
-  return [maxY, String(maxId + 1)];
+
+  var nextX = 0;
+  var nextY = 0;
+
+  while (true)
+  {
+    while (nextX < 9 - w)
+    {
+      if (!checkConflict(nextX, testY, w, h))
+      {
+        break;
+      }
+      nextX += 1;
+    }
+    testY += 1;
+  }
+
+
+  return [nextX, nextY, String(maxId + 1)];
 }
 
 export function generateIdentifier(key, value)
