@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const El = ({ children, nightMode, nightModeStyle, style, type }) => {
+const El = ({ children, inline, nightMode, nightModeStyle, style, type }) => {
   const Tag = type;
   var className = css(
     style,
@@ -18,7 +18,7 @@ const El = ({ children, nightMode, nightModeStyle, style, type }) => {
     nightMode && nightModeStyle
   );
   return (
-    <Tag className={className}>
+    <Tag className={className} style={inline}>
       {children}
     </Tag>
   );

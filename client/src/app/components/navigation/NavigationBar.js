@@ -130,7 +130,7 @@ const NavigationBar = ({
         <div className={css(styles.promotion, nightMode && styles.promotionNight)}>
           <a href='https://www.binance.com/?ref=10907326' target='_blank'>
            <El style={styles.semibolded} type={'span'}>
-             Trade Altcoins with Binance
+             Trade Altcoins with Binance!
            </El>
           </a>
         </div>

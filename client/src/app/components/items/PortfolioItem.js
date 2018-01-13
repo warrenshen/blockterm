@@ -280,7 +280,8 @@ class PortfolioItem extends Component
 
     const data = calculatePortfolioDonutData(tokenUsers, nightMode);
     const totalValue = numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00');
-    const totalChange24h = numeral(calculatePortfolioChangeIn24h(tokenUsers)).format('0.0%');
+    const change24hNum = calculatePortfolioChangeIn24h(tokenUsers);
+    const totalChange24h = numeral(change24hNum).format('0.0%');
 
     return (
       <div className={css(styles.container)}>
@@ -295,7 +296,7 @@ class PortfolioItem extends Component
                 nightMode={nightMode}
                 type={'h5'}
               >
-                Portfolio total value:
+                Portfolio total value:&nbsp;
               </El>
               <El
                 nightMode={nightMode}
@@ -309,11 +310,12 @@ class PortfolioItem extends Component
                 nightMode={nightMode}
                 type={'h5'}
               >
-                Total change (24h):
+                Total change (24h):&nbsp;
               </El>
               <El
                 nightMode={nightMode}
                 type={'h3'}
+                inline={{'color': (change24hNum < 0 ? `${STYLES.TICKER_RED}` : `${STYLES.TICKER_GREEN}`)}}
               >
                 {totalChange24h}
               </El>
