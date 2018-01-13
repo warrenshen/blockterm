@@ -92,11 +92,12 @@ const styles = StyleSheet.create({
     marginRight: '8px',
   },
   informationItem: {
-    boxShadow: `inset 0px -3px 0px 0px ${STYLES.TICKER_GREEN}`,
-    //boxShadow: 'inset 0px -75px 50px -80px rgba(76,255,97,1) !important',
     padding: '5px 0px 15px !important',
     marginRight: '5px',
     marginLeft: '5px',
+  },
+  itemGreen: {
+    boxShadow: `inset 0px -3px 0px 0px ${STYLES.TICKER_GREEN}`,
   },
   itemRed: {
     boxShadow: `inset 0px -3px 0px 0px ${STYLES.TICKER_RED}`,
@@ -223,6 +224,8 @@ class TokenHead extends PureComponent {
       percentChange7d,
     } = token;
 
+    let green24h = percentChange24h > 0;
+
     return (
         <div className={css(styles.row, styles.information, nightMode && styles.nightInformation)}>
           <div className={css(styles.names)}>
@@ -240,7 +243,7 @@ class TokenHead extends PureComponent {
               [{token.shortName}]
             </El>
           </div>
-          <div className={css(styles.column, styles.informationItem, styles.itemRed)}>
+          <div className={css(styles.column, styles.informationItem, green24h ? styles.itemGreen : styles.itemRed)}>
             <El
               nightMode={nightMode}
               nightModeStyle={styles.trueWhite}
@@ -286,7 +289,7 @@ class TokenHead extends PureComponent {
               {numeral(volumeUSD24h/priceBTC).format('0,0')} BTC
             </El>
           </div>
-          <div className={css(styles.column, styles.informationItem)}>
+          <div className={css(styles.column, styles.informationItem, green24h ? styles.itemGreen : styles.itemRed)}>
             <El
               nightMode={nightMode}
               type={'h5'}

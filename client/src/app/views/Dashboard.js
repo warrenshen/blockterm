@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     letterSpacing: '1px',
     textTransform: 'uppercase',
     borderColor: '#333',
-    boxShadow: '0px -1px 0px rgba(128, 128, 128, 0.5)',
+    //boxShadow: '0px -1px 0px rgba(128, 128, 128, 0.5)',
   },
   darkAddButton: {
     //borderColor: '#fff !important',

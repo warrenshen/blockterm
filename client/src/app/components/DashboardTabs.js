@@ -65,12 +65,12 @@ const styles = StyleSheet.create({
   tabBar: {
     position: 'fixed',
     bottom: '0px',
-    left: '11px',
+    left: '0px',
     zIndex: '1',
     borderBottom: '0px',
     display: 'flex',
     flexDirection: 'row',
-    boxShadow: '0px -1px 0px rgba(128, 128, 128, 0.5)',
+    //boxShadow: '0px -1px 0px rgba(128, 128, 128, 0.5)',
   },
   tab: {
     fontWeight: '700',
