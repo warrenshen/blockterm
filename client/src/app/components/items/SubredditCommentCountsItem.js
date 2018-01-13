@@ -6,6 +6,7 @@ import React, {
 import PropTypes           from 'prop-types';
 import { isEqual }         from 'underscore';
 import moment              from 'moment';
+import { StyleSheet, css } from 'aphrodite/no-important';
 import {
   disableChartOptions,
   generateLineChartData,
@@ -15,6 +16,16 @@ import {
   RANGE_SELECT_OPTIONS,
 } from '../../constants/plots';
 import LineChartWithSelectItem from './LineChartWithSelectItem';
+
+const styles = StyleSheet.create({
+  chartWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    flex: '1',
+    marginBottom: '-2.5%',
+  },
+});
 
 class SubredditCommentCountsItem extends Component {
 
@@ -77,14 +88,16 @@ class SubredditCommentCountsItem extends Component {
       changeDashboardItemState(identifier, 'plotRange', option.value);
 
     return (
-      <LineChartWithSelectItem
-        data={data}
-        onChange={onChange}
-        options={selectOptions}
-        nightMode={nightMode}
-        selectValue={plotRange}
-        title={`# of daily comments in r/${specific}`}
-      />
+      <div className={css(styles.chartWrapper)}>
+        <LineChartWithSelectItem
+          data={data}
+          onChange={onChange}
+          options={selectOptions}
+          nightMode={nightMode}
+          selectValue={plotRange}
+          title={`# of daily comments in r/${specific}`}
+        />
+      </div>
     );
   }
 }

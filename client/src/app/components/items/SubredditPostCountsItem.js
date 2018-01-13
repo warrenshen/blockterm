@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { isEqual }         from 'underscore';
 import moment              from 'moment';
 import numeral             from 'numeral';
+import { StyleSheet, css } from 'aphrodite/no-important';
 import {
   disableChartOptions,
   generateLineChartData,
@@ -17,6 +18,16 @@ import {
 } from '../../constants/plots';
 import LineChartWithSelectItem from './LineChartWithSelectItem';
 
+const styles = StyleSheet.create({
+  chartWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    flex: '1',
+    marginBottom: '-2.5%',
+  },
+});
+
 class SubredditPostCountsItem extends Component {
 
   shouldComponentUpdate(nextProps, nextState)
@@ -24,7 +35,7 @@ class SubredditPostCountsItem extends Component {
     return !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
            !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
-           !isEqual(this.props.nightMode, nextProps.nightMode);
+           !isEqual(this.props.nightMode, nextProps.nightMode);.5
   }
 
   render()
@@ -130,15 +141,17 @@ class SubredditPostCountsItem extends Component {
     };
 
     return (
-      <LineChartWithSelectItem
-        chartOptions={chartOptions}
-        data={data}
-        onChange={onChange}
-        options={selectOptions}
-        nightMode={nightMode}
-        selectValue={plotRange}
-        title={`# of daily posts in r/${specific}`}
-      />
+      <div className={css(styles.chartWrapper)}>
+        <LineChartWithSelectItem
+          chartOptions={chartOptions}
+          data={data}
+          onChange={onChange}
+          options={selectOptions}
+          nightMode={nightMode}
+          selectValue={plotRange}
+          title={`# of daily posts in r/${specific}`}
+        />
+      </div>
     );
   }
 }
