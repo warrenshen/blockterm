@@ -10,13 +10,13 @@ import * as STYLES from '../constants/styles';
 const styles = StyleSheet.create({
   faqPanel: {
     backgroundColor: '#fff',
-    marginTop: '20px',
     padding: '15px 15px',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
-    //borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
     display:'flex',
     flexDirection:'column',
     minHeight: '450px',
+    marginTop: '10px',
+    marginBottom: '10px',
   },
   panelsLightNight: {
     backgroundColor: '#000',

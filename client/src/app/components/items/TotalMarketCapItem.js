@@ -18,6 +18,16 @@ import {
 } from '../../constants/plots';
 import LineChartWithSelectItem from './LineChartWithSelectItem';
 
+const styles = StyleSheet.create({
+  chartWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    flex: '1',
+    marginBottom: '-2.5%',
+  },
+});
+
 class TotalMarketCapItem extends Component
 {
   shouldComponentUpdate(nextProps, nextState)
@@ -130,15 +140,17 @@ class TotalMarketCapItem extends Component
     };
 
     return (
-      <LineChartWithSelectItem
-        chartOptions={chartOptions}
-        data={data}
-        onChange={onChange}
-        options={selectOptions}
-        nightMode={nightMode}
-        selectValue={plotRange}
-        title={`Total Market Cap: ${numeral(lastPrice).format('$0,0')}`}
-      />
+      <div className={css(styles.chartWrapper)}>
+        <LineChartWithSelectItem
+          chartOptions={chartOptions}
+          data={data}
+          onChange={onChange}
+          options={selectOptions}
+          nightMode={nightMode}
+          selectValue={plotRange}
+          title={`Total Market Cap: ${numeral(lastPrice).format('$0,0')}`}
+        />
+      </div>
     );
   }
 }
