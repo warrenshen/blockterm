@@ -11,7 +11,8 @@ config:
   ## Production: https://acme-v01.api.letsencrypt.org/directory
   ## Staging: https://acme-staging.api.letsencrypt.org/directory
   ##
-  LEGO_URL: https://acme-staging.api.letsencrypt.org/directory
+  LEGO_URL: https://acme-v01.api.letsencrypt.org/directory
+
 
   ## kube-lego port
   ##
@@ -55,10 +56,10 @@ replicaCount: 1
 resources:
   limits:
     cpu: 20m
-    memory: 8Mi
+    memory: 20Mi
   requests:
     cpu: 20m
-    memory: 8Mi
+    memory: 20Mi
 
 rbac:
   create: false
