@@ -79,6 +79,18 @@ function generateTVSymbols(token) {
   return result;
 }
 
+function generateDefaultTVSymbol(token) {
+  let options = ITEM_KEY_TO_VALUES[TV_CANDLE_CHART];
+  let hasUSDPairing = options.find(symbol => (symbol.substring(symbol.indexOf(':') + 1).includes(token.shortName + 'USD')));
+  
+  if (!hasUSDPairing) {
+    let hasBTCPairing = options.find(symbol => (symbol.substring(symbol.indexOf(':') + 1).includes(token.shortName + 'BTC')));
+    return (hasBTCPairing ? [hasBTCPairing] : generateTVSymbols(token));
+  } else {
+    return [hasUSDPairing];
+  }
+}
+
 function toObjectArray(arr) {
   for (let i = 0; i < arr.length; ++i)
     arr[i] = {label: arr[i], value: arr[i]};
@@ -164,8 +176,8 @@ class TokenBody extends PureComponent
       token,
     } = this.props;
 
-    let relevantSymbols = generateTVSymbols(token);
-    changeSelectedTicker(relevantSymbols[0]);
+    let defaultSymbolArray = generateDefaultTVSymbol(token);
+    changeSelectedTicker(defaultSymbolArray[0]);
   }
 
   renderTVGraphAndSelect()
@@ -181,7 +193,7 @@ class TokenBody extends PureComponent
     const url =
       'https://s.tradingview.com/widgetembed/?' +
       `symbol=${selectedTicker}&` +
-      'interval=15&' +
+      'interval=5&' +
       'withdateranges=1' +
       'hideideas=1&' +
       'hidesidetoolbar=0&' +
