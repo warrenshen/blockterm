@@ -136,6 +136,7 @@ export default function(state = initialState, action)
                 ...state.dashboardItemStates,
               },
               dashboardPages: dashboardPages,
+              valueSelectValue: initialState.valueSelectValue,
             };
           }
           return state;
@@ -166,6 +167,8 @@ export default function(state = initialState, action)
                 ...state.dashboardItemStates,
               },
               dashboardPages: dashboardPages,
+              valueSelectValue: initialState.valueSelectValue,
+              sidebarMode: initialState.sidebarMode,
             };
           }
           return state;
@@ -294,6 +297,7 @@ export default function(state = initialState, action)
         ...state,
         dashboardItemStates: newDashboardItemStates,
         dashboardPages: newDashboardPages.toJS(),
+        valueSelectValue: initialState.valueSelectValue,
       };
     case DESTROY_DASHBOARD_ITEM_LOCAL:
       oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
@@ -360,6 +364,7 @@ export default function(state = initialState, action)
         ...state,
         dashboardItemStates: newDashboardItemStates,
         dashboardPages: newDashboardPages.toJS(),
+        valueSelectValue: initialState.valueSelectValue,
       };
     default:
       return state;
