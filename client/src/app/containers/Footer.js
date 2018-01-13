@@ -16,6 +16,16 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      changeIsPageLoaded: globalsActions.changeIsPageLoaded,
+      toggleNightMode: globalsActions.toggleNightMode,
+    },
+    dispatch
+  );
+};
+
 export default compose(
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(Footer);
