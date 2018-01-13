@@ -19,15 +19,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(
-    {
-    },
-    dispatch
-  );
-};
-
 export default compose(
   graphql(TokensByPageQuery, TokensByPageQueryOptions),
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(mapStateToProps),
 )(Tokens);
