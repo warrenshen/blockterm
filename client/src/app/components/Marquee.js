@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   },
   banner: {
     width: '100vw',
-    padding: '0px 20px',
     backgroundColor: 'white',
     display: 'flex',
     justifyContent: 'space-between',
