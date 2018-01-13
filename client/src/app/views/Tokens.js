@@ -151,6 +151,13 @@ class Tokens extends PureComponent {
     nightMode: PropTypes.bool.isRequired,
   };
 
+  componentDidUpdate(prevProps) {
+    // Scroll to to top of page when switching page # of tokens.
+    if (this.props.location !== prevProps.location) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   renderHeader()
   {
     const {
@@ -381,18 +388,21 @@ class Tokens extends PureComponent {
   {
     const {
       nightMode,
+      match,
     } = this.props;
+
+    const page = match.params.page ? parseInt(match.params.page) : 1;
 
     return (
       <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
         <table className={css(styles.table)}>
           <tbody>
             {this.renderHeader()}
-            {tokens.map((token, index) => this.renderToken(token, index))}
+            {tokens.map((token, index) => this.renderToken(token, (page - 1) * 50 + index))}
           </tbody>
         </table>
-        <ul style={{'marginTop':'10px',}}>
-          {[1, 2, 3, 4].map((page) => (
+        <ul style={{'margin':'10px 0px',}}>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((page) => (
             <Link key={page} className={css(styles.paginationButtons)} to={`/tokens/${page}`}>
               <El
                 nightMode={nightMode}
