@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    zIndex: 1,
+    zIndex: '3',
     //borderTop: '1px solid rgba(0,0,0,0.2)',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
   },

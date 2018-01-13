@@ -31,16 +31,34 @@ const styles = StyleSheet.create({
 const notificationsStyle = {
   NotificationItem: { // Override the notification item
     DefaultStyle: { // Applied to every notification, regardless of the notification level
-      padding: '18px 12px',
+      padding: '8px 16px 4px 16px',
       borderRadius: '0px',
       boxShadow: 'none',
-      color: '#092715 !important',
-      borderColor: STYLES.BLAZINGREEN,
-      backgroundColor: STYLES.BLAZINGREEN,
+      color: '#fff !important',
+      border: 'none',
+      backgroundColor: STYLES.ROYAL_BLUE,
       fontWeight: '500',
     },
     success: {
-      color:'#092715 !important',
+      color: 'red',
+    },
+  },
+  Title: {
+    DefaultStyle: {
+      color: '#FFF',
+      //textTransform: 'uppercase',
+      //letterSpacing: '2px',
+    },
+  },
+  Dismiss: {
+    DefaultStyle: {
+      backgroundColor: '#1A237E',
+    }
+  },
+  Containers: {
+    bc: {
+      width: '280px',
+      margin: '0px 0px 0px -140px',
     },
   },
 }

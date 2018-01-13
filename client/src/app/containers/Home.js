@@ -51,8 +51,8 @@ function createDashboardItemLocalWithNotification(newDashboardItem)
       }
     })
     .then(
-      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Success!' })),
-      () => dispatch(createNotificationError({ position: 'br', title: 'Failure.' })),
+      () => dispatch(createNotificationSuccess({ position: 'bc', title: 'Success!' })),
+      () => dispatch(createNotificationError({ position: 'bc', title: 'Failure.' })),
     );
   }
 }
@@ -71,8 +71,8 @@ function updateDashboardItemLocalWithNotification(dashboardItemId, newIdentifier
       }
     })
     .then(
-      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Success!' })),
-      () => dispatch(createNotificationError({ position: 'br', title: 'Failure.' })),
+      () => dispatch(createNotificationSuccess({ position: 'bc', title: 'Success!' })),
+      () => dispatch(createNotificationError({ position: 'bc', title: 'Failure.' })),
     );
   }
 }
