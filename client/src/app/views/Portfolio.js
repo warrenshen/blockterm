@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     boxSizing: 'content-box',
     backgroundColor: '#fff',
     flexDirection: 'column',
-    padding: '0px 12px'
+    padding: '0px 12px 12px 12px'
   },
   bodyNightMode: {
     backgroundColor: '#000',
@@ -205,7 +205,7 @@ class Portfolio extends PureComponent
 {
   componentWillReceiveProps(nextProps)
   {
-    if (!nextProps.data.loading && !nextProps.data.user)
+    if (!nextProps.data.loading && nextProps.user === null)
     {
       nextProps.createNotificationError({
         position: 'bc',

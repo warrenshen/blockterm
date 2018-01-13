@@ -32,6 +32,7 @@ const initialState = {
   nightMode: cookieNightMode !== null ? cookieNightMode : true,
   scrollActive: false,
   timeZone: cookieTimeZone,
+  user: null,
 };
 document.body.classList.toggle('darkClass', initialState.nightMode);
 
@@ -48,9 +49,13 @@ export default function(state = initialState, action)
           {
             clearItem(AUTH_TOKEN_COOKIE);
           }
+          return {
+            ...state,
+            user: data.user,
+          };
+        default:
           return state;
       }
-      return state;
     case CHANGE_SCROLL_ACTIVE:
       return {
         ...state,

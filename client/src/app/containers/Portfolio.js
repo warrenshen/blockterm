@@ -26,6 +26,7 @@ const mapStateToProps = (state) => {
     changeActive: state.portfolio.changeActive,
     nightMode: state.globals.nightMode,
     tokenUsers: state.portfolio.tokenUsers,
+    user: state.globals.user,
   };
 };
 

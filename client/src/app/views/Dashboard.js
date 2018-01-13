@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     width: '256px',
     backgroundColor:'#fff',
     borderLeft: '1px solid #666',
-    zIndex: '3',
+    zIndex: '4',
   },
   nightSidebar: {
     backgroundColor: STYLES.LIGHTNIGHT,
@@ -317,6 +317,7 @@ class Dashboard extends Component {
     const overlayStyle = {
       transition: 'opacity .2s ease-out, visibility .2s ease-out',
       backgroundColor: `rgba(0, 0, 0, ${nightMode ? 0.4 : 0.18})`,
+      zIndex: '2',
     };
 
     const selectOptions = Object.entries(ITEM_KEY_TO_LABELS).map((arr) => ({
@@ -401,6 +402,7 @@ class Dashboard extends Component {
               },
               sidebar: {
                 display: 'flex',
+                zIndex: '3',
               },
             }
           }
