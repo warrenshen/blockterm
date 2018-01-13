@@ -179,6 +179,14 @@ class Dashboard extends Component {
         console.log('Invalid sidebar mode');
       }
     }
+    this.focusOnSpecificSelect();
+  }
+
+  focusOnSpecificSelect() {
+    let sidebarSpecificField = document.getElementById('widget_search_specific');
+    if (sidebarSpecificField) {
+      sidebarSpecificField.focus();
+    }
   }
 
   renderValueSelect()
@@ -198,7 +206,7 @@ class Dashboard extends Component {
       }));
       return (
         <Select
-          inputProps={{ id: 'widget_search_2' }}
+          inputProps={{ id: 'widget_search_specific' }}
           placeholder={'Search Specific'}
           className={css(styles.select, styles.bolded)}
           optionClassName={css(styles.bolded, styles.options)}
@@ -241,6 +249,14 @@ class Dashboard extends Component {
     {
       return <div className={css(styles.shield)} />;
     }
+  }
+
+  handleKeySelectChange(option) {
+    const {
+      changeKeySelectValue,
+    } = this.props;
+    changeKeySelectValue(option ? option.value : '');
+    this.focusOnSpecificSelect();
   }
 
   render()
@@ -289,7 +305,7 @@ class Dashboard extends Component {
                   className={css(styles.select, styles.bolded)}
                   optionClassName={css(styles.bolded, styles.options)}
                   options={selectOptions}
-                  onChange={(option) => changeKeySelectValue(option ? option.value : '')}
+                  onChange={(option) => this.handleKeySelectChange(option)}
                   value={keySelectValue}
                 />
                 {this.renderValueSelect()}
