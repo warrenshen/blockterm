@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     border: '1px solid #bdc3c7',
     borderRadius: '3px',
   },
+  darkRange: {
+    color: '#fff',
+  },
   select: {
     width: '128px',
     zIndex: '1',
@@ -116,7 +119,7 @@ class BarChartWithSelect extends PureComponent {
                   </El>
                 </div>,
                 <h5
-                  className={css(styles.marginRight)}
+                  className={css(styles.marginRight, nightMode && styles.darkRange)}
                   key={'dash'}
                 >
                   -
