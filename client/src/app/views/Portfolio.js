@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
     borderBottom: '1px solid',
   },
   input: {
+    width: '36px',
     color:'#000',
     borderColor: '#777',
     fontWeight: '500',
