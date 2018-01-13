@@ -65,20 +65,23 @@ const styles = StyleSheet.create({
   tabBar: {
     position: 'fixed',
     bottom: '0px',
-    left: '10px',
+    left: '11px',
     zIndex: '1',
-    //backgroundColor: 'white',
-    //border: '1px solid #666',
     borderBottom: '0px',
     display: 'flex',
     flexDirection: 'row',
+    boxShadow: '0px -1px 0px rgba(128, 128, 128, 0.5)',
   },
   tab: {
-    fontWeight: '500',
+    fontWeight: '700',
     borderColor: '#333',
     textTransform: 'uppercase',
     letterSpacing: '1px',
     backgroundColor: '#fff',
+    marginLeft: '-1px',
+  },
+  darkTab: {
+    //borderColor: '#fff',
   },
   chosenTab: {
     backgroundColor: STYLES.GOLD,
@@ -212,6 +215,7 @@ class DashboardTabs extends Component {
   renderTabList(selectedTab)
   {
     const {
+      nightMode,
       dashboardPages,
     } = this.props;
 
@@ -222,7 +226,7 @@ class DashboardTabs extends Component {
           dashboardPages.map((dashboardPage) => (
             <Tab key={dashboardPage.index}>
               <button
-                className={css(styles.tab, (dashboardPage.index == selectedTab) && styles.chosenTab)}
+                className={css(styles.tab, nightMode && styles.darkTab, (dashboardPage.index == selectedTab) && styles.chosenTab)}
                 title={`Go to ${dashboardPage.name}`}
               >
                 {dashboardPage.name}
@@ -269,20 +273,6 @@ class DashboardTabs extends Component {
             saveLayout={(layout) => this.saveLayout(layout)}
             updateLayoutItem={(id, staticActive) => this.updateLayoutItem(id, staticActive)}
           />
-          <div
-            className={css(styles.placeholder, nightMode && styles.nightContainer)}
-          >
-            <div
-              className={css(styles.item, styles.addItem, styles.addToButton, nightMode && styles.nightMode)}
-            >
-              <button
-                title="Press to open up sidebar and add widgets to dashboard"
-                className={css(styles.button, nightMode && styles.darkAddButton)}
-                onClick={(event) => changeSidebarMode('add')} >
-                Add Widget [+]
-              </button>
-            </div>
-          </div>
         </TabPanel>
       );
     });

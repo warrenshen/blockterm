@@ -11,7 +11,7 @@ export const LIGHT_HIGHLIGHT_RED = '#FFEDED';
 export const DARK_HIGHLIGHT_GREEN = '#001F12';
 export const DARK_HIGHLIGHT_RED = '#210600';
 
-//export const BLUE = '#0000ff';
+export const ROYAL_BLUE = '#304FFE';
 export const LIGHTNIGHT = '#0b1010';
 export const SOFTGRAY = '#121515';
 export const BLUEGRAY = '#0E1120';

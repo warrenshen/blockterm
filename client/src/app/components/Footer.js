@@ -11,7 +11,7 @@ import * as STYLES from '../constants/styles';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    padding: '5px 10px 0px 10px !important',
+    padding: '8px 10px 0px 10px !important',
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
     display:'flex',
   },

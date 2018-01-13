@@ -8,6 +8,7 @@ import RightNavButton       from './RightNavButton';
 import Switch               from 'react-toggle-switch'
 import El                   from '../El';
 import FontAwesome          from 'react-fontawesome';
+import * as STYLES         from '../../constants/styles';
 
 import {
   AUTH_TOKEN_COOKIE,
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     opacity: '1 !important',
     borderRadius: '0px',
-    backgroundColor: '#304FFE !important',
+    backgroundColor: `${STYLES.ROYAL_BLUE} !important`,
     ':after': {
       borderBottomColor: '#304FFE !important',
     },

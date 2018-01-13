@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     width: '256px',
     backgroundColor:'#fff',
     borderLeft: '1px solid #666',
+    zIndex: '3',
   },
   nightSidebar: {
     backgroundColor: STYLES.LIGHTNIGHT,
@@ -113,6 +114,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textTransform: 'uppercase',
     letterSpacing: '3px',
+  },
+  actionBar: {
+    zIndex: '1',
+    position: 'fixed',
+    bottom: '0px',
+    left: '248px',
+    borderBottom: '0px',
+    backgroundColor: '#fff',
+  },
+  darkActionBar: {
+    backgroundColor: '#000',
+  },
+  addButton: {
+    fontWeight: '700',
+    letterSpacing: '1px',
+    textTransform: 'uppercase',
+    borderColor: '#333',
+    boxShadow: '0px -1px 0px rgba(128, 128, 128, 0.5)',
+  },
+  darkAddButton: {
+    //borderColor: '#fff !important',
   },
 });
 
@@ -241,6 +263,24 @@ class Dashboard extends Component {
     }
   }
 
+  renderAddButton() {
+    const {
+      changeSidebarMode,
+      nightMode,
+    } = this.props;
+
+    return (
+      <div className={css(styles.actionBar, nightMode && styles.darkActionBar)}>
+        <button
+          title="Press to open up sidebar and add widgets to dashboard"
+          className={css(styles.addButton, nightMode && styles.darkAddButton)}
+          onClick={(event) => changeSidebarMode('add')} >
+          Add Widget [+]
+        </button>
+      </div>
+    );
+  }
+
   renderScrollShield()
   {
     const {
@@ -320,16 +360,16 @@ class Dashboard extends Component {
                   Adding elements to dashboard:
                 </El>
                 <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
-                  1) Enter the type of widget you would like to add, e.g. Market Overview, Candle Chart, Subreddit Posts, Subreddit Comments.
+                  <b>1)</b> Enter the type of widget you would like to add, e.g. Market Overview, Candle Chart, Subreddit Posts, Subreddit Comments.
                 </El>
                 <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
-                  2) Enter the widget specific type. For a candle chart, enter the ticker/symbol you are interested in. For example: BTCUSD, ETHUSD, LTCEUR, REQBTC, etc. For subreddits, enter the relevant subreddit name. For example: r/Bitcoin, r/Monero, r/Cryptocurrency, etc.
+                  <b>2)</b> Enter the widget specific type. For a candle chart, enter the ticker/symbol you are interested in. For example: BTCUSD, ETHUSD, LTCEUR, REQBTC, etc. For subreddits, enter the relevant subreddit name. For example: r/Bitcoin, r/Monero, r/Cryptocurrency, etc.
                 </El>
                 <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
-                  3) Click 'Add to Dashboard'!
+                  <b>3)</b> Click 'Add to Dashboard'!
                 </El>
                 <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
-                  4) Resize and reposition the widget how you see fit, and click the lock button if you would like to lock its configuration.
+                  <b>4)</b> Resize and reposition the widget how you see fit, and click the lock button if you would like to lock its configuration.
                 </El>
               </div>
             </div>
@@ -365,6 +405,7 @@ class Dashboard extends Component {
             }
           }
         >
+          {this.renderAddButton()}
           {this.renderScrollShield()}
           <DashboardTabs />
         </Sidebar>
