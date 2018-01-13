@@ -14,6 +14,7 @@ import Dashboard               from './Dashboard';
 import * as dashboardActions   from '../redux/modules/dashboard';
 import * as globalsActions     from '../redux/modules/globals';
 import {
+  error as createNotificationError,
   success as createNotificationSuccess,
 } from 'react-notification-system-redux';
 
@@ -44,10 +45,34 @@ function createDashboardItemLocalWithNotification(newDashboardItem)
       {
         resolve();
       }
+      else
+      {
+        reject();
+      }
     })
     .then(
-      () => dispatch(success({ position: 'tl', title: 'Success!' })),
-      () => dispatch(success({ position: 'tl', title: 'Failure.' })),
+      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Success!' })),
+      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Failure.' })),
+    );
+  }
+}
+
+function updateDashboardItemLocalWithNotification(dashboardItemId, newIdentifier, staticActive)
+{
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      if (dispatch(dashboardActions.updateDashboardItemLocal(dashboardItemId, newIdentifier, staticActive)))
+      {
+        resolve();
+      }
+      else
+      {
+        reject();
+      }
+    })
+    .then(
+      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Success!' })),
+      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Failure.' })),
     );
   }
 }
@@ -59,8 +84,9 @@ const mapDispatchToProps = (dispatch) => {
       changeScrollActive: globalsActions.changeScrollActive,
       changeSidebarMode: dashboardActions.changeSidebarMode,
       createDashboardItemLocal: createDashboardItemLocalWithNotification,
+      createNotificationSuccess: createNotificationSuccess,
       changeValueSelectValue: dashboardActions.changeValueSelectValue,
-      updateDashboardItemLocal: dashboardActions.updateDashboardItemLocal,
+      updateDashboardItemLocal: updateDashboardItemLocalWithNotification,
     },
     dispatch
   );

@@ -209,8 +209,8 @@ class Dashboard extends Component {
           inputProps={{ id: 'widget_search_specific' }}
           placeholder={'Search Specific'}
           className={css(styles.select, styles.bolded)}
-          menuContainerStyle={{ 'max-height': '412px' }}
-          menuStyle={{ 'max-height': '412px' }}
+          menuContainerStyle={{ 'maxHeight': '412px' }}
+          menuStyle={{ 'maxHeight': '412px' }}
           optionClassName={css(styles.bolded, styles.options)}
           options={selectOptions}
           onChange={(option) => changeValueSelectValue(option ? option.value : '')}
@@ -305,8 +305,8 @@ class Dashboard extends Component {
                   inputProps={{'id': 'widget_search'}}
                   placeholder={'Search Widget Type'}
                   className={css(styles.select, styles.bolded)}
-                  menuContainerStyle={{ 'max-height': '412px' }}
-                  menuStyle={{ 'max-height': '412px' }}
+                  menuContainerStyle={{ 'maxHeight': '412px' }}
+                  menuStyle={{ 'maxHeight': '412px' }}
                   optionClassName={css(styles.bolded, styles.options)}
                   options={selectOptions}
                   onChange={(option) => this.handleKeySelectChange(option)}
@@ -338,6 +338,7 @@ class Dashboard extends Component {
           open={sidebarMode !== null}
           pullRight={true}
           shadow={true}
+          touch={false}
           transitions={false}
           onSetOpen={() => changeSidebarMode(null)}
           styles={
