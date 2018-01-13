@@ -36,6 +36,7 @@ const notificationsStyle = {
       boxShadow: 'none',
       color: '#092715 !important',
       borderColor: STYLES.BLAZINGREEN,
+      backgroundColor: STYLES.BLAZINGREEN,
       fontWeight: '500',
     },
     success: {
