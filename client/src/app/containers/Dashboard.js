@@ -123,7 +123,9 @@ function queryBuilder(dashboardItems, dashboardItemStates)
 
   return {
     query: gql`${query}`,
-    config: {},
+    config: {
+      options: { pollInterval: 30000 },
+    },
   };
 }
 
