@@ -36,13 +36,18 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: '3px',
+    position: 'absolute',
+    top: '3px',
+  },
+  iconMargin: {
+    paddingRight: '11px',
   },
 });
 
 const RightNavButton = ({ action, label, link, icon, nightMode, nightModeStyle, style }) => {
   return action ?
   (
-    <li className={css(styles.container)}>
+    <li className={css(styles.container, icon && styles.iconMargin)}>
       <button className={css(styles.flatButton, style, nightMode && nightModeStyle)} onClick={action}>
         <El
           nightMode={nightMode}
@@ -56,7 +61,7 @@ const RightNavButton = ({ action, label, link, icon, nightMode, nightModeStyle, 
     </li>
   ) :
   (
-    <li className={css(styles.container)}>
+    <li className={css(styles.container, icon && styles.iconMargin)}>
       <Link to={link} className={css(style, nightMode&& nightModeStyle)}>
         <El
           nightMode={nightMode}

@@ -346,3 +346,9 @@ button:disabled {
 .patchlist:first-child {
   font-weight: 700;
 }
+
+@media screen and (max-width: 960px) {
+    .promotional {
+      display: none !important;
+    }
+}

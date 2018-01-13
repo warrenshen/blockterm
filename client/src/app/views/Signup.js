@@ -14,7 +14,6 @@ import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
   wrapper: {
-    minHeight: '100vh',
     display: 'flex',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
     gridTemplateColumns: 'repeat(8, 1fr)',
@@ -38,7 +37,6 @@ const styles = StyleSheet.create({
     padding: '0px 10px 0px',
     boxSizing: 'content-box',
     backgroundColor: '#fff',
-    minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -46,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: STYLES.LIGHTNIGHT,
   },
   loginPanel: {
-    marginTop: '20px',
+    marginTop: '10px',
     backgroundColor: '#fff',
     border: `1px solid #000`,
     //borderBottom: `2px solid #000`,
@@ -257,8 +255,8 @@ class Signup extends PureComponent {
                 <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
                   Customize and save/load your dashboard configuration across workstations.
                 </li>
-                <li className={css(styles.blockli)}>We have big plans for the near future.</li>
-                <li className={css(styles.blockli)}>Motivate us to continue improving this tool.</li>
+                <li className={css(styles.blockli)}>We have big plans for the near future (alerts, daily voting, chat).</li>
+                <li className={css(styles.blockli)}>Motivate us to continue improving this tool!</li>
               </ul>
             </div>
           </div>

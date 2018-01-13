@@ -2,7 +2,7 @@
 
 import React              from 'react';
 import PropTypes          from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
+import { StyleSheet, css } from 'aphrodite/no-important';
 import RightNav           from './RightNav';
 import { Link }       from 'react-router-dom';
 import navigationModel     from '../../models/navigation.json';
@@ -127,7 +127,7 @@ const NavigationBar = ({
   return (
     <div className={css(styles.navbar)}>
       <nav className={css(styles.banner, nightMode && styles.bannerNight)}>
-        <div className={css(styles.promotion, nightMode && styles.promotionNight)}>
+        <div className={'promotional ' + css(styles.promotion, nightMode && styles.promotionNight)}>
           <a href='https://www.binance.com/?ref=10907326' target='_blank'>
            <El style={styles.semibolded} type={'span'}>
              Trade Altcoins with Binance!
