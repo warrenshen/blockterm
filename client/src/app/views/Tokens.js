@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
   },
   body: {
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
-    width: '100%',
     boxSizing: 'content-box',
     backgroundColor: '#fff',
     display: 'flex',
     flexDirection: 'column',
     flex: '1',
+    paddingLeft: '10px',
   },
   bodyNightMode: {
     backgroundColor: '#000',
