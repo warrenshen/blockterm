@@ -35,7 +35,7 @@ class SubredditPostCountsItem extends Component {
     return !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
            !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
-           !isEqual(this.props.nightMode, nextProps.nightMode);.5
+           !isEqual(this.props.nightMode, nextProps.nightMode);
   }
 
   render()

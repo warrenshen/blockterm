@@ -85,9 +85,9 @@ function generateDefaultTVSymbol(token) {
   
   if (!hasUSDPairing) {
     let hasBTCPairing = options.find(symbol => (symbol.substring(symbol.indexOf(':') + 1).includes(token.shortName + 'BTC')));
-    return (hasBTCPairing ? [hasBTCPairing] : generateTVSymbols(token));
+    return (hasBTCPairing ? hasBTCPairing : generateTVSymbols(token))[0];
   } else {
-    return [hasUSDPairing];
+    return hasUSDPairing;
   }
 }
 
@@ -176,8 +176,8 @@ class TokenBody extends PureComponent
       token,
     } = this.props;
 
-    let defaultSymbolArray = generateDefaultTVSymbol(token);
-    changeSelectedTicker(defaultSymbolArray[0]);
+    let defaultSymbol = generateDefaultTVSymbol(token);
+    changeSelectedTicker(defaultSymbol);
   }
 
   renderTVGraphAndSelect()
