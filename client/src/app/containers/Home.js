@@ -52,7 +52,7 @@ function createDashboardItemLocalWithNotification(newDashboardItem)
     })
     .then(
       () => dispatch(createNotificationSuccess({ position: 'br', title: 'Success!' })),
-      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Failure.' })),
+      () => dispatch(createNotificationError({ position: 'br', title: 'Failure.' })),
     );
   }
 }
@@ -72,7 +72,7 @@ function updateDashboardItemLocalWithNotification(dashboardItemId, newIdentifier
     })
     .then(
       () => dispatch(createNotificationSuccess({ position: 'br', title: 'Success!' })),
-      () => dispatch(createNotificationSuccess({ position: 'br', title: 'Failure.' })),
+      () => dispatch(createNotificationError({ position: 'br', title: 'Failure.' })),
     );
   }
 }
@@ -84,6 +84,7 @@ const mapDispatchToProps = (dispatch) => {
       changeScrollActive: globalsActions.changeScrollActive,
       changeSidebarMode: dashboardActions.changeSidebarMode,
       createDashboardItemLocal: createDashboardItemLocalWithNotification,
+      createNotificationError: createNotificationError,
       createNotificationSuccess: createNotificationSuccess,
       changeValueSelectValue: dashboardActions.changeValueSelectValue,
       updateDashboardItemLocal: updateDashboardItemLocalWithNotification,

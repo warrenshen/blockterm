@@ -12,6 +12,10 @@ import {
 }                             from '../queries';
 import Portfolio              from '../views/Portfolio';
 import * as portfolioActions  from '../redux/modules/portfolio';
+import {
+  error as createNotificationError,
+  success as createNotificationSuccess,
+} from 'react-notification-system-redux';
 
 /* -----------------------------------------
   Redux
@@ -29,6 +33,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       addTokenUser: portfolioActions.addTokenUser,
+      createNotificationError: createNotificationError,
+      createNotificationSuccess: createNotificationSuccess,
       changeTokenUserAmount: portfolioActions.changeTokenUserAmount,
       removeTokenUser: portfolioActions.removeTokenUser,
     },

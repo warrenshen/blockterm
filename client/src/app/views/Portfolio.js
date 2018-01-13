@@ -213,10 +213,17 @@ class Portfolio extends PureComponent
   {
     const {
       tokenUsers,
+
+      createNotificationError,
+      createNotificationSuccess,
       updateTokenUsers,
     } = this.props;
 
-    updateTokenUsers(tokenUsers);
+    updateTokenUsers(tokenUsers)
+    .then(
+      () => createNotificationSuccess({ position: 'br', title: 'Success!' }),
+      () => createNotificationError({ position: 'br', title: 'Failure.' }),
+    );
   }
 
   renderHeader()

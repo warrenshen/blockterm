@@ -506,17 +506,7 @@ export const UpdateTokenUsersMutationOptions = {
         variables: {
           tokenUsersString: JSON.stringify(tokenUsers),
         },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve();
-        }
-      )
-      .catch(
-        (error) => {
-          return Promise.reject();
-        }
-      );
+      });
     },
   }),
 };

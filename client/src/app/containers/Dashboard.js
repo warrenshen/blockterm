@@ -265,6 +265,7 @@ class Container extends PureComponent
       sidebarMode,
       user,
 
+      createNotificationError,
       createNotificationSuccess,
       updateDashboardItem,
       updateDashboardItemLocal,
@@ -282,7 +283,7 @@ class Container extends PureComponent
       )
       .then(
         () => createNotificationSuccess({ position: 'br', title: 'Success!' }),
-        () => createNotificationSuccess({ position: 'br', title: 'Failure.' }),
+        () => createNotificationError({ position: 'br', title: 'Failure.' }),
       );
     }
     else
