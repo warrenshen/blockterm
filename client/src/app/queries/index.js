@@ -120,9 +120,6 @@ export const TokenUsersQuery = gql`
     }
   }
 `;
-export const TokenUsersQueryOptions = {
-  options: { pollInterval: 30000 },
-};
 
 export const UserQuery = gql`
   query UserQuery {

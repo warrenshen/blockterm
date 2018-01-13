@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { compose, graphql }   from 'react-apollo';
 import {
   TokenUsersQuery,
-  TokenUsersQueryOptions,
   TokensAllQuery,
   UpdateTokenUsersMutation,
   UpdateTokenUsersMutationOptions,
@@ -44,7 +43,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
-  graphql(TokenUsersQuery, TokenUsersQueryOptions),
+  graphql(TokenUsersQuery),
   graphql(TokensAllQuery),
   graphql(UpdateTokenUsersMutation, UpdateTokenUsersMutationOptions),
   connect(mapStateToProps, mapDispatchToProps),
