@@ -14,6 +14,7 @@ import {
   constants
  ------------------------------------------*/
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
+const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_IS_PAGE_LOADED = 'CHANGE_IS_PAGE_LOADED';
 const CHANGE_SCROLL_ACTIVE = 'CHANGE_SCROLL_ACTIVE';
 const TOGGLE_NIGHT_MODE = 'TOGGLE_NIGHT_MODE';
@@ -40,14 +41,41 @@ document.body.classList.toggle('darkClass', initialState.nightMode);
 
 export default function(state = initialState, action)
 {
+  let data;
   switch (action.type)
   {
     case APOLLO_QUERY_RESULT:
       switch (action.operationName)
       {
         case 'UserQuery':
-          let data = action.result.data;
+          data = action.result.data;
           if (data && data.user === null)
+          {
+            clearItem(AUTH_TOKEN_COOKIE);
+          }
+          return {
+            ...state,
+            user: data.user,
+          };
+        default:
+          return state;
+      }
+    case APOLLO_MUTATION_RESULT:
+      switch (action.operationName)
+      {
+        case 'CreateUserMutation':
+          data = action.result.data;
+          if (data && data.createUser.user === null)
+          {
+            clearItem(AUTH_TOKEN_COOKIE);
+          }
+          return {
+            ...state,
+            user: data.user,
+          };
+        case 'LogInMutation':
+          data = action.result.data;
+          if (data && data.logIn.user === null)
           {
             clearItem(AUTH_TOKEN_COOKIE);
           }
