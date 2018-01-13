@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '100%',
     flex: '1',
-    marginBottom: '-2.5%',
+    marginBottom: '-10px',
   },
 });
 
