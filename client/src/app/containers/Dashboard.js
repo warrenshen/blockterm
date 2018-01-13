@@ -280,8 +280,8 @@ class Container extends PureComponent
         null,
       )
       .then(
-        () => createNotificationSuccess({ position: 'br', title: 'Success!' }),
-        () => createNotificationError({ position: 'br', title: 'Failure.' }),
+        () => createNotificationSuccess({ position: 'bc', title: 'Success!' }),
+        () => createNotificationError({ position: 'bc', title: 'Failure.' }),
       );
     }
     else

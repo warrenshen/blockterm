@@ -1562,7 +1562,10 @@ export function generateIdentifier(key, value)
 {
   if (!ITEM_KEY_WHITELIST.includes(key))
   {
-    console.log('Invalid identifier');
+    if (process.env.NODE_ENV === 'dev')
+    {
+      console.log('Invalid identifier');
+    }
     return null;
   }
   else
@@ -1583,7 +1586,10 @@ export function parseIdentifer(identifier)
 {
   if (!isIdentifierValid(identifier))
   {
-    console.log('Invalid identifier');
+    if (process.env.NODE_ENV === 'dev')
+    {
+      console.log('Invalid identifier');
+    }
     return null;
   }
   else
@@ -1594,15 +1600,8 @@ export function parseIdentifer(identifier)
 
 export function parseIdentiferKey(identifier)
 {
-  const arr = parseIdentifer(identifier);
-  if (arr)
-  {
-    return arr[0];
-  }
-  else
-  {
-    return null;
-  }
+  const [identifierKey, identifierValue] = parseIdentifer(identifier);
+  return identifierKey ? identifierKey : null;
 }
 
 export function convertIdentifierToTitle(identifier)

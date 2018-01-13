@@ -167,8 +167,9 @@ export default function(state = initialState, action)
                 ...state.dashboardItemStates,
               },
               dashboardPages: dashboardPages,
-              valueSelectValue: initialState.valueSelectValue,
+              keySelectValue: initialState.keySelectValue,
               sidebarMode: initialState.sidebarMode,
+              valueSelectValue: initialState.valueSelectValue,
             };
           }
           return state;
@@ -364,6 +365,8 @@ export default function(state = initialState, action)
         ...state,
         dashboardItemStates: newDashboardItemStates,
         dashboardPages: newDashboardPages.toJS(),
+        keySelectValue: initialState.keySelectValue,
+        sidebarMode: initialState.sidebarMode,
         valueSelectValue: initialState.valueSelectValue,
       };
     default:

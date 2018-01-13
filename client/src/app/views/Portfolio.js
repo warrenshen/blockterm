@@ -205,8 +205,12 @@ class Portfolio extends PureComponent
 {
   componentWillReceiveProps(nextProps)
   {
-    if (!nextProps.data.loading && !nextProps.data.user === null)
+    if (!nextProps.data.loading && !nextProps.data.user)
     {
+      nextProps.createNotificationError({
+        position: 'bc',
+        title: 'LOGIN or JOIN to use portfolio.',
+      });
       nextProps.history.push('/');
     }
   }
@@ -223,8 +227,8 @@ class Portfolio extends PureComponent
 
     updateTokenUsers(tokenUsers)
     .then(
-      () => createNotificationSuccess({ position: 'br', title: 'Success!' }),
-      () => createNotificationError({ position: 'br', title: 'Failure.' }),
+      () => createNotificationSuccess({ position: 'bc', title: 'Success!' }),
+      () => createNotificationError({ position: 'bc', title: 'Failure.' }),
     );
   }
 
