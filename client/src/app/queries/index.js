@@ -31,6 +31,9 @@ export const DashboardPagesQuery = gql`
     }
   }
 `;
+export const DashboardPagesQueryOptions = {
+  skip: (ownProps) => getItem(AUTH_TOKEN_COOKIE) === null,
+};
 
 export const SubredditsAllQuery = gql`
  query {
