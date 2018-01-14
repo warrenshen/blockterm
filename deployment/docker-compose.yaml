@@ -16,7 +16,7 @@ services:
       kompose.service.type: nodeport
 
   server:
-    image: us.gcr.io/blockterm-188823/server:latest
+    image: us.gcr.io/block-191602/server:latest
     command: bundle exec rails s -p 80 -b '0.0.0.0'
     environment:
       - RAILS_ENV=development
@@ -30,7 +30,7 @@ services:
       kompose.service.type: LoadBalancer
 
   client:
-    image: us.gcr.io/blockterm-188823/client:latest
+    image: us.gcr.io/block-191602/client:latest
     command: npm run start
     ports:
       - "3000:80"
