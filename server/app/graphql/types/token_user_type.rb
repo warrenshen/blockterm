@@ -12,7 +12,7 @@ module Types
       'The token associated with token user'
 
       resolve -> (obj, args, ctx) {
-        obj.token
+        FindLoader.for(Token).load(obj.token_id)
       }
     end
   end

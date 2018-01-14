@@ -11,7 +11,7 @@ module Types
       description 'The dashboard items associated with dashboard page'
 
       resolve -> (obj, args, ctx) {
-        obj.dashboard_items
+        ForeignKeyLoader.for(DashboardItem, :dashboard_page_id).load([obj.id])
       }
     end
   end
