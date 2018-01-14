@@ -114,11 +114,16 @@ function queryBuilder(dashboardItems, dashboardItemStates)
   const queries = dashboardItems.map(
     (dashboardItem) => f(dashboardItem.identifier, dashboardItemStates[dashboardItem.identifier])
   );
-  const queriesWithPlaceholder = queries.concat([
-    'placeholder'
-  ]);
+  if (queries.filter((query) => query !== null).length <= 0)
+  {
+    return {
+      query: null,
+      config: null,
+    };
+  }
+
   const query = `query DynamicDashboardQuery {
-    ${queriesWithPlaceholder.join('')}
+    ${queries.join('')}
   }`;
 
   return {
@@ -180,7 +185,14 @@ function wrapDynamicGraphQL(ComponentToWrap)
       }
 
       const { query, config } = queryBuilder(dashboardItems, dashboardItemStates);
-      this.wrapped = graphql(query, config)(ComponentToWrap);
+      if (query === null)
+      {
+        this.wrapped = null;
+      }
+      else
+      {
+        this.wrapped = graphql(query, config)(ComponentToWrap);
+      }
     }
 
     render() {

@@ -9,7 +9,10 @@ import {
   UpdateDashboardItemMutation,
   UpdateDashboardItemMutationOptions,
 }                              from '../queries';
-import { DashboardPagesQuery } from '../queries';
+import {
+  DashboardPagesQuery,
+  DashboardPagesQueryOptions,
+}                              from '../queries';
 import Dashboard               from './Dashboard';
 import * as dashboardActions   from '../redux/modules/dashboard';
 import * as globalsActions     from '../redux/modules/globals';
@@ -32,7 +35,7 @@ const mapStateToProps = (state) => {
     selectedTab: state.dashboard.selectedTab,
     sidebarDashboardItemId: state.dashboard.sidebarDashboardItemId,
     sidebarMode: state.dashboard.sidebarMode,
-    user: state.dashboard.user,
+    user: state.globals.user,
     valueSelectValue: state.dashboard.valueSelectValue,
   };
 };
@@ -94,7 +97,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
-  graphql(DashboardPagesQuery),
+  graphql(DashboardPagesQuery, DashboardPagesQueryOptions),
   graphql(CreateDashboardItemMutation, CreateDashboardItemMutationOptions),
   graphql(UpdateDashboardItemMutation, UpdateDashboardItemMutationOptions),
   connect(mapStateToProps, mapDispatchToProps)

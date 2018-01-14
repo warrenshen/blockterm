@@ -18,6 +18,7 @@ import {
   parseIdentiferKey,
 } from '../../constants/items';
 import {
+  AUTH_TOKEN_COOKIE,
   DASHBOARD_COOKIE,
   SELECTED_TAB_COOKIE,
   clearItem,
@@ -62,23 +63,6 @@ const UPDATE_DASHBOARD_ITEM_LOCAL = 'UPDATE_DASHBOARD_ITEM_LOCAL';
 const SIDEBAR_MODE_ADD = 'SIDEBAR_MODE_ADD';
 const SIDEBAR_MODE_EDIT = 'SIDEBAR_MODE_EDIT';
 
-/* -----------------------------------------
-  Reducer
- ------------------------------------------*/
-const cookieSelectedTab = getItem(SELECTED_TAB_COOKIE) || 0;
-const initialState = {
-  dashboardAction: false,
-  dashboardData: null,
-  dashboardItemStates: {},
-  dashboardPages: [],
-  keySelectValue: '',
-  selectedTab: cookieSelectedTab,
-  sidebarDashboardItemId: null,
-  sidebarMode: null,
-  user: null,
-  valueSelectValue: '',
-};
-
 function generateItemStatesFromPages(dashboardPages)
 {
   const dashboardItemStates = {};
@@ -98,10 +82,67 @@ function generateItemStatesFromPages(dashboardPages)
   return dashboardItemStates;
 }
 
+function getInitialDashboardPages()
+{
+  if (!getItem(AUTH_TOKEN_COOKIE))
+  {
+    let cookieDashboardPages = getItem(DASHBOARD_COOKIE);
+    let dashboardItemStates;
+    let dashboardPages;
+
+    if (cookieDashboardPages)
+    {
+      dashboardPages = cookieDashboardPages;
+    }
+    else
+    {
+      setItem(DASHBOARD_COOKIE, DEFAULT_PAGES_OBJECTS);
+      dashboardPages = DEFAULT_PAGES_OBJECTS;
+    }
+
+    try
+    {
+      dashboardItemStates = generateItemStatesFromPages(dashboardPages);
+    }
+    catch (err)
+    {
+      // TODO: log these errors to server.
+      dashboardPages = DEFAULT_PAGES_OBJECTS;
+      dashboardItemStates = generateItemStatesFromPages(dashboardPages);
+      clearItem(DASHBOARD_COOKIE);
+    }
+
+    return [dashboardPages, dashboardItemStates];
+  }
+  else
+  {
+    return [[], {}];
+  }
+}
+
+/* -----------------------------------------
+  Reducer
+ ------------------------------------------*/
+const cookieSelectedTab = getItem(SELECTED_TAB_COOKIE) || 0;
+const [initialDashboardPages, initialDashboardItemStates] = getInitialDashboardPages();
+const initialState = {
+  dashboardAction: false,
+  dashboardData: null,
+  dashboardItemStates: initialDashboardItemStates,
+  dashboardPages: initialDashboardPages,
+  keySelectValue: '',
+  selectedTab: cookieSelectedTab,
+  sidebarDashboardItemId: null,
+  sidebarMode: null,
+  valueSelectValue: '',
+};
+
 export default function(state = initialState, action)
 {
+  let cookieDashboardPages;
   let data;
   let dashboardItems;
+  let dashboardItemStates
   let dashboardPages;
   let identifierKey;
   let newDashboardItem;
@@ -188,7 +229,7 @@ export default function(state = initialState, action)
           {
             if (data.user === null)
             {
-              let cookieDashboardPages = getItem(DASHBOARD_COOKIE);
+              cookieDashboardPages = getItem(DASHBOARD_COOKIE);
               if (cookieDashboardPages)
               {
 
@@ -206,7 +247,7 @@ export default function(state = initialState, action)
             }
           }
 
-          let dashboardItemStates;
+          dashboardItemStates;
           try
           {
             dashboardItemStates = generateItemStatesFromPages(dashboardPages);
@@ -223,7 +264,6 @@ export default function(state = initialState, action)
             ...state,
             dashboardItemStates: dashboardItemStates,
             dashboardPages: dashboardPages,
-            user: data.user,
           };
         case 'DynamicDashboardQuery':
           return {
@@ -233,6 +273,8 @@ export default function(state = initialState, action)
               ...action.result.data,
             },
           };
+        default:
+          return state;
       }
       return state;
     case CHANGE_DASHBOARD_ITEM_STATE:
