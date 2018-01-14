@@ -19,9 +19,9 @@ job = cron_tab.new(command=get_command_for_script('coinmarketcap_client.py -t ti
 job.minute.during(2, 59).every(10)
 cron_tab.write()
 
-job = cron_tab.new(command=get_command_for_script('sync_markets.py %s/config.yaml' % SRC_PATH))
-job.minute.every(2)
-cron_tab.write()
+# job = cron_tab.new(command=get_command_for_script('sync_markets.py %s/config.yaml' % SRC_PATH))
+# job.minute.every(2)
+# cron_tab.write()
 
 job = cron_tab.new(command=get_command_for_script('sync_blob_and_comments.py'))
 job.minute.during(4, 59).every(5)

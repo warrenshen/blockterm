@@ -64,7 +64,7 @@ class CoinmarketcapClient:
     db = SQLite3Database('cmc_tickers.db')
 
     # [{'id': 'bitcoin', 'name': 'Bitcoin', ... }, { ... }]
-    for token_dict in result:
+    for token_dict in result[:500]:
       str_timestamp = token_dict['last_updated']
       if str_timestamp is None:
         continue
@@ -88,7 +88,7 @@ class CoinmarketcapClient:
         token_dict['percent_change_7d']
       )
 
-      time.sleep(0.25)
+      time.sleep(1)
 
     db.close()
 
