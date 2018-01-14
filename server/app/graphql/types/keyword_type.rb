@@ -3,6 +3,7 @@ module Types
     name 'KeywordType'
 
     field :id, !types.ID
+    field :tokenId, !types.ID, property: :token_id
     field :word, !types.String
 
     field :mentionCounts, types[Types::MentionCountType] do
@@ -17,7 +18,7 @@ module Types
       description 'The token associated with keyword'
 
       resolve -> (obj, args, ctx) {
-        obj.token
+        FindLoader.for(Token).load(obj.token_id)
       }
     end
   end
