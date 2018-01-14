@@ -29,7 +29,7 @@ const mapStateToProps = (state) => {
     nightMode: state.globals.nightMode,
     selectedTab: state.dashboard.selectedTab,
     sidebarMode: state.dashboard.sidebarMode,
-    user: state.dashboard.user,
+    user: state.globals.user,
   };
 };
 

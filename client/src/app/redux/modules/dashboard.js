@@ -225,29 +225,7 @@ export default function(state = initialState, action)
       {
         case 'DashboardPagesQuery':
           data = action.result.data;
-          if (data)
-          {
-            if (data.user === null)
-            {
-              cookieDashboardPages = getItem(DASHBOARD_COOKIE);
-              if (cookieDashboardPages)
-              {
-
-                dashboardPages = cookieDashboardPages;
-              }
-              else
-              {
-                setItem(DASHBOARD_COOKIE, DEFAULT_PAGES_OBJECTS);
-                dashboardPages = DEFAULT_PAGES_OBJECTS;
-              }
-            }
-            else
-            {
-              dashboardPages = data.user.dashboardPages;
-            }
-          }
-
-          dashboardItemStates;
+          dashboardPages = data.user.dashboardPages;
           try
           {
             dashboardItemStates = generateItemStatesFromPages(dashboardPages);
@@ -257,6 +235,7 @@ export default function(state = initialState, action)
             // TODO: log these errors to server.
             dashboardPages = DEFAULT_PAGES_OBJECTS;
             dashboardItemStates = generateItemStatesFromPages(dashboardPages);
+            clearItem(AUTH_TOKEN_COOKIE);
             clearItem(DASHBOARD_COOKIE);
           }
 

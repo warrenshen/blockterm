@@ -154,10 +154,40 @@ function wrapDynamicGraphQL(ComponentToWrap)
       this.wrapped = null;
     }
 
+    componentWillMount()
+    {
+      const {
+        dashboardItemStates,
+        dashboardPages,
+        selectedTab,
+      } = this.props;
+
+      if (dashboardPages.length <= 0)
+      {
+        return;
+      }
+
+      const dashboardItems = dashboardPages[selectedTab].dashboardItems;
+
+      if (!dashboardItems || !dashboardItemStates)
+      {
+        return;
+      }
+
+      const { query, config } = queryBuilder(dashboardItems, dashboardItemStates);
+      if (query === null)
+      {
+        this.wrapped = null;
+      }
+      else
+      {
+        this.wrapped = graphql(query, config)(ComponentToWrap);
+      }
+    }
+
     componentWillReceiveProps(nextProps)
     {
       const props = this.props;
-
       if (this.wrapped !== null &&
           props.selectedTab === nextProps.selectedTab &&
           isEqual(props.dashboardItemStates, nextProps.dashboardItemStates) &&
