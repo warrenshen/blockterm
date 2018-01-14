@@ -6,6 +6,6 @@ require_relative './foreign_key_loader'
 BlocktermSchema = GraphQL::Schema.define do
   mutation(Types::MutationType)
   query(Types::QueryType)
-end
 
-BlocktermSchema.query_execution_strategy = GraphQL::Batch::ExecutionStrategy
+  use GraphQL::Batch
+end
