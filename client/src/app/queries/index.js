@@ -53,7 +53,7 @@ export const SubredditsAllQuery = gql`
   }
 `;
 export const SubredditsAllQueryOptions = {
-  options: { pollInterval: 30000 },
+  options: { pollInterval: 180000 },
 };
 
 export const TokensAllQuery = gql`
@@ -91,7 +91,7 @@ export const TokensByPageQueryOptions = {
     match,
   }) => {
     return {
-      pollInterval: 30000,
+      pollInterval: 180000,
       variables: {
         page: match.params.page ? parseInt(match.params.page) : 1,
       },

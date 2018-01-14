@@ -28,13 +28,13 @@ import {
 const IDENTIFIER_KEY_TO_STATE_MAP = {
   [PORTFOLIO_ITEM]: {},
   [SUBREDDIT_POST_COUNTS]: {
-    plotRange: ONE_MONTH,
+    plotRange: ONE_WEEK,
   },
   [SUBREDDIT_COMMENT_COUNTS]: {
-    plotRange: ONE_MONTH,
+    plotRange: ONE_WEEK,
   },
   [TOTAL_MARKET_CAP] : {
-    plotRange: ONE_MONTH,
+    plotRange: ONE_WEEK,
   },
   [TV_CANDLE_CHART]: {},
   [TV_MARKET_OVERVIEW]: {},
