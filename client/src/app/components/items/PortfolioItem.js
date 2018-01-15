@@ -313,7 +313,7 @@ class PortfolioItem extends Component
                 nightMode={nightMode}
                 type={'h5'}
               >
-                Total change (24h):&nbsp;
+                Change (24h):&nbsp;
               </El>
               <El
                 nightMode={nightMode}
