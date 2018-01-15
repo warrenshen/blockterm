@@ -1,8 +1,10 @@
 module QueryHelper
   ADMIN_EMAILS = [
     'warren@blockterm.com',
-    'nickzshen@gmail.com',
     'warrenzshen@gmail.com',
+    'nick@blockterm.com',
+    'nickzshen@gmail.com',
+    'jtcdbob@gmail.com',
   ]
 
   def self.bin_relation_by_k(relation, bin_strategy, key_symbol, k=2)
