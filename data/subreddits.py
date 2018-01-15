@@ -11,6 +11,7 @@ SUBREDDITS = [
   'Electroneum',
   'enigmacatalyst',
   'ethereum',
+  'ethtrader',
   'gridcoin',
   'groestlcoin',
   'helloicon',
