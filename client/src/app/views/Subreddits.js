@@ -61,11 +61,15 @@ const styles = StyleSheet.create({
     display: 'flex',
   },
   element: {
+    display: 'flex',
+    alignItems: 'center',
     padding: '12px',
     borderBottom: `1px solid #ccc`,
   },
   flexElement: {
     flex: '1',
+    display: 'flex',
+    alignItems: 'center',
     padding: '12px',
     borderBottom: `1px solid #ccc`,
   },
