@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
 
 var isScrolling;
 
-class Dashboard extends Component {
-
+class Dashboard extends Component
+{
   constructor(props)
   {
     super(props);
@@ -215,27 +215,44 @@ class Dashboard extends Component {
     this.focusOnSpecificSelect();
   }
 
-  focusOnSpecificSelect() {
-    let sidebarSpecificField = document.getElementById('widget_search_specific');
+  focusOnSpecificSelect()
+  {
+    const sidebarSpecificField = document.getElementById('widgetSearchSpecific');
     if (sidebarSpecificField) {
       sidebarSpecificField.focus();
     }
   }
 
-  focusOnSubmitButton() {
-    console.log("hit me");
-    let submitButton = document.getElementById('dashboardActionButton');
+  focusOnSubmitButton()
+  {
+    const submitButton = document.getElementById('dashboardActionButton');
     if (submitButton) {
       submitButton.focus();
     }
   }
 
-  handleValueSelectChange(option) {
+  handleKeySelectChange(option)
+  {
+    const {
+      changeKeySelectValue,
+    } = this.props;
+
+    changeKeySelectValue(option ? option.value : '')
+    .then(
+      () => this.focusOnSpecificSelect(),
+    );
+  }
+
+  handleValueSelectChange(option)
+  {
     const {
       changeValueSelectValue,
     } = this.props;
-    changeValueSelectValue(option ? option.value : '');
-    this.focusOnSubmitButton();
+
+    changeValueSelectValue(option ? option.value : '')
+    .then(
+      () => this.focusOnSubmitButton(),
+    );
   }
 
   renderValueSelect()
@@ -255,7 +272,7 @@ class Dashboard extends Component {
       }));
       return (
         <Select
-          inputProps={{ id: 'widget_search_specific' }}
+          inputProps={{ id: 'widgetSearchSpecific' }}
           placeholder={'Search Specific'}
           className={css(styles.select, styles.bolded)}
           menuContainerStyle={{ 'maxHeight': '412px' }}
@@ -291,7 +308,8 @@ class Dashboard extends Component {
     }
   }
 
-  renderAddButton() {
+  renderAddButton()
+  {
     const {
       changeSidebarMode,
       nightMode,
@@ -319,14 +337,6 @@ class Dashboard extends Component {
     {
       return <div className={css(styles.shield)} />;
     }
-  }
-
-  handleKeySelectChange(option) {
-    const {
-      changeKeySelectValue,
-    } = this.props;
-    changeKeySelectValue(option ? option.value : '');
-    this.focusOnSpecificSelect();
   }
 
   render()

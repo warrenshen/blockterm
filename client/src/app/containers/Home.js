@@ -80,16 +80,48 @@ function updateDashboardItemLocalWithNotification(dashboardItemId, newIdentifier
   }
 }
 
+function changeKeySelectValue(option)
+{
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      if (dispatch(dashboardActions.changeKeySelectValue(option)))
+      {
+        resolve();
+      }
+      else
+      {
+        reject();
+      }
+    });
+  }
+}
+
+function changeValueSelectValue(option)
+{
+  return (dispatch) => {
+    return new Promise((resolve, reject) => {
+      if (dispatch(dashboardActions.changeValueSelectValue(option)))
+      {
+        resolve();
+      }
+      else
+      {
+        reject();
+      }
+    });
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      changeKeySelectValue: dashboardActions.changeKeySelectValue,
+      changeKeySelectValue: changeKeySelectValue,
       changeScrollActive: globalsActions.changeScrollActive,
       changeSidebarMode: dashboardActions.changeSidebarMode,
       createDashboardItemLocal: createDashboardItemLocalWithNotification,
       createNotificationError: createNotificationError,
       createNotificationSuccess: createNotificationSuccess,
-      changeValueSelectValue: dashboardActions.changeValueSelectValue,
+      changeValueSelectValue: changeValueSelectValue,
       updateDashboardItemLocal: updateDashboardItemLocalWithNotification,
     },
     dispatch
