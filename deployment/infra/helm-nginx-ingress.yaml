@@ -25,7 +25,7 @@ controller:
   ## Optionally specify the secret name for default SSL certificate
   ## Must be <namespace>/<secret_name>
   ##
-  defaultSSLCertificate: "default/blockterm-tls"
+  defaultSSLCertificate: "default/block-tls"
 
   ## Election ID to use for status update
   ##
@@ -94,7 +94,7 @@ controller:
   ##
   podAnnotations: {}
 
-  replicaCount: 1
+  replicaCount: 4
 
   resources:
     limits:
@@ -106,8 +106,8 @@ controller:
 
   autoscaling:
     enabled: false
-  #  minReplicas: 1
-  #  maxReplicas: 11
+    # minReplicas: 1
+    # maxReplicas: 5
   #  targetAverageUtilization: 50
 
   ## Override NGINX template
