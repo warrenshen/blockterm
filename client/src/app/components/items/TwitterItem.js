@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    overflow: 'hidden',
+    overflow: 'scroll',
   },
   noPointerEvents: {
     pointerEvents: 'none',

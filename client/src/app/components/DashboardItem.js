@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
   item: {
     flex: '1',
     display: 'inline-flex',
+    overflow: 'hidden',
   },
 });
 
