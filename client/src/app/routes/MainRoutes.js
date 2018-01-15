@@ -37,12 +37,13 @@ export const MainRoutes = () => {
 
       <Route exact path='/subreddit/:name' component={ConnectedSubreddit} />
 
-      <Route exact path='/tokens/:page' component={ConnectedTokens} />
       <Route exact path='/tokens' component={ConnectedTokens} />
+      <Route exact path='/tokens/:page' component={ConnectedTokens} />
       <Route exact path='/token/:shortName' component={ConnectedToken} />
 
       { /** Admin only **/ }
 
+      <Route exact path='/admin/portfolios' component={AdminPortolios} />
       <Route exact path='/admin/portfolios/:page' component={AdminPortolios} />
     </Switch>
   );
