@@ -222,6 +222,22 @@ class Dashboard extends Component {
     }
   }
 
+  focusOnSubmitButton() {
+    console.log("hit me");
+    let submitButton = document.getElementById('dashboardActionButton');
+    if (submitButton) {
+      submitButton.focus();
+    }
+  }
+
+  handleValueSelectChange(option) {
+    const {
+      changeValueSelectValue,
+    } = this.props;
+    changeValueSelectValue(option ? option.value : '');
+    this.focusOnSubmitButton();
+  }
+
   renderValueSelect()
   {
     const {
@@ -246,7 +262,7 @@ class Dashboard extends Component {
           menuStyle={{ 'maxHeight': '412px' }}
           optionClassName={css(styles.bolded, styles.options)}
           options={selectOptions}
-          onChange={(option) => changeValueSelectValue(option ? option.value : '')}
+          onChange={(option) => this.handleValueSelectChange(option)}
           value={valueSelectValue}
         />
       );
@@ -265,6 +281,7 @@ class Dashboard extends Component {
     {
       return (
         <button
+          id='dashboardActionButton'
           className={css(styles.button, styles.addToButton, nightMode && styles.sidebarAddButtonNight)}
           onClick={(event) => this.addItem(event)}
         >
