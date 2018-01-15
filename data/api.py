@@ -157,13 +157,14 @@ class Api:
     }
     return self._get_query_response(query)
 
-  def update_subreddit_blob(self,
-                            subreddit_name,
-                            post_count=None,
-                            comment_count=None,
-                            active_user_count=None,
-                            subscriber_count=None
-                           ):
+  def update_subreddit_counts(
+    self,
+    subreddit_name,
+    post_count=None,
+    comment_count=None,
+    active_user_count=None,
+    subscriber_count=None
+  ):
     params = 'subredditName: "%s"' % subreddit_name
     if post_count is not None:
       params += ', postCount: %s' % post_count
