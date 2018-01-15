@@ -251,6 +251,8 @@ class Container extends PureComponent
 
       createDashboardItem,
       createDashboardItemLocal,
+      createNotificationError,
+      createNotificationSuccess,
     } = this.props;
 
     let w = 3;
@@ -280,7 +282,10 @@ class Container extends PureComponent
         h,
         x,
         y,
-      );
+      ).then(
+        () => createNotificationSuccess({ position: 'bc', title: 'Success!' }),
+        () => createNotificationError({ position: 'bc', title: 'Failure.' }),
+      );;
     }
     else
     {
