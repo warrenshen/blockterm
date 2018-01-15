@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    zIndex: 100,
+    zIndex: '100',
+    height: '20px',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   promotion: {
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
     top: '0px',
     zIndex: '2',
     padding: '0px 10px',
+    lineHeight: '19px',
     backgroundColor: STYLES.BLAZINGREEN,
     justifyContent: 'right !important',
     alignItems: 'right !important',

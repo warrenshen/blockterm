@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   container: {
     display:'flex',
     backgroundColor: '#fff',
-    padding: '10px 10px 20px 10px !important',
+    padding: '5px 10px 20px 10px !important',
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   panelsLightNight: {
@@ -44,8 +44,7 @@ const styles = StyleSheet.create({
     display: 'block',
   },
   para: {
-    //fontSize: '13px',
-    lineHeight: '18px',
+    lineHeight: '15px',
   },
   a: {
     fontWeight: '500',
@@ -56,7 +55,8 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '100%',
-    border: '1px solid #000',
+    border: '1px solid #333',
+    color: '#333',
     borderRadius: '1px',
     padding: '4px 12px',
     textTransform: 'uppercase',
@@ -65,10 +65,11 @@ const styles = StyleSheet.create({
     borderRadius: '1px',
     fontWeight: '700',
     textAlign: 'center',
-    marginTop: '4px',
+    marginTop: '1px',
   },
   nightModeButton: {
-    border: '1px solid #eee',
+    color: '#ccc',
+    border: '1px solid #ccc',
   },
 });
 

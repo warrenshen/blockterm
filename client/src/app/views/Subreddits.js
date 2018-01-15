@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   },
   row: {
     width: '100%',
+    overflow: 'hidden',
   },
   element: {
     padding: '12px',
