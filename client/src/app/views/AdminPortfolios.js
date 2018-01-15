@@ -100,7 +100,7 @@ class AdminPortolios extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
-            {`Email: ${email}`}
+            {`Email: ${email.substring(0, 4)}**`}
           </El>
         </div>
         {this.renderTokenUsers(user.tokenUsers)}

@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     border: '1px solid #000',
     borderRadius: '1px',
     padding: '4px 8px 4px 13px !important',
+    whiteSpace: 'nowrap',
   },
   disabled: {
     cursor: 'not-allowed',
