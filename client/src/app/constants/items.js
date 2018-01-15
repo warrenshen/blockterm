@@ -207,7 +207,7 @@ const TWITTER_VALUE_SEARCH_BCN = '@Bytecoin_BCN, #BCN, $BCN';
 const TWITTER_VALUE_SEARCH_USDT = '@Tether_to, $USDT';
 const TWITTER_VALUE_SEARCH_DOGE = '@dogecoin, #dogecoin';
 const TWITTER_VALUE_SEARCH_REQ = '#RequestNetwork, $REQ, @RequestNetwork';
-const TWITTER_VALUE_SEARCH_SUB = '$SUB, #substratum';
+const TWITTER_VALUE_SEARCH_SUB = '$SUB, #substratum, @substratumnet';
 const TWITTER_VALUE_SEARCH_WTC = '@waltonchain, #wtc';
 
 export const TWITTER_VALUE_TO_DATA_SOURCE = {
