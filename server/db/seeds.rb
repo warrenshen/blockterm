@@ -115,6 +115,10 @@ subreddit_infos = [
     start_date: '2013-12-14',
   },
   {
+    name: 'ethtrader',
+    start_date: '2015-03-25',
+  },
+  {
     name: 'gridcoin',
     start_date: '2013-12-27',
   },
