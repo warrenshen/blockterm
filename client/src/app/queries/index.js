@@ -459,7 +459,7 @@ export const UsersByPageQuery = gql`
       id
       email
 
-      tokenUsers: tokenUsersBulk {
+      tokenUsers {
         id
         index
         amount

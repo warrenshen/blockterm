@@ -3,5 +3,5 @@ class UserSearch
 
   scope { User.all }
 
-  per_page 12
+  per_page 6
 end
