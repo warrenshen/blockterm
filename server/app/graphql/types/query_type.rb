@@ -108,7 +108,7 @@ module Types
       argument :shortName, !types.String
 
       resolve -> (obj, args, ctx) {
-        Token.find_by_short_name(args[:shortName])
+        QueryHelper::find_token_by_short_name(args[:shortName])
       }
     end
 

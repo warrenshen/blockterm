@@ -94,7 +94,11 @@ module QueryHelper
     timestamp.in_time_zone(time_zone_name.nil? ? 'Pacific Time (US & Canada)' : time_zone_name)
   end
 
-  def self.find_subreddit_by_name(subreddit_name)
-    return Subreddit.where('lower(name) = ?', subreddit_name.downcase).first
+  def self.find_subreddit_by_name(name)
+    Subreddit.where('lower(name) = ?', name.downcase).first
+  end
+
+  def self.find_token_by_short_name(short_name)
+    Token.where('lower(short_name) = ?', short_name.downcase).first
   end
 end
