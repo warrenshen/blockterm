@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
   link: {
     textDecoration: 'underline',
     fontSize: '15px',
+    lineHeight: '14px',
   },
 });
 
