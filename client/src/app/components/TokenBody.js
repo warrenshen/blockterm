@@ -202,7 +202,7 @@ class TokenBody extends PureComponent
       'https://s.tradingview.com/widgetembed/?' +
       `symbol=${selectedTicker}&` +
       'interval=5&' +
-      'withdateranges=1' +
+      'withdateranges=1&' +
       'hideideas=1&' +
       'hidesidetoolbar=0&' +
       'symboledit=0&' +

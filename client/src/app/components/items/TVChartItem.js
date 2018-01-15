@@ -69,7 +69,7 @@ class TVChartItem extends PureComponent
       'https://s.tradingview.com/widgetembed/?' +
       `symbol=${value}&` +
       'interval=3&' +
-      'withdateranges=1' +
+      'withdateranges=1&' +
       'hideideas=1&' +
       'hidesidetoolbar=1&' +
       'symboledit=0&' +
