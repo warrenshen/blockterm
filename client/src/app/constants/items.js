@@ -1,9 +1,8 @@
-export const PROJECT_VERSION = '0.2';
+export const PROJECT_VERSION = '0.2.0.1';
 export const PATCH_NOTES = [
-  '0.2: Stable release of portfolio and twitter feed widgets, and volume/price delta grid.',
-  '0.1.6.5: Soft launching the heavily requested "Portfolio" tab and dashboard widget, overhauling of "Coins/Tokens" page to "Price/Volume" of top 200 cryptos; plus quality of life updates! (e.g. coin icon on candle charts)',
-  '0.1.6.4: Edit dashboard widget operation now supported.',
-  '0.1.6.3: All Bittrex coins above 5MIL daily volume added to Candle Charts [...]',
+  '0.2.0.1: Added more Twitter widgets for coins such as: DRGN, KNC, RPX, and many more. Subtle changes to subreddits/tokens page, portfolio widget.',
+  '0.2: Stable release of portfolio and twitter feed widgets, and volume/price delta grid. Track your total portfolio value in a few clicks!',
+  '0.1.6.5: Soft launching the heavily requested "Portfolio" tab and dashboard widget, overhauling of "Coins/Tokens" page to "Price/Volume" of top 200 cryptos; [...]',
 ];
 //<li className={css(styles.blockli)}>0.1.6.2: All Binance coins/currencies now supported via Candle Chart.</li>
 //<li className={css(styles.blockli)}>Locking and unlocking of widgets now supported.</li>
