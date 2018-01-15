@@ -38,6 +38,7 @@ gem 'bcrypt'
 gem 'jwt'
 gem 'simple_command'
 gem 'validates_email_format_of'
+gem 'where_exists'
 
 group :development, :test do
   gem 'annotate'
