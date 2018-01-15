@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     letterSpacing: '2px',
     textTransform: 'uppercase',
-    paddingLeft: '24px',
-    paddingRight: '24px',
+    paddingLeft: '16px',
+    paddingRight: '16px',
     borderColor: '#333',
     borderTop: '0px',
     borderBottom: '0px',
@@ -321,7 +321,7 @@ class Dashboard extends Component
           title="Press to open up sidebar and add widgets to dashboard"
           className={css(styles.addButton, nightMode && styles.darkAddButton)}
           onClick={(event) => changeSidebarMode('add')} >
-          Add Widget [+]
+          Add Widget To Dashboard [+]
         </button>
       </div>
     );

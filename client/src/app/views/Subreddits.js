@@ -55,18 +55,25 @@ const styles = StyleSheet.create({
     width: '100%',
     borderCollapse: 'collapse',
     display: 'table',
-    //backgroundColor: STYLES.SOFTGRAY,
   },
   row: {
     width: '100%',
-    overflow: 'hidden',
+    display: 'flex',
   },
   element: {
     padding: '12px',
     borderBottom: `1px solid #ccc`,
   },
+  flexElement: {
+    flex: '1',
+    padding: '12px',
+    borderBottom: `1px solid #ccc`,
+  },
+  flexTwo: {
+    flex: '2',
+  },
   graphElement: {
-    width: '450px',
+    width: '400px',
   },
   bolded: {
     fontWeight: '700',
@@ -74,13 +81,13 @@ const styles = StyleSheet.create({
   commentsTitle: {
     fontWeight: '700',
     flex:'1',
-    marginTop:'6px',
   },
   flatButton: {
-    marginRight: '-12px',
     border: '1px solid #000',
     borderRadius: '1px',
     padding: '4px 12px',
+    marginTop: '-4px',
+    float: 'right',
   },
   nightModeButton: {
     borderColor: '#fff',
@@ -137,7 +144,7 @@ class Home extends PureComponent {
             #
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.flexElement, styles.flexTwo)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -146,7 +153,7 @@ class Home extends PureComponent {
             Name
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.flexElement)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -155,7 +162,7 @@ class Home extends PureComponent {
             Active users
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.flexElement)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -164,7 +171,7 @@ class Home extends PureComponent {
             Subscribers
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.flexElement)}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -173,7 +180,7 @@ class Home extends PureComponent {
             Posts (24h)
           </El>
         </td>
-        <td className={css(styles.element)}>
+        <td className={css(styles.flexElement)} style={{'whiteSpace': 'nowrap',}}>
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -182,13 +189,13 @@ class Home extends PureComponent {
             Comments (24h)
           </El>
         </td>
-        <td className={css(styles.element)} style={{'display':'flex', 'borderBottom':'none'}}>
+        <td className={css(styles.element)} style={{'width':'400px', 'borderBottom':'none', paddingRight: '0px',}}>
           <El
             style={styles.commentsTitle}
             nightMode={nightMode}
             type={'span'}
           >
-            Comments graph (14d)
+            Comments Graph (14d)
           </El>
           <Link to={'/subreddits/compare'} className={css(styles.flatButton, nightMode && styles.nightModeButton)}>
             <El
@@ -259,7 +266,7 @@ class Home extends PureComponent {
                           {index + 1}
                         </El>
                       </td>
-                      <td className={css(styles.element)}>
+                      <td className={css(styles.flexElement, styles.flexTwo)}>
                         <Link to={`/subreddit/${subreddit.name}`}>
                           <El
                             style={styles.link}
@@ -270,7 +277,7 @@ class Home extends PureComponent {
                           </El>
                         </Link>
                       </td>
-                      <td className={css(styles.element)}>
+                      <td className={css(styles.flexElement)}>
                         <El
                           nightMode={nightMode}
                           type={'span'}
@@ -278,7 +285,7 @@ class Home extends PureComponent {
                           {activeUserCount}
                         </El>
                       </td>
-                      <td className={css(styles.element)}>
+                      <td className={css(styles.flexElement)}>
                         <El
                           nightMode={nightMode}
                           type={'span'}
@@ -286,7 +293,7 @@ class Home extends PureComponent {
                           {subscriberCount}
                         </El>
                       </td>
-                      <td className={css(styles.element)}>
+                      <td className={css(styles.flexElement)}>
                         <El
                           nightMode={nightMode}
                           type={'span'}
@@ -294,7 +301,7 @@ class Home extends PureComponent {
                           {postCount}
                         </El>
                       </td>
-                      <td className={css(styles.element)}>
+                      <td className={css(styles.flexElement)}>
                         <El
                           nightMode={nightMode}
                           type={'span'}

@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     textDecoration:'underline',
     fontWeight:'500',
     fontSize: '15px',
+    lineHeight: '15px',
   },
   bolded: {
     fontWeight: '700',
