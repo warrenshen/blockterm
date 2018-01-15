@@ -86,7 +86,7 @@ def fetch_new_comments_for_subreddit(subreddit_name, praw_subreddit):
 
     return fetch_count
 
-def update_subreddit_blob(subreddit_name, praw_subreddit, start, end):
+def update_subreddit_counts(subreddit_name, praw_subreddit, start, end):
   posts = praw_subreddit.submissions(start, end)
   post_count = len(list(posts))
 
@@ -101,7 +101,7 @@ def update_subreddit_blob(subreddit_name, praw_subreddit, start, end):
   active_user_count = praw_subreddit.active_user_count
   subscriber_count = praw_subreddit.subscribers
 
-  return server.update_subreddit_blob(
+  return server.update_subreddit_counts(
     subreddit_name,
     post_count,
     comment_count,
@@ -116,6 +116,6 @@ for subreddit_name in SUBREDDITS:
 
     end = unix_timestamp_now()
     start = end - ONE_DAY
-    response = update_subreddit_blob(subreddit_name, praw_subreddit, start, end)
+    response = update_subreddit_counts(subreddit_name, praw_subreddit, start, end)
 
 logger.info('Ending sync blob and comments script...')

@@ -90,7 +90,8 @@ module QueryHelper
     return ADMIN_EMAILS.include?(current_user.email)
   end
 
-  def self.localize_timestamp(timestamp, time_zone_name)
+  # The nil default value of time_zone_name is important.
+  def self.localize_timestamp(timestamp, time_zone_name=nil)
     timestamp.in_time_zone(time_zone_name.nil? ? 'Pacific Time (US & Canada)' : time_zone_name)
   end
 
