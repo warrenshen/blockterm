@@ -32,13 +32,13 @@ export const ITEM_KEY_WHITELIST = [
 // Array of dashboard page objects.
 export const DEFAULT_PAGES_OBJECTS = [
   {
-    dashboardItems: [
+    dashboardItems:[
       {"id":"3","w":7,"h":4,"x":0,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
       {"id":"6","w":7,"h":4,"x":0,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
-      {"id":"7","w":2,"h":6,"x":7,"y":0,"static":false,"identifier":"TWITTER_ITEM__#ethereum, #ETH, $ETH"},
       {"id":"9","w":2,"h":6,"x":7,"y":6,"static":false,"identifier":"TWITTER_ITEM__#XRP, #ripple, @ripple, $XRP"},
-      {"id":"10","w":3,"h":4,"x":0,"y":8,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},
-      {"id":"11","w":4,"h":4,"x":3,"y":8,"static":false,"identifier":"SUBREDDIT_POST_COUNTS__Bitcoin"},
+      {"id":"10","w":4,"h":4,"x":0,"y":8,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},
+      {"id":"11","w":2,"h":6,"x":7,"y":0,"static":false,"identifier":"TWITTER_ITEM__#ethereum, #ETH, $ETH"},
+      {"id":"12","w":3,"h":4,"x":4,"y":8,"static":false,"identifier":"PORTFOLIO_ITEM__Default"}
     ],
     index: 0,
     name: 'Tab 1',

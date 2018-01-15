@@ -125,6 +125,7 @@ class DashboardItem extends Component {
       dashboardData,
       dashboardState,
       nightMode,
+      user,
 
       changeDashboardItemState,
     } = this.props;
@@ -141,6 +142,7 @@ class DashboardItem extends Component {
           <PortfolioItem
             dashboardData={dashboardData}
             nightMode={nightMode}
+            user={user}
           />
         );
       case SUBREDDIT_COMMENT_COUNTS:

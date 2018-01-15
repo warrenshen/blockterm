@@ -103,10 +103,12 @@ const styles = StyleSheet.create({
     right: '12px',
     textTransform: 'uppercase',
     letterSpacing: '1px',
+    color: '#fff',
   },
   nightModeButton: {
     borderColor: '#fff',
     color: '#fff !important',
+    backgroundColor:'#000',
   },
   boldedUpper: {
     textTransform: 'uppercase',
@@ -265,6 +267,7 @@ class PortfolioItem extends Component
     const {
       dashboardData,
       nightMode,
+      user,
     } = this.props;
 
     let tokenUsers;
@@ -321,13 +324,13 @@ class PortfolioItem extends Component
               </El>
             </div>
           </div>
-          <Link to={'/portfolio'} className={css(styles.flatButton, nightMode && styles.nightModeButton)}>
+          <Link to={user ? '/portfolio' : '/login'} className={css(styles.flatButton, nightMode && styles.nightModeButton)}>
             <El
               nightMode={nightMode}
               style={styles.boldedUpper}
               nightModeStyle={styles.nightBoldedUpper}
               type={'span'}>
-              Edit
+              {user ? 'Edit' : 'Login'}
             </El>
           </Link>
         </div>

@@ -250,6 +250,7 @@ class DashboardTabs extends Component {
       dashboardPages,
       isPageLoaded,
       nightMode,
+      user,
 
       changeDashboardItemState,
       changeSidebarMode,
@@ -268,6 +269,7 @@ class DashboardTabs extends Component {
             dashboardItemStates={dashboardItemStates}
             isPageLoaded={isPageLoaded}
             nightMode={nightMode}
+            user={user}
 
             changeDashboardItemState={changeDashboardItemState}
             changeSidebarMode={changeSidebarMode}

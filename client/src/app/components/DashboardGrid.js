@@ -122,6 +122,7 @@ class DashboardGrid extends Component {
       dashboardItemStates,
       isPageLoaded,
       nightMode,
+      user,
 
       changeDashboardItemState,
       changeSidebarMode,
@@ -153,6 +154,7 @@ class DashboardGrid extends Component {
               nightMode={nightMode}
               removeFromLayout={removeFromLayout}
               updateLayoutItem={updateLayoutItem}
+              user={user}
             />
           )
         }
