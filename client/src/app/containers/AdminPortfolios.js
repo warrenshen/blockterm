@@ -2,9 +2,12 @@
 
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { compose }            from 'react-apollo';
-import Footer                 from '../components/Footer';
-import * as globalsActions    from '../redux/modules/globals';
+import { compose, graphql }    from 'react-apollo';
+import {
+  UsersByPageQuery,
+  UsersByPageQueryOptions,
+}                             from '../queries';
+import AdminPortfolios        from '../views/AdminPortfolios';
 
 /* -----------------------------------------
   Redux
@@ -13,19 +16,19 @@ import * as globalsActions    from '../redux/modules/globals';
 const mapStateToProps = (state) => {
   return {
     nightMode: state.globals.nightMode,
+    user: state.globals.user,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      changeIsPageLoaded: globalsActions.changeIsPageLoaded,
-      toggleNightMode: globalsActions.toggleNightMode,
     },
     dispatch
   );
 };
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps)
-)(Footer);
+  graphql(UsersByPageQuery, UsersByPageQueryOptions),
+  connect(mapStateToProps, mapDispatchToProps),
+)(AdminPortfolios);

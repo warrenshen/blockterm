@@ -1,8 +1,8 @@
 // @flow weak
 
-import { connect }            from 'react-redux';
-import { compose, graphql }   from 'react-apollo';
-import FAQ                  from '../views/FAQ';
+import { connect }   from 'react-redux';
+import { compose }   from 'react-apollo';
+import FAQ           from '../views/FAQ';
 
 /* -----------------------------------------
   Redux
