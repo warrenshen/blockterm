@@ -76,8 +76,6 @@ const styles = StyleSheet.create({
     padding: '12px 0px',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   darkElement: {
     borderBottom: `1px solid ${STYLES.BORDERDARK}`,
@@ -89,7 +87,7 @@ const styles = StyleSheet.create({
     textDecoration:'underline',
     fontWeight:'500',
     fontSize: '15px',
-    lineHeight: '15px',
+    lineHeight: '14px',
   },
   bolded: {
     fontWeight: '700',
@@ -227,7 +225,7 @@ class Tokens extends PureComponent {
             nightMode={nightMode}
             type={'span'}
           >
-            Circulating Supply
+            Circ. Supply
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.flexM, styles.centered)}>
