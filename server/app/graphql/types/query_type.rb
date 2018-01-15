@@ -135,5 +135,20 @@ module Types
         ctx[:current_user]
       }
     end
+
+    field :usersByPage, types[Types::UserType] do
+      argument :page, !types.Int
+
+      resolve -> (obj, args, ctx) {
+        current_user = ctx[:current_user]
+        if !QueryHelper::is_current_user_admin(current_user)
+          return GraphQL::ExecutionError.new(
+            'Nothing to see here'
+          )
+        end
+
+        UserSearch.results(page: args[:page])
+      }
+    end
   end
 end

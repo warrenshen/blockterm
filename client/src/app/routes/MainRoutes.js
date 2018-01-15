@@ -18,7 +18,8 @@ import {
   ConnectedToken,
   ConnectedTokens,
   ConnectedFAQ,
-}                               from '../containers';
+}                     from '../containers';
+import AdminPortolios from '../containers/AdminPortfolios';
 
 export const MainRoutes = () => {
   return (
@@ -39,6 +40,10 @@ export const MainRoutes = () => {
       <Route exact path='/tokens/:page' component={ConnectedTokens} />
       <Route exact path='/tokens' component={ConnectedTokens} />
       <Route exact path='/token/:shortName' component={ConnectedToken} />
+
+      { /** Admin only **/ }
+
+      <Route exact path='/admin/portfolios/:page' component={AdminPortolios} />
     </Switch>
   );
 };

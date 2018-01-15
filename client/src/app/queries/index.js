@@ -449,3 +449,42 @@ export const UpdateTokenUsersMutationOptions = {
     },
   }),
 };
+
+/* -----------------------------------------
+  Admin queries
+------------------------------------------*/
+export const UsersByPageQuery = gql`
+  query UsersByPageQuery($page: Int!) {
+    usersByPage(page: $page) {
+      id
+      email
+
+      tokenUsers: tokenUsersBulk {
+        id
+        index
+        amount
+
+        token {
+          id
+          shortName
+          imageUrl
+          priceUSD
+          priceBTC
+          percentChange24h
+          percentChange7d
+        }
+      }
+    }
+  }
+`;
+export const UsersByPageQueryOptions = {
+  options: ({
+    match,
+  }) => {
+    return {
+      variables: {
+        page: match.params.page ? parseInt(match.params.page) : 1,
+      },
+    };
+  },
+};

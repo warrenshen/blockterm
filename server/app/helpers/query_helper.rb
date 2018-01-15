@@ -1,4 +1,10 @@
 module QueryHelper
+  ADMIN_EMAILS = [
+    'warren@blockterm.com',
+    'nickzshen@gmail.com',
+    'warrenzshen@gmail.com',
+  ]
+
   def self.bin_relation_by_k(relation, bin_strategy, key_symbol, k=2)
     result = []
     relation = relation.each_slice(k) do |records|
@@ -75,6 +81,11 @@ module QueryHelper
 
   def self.api_key_invalid?(api_key)
     api_key != Rails.application.secrets.secret_key_api
+  end
+
+  def self.is_current_user_admin(current_user)
+    return false if current_user.nil?
+    return ADMIN_EMAILS.include?(current_user.email)
   end
 
   def self.localize_timestamp(timestamp, time_zone_name)

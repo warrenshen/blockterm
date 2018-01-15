@@ -19,5 +19,11 @@ module Types
         obj.token_users.order(index: :asc)
       }
     end
+
+    field :tokenUsersBulk, !types[Types::TokenUserType] do
+      resolve -> (obj, args, ctx) {
+        ForeignKeyLoader.for(TokenUser, :user_id).load([obj.id])
+      }
+    end
   end
 end
