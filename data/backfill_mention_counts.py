@@ -53,7 +53,8 @@ def run_for_subreddit(subreddit_name):
     print('Subreddit with name %s does not exist on server' % subreddit_name)
     return
 
-  start_date = api_subreddit['startDate']
+  # start_date = api_subreddit['startDate']
+  start_date = '2017-01-01'
 
   for unix_timestamp in unix_timestamps_until_today(start_date, '%Y-%m-%d'):
     success = create_counts_for_subreddit(
