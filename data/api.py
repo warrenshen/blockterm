@@ -23,16 +23,15 @@ class Api:
 
       logger.info('Loading api response...')
       logger.info(response)
-
       return response
 
     except requests.exceptions.ConnectionError:
       logger.info('Could not connect to api...')
       return { 'errors': 'Could not connect to api' }
 
-    except Exception:
-      logger.info('Unknown exception caught...')
-      return { 'errors': 'Unkown exception caught' }
+    except Exception as e:
+      logger.info('Unkown exception caught: {}'.format(e))
+      return { 'errors': 'Unkown exception caught: {}'.format(e) }
 
 
   def _inject_api_key(self, params):

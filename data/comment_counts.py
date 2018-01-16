@@ -35,6 +35,9 @@ for subreddit_name in SUBREDDITS:
   		end
   )
 
+  if 'errors' in response:
+    raise Exception(response['errors'])
+
   # Don't need to sleep much since we aren't using reddit API.
   time.sleep(1)
 

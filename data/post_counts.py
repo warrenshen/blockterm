@@ -55,4 +55,7 @@ for subreddit_name in SUBREDDITS:
     end
   )
 
+  if 'errors' in response:
+    raise Exception(response['errors'])
+
 logger.info('Ending post counts script...')
