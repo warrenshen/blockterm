@@ -6,6 +6,16 @@ module QueryHelper
     'nickzshen@gmail.com',
     'jtcdbob@gmail.com',
   ]
+  AUTO_LOGIN = false
+  # Convenience method: flip `AUTO_LOGIN` to true when testing API
+  # through graphiql when a `current_user` is required.
+  def self.get_current_user(context)
+    if context[:current_user].nil? && Rails.env.development? && AUTO_LOGIN
+        User.first
+    else
+      context[:current_user]
+    end
+  end
 
   def self.bin_relation_by_k(relation, bin_strategy, key_symbol, k=2)
     result = []

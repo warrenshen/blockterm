@@ -88,6 +88,14 @@ module Types
       }
     end
 
+    field :commentCountsTwoWeeks, types[Types::CountType] do
+      description 'The comment counts in last two weeks associated with subreddit'
+
+      resolve -> (obj, args, ctx) {
+        CommentCountsLoader.for(CommentCount).load(obj.id)
+      }
+    end
+
     field :postCounts, types[Types::CountType] do
       description 'The page counts associated with subreddit'
 
