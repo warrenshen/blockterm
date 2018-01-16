@@ -6,6 +6,10 @@ user_infos = [
     email: 'warren@blockterm.com',
     password: 'password',
   },
+  {
+    email: 'kira@klapper.com',
+    password: 'password',
+  },
 ]
 
 user_infos.each do |user_info|
@@ -313,13 +317,15 @@ token_infos.each do |token_info|
   end
 end
 
-Token.first(2).each_with_index do |token, index|
-  TokenUser.create(
-    token_id: token.id,
-    user_id: User.first.id,
-    index: index,
-    amount: rand(10),
-  )
+User.all.each do |user|
+  Token.first(2).each_with_index do |token, index|
+    TokenUser.create(
+      token_id: token.id,
+      user_id: user.id,
+      index: index,
+      amount: rand(20),
+    )
+  end
 end
 puts "Created token users"
 

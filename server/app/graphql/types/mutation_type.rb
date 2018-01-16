@@ -375,8 +375,8 @@ module Types
       argument :index, !types.Int
 
       resolve -> (obj, args, ctx) {
-        current_user = ctx[:current_user]
-        if ctx[:current_user].nil?
+        current_user = QueryHelper.get_current_user(ctx)
+        if current_user.nil?
           return GraphQL::ExecutionError.new('No current user')
         end
 
@@ -401,8 +401,8 @@ module Types
       argument :tokenUsersString, !types.String
 
       resolve -> (obj, args, ctx) {
-        current_user = ctx[:current_user]
-        if ctx[:current_user].nil?
+        current_user = QueryHelper.get_current_user(ctx)
+        if current_user.nil?
           return GraphQL::ExecutionError.new('No current user')
         end
 
@@ -740,8 +740,8 @@ module Types
       argument :y, !types.Int
 
       resolve -> (obj, args, ctx) {
-        current_user = ctx[:current_user]
-        if ctx[:current_user].nil?
+        current_user = QueryHelper.get_current_user(ctx)
+        if current_user.nil?
           return GraphQL::ExecutionError.new('No current user')
         end
 
@@ -776,8 +776,8 @@ module Types
       argument :id, !types.ID
 
       resolve -> (obj, args, ctx) {
-        current_user = ctx[:current_user]
-        if ctx[:current_user].nil?
+        current_user = QueryHelper.get_current_user(ctx)
+        if current_user.nil?
           return GraphQL::ExecutionError.new('No current user')
         end
 
@@ -815,8 +815,8 @@ module Types
       argument :static, types.Boolean
 
       resolve -> (obj, args, ctx) {
-        current_user = ctx[:current_user]
-        if ctx[:current_user].nil?
+        current_user = QueryHelper.get_current_user(ctx)
+        if current_user.nil?
           return GraphQL::ExecutionError.new('No current user')
         end
 
@@ -858,8 +858,8 @@ module Types
       argument :dashboardItemsString, !types.String
 
       resolve -> (obj, args, ctx) {
-        current_user = ctx[:current_user]
-        if ctx[:current_user].nil?
+        current_user = QueryHelper.get_current_user(ctx)
+        if current_user.nil?
           return GraphQL::ExecutionError.new('No current user')
         end
 

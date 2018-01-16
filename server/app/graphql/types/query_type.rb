@@ -4,14 +4,6 @@ module Types
     # Add root-level fields here.
     # They will be entry points for queries on your schema.
 
-    field :placeholder, types.String do
-      description 'Returns a placeholder string'
-
-      resolve -> (obj, args, ctx) {
-        'placeholder'
-      }
-    end
-
     field :allKeywords, types[Types::KeywordType] do
       description 'Gets all keywords'
 
@@ -82,6 +74,14 @@ module Types
       }
     end
 
+    field :subredditsAll, types[Types::SubredditType] do
+      description 'Gets all subreddits'
+
+      resolve -> (obj, args, ctx) {
+        Subreddit.all.order(active_user_count: :desc)
+      }
+    end
+
     field :subredditsByIds, !types[Types::SubredditType] do
       description 'Gets the subreddits with given subreddit ids'
 
@@ -132,7 +132,7 @@ module Types
       description 'Gets the current user if logged in'
 
       resolve -> (obj, args, ctx) {
-        ctx[:current_user]
+        QueryHelper.get_current_user(ctx)
       }
     end
 
@@ -140,7 +140,7 @@ module Types
       argument :page, !types.Int
 
       resolve -> (obj, args, ctx) {
-        current_user = ctx[:current_user]
+        current_user = QueryHelper.get_current_user(ctx)
         if !QueryHelper::is_current_user_admin(current_user)
           return GraphQL::ExecutionError.new(
             'Nothing to see here'
