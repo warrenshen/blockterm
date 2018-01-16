@@ -456,65 +456,6 @@ module Types
       }
     end
 
-    field :updateSubredditBlob, Types::SubredditType do
-      description 'Updates blob column of subreddit'
-
-      argument :apiKey, !types.String
-      argument :subredditId, types.ID
-      argument :subredditName, types.String
-      argument :activeUserCount, types.Int
-      argument :commentCount, types.Int
-      argument :postCount, types.Int
-      argument :subscriberCount, types.Int
-
-      resolve -> (obj, args, ctx) {
-        if QueryHelper::api_key_invalid?(args[:apiKey])
-          return GraphQL::ExecutionError.new('Invalid api key')
-        end
-
-        if args[:subredditId].nil? && args[:subredditName].nil?
-          return GraphQL::ExecutionError.new(
-            "One of 'subredditId' or 'subredditName' params is required"
-          )
-        end
-
-        if !args[:subredditId].nil?
-          subreddit = Subreddit.find(args[:subredditId])
-        else
-          subreddit = QueryHelper::find_subreddit_by_name(args[:subredditName])
-        end
-
-        if subreddit.nil?
-          return GraphQL::ExecutionError.new(
-            "No subreddit found for given 'subredditId' or 'subredditName'"
-          )
-        end
-
-        if !args[:activeUserCount].nil?
-          subreddit.active_user_count = args[:activeUserCount]
-        end
-        if !args[:commentCount].nil?
-          subreddit.comment_count = args[:commentCount]
-        end
-        if !args[:postCount].nil?
-          subreddit.post_count =  args[:postCount]
-        end
-        if !args[:subscriberCount].nil?
-          subreddit.subscriber_count = args[:subscriberCount]
-        end
-
-        if subreddit.changed?
-          if subreddit.save
-            subreddit
-          else
-            return GraphQL::ExecutionError.new('Could not save subreddit')
-          end
-        else
-          subreddit
-        end
-      }
-    end
-
     field :updateSubredditCounts, Types::SubredditType do
       description 'Updates blob column of subreddit'
 
