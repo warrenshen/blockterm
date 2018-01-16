@@ -47,7 +47,7 @@ export const SubredditsAllQuery = gql`
       postCount
       subscriberCount
 
-      commentCounts(timeRange: "TWO_WEEKS") {
+      commentCounts: commentCountsTwoWeeks {
         id
         count
         timestamp
