@@ -225,9 +225,9 @@ export default function(state = initialState, action)
       {
         case 'DashboardPagesQuery':
           data = action.result.data;
-          dashboardPages = data.user.dashboardPages;
           try
           {
+            dashboardPages = data.user.dashboardPages;
             dashboardItemStates = generateItemStatesFromPages(dashboardPages);
           }
           catch (err)
