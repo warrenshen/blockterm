@@ -10,10 +10,7 @@ from subreddits import SUBREDDITS
 from utils import unix_timestamp_now
 
 ONE_DAY = 86400
-
 server = Api()
-
-logger.info('Starting sync blob and comments script...')
 
 def insert_comments(subreddit_name, comments):
     success_count = 0
@@ -108,6 +105,8 @@ def update_subreddit_counts(subreddit_name, praw_subreddit, start, end):
     active_user_count,
     subscriber_count
   )
+
+logger.info('Starting sync blob and comments script...')
 
 for subreddit_name in SUBREDDITS:
     praw_subreddit = reddit.subreddit(subreddit_name)

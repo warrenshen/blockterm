@@ -64,6 +64,7 @@ export const TokensAllQuery = gql`
     tokensAll {
       id
       shortName
+      longName
       imageUrl
     }
   }

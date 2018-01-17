@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     border: `1px solid ${STYLES.BORDERDARK}`,
   },
   select: {
-    width: '128px',
+    width: '256px',
     zIndex: '1',
     backgroundColor:'white',
     color:'#777',
@@ -477,7 +477,7 @@ class Portfolio extends PureComponent
       filter(
         (token) => !selectedTokenIds.includes(token.id)
       ).map((token) => ({
-        label: token.shortName,
+        label: `${token.longName} [${token.shortName}]`,
         value: token,
       }));
 

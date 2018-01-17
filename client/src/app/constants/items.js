@@ -117,6 +117,7 @@ export const ITEM_KEY_TO_LABELS = {
 const SUBREDDITS_IN_USER_FACING_ORDER = [
   'Bitcoin',
   'ethereum',
+  'ethtrader',
   'litecoin',
   'btc',
   'Ripple',
@@ -160,6 +161,7 @@ export const ITEM_VALUE_TO_LABELS = {
   'Electroneum': 'r/Electroneum',
   'enigmacatalyst': 'r/enigmacatalyst',
   'ethereum': 'r/Ethereum',
+  'ethtrader': 'r/ethtrader',
   'gridcoin': 'r/gridcoin',
   'Groestlcoin': 'r/Groestlcoin',
   'helloicon': 'r/helloicon',
