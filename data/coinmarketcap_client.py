@@ -64,7 +64,18 @@ class CoinmarketcapClient:
     db = SQLite3Database('cmc_tickers.db')
 
     # [{'id': 'bitcoin', 'name': 'Bitcoin', ... }, { ... }]
-    for token_dict in result[:500]:
+    # step = 64
+    # for i in range(0, len(result), step):
+    #   tokens = result[i:i + step]
+    #   tokens_string = json.dumps(tokens)
+    #   tokens_string = tokens_string.replace('"', '\\"')
+    #   response = self.api.update_tokens(tokens_string)
+    #   time.sleep(8)
+
+    #   if 'errors' in response:
+    #     logger.info('Something went wrong with saving market ticker: %s' % response['errors'])
+
+    for token_dict in result:
       str_timestamp = token_dict['last_updated']
       if str_timestamp is None:
         continue
@@ -76,6 +87,9 @@ class CoinmarketcapClient:
 
       response = self.api.update_token(
         token_dict['symbol'],
+        token_dict['id'],
+        token_dict['name'],
+        token_dict['id'],
         token_dict['price_usd'],
         token_dict['price_btc'],
         token_dict['24h_volume_usd'],
@@ -88,12 +102,9 @@ class CoinmarketcapClient:
         token_dict['percent_change_7d']
       )
 
-      time.sleep(1)
+      time.sleep(0.1)
 
     db.close()
-
-    if 'errors' in response:
-      logger.info('Something went wrong with saving market ticker: %s' % response['errors'])
 
   def run_global(self):
     self._get_global()

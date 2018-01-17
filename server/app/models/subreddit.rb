@@ -10,10 +10,10 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  image_url         :string           default(""), not null
-#  subscriber_count  :integer
 #  active_user_count :integer
-#  post_count        :integer
 #  comment_count     :integer
+#  post_count        :integer
+#  subscriber_count  :integer
 #
 # Indexes
 #

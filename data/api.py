@@ -205,6 +205,9 @@ class Api:
   def update_token(
     self,
     short_name,
+    identifier,
+    long_name,
+    image_url,
     price_usd,
     price_btc,
     volume_usd_24h,
@@ -217,6 +220,12 @@ class Api:
     percent_change_7d
   ):
     params = 'shortName: "%s"' % short_name
+    if identifier:
+      params += ', identifier: "%s"' % identifier
+    if long_name:
+      params += ', longName: "%s"' % long_name
+    if image_url:
+      params += ', imageUrl: "%s"' % image_url
     if price_usd:
       params += ', priceUSD: %s' % price_usd
     if price_btc:

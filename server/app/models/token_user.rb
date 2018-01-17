@@ -12,8 +12,9 @@
 #
 # Indexes
 #
-#  index_token_users_on_token_id  (token_id)
-#  index_token_users_on_user_id   (user_id)
+#  index_token_users_on_token_id           (token_id)
+#  index_token_users_on_user_id            (user_id)
+#  index_token_users_on_user_id_and_index  (user_id,index) UNIQUE
 #
 # Foreign Keys
 #
