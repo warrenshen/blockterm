@@ -64,16 +64,17 @@ class CoinmarketcapClient:
     db = SQLite3Database('cmc_tickers.db')
 
     # [{'id': 'bitcoin', 'name': 'Bitcoin', ... }, { ... }]
-    # step = 64
-    # for i in range(0, len(result), step):
-    #   tokens = result[i:i + step]
-    #   tokens_string = json.dumps(tokens)
-    #   tokens_string = tokens_string.replace('"', '\\"')
-    #   response = self.api.update_tokens(tokens_string)
-    #   time.sleep(8)
+    step = 64
+    for i in range(0, len(result), step):
+      tokens = result[i:i + step]
+      tokens_string = json.dumps(tokens)
+      tokens_string = tokens_string.replace('"', '\\"')
+      response = self.api.update_tokens(tokens_string)
+      time.sleep(8)
 
-    #   if 'errors' in response:
-    #     logger.info('Something went wrong with saving market ticker: %s' % response['errors'])
+      if 'errors' in response:
+        print('Something went wrong with saving market ticker: %s' % response['errors'])
+        logger.info('Something went wrong with saving market ticker: %s' % response['errors'])
 
     for token_dict in result:
       str_timestamp = token_dict['last_updated']
@@ -85,24 +86,23 @@ class CoinmarketcapClient:
       datetime_string = unix_timestamp_to_datetime_string(timestamp)
       db.insert_cmc_ticker(str(token_dict), timestamp)
 
-      response = self.api.update_token(
-        token_dict['symbol'],
-        token_dict['id'],
-        token_dict['name'],
-        token_dict['id'],
-        token_dict['price_usd'],
-        token_dict['price_btc'],
-        token_dict['24h_volume_usd'],
-        token_dict['market_cap_usd'],
-        token_dict['available_supply'],
-        token_dict['total_supply'],
-        token_dict['max_supply'],
-        token_dict['percent_change_1h'],
-        token_dict['percent_change_24h'],
-        token_dict['percent_change_7d']
-      )
-
-      time.sleep(0.1)
+      # response = self.api.update_token(
+      #   token_dict['symbol'],
+      #   token_dict['id'],
+      #   token_dict['name'],
+      #   token_dict['id'],
+      #   token_dict['price_usd'],
+      #   token_dict['price_btc'],
+      #   token_dict['24h_volume_usd'],
+      #   token_dict['market_cap_usd'],
+      #   token_dict['available_supply'],
+      #   token_dict['total_supply'],
+      #   token_dict['max_supply'],
+      #   token_dict['percent_change_1h'],
+      #   token_dict['percent_change_24h'],
+      #   token_dict['percent_change_7d']
+      # )
+      # time.sleep(0.1)
 
     db.close()
 
