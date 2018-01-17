@@ -47,6 +47,7 @@ function f(identifier, extras)
             amount
 
             token {
+              id
               shortName
               imageUrl
               priceUSD
