@@ -1539,7 +1539,7 @@ export const ITEM_VALUE_TO_IMAGE = {
 export function getImageUrl(imageName)
 {
   return imageName ?
-    `https://files.coinmarketcap.com/static/img/coins/32x32/${imageName}.png` :
+    `https://files.coinmarketcap.com/static/img/coins/64x64/${imageName}.png` :
     null;
 }
 
