@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
-    marginTop: '-35px',
   },
   nightContainer: {
     filter: 'hue-rotate(180deg) !important',
@@ -27,7 +26,6 @@ const styles = StyleSheet.create({
     width: '100% !important',
     height: '100% !important',
     border: 'none',
-    transform: 'scale(1.05)',
   },
   nightFrame: {
     filter: 'invert(100%) brightness(2) !important',

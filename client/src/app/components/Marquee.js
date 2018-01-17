@@ -49,8 +49,29 @@ class Marquee extends PureComponent {
     this.update();
   }
 
+  componentDidUpdate()
+  {
+    this.update();
+  }
+
   update() {
-    var s = document.createElement('script');
+    const {
+      nightMode,
+    } = this.props;
+
+    window.cccTheme = {
+      "General": {
+        "background": nightMode ? "#000" : "#fff",
+        "priceText": nightMode ? "#fff" : "#000",
+        "enableMarquee": true,
+      },
+      "Currency": { "color": nightMode ? "#fff" : "#000" },
+    };
+
+    const instance = this.instance;
+    while (instance.firstChild) instance.removeChild(instance.firstChild);
+
+    const s = document.createElement('script');
     s.async = true;
     s.type = 'text/javascript';
     s.src = 'https://widgets.cryptocompare.com/serve/v3/coin/header?fsyms=BTC,ETH,XMR,LTC,BCH,XRP,DASH,ADA,USDT,NEO,IOT,SUB,XLM,ZEC,STEEM,LSK,TRX,GAS&tsyms=USD';
