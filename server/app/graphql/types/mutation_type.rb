@@ -520,6 +520,9 @@ module Types
 
       argument :apiKey, !types.String
       argument :shortName, !types.String
+      argument :identifier, !types.String
+      argument :longName, types.String
+      argument :imageUrl, types.String
       argument :priceUSD, types.Float
       argument :priceBTC, types.Float
       argument :volumeUSD24h, types.Float
@@ -554,6 +557,15 @@ module Types
           end
         end
 
+        if !args[:identifier].nil?
+          token.identifier = args[:identifier]
+        end
+        if !args[:longName].nil?
+          token.long_name = args[:longName]
+        end
+        if !args[:imageUrl].nil?
+          token.image_url = args[:imageUrl]
+        end
         if !args[:priceUSD].nil?
           token.price_usd = args[:priceUSD]
         end
@@ -594,6 +606,83 @@ module Types
         else
           token
         end
+      }
+    end
+
+    field :updateTokens, types.String do
+      description 'Updates tokens'
+
+      argument :apiKey, !types.String
+      argument :tokensString, !types.String
+
+      resolve -> (obj, args, ctx) {
+        if QueryHelper::api_key_invalid?(args[:apiKey])
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
+        tokens_hashes = JSON.parse(args[:tokensString])
+
+        tokens_hashes.each do |token_hash|
+          identifier = token_hash['id']
+          short_name = token_hash['symbol']
+          long_name = token_hash['name']
+
+          price_usd = token_hash['price_usd']
+          price_btc = token_hash['price_btc']
+          volume_usd_24h = token_hash['24h_volume_usd']
+          market_cap_usd = token_hash['market_cap_usd']
+          available_supply = token_hash['available_supply']
+          total_supply = token_hash['total_supply']
+          max_supply = token_hash['max_supply']
+          percent_change_1h = token_hash['percent_change_1h']
+          percent_change_24h = token_hash['percent_change_24h']
+          percent_change_7d = token_hash['percent_change_7d']
+
+          token = Token.find_by_identifier(identifier)
+
+          if token.nil?
+            token = Token.create(
+              identifier: identifier,
+              short_name: short_name,
+              long_name: long_name,
+              image_url: identifier,
+            )
+            if !token.valid?
+              return GraphQL::ExecutionError.new(token.errors.full_messages)
+            end
+
+            keyword = Keyword.find_or_create_by(
+              token_id: token.id,
+              word: short_name,
+            )
+            if !keyword.valid?
+              return GraphQL::ExecutionError.new(keyword.errors.full_messages)
+            end
+          end
+
+          token.short_name = short_name if !short_name.nil?
+          token.long_name = long_name if !long_name.nil?
+          token.image_url = identifier if !identifier.nil?
+
+          token.price_usd = price_usd if !price_usd.nil?
+          token.price_btc = price_btc if !price_btc.nil?
+          token.volume_usd_24h = volume_usd_24h if !volume_usd_24h.nil?
+          token.market_cap_usd = market_cap_usd if !market_cap_usd.nil?
+          token.available_supply = available_supply if !available_supply.nil?
+          token.total_supply = total_supply if !total_supply.nil?
+          token.max_supply = max_supply if !max_supply.nil?
+          token.percent_change_1h = percent_change_1h if !percent_change_1h.nil?
+          token.percent_change_24h = percent_change_24h if !percent_change_24h.nil?
+          token.percent_change_7d = percent_change_7d if !percent_change_7d.nil?
+
+          if token.changed?
+            if !token.save
+              return GraphQL::ExecutionError.new('Could not save token')
+            end
+          end
+        end
+
+        'Success'
       }
     end
 

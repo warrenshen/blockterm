@@ -19,10 +19,11 @@
 #  percent_change_1h  :decimal(, )      default(0.0), not null
 #  percent_change_24h :decimal(, )      default(0.0), not null
 #  percent_change_7d  :decimal(, )      default(0.0), not null
+#  identifier         :string
 #
 # Indexes
 #
-#  index_tokens_on_short_name  (short_name) UNIQUE
+#  index_tokens_on_identifier  (identifier)
 #
 
 class Token < ApplicationRecord
@@ -34,6 +35,7 @@ class Token < ApplicationRecord
   has_many :token_users
   has_many :users, through: :token_users
 
-  validates :short_name, uniqueness: true
+  # validates :short_name, uniqueness: true
   validates :long_name, uniqueness: true
+  # validates :image_url, uniqueness: true
 end

@@ -11,7 +11,8 @@
 #
 # Indexes
 #
-#  index_dashboard_pages_on_user_id  (user_id)
+#  index_dashboard_pages_on_user_id            (user_id)
+#  index_dashboard_pages_on_user_id_and_index  (user_id,index) UNIQUE
 #
 # Foreign Keys
 #
