@@ -189,7 +189,7 @@ class Api:
 
     query = { 'query': '''
       mutation {
-        updateSubredditBlob(%s) {
+        updateSubredditCounts(%s) {
           id
           name
           blob
@@ -252,6 +252,7 @@ class Api:
       mutation {
         updateToken(%s) {
           id
+          identifier
           shortName
           priceUSD
         }

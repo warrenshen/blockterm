@@ -3,6 +3,15 @@ module Types
     name 'TokenType'
 
     field :id, !types.ID
+    field :identifier, !types.String do
+      resolve -> (obj, args, ctx) {
+        if obj.identifier.nil?
+          ''
+        else
+          obj.identifier
+        end
+      }
+    end
     field :shortName, !types.String, property: :short_name
     field :longName, !types.String, property: :long_name
     field :imageUrl, !types.String, property: :image_url
