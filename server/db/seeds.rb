@@ -10,6 +10,70 @@ user_infos = [
     email: 'kira@klapper.com',
     password: 'password',
   },
+  {
+    email: '2bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '3bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '4bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '5bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '6bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '7bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '8bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '9bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '10bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '11bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '12bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '13bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '14bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '15bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '16bot@blockterm.com',
+    password: 'password',
+  },
+  {
+    email: '17bot@blockterm.com',
+    password: 'password',
+  },
 ]
 
 user_infos.each do |user_info|
@@ -328,6 +392,7 @@ User.all.each do |user|
   end
 end
 puts "Created token users"
+
 
 total_cap_market = Market.create(
   name: 'TOTAL',

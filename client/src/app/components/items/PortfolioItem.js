@@ -57,10 +57,10 @@ const styles = StyleSheet.create({
   element: {
     flex: '1',
     display: 'flex',
-    alignItems: 'center',
-    padding: '12px',
+    padding: '6px 4px',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
-    lineHeight: '18px',
+    lineHeight: '24px',
+    justifyContent: 'center',
   },
   darkElement: {
     borderBottom: `1px solid ${STYLES.BORDERDARK}`,
@@ -74,6 +74,9 @@ const styles = StyleSheet.create({
   },
   semibolded: {
     fontWeight: '500',
+  },
+  white: {
+    color: '#fff',
   },
   redDelta: {
     color: `${STYLES.TICKER_RED} !important`,
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
     right: '12px',
     textTransform: 'uppercase',
     letterSpacing: '1px',
-    color: '#fff',
+    color: '#000',
   },
   nightModeButton: {
     borderColor: '#fff',
@@ -219,6 +222,7 @@ class PortfolioItem extends Component
             nightMode={nightMode}
             type={'span'}
             style={styles.semibolded}
+            nightModeStyle={styles.white}
           >
             {shortName}
           </El>
@@ -228,6 +232,7 @@ class PortfolioItem extends Component
             nightMode={nightMode}
             type={'span'}
             style={styles.semibolded}
+            nightModeStyle={styles.white}
           >
             {amount}
           </El>
@@ -236,6 +241,7 @@ class PortfolioItem extends Component
           <El
             nightMode={nightMode}
             type={'span'}
+            nightModeStyle={styles.white}
           >
             {priceUSD ? numeral(priceUSD).format('$0,0.00') : ''}
           </El>
@@ -254,6 +260,7 @@ class PortfolioItem extends Component
           <El
             nightMode={nightMode}
             type={'span'}
+            nightModeStyle={styles.white}
           >
             {priceUSD ? numeral(amount * priceUSD).format('$0,0.00') : ''}
           </El>

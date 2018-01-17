@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     flex: '1',
     display: 'flex',
     alignItems: 'center',
-    padding: '12px',
+    padding: '8px',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
     lineHeight: '38px',
   },
