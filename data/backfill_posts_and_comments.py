@@ -16,6 +16,10 @@ ONE_DAY = 86400
 
 server = Api()
 
+def get_subreddits_all():
+  response = server.get_subreddits_all()
+  return response['data']['subredditsAll']
+
 def get_subreddit_by_name(subreddit_name):
   response = server.get_subreddit_by_name(subreddit_name)
   return response['data']['subredditByName']
@@ -92,18 +96,10 @@ def backfill_posts_and_comments(subreddit_name, praw_subreddit, start, end):
 
   logger.info('Backfilled %s posts for subreddit %s' % (post_success_count, subreddit_name))
   logger.info('Backfilled %s comments for subreddit %s' % (comment_success_count, subreddit_name))
+  print('Backfilled %s posts for subreddit %s' % (post_success_count, subreddit_name))
+  print('Backfilled %s comments for subreddit %s' % (comment_success_count, subreddit_name))
 
-# Note that `api` refers to Rails API and `praw` refers to Reddit API.
-def run_for_subreddit(subreddit_name):
-  api_subreddit = get_subreddit_by_name(subreddit_name)
-  if not api_subreddit:
-    print('Subreddit with name %s does not exist on server' % subreddit_name)
-    return
-
-  praw_subreddit = reddit.subreddit(subreddit_name)
-
-  start_date = api_subreddit['startDate']
-
+def run(subreddit_name, praw_subreddit, start_date):
   for unix_timestamp in unix_timestamps_until_today(start_date, '%Y-%m-%d'):
     backfill_posts_and_comments(
       subreddit_name,
@@ -113,6 +109,27 @@ def run_for_subreddit(subreddit_name):
     )
 
     time.sleep(2)
+
+# Note that `api` refers to Rails API and `praw` refers to Reddit API.
+def run_for_subreddit(subreddit_name):
+  api_subreddit = get_subreddit_by_name(subreddit_name)
+  if not api_subreddit:
+    print('Subreddit with name %s does not exist on server' % subreddit_name)
+    return
+
+  praw_subreddit = reddit.subreddit(subreddit_name)
+  start_date = api_subreddit['startDate']
+  run(subreddit_name, praw_subreddit, start_date)
+
+def run_for_subreddits():
+  api_subreddits = get_subreddits_all()
+
+  for api_subreddit in api_subreddits:
+    subreddit_name = api_subreddit['name']
+    praw_subreddit = reddit.subreddit(subreddit_name)
+
+    start_date = '2018-01-01'
+    run(subreddit_name, praw_subreddit, start_date)
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='Backfill comments in a subreddit', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -126,5 +143,8 @@ if __name__ == '__main__':
   args = parser.parse_args()
 
   logger.info('Starting backfill comments script...')
-  run_for_subreddit(args.subreddit_name)
+  if args.subreddit_name == 'all':
+    run_for_subreddits()
+  else:
+    run_for_subreddit(args.subreddit_name)
   logger.info('Ending backfill comments script...')

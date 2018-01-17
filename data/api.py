@@ -15,7 +15,8 @@ class Api:
 
   def _get_query_response(self, query):
     logger.info('Sending api request...')
-    logger.info(query)
+    query_string = str(query)
+    logger.info(query_string[:512] + '...' if len(query_string) > 512 else query_string)
 
     try:
       r = requests.post(url=self.api_url, json=query)
@@ -142,6 +143,17 @@ class Api:
     }
     return self._get_query_response(query)
 
+  def get_subreddits_all(self):
+    query = { 'query' : '''
+      query {
+        subredditsAll {
+          id
+          name
+        }
+      }'''
+    }
+    return self._get_query_response(query)
+
   def get_subreddit_by_name(self, subreddit_name):
     params = 'name: "%s"' % (subreddit_name)
 
@@ -234,6 +246,17 @@ class Api:
           shortName
           priceUSD
         }
+      }''' % params
+    }
+    return self._get_query_response(query)
+
+  def update_tokens(self, tokens_string):
+    params = 'tokensString: "%s"' % tokens_string
+    params = self._inject_api_key(params)
+
+    query = { 'query': '''
+      mutation {
+        updateTokens(%s)
       }''' % params
     }
     return self._get_query_response(query)

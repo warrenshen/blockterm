@@ -100,6 +100,7 @@ class SQLite3Database:
     if post_id.find('t2_') != 0:
       post_id = 't2_' + post_id
 
+
     try:
       self.execute(
         '''
@@ -124,7 +125,7 @@ class SQLite3Database:
     try:
       self.conn.commit()
       return True
-    except:
+    except Exception as e:
       return False
 
 
