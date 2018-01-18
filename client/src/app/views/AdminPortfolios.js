@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
   row: {
     width: '100%',
     display: 'flex',
+    paddingLeft: '10px',
+    paddingRight: '10px',
   },
   flexElement: {
     flex:'1',
@@ -32,6 +34,8 @@ const styles = StyleSheet.create({
     marginTop: '10px',
     marginBottom: '10px',
     backgroundColor: '#fff',
+    paddingLeft: '10px',
+    paddingRight: '10px',
   },
   darkGrid: {
     backgroundColor: '#000',
