@@ -74,6 +74,7 @@ export const TokensByPageQuery = gql`
   query TokensByPageQuery($page: Int!) {
     tokensAll {
       id
+      identifier
       shortName
       longName
       imageUrl
@@ -81,6 +82,7 @@ export const TokensByPageQuery = gql`
 
     tokensByPage(page: $page) {
       id
+      identifier
       shortName
       longName
       imageUrl

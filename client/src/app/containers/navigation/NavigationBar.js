@@ -13,6 +13,7 @@ import * as globalsActions    from '../../redux/modules/globals';
 
 const mapStateToProps = (state) => {
   return {
+    isPageLoaded: state.globals.isPageLoaded,
     nightMode: state.globals.nightMode,
   };
 };

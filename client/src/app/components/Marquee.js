@@ -56,27 +56,31 @@ class Marquee extends PureComponent {
 
   update() {
     const {
+      isPageLoaded,
       nightMode,
     } = this.props;
 
-    window.cccTheme = {
-      "General": {
-        "background": nightMode ? "#000" : "#fff",
-        "priceText": nightMode ? "#fff" : "#000",
-        "enableMarquee": true,
-      },
-      "Currency": { "color": nightMode ? "#fff" : "#000" },
-    };
+    if (isPageLoaded)
+    {
+      window.cccTheme = {
+        "General": {
+          "background": nightMode ? "#000" : "#fff",
+          "priceText": nightMode ? "#fff" : "#000",
+          "enableMarquee": true,
+        },
+        "Currency": { "color": nightMode ? "#fff" : "#000" },
+      };
 
-    const instance = this.instance;
-    while (instance.firstChild) instance.removeChild(instance.firstChild);
+      const instance = this.instance;
+      while (instance.firstChild) instance.removeChild(instance.firstChild);
 
-    const s = document.createElement('script');
-    s.async = true;
-    s.type = 'text/javascript';
-    s.src = 'https://widgets.cryptocompare.com/serve/v3/coin/header?fsyms=BTC,ETH,XMR,LTC,BCH,XRP,DASH,ADA,USDT,NEO,IOT,SUB,XLM,ZEC,STEEM,LSK,TRX,GAS&tsyms=USD';
+      const s = document.createElement('script');
+      s.async = true;
+      s.type = 'text/javascript';
+      s.src = 'https://widgets.cryptocompare.com/serve/v3/coin/header?fsyms=BTC,ETH,XMR,LTC,BCH,XRP,DASH,ADA,USDT,NEO,IOT,SUB,XLM,ZEC,STEEM,LSK,TRX,GAS&tsyms=USD';
 
-    this.instance.appendChild(s);
+      this.instance.appendChild(s);
+    }
   }
 
   render()

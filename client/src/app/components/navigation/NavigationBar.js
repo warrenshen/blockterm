@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
 
 const NavigationBar = ({
   data,
+  isPageLoaded,
   nightMode,
   toggleNightMode,
   toggleSidebar,
@@ -92,6 +93,7 @@ const NavigationBar = ({
   return (
     <div className={css(styles.navbar)}>
       <Marquee
+        isPageLoaded={isPageLoaded}
         nightMode={nightMode}
       />
       <nav className={css(styles.container, nightMode && styles.nightMode)}>

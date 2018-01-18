@@ -102,6 +102,16 @@ module Types
       }
     end
 
+    field :tokenByIdentifier, Types::TokenType do
+      description 'Gets the token associated with given identifier'
+
+      argument :identifier, !types.String
+
+      resolve -> (obj, args, ctx) {
+        Token.find_by_identifier(args[:identifier])
+      }
+    end
+
     field :tokenByShortName, Types::TokenType do
       description 'Gets the token associated with given short name'
 

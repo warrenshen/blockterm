@@ -149,7 +149,7 @@ class Token extends PureComponent {
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         {this.renderScrollShield()}
-        { data && data.tokenByShortName && this.renderToken(data.tokenByShortName) }
+        { data && data.token && this.renderToken(data.token) }
       </div>
     );
   }

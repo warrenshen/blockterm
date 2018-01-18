@@ -54,6 +54,7 @@ const SubredditQuery = gql`
 
       tokens {
         id
+        identifier
         shortName
         longName
         imageUrl

@@ -18,12 +18,12 @@ import * as tokenActions      from '../../redux/modules/token';
 
 const query = gql`
   query (
-    $shortName: String!,
+    $identifier: String!,
     $mentionSubredditPlotRange: String,
     $mentionTotalPlotRange: String,
     $pricePlotRange: String
   ) {
-    tokenByShortName(shortName: $shortName) {
+    token: tokenByIdentifier(identifier: $identifier) {
       id
       shortName
       longName
@@ -86,10 +86,10 @@ const queryOptions = {
   }) => {
     return {
       variables: {
+        identifier: match.params.identifier,
         mentionSubredditPlotRange: mentionSubredditPlotRange,
         mentionTotalPlotRange: mentionTotalPlotRange,
         pricePlotRange: pricePlotRange,
-        shortName: match.params.shortName,
       },
     };
   },
