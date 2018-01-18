@@ -169,7 +169,7 @@ class AdminPortolios extends PureComponent
     return (
       <div className={css(styles.wrapper)}>
         <div className={css(styles.row)} style={{'marginTop':'10px',}}>
-          <Link to={`${page-1}`} className={css(styles.flexElement)}>
+          <Link to={`/admin/portfolios/${page-1}`} className={css(styles.flexElement)}>
             <El
               nightMode={nightMode}
               type={'span'}
@@ -179,7 +179,7 @@ class AdminPortolios extends PureComponent
               Previous
             </El>
           </Link>
-          <Link to={`${page+1}`} className={css(styles.flexElement)}>
+          <Link to={`/admin/portfolios/${page+1}`} className={css(styles.flexElement)}>
             <El
               nightMode={nightMode}
               type={'span'}
