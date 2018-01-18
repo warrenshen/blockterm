@@ -12,11 +12,11 @@ import {
   calculatePortfolioChangeIn7d,
   calculatePortfolioTotalValue,
   calculatePortfolioDonutData,
-}                               from '../helpers/portfolio';
-import El                  from '../components/El';
+}                           from '../helpers/portfolio';
+import El                   from '../components/El';
 import DonutChartWithSelect from '../components/DonutChartWithSelect'
-import FontAwesome                from 'react-fontawesome';
-import * as STYLES from '../constants/styles';
+import FontAwesome          from 'react-fontawesome';
+import * as STYLES          from '../constants/styles';
 import {
   getImageUrl,
 } from '../constants/items.js';

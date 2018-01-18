@@ -436,7 +436,7 @@ class Tokens extends PureComponent {
 
     const selectOptions = data.tokensAll ? data.tokensAll.map((token) => ({
       label: `${token.longName} [${token.shortName}]`,
-      value: token.shortName,
+      value: token.identifier,
     })) :
     [];
 
