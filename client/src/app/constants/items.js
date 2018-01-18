@@ -1,5 +1,6 @@
-export const PROJECT_VERSION = '0.2.0.1';
+export const PROJECT_VERSION = '0.2.0.2';
 export const PATCH_NOTES = [
+  '0.2.0.2: New version/update notifications!, search bar in price/volume tab, fixed scrolling price marquee display.',
   '0.2.0.1: Added more Twitter widgets for coins such as: DRGN, KNC, RPX, and many more. Subtle changes to subreddits/tokens page, portfolio widget.',
   '0.2: Stable release of portfolio and twitter feed widgets, and volume/price delta grid. Track your total portfolio value in a few clicks!',
   '0.1.6.5: Soft launching the heavily requested "Portfolio" tab and dashboard widget, overhauling of "Coins/Tokens" page to "Price/Volume" of top 200 cryptos; [...]',
