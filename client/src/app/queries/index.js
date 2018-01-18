@@ -37,7 +37,7 @@ export const DashboardPagesQueryOptions = {
 
 export const SubredditsAllQuery = gql`
  query {
-    allSubreddits {
+    subredditsAll {
       id
       displayName
       name
@@ -72,6 +72,13 @@ export const TokensAllQuery = gql`
 
 export const TokensByPageQuery = gql`
   query TokensByPageQuery($page: Int!) {
+    tokensAll {
+      id
+      shortName
+      longName
+      imageUrl
+    }
+
     tokensByPage(page: $page) {
       id
       shortName

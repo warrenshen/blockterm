@@ -154,7 +154,7 @@ class SubredditsCompare extends PureComponent {
               </El>
               <Select
                 className={css(styles.select)}
-                clearable={false}
+                clearable={true}
                 searchable={true}
                 options={selectOptions}
                 onChange={(option) => addSubredditId(option.value)}
