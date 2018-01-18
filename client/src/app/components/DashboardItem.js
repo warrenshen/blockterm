@@ -116,7 +116,8 @@ class DashboardItem extends Component {
            !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
            !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
-           !isEqual(this.props.nightMode, nextProps.nightMode);
+           !isEqual(this.props.nightMode, nextProps.nightMode) ||
+           !isEqual(this.props.user, nextProps.user);
   }
 
   renderItem(dashboardItem)

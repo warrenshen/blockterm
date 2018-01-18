@@ -275,6 +275,7 @@ class Dashboard extends Component
           inputProps={{ id: 'widgetSearchSpecific' }}
           placeholder={'Search Specific'}
           className={css(styles.select, styles.bolded)}
+          matchProp={'label'}
           menuContainerStyle={{ 'maxHeight': '412px' }}
           menuStyle={{ 'maxHeight': '412px' }}
           optionClassName={css(styles.bolded, styles.options)}
@@ -384,6 +385,7 @@ class Dashboard extends Component
                   inputProps={{'id': 'widget_search'}}
                   placeholder={'Search Widget Type'}
                   className={css(styles.select, styles.bolded)}
+                  matchProp={'label'}
                   menuContainerStyle={{ 'maxHeight': '412px' }}
                   menuStyle={{ 'maxHeight': '412px' }}
                   optionClassName={css(styles.bolded, styles.options)}

@@ -71,7 +71,7 @@ export default function(state = initialState, action)
           }
           return {
             ...state,
-            user: data.user,
+            user: data.createUser.user,
           };
         case 'LogInMutation':
           data = action.result.data;
@@ -81,7 +81,7 @@ export default function(state = initialState, action)
           }
           return {
             ...state,
-            user: data.user,
+            user: data.logIn.user,
           };
         default:
           return state;

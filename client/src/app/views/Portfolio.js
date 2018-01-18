@@ -486,7 +486,8 @@ class Portfolio extends PureComponent
           <Select
             className={css(styles.select)}
             clearable={false}
-            placeholder='Add Coin'
+            placeholder='Add coin'
+            matchProp={'label'}
             options={selectOptions}
             searchable={true}
             onChange={(option) => addTokenUser(option.value)}
