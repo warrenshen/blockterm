@@ -105,7 +105,8 @@ class DashboardTabs extends Component {
            !isEqual(this.props.dashboardItemStates, nextProps.dashboardItemStates) ||
            !isEqual(this.props.isPageLoaded, nextProps.isPageLoaded) ||
            !isEqual(this.props.nightMode, nextProps.nightMode) ||
-           !isEqual(this.props.selectedTab, nextProps.selectedTab);
+           !isEqual(this.props.selectedTab, nextProps.selectedTab) ||
+           !isEqual(this.props.user, nextProps.user);
   }
 
   removeFromLayout(id)
