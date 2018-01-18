@@ -189,7 +189,6 @@ class DashboardGrid extends Component {
       xxs: configs,
     };
 
-    console.log(validItems);
     if (validItems.length > 0)
     {
       return (

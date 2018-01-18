@@ -367,8 +367,8 @@ class Home extends PureComponent {
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         {
-          data.allSubreddits &&
-          this.renderSubreddits(data.allSubreddits)
+          data.subredditsAll &&
+          this.renderSubreddits(data.subredditsAll)
         }
       </div>
     );
