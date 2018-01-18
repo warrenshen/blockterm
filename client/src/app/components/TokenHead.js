@@ -233,6 +233,8 @@ class TokenHead extends PureComponent {
     } = this.props;
 
     const {
+      shortName,
+      longName,
       imageUrl,
       priceUSD,
       priceBTC,
@@ -250,7 +252,8 @@ class TokenHead extends PureComponent {
     const floatPriceUSD = parseFloat(numeral(priceUSD).format('0.00000000')).toString();
     const decimalIndex = floatPriceUSD.indexOf('.');
     const formattedPriceUSD = `${numeral(priceUSD).format('$0,0')}${floatPriceUSD.substring(decimalIndex)}`;
-    const formattedPriceBTC = `0.${numeral(scientificToDecimal(priceBTC) * 100000000).format('00000000')}`;
+    const multipliedPriceBTC = numeral(scientificToDecimal(priceBTC) * 100000000).format('00000000');
+    const formattedPriceBTC = multipliedPriceBTC >= 100000000 ? `1.00000000` : `0.${multipliedPriceBTC}`;
 
     return (
         <div className={css(styles.row, styles.information, nightMode && styles.nightInformation)}>
@@ -265,8 +268,9 @@ class TokenHead extends PureComponent {
               nightMode={nightMode}
               type={'h3'}
             >
-              {token.longName}<br />
-              [{token.shortName}]
+              {longName}
+              <br />
+              [{shortName}]
             </El>
           </div>
           <div className={css(styles.column, styles.informationItem, green24h ? styles.itemGreen : styles.itemRed)}>
@@ -283,7 +287,6 @@ class TokenHead extends PureComponent {
               type={'h4'}
             >
               {`${formattedPriceUSD} USD (${percentChange24h}%)`}
-              <br />
             </El>
             <El
               nightMode={nightMode}
@@ -291,7 +294,6 @@ class TokenHead extends PureComponent {
               type={'h5'}
             >
               {`${formattedPriceBTC} BTC`}
-              <br />
             </El>
           </div>
           <div className={css(styles.column, styles.informationItem)}>
@@ -307,7 +309,7 @@ class TokenHead extends PureComponent {
               nightModeStyle={styles.trueWhite}
               type={'h4'}
             >
-              {numeral(volumeUSD24h).format('$0,0')} USD<br />
+              {numeral(volumeUSD24h).format('$0,0')} USD
             </El>
             <El
               nightMode={nightMode}
@@ -352,14 +354,14 @@ class TokenHead extends PureComponent {
               nightModeStyle={styles.trueWhite}
               type={'h4'}
             >
-              {numeral(availableSupply).format('0,0')} {token.shortName} available<br />
+              {numeral(availableSupply).format('0,0')} {shortName} available
             </El>
             <El
               nightMode={nightMode}
               style={styles.condensed}
               type={'h5'}
             >
-              {numeral(totalSupply).format('0,0')} total, {numeral(maxSupply).format('0,0')} max
+              {numeral(totalSupply).format('0,0')} total, {numeral(maxSupply).format('0,0')} {token.shortName} max
             </El>
           </div>
         </div>
