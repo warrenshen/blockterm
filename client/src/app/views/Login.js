@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     marginTop: '10px',
     backgroundColor: '#fff',
     border: `1px solid #000`,
-    //borderBottom: `2px solid #000`,
   },
   infoPanel: {
     backgroundColor: '#fff',
@@ -60,17 +59,14 @@ const styles = StyleSheet.create({
     padding: '15px 15px',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
     marginBottom: '10px',
-    //borderBottom: `2px solid ${STYLES.BORDERLIGHT}`,
   },
   panelsNight: {
     backgroundColor: '#000',
     border: `1px solid #fff`,
-    //borderBottom: `2px solid #fff`,
   },
   panelsLightNight: {
     backgroundColor: '#000',
     border: `1px solid ${STYLES.BORDERDARK}`,
-    //borderBottom: `2px solid ${STYLES.BORDERDARK}`,
   },
   bolded: {
     fontWeight:'700 !important',
@@ -93,6 +89,8 @@ const styles = StyleSheet.create({
   },
   rightHalf: {
     width:'45%',
+    display: 'inline-flex',
+    flexDirection: 'column',
     borderLeft: '1px solid #555',
     position: 'absolute',
     top: '0px',
@@ -103,7 +101,8 @@ const styles = StyleSheet.create({
   },
   squareList: {
     listStyleType: 'square',
-    display: 'block',
+    flex: '1',
+    overflowY: 'scroll',
   },
   blockli: {
     display: 'block',
@@ -260,7 +259,7 @@ class Login extends PureComponent {
               <El style={styles.boldedBottomHeavy}
                   nightMode={nightMode}
                   type={'h4'}>
-                  Latest Updates: (v. {PROJECT_VERSION})
+                  Latest Updates: (ver. {PROJECT_VERSION})
               </El>
               <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
                 {

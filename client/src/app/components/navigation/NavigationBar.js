@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, {
-  Component,
+  PureComponent,
 }                          from 'react';
 import PropTypes          from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
@@ -11,6 +11,16 @@ import navigationModel     from '../../models/navigation.json';
 import El from '../El';
 import * as STYLES from '../../constants/styles';
 import Marquee             from '../Marquee';
+import {
+  clearItem,
+  getItem,
+  setItem,
+} from '../../services/cookie';
+import {
+  PROJECT_VERSION,
+  PATCH_NOTES,
+} from '../../constants/items';
+import { LAST_SEEN_VERSION } from '../../services/cookie';
 
 const styles = StyleSheet.create({
   navbar: {
@@ -84,7 +94,7 @@ const styles = StyleSheet.create({
 //   </El>
 // </a>
 
-class NavigationBar extends Component
+class NavigationBar extends PureComponent
 {
   static propTypes = {
     data: PropTypes.object.isRequired,
@@ -103,17 +113,26 @@ class NavigationBar extends Component
       ).isRequired
     }),
     nightMode: PropTypes.bool.isRequired,
-    showLatestUpdates: PropTypes.func.isRequired,
     toggleNightMode: PropTypes.func.isRequired,
     // toggleSidebar: PropTypes.func.isRequired,
   };
 
+  showLatestUpdates() {
+    const {
+      createNotificationInfo,
+    } = this.props;
+
+    const seenVersion = getItem(LAST_SEEN_VERSION);
+    if (seenVersion !== PROJECT_VERSION) {
+      setItem(LAST_SEEN_VERSION, PROJECT_VERSION);
+      const message = `New in ver. ${PATCH_NOTES[0]}`.substring(0, 140) + "[...]";
+      createNotificationInfo({ position: 'tc', title: message, autoDismiss: 10});
+    }
+  }
+
   componentDidMount()
   {
-    const {
-      showLatestUpdates,
-    } = this.props;
-    showLatestUpdates();
+    this.showLatestUpdates();
   }
 
   render()

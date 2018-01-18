@@ -10,6 +10,7 @@ export const DASHBOARD_COOKIE = 'DASHBOARD_COOKIE';
 export const NIGHT_MODE_COOKIE = 'NIGHT_MODE_COOKIE';
 export const SELECTED_TAB_COOKIE = 'SELECTED_TAB_COOKIE';
 export const TIME_ZONE_COOKIE = 'TIME_ZONE_COOKIE';
+export const LAST_SEEN_VERSION = 'LAST_SEEN_VERSION';
 
 const parse = JSON.parse;
 const stringify = JSON.stringify;
