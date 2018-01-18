@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class TVChartItem extends PureComponent {
+class TVMarketOverviewItem extends PureComponent {
 
   componentDidMount()
   {
@@ -273,4 +273,4 @@ class TVChartItem extends PureComponent {
   }
 }
 
-export default TVChartItem;
+export default TVMarketOverviewItem;

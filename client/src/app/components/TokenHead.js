@@ -263,7 +263,7 @@ class TokenHead extends PureComponent {
               style={styles.condensed}
               type={'h5'}
             >
-              {numeral(priceBTC).format('0,0.00')} BTC<br />
+              {numeral(priceBTC).format('0,0.00000000')} BTC<br />
             </El>
           </div>
           <div className={css(styles.column, styles.informationItem)}>

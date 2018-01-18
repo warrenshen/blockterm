@@ -13,6 +13,7 @@ import {
 import {
   RANGE_SELECT_OPTIONS,
 } from '../constants/plots';
+import CCChartItem                from './items/CCChartItem';
 import PortfolioItem              from './items/PortfolioItem';
 import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
 import SubredditPostCountsItem    from './items/SubredditPostCountsItem';
@@ -26,6 +27,7 @@ import El                         from './El';
 import FontAwesome                from 'react-fontawesome';
 
 import {
+  CC_CHART,
   PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
@@ -139,6 +141,14 @@ class DashboardItem extends Component {
 
     switch (identifierKey)
     {
+      case CC_CHART:
+        return (
+          <CCChartItem
+            dashboardData={dashboardData}
+            nightMode={nightMode}
+            value={identifierValue}
+          />
+        );
       case PORTFOLIO_ITEM:
         return (
           <PortfolioItem

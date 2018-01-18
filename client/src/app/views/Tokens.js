@@ -444,7 +444,7 @@ class Tokens extends PureComponent {
         className={css(styles.select)}
         clearable={true}
         matchProp={'label'}
-        placeholder={'Search tokens...'}
+        placeholder={'Search coins'}
         searchable={true}
         options={selectOptions}
         onChange={onChange}
