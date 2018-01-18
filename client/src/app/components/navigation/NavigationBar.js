@@ -125,7 +125,10 @@ class NavigationBar extends PureComponent
     const seenVersion = getItem(LAST_SEEN_VERSION);
     if (seenVersion !== PROJECT_VERSION) {
       setItem(LAST_SEEN_VERSION, PROJECT_VERSION);
-      const message = `New in ver. ${PATCH_NOTES[0]}`.substring(0, 140) + "[...]";
+
+      let message = `New in ver. ${PATCH_NOTES[0]}`;
+      message = (message.length > 140) ? message.substring(0, 140) + "[...]" : message;
+      
       createNotificationInfo({ position: 'tc', title: message, autoDismiss: 30});
     }
   }
