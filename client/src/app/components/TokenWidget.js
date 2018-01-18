@@ -45,7 +45,7 @@ class TokenWidget extends PureComponent {
           <img src={token.imageUrl} width={48} height={48}></img>
         </div>
         <div className={css(styles.section, styles.sectionRight)}>
-          <Link to={`/token/${token.id}`}>
+          <Link to={`/token/${token.identifier}`}>
             <El nightMode={nightMode} type={'span'}>
               {token.longName}
             </El>

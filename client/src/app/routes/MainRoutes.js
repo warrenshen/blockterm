@@ -39,7 +39,7 @@ export const MainRoutes = () => {
 
       <Route exact path='/tokens' component={ConnectedTokens} />
       <Route exact path='/tokens/:page' component={ConnectedTokens} />
-      <Route exact path='/token/:shortName' component={ConnectedToken} />
+      <Route exact path='/token/:identifier' component={ConnectedToken} />
 
       { /** Admin only **/ }
 

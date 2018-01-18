@@ -1,7 +1,7 @@
 // @flow weak
 
 import React, {
-PureComponent,
+  PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
@@ -274,6 +274,7 @@ class Tokens extends PureComponent {
 
     const {
       id,
+      identifier,
       shortName,
       longName,
       imageUrl,
@@ -322,7 +323,7 @@ class Tokens extends PureComponent {
           />
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
-          <Link to={`/token/${shortName}`}>
+          <Link to={`/token/${identifier}`}>
             <El
               nightMode={nightMode}
               type={'span'}
