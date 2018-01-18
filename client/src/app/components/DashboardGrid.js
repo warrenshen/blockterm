@@ -7,17 +7,30 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { isEqual }         from 'underscore';
 import { Responsive, WidthProvider } from 'react-grid-layout';
+import FontAwesome                from 'react-fontawesome';
 import DashboardItem from '../components/DashboardItem';
 import { isIdentifierValid } from '../constants/items.js';
 import * as STYLES from '../constants/styles';
-import FontAwesome                from 'react-fontawesome';
+import El from '../components/El';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 const styles = StyleSheet.create({
   container: {
+    flex: '1',
     display: 'flex',
-    minHeight: '100%',
+    width: '100%',
+    backgroundColor: '#ececec',
+  },
+  emptyContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '48px 0px',
+    backgroundColor: '#ececec',
+  },
+  nightContainer: {
+    backgroundColor: STYLES.SOFTGRAY,
   },
   dashboardItem: {
     display: 'flex',
@@ -26,35 +39,9 @@ const styles = StyleSheet.create({
     border: `1px solid ${STYLES.BORDERLIGHT}`,
     overflow: 'hidden',
   },
-  gridContainer: {
-    display: 'flex',
-    flex: '1',
-    backgroundColor: '#ececec',
-  },
   nightMode: {
     backgroundColor: '#000 !important',
     border: `1px solid ${STYLES.BORDERDARK}`,
-  },
-  gridNightContainer: {
-    backgroundColor: STYLES.SOFTGRAY,
-  },
-  sidebar: {
-    width: '256px',
-    backgroundColor:'#fff',
-    borderLeft: '1px solid #666',
-    height: '100%', //might be overzealous
-  },
-  nightSidebar: {
-    backgroundColor: STYLES.LIGHTNIGHT,
-  },
-  bolded: {
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    fontSize: '12px',
-    letterSpacing: '2px',
-  },
-  select: {
-    borderBottom: '1px solid #666 !important',
   },
   button: {
     width:'100%',
@@ -159,7 +146,11 @@ class DashboardGrid extends Component {
             />
           )
         }
-        <FontAwesome name='caret-up' className={css(styles.floatingResizeButton, nightMode && styles.nightResizeButton, dashboardItem.static && styles.lockedResize)} style={{'transform':'rotate(135deg)'}} />
+        <FontAwesome
+          className={css(styles.floatingResizeButton, nightMode && styles.nightResizeButton, dashboardItem.static && styles.lockedResize)}
+          name='caret-up'
+          style={{'transform':'rotate(135deg)'}}
+        />
       </div>
     );
   }
@@ -198,26 +189,43 @@ class DashboardGrid extends Component {
       xxs: configs,
     };
 
-    return (
-      <ResponsiveReactGridLayout
-        className={css(styles.gridContainer, nightMode && styles.gridNightContainer)}
-        cols={{ lg: 9, md: 9, sm: 9, xs: 9, xxs: 1 }}
-        compactType={'vertical'}
-        layouts={layouts}
-        onDragStart={logDashboardActionStart}
-        onDragStop={logDashboardActionStop}
-        onResizeStart={logDashboardActionStart}
-        onResizeStop={logDashboardActionStop}
-        onLayoutChange={(layout, layouts) => saveLayout(layout)}
-        rowHeight={64}
-      >
-        {
-          dashboardItems.map(
-            (dashboardItem) => this.renderItem(dashboardItem)
-          )
-        }
-      </ResponsiveReactGridLayout>
-    );
+    console.log(validItems);
+    if (validItems.length > 0)
+    {
+      return (
+        <ResponsiveReactGridLayout
+          className={css(styles.container, nightMode && styles.nightContainer)}
+          cols={{ lg: 9, md: 9, sm: 9, xs: 9, xxs: 1 }}
+          compactType={'vertical'}
+          layouts={layouts}
+          onDragStart={logDashboardActionStart}
+          onDragStop={logDashboardActionStop}
+          onResizeStart={logDashboardActionStart}
+          onResizeStop={logDashboardActionStop}
+          onLayoutChange={(layout, layouts) => saveLayout(layout)}
+          rowHeight={64}
+        >
+          {
+            dashboardItems.map(
+              (dashboardItem) => this.renderItem(dashboardItem)
+            )
+          }
+        </ResponsiveReactGridLayout>
+      );
+    }
+    else
+    {
+      return (
+        <div className={css(styles.emptyContainer, nightMode && styles.nightContainer)}>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            No widgets here.
+          </El>
+        </div>
+      );
+    }
   }
 }
 

@@ -27,6 +27,28 @@ import {
 } from '../constants/items.js';
 
 
+function scientificToDecimal(num) {
+  //if the number is in scientific notation remove it
+  if(/\d+\.?\d*e[\+\-]*\d+/i.test(num)) {
+    var zero = '0',
+        parts = String(num).toLowerCase().split('e'), //split into coeff and exponent
+        e = parts.pop(),//store the exponential part
+        l = Math.abs(e), //get the number of zeros
+        sign = e/l,
+        coeff_array = parts[0].split('.');
+    if(sign === -1) {
+        num = zero + '.' + new Array(l).join(zero) + coeff_array.join('');
+    }
+    else {
+        var dec = coeff_array[1];
+        if(dec) l = l - dec.length;
+        num = coeff_array.join('') + new Array(l+1).join(zero);
+    }
+  }
+
+  return num;
+};
+
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
@@ -225,6 +247,10 @@ class TokenHead extends PureComponent {
     } = token;
 
     let green24h = percentChange24h > 0;
+    const floatPriceUSD = parseFloat(numeral(priceUSD).format('0.00000000')).toString();
+    const decimalIndex = floatPriceUSD.indexOf('.');
+    const formattedPriceUSD = `${numeral(priceUSD).format('$0,0')}${floatPriceUSD.substring(decimalIndex)}`;
+    const formattedPriceBTC = `0.${numeral(scientificToDecimal(priceBTC) * 100000000).format('00000000')}`;
 
     return (
         <div className={css(styles.row, styles.information, nightMode && styles.nightInformation)}>
@@ -256,14 +282,16 @@ class TokenHead extends PureComponent {
               nightModeStyle={styles.trueWhite}
               type={'h4'}
             >
-              {numeral(priceUSD).format('$0,0.00')} USD ({percentChange24h}%)<br />
+              {`${formattedPriceUSD} USD (${percentChange24h}%)`}
+              <br />
             </El>
             <El
               nightMode={nightMode}
               style={styles.condensed}
               type={'h5'}
             >
-              {numeral(priceBTC).format('0,0.00')} BTC<br />
+              {`${formattedPriceBTC} BTC`}
+              <br />
             </El>
           </div>
           <div className={css(styles.column, styles.informationItem)}>
@@ -286,7 +314,7 @@ class TokenHead extends PureComponent {
               style={styles.condensed}
               type={'h5'}
             >
-              {numeral(volumeUSD24h/priceBTC).format('0,0')} BTC
+              {numeral(volumeUSD24h / priceBTC).format('0,0')} BTC
             </El>
           </div>
           <div className={css(styles.column, styles.informationItem, green24h ? styles.itemGreen : styles.itemRed)}>

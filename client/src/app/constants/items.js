@@ -10,6 +10,7 @@ export const PATCH_NOTES = [
 
 const DELIMETER = '__';
 
+export const CC_CHART = 'CC_CHART';
 export const PORTFOLIO_ITEM = 'PORTFOLIO_ITEM';
 export const SUBREDDIT_COMMENT_COUNTS = 'SUBREDDIT_COMMENT_COUNTS';
 export const SUBREDDIT_POST_COUNTS = 'SUBREDDIT_POST_COUNTS';

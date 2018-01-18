@@ -80,11 +80,11 @@ class TVChartItem extends PureComponent
     ;
 
     return (
-      <div className={css(styles.container)}>
+      <div className={css(styles.container, dashboardAction && styles.noPointerEvents)}>
         {this.renderImage()}
         <iframe
           scrolling="no"
-          className={css(styles.frame, nightMode && styles.nightFrame, dashboardAction && styles.noPointerEvents)}
+          className={css(styles.frame, nightMode && styles.nightFrame)}
           src={url}
         />
       </div>

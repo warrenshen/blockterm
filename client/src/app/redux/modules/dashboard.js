@@ -29,10 +29,10 @@ import {
 const IDENTIFIER_KEY_TO_STATE_MAP = {
   [PORTFOLIO_ITEM]: {},
   [SUBREDDIT_POST_COUNTS]: {
-    plotRange: ONE_WEEK,
+    plotRange: ONE_MONTH,
   },
   [SUBREDDIT_COMMENT_COUNTS]: {
-    plotRange: ONE_WEEK,
+    plotRange: ONE_MONTH,
   },
   [TOTAL_MARKET_CAP] : {
     plotRange: ONE_WEEK,
