@@ -1,6 +1,8 @@
 // @flow weak
 
-import React              from 'react';
+import React, {
+  Component,
+}                          from 'react';
 import PropTypes          from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import RightNav           from './RightNav';
@@ -82,66 +84,79 @@ const styles = StyleSheet.create({
 //   </El>
 // </a>
 
-const NavigationBar = ({
-  data,
-  isPageLoaded,
-  nightMode,
-  toggleNightMode,
-  toggleSidebar,
-  sidebarActive,
-}) => {
-  return (
-    <div className={css(styles.navbar)}>
-      <Marquee
-        isPageLoaded={isPageLoaded}
-        nightMode={nightMode}
-      />
-      <nav className={css(styles.container, nightMode && styles.nightMode)}>
-        <div className={css(styles.section)}>
-          <El type={'span'} nightMode={nightMode} style={styles.floatingBeta}>BETA</El>
-          <Link className={css(styles.brand)} to={'/'}>
-            <El
-              nightMode={nightMode}
-              nightModeStyle={styles.nightHover}
-              style={styles.hoverColor}
-              type={'span'}
-            >
-              {navigationModel.brand}
-            </El>
-          </Link>
-        </div>
-        <div className={css(styles.section)}>
-          <RightNav
-            user={data.user}
-            nightMode={nightMode}
-            rightLinks={navigationModel.rightLinks}
-            toggleNightMode={toggleNightMode}
-          />
-        </div>
-      </nav>
-    </div>
-  );
-};
+class NavigationBar extends Component
+{
+  static propTypes = {
+    data: PropTypes.object.isRequired,
+    navModel: PropTypes.shape({
+      leftLinks:  PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string.isRequired,
+          link : PropTypes.string.isRequired
+        })
+      ).isRequired,
+      rightLinks: PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string.isRequired,
+          link : PropTypes.string.isRequired
+        })
+      ).isRequired
+    }),
+    nightMode: PropTypes.bool.isRequired,
+    showLatestUpdates: PropTypes.func.isRequired,
+    toggleNightMode: PropTypes.func.isRequired,
+    // toggleSidebar: PropTypes.func.isRequired,
+  };
 
-NavigationBar.propTypes = {
-  data: PropTypes.object.isRequired,
-  navModel: PropTypes.shape({
-    leftLinks:  PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string.isRequired,
-        link : PropTypes.string.isRequired
-      })
-    ).isRequired,
-    rightLinks: PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string.isRequired,
-        link : PropTypes.string.isRequired
-      })
-    ).isRequired
-  }),
-  nightMode: PropTypes.bool.isRequired,
-  toggleNightMode: PropTypes.func.isRequired,
-  // toggleSidebar: PropTypes.func.isRequired,
-};
+  componentDidMount()
+  {
+    const {
+      showLatestUpdates,
+    } = this.props;
+    showLatestUpdates();
+  }
+
+  render()
+  {
+    const {
+      data,
+      nightMode,
+      toggleNightMode,
+      toggleSidebar,
+      sidebarActive,
+    } = this.props;
+
+    return (
+      <div className={css(styles.navbar)}>
+        <Marquee
+          nightMode={nightMode}
+        />
+        <nav className={css(styles.container, nightMode && styles.nightMode)}>
+          <div className={css(styles.section)}>
+            <El type={'span'} nightMode={nightMode} style={styles.floatingBeta}>BETA</El>
+            <Link className={css(styles.brand)} to={'/'}>
+              <El
+                nightMode={nightMode}
+                nightModeStyle={styles.nightHover}
+                style={styles.hoverColor}
+                type={'span'}
+              >
+                {navigationModel.brand}
+              </El>
+            </Link>
+          </div>
+          <div className={css(styles.section)}>
+            <RightNav
+              user={data.user}
+              nightMode={nightMode}
+              rightLinks={navigationModel.rightLinks}
+              toggleNightMode={toggleNightMode}
+            />
+          </div>
+        </nav>
+      </div>
+    );
+  }
+}
 
 export default NavigationBar;
