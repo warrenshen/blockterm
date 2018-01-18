@@ -5,10 +5,12 @@ PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { withRouter }      from 'react-router';
 import { Link }            from 'react-router-dom';
+import numeral             from 'numeral';
+import Select                from 'react-select';
 import El                  from '../components/El';
 import Sidebar             from '../components/Sidebar';
-import numeral             from 'numeral';
 import * as STYLES from '../constants/styles';
 import {
   getImageUrl,
@@ -38,7 +40,12 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: '8px 10px',
+  },
+  select: {
+    width: '256px',
   },
   body: {
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
@@ -417,7 +424,36 @@ class Tokens extends PureComponent {
     );
   }
 
-  render() {
+  renderSearch()
+  {
+    const {
+      data,
+      history,
+    } = this.props;
+
+    const onChange = (option) => history.push(`/token/${option.value}`);
+
+    const selectOptions = data.tokensAll ? data.tokensAll.map((token) => ({
+      label: `${token.longName} [${token.shortName}]`,
+      value: token.shortName,
+    })) :
+    [];
+
+    return (
+      <Select
+        className={css(styles.select)}
+        clearable={true}
+        matchProp={'label'}
+        placeholder={'Search tokens...'}
+        searchable={true}
+        options={selectOptions}
+        onChange={onChange}
+      />
+    );
+  }
+
+  render()
+  {
     const {
       data,
       nightMode,
@@ -433,6 +469,7 @@ class Tokens extends PureComponent {
             >
               Price, Volume, Market Cap per Coin, sorted by Volume
             </El>
+            {this.renderSearch()}
           </div>
           {
             data.tokensByPage &&
@@ -444,4 +481,4 @@ class Tokens extends PureComponent {
   }
 }
 
-export default Tokens;
+export default withRouter(Tokens);
