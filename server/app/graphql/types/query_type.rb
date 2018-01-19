@@ -54,6 +54,17 @@ module Types
       }
     end
 
+    field :marketsByName, types[Types::MarketType] do
+      description 'Gets the markets associated with given list of names'
+
+      argument :names, !types.String
+
+      resolve -> (obj, args, ctx) {
+        market_names = args[:names].split(',')
+        Market.where(name: market_names)
+      }
+    end
+
     field :subredditById, Types::SubredditType do
       description 'Gets the subreddit associated with given subreddit id'
 

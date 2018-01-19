@@ -24,7 +24,7 @@ module QueryHelper
       records.each do |record|
         if bin_strategy == 'total'
           total_count.increment_by(record.send(key_symbol))
-        else
+        elsif bin_strategy == 'max'
           total_count.max_by(record.send(key_symbol))
         end
       end
