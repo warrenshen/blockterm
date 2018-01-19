@@ -4,10 +4,10 @@ import React, {
   Component,
 }                          from 'react';
 import PropTypes           from 'prop-types';
+import { StyleSheet, css } from 'aphrodite/no-important';
 import { isEqual }         from 'underscore';
 import moment              from 'moment';
 import numeral             from 'numeral';
-import { StyleSheet, css } from 'aphrodite/no-important';
 import {
   disableChartOptions,
   generateLineChartData,
@@ -19,7 +19,7 @@ import {
 import LineChartWithSelectItem from './LineChartWithSelectItem';
 
 const styles = StyleSheet.create({
-  chartWrapper: {
+  container: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
@@ -112,6 +112,7 @@ class SubredditPostCountsItem extends Component {
     };
 
     const chartOptions = {
+      animation: false,
       legend: legendConfig,
       maintainAspectRatio: false,
       tooltips: {
@@ -139,7 +140,7 @@ class SubredditPostCountsItem extends Component {
     };
 
     return (
-      <div className={css(styles.chartWrapper)}>
+      <div className={css(styles.container)}>
         <LineChartWithSelectItem
           chartOptions={chartOptions}
           data={data}

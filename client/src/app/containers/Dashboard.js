@@ -13,6 +13,7 @@ import { graphql }                from 'react-apollo';
 import { isEqual }                from 'underscore';
 
 import {
+  PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
@@ -38,6 +39,20 @@ function f(identifier, extras)
 
   switch (identifierKey)
   {
+    case PERCENT_DOMINANCE_ITEM:
+      return `
+        ${identifier}: marketsByName(names: "PERCENT_BITCOIN,PERCENT_ETHEREUM,PERCENT_ALTCOINS") {
+          id
+          name
+          lastPrice
+          earliestMarketTickerDate
+
+          marketTickers(timeRange: "${extras.plotRange}") {
+            value
+            timestamp
+          }
+        }
+      `;
     case PORTFOLIO_ITEM:
       return `
         ${identifier}: user {
