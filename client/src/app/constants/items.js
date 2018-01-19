@@ -12,6 +12,7 @@ export const PATCH_NOTES = [
 const DELIMETER = '__';
 
 export const CC_CHART = 'CC_CHART';
+export const PERCENT_DOMINANCE_ITEM = 'PERCENT_DOMINANCE_ITEM';
 export const PORTFOLIO_ITEM = 'PORTFOLIO_ITEM';
 export const SUBREDDIT_COMMENT_COUNTS = 'SUBREDDIT_COMMENT_COUNTS';
 export const SUBREDDIT_POST_COUNTS = 'SUBREDDIT_POST_COUNTS';
@@ -21,6 +22,7 @@ export const TV_MARKET_OVERVIEW = 'TV_MARKET_OVERVIEW';
 export const TWITTER_ITEM = 'TWITTER_ITEM';
 
 export const ITEM_KEY_WHITELIST = [
+  PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
@@ -107,7 +109,8 @@ export const DEFAULT_ITEM_OBJECTS_BY_SUBREDDIT = {
 export const ITEM_KEY_TO_LABELS = {
   [TV_CANDLE_CHART]: 'Candle chart',
   [TV_MARKET_OVERVIEW]: 'Market overview',
-  [TOTAL_MARKET_CAP]: 'Total market cap chart',
+  [TOTAL_MARKET_CAP]: 'Market cap chart',
+  [PERCENT_DOMINANCE_ITEM]: 'Percent dominance chart',
   [PORTFOLIO_ITEM]: 'Portfolio overview',
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
   [SUBREDDIT_COMMENT_COUNTS]: 'Subreddit comments chart',
@@ -276,6 +279,9 @@ export const TWITTER_VALUE_TO_DATA_SOURCE = {
 };
 
 export const ITEM_KEY_TO_VALUES = {
+  [PERCENT_DOMINANCE_ITEM]: [
+    'Default',
+  ],
   [PORTFOLIO_ITEM]: [
     'Default',
   ],

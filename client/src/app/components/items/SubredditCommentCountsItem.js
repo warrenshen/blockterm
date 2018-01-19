@@ -4,9 +4,10 @@ import React, {
   Component,
 }                          from 'react';
 import PropTypes           from 'prop-types';
+import { StyleSheet, css } from 'aphrodite/no-important';
 import { isEqual }         from 'underscore';
 import moment              from 'moment';
-import { StyleSheet, css } from 'aphrodite/no-important';
+import numeral             from 'numeral';
 import {
   disableChartOptions,
   generateLineChartData,
@@ -18,7 +19,7 @@ import {
 import LineChartWithSelectItem from './LineChartWithSelectItem';
 
 const styles = StyleSheet.create({
-  chartWrapper: {
+  container: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
@@ -85,9 +86,63 @@ class SubredditCommentCountsItem extends Component {
     const onChange = (option) =>
       changeDashboardItemState(identifier, 'plotRange', option.value);
 
+    const gridLinesConfig = {
+      color: nightMode ? 'rgba(255, 255, 255, 0.15)' :
+                         'rgba(0, 0, 0, 0.15)',
+      zeroLineColor: nightMode ? 'rgba(255, 255, 255, 0.15)' :
+                                 'rgba(0, 0, 0, 0.15)',
+    };
+    const xTicksConfig = {
+      fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
+                             'rgba(0, 0, 0, 0.5)',
+      padding: 6,
+    };
+    const yTicksConfig = {
+      callback: (value, index, values) => numeral(value).format('(0a)'),
+      fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
+                             'rgba(0, 0, 0, 0.5)',
+      padding: 6,
+    };
+    const legendConfig = {
+      display: false,
+      labels: {
+        fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
+                               'rgba(0, 0, 0, 0.5)',
+      },
+    };
+
+    const chartOptions = {
+      animation: false,
+      legend: legendConfig,
+      maintainAspectRatio: false,
+      tooltips: {
+        callbacks: {
+          label: (tooltipItem, data) => numeral(tooltipItem.yLabel).format('0,0'),
+        },
+        displayColors: true,
+        intersect: false,
+        mode: 'nearest',
+      },
+      scales: {
+        xAxes: [
+          {
+            gridLines: gridLinesConfig,
+            ticks: xTicksConfig,
+          },
+        ],
+        yAxes: [
+          {
+            gridLines: gridLinesConfig,
+            ticks: yTicksConfig,
+          },
+        ],
+      },
+    };
+
     return (
-      <div className={css(styles.chartWrapper)}>
+      <div className={css(styles.container)}>
         <LineChartWithSelectItem
+          chartOptions={chartOptions}
           data={data}
           onChange={onChange}
           options={selectOptions}

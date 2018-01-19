@@ -8,6 +8,7 @@ import {
 } from '../../constants/plots';
 import {
   DEFAULT_PAGES_OBJECTS,
+  PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
@@ -27,6 +28,9 @@ import {
 } from '../../services/cookie';
 
 const IDENTIFIER_KEY_TO_STATE_MAP = {
+  [PERCENT_DOMINANCE_ITEM]: {
+    plotRange: ONE_WEEK,
+  },
   [PORTFOLIO_ITEM]: {},
   [SUBREDDIT_POST_COUNTS]: {
     plotRange: ONE_MONTH,

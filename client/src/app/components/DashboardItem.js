@@ -14,6 +14,7 @@ import {
   RANGE_SELECT_OPTIONS,
 } from '../constants/plots';
 import CCChartItem                from './items/CCChartItem';
+import PercentDominanceItem       from './items/PercentDominanceItem';
 import PortfolioItem              from './items/PortfolioItem';
 import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
 import SubredditPostCountsItem    from './items/SubredditPostCountsItem';
@@ -28,6 +29,7 @@ import FontAwesome                from 'react-fontawesome';
 
 import {
   CC_CHART,
+  PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
@@ -147,6 +149,16 @@ class DashboardItem extends Component {
             dashboardData={dashboardData}
             nightMode={nightMode}
             value={identifierValue}
+          />
+        );
+      case PERCENT_DOMINANCE_ITEM:
+        return (
+          <PercentDominanceItem
+            changeDashboardItemState={changeDashboardItemState}
+            dashboardData={dashboardData}
+            dashboardState={dashboardState}
+            identifier={identifier}
+            nightMode={nightMode}
           />
         );
       case PORTFOLIO_ITEM:

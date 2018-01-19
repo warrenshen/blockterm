@@ -19,7 +19,7 @@ import {
 import LineChartWithSelectItem from './LineChartWithSelectItem';
 
 const styles = StyleSheet.create({
-  chartWrapper: {
+  container: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
@@ -110,6 +110,7 @@ class TotalMarketCapItem extends Component
     };
 
     const chartOptions = {
+      animation: false,
       legend: legendConfig,
       maintainAspectRatio: false,
       tooltips: {
@@ -138,7 +139,7 @@ class TotalMarketCapItem extends Component
     };
 
     return (
-      <div className={css(styles.chartWrapper)}>
+      <div className={css(styles.container)}>
         <LineChartWithSelectItem
           chartOptions={chartOptions}
           data={data}
