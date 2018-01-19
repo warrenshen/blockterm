@@ -50,7 +50,7 @@ module Types
         QueryHelper::filter_relation_by_time_range(
           obj.market_tickers,
           args[:timeRange],
-          'max',
+          'first',
           7.days,
           :value
         )

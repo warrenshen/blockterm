@@ -397,24 +397,67 @@ puts "Created token users"
 total_cap_market = Market.create(
   name: 'TOTAL',
 )
+bitcoin_cap_market = Market.create(
+  name: 'TOTAL_BITCOIN',
+)
+altcoins_cap_market = Market.create(
+  name: 'TOTAL_ALTCOINS',
+)
+bitcoin_percent_market = Market.create(
+  name: 'PERCENT_BITCOIN',
+)
+ethereum_percent_market = Market.create(
+  name: 'PERCENT_ETHEREUM',
+)
+altcoins_percent_market = Market.create(
+  name: 'PERCENT_ALTCOINS',
+)
 
 puts "Created tokens, keywords, and markets"
 
+today = DateTime.now.beginning_of_day
+
+for i in (-90..0)
+  date = today + i.day
+  bitcoin_percent_value = rand(30) + 20.0 + rand().round(2)
+  MarketTicker.create(
+    market_id: bitcoin_percent_market.id,
+    timestamp: date,
+    value: bitcoin_percent_value,
+  )
+  ethereum_percent_value = rand(10) + 10.0 + rand().round(2)
+  MarketTicker.create(
+    market_id: ethereum_percent_market.id,
+    timestamp: date,
+    value: ethereum_percent_value,
+  )
+  altcoins_percent_value = 100.0 - bitcoin_percent_value - ethereum_percent_value
+  MarketTicker.create(
+    market_id: altcoins_percent_market.id,
+    timestamp: date,
+    value: altcoins_percent_value,
+  )
+end
+
 Market.all.each do |market|
-  if market.name == 'TOTAL'
+  if market.name == 'TOTAL' || market.name == 'TOTAL_BITCOIN' || market.name == 'TOTAL_ALTCOINS'
     last_value = 10000000
     today = DateTime.now.beginning_of_day
 
     for i in (-365 * 2..0)
       date = today + i.day
-      last_value += rand(50000)
+      if rand(2) > 0
+        last_value += -1 * rand(50000)
+      else
+        last_value += rand(50000)
+      end
       MarketTicker.create(
         market_id: total_cap_market.id,
         timestamp: date,
         value: last_value,
       )
-      total_cap_market
     end
+  elsif market.name == 'PERCENT_BITCOIN' || market.name == 'PERCENT_ETHEREUM' || market.name == 'PERCENT_ALTCOINS'
   else
     today = DateTime.now.beginning_of_day
     last_value = 1000

@@ -601,7 +601,7 @@ module Types
           if token.save
             token
           else
-            return GraphQL::ExecutionError.new('Could not save token')
+            return GraphQL::ExecutionError.new(token.errors.full_messages)
           end
         else
           token
