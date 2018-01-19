@@ -71,7 +71,7 @@ class TotalMarketCapItem extends Component
       marketTickers,
       null,
       'now',
-      isPlotRangeBig(plotRange) ? 'M/D/YY' : 'MM/DD H:m',
+      isPlotRangeBig(plotRange) ? 'MM/DD/YY' : 'MM/DD H:mm',
       nightMode,
       true,
     );
