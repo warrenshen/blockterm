@@ -98,6 +98,7 @@ class NavigationBar extends PureComponent
 {
   static propTypes = {
     data: PropTypes.object.isRequired,
+    isPageLoaded: PropTypes.bool.isRequired,
     navModel: PropTypes.shape({
       leftLinks:  PropTypes.arrayOf(
         PropTypes.shape({
@@ -128,7 +129,7 @@ class NavigationBar extends PureComponent
 
       let message = `New in ver. ${PATCH_NOTES[0]}`;
       message = (message.length > 140) ? message.substring(0, 140) + "[...]" : message;
-      
+
       createNotificationInfo({ position: 'tc', title: message, autoDismiss: 30});
     }
   }
@@ -142,6 +143,7 @@ class NavigationBar extends PureComponent
   {
     const {
       data,
+      isPageLoaded,
       nightMode,
       toggleNightMode,
       toggleSidebar,
@@ -151,6 +153,7 @@ class NavigationBar extends PureComponent
     return (
       <div className={css(styles.navbar)}>
         <Marquee
+          isPageLoaded={isPageLoaded}
           nightMode={nightMode}
         />
         <nav className={css(styles.container, nightMode && styles.nightMode)}>
