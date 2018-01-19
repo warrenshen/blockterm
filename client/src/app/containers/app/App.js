@@ -39,13 +39,17 @@ const notificationsStyle = {
       backgroundColor: STYLES.ROYAL_BLUE,
       fontWeight: '500',
     },
-    success: {
-      color: 'red',
-    },
+    info: {
+      backgroundColor: '#F50057',
+      //backgroundColor: '#651FFF',
+    }
   },
   Title: {
     DefaultStyle: {
       color: '#FFF',
+    },
+    info: {
+      lineHeight: '18px',
     },
   },
   Dismiss: {
@@ -57,6 +61,10 @@ const notificationsStyle = {
     bc: {
       width: '280px',
       margin: '0px 0px 0px -140px',
+    },
+    tc: {
+      width: '420px',
+      margin: '0px 0px 0px -210px',
     },
   },
 }

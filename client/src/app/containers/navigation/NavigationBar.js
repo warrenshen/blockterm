@@ -6,6 +6,9 @@ import { compose, graphql }   from 'react-apollo';
 import { UserQuery }          from '../../queries';
 import NavigationBar          from '../../components/navigation/NavigationBar';
 import * as globalsActions    from '../../redux/modules/globals';
+import {
+  info as createNotificationInfo,
+} from 'react-notification-system-redux';
 
 /* -----------------------------------------
   Redux
@@ -21,6 +24,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      createNotificationInfo: createNotificationInfo,
       toggleNightMode: globalsActions.toggleNightMode,
     },
     dispatch

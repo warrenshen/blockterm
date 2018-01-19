@@ -1,6 +1,8 @@
 // @flow weak
 
-import React              from 'react';
+import React, {
+  PureComponent,
+}                          from 'react';
 import PropTypes          from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import RightNav           from './RightNav';
@@ -9,6 +11,16 @@ import navigationModel     from '../../models/navigation.json';
 import El from '../El';
 import * as STYLES from '../../constants/styles';
 import Marquee             from '../Marquee';
+import {
+  clearItem,
+  getItem,
+  setItem,
+} from '../../services/cookie';
+import {
+  PROJECT_VERSION,
+  PATCH_NOTES,
+} from '../../constants/items';
+import { LAST_SEEN_VERSION } from '../../services/cookie';
 
 const styles = StyleSheet.create({
   navbar: {
@@ -82,66 +94,91 @@ const styles = StyleSheet.create({
 //   </El>
 // </a>
 
-const NavigationBar = ({
-  data,
-  isPageLoaded,
-  nightMode,
-  toggleNightMode,
-  toggleSidebar,
-  sidebarActive,
-}) => {
-  return (
-    <div className={css(styles.navbar)}>
-      <Marquee
-        isPageLoaded={isPageLoaded}
-        nightMode={nightMode}
-      />
-      <nav className={css(styles.container, nightMode && styles.nightMode)}>
-        <div className={css(styles.section)}>
-          <El type={'span'} nightMode={nightMode} style={styles.floatingBeta}>BETA</El>
-          <Link className={css(styles.brand)} to={'/'}>
-            <El
-              nightMode={nightMode}
-              nightModeStyle={styles.nightHover}
-              style={styles.hoverColor}
-              type={'span'}
-            >
-              {navigationModel.brand}
-            </El>
-          </Link>
-        </div>
-        <div className={css(styles.section)}>
-          <RightNav
-            user={data.user}
-            nightMode={nightMode}
-            rightLinks={navigationModel.rightLinks}
-            toggleNightMode={toggleNightMode}
-          />
-        </div>
-      </nav>
-    </div>
-  );
-};
+class NavigationBar extends PureComponent
+{
+  static propTypes = {
+    data: PropTypes.object.isRequired,
+    navModel: PropTypes.shape({
+      leftLinks:  PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string.isRequired,
+          link : PropTypes.string.isRequired
+        })
+      ).isRequired,
+      rightLinks: PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string.isRequired,
+          link : PropTypes.string.isRequired
+        })
+      ).isRequired
+    }),
+    nightMode: PropTypes.bool.isRequired,
+    toggleNightMode: PropTypes.func.isRequired,
+    // toggleSidebar: PropTypes.func.isRequired,
+  };
 
-NavigationBar.propTypes = {
-  data: PropTypes.object.isRequired,
-  navModel: PropTypes.shape({
-    leftLinks:  PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string.isRequired,
-        link : PropTypes.string.isRequired
-      })
-    ).isRequired,
-    rightLinks: PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string.isRequired,
-        link : PropTypes.string.isRequired
-      })
-    ).isRequired
-  }),
-  nightMode: PropTypes.bool.isRequired,
-  toggleNightMode: PropTypes.func.isRequired,
-  // toggleSidebar: PropTypes.func.isRequired,
-};
+  showLatestUpdates() {
+    const {
+      createNotificationInfo,
+    } = this.props;
+
+    const seenVersion = getItem(LAST_SEEN_VERSION);
+    if (seenVersion !== PROJECT_VERSION) {
+      setItem(LAST_SEEN_VERSION, PROJECT_VERSION);
+
+      let message = `New in ver. ${PATCH_NOTES[0]}`;
+      message = (message.length > 140) ? message.substring(0, 140) + "[...]" : message;
+      
+      createNotificationInfo({ position: 'tc', title: message, autoDismiss: 30});
+    }
+  }
+
+  componentDidMount()
+  {
+    this.showLatestUpdates();
+  }
+
+  render()
+  {
+    const {
+      data,
+      nightMode,
+      toggleNightMode,
+      toggleSidebar,
+      sidebarActive,
+    } = this.props;
+
+    return (
+      <div className={css(styles.navbar)}>
+        <Marquee
+          nightMode={nightMode}
+        />
+        <nav className={css(styles.container, nightMode && styles.nightMode)}>
+          <div className={css(styles.section)}>
+            <El type={'span'} nightMode={nightMode} style={styles.floatingBeta}>BETA</El>
+            <Link className={css(styles.brand)} to={'/'}>
+              <El
+                nightMode={nightMode}
+                nightModeStyle={styles.nightHover}
+                style={styles.hoverColor}
+                type={'span'}
+              >
+                {navigationModel.brand}
+              </El>
+            </Link>
+          </div>
+          <div className={css(styles.section)}>
+            <RightNav
+              user={data.user}
+              nightMode={nightMode}
+              rightLinks={navigationModel.rightLinks}
+              toggleNightMode={toggleNightMode}
+            />
+          </div>
+        </nav>
+      </div>
+    );
+  }
+}
 
 export default NavigationBar;
