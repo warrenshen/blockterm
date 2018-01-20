@@ -46,7 +46,7 @@ class CoinmarketcapClient:
     if ethereum_result == None or len(ethereum_result) <= 0:
       raise Exception('Something went wrong with fetching bitcoin ticker')
 
-    total_market_cap_usd = global_result['total_market_cap_usd']
+    total_market_cap_usd = int(global_result['total_market_cap_usd'])
     global_timestamp = global_result['last_updated']
     datetime_string = unix_timestamp_to_datetime_string(global_timestamp)
 
@@ -54,9 +54,10 @@ class CoinmarketcapClient:
     db.insert_total_ticker(str(global_result), global_timestamp)
     db.close()
 
+    ### Total market caps ###
     response = self.api.create_market_ticker_by_market_name(
       'TOTAL',
-      total_market_cap_usd,
+      str(total_market_cap_usd),
       datetime_string
     )
 
@@ -64,29 +65,36 @@ class CoinmarketcapClient:
       logger.info('Something went wrong with saving total market ticker')
       raise Exception('Something went wrong with saving total market ticker')
 
-    ethereum_market_cap_usd = ethereum_result[0]['market_cap_usd']
-    ethereum_timestamp = ethereum_result[0]['last_updated']
-    datetime_string = unix_timestamp_to_datetime_string(int(ethereum_timestamp))
-
-    bitcoin_market_cap_usd = bitcoin_result[0]['market_cap_usd']
+    ### Market caps ###
+    bitcoin_market_cap_usd = int(bitcoin_result[0]['market_cap_usd'])
     bitcoin_timestamp = bitcoin_result[0]['last_updated']
     datetime_string = unix_timestamp_to_datetime_string(int(bitcoin_timestamp))
 
     response = self.api.create_market_ticker_by_market_name(
       'TOTAL_BITCOIN',
-      bitcoin_market_cap_usd,
+      str(bitcoin_market_cap_usd),
       datetime_string
     )
 
-    # TODO: total ethereum?
+    ethereum_market_cap_usd = int(ethereum_result[0]['market_cap_usd'])
+    response = self.api.create_market_ticker_by_market_name(
+      'TOTAL_ETHEREUM',
+      str(ethereum_market_cap_usd),
+      datetime_string
+    )
 
-    altcoins_market_cap_usd = str(int(total_market_cap_usd) - int(bitcoin_market_cap_usd))
+    altcoins_market_cap_usd = int(total_market_cap_usd) - int(bitcoin_market_cap_usd) - int(ethereum_market_cap_usd)
     response = self.api.create_market_ticker_by_market_name(
       'TOTAL_ALTCOINS',
-      altcoins_market_cap_usd,
+      str(altcoins_market_cap_usd),
       datetime_string
     )
+    print('totals')
+    print(datetime_string)
+    print(bitcoin_market_cap_usd, ethereum_market_cap_usd, altcoins_market_cap_usd)
+    assert total_market_cap_usd == bitcoin_market_cap_usd + ethereum_market_cap_usd + altcoins_market_cap_usd
 
+    ### Percent dominance ###
     bitcoin_percent = round(int(bitcoin_market_cap_usd) * 100 / int(total_market_cap_usd), 2)
     response = self.api.create_market_ticker_by_market_name(
       'PERCENT_BITCOIN',
@@ -107,6 +115,10 @@ class CoinmarketcapClient:
       str(altcoins_percent),
       datetime_string
     )
+    print('percents')
+    print(datetime_string)
+    print(bitcoin_percent, ethereum_percent, altcoins_percent)
+    assert bitcoin_percent + ethereum_percent + altcoins_percent == 100.0
 
   def _get_tickers(self):
     target_url = 'https://api.coinmarketcap.com/v1/ticker/?limit=0'
