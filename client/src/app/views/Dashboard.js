@@ -127,12 +127,11 @@ const styles = StyleSheet.create({
     borderTop: '1px solid #777',
     display: 'flex',
     justifyContent: 'flex-end',
+    paddingRight: '59px',
   },
   darkActionBar: {
     borderTop: '1px solid #999',
     backgroundColor: '#000',
-    //borderTop: '1px solid #363c4e',
-    //backgroundColor: '#131722',
   },
   actionButton: {
     fontWeight: '700',
