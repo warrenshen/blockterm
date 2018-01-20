@@ -4,6 +4,16 @@ module Types
 
     field :id, !types.ID
     field :email, !types.String
+    field :lastActiveAt, !types.String do
+      description 'The last active datetime of user'
+
+      resolve -> (obj, args, ctx) {
+        QueryHelper::localize_timestamp(
+          obj.last_active_at,
+          'Pacific Time (US & Canada)',
+        ).to_s
+      }
+    end
 
     field :dashboardPages, !types[Types::DashboardPageType] do
       description 'The dashboard pages associated with user'
