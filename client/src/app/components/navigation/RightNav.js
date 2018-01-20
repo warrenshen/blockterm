@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
   nightModeButton: {
     border: '1px solid #fff',
     borderRadius: '1px',
-    //padding: '4px 12px',
     ':before': {
       color: "#fff !important",
     },
@@ -114,8 +113,6 @@ const RightNav = ({
   rightLinks,
   nightMode,
   toggleNightMode,
-  // sidebarActive,
-  // toggleSidebar,
   user,
 }) => (
   <ul className={css(styles.container)}>
@@ -188,15 +185,17 @@ const RightNav = ({
           nightModeStyle={styles.nightModeButton}
           style={styles.loginButton}
         />,
-        <RightNavButton
-          key={'join'}
-          label={'Join/FAQ'}
-          link={'/join'}
-          nightMode={nightMode}
-          nightModeStyle={styles.nightModeButton}
-          style={styles.joinButton}
-        />,
       ]
+    }
+    {
+    // <RightNavButton
+    //   key={'join'}
+    //   label={'Join/FAQ'}
+    //   link={'/join'}
+    //   nightMode={nightMode}
+    //   nightModeStyle={styles.nightModeButton}
+    //   style={styles.joinButton}
+    // />,
     }
     {
     // <button
