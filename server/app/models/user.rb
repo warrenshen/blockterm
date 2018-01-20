@@ -22,7 +22,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { within: 5..30 }
   validates_presence_of :last_active_at
 
-  before_create :set_last_active
+  before_validation :set_last_active_at, on: :create
 
   def sync_last_active_at
     if last_active_at.nil? || last_active_at < DateTime.now - 1.minute
