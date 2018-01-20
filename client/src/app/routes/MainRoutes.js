@@ -20,6 +20,7 @@ import {
   ConnectedFAQ,
 }                     from '../containers';
 import AdminPortolios from '../containers/AdminPortfolios';
+import AdminDashboards from '../containers/AdminDashboards';
 
 export const MainRoutes = () => {
   return (
@@ -43,6 +44,8 @@ export const MainRoutes = () => {
 
       { /** Admin only **/ }
 
+      <Route exact path='/admin/dashboards' component={AdminDashboards} />
+      <Route exact path='/admin/dashboards/:page' component={AdminDashboards} />
       <Route exact path='/admin/portfolios' component={AdminPortolios} />
       <Route exact path='/admin/portfolios/:page' component={AdminPortolios} />
     </Switch>

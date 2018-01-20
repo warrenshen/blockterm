@@ -4,10 +4,10 @@ import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose, graphql }    from 'react-apollo';
 import {
-  UsersByPageWithTokenUsersQuery,
-  UsersByPageQueryWithTokenUsersOptions,
+  UsersByPageWithDashboardPagesQuery,
+  UsersByPageQueryWithDashboardPagesOptions,
 }                             from '../queries';
-import AdminPortfolios        from '../views/AdminPortfolios';
+import AdminDashboards        from '../views/AdminDashboards';
 
 /* -----------------------------------------
   Redux
@@ -30,8 +30,8 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
   graphql(
-    UsersByPageWithTokenUsersQuery,
-    UsersByPageQueryWithTokenUsersOptions,
+    UsersByPageWithDashboardPagesQuery,
+    UsersByPageQueryWithDashboardPagesOptions,
   ),
   connect(mapStateToProps, mapDispatchToProps),
-)(AdminPortfolios);
+)(AdminDashboards);

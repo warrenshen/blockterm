@@ -14,7 +14,6 @@ import {
 }                          from 'react-tabs';
 import DashboardGrid       from '../components/DashboardGrid';
 import * as STYLES         from '../constants/styles';
-import FontAwesome         from 'react-fontawesome';
 
 const styles = StyleSheet.create({
   container: {

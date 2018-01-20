@@ -118,6 +118,7 @@ class AdminPortolios extends PureComponent
     const {
       id,
       email,
+      lastActiveAt,
     } = user;
 
     return (
@@ -131,6 +132,12 @@ class AdminPortolios extends PureComponent
             type={'span'}
           >
             {`ID: ${id}`}
+          </El>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            {`Last active at: ${lastActiveAt}`}
           </El>
           <El
             nightMode={nightMode}
@@ -169,7 +176,7 @@ class AdminPortolios extends PureComponent
     return (
       <div className={css(styles.wrapper)}>
         <div className={css(styles.row)} style={{'marginTop':'10px',}}>
-          <Link to={`/admin/portfolios/${page-1}`} className={css(styles.flexElement)}>
+          <Link to={`/admin/portfolios/${page - 1}`} className={css(styles.flexElement)}>
             <El
               nightMode={nightMode}
               type={'span'}
@@ -179,7 +186,7 @@ class AdminPortolios extends PureComponent
               Previous
             </El>
           </Link>
-          <Link to={`/admin/portfolios/${page+1}`} className={css(styles.flexElement)}>
+          <Link to={`/admin/portfolios/${page + 1}`} className={css(styles.flexElement)}>
             <El
               nightMode={nightMode}
               type={'span'}
@@ -191,8 +198,8 @@ class AdminPortolios extends PureComponent
           </Link>
         </div>
         {
-          data.usersByPage &&
-          this.renderUsers(data.usersByPage)
+          data.users &&
+          this.renderUsers(data.users)
         }
       </div>
     );
