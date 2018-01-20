@@ -50,6 +50,10 @@ const config = {
   module: {
     rules: [
       {
+        test:   /\.worker\.js$/,
+        loader: 'worker-loader'
+      },
+      {
         test:     /\.jsx?$/,
         exclude:  [nodeModulesDir],
         loader:   'babel-loader'

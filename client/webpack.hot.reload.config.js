@@ -23,6 +23,10 @@ const config = {
   module: {
     rules: [
       {
+        test:   /\.worker\.js$/,
+        loader: 'worker-loader'
+      },
+      {
         test:     /\.jsx?$/,
         include:  srcInclude,
         loaders:  ['babel-loader']
