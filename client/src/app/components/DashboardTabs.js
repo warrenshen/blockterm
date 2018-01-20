@@ -82,6 +82,9 @@ const styles = StyleSheet.create({
     paddingRight: '12px',
     borderTop: '0px',
     borderBottom: '0px',
+    ':hover': {
+      color: '#23527c',
+    },
   },
   darkTab: {
     //borderColor: '#fff',
