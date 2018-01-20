@@ -132,6 +132,7 @@ class SubredditCommentCountsItem extends Component {
         ],
         yAxes: [
           {
+            beginAtZero: true,
             gridLines: gridLinesConfig,
             ticks: yTicksConfig,
           },
