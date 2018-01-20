@@ -4,6 +4,7 @@ import React, {
   Component,
 }                          from 'react';
 import PropTypes           from 'prop-types';
+import { Link }       from 'react-router-dom';
 import { StyleSheet, css } from 'aphrodite';
 import Sidebar             from 'react-sidebar';
 import * as STYLES from '../constants/styles';
@@ -318,12 +319,13 @@ class Dashboard extends Component
 
     return (
       <div className={css(styles.actionBar, nightMode && styles.darkActionBar)}>
-        <button
-          title="Press to read FAQ and learn dashboard actions"
-          className={css(styles.addButton, nightMode && styles.darkAddButton)}
-          onClick={(event) => changeSidebarMode('add')} >
-          Help [?]
-        </button>
+        <Link to={`/faq`}>
+          <button
+            title="Press to read FAQ and learn dashboard actions"
+            className={css(styles.addButton, nightMode && styles.darkAddButton)}>
+            Help [?]
+          </button>
+        </Link>
         <button
           title="Press to open up sidebar and add widgets to dashboard"
           className={css(styles.addButton, nightMode && styles.darkAddButton)}

@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     ':hover': {
-    //  borderBottom: '1px solid #000',
     },
   },
   semibolded: {
@@ -115,7 +114,6 @@ class NavigationBar extends PureComponent
     }),
     nightMode: PropTypes.bool.isRequired,
     toggleNightMode: PropTypes.func.isRequired,
-    // toggleSidebar: PropTypes.func.isRequired,
   };
 
   showLatestUpdates() {
