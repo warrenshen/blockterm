@@ -190,7 +190,7 @@ ActiveRecord::Schema.define(version: 20180119202722) do
     t.string   "password_digest", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.datetime "last_active_at"
+    t.datetime "last_active_at",  null: false
   end
 
   add_foreign_key "active_user_counts", "subreddits"

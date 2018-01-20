@@ -145,7 +145,7 @@ module Types
       argument :page, !types.Int
 
       resolve -> (obj, args, ctx) {
-        TokenSearch.results(filters: { sort: 'volume_usd_24h' }, page: args[:page])
+        TokenSearch.results(filters: { sort: 'volume_usd_24h desc' }, page: args[:page])
       }
     end
 
@@ -168,7 +168,7 @@ module Types
           )
         end
 
-        UserSearch.results(page: args[:page])
+        UserSearch.results(filters: { sort: 'last_active_at desc' }, page: args[:page])
       }
     end
   end
