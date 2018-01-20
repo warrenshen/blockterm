@@ -345,6 +345,16 @@ button:disabled {
   font-weight: 700;
 }
 
+#chatContainer {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
+
+.chatbro_container, .chatbro_caption, .chatbro_minimized_caption, .chatbro_participant_count_wrapper, .chatbro_header, .chatbro_title > * {
+  color: #fff !important;
+}
+
 @media screen and (max-width: 960px) {
     .promotional {
       display: none !important;
