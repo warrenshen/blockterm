@@ -129,8 +129,7 @@ class NavigationBar extends PureComponent
 
       let message = `New in ver. ${PATCH_NOTES[0]}`;
       message = (message.length > 140) ? message.substring(0, 140) + "[...]" : message;
-
-      createNotificationInfo({ position: 'tc', title: message, autoDismiss: 30});
+      createNotificationInfo({ position: 'tc', title: message, autoDismiss: 30 });
     }
   }
 

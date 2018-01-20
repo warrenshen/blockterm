@@ -316,7 +316,7 @@ class Home extends PureComponent {
                       </td>
                       <td className={css(styles.graphElement)}>
                         <Line
-                          height={68}
+                          height={56}
                           responsive={true}
                           data={data}
                           redraw={true}
