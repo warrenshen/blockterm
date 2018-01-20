@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     //borderTop: '1px solid #363c4e',
     //backgroundColor: '#131722',
   },
-  addButton: {
+  actionButton: {
     fontWeight: '700',
     letterSpacing: '1px',
     textTransform: 'uppercase',
@@ -144,8 +144,11 @@ const styles = StyleSheet.create({
     borderTop: '0px',
     borderBottom: '0px',
     //boxShadow: '0px -1px 0px rgba(128, 128, 128, 0.5)',
+    ':hover': {
+      color: '#23527c',
+    },
   },
-  darkAddButton: {
+  darkActionButton: {
     //borderColor: '#fff !important',
   },
 });
@@ -322,13 +325,13 @@ class Dashboard extends Component
         <Link to={`/faq`}>
           <button
             title="Press to read FAQ and learn dashboard actions"
-            className={css(styles.addButton, nightMode && styles.darkAddButton)}>
+            className={css(styles.actionButton, nightMode && styles.darkActionButton)}>
             Help [?]
           </button>
         </Link>
         <button
           title="Press to open up sidebar and add widgets to dashboard"
-          className={css(styles.addButton, nightMode && styles.darkAddButton)}
+          className={css(styles.actionButton, nightMode && styles.darkActionButton)}
           onClick={(event) => changeSidebarMode('add')} >
           Add Widget To Dashboard [+]
         </button>
