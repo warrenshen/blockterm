@@ -158,7 +158,10 @@ module Types
     end
 
     field :usersByPage, types[Types::UserType] do
+      description 'Gets users by pagination arguments'
+
       argument :page, !types.Int
+      argument :perPage, types.Int
 
       resolve -> (obj, args, ctx) {
         current_user = QueryHelper.get_current_user(ctx)
@@ -168,7 +171,11 @@ module Types
           )
         end
 
-        UserSearch.results(filters: { sort: 'last_active_at desc' }, page: args[:page])
+        UserSearch.results(
+          filters: { sort: 'last_active_at desc' },
+          page: args[:page],
+          per_page: args[:perPage],
+        )
       }
     end
   end
