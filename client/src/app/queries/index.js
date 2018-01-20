@@ -463,11 +463,49 @@ export const UpdateTokenUsersMutationOptions = {
 /* -----------------------------------------
   Admin queries
 ------------------------------------------*/
-export const UsersByPageQuery = gql`
+export const UsersByPageWithDashboardPagesQuery = gql`
   query UsersByPageQuery($page: Int!) {
-    usersByPage(page: $page) {
+    users: usersByPage(page: $page, perPage: 1) {
       id
       email
+      lastActiveAt
+
+      dashboardPages {
+        id
+        index
+        name
+
+        dashboardItems {
+          id
+          identifier
+          static
+          w
+          h
+          x
+          y
+        }
+      }
+    }
+  }
+`;
+export const UsersByPageQueryWithDashboardPagesOptions = {
+  options: ({
+    match,
+  }) => {
+    return {
+      variables: {
+        page: match.params.page ? parseInt(match.params.page) : 1,
+      },
+    };
+  },
+};
+
+export const UsersByPageWithTokenUsersQuery = gql`
+  query UsersByPageQuery($page: Int!) {
+    users: usersByPage(page: $page) {
+      id
+      email
+      lastActiveAt
 
       tokenUsers {
         id
@@ -487,7 +525,7 @@ export const UsersByPageQuery = gql`
     }
   }
 `;
-export const UsersByPageQueryOptions = {
+export const UsersByPageQueryWithTokenUsersOptions = {
   options: ({
     match,
   }) => {
