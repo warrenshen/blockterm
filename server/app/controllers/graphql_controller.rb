@@ -5,6 +5,10 @@ class GraphqlController < ApplicationController
     current_user = authorize_request
     time_zone = parse_request_time_zone
 
+    if !current_user.nil?
+      current_user.sync_last_active_at
+    end
+
     query = params[:query]
     operation_name = params[:operationName]
     context = {
