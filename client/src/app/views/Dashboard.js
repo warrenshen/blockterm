@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     fontWeight: '700',
-    letterSpacing: '2px',
+    letterSpacing: '1px',
     textTransform: 'uppercase',
     paddingLeft: '16px',
     paddingRight: '16px',
@@ -318,6 +318,12 @@ class Dashboard extends Component
 
     return (
       <div className={css(styles.actionBar, nightMode && styles.darkActionBar)}>
+        <button
+          title="Press to read FAQ and learn dashboard actions"
+          className={css(styles.addButton, nightMode && styles.darkAddButton)}
+          onClick={(event) => changeSidebarMode('add')} >
+          Help [?]
+        </button>
         <button
           title="Press to open up sidebar and add widgets to dashboard"
           className={css(styles.addButton, nightMode && styles.darkAddButton)}

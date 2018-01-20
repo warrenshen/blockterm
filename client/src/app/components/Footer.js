@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     marginTop: '1px',
   },
   nightModeButton: {
-    color: '#ccc',
+    color: '#eee',
     border: '1px solid #ccc',
   },
 });
