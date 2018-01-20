@@ -400,6 +400,9 @@ total_cap_market = Market.create(
 bitcoin_cap_market = Market.create(
   name: 'TOTAL_BITCOIN',
 )
+bitcoin_cap_market = Market.create(
+  name: 'TOTAL_ETHEREUM',
+)
 altcoins_cap_market = Market.create(
   name: 'TOTAL_ALTCOINS',
 )
