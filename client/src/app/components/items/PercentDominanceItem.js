@@ -74,7 +74,7 @@ class PercentDominanceItem extends Component
       const datasets = [];
       datasets.push(Object.assign(
         {},
-        LINE_CHART_DATA_STYLES[0].historical,
+        LINE_CHART_AUXILLARY_STYLES[2].historical,
         {
           data: dashboardData[0].marketTickers.map((historicalCount) => historicalCount.value),
           fill: 'origin',
@@ -83,7 +83,7 @@ class PercentDominanceItem extends Component
       ));
       datasets.push(Object.assign(
         {},
-        LINE_CHART_AUXILLARY_STYLES[0].historical,
+        LINE_CHART_AUXILLARY_STYLES[3].historical,
         {
           data: dashboardData[1].marketTickers.map((historicalCount) => historicalCount.value),
           fill: '-1',
@@ -105,7 +105,6 @@ class PercentDominanceItem extends Component
         datasets: datasets,
       };
 
-      console.log(datasets);
       const gridLinesConfig = {
         color: nightMode ? 'rgba(255, 255, 255, 0.15)' :
                            'rgba(0, 0, 0, 0.15)',
@@ -113,21 +112,23 @@ class PercentDominanceItem extends Component
                                    'rgba(0, 0, 0, 0.15)',
       };
       const xTicksConfig = {
-        fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
-                               'rgba(0, 0, 0, 0.5)',
+        fontColor: nightMode ? 'rgba(255, 255, 255, 0.7)' :
+                               'rgba(0, 0, 0, 0.7)',
         padding: 6,
+        minRotation: 45,
+        maxRotation: 90, // angle in degrees
       };
       const yTicksConfig = {
-        callback: (value, index, values) => numeral(value / 100.0).format('(0.00%)'),
-        fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
-                               'rgba(0, 0, 0, 0.5)',
+        callback: (value, index, values) => numeral(value / 100.0).format('(0%)'),
+        fontColor: nightMode ? 'rgba(255, 255, 255, 0.7)' :
+                               'rgba(0, 0, 0, 0.7)',
         padding: 6,
       };
       const legendConfig = {
         display: true,
         labels: {
-          fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
-                                 'rgba(0, 0, 0, 0.5)',
+          fontColor: nightMode ? 'rgba(255, 255, 255, 1)' :
+                                 'rgba(0, 0, 0, 1)',
         },
       };
 
@@ -161,6 +162,9 @@ class PercentDominanceItem extends Component
         },
       };
 
+      const bitcoinDominance = dashboardData[0].lastPrice;
+      console.log(data);
+
       return (
         <div className={css(styles.container)}>
           <LineChartWithSelectItem
@@ -170,7 +174,7 @@ class PercentDominanceItem extends Component
             // options={selectOptions}
             nightMode={nightMode}
             selectValue={plotRange}
-            title={`Bitcoin dominance`}
+            title={`Bitcoin Dominance: ${numeral(bitcoinDominance/100).format('0.00%')}`}
           />
         </div>
       );

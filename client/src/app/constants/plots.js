@@ -255,6 +255,38 @@ export const LINE_CHART_AUXILLARY_STYLES = [
       pointHitRadius: 1.5,
     },
   },
+  { //dominance bitcoin
+    historical: {
+      backgroundColor: 'rgba(255, 153, 0, 0.4)',
+      borderColor: '#FF8800',
+      borderWidth: 2,
+      borderCapStyle: 'rgba(255, 153, 0, 0.4)',
+      borderJoinStyle: 'rgba(255, 153, 0, 0.4)',
+      fill: true,
+      lineTension: 0,
+      pointBackgroundColor: 'rgba(255,255,255,0.1)',
+      pointBorderColor: '#FF8800',
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 1.5,
+    },
+  },
+  { //dominance ethereum
+    historical: {
+      backgroundColor: 'rgba(150, 153, 149, 0.4)',
+      borderColor: '#7A7D7A',
+      borderWidth: 2,
+      borderCapStyle: 'rgba(150, 153, 149, 0.4)',
+      borderJoinStyle: 'rgba(150, 153, 149, 0.4)',
+      fill: true,
+      lineTension: 0,
+      pointBackgroundColor: 'rgba(255,255,255,0.1)',
+      pointBorderColor: '#7A7D7A',
+      pointBorderWidth: 2,
+      pointRadius: 2,
+      pointHitRadius: 1.5,
+    },
+  },
 ];
 
 export const COMPARE_CHART_DATA_STYLES = [

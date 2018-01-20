@@ -50,15 +50,15 @@ export default ({
   };
   const ticksConfig = {
     beginAtZero: true,
-    fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
-                           'rgba(0, 0, 0, 0.5)',
+    fontColor: nightMode ? 'rgba(255, 255, 255, 0.7)' :
+                           'rgba(0, 0, 0, 0.7)',
     padding: 6,
   };
   const legendConfig = {
     display: false,
     labels: {
-      fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
-                             'rgba(0, 0, 0, 0.5)',
+      fontColor: nightMode ? 'rgba(255, 255, 255, 0.7)' :
+                             'rgba(0, 0, 0, 0.7)',
     },
   };
 
