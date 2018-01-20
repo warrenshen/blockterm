@@ -77,10 +77,10 @@ const styles = StyleSheet.create({
     //marginRight: '8px',
   },
   thickElement: {
-    lineHeight: '38px',
+    //lineHeight: '38px',
   },
   element: {
-    padding: '12px 0px',
+    padding: '4px 0px',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
     display: 'flex',
   },
@@ -89,15 +89,19 @@ const styles = StyleSheet.create({
   },
   semibolded: {
     fontWeight: '500',
+    margin: 'auto 0',
+  },
+  rowSpan: {
+    margin: 'auto 0',
   },
   semiboldedLink: {
     textDecoration:'underline',
     fontWeight:'500',
     fontSize: '15px',
-    lineHeight: '14px',
   },
   bolded: {
     fontWeight: '700',
+    margin: 'auto 0',
   },
   table: {
     width: '100%',
@@ -107,6 +111,7 @@ const styles = StyleSheet.create({
   row: {
     width: '100%',
     display: 'flex',
+    height: '50px',
   },
   flexXS: {
     flex: '1',
@@ -123,13 +128,13 @@ const styles = StyleSheet.create({
   redDelta: {
     color: `${STYLES.TICKER_RED} !important`,
     fontWeight: '500',
-    lineHeight: '56px',
+    //lineHeight: '56px',
     backgroundColor: 'rgba(255, 0, 0, 0.1)',
   },
   greenDelta: {
     color: `${STYLES.TICKER_GREEN} !important`,
     fontWeight: '500',
-    lineHeight: '56px',
+    //lineHeight: '56px',
     backgroundColor: 'rgba(0, 255, 0, 0.1)',
   },
   paginationButtons: {
@@ -289,17 +294,17 @@ class Tokens extends PureComponent {
     } = token;
 
     let generatedBackground1h = {
-        fontWeight: '500', lineHeight: '62px', width: '100%', height: '100%',
+        fontWeight: '500', margin: 'auto 0', width: '100%', padding: '15px 0px',
         color: (percentChange1h < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 90)}, 0)`,
         backgroundColor: (percentChange1h < 0) ? `rgba(255,0,0,${Math.min(percentChange1h/-100, 0.5)})` : `rgba(0,255,0,${Math.min(percentChange1h/100, 0.5)})`,
     };
     let generatedBackground24h = {
-        fontWeight: '500', lineHeight: '62px', width: '100%', height: '100%',
+        fontWeight: '500', margin: 'auto 0', width: '100%', padding: '15px 0px',
         color: (percentChange24h < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 90)}, 0)`,
         backgroundColor: (percentChange24h < 0) ? `rgba(255,0,0,${Math.min(percentChange24h/-100, 0.5)})` : `rgba(0,255,0,${Math.min(percentChange24h/100, 0.5)})`,
     };
     let generatedBackground7d = {
-        fontWeight: '500', lineHeight: '62px', width: '100%', height: '100%',
+        fontWeight: '500', margin: 'auto 0', width: '100%', padding: '15px 0px',
         color: (percentChange7d < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 90)}, 0)`,
         backgroundColor: (percentChange7d < 0) ? `rgba(255,0,0,${Math.min(percentChange7d/-100, 0.5)})` : `rgba(0,255,0,${Math.min(percentChange7d/100, 0.5)})`,
     };
@@ -309,6 +314,7 @@ class Tokens extends PureComponent {
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexXS)}>
           <El
             nightMode={nightMode}
+            style={styles.rowSpan}
             type={'span'}
           >
             {index + 1}
@@ -316,14 +322,14 @@ class Tokens extends PureComponent {
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexS)}>
           <img
-            className={css(styles.image)}
+            className={css(styles.image, styles.rowSpan)}
             src={getImageUrl(imageUrl)}
             width={32}
             height={32}
           />
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
-          <Link to={`/token/${identifier}`}>
+          <Link className={css(styles.rowSpan)} to={`/token/${identifier}`}>
             <El
               nightMode={nightMode}
               type={'span'}
@@ -336,6 +342,7 @@ class Tokens extends PureComponent {
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
           <El
               nightMode={nightMode}
+              style={styles.rowSpan}
               type={'span'}
           >
             {numeral(priceUSD).format('$0,0.00')}
@@ -353,6 +360,7 @@ class Tokens extends PureComponent {
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexL)}>
           <El
               nightMode={nightMode}
+              style={styles.rowSpan}
               type={'span'}
           >
             {numeral(marketCapUSD).format('$0,0')}
@@ -361,6 +369,7 @@ class Tokens extends PureComponent {
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>
           <El
               nightMode={nightMode}
+              style={styles.rowSpan}
               type={'span'}
           >
             {numeral(availableSupply).format('0,0')}
