@@ -1,6 +1,6 @@
 class GraphqlController < ApplicationController
+
   def execute
-    variables = ensure_hash(params[:variables])
     # Note that `current_user` can be nil.
     current_user = authorize_request
     time_zone = parse_request_time_zone
@@ -9,20 +9,33 @@ class GraphqlController < ApplicationController
       current_user.sync_last_active_at
     end
 
-    query = params[:query]
-    operation_name = params[:operationName]
     context = {
       current_user: current_user,
       time_zone: time_zone,
     }
-    result = BlocktermSchema.execute(
-      query,
-      {
-        variables: variables,
-        context: context,
-        operation_name: operation_name,
-      }
-    )
+
+    # Apollo sends the params in a _json variable when batching is enabled.
+    # Apollo Documentation about query batching: http://dev.apollodata.com/core/network.html#query-batching.
+    if params[:_json]
+      queries = params[:_json].map do |param|
+        {
+          context: context,
+          operation_name: param[:operationName],
+          query: param[:query],
+          variables: ensure_hash(param[:variables]),
+        }
+      end
+      result = BlocktermSchema.multiplex(queries)
+    else
+      result = BlocktermSchema.execute(
+        params[:query],
+        {
+          context: context,
+          operation_name: params[:operationName],
+          variables: ensure_hash(params[:variables]),
+        }
+      )
+    end
 
     render json: result
   end
