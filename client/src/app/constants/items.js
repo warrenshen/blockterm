@@ -189,7 +189,7 @@ export const ITEM_VALUE_TO_LABELS = {
 };
 
 const TWITTER_VALUE_LIST_EXCHANGES = 'Exchanges';
-const TWITTER_VALUE_SEARCH_CRYPTOCURRENCY = '#cryptocurrency';
+export const TWITTER_VALUE_SEARCH_CRYPTOCURRENCY = '#cryptocurrency';
 const TWITTER_VALUE_SEARCH_BITCOIN = '$BTC';
 const TWITTER_VALUE_SEARCH_ETH = '$ETH';
 const TWITTER_VALUE_SEARCH_XRP = '$XRP';
@@ -1662,7 +1662,8 @@ export function parseIdentiferKey(identifier)
 
 export function convertIdentifierToTitle(identifier)
 {
-  var [identifierKey, identifierValue] = parseIdentifer(identifier);
+  let [identifierKey, identifierValue] = parseIdentifer(identifier);
+
   if (identifierKey === TV_CANDLE_CHART)
   {
     identifierKey = 'CANDLE_CHART';
@@ -1674,6 +1675,10 @@ export function convertIdentifierToTitle(identifier)
   else if (identifierKey === TWITTER_ITEM)
   {
     identifierKey = 'TWITTER';
+    if (!(identifierValue in TWITTER_VALUE_TO_DATA_SOURCE))
+    {
+      identifierValue = TWITTER_VALUE_SEARCH_CRYPTOCURRENCY;
+    }
   }
   return `${identifierKey}:${identifierValue}`;
 }
