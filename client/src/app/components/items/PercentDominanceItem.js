@@ -18,7 +18,6 @@ import {
 } from '../../constants/plots';
 import LineChartWithSelectItem from './LineChartWithSelectItem';
 
-
 import {
   BAR_CHART_DATA_STYLES,
   LINE_CHART_DATA_STYLES,
@@ -66,7 +65,7 @@ class PercentDominanceItem extends Component
     if (dashboardData)
     {
       const labels = dashboardData[0].marketTickers.map(
-        (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
+        (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format(isPlotRangeBig(plotRange) ? 'MM/DD/YY' : 'MM/DD hh:mm a')
       );
 
       var style = LINE_CHART_DATA_STYLES;
@@ -104,6 +103,13 @@ class PercentDominanceItem extends Component
         labels: labels,
         datasets: datasets,
       };
+      const selectOptions = disableChartOptions(
+        dashboardData[0].earliestMarketTickerDate,
+        RANGE_SELECT_OPTIONS,
+      );
+
+      const onChange = (option) =>
+        changeDashboardItemState(identifier, 'plotRange', option.value);
 
       const gridLinesConfig = {
         color: nightMode ? 'rgba(255, 255, 255, 0.15)' :
@@ -112,11 +118,14 @@ class PercentDominanceItem extends Component
                                    'rgba(0, 0, 0, 0.15)',
       };
       const xTicksConfig = {
+        callback: (tick) => tick.substring(0, 5),
         fontColor: nightMode ? 'rgba(255, 255, 255, 0.7)' :
                                'rgba(0, 0, 0, 0.7)',
         padding: 6,
         minRotation: 45,
         maxRotation: 90, // angle in degrees
+        autoSkip: true,
+        maxTicksLimit: 25,
       };
       const yTicksConfig = {
         callback: (value, index, values) => numeral(value / 100.0).format('(0%)'),
@@ -138,12 +147,16 @@ class PercentDominanceItem extends Component
         maintainAspectRatio: false,
         tooltips: {
           callbacks: {
-            label: (tooltipItem, data) => numeral(parseFloat(tooltipItem.yLabel) / 100).format('(0.00%)'),
+            label: (tooltipItem, data) => {
+              const name = data.datasets[tooltipItem.datasetIndex].label;
+              const percent = numeral(parseFloat(tooltipItem.yLabel) / 100).format('(0.00%)');
+              return `${name}: ${percent}`;
+            },
             title: (tooltipItem, data) => data.labels[tooltipItem[0].index],
           },
           displayColors: false,
           intersect: false,
-          mode: 'nearest',
+          mode: 'index',
         },
         scales: {
           xAxes: [
@@ -154,6 +167,7 @@ class PercentDominanceItem extends Component
           ],
           yAxes: [
             {
+              beginAtZero: true,
               gridLines: gridLinesConfig,
               stacked: true,
               ticks: yTicksConfig,
@@ -163,15 +177,14 @@ class PercentDominanceItem extends Component
       };
 
       const bitcoinDominance = dashboardData[0].lastPrice;
-      console.log(data);
 
       return (
         <div className={css(styles.container)}>
           <LineChartWithSelectItem
             chartOptions={chartOptions}
             data={data}
-            // onChange={onChange}
-            // options={selectOptions}
+            onChange={onChange}
+            options={selectOptions}
             nightMode={nightMode}
             selectValue={plotRange}
             title={`Bitcoin Dominance: ${numeral(bitcoinDominance/100).format('0.00%')}`}
