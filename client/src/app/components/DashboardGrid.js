@@ -87,6 +87,10 @@ const styles = StyleSheet.create({
     opacity: '0.4',
     pointerEvents: 'none',
   },
+  noWidgets: {
+    letterSpacing: '1px',
+    fontWeight: '500',
+  },
 });
 
 class DashboardGrid extends Component {
@@ -217,10 +221,11 @@ class DashboardGrid extends Component {
       return (
         <div className={css(styles.emptyContainer, nightMode && styles.nightContainer)}>
           <El
+            style={styles.noWidgets}
             nightMode={nightMode}
             type={'span'}
           >
-            No widgets here.
+            No widgets here. Use the action bar below to add some!
           </El>
         </div>
       );

@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: '1px',
     color: '#000',
+    backgroundColor:'#fff',
   },
   nightModeButton: {
     borderColor: '#fff',

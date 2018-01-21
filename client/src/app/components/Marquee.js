@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'right !important',
   },
   promotionNight: {
-    backgroundColor: STYLES.GOLD,
+    //backgroundColor: STYLES.GOLD,
   },
   bannerNight: {
     backgroundColor: '#000',

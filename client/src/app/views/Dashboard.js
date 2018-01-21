@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     borderTop: '1px solid #777',
     display: 'flex',
     justifyContent: 'flex-end',
-    paddingRight: '59px',
+    paddingRight: '58px',
   },
   darkActionBar: {
     borderTop: '1px solid #999',
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     //borderColor: '#fff !important',
   },
   emphasize: {
-    //backgroundColor: STYLES.BLAZINGREEN,
+    backgroundColor: STYLES.GOLD,
   },
   darkEmphasize: {
     //backgroundColor: STYLES.GOLD,
