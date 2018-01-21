@@ -112,7 +112,7 @@ export const DEFAULT_ITEM_OBJECTS_BY_SUBREDDIT = {
 export const ITEM_KEY_TO_LABELS = {
   [TV_CANDLE_CHART]: 'Candle chart',
   [TV_MARKET_OVERVIEW]: 'Market overview',
-  [TOTAL_MARKET_CAP]: 'Market cap chart',
+  [TOTAL_MARKET_CAP]: 'Total market cap chart',
   [PERCENT_DOMINANCE_ITEM]: 'Percent dominance chart',
   [PORTFOLIO_ITEM]: 'Portfolio overview',
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',

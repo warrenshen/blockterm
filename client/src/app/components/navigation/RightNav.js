@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     ':before': {
       content: '"or"',
       position: 'absolute',
-      left: '-19px',
+      left: '-23px',
       fontWeight: '700',
     },
   },

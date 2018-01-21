@@ -20,7 +20,7 @@ const CHANGE_SUBSCRIBER_COUNT_PLOT_RANGE = 'CHANGE_SUBSCRIBER_COUNT_PLOT_RANGE';
   Reducer
  ------------------------------------------*/
 const initialState = {
-  activeUserCountPlotRange: ONE_WEEK,
+  activeUserCountPlotRange: ONE_MONTH,
   commentCountPlotRange: ONE_MONTH,
   postCountPlotRange: ONE_MONTH,
   pricePlotRange: ONE_WEEK,

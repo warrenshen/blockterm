@@ -60,6 +60,17 @@ module Types
         )
       }
     end
+    field :earliestSubscriberCountDate, types.String do
+      description 'The date time of earliest subscriber count associated with subreddit'
+
+      resolve -> (obj, args, ctx) {
+        time_zone = ctx[:time_zone]
+        QueryHelper::get_earliest_instance_date(
+          obj.subscriber_counts,
+          time_zone,
+        )
+      }
+    end
 
     field :activeUserCounts, types[Types::CountType] do
       description 'The comment counts associated with subreddit'
