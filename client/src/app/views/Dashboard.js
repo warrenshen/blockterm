@@ -150,6 +150,12 @@ const styles = StyleSheet.create({
   darkActionButton: {
     //borderColor: '#fff !important',
   },
+  emphasize: {
+    //backgroundColor: STYLES.BLAZINGREEN,
+  },
+  darkEmphasize: {
+    //backgroundColor: STYLES.GOLD,
+  },
 });
 
 var isScrolling;
@@ -330,7 +336,7 @@ class Dashboard extends Component
         </Link>
         <button
           title="Press to open up sidebar and add widgets to dashboard"
-          className={css(styles.actionButton, nightMode && styles.darkActionButton)}
+          className={css(styles.actionButton, nightMode && styles.darkActionButton, styles.emphasize, nightMode && styles.darkEmphasize)}
           onClick={(event) => changeSidebarMode('add')} >
           Add Widget To Dashboard [+]
         </button>

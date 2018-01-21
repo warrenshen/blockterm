@@ -41,8 +41,10 @@ const notificationsStyle = {
     },
     info: {
       backgroundColor: '#F50057',
-      //backgroundColor: '#651FFF',
-    }
+    },
+    error: {
+      backgroundColor: '#FF0E28',
+    },
   },
   Title: {
     DefaultStyle: {
