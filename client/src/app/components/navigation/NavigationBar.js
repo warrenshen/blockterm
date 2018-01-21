@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     },
   },
   floatingBeta: {
-    color: '#fff',
+    color: '#000',
     textTransform: 'uppercase',
     letterSpacing: '2px',
     position: 'absolute',
@@ -84,7 +84,10 @@ const styles = StyleSheet.create({
     top: '14px',
     fontSize: '10px',
     fontWeight: '500',
-  }
+  },
+  nightFloatingBeta: {
+    color: '#fff',
+  },
 });
 
 // <a href='https://www.kucoin.com/#/?r=7Na6rQ' target='_blank'>
@@ -155,7 +158,7 @@ class NavigationBar extends PureComponent
         />
         <nav className={css(styles.container, nightMode && styles.nightMode)}>
           <div className={css(styles.section)}>
-            <El type={'span'} nightMode={nightMode} style={styles.floatingBeta}>BETA</El>
+            <El type={'span'} nightMode={nightMode} style={styles.floatingBeta} nightModeStyle={styles.nightFloatingBeta}>BETA</El>
             <Link className={css(styles.brand)} to={'/'}>
               <El
                 nightMode={nightMode}

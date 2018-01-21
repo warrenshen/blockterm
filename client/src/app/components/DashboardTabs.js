@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     borderColor: '#333',
     textTransform: 'uppercase',
-    letterSpacing: '1px',
+    letterSpacing: '2px',
     backgroundColor: '#fff',
     paddingLeft: '12px',
     paddingRight: '12px',

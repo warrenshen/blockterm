@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     fontWeight: '700',
-    letterSpacing: '1px',
+    letterSpacing: '2px',
     textTransform: 'uppercase',
     paddingLeft: '16px',
     paddingRight: '16px',

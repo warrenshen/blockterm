@@ -30,6 +30,10 @@ $font-size-smallest: 12px;
 $font-weight-large: 700;
 $font-weight-medium: 400;
 
+* {
+  font-family: $font-family;
+}
+
 a,
 body,
 div,
