@@ -186,6 +186,11 @@ class Signup extends PureComponent {
 
     return (
       <div className={css(styles.body, styles.wrapper, nightMode && styles.bodyNightMode)}>
+        <Helmet>
+          <title>Blockterm | Join Our Cryptocurrency Trading Community</title>
+          <meta name="description" content="Manage and track your cryptocurrency portfolio/assets in one easy place. See your cryptocurrency assets total valuation, price by cryptocurrency, and distribution percentages with Blockterm." />
+        </Helmet>
+
         <div className={css(styles.mainContent)}>
           <div className={css(styles.loginPanel, nightMode && styles.panelsNight)}>
             <div className={css(styles.halfPanel)}>

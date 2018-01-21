@@ -5,6 +5,7 @@ PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import {Helmet}            from "react-helmet";
 import { Link }            from 'react-router-dom';
 import El                  from '../components/El';
 import Sidebar             from '../components/Sidebar';
@@ -366,6 +367,10 @@ class Home extends PureComponent {
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
+        <Helmet>
+          <title>Blockterm | Cryptocurrency Subreddits Analysis</title>
+          <meta name="description" content="Analyze subreddit activity of various cryptocurrency subreddits by: posts per day, comments per day, and mention distribution. Track correlation between currency and prices on BTC, ETH, XRP, VEN, etc." />
+        </Helmet>
         {
           data.subredditsAll &&
           this.renderSubreddits(data.subredditsAll)

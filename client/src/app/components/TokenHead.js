@@ -6,6 +6,7 @@ import React, {
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import moment              from 'moment';
+import {Helmet}            from 'react-helmet';
 import {
   LINE_CHART_DATA_STYLES,
   RANGE_SELECT_OPTIONS,
@@ -375,8 +376,26 @@ class TokenHead extends PureComponent {
       token,
     } = this.props;
 
+    const {
+      shortName,
+      longName,
+      priceUSD,
+      priceBTC,
+      volumeUSD24h,
+      marketCapUSD,
+      percentChange1h,
+      percentChange24h,
+    } = token;
+
+    const metaDescription = `Get price, trading volume, and percentage change data on ${longName} [${shortName}] in the last day, and all time. Use price data, charting tools and community sentiment to make wise investment decisions.`;
+    console.log(metaDescription);
+
     return (
       <div className={css(styles.container)}>
+        <Helmet>
+          <title>{longName} [{shortName}]: Price, Volume, Change Data & Charts | Blockterm</title>
+          <meta name="description" content={metaDescription} />
+        </Helmet>
         {this.renderInformation()}
         {this.renderSubreddits(token.subreddits, token)}
       </div>

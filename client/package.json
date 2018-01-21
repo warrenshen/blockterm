@@ -167,6 +167,7 @@
     "react-dom": "^15.6.1",
     "react-fontawesome": "^1.6.1",
     "react-grid-layout": "^0.16.2",
+    "react-helmet": "^5.2.0",
     "react-motion": "^0.5.0",
     "react-notification": "^5.0.1",
     "react-notification-system": "^0.2.16",
