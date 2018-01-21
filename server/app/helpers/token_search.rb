@@ -2,7 +2,7 @@ class TokenSearch
   include SearchObject.module(:paging)
   include SearchObject.module(:sorting)
 
-  scope { Token.all }
+  scope { Token.where.not(identifier: nil) }
 
   per_page 50
 

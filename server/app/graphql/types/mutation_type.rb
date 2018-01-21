@@ -639,9 +639,9 @@ module Types
           percent_change_7d = token_hash['percent_change_7d']
 
           token = Token.find_by_identifier(identifier)
-          if token.nil?
-            token = Token.find_by_long_name(long_name)
-          end
+          # if token.nil?
+          #   token = Token.find_by_long_name(long_name)
+          # end
 
           if token.nil?
             token = Token.create(
