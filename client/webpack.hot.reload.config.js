@@ -23,7 +23,8 @@ const config = {
   module: {
     rules: [
       {
-        test:   /\.worker\.js$/,
+        test:    /\.worker\.js$/,
+        include: srcInclude,
         loader: 'worker-loader'
       },
       {

@@ -50,7 +50,7 @@ const config = {
   module: {
     rules: [
       {
-        test:   /\.worker\.js$/,
+        test:    /\.worker\.js$/,
         loader: 'worker-loader'
       },
       {
