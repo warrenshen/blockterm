@@ -14,6 +14,10 @@ class MentionTotalCount
     @total_count = [@total_count, count].max
   end
 
+  def set_by(count)
+    @total_count = count
+  end
+
   def count
     @total_count
   end

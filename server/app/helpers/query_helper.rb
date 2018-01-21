@@ -28,6 +28,11 @@ module QueryHelper
           total_count.max_by(record.send(key_symbol))
         end
       end
+
+      if bin_strategy == 'first'
+        total_count.set_by(records[0].send(key_symbol))
+      end
+
       result << total_count
     end
     result
