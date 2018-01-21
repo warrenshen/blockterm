@@ -99,7 +99,9 @@ const styles = StyleSheet.create({
 class NavigationBar extends PureComponent
 {
   static propTypes = {
-    data: PropTypes.object.isRequired,
+    // If there is no auth token cookie, then we do not fetch
+    // user from the server and thus may have no data prop.
+    data: PropTypes.object,
     isPageLoaded: PropTypes.bool.isRequired,
     navModel: PropTypes.shape({
       leftLinks:  PropTypes.arrayOf(
@@ -172,7 +174,7 @@ class NavigationBar extends PureComponent
           </div>
           <div className={css(styles.section)}>
             <RightNav
-              user={data.user}
+              user={data && data.user}
               nightMode={nightMode}
               rightLinks={navigationModel.rightLinks}
               toggleNightMode={toggleNightMode}

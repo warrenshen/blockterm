@@ -141,6 +141,9 @@ export const UserQuery = gql`
     }
   }
 `;
+export const UserQueryOptions = {
+  skip: (ownProps) => getItem(AUTH_TOKEN_COOKIE) === null,
+};
 
 /* -----------------------------------------
   Mutations
