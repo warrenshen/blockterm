@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     flex: '1',
     display: 'flex',
     alignItems: 'center',
-    padding: '8px',
+    padding: '0px 8px',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
     lineHeight: '38px',
   },
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   addRow: {
     display: 'flex',
-    padding: '12px',
+    padding: '10px',
     marginBottom: '1px',
   },
   donutChart: {
@@ -240,7 +240,7 @@ class Portfolio extends PureComponent
     } = this.props;
 
     return (
-      <tr className={css(styles.row)}>
+      <tr className={css(styles.row)} style={{marginTop:'4px'}}>
         <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement)}>
           <El
             style={styles.semibolded}
