@@ -3,12 +3,15 @@
 import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose, graphql }   from 'react-apollo';
-import { UserQuery }          from '../../queries';
+import {
+  UserQuery,
+  UserQueryOptions,
+}                             from '../../queries';
 import NavigationBar          from '../../components/navigation/NavigationBar';
 import * as globalsActions    from '../../redux/modules/globals';
 import {
   info as createNotificationInfo,
-} from 'react-notification-system-redux';
+}                             from 'react-notification-system-redux';
 
 /* -----------------------------------------
   Redux
@@ -32,6 +35,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
-  graphql(UserQuery),
+  graphql(UserQuery, UserQueryOptions),
   connect(mapStateToProps, mapDispatchToProps)
 )(NavigationBar);
