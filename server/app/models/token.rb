@@ -35,7 +35,8 @@ class Token < ApplicationRecord
   has_many :token_users
   has_many :users, through: :token_users
 
+  validates :identifier, uniqueness: true, allow_nil: true
   # validates :short_name, uniqueness: true
-  validates :long_name, uniqueness: true
-  # validates :image_url, uniqueness: true
+  # validates :long_name, uniqueness: true
+  validates :image_url, uniqueness: true, allow_nil: true
 end

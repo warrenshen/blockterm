@@ -267,6 +267,7 @@ puts 'Seeding tokens and keywords...'
 
 token_infos = [
   {
+    identifier: 'bitcoin',
     short_name: 'BTC',
     long_name: 'Bitcoin',
     image_url: 'bitcoin',
@@ -285,6 +286,7 @@ token_infos = [
     percent_change_7d: 23.6,
   },
   {
+    identifier: 'ethereum',
     short_name: 'ETH',
     long_name: 'Ethereum',
     image_url: 'ethereum',
@@ -303,6 +305,7 @@ token_infos = [
     percent_change_7d: -9.6,
   },
   {
+    identifier: 'neo',
     short_name: 'NEO',
     long_name: 'NEO',
     image_url: 'neo',
@@ -321,6 +324,7 @@ token_infos = [
     percent_change_7d: -9.6,
   },
   {
+    identifier: 'ripple',
     short_name: 'XRP',
     long_name: 'Ripple',
     image_url: 'ripple',
@@ -338,6 +342,7 @@ token_infos = [
     percent_change_7d: -16.6,
   },
   {
+    identifier: 'bitcoin-cash',
     short_name: 'BCH',
     long_name: 'Bitcoin Cash',
     image_url: 'bitcoin-cash',
@@ -581,21 +586,21 @@ end
 Token.all.each do |token|
   keywords = token.keywords
 
-  keywords.each do |keyword|
-    Subreddit.where(name: ['CryptoCurrency', 'CryptoMarkets']).each do |subreddit|
-      today = DateTime.now.beginning_of_day
+  # keywords.each do |keyword|
+  #   Subreddit.where(name: ['CryptoCurrency', 'CryptoMarkets']).each do |subreddit|
+  #     today = DateTime.now.beginning_of_day
 
-      for i in (-90..0)
-        date = today + i.day
-        MentionCount.create(
-          subreddit_id: subreddit.id,
-          keyword_id: keyword.id,
-          timestamp: date,
-          count: rand(100),
-        )
-      end
+  #     for i in (-90..0)
+  #       date = today + i.day
+  #       MentionCount.create(
+  #         subreddit_id: subreddit.id,
+  #         keyword_id: keyword.id,
+  #         timestamp: date,
+  #         count: rand(100),
+  #       )
+  #     end
 
-      puts "Created 90 mention counts for the #{keyword.word} keyword in the #{subreddit.display_name} subreddit"
-    end
-  end
+  #     puts "Created 90 mention counts for the #{keyword.word} keyword in the #{subreddit.display_name} subreddit"
+  #   end
+  # end
 end
