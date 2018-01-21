@@ -187,7 +187,7 @@ class PercentDominanceItem extends Component
             options={selectOptions}
             nightMode={nightMode}
             selectValue={plotRange}
-            title={`Bitcoin Dominance: ${numeral(bitcoinDominance/100).format('0.00%')}`}
+            title={`BTC Dominance: ${numeral(bitcoinDominance/100).format('0.00%')}`}
           />
         </div>
       );
