@@ -140,6 +140,7 @@
     "babel-polyfill": "^6.23.0",
     "bluebird": "^3.5.0",
     "bootstrap": "^3.3.7",
+    "ccxt": "^1.10.802",
     "chalk": "^2.0.1",
     "chart.js": "^2.7.1",
     "compression": "^1.7.0",
