@@ -1,11 +1,11 @@
 export const PROJECT_VERSION = '0.2.0.2';
 export const PATCH_NOTES = [
-  '0.2.0.2: New version/updates notifications, search bar in price/volume tab, and fixed scrolling price marquee display issues for afflicted setups.',
+  '0.2.0.2: Search bar in Prices/Volume tab, scrolling price marquee display fixed, Bitcoin Dominance widget added, chat channel!',
   '0.2.0.1: Added more Twitter widgets for coins such as: DRGN, KNC, RPX, and many more. Subtle changes to subreddits/tokens page, portfolio widget.',
   '0.2: Stable release of portfolio and twitter feed widgets, and volume/price delta grid. Track your total portfolio value in a few clicks!',
-  '0.1.6.5: Soft launching the heavily requested "Portfolio" tab and dashboard widget, overhauling of "Coins/Tokens" page to "Price/Volume" of top 200 cryptos; [...]',
+  '0.1.6.5: Soft launching the heavily requested "Portfolio" tab and dashboard widget, overhauling of "Coins/Tokens" page to "Price/Volume" of top 200 cryptos;',
+  '0.1.6.3: All Binance coins/currencies now supported via Candle Chart.',
 ];
-//<li className={css(styles.blockli)}>0.1.6.2: All Binance coins/currencies now supported via Candle Chart.</li>
 //<li className={css(styles.blockli)}>Locking and unlocking of widgets now supported.</li>
 //<li className={css(styles.blockli)}>[...]</li>
 
@@ -36,15 +36,18 @@ export const ITEM_KEY_WHITELIST = [
 export const DEFAULT_PAGES_OBJECTS = [
   {
     dashboardItems:[
-      {"id":"3","w":7,"h":4,"x":0,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
-      {"id":"6","w":7,"h":4,"x":0,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
-      {"id":"9","w":2,"h":6,"x":7,"y":6,"static":false,"identifier":"TWITTER_ITEM__#XRP, #ripple, @ripple, $XRP"},
-      {"id":"10","w":4,"h":4,"x":0,"y":8,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},
-      {"id":"11","w":2,"h":6,"x":7,"y":0,"static":false,"identifier":"TWITTER_ITEM__#ethereum, #ETH, $ETH"},
-      {"id":"12","w":3,"h":4,"x":4,"y":8,"static":false,"identifier":"PORTFOLIO_ITEM__Default"}
+      {"id":"3","w":4,"h":4,"x":0,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
+      {"id":"6","w":4,"h":4,"x":0,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
+      {"id":"10","w":3,"h":4,"x":0,"y":8,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},
+      {"id":"11","w":2,"h":8,"x":7,"y":0,"static":false,"identifier":"TWITTER_ITEM__#cryptocurrency"},
+      {"id":"12","w":2,"h":4,"x":5,"y":8,"static":false,"identifier":"PORTFOLIO_ITEM__Default"},
+      {"id":"13","w":2,"h":4,"x":7,"y":8,"static":false,"identifier":"TWITTER_ITEM__$TRX"},
+      {"id":"14","w":3,"h":4,"x":4,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:XRPBTC"},
+      {"id":"15","w":2,"h":4,"x":3,"y":8,"static":false,"identifier":"SUBREDDIT_COMMENT_COUNTS__Bitcoin"},
+      {"id":"16","w":3,"h":4,"x":4,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:VENBTC"}
     ],
     index: 0,
-    name: 'Tab 1',
+    name: 'Tab 1'
   },
   {
     dashboardItems: [
@@ -186,6 +189,7 @@ export const ITEM_VALUE_TO_LABELS = {
 };
 
 const TWITTER_VALUE_LIST_EXCHANGES = 'Exchanges';
+const TWITTER_VALUE_SEARCH_CRYPTOCURRENCY = '#cryptocurrency';
 const TWITTER_VALUE_SEARCH_BITCOIN = '$BTC';
 const TWITTER_VALUE_SEARCH_ETH = '$ETH';
 const TWITTER_VALUE_SEARCH_XRP = '$XRP';
@@ -234,6 +238,7 @@ export const TWITTER_VALUE_TO_DATA_SOURCE = {
     type: 'url',
     url: 'https://twitter.com/snowycrypto/lists/blockterm-exchanges',
   },
+  [TWITTER_VALUE_SEARCH_CRYPTOCURRENCY]: '954908391012319232',
   [TWITTER_VALUE_SEARCH_BITCOIN]: '948031797803151362',
   [TWITTER_VALUE_SEARCH_ETH] : '951616418553913344',
   [TWITTER_VALUE_SEARCH_XRP] : '951617005659959297',
@@ -912,6 +917,7 @@ export const ITEM_KEY_TO_VALUES = {
   ],
   [TWITTER_ITEM]: [
     TWITTER_VALUE_LIST_EXCHANGES,
+    TWITTER_VALUE_SEARCH_CRYPTOCURRENCY,
     TWITTER_VALUE_SEARCH_BITCOIN,
     TWITTER_VALUE_SEARCH_ETH,
     TWITTER_VALUE_SEARCH_XRP,

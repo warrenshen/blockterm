@@ -143,12 +143,6 @@ const RightNav = ({
           key={'portfolio'}
         />,
         <RightNavButton
-          key={'faq'}
-          label={'FAQ'}
-          link={'/faq'}
-          nightMode={nightMode}
-        />,
-        <RightNavButton
           key={'sign-out'}
           action={(event) => logOut(event, client)}
           label={`${truncateEmail(user.email)} | `}
@@ -185,17 +179,15 @@ const RightNav = ({
           nightModeStyle={styles.nightModeButton}
           style={styles.loginButton}
         />,
+        <RightNavButton
+          key={'join'}
+          label={'Join/FAQ'}
+          link={'/join'}
+          nightMode={nightMode}
+          nightModeStyle={styles.nightModeButton}
+          style={styles.joinButton}
+        />,
       ]
-    }
-    {
-    // <RightNavButton
-    //   key={'join'}
-    //   label={'Join/FAQ'}
-    //   link={'/join'}
-    //   nightMode={nightMode}
-    //   nightModeStyle={styles.nightModeButton}
-    //   style={styles.joinButton}
-    // />,
     }
     {
     // <button
