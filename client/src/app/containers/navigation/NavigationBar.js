@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
   return {
     isPageLoaded: state.globals.isPageLoaded,
     nightMode: state.globals.nightMode,
+    user: state.globals.user,
   };
 };
 

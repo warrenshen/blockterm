@@ -244,14 +244,6 @@ export const CreateUserMutationOptions = {
     createUser(email, password) {
       const dashboardPagesString = getItem(DASHBOARD_COOKIE, true);
       return mutate({
-        updateQueries: {
-          UserQuery: (prev, { mutationResult }) => {
-            setItem(AUTH_TOKEN_COOKIE, mutationResult.data.createUser.authToken);
-            return {
-              user: mutationResult.data.createUser.user,
-            };
-          },
-        },
         variables: {
           dashboardPagesString,
           email,
@@ -327,14 +319,6 @@ export const LogInMutationOptions = {
   props: ({ mutate, ownProps }) => ({
     logIn(email, password) {
       return mutate({
-        updateQueries: {
-          UserQuery: (prev, { mutationResult }) => {
-            setItem(AUTH_TOKEN_COOKIE, mutationResult.data.logIn.authToken);
-            return {
-              user: mutationResult.data.logIn.user,
-            };
-          },
-        },
         variables: { email, password },
       });
     }

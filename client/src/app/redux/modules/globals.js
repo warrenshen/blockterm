@@ -49,7 +49,7 @@ export default function(state = initialState, action)
       {
         case 'UserQuery':
           data = action.result.data;
-          if (data && data.user === null)
+          if (data.user === null)
           {
             clearItem(AUTH_TOKEN_COOKIE);
           }
@@ -79,8 +79,6 @@ export default function(state = initialState, action)
           {
             clearItem(AUTH_TOKEN_COOKIE);
           }
-          console.log(data.logIn);
-          console.log('bye');
           return {
             ...state,
             user: data.logIn.user,
