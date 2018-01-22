@@ -6,6 +6,7 @@ import React, {
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
+import { Helmet }          from 'react-helmet';
 import TokenHead           from '../../components/TokenHead';
 import TokenBody           from '../../components/TokenBody';
 import El                  from '../../components/El';
@@ -146,8 +147,15 @@ class Token extends PureComponent {
       nightMode,
     } = this.props;
 
+    const metaDescription = `Get price, trading volume, and percentage change data on ${longName} [${shortName}] in the last day, and all time. Use price data, charting tools and community sentiment to make wise investment decisions.`;
+
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
+        <Helmet>
+          <title>{longName} [{shortName}]: Price, Volume, Change Data & Charts | Blockterm</title>
+          <meta name="description" content={metaDescription} />
+        </Helmet>
+
         {this.renderScrollShield()}
         { data && data.token && this.renderToken(data.token) }
       </div>

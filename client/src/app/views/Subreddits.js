@@ -5,7 +5,7 @@ PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import {Helmet}            from "react-helmet";
+import { Helmet }          from 'react-helmet';
 import { Link }            from 'react-router-dom';
 import El                  from '../components/El';
 import Sidebar             from '../components/Sidebar';

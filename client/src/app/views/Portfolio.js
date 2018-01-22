@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import Select              from 'react-select';
 import numeral             from 'numeral';
+import { Helmet }          from 'react-helmet';
 import {
   calculatePortfolioChangeIn24h,
   calculatePortfolioChangeIn7d,
@@ -16,7 +17,6 @@ import {
 import El                   from '../components/El';
 import DonutChartWithSelect from '../components/DonutChartWithSelect'
 import FontAwesome          from 'react-fontawesome';
-import {Helmet}             from "react-helmet";
 import * as STYLES          from '../constants/styles';
 import {
   getImageUrl,

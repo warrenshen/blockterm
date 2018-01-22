@@ -159,6 +159,7 @@ class Login extends PureComponent {
 
   componentWillReceiveProps(nextProps)
   {
+    console.log(nextProps);
     if (!nextProps.data.loading && nextProps.data.user !== null)
     {
       nextProps.history.push('/');
@@ -176,7 +177,12 @@ class Login extends PureComponent {
     } = this.props;
 
     logIn(email, password)
-      .catch((error) => changeError(error.graphQLErrors[0].message));
+      .then((response) => console.log(response))
+      .catch(
+        (error) => changeError(error.graphQLErrors[0] ?
+                               error.graphQLErrors[0].message :
+                               'Help')
+      );
   }
 
   render()
