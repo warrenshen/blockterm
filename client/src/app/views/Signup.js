@@ -6,6 +6,7 @@ import React, {
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { Link }            from 'react-router-dom';
+import { Helmet }          from 'react-helmet';
 import El from '../components/El';
 
 import { withRouter } from 'react-router-dom'

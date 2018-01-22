@@ -79,6 +79,8 @@ export default function(state = initialState, action)
           {
             clearItem(AUTH_TOKEN_COOKIE);
           }
+          console.log(data.logIn);
+          console.log('bye');
           return {
             ...state,
             user: data.logIn.user,

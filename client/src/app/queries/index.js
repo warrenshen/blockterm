@@ -138,6 +138,12 @@ export const UserQuery = gql`
   query UserQuery {
     user {
       email
+
+      alerts {
+        id
+        identifier
+        expiresAt
+      }
     }
   }
 `;
@@ -222,6 +228,12 @@ export const CreateUserMutation = gql`
 
       user {
         email
+
+        alerts {
+          id
+          identifier
+          expiresAt
+        }
       }
     }
   }
@@ -300,6 +312,12 @@ export const LogInMutation = gql`
 
       user {
         email
+
+        alerts {
+          id
+          identifier
+          expiresAt
+        }
       }
     }
   }

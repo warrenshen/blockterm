@@ -71,12 +71,33 @@ const notificationsStyle = {
   },
 }
 
+// import Worker from '../../workers/binance.worker';
+
+// const worker = new Worker();
+
+// // worker.postMessage({ a: 1 });
+// worker.onmessage = function (event) {
+//   console.log('bye');
+//   console.log(event);
+// };
+
 class App extends PureComponent {
+
+  // componentDidMount()
+  // {
+  //   const {
+  //     user,
+  //   } = this.props;
+
+  //   console.log(user);
+  // }
 
   render() {
     const {
       notifications,
     } = this.props;
+    console.log('hhh');
+    console.log(this.props);
 
     return (
       <div className={css(styles.wrapper)}>
@@ -100,6 +121,7 @@ class App extends PureComponent {
 const mapStateToProps = (state) => {
   return {
     notifications: state.notifications,
+    // user: state.globals.user,
   };
 };
 

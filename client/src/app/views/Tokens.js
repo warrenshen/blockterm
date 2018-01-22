@@ -7,7 +7,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { withRouter }      from 'react-router';
 import { Link }            from 'react-router-dom';
-import {Helmet}            from "react-helmet";
+import { Helmet }          from 'react-helmet';
 import numeral             from 'numeral';
 import Select              from 'react-select';
 import El                  from '../components/El';
@@ -476,6 +476,7 @@ class Tokens extends PureComponent {
           <title>Blockterm | Cryptocurrency Prices & Trading Volume</title>
           <meta name="description" content="Monitor cryptocurrency prices and trading volume by hour, day, or week with Blockterm. Get latest price movements/price data of cryptocurrencies such as: BTC, ETH, XRP, ADA, DASH, XMR, VEN, ICX, etc." />
         </Helmet>
+
         <div className={css(styles.mainContent)}>
           <div className={css(styles.header)}>
             <El
