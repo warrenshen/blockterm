@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import Select              from 'react-select';
 import numeral             from 'numeral';
+import money               from 'money-works';
 import {
   calculatePortfolioChangeIn24h,
   calculatePortfolioChangeIn7d,
