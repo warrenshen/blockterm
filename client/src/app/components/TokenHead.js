@@ -388,7 +388,6 @@ class TokenHead extends PureComponent {
     } = token;
 
     const metaDescription = `Get price, trading volume, and percentage change data on ${longName} [${shortName}] in the last day, and all time. Use price data, charting tools and community sentiment to make wise investment decisions.`;
-    console.log(metaDescription);
 
     return (
       <div className={css(styles.container)}>

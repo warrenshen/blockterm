@@ -156,6 +156,7 @@
     "jwt-decode": "^2.2.0",
     "moment": "^2.19.2",
     "moment-timezone": "^0.5.14",
+    "money-works": "^1.5.2",
     "numeral": "^2.0.6",
     "plotly.js": "^1.31.2",
     "pretty-error": "^2.1.1",
