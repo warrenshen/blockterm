@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119202722) do
+ActiveRecord::Schema.define(version: 20180121235552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20180119202722) do
     t.datetime "updated_at",                             null: false
     t.index ["subreddit_id", "timestamp"], name: "index_active_user_counts_on_subreddit_id_and_timestamp", unique: true, using: :btree
     t.index ["subreddit_id"], name: "index_active_user_counts_on_subreddit_id", using: :btree
+  end
+
+  create_table "alerts", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.string   "identifier", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "expires_at"], name: "index_alerts_on_user_id_and_expires_at", using: :btree
+    t.index ["user_id"], name: "index_alerts_on_user_id", using: :btree
   end
 
   create_table "comment_counts", force: :cascade do |t|
@@ -194,6 +204,7 @@ ActiveRecord::Schema.define(version: 20180119202722) do
   end
 
   add_foreign_key "active_user_counts", "subreddits"
+  add_foreign_key "alerts", "users"
   add_foreign_key "comment_counts", "subreddits"
   add_foreign_key "dashboard_items", "dashboard_pages"
   add_foreign_key "dashboard_items", "users"
