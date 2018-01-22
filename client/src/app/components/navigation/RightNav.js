@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
 function logOut(event, client)
 {
   clearItem(AUTH_TOKEN_COOKIE);
-  client.resetStore();
   window.location.reload();
 }
 
