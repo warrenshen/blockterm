@@ -13,6 +13,7 @@
 class User < ApplicationRecord
   has_secure_password
 
+  has_many :alerts
   has_many :dashboard_items
   has_many :dashboard_pages
   has_many :token_users
