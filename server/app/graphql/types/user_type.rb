@@ -15,6 +15,13 @@ module Types
       }
     end
 
+    field :alerts, !types[Types::AlertType] do
+      description 'The active (not expired) alerts associated with user'
+
+      resolve -> (obj, args, ctx) {
+        obj.alerts.where('expires_at > ?', DateTime.now)
+      }
+    end
     field :dashboardPages, !types[Types::DashboardPageType] do
       description 'The dashboard pages associated with user'
 
