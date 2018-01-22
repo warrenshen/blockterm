@@ -9,10 +9,16 @@ import {
   Link,
   withRouter,
 }                          from 'react-router-dom';
-import El from '../components/El';
-
-import * as STYLES from '../constants/styles';
-import { PROJECT_VERSION, PATCH_NOTES } from '../constants/items';
+import {
+  AUTH_TOKEN_COOKIE,
+  setItem,
+}                          from '../services/cookie';
+import El                  from '../components/El';
+import {
+  PROJECT_VERSION,
+  PATCH_NOTES,
+}                          from '../constants/items';
+import * as STYLES         from '../constants/styles';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -155,12 +161,11 @@ const styles = StyleSheet.create({
   },
 });
 
-class Login extends PureComponent {
-
+class Login extends PureComponent
+{
   componentWillReceiveProps(nextProps)
   {
-    console.log(nextProps);
-    if (!nextProps.data.loading && nextProps.data.user !== null)
+    if (nextProps.user !== null)
     {
       nextProps.history.push('/');
     }
@@ -170,30 +175,31 @@ class Login extends PureComponent {
   {
     const {
       email,
-      logIn,
+      history,
       password,
 
       changeError,
+      createNotificationSuccess,
+      logIn,
     } = this.props;
 
     logIn(email, password)
-      .then((response) => console.log(response))
-      .catch(
-        (error) => changeError(error.graphQLErrors[0] ?
-                               error.graphQLErrors[0].message :
-                               'Help')
-      );
+      .then((response) => {
+        setItem(AUTH_TOKEN_COOKIE, response.data.logIn.authToken);
+      })
+      .catch((error) => changeError(error.graphQLErrors[0].message));
   }
 
   render()
   {
     const {
-      changeEmail,
-      changePassword,
       email,
       error,
-      password,
       nightMode,
+      password,
+
+      changeEmail,
+      changePassword,
     } = this.props;
 
     const onClickSubmit = (event) => {

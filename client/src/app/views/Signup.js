@@ -5,13 +5,18 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import { Link }            from 'react-router-dom';
+import {
+  Link,
+  withRouter,
+}                          from 'react-router-dom';
 import { Helmet }          from 'react-helmet';
-import El from '../components/El';
-
-import { withRouter } from 'react-router-dom'
-import FAQBody from '../components/FAQBody';
-import * as STYLES from '../constants/styles';
+import {
+  AUTH_TOKEN_COOKIE,
+  setItem,
+}                          from '../services/cookie';
+import FAQBody             from '../components/FAQBody';
+import El                  from '../components/El';
+import * as STYLES         from '../constants/styles';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -138,11 +143,11 @@ const styles = StyleSheet.create({
   },
 });
 
-class Signup extends PureComponent {
-
+class Signup extends PureComponent
+{
   componentWillReceiveProps(nextProps)
   {
-    if (!nextProps.data.loading && nextProps.data.user !== null)
+    if (nextProps.user !== null)
     {
       nextProps.history.push('/');
     }
@@ -155,22 +160,27 @@ class Signup extends PureComponent {
       password,
 
       changeError,
+      createNotificationSuccess,
       createUser,
     } = this.props;
 
     createUser(email, password)
+      .then((response) => {
+        setItem(AUTH_TOKEN_COOKIE, response.data.createUser.authToken);
+      })
       .catch((error) => changeError(error.graphQLErrors[0].message));;
   }
 
   render()
   {
     const {
-      changeEmail,
-      changePassword,
       email,
       error,
-      password,
       nightMode,
+      password,
+
+      changeEmail,
+      changePassword,
     } = this.props;
 
     const onClickSubmit = (event) => {
@@ -269,7 +279,6 @@ class Signup extends PureComponent {
           </div>
 
           <FAQBody nightMode={nightMode} />
-
         </div>
       </div>
     );

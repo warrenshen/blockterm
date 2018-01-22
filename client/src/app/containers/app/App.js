@@ -96,8 +96,6 @@ class App extends PureComponent {
     const {
       notifications,
     } = this.props;
-    console.log('hhh');
-    console.log(this.props);
 
     return (
       <div className={css(styles.wrapper)}>

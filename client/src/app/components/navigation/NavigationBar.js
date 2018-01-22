@@ -150,6 +150,7 @@ class NavigationBar extends PureComponent
       toggleNightMode,
       toggleSidebar,
       sidebarActive,
+      user,
     } = this.props;
 
     return (
@@ -174,7 +175,7 @@ class NavigationBar extends PureComponent
           </div>
           <div className={css(styles.section)}>
             <RightNav
-              user={data && data.user}
+              user={user}
               nightMode={nightMode}
               rightLinks={navigationModel.rightLinks}
               toggleNightMode={toggleNightMode}
