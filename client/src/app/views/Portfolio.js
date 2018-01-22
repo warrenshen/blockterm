@@ -16,6 +16,7 @@ import {
 import El                   from '../components/El';
 import DonutChartWithSelect from '../components/DonutChartWithSelect'
 import FontAwesome          from 'react-fontawesome';
+import {Helmet}             from "react-helmet";
 import * as STYLES          from '../constants/styles';
 import {
   getImageUrl,
@@ -574,6 +575,11 @@ class Portfolio extends PureComponent
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
+        <Helmet>
+          <title>Blockterm | Cryptocurrency Portfolio Tracking Tool</title>
+          <meta name="description" content="Manage and track your cryptocurrency portfolio/assets in one easy place. See your cryptocurrency assets total valuation, price by cryptocurrency, and distribution percentages with Blockterm." />
+        </Helmet>
+
         <div className={css(styles.chartElement, styles.donutChart, styles.donutBox, nightMode && styles.darkDonutBox)}>
           <DonutChartWithSelect
             data={data}

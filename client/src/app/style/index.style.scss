@@ -355,7 +355,7 @@ button:disabled {
   right: 0px;
 }
 
-.chatbro_container, .chatbro_caption, .chatbro_minimized_caption, .chatbro_participant_count_wrapper, .chatbro_header, .chatbro_title > * {
+.chatbro_container, .chatbro_caption, .chatbro_minimized_caption, .chatbro_participant_count_wrapper, .chatbro_header, .chatbro_title > *, .new_messages_count_wrapper {
   color: #fff !important;
 }
 
