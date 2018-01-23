@@ -23,20 +23,20 @@ const config = {
   module: {
     rules: [
       {
-        test:    /\.worker\.js$/,
+        test:    /\.jsx?$/,
         include: srcInclude,
-        loader: 'worker-loader'
+        loader:  'babel-loader'
       },
       {
-        test:     /\.jsx?$/,
-        include:  srcInclude,
-        loaders:  ['babel-loader']
+        test:    /\.worker\.js$/,
+        include: srcInclude,
+        loaders: ['babel-loader', 'worker-loader']
       },
       {
         test: /\.css$/,
         use:  [
           'style-loader',
-          {loader: 'css-loader', options: { importLoaders: 1 }},
+          { loader: 'css-loader', options: { importLoaders: 1 } },
           'postcss-loader'
         ]
       },
@@ -44,7 +44,7 @@ const config = {
         test:  /\.scss$/,
         use:  [
           'style-loader',
-          {loader: 'css-loader', options: { importLoaders: 1 }},
+          { loader: 'css-loader', options: { importLoaders: 1 } },
           'postcss-loader',
           'sass-loader'
         ]
