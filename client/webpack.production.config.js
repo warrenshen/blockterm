@@ -48,13 +48,13 @@ const config = {
   module: {
     rules: [
       {
-        test:    /\.worker\.js$/,
-        loader: 'worker-loader'
+        test:    /\.jsx?$/,
+        exclude: [nodeModulesDir],
+        loader:  'babel-loader'
       },
       {
-        test:     /\.jsx?$/,
-        exclude:  [nodeModulesDir],
-        loader:   'babel-loader'
+        test:    /\.worker\.js$/,
+        loaders: ['babel-loader', 'worker-loader']
       },
       {
         test: /\.css$/,

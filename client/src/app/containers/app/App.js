@@ -16,6 +16,7 @@ import Notifications       from 'react-notification-system-redux';
 import ReactTooltip        from 'react-tooltip';
 import * as STYLES         from '../../constants/styles';
 import Footer              from '../../components/Footer';
+import Worker              from '../../workers/binance.worker';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -71,26 +72,37 @@ const notificationsStyle = {
   },
 }
 
-// import Worker from '../../workers/binance.worker';
+class App extends PureComponent
+{
+  constructor(props)
+  {
+    super(props);
+    this.worker = null;
+  }
 
-// const worker = new Worker();
+  componentWillReceiveProps(nextProps)
+  {
+    const {
+      user,
+    } = nextProps;
 
-// // worker.postMessage({ a: 1 });
-// worker.onmessage = function (event) {
-//   console.log('bye');
-//   console.log(event);
-// };
+    console.log(user);
+    if (user !== null)
+    {
+      console.log(this.worker);
+      if (this.worker !== null)
+      {
+        worker.terminate();
+      }
 
-class App extends PureComponent {
-
-  // componentDidMount()
-  // {
-  //   const {
-  //     user,
-  //   } = this.props;
-
-  //   console.log(user);
-  // }
+      this.worker = new Worker();
+      this.worker.postMessage({ alerts: user.alerts });
+      this.worker.onmessage = (event) => {
+        console.log('bye');
+        console.log(event.data);
+      };
+    }
+  }
 
   render() {
     const {
@@ -119,7 +131,7 @@ class App extends PureComponent {
 const mapStateToProps = (state) => {
   return {
     notifications: state.notifications,
-    // user: state.globals.user,
+    user: state.globals.user,
   };
 };
 

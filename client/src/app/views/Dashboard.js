@@ -158,8 +158,6 @@ const styles = StyleSheet.create({
   },
 });
 
-var isScrolling;
-
 class Dashboard extends Component
 {
   constructor(props)
@@ -172,8 +170,8 @@ class Dashboard extends Component
 
     this.handleScroll = (event) => {
       changeScrollActive(true);
-      window.clearTimeout(isScrolling);
-      isScrolling = setTimeout(function() {
+      window.clearTimeout(window.isScrolling);
+      window.isScrolling = setTimeout(function() {
         changeScrollActive(false);
       }, 256);
     };
