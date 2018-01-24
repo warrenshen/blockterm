@@ -117,6 +117,7 @@ class DashboardGrid extends Component {
       user,
 
       changeDashboardItemState,
+      changeModalState,
       changeSidebarMode,
       destroyDashboardItem,
       removeFromLayout,
@@ -136,17 +137,19 @@ class DashboardGrid extends Component {
         {
           isPageLoaded && (
             <DashboardItem
-              changeDashboardItemState={changeDashboardItemState}
-              changeSidebarMode={changeSidebarMode}
               dashboardAction={dashboardAction}
               dashboardData={dashboardData ? dashboardData[identifier] : null}
               dashboardItem={dashboardItem}
               dashboardState={dashboardItemStates[identifier]}
-              destroyDashboardItem={destroyDashboardItem}
               nightMode={nightMode}
+              user={user}
+
+              changeDashboardItemState={changeDashboardItemState}
+              changeModalState={changeModalState}
+              changeSidebarMode={changeSidebarMode}
+              destroyDashboardItem={destroyDashboardItem}
               removeFromLayout={removeFromLayout}
               updateLayoutItem={updateLayoutItem}
-              user={user}
             />
           )
         }

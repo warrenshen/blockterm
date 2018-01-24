@@ -54,6 +54,7 @@ const APOLLO_QUERY_RESULT_CLIENT = 'APOLLO_QUERY_RESULT_CLIENT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_DASHBOARD_ITEM_STATE = 'CHANGE_DASHBOARD_PAGE_STATE';
 const CHANGE_KEY_SELECT_VALUE = 'CHANGE_KEY_SELECT_VALUE';
+const CHANGE_MODAL_STATE = 'CHANGE_MODAL_STATE';
 const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
 const CHANGE_SIDEBAR_MODE = 'CHANGE_SIDEBAR_MODE';
 const CHANGE_VALUE_SELECT_VALUE = 'CHANGE_VALUE_SELECT_VALUE';
@@ -135,6 +136,7 @@ const initialState = {
   dashboardItemStates: initialDashboardItemStates,
   dashboardPages: initialDashboardPages,
   keySelectValue: '',
+  modalDashboardItemId: null,
   selectedTab: cookieSelectedTab,
   sidebarDashboardItemId: null,
   sidebarMode: null,
@@ -276,6 +278,11 @@ export default function(state = initialState, action)
       return {
         ...state,
         keySelectValue: action.value,
+      };
+    case CHANGE_MODAL_STATE:
+      return {
+        ...state,
+        modalDashboardItemId: action.dashboardItemId,
       };
     case CHANGE_SELECTED_TAB:
       setItem(SELECTED_TAB_COOKIE, action.value);
@@ -458,11 +465,11 @@ export function destroyDashboardItemLocal(value)
   };
 }
 
-export function saveDashboardItemsLocal(value)
+export function changeModalState(dashboardItemId)
 {
   return {
-    type: SAVE_DASHBOARD_ITEMS_LOCAL,
-    value: value,
+    type: CHANGE_MODAL_STATE,
+    dashboardItemId: dashboardItemId,
   };
 }
 
@@ -477,6 +484,14 @@ export function logDashboardActionStop()
 {
   return {
     type: LOG_DASHBOARD_ACTION_STOP,
+  };
+}
+
+export function saveDashboardItemsLocal(value)
+{
+  return {
+    type: SAVE_DASHBOARD_ITEMS_LOCAL,
+    value: value,
   };
 }
 
