@@ -46,7 +46,7 @@ class CoinmarketcapClient:
     if ethereum_result == None or len(ethereum_result) <= 0:
       raise Exception('Something went wrong with fetching bitcoin ticker')
 
-    total_market_cap_usd = int(global_result['total_market_cap_usd'])
+    total_market_cap_usd = int(float(global_result['total_market_cap_usd']))
     global_timestamp = global_result['last_updated']
     datetime_string = unix_timestamp_to_datetime_string(global_timestamp)
 
@@ -66,7 +66,7 @@ class CoinmarketcapClient:
       raise Exception('Something went wrong with saving total market ticker')
 
     ### Market caps ###
-    bitcoin_market_cap_usd = int(bitcoin_result[0]['market_cap_usd'])
+    bitcoin_market_cap_usd = int(float(bitcoin_result[0]['market_cap_usd']))
     bitcoin_timestamp = bitcoin_result[0]['last_updated']
     datetime_string = unix_timestamp_to_datetime_string(int(bitcoin_timestamp))
 
@@ -76,7 +76,7 @@ class CoinmarketcapClient:
       datetime_string
     )
 
-    ethereum_market_cap_usd = int(ethereum_result[0]['market_cap_usd'])
+    ethereum_market_cap_usd = int(float(ethereum_result[0]['market_cap_usd']))
     response = self.api.create_market_ticker_by_market_name(
       'TOTAL_ETHEREUM',
       str(ethereum_market_cap_usd),
@@ -95,14 +95,14 @@ class CoinmarketcapClient:
     assert total_market_cap_usd == bitcoin_market_cap_usd + ethereum_market_cap_usd + altcoins_market_cap_usd
 
     ### Percent dominance ###
-    bitcoin_percent = round(int(bitcoin_market_cap_usd) * 100 / int(total_market_cap_usd), 2)
+    bitcoin_percent = round(bitcoin_market_cap_usd * 100 / total_market_cap_usd, 2)
     response = self.api.create_market_ticker_by_market_name(
       'PERCENT_BITCOIN',
       str(bitcoin_percent),
       datetime_string
     )
 
-    ethereum_percent = round(int(ethereum_market_cap_usd) * 100 / int(total_market_cap_usd), 2)
+    ethereum_percent = round(ethereum_market_cap_usd * 100 / total_market_cap_usd, 2)
     response = self.api.create_market_ticker_by_market_name(
       'PERCENT_ETHEREUM',
       str(ethereum_percent),
