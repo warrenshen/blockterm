@@ -92,6 +92,9 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '256px',
   },
+  overlaySideHeader: {
+    display: 'flex',
+  },
   alerts: {
     flex: '1',
     display: 'flex',
@@ -166,11 +169,63 @@ class Dashboard extends PureComponent
     }
   }
 
+  renderAlerts()
+  {
+    const {
+      nightMode,
+      user,
+    } = this.props;
+
+    console.log(user);
+    return (
+      <div>
+        {
+          user !== null ? [
+            <form>
+              <input
+                autoFocus={true}
+                className={css(styles.inputField, nightMode && styles.fieldNight)}
+                placeholder='email/username'
+                required='required'
+                value={''}
+                // onChange={(event) => changeEmail(event.target.value)}
+              />
+              <input
+                className={css(styles.inputField, nightMode && styles.fieldNight)}
+                placeholder='password'
+                type='password'
+                required='required'
+                value={''}
+                // onChange={(event) => changePassword(event.target.value)}
+                // onKeyPress={onKeyPress}
+              />
+            </form>,
+            <div className={css(styles.alerts)}>
+              {user.alerts.map((alert) => (
+                <div>
+                  Alert
+                </div>
+              ))}
+            </div>
+          ] : (
+            <El
+              nightMode={nightMode}
+              type={'h5'}
+            >
+              LOGIN or JOIN to use alerts
+            </El>
+          )
+        }
+      </div>
+    );
+  }
+
   renderModal()
   {
     const {
       modalDashboardItemId,
       nightMode,
+      user,
 
       changeModalState,
     } = this.props;
@@ -183,16 +238,14 @@ class Dashboard extends PureComponent
             nightMode={nightMode}
           />
           <div className={css(styles.overlaySide)}>
-            <div>
+            <div className={css(styles.overlaySideHeader)}>
               <button
                 onClick={(event) => changeModalState(null)}
               >
-                <FontAwesome name='close' className={css(styles.icon)}/>
+                <FontAwesome name='close' className={css(styles.icon)} />
               </button>
             </div>
-            <div className={css(styles.alerts)}>
-
-            </div>
+            {this.renderAlerts()}
           </div>
         </div>
       );

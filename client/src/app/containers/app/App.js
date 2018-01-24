@@ -86,13 +86,11 @@ class App extends PureComponent
       user,
     } = nextProps;
 
-    console.log(user);
     if (user !== null)
     {
-      console.log(this.worker);
       if (this.worker !== null)
       {
-        worker.terminate();
+        this.worker.terminate();
       }
 
       this.worker = new Worker();

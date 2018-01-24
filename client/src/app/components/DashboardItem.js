@@ -271,7 +271,7 @@ class DashboardItem extends Component
           </div>
           <div className={css(styles.rightAlignSmall, staticActive && styles.lockedGrabBar)}>
             <button
-              className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
+              className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
               onClick={onClickOpen}
               title="Open this widget in full screen."
             >

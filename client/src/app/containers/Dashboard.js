@@ -366,6 +366,7 @@ class Container extends PureComponent
       scrollActive,
       sidebarDashboardItemId,
       sidebarMode,
+      user,
       valueSelectValue,
 
       changeKeySelectValue,
@@ -386,6 +387,7 @@ class Container extends PureComponent
           nightMode={nightMode}
           scrollActive={scrollActive}
           sidebarMode={sidebarMode}
+          user={user}
           valueSelectValue={valueSelectValue}
 
           addToLayout={(identifier) => this.addToLayout(identifier)}
