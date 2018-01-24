@@ -37,6 +37,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       changeDashboardItemState: dashboardActions.changeDashboardItemState,
+      changeModalState: dashboardActions.changeModalState,
       changeSelectedTab: dashboardActions.changeSelectedTab,
       changeSidebarMode: dashboardActions.changeSidebarMode,
       destroyDashboardItemLocal: dashboardActions.destroyDashboardItemLocal,

@@ -112,8 +112,8 @@ const styles = StyleSheet.create({
   },
 });
 
-class DashboardItem extends Component {
-
+class DashboardItem extends Component
+{
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
@@ -235,6 +235,7 @@ class DashboardItem extends Component {
       dashboardItem,
       nightMode,
 
+      changeModalState,
       changeSidebarMode,
       removeFromLayout,
       updateLayoutItem,
@@ -250,6 +251,7 @@ class DashboardItem extends Component {
 
     const onClickEdit = (event) => changeSidebarMode('edit', id);
     const onClickLock = (event) => updateLayoutItem(id, !staticActive);
+    const onClickOpen = (event) => changeModalState(id);
     const onClickRemove = (event) => removeFromLayout(id);
 
     return (
@@ -268,6 +270,13 @@ class DashboardItem extends Component {
             </El>
           </div>
           <div className={css(styles.rightAlignSmall, staticActive && styles.lockedGrabBar)}>
+            <button
+              className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
+              onClick={onClickOpen}
+              title="Open this widget in full screen."
+            >
+              <FontAwesome name='pencil' style={{'fontSize':'13px'}}/>
+            </button>
             <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
               onClick={onClickEdit}

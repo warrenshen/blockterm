@@ -7,10 +7,12 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
 import Sidebar             from 'react-sidebar';
+import FontAwesome         from 'react-fontawesome';
 import * as STYLES         from '../constants/styles';
 import PROJECT_VERSION     from '../constants/items';
 import DashboardTabs       from '../containers/DashboardTabs';
 import DashboardSidebar    from '../components/DashboardSidebar';
+import DashboardItemLarge  from '../components/DashboardItemLarge';
 import El                  from '../components/El';
 
 const styles = StyleSheet.create({
@@ -74,6 +76,26 @@ const styles = StyleSheet.create({
   },
   darkEmphasize: {
     //backgroundColor: STYLES.GOLD,
+  },
+  overlay: {
+    display: 'flex',
+    position: 'fixed',
+    top: '0px',
+    left: '0px',
+    zIndex: '3',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(79, 79, 79, 0.95)',
+  },
+  overlaySide: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '256px',
+  },
+  alerts: {
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 
@@ -144,6 +166,39 @@ class Dashboard extends PureComponent
     }
   }
 
+  renderModal()
+  {
+    const {
+      modalDashboardItemId,
+      nightMode,
+
+      changeModalState,
+    } = this.props;
+
+    if (modalDashboardItemId !== null)
+    {
+      return (
+        <div className={css(styles.overlay)}>
+          <DashboardItemLarge
+            nightMode={nightMode}
+          />
+          <div className={css(styles.overlaySide)}>
+            <div>
+              <button
+                onClick={(event) => changeModalState(null)}
+              >
+                <FontAwesome name='close' className={css(styles.icon)}/>
+              </button>
+            </div>
+            <div className={css(styles.alerts)}>
+
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
+
   render()
   {
     const {
@@ -171,6 +226,7 @@ class Dashboard extends PureComponent
     return (
       <div className={css(styles.container)}>
         {this.renderScrollShield()}
+        {this.renderModal()}
         <Sidebar
           sidebar={(
             <DashboardSidebar
@@ -224,7 +280,5 @@ class Dashboard extends PureComponent
     );
   }
 }
-
-
 
 export default Dashboard;

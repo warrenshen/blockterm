@@ -361,6 +361,7 @@ class Container extends PureComponent
   {
     const {
       keySelectValue,
+      modalDashboardItemId,
       nightMode,
       scrollActive,
       sidebarDashboardItemId,
@@ -368,6 +369,7 @@ class Container extends PureComponent
       valueSelectValue,
 
       changeKeySelectValue,
+      changeModalState,
       changeScrollActive,
       changeSidebarMode,
       changeValueSelectValue,
@@ -380,6 +382,7 @@ class Container extends PureComponent
         />
         <Dashboard
           keySelectValue={keySelectValue}
+          modalDashboardItemId={modalDashboardItemId}
           nightMode={nightMode}
           scrollActive={scrollActive}
           sidebarMode={sidebarMode}
@@ -387,6 +390,7 @@ class Container extends PureComponent
 
           addToLayout={(identifier) => this.addToLayout(identifier)}
           changeKeySelectValue={changeKeySelectValue}
+          changeModalState={changeModalState}
           changeScrollActive={changeScrollActive}
           changeSidebarMode={changeSidebarMode}
           changeValueSelectValue={changeValueSelectValue}

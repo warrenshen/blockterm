@@ -255,6 +255,7 @@ class DashboardTabs extends Component {
       user,
 
       changeDashboardItemState,
+      changeModalState,
       changeSidebarMode,
       logDashboardActionStart,
       logDashboardActionStop,
@@ -274,6 +275,7 @@ class DashboardTabs extends Component {
             user={user}
 
             changeDashboardItemState={changeDashboardItemState}
+            changeModalState={changeModalState}
             changeSidebarMode={changeSidebarMode}
             logDashboardActionStart={logDashboardActionStart}
             logDashboardActionStop={logDashboardActionStop}
