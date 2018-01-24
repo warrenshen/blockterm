@@ -7,12 +7,11 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
 import Sidebar             from 'react-sidebar';
-import FontAwesome         from 'react-fontawesome';
 import * as STYLES         from '../constants/styles';
 import PROJECT_VERSION     from '../constants/items';
 import DashboardTabs       from '../containers/DashboardTabs';
 import DashboardSidebar    from '../components/DashboardSidebar';
-import DashboardItemLarge  from '../components/DashboardItemLarge';
+import DashboardModal      from '../components/DashboardModal';
 import El                  from '../components/El';
 
 const styles = StyleSheet.create({
@@ -76,29 +75,6 @@ const styles = StyleSheet.create({
   },
   darkEmphasize: {
     //backgroundColor: STYLES.GOLD,
-  },
-  overlay: {
-    display: 'flex',
-    position: 'fixed',
-    top: '0px',
-    left: '0px',
-    zIndex: '3',
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(79, 79, 79, 0.95)',
-  },
-  overlaySide: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '256px',
-  },
-  overlaySideHeader: {
-    display: 'flex',
-  },
-  alerts: {
-    flex: '1',
-    display: 'flex',
-    flexDirection: 'column',
   },
 });
 
@@ -169,57 +145,6 @@ class Dashboard extends PureComponent
     }
   }
 
-  renderAlerts()
-  {
-    const {
-      nightMode,
-      user,
-    } = this.props;
-
-    console.log(user);
-    return (
-      <div>
-        {
-          user !== null ? [
-            <form>
-              <input
-                autoFocus={true}
-                className={css(styles.inputField, nightMode && styles.fieldNight)}
-                placeholder='email/username'
-                required='required'
-                value={''}
-                // onChange={(event) => changeEmail(event.target.value)}
-              />
-              <input
-                className={css(styles.inputField, nightMode && styles.fieldNight)}
-                placeholder='password'
-                type='password'
-                required='required'
-                value={''}
-                // onChange={(event) => changePassword(event.target.value)}
-                // onKeyPress={onKeyPress}
-              />
-            </form>,
-            <div className={css(styles.alerts)}>
-              {user.alerts.map((alert) => (
-                <div>
-                  Alert
-                </div>
-              ))}
-            </div>
-          ] : (
-            <El
-              nightMode={nightMode}
-              type={'h5'}
-            >
-              LOGIN or JOIN to use alerts
-            </El>
-          )
-        }
-      </div>
-    );
-  }
-
   renderModal()
   {
     const {
@@ -233,21 +158,11 @@ class Dashboard extends PureComponent
     if (modalDashboardItemId !== null)
     {
       return (
-        <div className={css(styles.overlay)}>
-          <DashboardItemLarge
-            nightMode={nightMode}
-          />
-          <div className={css(styles.overlaySide)}>
-            <div className={css(styles.overlaySideHeader)}>
-              <button
-                onClick={(event) => changeModalState(null)}
-              >
-                <FontAwesome name='close' className={css(styles.icon)} />
-              </button>
-            </div>
-            {this.renderAlerts()}
-          </div>
-        </div>
+        <DashboardModal
+          nightMode={nightMode}
+          user={user}
+          changeModalState={changeModalState}
+        />
       );
     }
   }

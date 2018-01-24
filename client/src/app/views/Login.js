@@ -253,12 +253,13 @@ class Login extends PureComponent
               )}
               <div className={css(styles.row)}>
                 <div className={css(styles.section)}>
-                  <input
+                  <button
                     className={css(styles.bolded, styles.submitButton)}
                     type='submit'
-                    value='Login'
                     onClick={onClickSubmit}
-                  />
+                  >
+                    Log in
+                  </button>
                 </div>
                 <div className={css(styles.section, styles.rightAlign)}>
                   <El nightMode={nightMode} type={'span'}>

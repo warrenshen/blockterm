@@ -241,13 +241,14 @@ class Signup extends PureComponent
                 )}
                 <div className={css(styles.row)}>
                   <div className={css(styles.section)}>
-                    <input
+                    <button
                       className={css(styles.bolded, styles.submitButton)}
                       onClick={(event) => this.submit(event)}
                       type='submit'
-                      value='Join'
                       onClick={onClickSubmit}
-                    />
+                    >
+                      Join
+                    </button>
                   </div>
                   <div className={css(styles.section, styles.rightAlign)}>
                     <El nightMode={nightMode} type={'span'}>
