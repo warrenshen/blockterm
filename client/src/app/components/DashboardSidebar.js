@@ -190,16 +190,16 @@ class DashboardSidebar extends PureComponent
       }));
       return (
         <Select
+          className={css(styles.select, styles.bolded)}
           inputProps={{ id: 'widgetSearchSpecific' }}
           placeholder={'Search Specific'}
-          className={css(styles.select, styles.bolded)}
           matchProp={'label'}
           menuContainerStyle={{ 'maxHeight': '412px' }}
           menuStyle={{ 'maxHeight': '412px' }}
           optionClassName={css(styles.bolded, styles.options)}
           options={selectOptions}
-          onChange={(option) => this.handleValueSelectChange(option)}
           value={valueSelectValue}
+          onChange={(option) => this.handleValueSelectChange(option)}
         />
       );
     }
