@@ -25,6 +25,7 @@ const config = {
       'jquery',
       'js-base64',
       'moment',
+      'numeral',
       'react',
       'react-apollo',
       'react-bootstrap',
@@ -54,6 +55,7 @@ const config = {
       },
       {
         test:    /\.worker\.js$/,
+        exclude: [nodeModulesDir],
         loaders: ['babel-loader', 'worker-loader']
       },
       {
