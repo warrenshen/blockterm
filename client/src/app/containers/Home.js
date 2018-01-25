@@ -4,14 +4,16 @@ import { connect }             from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import { compose, graphql }    from 'react-apollo';
 import {
+  AlertsQuery,
+  AlertsQueryOptions,
+  DashboardPagesQuery,
+  DashboardPagesQueryOptions,
+}                              from '../queries';
+import {
   CreateDashboardItemMutation,
   CreateDashboardItemMutationOptions,
   UpdateDashboardItemMutation,
   UpdateDashboardItemMutationOptions,
-}                              from '../queries';
-import {
-  DashboardPagesQuery,
-  DashboardPagesQueryOptions,
 }                              from '../queries';
 import Dashboard               from './Dashboard';
 import * as dashboardActions   from '../redux/modules/dashboard';
@@ -131,6 +133,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
+  graphql(AlertsQuery, AlertsQueryOptions),
   graphql(DashboardPagesQuery, DashboardPagesQueryOptions),
   graphql(CreateDashboardItemMutation, CreateDashboardItemMutationOptions),
   graphql(UpdateDashboardItemMutation, UpdateDashboardItemMutationOptions),

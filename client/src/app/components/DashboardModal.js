@@ -46,20 +46,65 @@ const styles = StyleSheet.create({
 
 class DashboardModal extends PureComponent
 {
+  constructor(props)
+  {
+    super(props);
+    this.container = null;
+    this.handleEscape = (event) => {
+      if (event.key === 'Escape')
+      {
+        event.preventDefault();
+        props.changeModalState(null);
+      }
+    };
+  }
+
+  componentDidMount()
+  {
+    this.container.addEventListener('keyup', this.handleEscape);
+  }
+
+  componentWillUnmount()
+  {
+    this.container.removeEventListener('keyup', this.handleEscape);
+  }
+
+  renderAlert(alert)
+  {
+    const {
+      id,
+      identifier,
+      expiresAt,
+    } = alert;
+
+    return (
+      <div key={id}>
+        {identifier}
+      </div>
+    );
+  }
+
   renderAlerts()
   {
     const {
+      alerts,
+      expiresValue,
+      priceValue,
       nightMode,
       user,
+
+      changeExpiresValue,
+      changePriceValue,
+      createAlert,
     } = this.props;
 
     const onClickSubmit = (event) => {
       event.preventDefault();
-      console.log('submit');
+      const identifier = 'BITSTAMP:ETHBTC';
+      createAlert(identifier, priceValue);
     };
-    const onSelectChange = (option) => {
-      console.log(option);
-    };
+    const onChangePrice = (event) => changePriceValue(event.target.value);
+    const onSelectChange = (option) => changeExpiresValue(option);
 
     return (
       <div>
@@ -80,11 +125,14 @@ class DashboardModal extends PureComponent
                 className={css(styles.inputField, nightMode && styles.fieldNight)}
                 placeholder='Price'
                 required='required'
-                value={''}
-                // onChange={(event) => changeEmail(event.target.value)}
+                value={priceValue}
+                onChange={onChangePrice}
               />
               <Select
+                clearable={true}
+                matchProp={'label'}
                 options={ALERT_EXPIRES_IN_SELECT_OPTIONS}
+                value={expiresValue ? expiresValue.value : ''}
                 onChange={onSelectChange}
               />
               <button
@@ -99,11 +147,7 @@ class DashboardModal extends PureComponent
               className={css(styles.alerts)}
               key={'alerts'}
             >
-              {user.alerts.map((alert) => (
-                <div>
-                  Alert
-                </div>
-              ))}
+              {alerts.map((alert) => this.renderAlert(alert))}
             </div>
           ] : (
             <El
@@ -128,7 +172,10 @@ class DashboardModal extends PureComponent
     } = this.props;
 
     return (
-      <div className={css(styles.container)}>
+      <div
+        className={css(styles.container)}
+        ref={(el) => this.container = el}
+      >
         <DashboardItemLarge
           nightMode={nightMode}
         />

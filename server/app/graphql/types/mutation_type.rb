@@ -56,7 +56,7 @@ module Types
       description 'Creates an alert'
 
       argument :identifier, !types.String
-      argument :expiresAt, !types.String
+      argument :expiresIn, !types.String
 
       resolve -> (obj, args, ctx) {
         current_user = QueryHelper.get_current_user(ctx)
@@ -67,13 +67,13 @@ module Types
         alert = Alert.create(
           user_id: current_user.id,
           identifier: args[:identifier],
-          expiresAt: DateTime.now + 1.hour,
+          expires_at: DateTime.now + 1.hour,
         )
 
-        if token_user.valid?
-          token_user
+        if alert.valid?
+          alert
         else
-          return GraphQL::ExecutionError.new(token_user.errors.full_messages)
+          return GraphQL::ExecutionError.new(alert.errors.full_messages)
         end
       }
     end

@@ -4,6 +4,7 @@ import { combineReducers }          from 'redux';
 import { routerReducer }            from 'react-router-redux';
 import { apolloClient }             from '../../services/apollo';
 import { reducer as notifications } from 'react-notification-system-redux';
+import alerts                       from './alerts';
 import globals                      from './globals';
 import dashboard                    from './dashboard';
 import login                        from './login';
@@ -13,6 +14,7 @@ import subreddits                   from './subreddits';
 import token                        from './token'
 
 const appReducers = {
+  alerts,
   dashboard,
   globals,
   login,

@@ -12,12 +12,14 @@ import * as plotsActions      from '../../redux/modules/plots';
  ------------------------------------------*/
 
 const SubredditQuery = gql`
-  query ($activeUserCountsTimeRange: String,
-         $commentCountsTimeRange: String,
-         $name: String!,
-         $postCountsTimeRange: String,
-         $subscriberCountsTimeRange: String) {
-    subredditByName(name: $name) {
+  query (
+    $activeUserCountsTimeRange: String,
+    $commentCountsTimeRange: String,
+    $name: String!,
+    $postCountsTimeRange: String,
+    $subscriberCountsTimeRange: String,
+  ) {
+    subreddit: subredditByName(name: $name) {
       id
       description
       displayName

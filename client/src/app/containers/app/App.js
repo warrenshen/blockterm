@@ -80,27 +80,27 @@ class App extends PureComponent
     this.worker = null;
   }
 
-  componentWillReceiveProps(nextProps)
-  {
-    const {
-      user,
-    } = nextProps;
+  // componentWillReceiveProps(nextProps)
+  // {
+  //   const {
+  //     alerts,
+  //   } = nextProps;
 
-    if (user !== null)
-    {
-      if (this.worker !== null)
-      {
-        this.worker.terminate();
-      }
+  //   if (alerts.length > 0)
+  //   {
+  //     if (this.worker !== null)
+  //     {
+  //       this.worker.terminate();
+  //     }
 
-      this.worker = new Worker();
-      this.worker.postMessage({ alerts: user.alerts });
-      this.worker.onmessage = (event) => {
-        console.log('bye');
-        console.log(event.data);
-      };
-    }
-  }
+  //     this.worker = new Worker();
+  //     this.worker.postMessage({ alerts: alerts });
+  //     this.worker.onmessage = (event) => {
+  //       console.log('bye');
+  //       console.log(event.data);
+  //     };
+  //   }
+  // }
 
   render() {
     const {
@@ -128,6 +128,7 @@ class App extends PureComponent
 
 const mapStateToProps = (state) => {
   return {
+    alerts: state.alerts.alerts,
     notifications: state.notifications,
     user: state.globals.user,
   };

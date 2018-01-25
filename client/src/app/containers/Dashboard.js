@@ -241,7 +241,8 @@ function wrapDynamicGraphQL(ComponentToWrap)
       }
     }
 
-    render() {
+    render()
+    {
       const W = this.wrapped;
       return (
         <div className={css(styles.hidden)}>

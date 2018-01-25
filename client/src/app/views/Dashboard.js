@@ -9,9 +9,9 @@ import { Link }            from 'react-router-dom';
 import Sidebar             from 'react-sidebar';
 import * as STYLES         from '../constants/styles';
 import PROJECT_VERSION     from '../constants/items';
+import DashboardModal      from '../containers/DashboardModal';
 import DashboardTabs       from '../containers/DashboardTabs';
 import DashboardSidebar    from '../components/DashboardSidebar';
-import DashboardModal      from '../components/DashboardModal';
 import El                  from '../components/El';
 
 const styles = StyleSheet.create({
@@ -155,16 +155,9 @@ class Dashboard extends PureComponent
       changeModalState,
     } = this.props;
 
-    if (modalDashboardItemId !== null)
-    {
-      return (
-        <DashboardModal
-          nightMode={nightMode}
-          user={user}
-          changeModalState={changeModalState}
-        />
-      );
-    }
+    return modalDashboardItemId !== null && (
+      <DashboardModal />
+    );
   }
 
   render()

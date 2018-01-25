@@ -13,10 +13,12 @@ import * as plotsActions      from '../redux/modules/plots';
  ------------------------------------------*/
 
 const query = gql`
-  query ($ids: [ID]!,
-         $commentCountsTimeRange: String,
-         $postCountsTimeRange: String,
-         $activeUserCountsTimeRange: String) {
+  query (
+    $ids: [ID]!,
+    $commentCountsTimeRange: String,
+    $postCountsTimeRange: String,
+    $activeUserCountsTimeRange: String,
+  ) {
     allSubreddits {
       id
       displayName

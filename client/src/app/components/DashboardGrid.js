@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
   },
 });
 
-class DashboardGrid extends Component {
-
+class DashboardGrid extends Component
+{
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||

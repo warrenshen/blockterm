@@ -1,10 +1,11 @@
 // @flow weak
 
 import React, {
-  PureComponent,
+  Component,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { isEqual }         from 'underscore';
 import Select              from 'react-select';
 import numeral             from 'numeral';
 import { Helmet }          from 'react-helmet';
@@ -203,8 +204,15 @@ const styles = StyleSheet.create({
   },
 });
 
-class Portfolio extends PureComponent
+class Portfolio extends Component
 {
+  shouldComponentUpdate(nextProps, nextState)
+  {
+    return !isEqual(this.props.data.tokensAll, nextProps.data.tokensAll) ||
+           !isEqual(this.props.nightMode, nextProps.nightMode) ||
+           !isEqual(this.props.tokenUsers, nextProps.tokenUsers);
+  }
+
   componentWillReceiveProps(nextProps)
   {
     if (!nextProps.data.loading && nextProps.user === null)
@@ -241,7 +249,7 @@ class Portfolio extends PureComponent
     } = this.props;
 
     return (
-      <tr className={css(styles.row)} style={{marginTop:'4px'}}>
+      <tr className={css(styles.row)}>
         <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement)}>
           <El
             style={styles.semibolded}

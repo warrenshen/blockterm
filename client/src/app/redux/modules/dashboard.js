@@ -48,7 +48,6 @@ const IDENTIFIER_KEY_TO_STATE_MAP = {
 /* -----------------------------------------
   constants
  ------------------------------------------*/
-const APOLLO_QUERY_ERROR = 'APOLLO_QUERY_ERROR';
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
 const APOLLO_QUERY_RESULT_CLIENT = 'APOLLO_QUERY_RESULT_CLIENT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
@@ -223,8 +222,6 @@ export default function(state = initialState, action)
         default:
           return state;
       }
-    case APOLLO_QUERY_ERROR:
-      return state;
     case APOLLO_QUERY_RESULT:
     case APOLLO_QUERY_RESULT_CLIENT:
       switch (action.operationName)
@@ -261,7 +258,6 @@ export default function(state = initialState, action)
         default:
           return state;
       }
-      return state;
     case CHANGE_DASHBOARD_ITEM_STATE:
       newDashboardItemStates = {
         ...state.dashboardItemStates,

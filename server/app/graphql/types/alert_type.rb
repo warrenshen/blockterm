@@ -11,7 +11,7 @@ module Types
       resolve -> (obj, args, ctx) {
         time_zone = ctx[:time_zone]
         QueryHelper::localize_timestamp(
-          obj.last_active_at,
+          obj.expires_at,
           time_zone,
         ).to_s
       }

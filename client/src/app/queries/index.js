@@ -9,6 +9,20 @@ import {
 /* -----------------------------------------
   Queries
 ------------------------------------------*/
+export const AlertsQuery = gql`
+  query AlertsQuery {
+    user {
+      alerts {
+        id
+        identifier
+        expiresAt
+      }
+    }
+  }
+`;
+export const AlertsQueryOptions = {
+  skip: (ownProps) => getItem(AUTH_TOKEN_COOKIE) === null,
+};
 
 export const DashboardPagesQuery = gql`
   query DashboardPagesQuery {
@@ -138,12 +152,6 @@ export const UserQuery = gql`
   query UserQuery {
     user {
       email
-
-      alerts {
-        id
-        identifier
-        expiresAt
-      }
     }
   }
 `;
@@ -154,6 +162,32 @@ export const UserQueryOptions = {
 /* -----------------------------------------
   Mutations
 ------------------------------------------*/
+export const CreateAlertMutation = gql`
+  mutation CreateAlertMutation(
+    $identifier: String!,
+    $expiresIn: String!,
+  ) {
+    createAlert(identifier: $identifier, expiresIn: $expiresIn)
+    {
+      id
+      identifier
+      expiresAt
+    }
+  }
+`;
+
+export const CreateAlertMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    createAlert(identifier, expiresIn) {
+      return mutate({
+        variables: {
+          identifier,
+          expiresIn,
+        },
+      });
+    }
+  }),
+};
 
 export const CreateDashboardItemMutation = gql`
   mutation CreateDashboardItemMutation(
@@ -228,12 +262,6 @@ export const CreateUserMutation = gql`
 
       user {
         email
-
-        alerts {
-          id
-          identifier
-          expiresAt
-        }
       }
     }
   }
@@ -304,12 +332,6 @@ export const LogInMutation = gql`
 
       user {
         email
-
-        alerts {
-          id
-          identifier
-          expiresAt
-        }
       }
     }
   }

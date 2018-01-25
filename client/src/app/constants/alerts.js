@@ -22,7 +22,7 @@ export const ALERT_EXPIRES_IN_SELECT_OPTIONS = [
     value: ONE_WEEK,
   },
   {
-    label: 'NEVER',
+    label: 'Never',
     value: NEVER,
   },
 ];
