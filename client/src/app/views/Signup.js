@@ -12,6 +12,7 @@ import {
 import { Helmet }          from 'react-helmet';
 import {
   AUTH_TOKEN_COOKIE,
+  getItem,
   setItem,
 }                          from '../services/cookie';
 import FAQBody             from '../components/FAQBody';
@@ -147,7 +148,7 @@ class Signup extends PureComponent
 {
   componentWillReceiveProps(nextProps)
   {
-    if (nextProps.user !== null)
+    if (nextProps.user !== null && getItem(AUTH_TOKEN_COOKIE) !== null)
     {
       nextProps.history.push('/');
     }
@@ -157,6 +158,7 @@ class Signup extends PureComponent
   {
     const {
       email,
+      history,
       password,
 
       changeError,
@@ -167,6 +169,7 @@ class Signup extends PureComponent
     createUser(email, password)
       .then((response) => {
         setItem(AUTH_TOKEN_COOKIE, response.data.createUser.authToken);
+        history.push('/');
       })
       .catch((error) => changeError(error.graphQLErrors[0].message));;
   }
@@ -210,7 +213,7 @@ class Signup extends PureComponent
                 nightMode={nightMode}
                 type={'h4'}
               >
-                  Join our army of HODLers:
+                  Join us:
               </El>
               <form>
                 <input

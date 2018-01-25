@@ -1,22 +1,27 @@
 // @flow weak
 
-import { connect }         from 'react-redux';
+import { connect }          from 'react-redux';
+import { compose, graphql } from 'react-apollo';
+import {
+  UserQuery,
+  UserQueryOptions,
+}                           from '../../queries';
 import React, {
   PureComponent,
-}                          from 'react';
-import PropTypes           from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
-import { withRouter }      from 'react-router';
+}                           from 'react';
+import PropTypes            from 'prop-types';
+import { StyleSheet, css }  from 'aphrodite';
+import { withRouter }       from 'react-router';
 import {
   ConnectedNavigationBar,
   ConnectedFooter,
-}                          from '../../containers';
-import MainRoutes          from '../../routes/MainRoutes';
-import Notifications       from 'react-notification-system-redux';
-import ReactTooltip        from 'react-tooltip';
-import * as STYLES         from '../../constants/styles';
-import Footer              from '../../components/Footer';
-import Worker              from '../../workers/binance.worker';
+}                           from '../../containers';
+import MainRoutes           from '../../routes/MainRoutes';
+import Notifications        from 'react-notification-system-redux';
+import ReactTooltip         from 'react-tooltip';
+import * as STYLES          from '../../constants/styles';
+import Footer               from '../../components/Footer';
+// import Worker              from '../../workers/binance.worker';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -134,4 +139,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(App));
+export default withRouter(compose(
+  graphql(UserQuery, UserQueryOptions),
+  connect(mapStateToProps)
+)(App));

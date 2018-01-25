@@ -10,6 +10,10 @@ import Select              from 'react-select';
 import numeral             from 'numeral';
 import { Helmet }          from 'react-helmet';
 import {
+  AUTH_TOKEN_COOKIE,
+  getItem,
+}                          from '../services/cookie';
+import {
   calculatePortfolioChangeIn24h,
   calculatePortfolioChangeIn7d,
   calculatePortfolioTotalValue,
@@ -215,7 +219,7 @@ class Portfolio extends Component
 
   componentWillReceiveProps(nextProps)
   {
-    if (!nextProps.data.loading && nextProps.user === null)
+    if (getItem(AUTH_TOKEN_COOKIE) === null)
     {
       nextProps.createNotificationError({
         position: 'bc',

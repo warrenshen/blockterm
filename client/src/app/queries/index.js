@@ -12,6 +12,8 @@ import {
 export const AlertsQuery = gql`
   query AlertsQuery {
     user {
+      id
+
       alerts {
         id
         identifier
@@ -27,6 +29,8 @@ export const AlertsQueryOptions = {
 export const DashboardPagesQuery = gql`
   query DashboardPagesQuery {
     user {
+      id
+
       dashboardPages {
         id
         index
@@ -129,6 +133,8 @@ export const TokensByPageQueryOptions = {
 export const TokenUsersQuery = gql`
   query TokenUsersQuery {
     user {
+      id
+
       tokenUsers {
         id
         index
@@ -151,6 +157,7 @@ export const TokenUsersQuery = gql`
 export const UserQuery = gql`
   query UserQuery {
     user {
+      id
       email
     }
   }
@@ -261,6 +268,7 @@ export const CreateUserMutation = gql`
       authToken
 
       user {
+        id
         email
       }
     }
@@ -331,6 +339,7 @@ export const LogInMutation = gql`
       authToken
 
       user {
+        id
         email
       }
     }
@@ -343,7 +352,7 @@ export const LogInMutationOptions = {
       return mutate({
         variables: { email, password },
       });
-    }
+    },
   }),
 };
 
@@ -451,6 +460,8 @@ export const UpdateTokenUsersMutation = gql`
   ) {
     updateTokenUsers(tokenUsersString: $tokenUsersString)
     {
+      id
+
       tokenUsers {
         id
         index

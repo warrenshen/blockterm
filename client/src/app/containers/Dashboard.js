@@ -56,6 +56,8 @@ function f(identifier, extras)
     case PORTFOLIO_ITEM:
       return `
         ${identifier}: user {
+          id
+
           tokenUsers {
             id
             index

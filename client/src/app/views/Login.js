@@ -11,6 +11,7 @@ import {
 }                          from 'react-router-dom';
 import {
   AUTH_TOKEN_COOKIE,
+  getItem,
   setItem,
 }                          from '../services/cookie';
 import El                  from '../components/El';
@@ -165,7 +166,7 @@ class Login extends PureComponent
 {
   componentWillReceiveProps(nextProps)
   {
-    if (nextProps.user !== null)
+    if (nextProps.user !== null && getItem(AUTH_TOKEN_COOKIE) !== null)
     {
       nextProps.history.push('/');
     }
@@ -186,6 +187,7 @@ class Login extends PureComponent
     logIn(email, password)
       .then((response) => {
         setItem(AUTH_TOKEN_COOKIE, response.data.logIn.authToken);
+        history.push('/');
       })
       .catch((error) => changeError(error.graphQLErrors[0].message));
   }

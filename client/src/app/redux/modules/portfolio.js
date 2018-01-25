@@ -7,6 +7,7 @@ import { fromJS } from 'immutable';
  ------------------------------------------*/
 const ADD_TOKEN_USER = 'ADD_TOKEN_USER';
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
+const APOLLO_QUERY_RESULT_CLIENT = 'APOLLO_QUERY_RESULT_CLIENT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_TOKEN_USER_AMOUNT = 'CHANGE_TOKEN_USER_AMOUNT';
 const REMOVE_TOKEN_USER = 'REMOVE_TOKEN_USER';
@@ -59,6 +60,7 @@ export default function(state = initialState, action)
         tokenUsers: newTokenUsers.toJS(),
       };
     case APOLLO_QUERY_RESULT:
+    case APOLLO_QUERY_RESULT_CLIENT:
       switch (action.operationName)
       {
         case 'TokenUsersQuery':
