@@ -197,16 +197,17 @@ class Subreddit extends PureComponent {
           </div>
         </div>
         <SubredditBody
+          activeUserCountPlotRange={activeUserCountPlotRange}
+          commentCountPlotRange={commentCountPlotRange}
+          nightMode={nightMode}
+          postCountPlotRange={postCountPlotRange}
           subreddit={subreddit}
+          subscriberCountPlotRange={subscriberCountPlotRange}
+
           changeActiveUserCountPlotRange={changeActiveUserCountPlotRange}
           changeCommentCountPlotRange={changeCommentCountPlotRange}
           changePostCountPlotRange={changePostCountPlotRange}
           changeSubscriberCountPlotRange={changeSubscriberCountPlotRange}
-          activeUserCountPlotRange={activeUserCountPlotRange}
-          commentCountPlotRange={commentCountPlotRange}
-          postCountPlotRange={postCountPlotRange}
-          subscriberCountPlotRange={subscriberCountPlotRange}
-          nightMode={nightMode}
         />
       </div>
     );
@@ -220,7 +221,7 @@ class Subreddit extends PureComponent {
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        { data && data.subredditByName && this.renderSubreddit(data.subredditByName) }
+        {data.subreddit && this.renderSubreddit(data.subreddit)}
       </div>
     );
   }

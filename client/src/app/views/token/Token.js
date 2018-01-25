@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   },
   mainContent: {
     width: '100vw',
-    //width: '80vw',
   },
   sidebar: {
     width: '20vw',
@@ -129,6 +128,29 @@ class Token extends PureComponent {
     );
   }
 
+  renderHelmet()
+  {
+    const {
+      data,
+    } = this.props;
+
+    if (data.token)
+    {
+      const {
+        shortName,
+        longName,
+      } = data.token;
+      const metaDescription = `Get price, trading volume, and percentage change data on ${longName} [${shortName}] in the last day, and all time. Use price data, charting tools and community sentiment to make wise investment decisions.`;
+
+      return (
+        <Helmet>
+          <title>{longName} [{shortName}]: Price, Volume, Change Data & Charts | Blockterm</title>
+          <meta name="description" content={metaDescription} />
+        </Helmet>
+      );
+    }
+  }
+
   renderScrollShield()
   {
     const {
@@ -147,17 +169,11 @@ class Token extends PureComponent {
       nightMode,
     } = this.props;
 
-    const metaDescription = `Get price, trading volume, and percentage change data on ${longName} [${shortName}] in the last day, and all time. Use price data, charting tools and community sentiment to make wise investment decisions.`;
-
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
-        <Helmet>
-          <title>{longName} [{shortName}]: Price, Volume, Change Data & Charts | Blockterm</title>
-          <meta name="description" content={metaDescription} />
-        </Helmet>
-
+        {this.renderHelmet()}
         {this.renderScrollShield()}
-        { data && data.token && this.renderToken(data.token) }
+        {data.token && this.renderToken(data.token)}
       </div>
     );
   }

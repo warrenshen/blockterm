@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
   },
 });
 
-class SubredditsCompare extends PureComponent {
-
+class SubredditsCompare extends PureComponent
+{
   renderOptions(subredditOptions, selectedSubreddits)
   {
     const {
