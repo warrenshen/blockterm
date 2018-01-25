@@ -270,15 +270,13 @@ class DashboardItem extends Component
             </El>
           </div>
           <div className={css(styles.rightAlignSmall, staticActive && styles.lockedGrabBar)}>
-            {
-              // <button
-              //   className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-              //   onClick={onClickOpen}
-              //   title="Open this widget in full screen."
-              // >
-              //   <FontAwesome name='pencil' style={{'fontSize':'13px'}}/>
-              // </button>
-            }
+            <button
+              className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+              onClick={onClickOpen}
+              title="Open this widget in full screen."
+            >
+              <FontAwesome name='arrows-alt' style={{'fontSize':'13px'}}/>
+            </button>
             <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
               onClick={onClickEdit}
