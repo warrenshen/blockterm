@@ -110,6 +110,29 @@ class DashboardSidebar extends PureComponent
     updateLayoutItem: PropTypes.func.isRequired,
   };
 
+  constructor(props)
+  {
+    super(props);
+    this.container = null;
+    this.handleEscape = (event) => {
+      if (event.key === 'Escape')
+      {
+        event.preventDefault();
+        props.changeSidebarMode(null);
+      }
+    };
+  }
+
+  componentDidMount()
+  {
+    this.container.addEventListener('keyup', this.handleEscape);
+  }
+
+  componentWillUnmount()
+  {
+    this.container.removeEventListener('keyup', this.handleEscape);
+  }
+
   focusOnSpecificSelect()
   {
     const sidebarSpecificField = document.getElementById('widgetSearchSpecific');
@@ -254,7 +277,10 @@ class DashboardSidebar extends PureComponent
     }));
 
     return (
-      <div className={css(styles.container, nightMode && styles.nightSidebar)}>
+      <div
+        className={css(styles.container, nightMode && styles.nightSidebar)}
+        ref={(el) => this.container = el}
+      >
         <div className={css(styles.header, nightMode && styles.darkHeader)}>
           <El nightMode={nightMode} type={'h5'} style={styles.sidebarTitle}>
             {sidebarMode === 'edit' ? 'Edit widget' : 'Add widget'}
