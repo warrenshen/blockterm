@@ -1,5 +1,7 @@
  // @flow weak
 
+import { fromJS } from 'immutable';
+
 /* -----------------------------------------
   constants
  ------------------------------------------*/
@@ -14,8 +16,8 @@ const CHANGE_PRICE_VALUE = 'CHANGE_PRICE_VALUE';
  ------------------------------------------*/
 const initialState = {
   alerts: [],
-  conditionValue: '',
-  expiresValue: '',
+  conditionValue: null,
+  expiresValue: null,
   priceValue: '',
 };
 
@@ -29,10 +31,11 @@ export default function(state = initialState, action)
       {
         case 'CreateAlertMutation':
           data = action.result.data;
-
+          const oldAlerts = fromJS(state.alerts);
+          const newAlerts = oldAlerts.push(data.alert);
           return {
             ...state,
-            alerts: data.user.alerts,
+            alerts: newAlerts,
           };
         default:
           return state;

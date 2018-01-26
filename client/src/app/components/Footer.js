@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
     display: 'block',
   },
   para: {
-    lineHeight: '15px',
+    letterSpacing: '1px',
+    lineHeight: '16px',
   },
   a: {
     fontWeight: '500',

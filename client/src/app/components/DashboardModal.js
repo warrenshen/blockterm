@@ -14,7 +14,10 @@ import {
 }                          from '../constants/alerts';
 import {
   parseIdentifer,
-}                             from '../constants/items';
+}                          from '../constants/items';
+import {
+  generateAlertIdentifier,
+}                          from '../constants/alerts';
 import DashboardItemLarge  from '../components/DashboardItemLarge';
 import El                  from '../components/El';
 
@@ -27,7 +30,10 @@ const styles = StyleSheet.create({
     zIndex: '3',
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(79, 79, 79, 0.95)',
+    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+  },
+  containerNightMode: {
+    backgroundColor: 'rgba(23, 23, 23, 0.98)',
   },
   overlaySide: {
     display: 'flex',
@@ -50,6 +56,20 @@ const styles = StyleSheet.create({
 
 class DashboardModal extends PureComponent
 {
+  static propTypes = {
+    alerts: PropTypes.array.isRequired,
+    conditionValue: PropTypes.object,
+    expiresValue: PropTypes.object,
+    priceValue: PropTypes.string.isRequired,
+    nightMode: PropTypes.bool.isRequired,
+    user: PropTypes.object,
+
+    changeConditionValue: PropTypes.func.isRequired,
+    changeExpiresValue: PropTypes.func.isRequired,
+    changePriceValue: PropTypes.func.isRequired,
+    createAlert: PropTypes.func.isRequired,
+  };
+
   constructor(props)
   {
     super(props);
@@ -98,18 +118,26 @@ class DashboardModal extends PureComponent
       nightMode,
       user,
 
+      changeConditionValue,
       changeExpiresValue,
       changePriceValue,
       createAlert,
     } = this.props;
 
+    const [identifierKey, identifierValue] = parseIdentifer(this.props.identifier);
+
     const onClickSubmit = (event) => {
       event.preventDefault();
-      const identifier = 'BITSTAMP:ETHBTC';
-      createAlert(identifier, priceValue);
+      const identifier = generateAlertIdentifier(
+        identifierValue,
+        priceValue,
+        conditionValue.value,
+      );
+      createAlert(identifier, expiresValue.value);
     };
     const onChangePrice = (event) => changePriceValue(event.target.value);
-    const onSelectChange = (option) => changeExpiresValue(option);
+    const onConditionChange = (option) => changeConditionValue(option);
+    const onExpiresInChange = (option) => changeExpiresValue(option);
 
     return (
       <div>
@@ -138,14 +166,14 @@ class DashboardModal extends PureComponent
                 matchProp={'label'}
                 options={ALERT_CONDITION_SELECT_OPTIONS}
                 value={conditionValue ? conditionValue.value : ''}
-                onChange={onSelectChange}
+                onChange={onConditionChange}
               />
               <Select
                 clearable={false}
                 matchProp={'label'}
                 options={ALERT_EXPIRES_IN_SELECT_OPTIONS}
                 value={expiresValue ? expiresValue.value : ''}
-                onChange={onSelectChange}
+                onChange={onExpiresInChange}
               />
               <button
                 className={css(styles.bolded, styles.submitButton)}
@@ -179,7 +207,6 @@ class DashboardModal extends PureComponent
     const {
       identifier,
       nightMode,
-      user,
 
       changeModalState,
     } = this.props;
@@ -188,7 +215,7 @@ class DashboardModal extends PureComponent
 
     return (
       <div
-        className={css(styles.container)}
+        className={css(styles.container, nightMode && styles.containerNightMode)}
         ref={(el) => this.container = el}
       >
         <DashboardItemLarge

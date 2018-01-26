@@ -40,3 +40,10 @@ export const ALERT_EXPIRES_IN_SELECT_OPTIONS = [
     value: NEVER,
   },
 ];
+
+const DELIMETER = '__';
+
+export function generateAlertIdentifier(market, price, condition)
+{
+  return `${market}${DELIMETER}${price}${DELIMETER}${condition}`;
+}

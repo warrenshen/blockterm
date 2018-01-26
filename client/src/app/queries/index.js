@@ -174,7 +174,7 @@ export const CreateAlertMutation = gql`
     $identifier: String!,
     $expiresIn: String!,
   ) {
-    createAlert(identifier: $identifier, expiresIn: $expiresIn)
+    alert: createAlert(identifier: $identifier, expiresIn: $expiresIn)
     {
       id
       identifier
