@@ -101,7 +101,6 @@ class App extends PureComponent
       this.worker = new Worker();
       this.worker.postMessage({ alerts: alerts });
       this.worker.onmessage = (event) => {
-        console.log('bye');
         console.log(event.data);
       };
     }

@@ -4,6 +4,10 @@ import { connect }             from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import { compose, graphql }    from 'react-apollo';
 import {
+  error as createNotificationError,
+  success as createNotificationSuccess,
+}                              from 'react-notification-system-redux';
+import {
   AlertsQuery,
   AlertsQueryOptions,
   DashboardPagesQuery,
@@ -18,10 +22,6 @@ import {
 import Dashboard               from './Dashboard';
 import * as dashboardActions   from '../redux/modules/dashboard';
 import * as globalsActions     from '../redux/modules/globals';
-import {
-  error as createNotificationError,
-  success as createNotificationSuccess,
-} from 'react-notification-system-redux';
 
 /* -----------------------------------------
   Redux

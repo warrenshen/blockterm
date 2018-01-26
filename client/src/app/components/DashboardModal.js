@@ -108,6 +108,26 @@ class DashboardModal extends PureComponent
     );
   }
 
+  createAlert()
+  {
+    const {
+      conditionValue,
+      expiresValue,
+      priceValue,
+
+      createAlert,
+    } = this.props;
+
+    const [identifierKey, identifierValue] = parseIdentifer(this.props.identifier);
+    const identifier = generateAlertIdentifier(
+      identifierValue,
+      priceValue,
+      conditionValue.value,
+    );
+
+    createAlert(identifier, expiresValue.value);
+  }
+
   renderAlerts()
   {
     const {
@@ -121,20 +141,31 @@ class DashboardModal extends PureComponent
       changeConditionValue,
       changeExpiresValue,
       changePriceValue,
-      createAlert,
+      createNotificationError,
     } = this.props;
-
-    const [identifierKey, identifierValue] = parseIdentifer(this.props.identifier);
 
     const onClickSubmit = (event) => {
       event.preventDefault();
-      const identifier = generateAlertIdentifier(
-        identifierValue,
-        priceValue,
-        conditionValue.value,
-      );
-      createAlert(identifier, expiresValue.value);
+
+      if (Notification.permission === 'default' || Notification.permission === 'denied')
+      {
+        Notification.requestPermission().then((permission) => {
+          if (permission === 'granted')
+          {
+            this.createAlert();
+          }
+          else
+          {
+            createNotificationError('Alert not created.');
+          }
+        });
+      }
+      else
+      {
+        this.createAlert();
+      }
     };
+
     const onChangePrice = (event) => changePriceValue(event.target.value);
     const onConditionChange = (option) => changeConditionValue(option);
     const onExpiresInChange = (option) => changeExpiresValue(option);

@@ -4,8 +4,8 @@ const ONE_DAY = 'ONE_DAY';
 const ONE_WEEK = 'ONE_WEEK';
 const NEVER = 'NEVER';
 
-const LESS_THAN = 'LESS_THAN';
-const GREATER_THAN = 'GREATER_THAN';
+export const LESS_THAN = 'LESS_THAN';
+export const GREATER_THAN = 'GREATER_THAN';
 
 export const ALERT_CONDITION_SELECT_OPTIONS = [
   {

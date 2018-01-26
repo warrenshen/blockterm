@@ -4,6 +4,10 @@ import { connect }             from 'react-redux';
 import { bindActionCreators }  from 'redux';
 import { compose, graphql }    from 'react-apollo';
 import {
+  error as createNotificationError,
+  success as createNotificationSuccess,
+}                              from 'react-notification-system-redux';
+import {
   CreateAlertMutation,
   CreateAlertMutationOptions,
 }                              from '../queries';
@@ -34,6 +38,8 @@ const mapDispatchToProps = (dispatch) => {
       changeExpiresValue: alertsActions.changeExpiresValue,
       changeModalState: dashboardActions.changeModalState,
       changePriceValue: alertsActions.changePriceValue,
+      createNotificationError: createNotificationError,
+      createNotificationSuccess: createNotificationSuccess,
     },
     dispatch
   );

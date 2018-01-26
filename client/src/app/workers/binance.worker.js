@@ -8,9 +8,10 @@ import {
 const binance = new ccxt.binance();
 binance.proxy = 'https://cors-anywhere.herokuapp.com/';
 
+// TODO: fix this function to handle 4 letter symbols
 function formatTickerBinance(ticker)
 {
-  return `${ticker.substring(0, 4)}/${ticker.substring(4)}`;
+  return `${ticker.substring(0, 3)}/${ticker.substring(3)}`;
 }
 
 function isConditionFulfilled(condition, price, createdAtUnix, trade)
@@ -22,17 +23,18 @@ function isConditionFulfilled(condition, price, createdAtUnix, trade)
 
   if (condition === GREATER_THAN)
   {
-    return trade.price >= price;
+    return trade.price >= parseFloat(price);
   }
   else
   {
-    return trade.price <= price;
+    return trade.price <= parseFloat(price);
   }
 }
 
 async function f(alert)
 {
   const {
+    id,
     createdAtUnix,
     identifier,
   } = alert;
@@ -40,19 +42,20 @@ async function f(alert)
   const [market, price, condition] = parseAlertIdentifier(identifier);
   const [exchange, ticker] = market.split(':', 2);
 
-  console.log(exchange);
-  console.log(ticker);
+  // console.log(exchange);
+  // console.log(ticker);
   const trades = await binance.fetchTrades(formatTickerBinance(ticker));
-  console.log('fetched');
-  console.log(trades);
+  // console.log('fetched');
+  // console.log(trades);
 
   const fulfillingTrades = trades.filter(
     (trade) => isConditionFulfilled(condition, price, createdAtUnix, trade)
   );
-  console.log(fulfillingTrades);
   if (fulfillingTrades.length > 0)
   {
-    postMessage('sup');
+    postMessage({
+      alert: alert,
+    });
   }
 
   setTimeout(() => f(alert), 16384);
