@@ -147,6 +147,12 @@ class DashboardModal extends PureComponent
     const onClickSubmit = (event) => {
       event.preventDefault();
 
+      if (typeof Notification === 'undefined')
+      {
+        alert('Please us a modern version of Chrome, Firefox, Opera or Safari.');
+        return;
+      }
+
       if (Notification.permission === 'default' || Notification.permission === 'denied')
       {
         Notification.requestPermission().then((permission) => {

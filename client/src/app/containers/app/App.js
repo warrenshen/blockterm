@@ -101,7 +101,20 @@ class App extends PureComponent
       this.worker = new Worker();
       this.worker.postMessage({ alerts: alerts });
       this.worker.onmessage = (event) => {
-        console.log(event.data);
+        const alert = event.data.alert;
+        const notification = new Notification(
+          `${alert.identifier} triggered!`,
+          {
+            requireInteraction: true,
+          }
+        );
+        // Note that we do not use the arrow syntax for the onclick callback
+        // because we do not want to mess with `this` in the callback.
+        notification.onclick = function(event) {
+          parent.focus();
+          window.focus();
+          event.target.close();
+        };
       };
     }
   }
