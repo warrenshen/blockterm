@@ -5,6 +5,7 @@ module Types
     field :id, !types.ID
     field :userId, !types.ID
     field :identifier, !types.String
+    field :status, !types.String
     field :expiresAt, !types.String do
       description 'The expires at datetime of alert'
 

@@ -46,7 +46,7 @@ module Types
           active_user_count
         else
           return GraphQL::ExecutionError.new(
-            'Failed to create active user count'
+            active_user_count.errors.full_messages
           )
         end
       }
@@ -67,6 +67,7 @@ module Types
         alert = Alert.create(
           user_id: current_user.id,
           identifier: args[:identifier],
+          # TODO: set expires_at based on args
           expires_at: DateTime.now + 1.hour,
         )
 
@@ -128,7 +129,7 @@ module Types
             comment_count
           else
             return GraphQL::ExecutionError.new(
-              'Failed to create comment count'
+              comment_count.errors.full_messages
             )
           end
         else
@@ -158,9 +159,7 @@ module Types
         if keyword.valid?
           keyword
         else
-          return GraphQL::ExecutionError.new(
-            'Failed to create keyword'
-          )
+          return GraphQL::ExecutionError.new(keyword.errors.full_messages)
         end
       }
     end
@@ -219,7 +218,7 @@ module Types
             mention_count
           else
             return GraphQL::ExecutionError.new(
-              'Failed to create mention count'
+              mention_count.errors.full_messages
             )
           end
         else
@@ -278,9 +277,7 @@ module Types
           if post_count.valid?
             post_count
           else
-            return GraphQL::ExecutionError.new(
-              'Failed to create post count'
-            )
+            return GraphQL::ExecutionError.new(post_count.errors.full_messages)
           end
         else
           existing_post_count.update_attribute(:count, args[:count])
@@ -333,7 +330,7 @@ module Types
           subscriber_count
         else
           return GraphQL::ExecutionError.new(
-            'Failed to create subscriber count'
+            subscriber_count.errors.full_messages
           )
         end
       }
@@ -360,7 +357,7 @@ module Types
           subreddit
         else
           return GraphQL::ExecutionError.new(
-            'Failed to create subreddit'
+            subreddit.errors.full_messages
           )
         end
       }
@@ -386,9 +383,7 @@ module Types
         if token.valid?
           token
         else
-          return GraphQL::ExecutionError.new(
-            'Failed to create token'
-          )
+          return GraphQL::ExecutionError.new(token.errors.full_messages)
         end
       }
     end
@@ -533,7 +528,7 @@ module Types
           if subreddit.save
             subreddit
           else
-            return GraphQL::ExecutionError.new('Could not save subreddit')
+            return GraphQL::ExecutionError.new(subreddit.errors.full_messages)
           end
         else
           subreddit
@@ -665,9 +660,6 @@ module Types
           percent_change_7d = token_hash['percent_change_7d']
 
           token = Token.find_by_identifier(identifier)
-          # if token.nil?
-          #   token = Token.find_by_long_name(long_name)
-          # end
 
           if token.nil?
             token = Token.create(
@@ -925,6 +917,41 @@ module Types
       }
     end
 
+    field :updateAlert, Types::AlertType do
+      description 'Update the alert associated with given alert id'
+
+      argument :id, !types.ID
+      argument :status, !types.String
+
+      resolve -> (obj, args, ctx) {
+        current_user = QueryHelper.get_current_user(ctx)
+        if current_user.nil?
+          return GraphQL::ExecutionError.new('No current user')
+        end
+
+        alert = Alert.find_by_id(args[:id])
+        if alert.nil?
+          return GraphQL::ExecutionError.new('Could not find alert')
+        end
+
+        if alert.user_id != current_user.id
+          return GraphQL::ExecutionError.new('Alert does not belong to current user')
+        end
+
+        if !args[:status].nil?
+          alert.status = args[:status]
+        end
+
+        if alert.changed?
+          if !alert.save
+            return GraphQL::ExecutionError.new(alert.errors.full_messages)
+          end
+        end
+
+        alert
+      }
+    end
+
     field :updateDashboardItem, Types::UserType do
       description 'Update the dashboard item of the dashboard page associated with given dashboard page id'
 
@@ -962,7 +989,7 @@ module Types
 
         if dashboard_item.changed?
           if !dashboard_item.save
-            return GraphQL::ExecutionError.new('Could not save dashboard item')
+            return GraphQL::ExecutionError.new(dashboard_item.errors.full_messages)
           end
         end
 

@@ -26,12 +26,13 @@ ActiveRecord::Schema.define(version: 20180121235552) do
   end
 
   create_table "alerts", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.string   "identifier", null: false
-    t.datetime "expires_at", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id", "expires_at"], name: "index_alerts_on_user_id_and_expires_at", using: :btree
+    t.integer  "user_id",                null: false
+    t.integer  "status",     default: 0, null: false
+    t.datetime "expires_at",             null: false
+    t.string   "identifier",             null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["user_id", "status", "expires_at"], name: "index_alerts_on_user_id_and_status_and_expires_at", using: :btree
     t.index ["user_id"], name: "index_alerts_on_user_id", using: :btree
   end
 
