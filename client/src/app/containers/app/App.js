@@ -21,7 +21,7 @@ import Notifications        from 'react-notification-system-redux';
 import ReactTooltip         from 'react-tooltip';
 import * as STYLES          from '../../constants/styles';
 import Footer               from '../../components/Footer';
-// import Worker              from '../../workers/binance.worker';
+import Worker               from '../../workers/binance.worker';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -85,27 +85,27 @@ class App extends PureComponent
     this.worker = null;
   }
 
-  // componentWillReceiveProps(nextProps)
-  // {
-  //   const {
-  //     alerts,
-  //   } = nextProps;
+  componentWillReceiveProps(nextProps)
+  {
+    const {
+      alerts,
+    } = nextProps;
 
-  //   if (alerts.length > 0)
-  //   {
-  //     if (this.worker !== null)
-  //     {
-  //       this.worker.terminate();
-  //     }
+    if (alerts.length > 0)
+    {
+      if (this.worker !== null)
+      {
+        this.worker.terminate();
+      }
 
-  //     this.worker = new Worker();
-  //     this.worker.postMessage({ alerts: alerts });
-  //     this.worker.onmessage = (event) => {
-  //       console.log('bye');
-  //       console.log(event.data);
-  //     };
-  //   }
-  // }
+      this.worker = new Worker();
+      this.worker.postMessage({ alerts: alerts });
+      this.worker.onmessage = (event) => {
+        console.log('bye');
+        console.log(event.data);
+      };
+    }
+  }
 
   render() {
     const {

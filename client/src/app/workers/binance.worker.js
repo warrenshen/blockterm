@@ -1,24 +1,65 @@
-import ccxt from 'ccxt';
+import ccxt             from 'ccxt';
+import {
+  GREATER_THAN,
+  LESS_THAN,
+  parseAlertIdentifier,
+}                       from '../constants/alerts';
 
 const binance = new ccxt.binance();
 binance.proxy = 'https://cors-anywhere.herokuapp.com/';
 
+function formatTickerBinance(ticker)
+{
+  return `${ticker.substring(0, 4)}/${ticker.substring(4)}`;
+}
+
+function isConditionFulfilled(condition, price, createdAtUnix, trade)
+{
+  if (createdAtUnix * 1000 > trade.timestamp)
+  {
+    return false;
+  }
+
+  if (condition === GREATER_THAN)
+  {
+    return trade.price >= price;
+  }
+  else
+  {
+    return trade.price <= price;
+  }
+}
+
 async function f(alert)
 {
-  const identifier = alert.identifier;
-  const trades = await binance.fetchTrades('BNB/BTC');
+  const {
+    createdAtUnix,
+    identifier,
+  } = alert;
+
+  const [market, price, condition] = parseAlertIdentifier(identifier);
+  const [exchange, ticker] = market.split(':', 2);
+
+  console.log(exchange);
+  console.log(ticker);
+  const trades = await binance.fetchTrades(formatTickerBinance(ticker));
+  console.log('fetched');
   console.log(trades);
 
+  const fulfillingTrades = trades.filter(
+    (trade) => isConditionFulfilled(condition, price, createdAtUnix, trade)
+  );
+  console.log(fulfillingTrades);
+  if (fulfillingTrades.length > 0)
+  {
+    postMessage('sup');
+  }
+
   setTimeout(() => f(alert), 16384);
-  console.log('Posting message back to main script');
-  postMessage('hey');
 }
 
 onmessage = (event) => {
-  console.log('Message received from main script');
-
-  const user = event.data;
-  const alerts = user.alerts;
+  const alerts = event.data.alerts;
   if (alerts.length > 0)
   {
     alerts.forEach((alert) => f(alert));

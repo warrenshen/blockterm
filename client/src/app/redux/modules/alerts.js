@@ -35,7 +35,7 @@ export default function(state = initialState, action)
           const newAlerts = oldAlerts.push(data.alert);
           return {
             ...state,
-            alerts: newAlerts,
+            alerts: newAlerts.toJS(),
           };
         default:
           return state;

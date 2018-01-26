@@ -4,17 +4,17 @@ const ONE_DAY = 'ONE_DAY';
 const ONE_WEEK = 'ONE_WEEK';
 const NEVER = 'NEVER';
 
-const LESS_THEN = 'LESS_THEN';
-const GREATER_THEN = 'GREATER_THEN';
+const LESS_THAN = 'LESS_THAN';
+const GREATER_THAN = 'GREATER_THAN';
 
 export const ALERT_CONDITION_SELECT_OPTIONS = [
   {
-    label: 'Less then price',
-    value: LESS_THEN,
+    label: 'Less than price',
+    value: LESS_THAN,
   },
   {
-    label: 'Greater then price',
-    value: GREATER_THEN,
+    label: 'Greater than price',
+    value: GREATER_THAN,
   },
 ];
 
@@ -46,4 +46,33 @@ const DELIMETER = '__';
 export function generateAlertIdentifier(market, price, condition)
 {
   return `${market}${DELIMETER}${price}${DELIMETER}${condition}`;
+}
+
+function isAlertIdentifierValid(identifier)
+{
+  const arr = identifier.split(DELIMETER, 3);
+  if (arr.length != 3)
+  {
+    return false;
+  }
+  else
+  {
+    return true;
+  }
+}
+
+export function parseAlertIdentifier(identifier)
+{
+  if (!isAlertIdentifierValid(identifier))
+  {
+    if (process.env.NODE_ENV === 'dev')
+    {
+      console.log('Invalid identifier');
+    }
+    return null;
+  }
+  else
+  {
+    return identifier.split(DELIMETER, 3);
+  }
 }

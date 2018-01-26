@@ -18,6 +18,8 @@ export const AlertsQuery = gql`
         id
         identifier
         expiresAt
+        createdAt
+        createdAtUnix
       }
     }
   }
