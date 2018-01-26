@@ -39,6 +39,7 @@ import {
   TWITTER_ITEM,
   convertIdentifierToTitle,
   parseIdentifer,
+  parseIdentiferKey,
 }                             from '../constants/items';
 
 const styles = StyleSheet.create({
@@ -247,6 +248,7 @@ class DashboardItem extends Component
     } = dashboardItem;
     const staticActive = dashboardItem.static;
 
+    const identifierKey = parseIdentiferKey(identifier);
     const title = convertIdentifierToTitle(identifier);
 
     const onClickEdit = (event) => changeSidebarMode('edit', id);
@@ -270,13 +272,17 @@ class DashboardItem extends Component
             </El>
           </div>
           <div className={css(styles.rightAlignSmall, staticActive && styles.lockedGrabBar)}>
-            <button
-              className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-              onClick={onClickOpen}
-              title="Open this widget in full screen."
-            >
-              <FontAwesome name='arrows-alt' style={{'fontSize':'13px'}}/>
-            </button>
+            {
+              identifierKey === TV_CANDLE_CHART && (
+                <button
+                  className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+                  onClick={onClickOpen}
+                  title="Open this widget in full screen."
+                >
+                  <FontAwesome name='arrows-alt' style={{'fontSize':'13px'}}/>
+                </button>
+              )
+            }
             <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
               onClick={onClickEdit}
