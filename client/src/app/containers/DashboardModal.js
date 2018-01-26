@@ -18,7 +18,9 @@ import * as dashboardActions   from '../redux/modules/dashboard';
 const mapStateToProps = (state) => {
   return {
     alerts: state.alerts.alerts,
+    conditionValue: state.alerts.conditionValue,
     expiresValue: state.alerts.expiresValue,
+    identifier: state.dashboard.modalIdentifier,
     nightMode: state.globals.nightMode,
     priceValue: state.alerts.priceValue,
     user: state.globals.user,
@@ -28,6 +30,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
+      changeConditionValue: alertsActions.changeConditionValue,
       changeExpiresValue: alertsActions.changeExpiresValue,
       changeModalState: dashboardActions.changeModalState,
       changePriceValue: alertsActions.changePriceValue,

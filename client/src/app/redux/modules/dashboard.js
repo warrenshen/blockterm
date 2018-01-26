@@ -135,7 +135,7 @@ const initialState = {
   dashboardItemStates: initialDashboardItemStates,
   dashboardPages: initialDashboardPages,
   keySelectValue: '',
-  modalDashboardItemId: null,
+  modalIdentifier: null,
   selectedTab: cookieSelectedTab,
   sidebarDashboardItemId: null,
   sidebarMode: null,
@@ -278,7 +278,7 @@ export default function(state = initialState, action)
     case CHANGE_MODAL_STATE:
       return {
         ...state,
-        modalDashboardItemId: action.dashboardItemId,
+        modalIdentifier: action.modalIdentifier,
       };
     case CHANGE_SELECTED_TAB:
       setItem(SELECTED_TAB_COOKIE, action.value);
@@ -420,6 +420,14 @@ export function changeKeySelectValue(value)
   };
 }
 
+export function changeModalState(modalIdentifier)
+{
+  return {
+    type: CHANGE_MODAL_STATE,
+    modalIdentifier: modalIdentifier,
+  };
+}
+
 export function changeSelectedTab(value)
 {
   return {
@@ -458,14 +466,6 @@ export function destroyDashboardItemLocal(value)
   return {
     type: DESTROY_DASHBOARD_ITEM_LOCAL,
     value: value,
-  };
-}
-
-export function changeModalState(dashboardItemId)
-{
-  return {
-    type: CHANGE_MODAL_STATE,
-    dashboardItemId: dashboardItemId,
   };
 }
 

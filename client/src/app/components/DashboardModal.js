@@ -9,8 +9,12 @@ import Select              from 'react-select';
 import FontAwesome         from 'react-fontawesome';
 import * as STYLES         from '../constants/styles';
 import {
+  ALERT_CONDITION_SELECT_OPTIONS,
   ALERT_EXPIRES_IN_SELECT_OPTIONS,
 }                          from '../constants/alerts';
+import {
+  parseIdentifer,
+}                             from '../constants/items';
 import DashboardItemLarge  from '../components/DashboardItemLarge';
 import El                  from '../components/El';
 
@@ -88,6 +92,7 @@ class DashboardModal extends PureComponent
   {
     const {
       alerts,
+      conditionValue,
       expiresValue,
       priceValue,
       nightMode,
@@ -129,7 +134,14 @@ class DashboardModal extends PureComponent
                 onChange={onChangePrice}
               />
               <Select
-                clearable={true}
+                clearable={false}
+                matchProp={'label'}
+                options={ALERT_CONDITION_SELECT_OPTIONS}
+                value={conditionValue ? conditionValue.value : ''}
+                onChange={onSelectChange}
+              />
+              <Select
+                clearable={false}
                 matchProp={'label'}
                 options={ALERT_EXPIRES_IN_SELECT_OPTIONS}
                 value={expiresValue ? expiresValue.value : ''}
@@ -165,11 +177,14 @@ class DashboardModal extends PureComponent
   render()
   {
     const {
+      identifier,
       nightMode,
       user,
 
       changeModalState,
     } = this.props;
+
+    const [identifierKey, identifierValue] = parseIdentifer(identifier);
 
     return (
       <div
@@ -178,6 +193,7 @@ class DashboardModal extends PureComponent
       >
         <DashboardItemLarge
           nightMode={nightMode}
+          value={identifierValue}
         />
         <div className={css(styles.overlaySide)}>
           <div className={css(styles.overlaySideHeader)}>

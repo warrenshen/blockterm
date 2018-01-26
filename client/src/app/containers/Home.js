@@ -32,7 +32,7 @@ const mapStateToProps = (state) => {
     dashboardItemStates: state.dashboard.dashboardItemStates,
     dashboardPages: state.dashboard.dashboardPages,
     keySelectValue: state.dashboard.keySelectValue,
-    modalDashboardItemId: state.dashboard.modalDashboardItemId,
+    modalIdentifier: state.dashboard.modalIdentifier,
     nightMode: state.globals.nightMode,
     scrollActive: state.globals.scrollActive,
     selectedTab: state.dashboard.selectedTab,

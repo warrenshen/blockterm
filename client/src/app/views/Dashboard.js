@@ -148,14 +148,14 @@ class Dashboard extends PureComponent
   renderModal()
   {
     const {
-      modalDashboardItemId,
+      modalIdentifier,
       nightMode,
       user,
 
       changeModalState,
     } = this.props;
 
-    return modalDashboardItemId !== null && (
+    return modalIdentifier !== null && (
       <DashboardModal />
     );
   }

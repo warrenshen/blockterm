@@ -1033,6 +1033,7 @@ export const ITEM_VALUE_TO_IMAGE = {
     'BINANCE:ENJETH': 'enjin-coin',
     'BINANCE:EOSBTC': 'eos',
     'BINANCE:ETCBTC': 'ethereum-classic',
+    'BINANCE:ETHBTC': 'ethereum',
     'BINANCE:EVXBTC': 'everex',
     'BINANCE:EVXETH': 'everex',
     'BINANCE:FUELBTC': 'etherparty',

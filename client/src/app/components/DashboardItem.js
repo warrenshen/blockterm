@@ -2,31 +2,11 @@
 
 import React, {
   Component,
-}                          from 'react';
-import PropTypes           from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
-import { isEqual }         from 'underscore';
-import {
-  disableChartOptions,
-  generateCountChartData,
-} from '../helpers/chart';
-import {
-  RANGE_SELECT_OPTIONS,
-} from '../constants/plots';
-import CCChartItem                from './items/CCChartItem';
-import PercentDominanceItem       from './items/PercentDominanceItem';
-import PortfolioItem              from './items/PortfolioItem';
-import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
-import SubredditPostCountsItem    from './items/SubredditPostCountsItem';
-import TokenPriceItem             from './items/TokenPriceItem';
-import TotalMarketCapItem         from './items/TotalMarketCapItem';
-import TVChartItem                from './items/TVChartItem';
-import TVMarketOverviewItem       from './items/TVMarketOverviewItem';
-import TwitterItem                from './items/TwitterItem';
+}                                 from 'react';
+import PropTypes                  from 'prop-types';
+import { StyleSheet, css }        from 'aphrodite';
+import { isEqual }                from 'underscore';
 import * as STYLES                from '../constants/styles';
-import El                         from './El';
-import FontAwesome                from 'react-fontawesome';
-
 import {
   CC_CHART,
   PERCENT_DOMINANCE_ITEM,
@@ -40,7 +20,19 @@ import {
   convertIdentifierToTitle,
   parseIdentifer,
   parseIdentiferKey,
-}                             from '../constants/items';
+}                                 from '../constants/items';
+import CCChartItem                from './items/CCChartItem';
+import PercentDominanceItem       from './items/PercentDominanceItem';
+import PortfolioItem              from './items/PortfolioItem';
+import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
+import SubredditPostCountsItem    from './items/SubredditPostCountsItem';
+import TokenPriceItem             from './items/TokenPriceItem';
+import TotalMarketCapItem         from './items/TotalMarketCapItem';
+import TVChartItem                from './items/TVChartItem';
+import TVMarketOverviewItem       from './items/TVMarketOverviewItem';
+import TwitterItem                from './items/TwitterItem';
+import El                         from './El';
+import FontAwesome                from 'react-fontawesome';
 
 const styles = StyleSheet.create({
   container: {
@@ -138,9 +130,7 @@ class DashboardItem extends Component
     } = this.props;
 
     const identifier = dashboardItem.identifier;
-    const arr = parseIdentifer(identifier);
-    const identifierKey = arr[0];
-    const identifierValue = arr[1];
+    const [identifierKey, identifierValue] = parseIdentifer(identifier);
 
     switch (identifierKey)
     {
@@ -253,7 +243,7 @@ class DashboardItem extends Component
 
     const onClickEdit = (event) => changeSidebarMode('edit', id);
     const onClickLock = (event) => updateLayoutItem(id, !staticActive);
-    const onClickOpen = (event) => changeModalState(id);
+    const onClickOpen = (event) => changeModalState(identifier);
     const onClickRemove = (event) => removeFromLayout(id);
 
     return (

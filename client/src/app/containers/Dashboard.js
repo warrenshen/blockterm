@@ -274,8 +274,8 @@ class Container extends PureComponent
       createNotificationSuccess,
     } = this.props;
 
-    let w = 3;
-    let h = 4;
+    let w = 4;
+    let h = 5;
 
     if (parseIdentiferKey(identifier) === PORTFOLIO_ITEM ||
         parseIdentiferKey(identifier) === TV_MARKET_OVERVIEW)
@@ -364,7 +364,7 @@ class Container extends PureComponent
   {
     const {
       keySelectValue,
-      modalDashboardItemId,
+      modalIdentifier,
       nightMode,
       scrollActive,
       sidebarDashboardItemId,
@@ -386,7 +386,7 @@ class Container extends PureComponent
         />
         <Dashboard
           keySelectValue={keySelectValue}
-          modalDashboardItemId={modalDashboardItemId}
+          modalIdentifier={modalIdentifier}
           nightMode={nightMode}
           scrollActive={scrollActive}
           sidebarMode={sidebarMode}

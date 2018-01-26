@@ -5,6 +5,7 @@
  ------------------------------------------*/
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
+const CHANGE_CONDITION_VALUE = 'CHANGE_CONDITION_VALUE';
 const CHANGE_EXPIRES_VALUE = 'CHANGE_EXPIRES_VALUE';
 const CHANGE_PRICE_VALUE = 'CHANGE_PRICE_VALUE';
 
@@ -13,6 +14,7 @@ const CHANGE_PRICE_VALUE = 'CHANGE_PRICE_VALUE';
  ------------------------------------------*/
 const initialState = {
   alerts: [],
+  conditionValue: '',
   expiresValue: '',
   priceValue: '',
 };
@@ -48,6 +50,11 @@ export default function(state = initialState, action)
         default:
           return state;
       }
+    case CHANGE_CONDITION_VALUE:
+      return {
+        ...state,
+        conditionValue: action.conditionValue,
+      };
     case CHANGE_EXPIRES_VALUE:
       return {
         ...state,
@@ -63,6 +70,14 @@ export default function(state = initialState, action)
   }
 }
 
+export function changeConditionValue(conditionValue)
+{
+  return {
+    type: CHANGE_CONDITION_VALUE,
+    conditionValue: conditionValue,
+  };
+}
+
 export function changeExpiresValue(expiresValue)
 {
   return {
@@ -76,15 +91,5 @@ export function changePriceValue(priceValue)
   return {
     type: CHANGE_PRICE_VALUE,
     priceValue: priceValue,
-  };
-}
-
-export function updateDashboardItemLocal(id, identifier, staticActive)
-{
-  return {
-    type: UPDATE_DASHBOARD_ITEM_LOCAL,
-    id: id,
-    identifier: identifier,
-    static: staticActive,
   };
 }

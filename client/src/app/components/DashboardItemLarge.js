@@ -5,7 +5,7 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import TVChartItem         from './items/TVChartItem';
+import TVChartItemLarge    from './items/TVChartItemLarge';
 
 class DashboardItemLarge extends PureComponent
 {
@@ -13,13 +13,14 @@ class DashboardItemLarge extends PureComponent
   {
     const {
       nightMode,
+      value,
     } = this.props;
 
     return (
-      <TVChartItem
+      <TVChartItemLarge
         dashboardAction={false}
         nightMode={nightMode}
-        value={'BITSTAMP:ETHBTC'}
+        value={value}
       />
     );
   }
