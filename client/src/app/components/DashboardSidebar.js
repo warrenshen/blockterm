@@ -99,6 +99,33 @@ const styles = StyleSheet.create({
 
 class DashboardSidebar extends PureComponent
 {
+  static propTypes = {
+    keySelectValue: PropTypes.string.isRequired,
+    nightMode: PropTypes.bool.isRequired,
+    sidebarMode: PropTypes.string,
+    valueSelectValue: PropTypes.string.isRequired,
+
+    addToLayout: PropTypes.func.isRequired,
+    changeSidebarMode: PropTypes.func.isRequired,
+    updateLayoutItem: PropTypes.func.isRequired,
+  };
+
+  focusOnSpecificSelect()
+  {
+    const sidebarSpecificField = document.getElementById('widgetSearchSpecific');
+    if (sidebarSpecificField) {
+      sidebarSpecificField.focus();
+    }
+  }
+
+  focusOnSubmitButton()
+  {
+    const submitButton = document.getElementById('dashboardActionButton');
+    if (submitButton) {
+      submitButton.focus();
+    }
+  }
+
   addItem(event)
   {
     event.preventDefault();
@@ -132,22 +159,6 @@ class DashboardSidebar extends PureComponent
       }
     }
     this.focusOnSpecificSelect();
-  }
-
-  focusOnSpecificSelect()
-  {
-    const sidebarSpecificField = document.getElementById('widgetSearchSpecific');
-    if (sidebarSpecificField) {
-      sidebarSpecificField.focus();
-    }
-  }
-
-  focusOnSubmitButton()
-  {
-    const submitButton = document.getElementById('dashboardActionButton');
-    if (submitButton) {
-      submitButton.focus();
-    }
   }
 
   handleKeySelectChange(option)

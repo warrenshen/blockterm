@@ -192,6 +192,7 @@ class Dashboard extends PureComponent
           sidebar={(
             <DashboardSidebar
               keySelectValue={keySelectValue}
+              nightMode={nightMode}
               sidebarMode={sidebarMode}
               valueSelectValue={valueSelectValue}
 
