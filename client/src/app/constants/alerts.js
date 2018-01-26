@@ -76,3 +76,14 @@ export function parseAlertIdentifier(identifier)
     return identifier.split(DELIMETER, 3);
   }
 }
+
+export function generateAlertNotificationTitle(alert)
+{
+  return `Price alert: ${alert.identifier}!`;
+}
+
+export function generateAlertNotificationBody(alert)
+{
+  const [market, price, condition] = parseAlertIdentifier(alert.identifier);
+  return `${price}`;
+}

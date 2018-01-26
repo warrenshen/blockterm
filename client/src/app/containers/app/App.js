@@ -2,24 +2,29 @@
 
 import { connect }          from 'react-redux';
 import { compose, graphql } from 'react-apollo';
+import Notifications        from 'react-notification-system-redux';
+import ReactTooltip         from 'react-tooltip';
+import React, {
+  PureComponent,
+}                           from 'react';
+import { withRouter }       from 'react-router';
+import PropTypes            from 'prop-types';
+import { StyleSheet, css }  from 'aphrodite';
+
 import {
   UserQuery,
   UserQueryOptions,
 }                           from '../../queries';
-import React, {
-  PureComponent,
-}                           from 'react';
-import PropTypes            from 'prop-types';
-import { StyleSheet, css }  from 'aphrodite';
-import { withRouter }       from 'react-router';
 import {
   ConnectedNavigationBar,
   ConnectedFooter,
 }                           from '../../containers';
 import MainRoutes           from '../../routes/MainRoutes';
-import Notifications        from 'react-notification-system-redux';
-import ReactTooltip         from 'react-tooltip';
 import * as STYLES          from '../../constants/styles';
+import {
+  generateAlertNotificationBody,
+  generateAlertNotificationTitle,
+}                           from '../../constants/alerts';
 import Footer               from '../../components/Footer';
 import Worker               from '../../workers/binance.worker';
 
@@ -103,8 +108,9 @@ class App extends PureComponent
       this.worker.onmessage = (event) => {
         const alert = event.data.alert;
         const notification = new Notification(
-          `${alert.identifier} triggered!`,
+          generateAlertNotificationTitle(alert),
           {
+            body: generateAlertNotificationBody(alert),
             requireInteraction: true,
           }
         );
