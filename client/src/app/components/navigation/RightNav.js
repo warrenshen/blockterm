@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
 function logOut(event, client)
 {
   clearItem(AUTH_TOKEN_COOKIE);
-  window.location.reload();
+  window.location = '/';
 }
 
 function truncateEmail(email)
