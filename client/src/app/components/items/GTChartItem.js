@@ -1,6 +1,3 @@
-// GTChartItem.js
-// <script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/1280_RC06/embed_loader.js"></script> <script type="text/javascript"> trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"substratum","geo":"","time":"today 12-m"}],"category":0,"property":""}, {"exploreQuery":"q=substratum&date=today 12-m","guestPath":"https://trends.google.com:443/trends/embed/"}); </script>
-
 // @flow weak
 
 import React, {
