@@ -12,8 +12,6 @@ services:
       - "5432:5432"
     volumes:
       - ../cache/postgres-data:/var/lib/postgresql/data
-    labels:
-      kompose.service.type: nodeport
 
   server:
     image: us.gcr.io/block-191602/server:latest
@@ -22,19 +20,27 @@ services:
       - RAILS_ENV=development
       - SECRET_KEY_BASE=dev_secret_key_base
       - SECRET_KEY_API=dev_secret_key_api
+    volumes:
+      - ../server:/blockterm/
+    working_dir: /blockterm/
     ports:
       - "9999:80"
     depends_on:
       - db
-    labels:
-      kompose.service.type: LoadBalancer
 
   client:
     image: us.gcr.io/block-191602/client:latest
     command: npm run start
+    volumes:
+      - ../client:/client-dev
+    working_dir: /client-dev
     ports:
       - "3000:80"
     depends_on:
       - server
-    labels:
-      kompose.service.type: LoadBalancer
+
+  cors:
+    image: us.gcr.io/block-191602/cors:latest
+    command: node server.js
+    ports:
+      - "9876:8080"

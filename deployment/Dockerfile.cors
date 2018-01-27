@@ -1,0 +1,15 @@
+FROM node:carbon
+
+MAINTAINER Bob Chen <jtcdbob@gmail.com>
+
+RUN apt-get update
+
+ENV APP_PATH /blockterm
+
+COPY ./cors/package.json $APP_PATH/cors/
+
+WORKDIR $APP_PATH/cors
+
+RUN npm install
+
+COPY . $APP_PATH
