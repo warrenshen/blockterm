@@ -1,9 +1,11 @@
 // @flow weak
 
-import React, { PureComponent } from 'react';
+import React, {
+  PureComponent,
+}                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import El from './El';
+import El                  from './El';
 import * as STYLES from '../constants/styles';
 
 const styles = StyleSheet.create({
@@ -42,8 +44,8 @@ const styles = StyleSheet.create({
   },
 });
 
-class Marquee extends PureComponent {
-
+class Marquee extends PureComponent
+{
   componentDidMount()
   {
     this.update();
