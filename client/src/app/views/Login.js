@@ -187,7 +187,7 @@ class Login extends PureComponent
     logIn(email, password)
       .then((response) => {
         setItem(AUTH_TOKEN_COOKIE, response.data.logIn.authToken);
-        history.push('/');
+        window.location = '/';
       })
       .catch((error) => changeError(error.graphQLErrors[0].message));
   }

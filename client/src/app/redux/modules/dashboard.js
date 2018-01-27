@@ -239,6 +239,7 @@ export default function(state = initialState, action)
             dashboardItemStates = generateItemStatesFromPages(dashboardPages);
             clearItem(AUTH_TOKEN_COOKIE);
             clearItem(DASHBOARD_COOKIE);
+            window.location = '/';
           }
 
           return {

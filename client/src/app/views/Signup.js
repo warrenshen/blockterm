@@ -169,7 +169,7 @@ class Signup extends PureComponent
     createUser(email, password)
       .then((response) => {
         setItem(AUTH_TOKEN_COOKIE, response.data.createUser.authToken);
-        history.push('/');
+        window.location = '/';
       })
       .catch((error) => changeError(error.graphQLErrors[0].message));;
   }
