@@ -24,6 +24,10 @@ const initialState = {
 export default function(state = initialState, action)
 {
   let data;
+  let newAlert;
+  let newAlerts;
+  let oldAlerts;
+
   switch (action.type)
   {
     case APOLLO_MUTATION_RESULT:
@@ -31,8 +35,21 @@ export default function(state = initialState, action)
       {
         case 'CreateAlertMutation':
           data = action.result.data;
-          const oldAlerts = fromJS(state.alerts);
-          const newAlerts = oldAlerts.push(data.alert);
+          newAlert = data.alert;
+          oldAlerts = fromJS(state.alerts);
+          newAlerts = oldAlerts.push(newAlert);
+          return {
+            ...state,
+            alerts: newAlerts.toJS(),
+          };
+        case 'UpdateAlertMutation':
+          data = action.result.data;
+          newAlert = data.alert;
+          oldAlerts = fromJS(state.alerts);
+          const oldAlertIndex = oldAlerts.findIndex(
+            (oldAlert) => oldAlert.id == newAlert.id
+          );
+          newAlerts = oldAlerts.delete(oldAlertIndex);
           return {
             ...state,
             alerts: newAlerts.toJS(),

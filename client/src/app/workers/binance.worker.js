@@ -6,7 +6,14 @@ import {
 }                       from '../constants/alerts';
 
 const binance = new ccxt.binance();
-binance.proxy = 'https://cors-anywhere.herokuapp.com/';
+if (process.env.NODE_ENV == 'dev')
+{
+  binance.proxy = 'http://localhost:8080/';
+}
+else
+{
+  binance.proxy = 'https://cors.blockterm.com/';
+}
 
 // TODO: fix this function to handle 4 letter symbols
 function formatTickerBinance(ticker)
@@ -42,11 +49,13 @@ async function f(alert)
   const [market, price, condition] = parseAlertIdentifier(identifier);
   const [exchange, ticker] = market.split(':', 2);
 
-  // console.log(exchange);
-  // console.log(ticker);
+  if (exchange !== 'BINANCE')
+  {
+    console.log('Invalid exchange');
+    return;
+  }
+
   const trades = await binance.fetchTrades(formatTickerBinance(ticker));
-  // console.log('fetched');
-  // console.log(trades);
 
   const fulfillingTrades = trades.filter(
     (trade) => isConditionFulfilled(condition, price, createdAtUnix, trade)

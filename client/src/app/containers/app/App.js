@@ -12,6 +12,8 @@ import PropTypes            from 'prop-types';
 import { StyleSheet, css }  from 'aphrodite';
 
 import {
+  UpdateAlertMutation,
+  UpdateAlertMutationOptions,
   UserQuery,
   UserQueryOptions,
 }                           from '../../queries';
@@ -94,6 +96,8 @@ class App extends PureComponent
   {
     const {
       alerts,
+
+      updateAlert,
     } = nextProps;
 
     if (alerts.length > 0)
@@ -121,6 +125,9 @@ class App extends PureComponent
           window.focus();
           event.target.close();
         };
+        updateAlert(alert.id, 'inactive')
+          .then((response) => console.log('update success'))
+          .catch((error) => console.log(error));
       };
     }
   }
@@ -159,5 +166,6 @@ const mapStateToProps = (state) => {
 
 export default withRouter(compose(
   graphql(UserQuery, UserQueryOptions),
+  graphql(UpdateAlertMutation, UpdateAlertMutationOptions),
   connect(mapStateToProps)
 )(App));
