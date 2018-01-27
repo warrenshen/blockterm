@@ -64,11 +64,22 @@ module Types
           return GraphQL::ExecutionError.new('No current user')
         end
 
+        if args[:expiresIn] == 'ONE_HOUR'
+          expires_at = DateTime.now + 1.hour
+        elsif args[:expiresIn] == 'SIX_HOURS'
+          expires_at = DateTime.now + 6.hours
+        elsif args[:expiresIn] == 'ONE_DAY'
+          expires_at = DateTime.now + 24.hours
+        elsif args[:expiresIn] == 'ONE_WEEK'
+          expires_at = DateTime.now + 7.days
+        else
+          expires_at = DateTime.now + 1.month
+        end
+
         alert = Alert.create(
           user_id: current_user.id,
           identifier: args[:identifier],
-          # TODO: set expires_at based on args
-          expires_at: DateTime.now + 1.hour,
+          expires_at: expires_at,
         )
 
         if alert.valid?
