@@ -114,7 +114,7 @@ class Footer extends PureComponent {
               style={styles.button}
               nightModeStyle={styles.nightModeButton}
             >
-              Request Feature / Feedback
+              Give Feedback / Request Feature / Report Bug
             </El>
           </a>
         </div>
