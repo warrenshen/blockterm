@@ -54,6 +54,9 @@ data/dbs/*.db
 data/logs/*.log
 !data/logs/.keep
 
+# CORS
+cors/node_modules/
+
 # Other
 
 /cache
