@@ -5,23 +5,42 @@ import {
   parseAlertIdentifier,
 }                       from '../constants/alerts';
 
-const binance = new ccxt.binance();
-if (process.env.NODE_ENV == 'dev')
+function getBinanceAPI()
 {
-  binance.proxy = 'http://localhost:9876/';
-}
-else
-{
-  binance.proxy = 'https://cors.blockterm.com/';
-}
-
-// TODO: fix this function to handle 4 letter symbols
-function formatTickerBinance(ticker)
-{
-  return `${ticker.substring(0, 3)}/${ticker.substring(3)}`;
+  const binance = new ccxt.binance();
+  if (process.env.NODE_ENV == 'dev')
+  {
+    binance.proxy = 'http://localhost:9876/';
+  }
+  else
+  {
+    binance.proxy = 'https://cors.blockterm.com/';
+  }
+  return binance;
 }
 
-function isConditionFulfilled(condition, price, createdAtUnix, trade)
+function getBittrexAPI()
+{
+  const bittrex = new ccxt.bittrex();
+  if (process.env.NODE_ENV == 'dev')
+  {
+    bittrex.proxy = 'http://localhost:9876/';
+  }
+  else
+  {
+    bittrex.proxy = 'https://cors.blockterm.com/';
+  }
+  return bittrex;
+}
+
+// Note we make the assumption that the right hand symbol is three letters.
+function formatTickerBittrex(ticker)
+{
+  const tickerLength = ticker.length;
+  return `${ticker.substring(0, tickerLength - 3)}/${ticker.substring(tickerLength - 3)}`;
+}
+
+function isConditionFulfilledBittrex(condition, price, createdAtUnix, trade)
 {
   if (createdAtUnix * 1000 > trade.timestamp)
   {
@@ -38,7 +57,31 @@ function isConditionFulfilled(condition, price, createdAtUnix, trade)
   }
 }
 
-async function f(alert)
+// Note we make the assumption that the right hand symbol is three letters.
+function formatTickerBinance(ticker)
+{
+  const tickerLength = ticker.length;
+  return `${ticker.substring(0, tickerLength - 3)}/${ticker.substring(tickerLength - 3)}`;
+}
+
+function isConditionFulfilledBinance(condition, price, createdAtUnix, trade)
+{
+  if (createdAtUnix * 1000 > trade.timestamp)
+  {
+    return false;
+  }
+
+  if (condition === GREATER_THAN)
+  {
+    return trade.price >= parseFloat(price);
+  }
+  else
+  {
+    return trade.price <= parseFloat(price);
+  }
+}
+
+async function monitorAlert(alert)
 {
   const {
     id,
@@ -49,46 +92,57 @@ async function f(alert)
   const [market, price, condition] = parseAlertIdentifier(identifier);
   const [exchange, ticker] = market.split(':', 2);
 
-  if (exchange !== 'BINANCE')
-  {
-    console.log('Invalid exchange');
-    return;
+  let api = null;
+  let apiTicker = null;
+  switch (exchange) {
+    case 'BINANCE':
+      api = getBinanceAPI();
+      apiTicker = formatTickerBinance(ticker);
+      break;
+    case 'BITTREX':
+      api = getBittrexAPI();
+      apiTicker = formatTickerBittrex(ticker);
+      break;
+    default:
+      return false;
   }
 
-  const trades = await binance.fetchTrades(formatTickerBinance(ticker));
+  const trades = await api.fetchTrades(apiTicker);
 
-  const fulfillingTrades = trades.filter(
-    (trade) => isConditionFulfilled(condition, price, createdAtUnix, trade)
-  );
+  let fulfillingTrades = null;
+  switch (exchange) {
+    case 'BINANCE':
+      fulfillingTrades = trades.filter(
+        (trade) => isConditionFulfilledBinance(condition, price, createdAtUnix, trade)
+      );
+      break;
+    case 'BITTREX':
+      fulfillingTrades = trades.filter(
+        (trade) => isConditionFulfilledBittrex(condition, price, createdAtUnix, trade)
+      );
+      break;
+    default:
+      fulfillingTrades = [];
+      break;
+  }
+
   if (fulfillingTrades.length > 0)
   {
     postMessage({
       alert: alert,
     });
+    return true;
   }
-
-  setTimeout(() => f(alert), 16384);
+  else
+  {
+    setTimeout(() => f(alert), 16384);
+  }
 }
 
 onmessage = (event) => {
   const alerts = event.data.alerts;
   if (alerts.length > 0)
   {
-    alerts.forEach((alert) => f(alert));
+    alerts.forEach((alert) => monitorAlert(alert));
   }
 };
-
-// // JavaScript
-// (async () => {
-//   console.log (ccxt.exchanges);
-//   let binance = new ccxt.binance();
-//   // console.log(binance.has.CORS);
-//   // console.log(binance.has.fetchOrderBook);
-//   // console.log(binance.has.fetchClosedOrders);
-//   // console.log(binance.has.fetchTrades);
-//   binance.proxy = 'https://cors-anywhere.herokuapp.com/';
-//   console.log (await (binance.fetchTrades('BNB/BTC'))); // ticker for BTC/USD
-//   // let symbols = Object.keys (exchange.markets)
-//   // let random = Math.floor ((Math.random () * symbols.length)) - 1
-//   // console.log (exchange.fetchTicker (symbols[random])) // ticker for a random symbol
-// })();

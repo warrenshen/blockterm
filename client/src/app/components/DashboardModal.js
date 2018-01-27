@@ -7,17 +7,21 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import Select              from 'react-select';
 import FontAwesome         from 'react-fontawesome';
+import moment              from 'moment';
 import * as STYLES         from '../constants/styles';
 import {
   ALERT_CONDITION_SELECT_OPTIONS,
   ALERT_EXPIRES_IN_SELECT_OPTIONS,
   filterAlertsByItemIdentifier,
+  isIdentifierExchangeSupported,
 }                          from '../constants/alerts';
 import {
   parseIdentifier,
+  parseItemIdentifierValue,
 }                          from '../constants/items';
 import {
   generateAlertIdentifier,
+  parseAlertIdentifier,
 }                          from '../constants/alerts';
 import DashboardItemLarge  from '../components/DashboardItemLarge';
 import El                  from '../components/El';
@@ -36,22 +40,30 @@ const styles = StyleSheet.create({
   containerNightMode: {
     backgroundColor: 'rgba(23, 23, 23, 0.98)',
   },
-  overlaySide: {
+  rightSection: {
     display: 'flex',
     flexDirection: 'column',
     width: '256px',
   },
-  overlaySideHeader: {
+  sectionHeader: {
     display: 'flex',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   alerts: {
     flex: '1',
     display: 'flex',
     flexDirection: 'column',
   },
-  form: {
+  alert: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  alertRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
 });
 
@@ -97,14 +109,50 @@ class DashboardModal extends PureComponent
   renderAlert(alert)
   {
     const {
+      nightMode,
+    } = this.props;
+
+    const {
       id,
       identifier,
       expiresAt,
     } = alert;
 
+    const [market, price, condition] = parseAlertIdentifier(identifier);
+
     return (
-      <div key={id}>
-        {identifier}
+      <div
+        className={css(styles.alert)}
+        key={id}
+      >
+        <div className={css(styles.alertRow)}>
+          <El
+            nightMode={nightMode}
+            type={'h5'}
+          >
+            {market}
+          </El>
+          <El
+            nightMode={nightMode}
+            type={'h5'}
+          >
+            {moment(expiresAt, 'YYYY-M-D H:m:s Z').fromNow()}
+          </El>
+        </div>
+        <div className={css(styles.alertRow)}>
+          <El
+            nightMode={nightMode}
+            type={'h5'}
+          >
+            {price}
+          </El>
+          <El
+            nightMode={nightMode}
+            type={'h5'}
+          >
+            {condition}
+          </El>
+        </div>
       </div>
     );
   }
@@ -121,7 +169,7 @@ class DashboardModal extends PureComponent
       createNotificationSuccess,
     } = this.props;
 
-    const [identifierKey, identifierValue] = parseIdentifier(this.props.identifier);
+    const identifierValue = parseItemIdentifierValue(this.props.identifier);
     const identifier = generateAlertIdentifier(
       identifierValue,
       priceValue,
@@ -139,6 +187,7 @@ class DashboardModal extends PureComponent
       alerts,
       conditionValue,
       expiresValue,
+      identifier,
       priceValue,
       nightMode,
       user,
@@ -191,58 +240,74 @@ class DashboardModal extends PureComponent
     //     </El>
     //   </div>
     // );
-    return (
-      <div>
-        {
-          user !== null ? (
-            <form className={css(styles.form)}>
-              <El
-                nightMode={nightMode}
-                type={'h3'}
-              >
-                Create price alert
-              </El>
-              <input
-                autoFocus={true}
-                className={css(styles.inputField, nightMode && styles.fieldNight)}
-                placeholder='Price'
-                required='required'
-                value={priceValue}
-                onChange={onChangePrice}
-              />
-              <Select
-                clearable={false}
-                matchProp={'label'}
-                options={ALERT_CONDITION_SELECT_OPTIONS}
-                value={conditionValue ? conditionValue.value : ''}
-                onChange={onConditionChange}
-              />
-              <Select
-                clearable={false}
-                matchProp={'label'}
-                options={ALERT_EXPIRES_IN_SELECT_OPTIONS}
-                value={expiresValue ? expiresValue.value : ''}
-                onChange={onExpiresInChange}
-              />
-              <button
-                className={css(styles.bolded, styles.submitButton)}
-                type='submit'
-                onClick={onClickSubmit}
-              >
-                Create alert
-              </button>
-            </form>
-          ) : (
+    //
+
+    if (!isIdentifierExchangeSupported(identifier))
+    {
+      return (
+        <El
+          nightMode={nightMode}
+          type={'h5'}
+        >
+          {`Price alerts not supported for this exchange yet`}
+        </El>
+      );
+    }
+    else if (user === null)
+    {
+      return (
+        <El
+          nightMode={nightMode}
+          type={'h5'}
+        >
+          LOGIN or JOIN to use alerts
+        </El>
+      );
+    }
+    else
+    {
+      return (
+        <div>
+          <form className={css(styles.form)}>
             <El
               nightMode={nightMode}
-              type={'h5'}
+              type={'h3'}
             >
-              LOGIN or JOIN to use alerts
+              Create price alert
             </El>
-          )
-        }
-      </div>
-    );
+            <input
+              autoFocus={true}
+              className={css(styles.inputField, nightMode && styles.fieldNight)}
+              placeholder='Price'
+              required='required'
+              value={priceValue}
+              onChange={onChangePrice}
+            />
+            <Select
+              clearable={false}
+              matchProp={'label'}
+              options={ALERT_CONDITION_SELECT_OPTIONS}
+              value={conditionValue ? conditionValue.value : ''}
+              onChange={onConditionChange}
+            />
+            <Select
+              clearable={false}
+              matchProp={'label'}
+              options={ALERT_EXPIRES_IN_SELECT_OPTIONS}
+              value={expiresValue ? expiresValue.value : ''}
+              onChange={onExpiresInChange}
+            />
+            <button
+              className={css(styles.bolded, styles.submitButton)}
+              type='submit'
+              onClick={onClickSubmit}
+            >
+              Create alert
+            </button>
+          </form>
+        </div>
+      );
+    }
   }
 
   renderAlerts()
@@ -285,8 +350,8 @@ class DashboardModal extends PureComponent
           nightMode={nightMode}
           value={identifierValue}
         />
-        <div className={css(styles.overlaySide)}>
-          <div className={css(styles.overlaySideHeader)}>
+        <div className={css(styles.rightSection)}>
+          <div className={css(styles.sectionHeader)}>
             <button
               onClick={(event) => changeModalState(null)}
             >
