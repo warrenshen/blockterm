@@ -85,8 +85,8 @@ class TVChartItem extends PureComponent
       <div className={css(styles.container, dashboardAction && styles.noPointerEvents)}>
         {this.renderImage()}
         <iframe
-          scrolling="no"
           className={css(styles.frame, nightMode && styles.nightFrame)}
+          scrolling="no"
           src={url}
         />
       </div>

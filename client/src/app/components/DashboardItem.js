@@ -9,6 +9,7 @@ import { isEqual }                from 'underscore';
 import * as STYLES                from '../constants/styles';
 import {
   CC_CHART,
+  GT_CHART_ITEM,
   PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
@@ -27,7 +28,6 @@ import PercentDominanceItem       from './items/PercentDominanceItem';
 import PortfolioItem              from './items/PortfolioItem';
 import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
 import SubredditPostCountsItem    from './items/SubredditPostCountsItem';
-import TokenPriceItem             from './items/TokenPriceItem';
 import TotalMarketCapItem         from './items/TotalMarketCapItem';
 import TVChartItem                from './items/TVChartItem';
 import TVMarketOverviewItem       from './items/TVMarketOverviewItem';
@@ -143,6 +143,15 @@ class DashboardItem extends Component
             value={identifierValue}
           />
         );
+      case GT_CHART_ITEM:
+        return (
+          <GTChartItem
+            dashboardAction={dashboardAction}
+            dashboardData={dashboardData}
+            nightMode={nightMode}
+            value={identifierValue}
+          />
+        );
       case PERCENT_DOMINANCE_ITEM:
         return (
           <PercentDominanceItem
@@ -195,7 +204,7 @@ class DashboardItem extends Component
         );
       case TV_CANDLE_CHART:
         return (
-          <GTChartItem
+          <TVChartItem
             dashboardAction={dashboardAction}
             nightMode={nightMode}
             value={identifierValue}
