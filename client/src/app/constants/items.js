@@ -12,6 +12,7 @@ export const PATCH_NOTES = [
 const DELIMETER = '__';
 
 export const CC_CHART = 'CC_CHART';
+export const GT_CHART_ITEM = 'GT_CHART_ITEM';
 export const PERCENT_DOMINANCE_ITEM = 'PERCENT_DOMINANCE_ITEM';
 export const PORTFOLIO_ITEM = 'PORTFOLIO_ITEM';
 export const SUBREDDIT_COMMENT_COUNTS = 'SUBREDDIT_COMMENT_COUNTS';
@@ -22,6 +23,7 @@ export const TV_MARKET_OVERVIEW = 'TV_MARKET_OVERVIEW';
 export const TWITTER_ITEM = 'TWITTER_ITEM';
 
 export const ITEM_KEY_WHITELIST = [
+  GT_CHART_ITEM,
   PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
@@ -115,9 +117,10 @@ export const ITEM_KEY_TO_LABELS = {
   [TOTAL_MARKET_CAP]: 'Total market cap chart',
   [PERCENT_DOMINANCE_ITEM]: 'Percent dominance chart',
   [PORTFOLIO_ITEM]: 'Portfolio overview',
+  [GT_CHART_ITEM]: 'Google trends chart',
+  [TWITTER_ITEM]: 'Twitter feed',
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
   [SUBREDDIT_COMMENT_COUNTS]: 'Subreddit comments chart',
-  [TWITTER_ITEM]: 'Twitter feed',
 };
 
 // These array values should be in user-facing order.
@@ -284,6 +287,12 @@ export const TWITTER_VALUE_TO_DATA_SOURCE = {
 };
 
 export const ITEM_KEY_TO_VALUES = {
+  [GT_CHART_ITEM]: [
+    'bitcoin',
+    'ethereum',
+    'substratum',
+    'neo',
+  ],
   [PERCENT_DOMINANCE_ITEM]: [
     'Default',
   ],
