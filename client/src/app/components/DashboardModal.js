@@ -11,9 +11,10 @@ import * as STYLES         from '../constants/styles';
 import {
   ALERT_CONDITION_SELECT_OPTIONS,
   ALERT_EXPIRES_IN_SELECT_OPTIONS,
+  filterAlertsByItemIdentifier,
 }                          from '../constants/alerts';
 import {
-  parseIdentifer,
+  parseIdentifier,
 }                          from '../constants/items';
 import {
   generateAlertIdentifier,
@@ -120,7 +121,7 @@ class DashboardModal extends PureComponent
       createNotificationSuccess,
     } = this.props;
 
-    const [identifierKey, identifierValue] = parseIdentifer(this.props.identifier);
+    const [identifierKey, identifierValue] = parseIdentifier(this.props.identifier);
     const identifier = generateAlertIdentifier(
       identifierValue,
       priceValue,
@@ -132,7 +133,7 @@ class DashboardModal extends PureComponent
       .catch((error) => createNotificationError({ position: 'bc', title: 'Failure.' }));
   }
 
-  renderAlerts()
+  renderForm()
   {
     const {
       alerts,
@@ -183,11 +184,8 @@ class DashboardModal extends PureComponent
     return (
       <div>
         {
-          user !== null ? [
-            <form
-              className={css(styles.form)}
-              key={'form'}
-            >
+          user !== null ? (
+            <form className={css(styles.form)}>
               <El
                 nightMode={nightMode}
                 type={'h3'}
@@ -223,14 +221,8 @@ class DashboardModal extends PureComponent
               >
                 Create alert
               </button>
-            </form>,
-            <div
-              className={css(styles.alerts)}
-              key={'alerts'}
-            >
-              {alerts.map((alert) => this.renderAlert(alert))}
-            </div>
-          ] : (
+            </form>
+          ) : (
             <El
               nightMode={nightMode}
               type={'h5'}
@@ -243,6 +235,26 @@ class DashboardModal extends PureComponent
     );
   }
 
+  renderAlerts()
+  {
+    const {
+      alerts,
+      identifier,
+      nightMode,
+      user,
+    } = this.props;
+    const validAlerts = filterAlertsByItemIdentifier(alerts, identifier);
+
+    if (user !== null)
+    {
+      return (
+        <div className={css(styles.alerts)}>
+          {validAlerts.map((alert) => this.renderAlert(alert))}
+        </div>
+      );
+    }
+  }
+
   render()
   {
     const {
@@ -252,7 +264,7 @@ class DashboardModal extends PureComponent
       changeModalState,
     } = this.props;
 
-    const [identifierKey, identifierValue] = parseIdentifer(identifier);
+    const [identifierKey, identifierValue] = parseIdentifier(identifier);
 
     return (
       <div
@@ -271,6 +283,7 @@ class DashboardModal extends PureComponent
               <FontAwesome name='close' className={css(styles.icon)} />
             </button>
           </div>
+          {this.renderForm()}
           {this.renderAlerts()}
         </div>
       </div>

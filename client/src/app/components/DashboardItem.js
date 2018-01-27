@@ -18,7 +18,7 @@ import {
   TV_MARKET_OVERVIEW,
   TWITTER_ITEM,
   convertIdentifierToTitle,
-  parseIdentifer,
+  parseIdentifier,
   parseIdentiferKey,
 }                                 from '../constants/items';
 import CCChartItem                from './items/CCChartItem';
@@ -130,7 +130,7 @@ class DashboardItem extends Component
     } = this.props;
 
     const identifier = dashboardItem.identifier;
-    const [identifierKey, identifierValue] = parseIdentifer(identifier);
+    const [identifierKey, identifierValue] = parseIdentifier(identifier);
 
     switch (identifierKey)
     {

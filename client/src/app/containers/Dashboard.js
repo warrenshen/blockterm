@@ -22,7 +22,7 @@ import {
   TV_MARKET_OVERVIEW,
   TWITTER_ITEM,
   computeDashboardFreeValues,
-  parseIdentifer,
+  parseIdentifier,
   parseIdentiferKey,
 }                                 from '../constants/items';
 import {
@@ -33,7 +33,7 @@ import {
 
 function f(identifier, extras)
 {
-  const arr = parseIdentifer(identifier);
+  const arr = parseIdentifier(identifier);
   const identifierKey = arr[0];
   const identifierValue = arr[1];
 
