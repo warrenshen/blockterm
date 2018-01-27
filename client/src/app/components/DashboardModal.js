@@ -181,68 +181,68 @@ class DashboardModal extends PureComponent
     const onConditionChange = (option) => changeConditionValue(option);
     const onExpiresInChange = (option) => changeExpiresValue(option);
 
-    return (
-      <div>
-        <El
-          nightMode={nightMode}
-          type={'h5'}
-        >
-          Price alerts coming soon.
-        </El>
-      </div>
-    );
     // return (
     //   <div>
-    //     {
-    //       user !== null ? (
-    //         <form className={css(styles.form)}>
-    //           <El
-    //             nightMode={nightMode}
-    //             type={'h3'}
-    //           >
-    //             Create price alert
-    //           </El>
-    //           <input
-    //             autoFocus={true}
-    //             className={css(styles.inputField, nightMode && styles.fieldNight)}
-    //             placeholder='Price'
-    //             required='required'
-    //             value={priceValue}
-    //             onChange={onChangePrice}
-    //           />
-    //           <Select
-    //             clearable={false}
-    //             matchProp={'label'}
-    //             options={ALERT_CONDITION_SELECT_OPTIONS}
-    //             value={conditionValue ? conditionValue.value : ''}
-    //             onChange={onConditionChange}
-    //           />
-    //           <Select
-    //             clearable={false}
-    //             matchProp={'label'}
-    //             options={ALERT_EXPIRES_IN_SELECT_OPTIONS}
-    //             value={expiresValue ? expiresValue.value : ''}
-    //             onChange={onExpiresInChange}
-    //           />
-    //           <button
-    //             className={css(styles.bolded, styles.submitButton)}
-    //             type='submit'
-    //             onClick={onClickSubmit}
-    //           >
-    //             Create alert
-    //           </button>
-    //         </form>
-    //       ) : (
-    //         <El
-    //           nightMode={nightMode}
-    //           type={'h5'}
-    //         >
-    //           LOGIN or JOIN to use alerts
-    //         </El>
-    //       )
-    //     }
+    //     <El
+    //       nightMode={nightMode}
+    //       type={'h5'}
+    //     >
+    //       Price alerts coming soon.
+    //     </El>
     //   </div>
     // );
+    return (
+      <div>
+        {
+          user !== null ? (
+            <form className={css(styles.form)}>
+              <El
+                nightMode={nightMode}
+                type={'h3'}
+              >
+                Create price alert
+              </El>
+              <input
+                autoFocus={true}
+                className={css(styles.inputField, nightMode && styles.fieldNight)}
+                placeholder='Price'
+                required='required'
+                value={priceValue}
+                onChange={onChangePrice}
+              />
+              <Select
+                clearable={false}
+                matchProp={'label'}
+                options={ALERT_CONDITION_SELECT_OPTIONS}
+                value={conditionValue ? conditionValue.value : ''}
+                onChange={onConditionChange}
+              />
+              <Select
+                clearable={false}
+                matchProp={'label'}
+                options={ALERT_EXPIRES_IN_SELECT_OPTIONS}
+                value={expiresValue ? expiresValue.value : ''}
+                onChange={onExpiresInChange}
+              />
+              <button
+                className={css(styles.bolded, styles.submitButton)}
+                type='submit'
+                onClick={onClickSubmit}
+              >
+                Create alert
+              </button>
+            </form>
+          ) : (
+            <El
+              nightMode={nightMode}
+              type={'h5'}
+            >
+              LOGIN or JOIN to use alerts
+            </El>
+          )
+        }
+      </div>
+    );
   }
 
   renderAlerts()
@@ -255,7 +255,7 @@ class DashboardModal extends PureComponent
     } = this.props;
     const validAlerts = filterAlertsByItemIdentifier(alerts, identifier);
 
-    if (false && user !== null)
+    if (user !== null)
     {
       return (
         <div className={css(styles.alerts)}>
