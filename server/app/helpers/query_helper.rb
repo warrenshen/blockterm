@@ -6,7 +6,7 @@ module QueryHelper
     'nickzshen@gmail.com',
     'jtcdbob@gmail.com',
   ]
-  AUTO_LOGIN = true
+  AUTO_LOGIN = false
   # Convenience method: flip `AUTO_LOGIN` to true when testing API
   # through graphiql when a `current_user` is required.
   def self.get_current_user(context)
