@@ -116,6 +116,8 @@ class DashboardModal extends PureComponent
       priceValue,
 
       createAlert,
+      createNotificationError,
+      createNotificationSuccess,
     } = this.props;
 
     const [identifierKey, identifierValue] = parseIdentifer(this.props.identifier);
@@ -125,7 +127,9 @@ class DashboardModal extends PureComponent
       conditionValue.value,
     );
 
-    createAlert(identifier, expiresValue.value);
+    createAlert(identifier, expiresValue.value)
+      .then((response) => createNotificationSuccess({ position: 'bc', title: 'Alert created.' }))
+      .catch((error) => createNotificationError({ position: 'bc', title: 'Failure.' }));
   }
 
   renderAlerts()
@@ -275,4 +279,3 @@ class DashboardModal extends PureComponent
 }
 
 export default DashboardModal;
-
