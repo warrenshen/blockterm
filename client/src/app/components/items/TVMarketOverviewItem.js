@@ -1,9 +1,11 @@
 // @flow weak
 
-import React, { PureComponent } from 'react';
+import React, {
+  PureComponent,
+}                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import El from '../El';
+import El                  from '../El';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -23,8 +25,8 @@ const styles = StyleSheet.create({
     pointerEvents: 'none',
   },
   frame: {
-    width: '100% !important',
-    height: '100% !important',
+    width: '100%',
+    height: '100%',
     border: 'none',
   },
   nightFrame: {
@@ -70,7 +72,7 @@ class TVMarketOverviewItem extends PureComponent {
     const iframeDocument = this.instance.contentWindow.document;
     while (iframeDocument.body.firstChild) iframeDocument.body.removeChild(iframeDocument.body.firstChild);
 
-    var s = iframeDocument.createElement('script');
+    const s = iframeDocument.createElement('script');
     s.type = 'text/javascript';
     s.src = 'https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js';
     s.innerHTML = `
@@ -242,7 +244,7 @@ class TVMarketOverviewItem extends PureComponent {
       ]
     }`;
 
-    this.instance.contentWindow.document.body.appendChild(s);
+    iframeDocument.body.appendChild(s);
   }
 
   render()

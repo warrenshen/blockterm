@@ -22,6 +22,7 @@ import {
   parseIdentiferKey,
 }                                 from '../constants/items';
 import CCChartItem                from './items/CCChartItem';
+import GTChartItem                from './items/GTChartItem';
 import PercentDominanceItem       from './items/PercentDominanceItem';
 import PortfolioItem              from './items/PortfolioItem';
 import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
@@ -194,7 +195,7 @@ class DashboardItem extends Component
         );
       case TV_CANDLE_CHART:
         return (
-          <TVChartItem
+          <GTChartItem
             dashboardAction={dashboardAction}
             nightMode={nightMode}
             value={identifierValue}
