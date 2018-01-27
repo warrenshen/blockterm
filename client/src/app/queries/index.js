@@ -321,14 +321,14 @@ export const DestroyDashboardItemMutationOptions = {
   props: ({ mutate, ownProps }) => ({
     destroyDashboardItem(dashboardPageId, id) {
       return mutate({
-        variables: {
-          dashboardPageId,
-          id,
-        },
         updateQueries: {
           DashboardItemsQuery: (prev, { mutationResult }) => ({
             user: mutationResult.data.destroyDashboardItem,
           }),
+        },
+        variables: {
+          dashboardPageId,
+          id,
         },
       });
     },
@@ -353,6 +353,29 @@ export const LogInMutationOptions = {
     logIn(email, password) {
       return mutate({
         variables: { email, password },
+      });
+    },
+  }),
+};
+
+export const UpdateAlertMutation = gql`
+  mutation UpdateAlertMutation($id: ID!, $status: String!) {
+    alert: updateAlert(id: $id, status: $status) {
+      id
+      identifier
+      status
+      expiresAt
+      createdAt
+      createdAtUnix
+    }
+  }
+`;
+
+export const UpdateAlertMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    updateAlert(id, status) {
+      return mutate({
+        variables: { id, status },
       });
     },
   }),

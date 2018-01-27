@@ -363,8 +363,8 @@ export default function(state = initialState, action)
     case UPDATE_DASHBOARD_ITEM_LOCAL:
       oldDashboardPage = Map(state.dashboardPages[state.selectedTab]);
       oldDashboardItems = List(oldDashboardPage.get('dashboardItems'));
-      oldDashboardItemIndex = oldDashboardItems.findIndex((dashboardItem) =>
-        dashboardItem.id === action.id
+      oldDashboardItemIndex = oldDashboardItems.findIndex(
+        (dashboardItem) => dashboardItem.id === action.id
       );
       oldDashboardItem = Map(oldDashboardItems.get(oldDashboardItemIndex));
       newDashboardItem = oldDashboardItem;

@@ -2,7 +2,7 @@ const ONE_HOUR = 'ONE_HOUR';
 const SIX_HOURS = 'SIX_HOURS';
 const ONE_DAY = 'ONE_DAY';
 const ONE_WEEK = 'ONE_WEEK';
-const NEVER = 'NEVER';
+const ONE_MONTH = 'ONE_MONTH';
 
 export const LESS_THAN = 'LESS_THAN';
 export const GREATER_THAN = 'GREATER_THAN';
@@ -36,8 +36,8 @@ export const ALERT_EXPIRES_IN_SELECT_OPTIONS = [
     value: ONE_WEEK,
   },
   {
-    label: 'Never',
-    value: NEVER,
+    label: '1 month',
+    value: ONE_MONTH,
   },
 ];
 
