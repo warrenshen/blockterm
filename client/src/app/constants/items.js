@@ -1641,7 +1641,7 @@ export function isIdentifierValid(identifier)
   return ITEM_KEY_WHITELIST.includes(identifierKey);
 }
 
-export function parseIdentifer(identifier)
+export function parseIdentifier(identifier)
 {
   if (!isIdentifierValid(identifier))
   {
@@ -1659,13 +1659,19 @@ export function parseIdentifer(identifier)
 
 export function parseIdentiferKey(identifier)
 {
-  const [identifierKey, identifierValue] = parseIdentifer(identifier);
+  const [identifierKey, identifierValue] = parseIdentifier(identifier);
   return identifierKey ? identifierKey : null;
+}
+
+export function parseItemIdentifierValue(identifier)
+{
+  const [identifierKey, identifierValue] = parseIdentifier(identifier);
+  return identifierValue ? identifierValue : null;
 }
 
 export function convertIdentifierToTitle(identifier)
 {
-  let [identifierKey, identifierValue] = parseIdentifer(identifier);
+  let [identifierKey, identifierValue] = parseIdentifier(identifier);
 
   if (identifierKey === TV_CANDLE_CHART)
   {

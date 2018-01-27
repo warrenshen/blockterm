@@ -1,3 +1,7 @@
+import {
+  parseItemIdentifierValue,
+} from './items';
+
 const ONE_HOUR = 'ONE_HOUR';
 const SIX_HOURS = 'SIX_HOURS';
 const ONE_DAY = 'ONE_DAY';
@@ -67,7 +71,7 @@ export function parseAlertIdentifier(identifier)
   {
     if (process.env.NODE_ENV === 'dev')
     {
-      console.log('Invalid identifier');
+      console.log(`Invalid identifier: ${identifier}`);
     }
     return null;
   }
@@ -86,4 +90,11 @@ export function generateAlertNotificationBody(alert)
 {
   const [market, price, condition] = parseAlertIdentifier(alert.identifier);
   return `${price}`;
+}
+
+export function filterAlertsByItemIdentifier(alerts, itemIdentifier)
+{
+  return alerts.filter(
+    (alert) => parseAlertIdentifier(alert.identifier)[0] === parseItemIdentifierValue(itemIdentifier)
+  );
 }

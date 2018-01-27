@@ -15,7 +15,6 @@ import {
   TOTAL_MARKET_CAP,
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
-  parseIdentifer,
   parseIdentiferKey,
 } from '../../constants/items';
 import {
