@@ -104,6 +104,7 @@ class App extends PureComponent
     {
       if (this.worker !== null)
       {
+        console.log('terminate');
         this.worker.terminate();
       }
 

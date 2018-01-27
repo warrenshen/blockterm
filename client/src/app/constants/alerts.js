@@ -45,6 +45,18 @@ export const ALERT_EXPIRES_IN_SELECT_OPTIONS = [
   },
 ];
 
+const EXCHANGES_WITH_ALERTS_SUPPORT = [
+  'BINANCE',
+  'BITTREX',
+];
+
+export function isIdentifierExchangeSupported(itemIdentifier)
+{
+  const itemIdentifierValue = parseItemIdentifierValue(itemIdentifier);
+  const [market, ticker] = itemIdentifierValue.split(':', 2);
+  return EXCHANGES_WITH_ALERTS_SUPPORT.includes(market);
+}
+
 const DELIMETER = '__';
 
 export function generateAlertIdentifier(market, price, condition)
