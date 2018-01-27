@@ -159,7 +159,7 @@ const SUBREDDITS_IN_USER_FACING_ORDER = [
 
 // This map should be alphabetical for ease of development.
 // The order does not affect user-facing order.
-export const ITEM_VALUE_TO_LABELS = {
+export const ITEM_SUBREDDIT_VALUE_TO_LABELS = {
   'altcoin': 'r/Altcoin',
   'binance': 'r/binance',
   'Bitcoin': 'r/Bitcoin',

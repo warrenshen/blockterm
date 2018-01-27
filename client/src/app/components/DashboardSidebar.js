@@ -11,7 +11,9 @@ import * as STYLES         from '../constants/styles';
 import {
   ITEM_KEY_TO_LABELS,
   ITEM_KEY_TO_VALUES,
-  ITEM_VALUE_TO_LABELS,
+  ITEM_SUBREDDIT_VALUE_TO_LABELS,
+  SUBREDDIT_POST_COUNTS,
+  SUBREDDIT_COMMENT_COUNTS,
   generateIdentifier,
 }                          from '../constants/items';
 import El                  from '../components/El';
@@ -218,10 +220,21 @@ class DashboardSidebar extends PureComponent
     if (keySelectValue)
     {
       const valueOptions = ITEM_KEY_TO_VALUES[keySelectValue];
-      const selectOptions = valueOptions.map((value) => ({
-        label: ITEM_VALUE_TO_LABELS[value] ? ITEM_VALUE_TO_LABELS[value] : value,
-        value: value,
-      }));
+      const selectOptions = valueOptions.map((value) => {
+        let label;
+        if (keySelectValue === SUBREDDIT_POST_COUNTS || keySelectValue === SUBREDDIT_COMMENT_COUNTS)
+        {
+          label = ITEM_VALUE_TO_LABELS[value];
+        }
+        else
+        {
+          label = value;
+        }
+        return {
+          label: label,
+          value: value,
+        };
+      });
       return (
         <Select
           className={css(styles.select, styles.bolded)}
