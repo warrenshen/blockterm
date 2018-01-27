@@ -8,7 +8,7 @@ import {
 const binance = new ccxt.binance();
 if (process.env.NODE_ENV == 'dev')
 {
-  binance.proxy = 'http://localhost:8080/';
+  binance.proxy = 'http://localhost:9876/';
 }
 else
 {
