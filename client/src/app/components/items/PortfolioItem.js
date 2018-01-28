@@ -192,9 +192,6 @@ class PortfolioItem extends Component
   {
     const {
       nightMode,
-
-      changeTokenUserAmount,
-      removeTokenUser,
     } = this.props;
 
     const {
@@ -211,7 +208,7 @@ class PortfolioItem extends Component
     } = token;
 
     return (
-      <tr className={css(styles.row)} key={tokenUser.id}>
+      <tr className={css(styles.row)} key={id}>
         <td className={css(styles.element, nightMode && styles.darkElement)}>
           <img
             className={css(styles.tokenImage)}

@@ -6,8 +6,10 @@ import React, {
 import PropTypes                  from 'prop-types';
 import { StyleSheet, css }        from 'aphrodite';
 import { isEqual }                from 'underscore';
+import FontAwesome                from 'react-fontawesome';
 import * as STYLES                from '../constants/styles';
 import {
+  ALERTS_ITEM,
   CC_CHART,
   GT_CHART_ITEM,
   PERCENT_DOMINANCE_ITEM,
@@ -22,6 +24,7 @@ import {
   parseIdentifier,
   parseIdentiferKey,
 }                                 from '../constants/items';
+import AlertsItem                 from './items/AlertsItem';
 import CCChartItem                from './items/CCChartItem';
 import GTChartItem                from './items/GTChartItem';
 import PercentDominanceItem       from './items/PercentDominanceItem';
@@ -33,7 +36,6 @@ import TVChartItem                from './items/TVChartItem';
 import TVMarketOverviewItem       from './items/TVMarketOverviewItem';
 import TwitterItem                from './items/TwitterItem';
 import El                         from './El';
-import FontAwesome                from 'react-fontawesome';
 
 const styles = StyleSheet.create({
   container: {
@@ -110,7 +112,8 @@ class DashboardItem extends Component
 {
   shouldComponentUpdate(nextProps, nextState)
   {
-    return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+    return !isEqual(this.props.alerts, nextProps.alerts) ||
+           !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
            !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
            !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
@@ -121,6 +124,7 @@ class DashboardItem extends Component
   renderItem(dashboardItem)
   {
     const {
+      alerts,
       dashboardAction,
       dashboardData,
       dashboardState,
@@ -135,6 +139,13 @@ class DashboardItem extends Component
 
     switch (identifierKey)
     {
+      case ALERTS_ITEM:
+        return (
+          <AlertsItem
+            alerts={alerts}
+            nightMode={nightMode}
+          />
+        );
       case CC_CHART:
         return (
           <CCChartItem

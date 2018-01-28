@@ -100,7 +100,8 @@ class DashboardTabs extends Component {
 
   shouldComponentUpdate(nextProps, nextState)
   {
-    return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+    return !isEqual(this.props.alerts, nextProps.alerts) ||
+           !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
            !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardPages, nextProps.dashboardPages) ||
            !isEqual(this.props.dashboardItemStates, nextProps.dashboardItemStates) ||
@@ -246,6 +247,7 @@ class DashboardTabs extends Component {
   renderTabPanels()
   {
     const {
+      alerts,
       dashboardAction,
       dashboardData,
       dashboardItemStates,
@@ -266,6 +268,7 @@ class DashboardTabs extends Component {
       return (
         <TabPanel key={dashboardPage.index}>
           <DashboardGrid
+            alerts={alerts}
             dashboardAction={dashboardAction}
             dashboardData={dashboardData}
             dashboardItems={dashboardItems}

@@ -97,7 +97,8 @@ class DashboardGrid extends Component
 {
   shouldComponentUpdate(nextProps, nextState)
   {
-    return !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
+    return !isEqual(this.props.alerts, nextProps.alerts) ||
+           !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
            !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardItems, nextProps.dashboardItems) ||
            !isEqual(this.props.dashboardStates, nextProps.dashboardStates) ||
@@ -109,6 +110,7 @@ class DashboardGrid extends Component
   renderItem(dashboardItem)
   {
     const {
+      alerts,
       dashboardAction,
       dashboardData,
       dashboardItemStates,
@@ -137,6 +139,7 @@ class DashboardGrid extends Component
         {
           isPageLoaded && (
             <DashboardItem
+              alerts={alerts}
               dashboardAction={dashboardAction}
               dashboardData={dashboardData ? dashboardData[identifier] : null}
               dashboardItem={dashboardItem}
