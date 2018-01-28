@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   },
   sectionHeader: {
     display: 'flex',
+    justifyContent: 'flex-end',
     backgroundColor: '#fff',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
   },

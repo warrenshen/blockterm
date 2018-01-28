@@ -4,9 +4,6 @@ import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import gql                    from 'graphql-tag';
 import { compose, graphql }   from 'react-apollo';
-import {
-  CreateDashboardItemMutation,
-}                             from '../../queries';
 import { Token }              from '../../views'
 import * as globalsActions    from '../../redux/modules/globals';
 import * as plotsActions      from '../../redux/modules/plots';
@@ -95,32 +92,6 @@ const queryOptions = {
   },
 };
 
-const mutationOptions = {
-  props: ({ mutate, ownProps }) => ({
-    createDashboardItem(identifier) {
-
-      return mutate({
-        variables: { identifier },
-        updateQueries: {
-          dashboardItemsQuery: (prev, { mutationResult }) => ({
-            dashboardItems: mutationResult.data.createDashboardItem.dashboardItems,
-          }),
-        },
-      })
-      .then(
-        (response) => {
-          return Promise.resolve();
-        }
-      )
-      .catch(
-        (error)=> {
-          return Promise.reject();
-        }
-      );
-    }
-  }),
-};
-
 /* -----------------------------------------
   Redux
  ------------------------------------------*/
@@ -151,6 +122,5 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
   graphql(query, queryOptions),
-  graphql(CreateDashboardItemMutation, mutationOptions),
   connect(mapStateToProps, mapDispatchToProps)
 )(Token);
