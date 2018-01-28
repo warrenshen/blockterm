@@ -3,14 +3,18 @@
 import React               from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import FontAwesome         from 'react-fontawesome';
 
 const styles = StyleSheet.create({
   white: {
     color: '#f3f3f3',
   },
+  icon: {
+    marginLeft: '4px',
+  },
 });
 
-const El = ({ children, inline, nightMode, nightModeStyle, style, type }) => {
+const El = ({ children, icon, inline, nightMode, nightModeStyle, style, type }) => {
   const Tag = type;
   var className = css(
     style,
@@ -20,6 +24,7 @@ const El = ({ children, inline, nightMode, nightModeStyle, style, type }) => {
   return (
     <Tag className={className} style={inline}>
       {children}
+      {icon && <FontAwesome name={`${icon}`} className={css(styles.icon)}/>}
     </Tag>
   );
 };

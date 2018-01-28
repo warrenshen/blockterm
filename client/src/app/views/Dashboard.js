@@ -4,6 +4,7 @@ import React, {
   PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
+import { Helmet }          from 'react-helmet';
 import { StyleSheet, css } from 'aphrodite';
 import { Link }            from 'react-router-dom';
 import Sidebar             from 'react-sidebar';
@@ -29,12 +30,6 @@ const styles = StyleSheet.create({
     height: '100vh',
     backgroundColor: 'rgba(255, 255, 255, 0)',
     zIndex: '9000',
-  },
-  addToButton: {
-    letterSpacing: '1px !important',
-    fontSize: '12px',
-    fontWeight: '700',
-    borderBottom: '1px solid #777',
   },
   actionBar: {
     zIndex: '1',
@@ -186,6 +181,10 @@ class Dashboard extends PureComponent
 
     return (
       <div className={css(styles.container)}>
+        <Helmet>
+          <title>Blockterm | Cryptocurrency Monitoring Terminal</title>
+          <meta name="description" content="Monitor cryptocurrency/bitcoin prices and movements with Blockterm, a customizable cryptocurrency terminal built for the avid investor/trader. Set up your charts. Hunt the action with Blockterm." />
+        </Helmet>
         {this.renderScrollShield()}
         {this.renderModal()}
         <Sidebar

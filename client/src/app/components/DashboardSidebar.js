@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     flex: '1',
     display: 'flex',
     flexDirection: 'column',
-    width: '256px',
+    minWidth: '256px',
+    width: '24vw',
     backgroundColor:'#fff',
     borderLeft: '1px solid #666',
     zIndex: '4',
@@ -74,16 +75,14 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   topHalf: {
-    height: '300px',
-    //backgroundColor: '#eeffee',
-    borderBottom: `1px dashed ${STYLES.BORDERLIGHT}`,
+    //borderBottom: `1px dashed ${STYLES.BORDERLIGHT}`,
   },
   bottomHalf: {
+    borderTop: `1px dashed ${STYLES.BORDERLIGHT}`,
     padding: '5px 10px',
   },
   addToButton: {
     letterSpacing: '1px !important',
-    fontSize: '12px',
     fontWeight: '700',
     borderBottom: '1px solid #777',
   },
@@ -96,6 +95,28 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textTransform: 'uppercase',
     letterSpacing: '3px',
+  },
+  widgetPreviews: {
+    //lol
+  },
+  previewButton: {
+    width: '33.3%',
+    height: 'auto',
+    padding: 'none',
+    //paddingTop: '100%',
+    backgroundColor: '#fff',
+  },
+  previewButtonNight: {
+    backgroundColor: '#000',
+  },
+  previewIcon: {
+    width: '100%',
+    height: 'auto',
+    minWidth: '85px',
+    minHeight: '85px',
+  },
+  emphasize: {
+    backgroundColor: STYLES.GOLD,
   },
 });
 
@@ -265,7 +286,7 @@ class DashboardSidebar extends PureComponent
       return (
         <button
           id='dashboardActionButton'
-          className={css(styles.button, styles.addToButton, nightMode && styles.sidebarAddButtonNight)}
+          className={css(styles.button, styles.addToButton, styles.emphasize,nightMode && styles.sidebarAddButtonNight)}
           onClick={(event) => this.addItem(event)}
         >
           {sidebarMode === 'edit' ? 'Edit Selected Widget' : 'Add to Dashboard'}
@@ -320,6 +341,18 @@ class DashboardSidebar extends PureComponent
           />
           {this.renderValueSelect()}
           {this.renderSubmit(nightMode)}
+        </div>
+        <div className={css(styles.widgetPreviews)}>
+          {
+            selectOptions.map((elem, index) => (
+              <button
+                className={css(styles.previewButton, nightMode && styles.previewButtonNight)}
+                key={index}
+              >
+                <img className={css(styles.previewIcon)} alt={index} />
+              </button>
+            ))
+          }
         </div>
         <div className={css(styles.bottomHalf)}>
           <El nightMode={nightMode} type={'h5'}>

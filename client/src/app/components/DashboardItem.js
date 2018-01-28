@@ -290,7 +290,7 @@ class DashboardItem extends Component
                   onClick={onClickOpen}
                   title="Open this widget in full screen."
                 >
-                  <FontAwesome name='arrows-alt' style={{'fontSize':'13px'}}/>
+                  <FontAwesome name='search-plus' style={{'fontSize':'13px'}}/>
                 </button>
               )
             }
