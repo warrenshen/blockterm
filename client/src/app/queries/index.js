@@ -207,7 +207,7 @@ export const CreateDashboardItemMutation = gql`
     $x: Int!,
     $y: Int!,
   ) {
-    createDashboardItem(
+    user: createDashboardItem(
       dashboardPageId: $dashboardPageId,
       identifier: $identifier,
       w: $w,
@@ -215,6 +215,8 @@ export const CreateDashboardItemMutation = gql`
       x: $x,
       y: $y,
     ) {
+      id
+
       dashboardPages {
         id
         index
@@ -239,8 +241,8 @@ export const CreateDashboardItemMutationOptions = {
     createDashboardItem(dashboardPageId, identifier, w, h, x, y) {
       return mutate({
         updateQueries: {
-          DashboardItemsQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.createDashboardItem,
+          DashboardPagesQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.user,
           }),
         },
         variables: {
@@ -297,7 +299,12 @@ export const DestroyDashboardItemMutation = gql`
     $dashboardPageId: ID!,
     $id: ID!,
   ) {
-    destroyDashboardItem(id: $id, dashboardPageId: $dashboardPageId) {
+    user: destroyDashboardItem(
+      id: $id,
+      dashboardPageId: $dashboardPageId,
+    ) {
+      id
+
       dashboardPages {
         id
         index
@@ -322,8 +329,8 @@ export const DestroyDashboardItemMutationOptions = {
     destroyDashboardItem(dashboardPageId, id) {
       return mutate({
         updateQueries: {
-          DashboardItemsQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.destroyDashboardItem,
+          DashboardPagesQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.user,
           }),
         },
         variables: {
@@ -388,12 +395,14 @@ export const UpdateDashboardItemMutation = gql`
     $identifier: String,
     $static: Boolean,
   ) {
-    updateDashboardItem(
+    user: updateDashboardItem(
       dashboardPageId: $dashboardPageId,
       id: $id,
       identifier: $identifier,
       static: $static,
     ) {
+      id
+
       dashboardPages {
         id
         index
@@ -418,8 +427,8 @@ export const UpdateDashboardItemMutationOptions = {
     updateDashboardItem(dashboardPageId, id, identifier, staticActive) {
       return mutate({
         updateQueries: {
-          DashboardItemsQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.updateDashboardItem,
+          DashboardPagesQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.user,
           }),
         },
         variables: {
@@ -438,10 +447,12 @@ export const UpdateDashboardItemsMutation = gql`
     $dashboardPageId: ID!,
     $dashboardItemsString: String!,
   ) {
-    updateDashboardItems(
+    user: updateDashboardItems(
       dashboardPageId: $dashboardPageId,
       dashboardItemsString: $dashboardItemsString,
     ) {
+      id
+
       dashboardPages {
         id
         index
@@ -466,13 +477,56 @@ export const UpdateDashboardItemsMutationOptions = {
     updateDashboardItems(dashboardPageId, dashboardItems) {
       return mutate({
         updateQueries: {
-          DashboardItemsQuery: (prev, { mutationResult }) => ({
-            user: mutationResult.data.updateDashboardItems,
+          DashboardPagesQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.user,
           }),
         },
         variables: {
           dashboardPageId,
           dashboardItemsString: JSON.stringify(dashboardItems),
+        },
+      });
+    },
+  }),
+};
+
+export const UpdateDashboardPagesMutation = gql`
+  mutation UpdateDashboardPagesMutation($dashboardPagesString: String!) {
+    user: updateDashboardPages(
+      dashboardPagesString: $dashboardPagesString,
+    ) {
+      id
+
+      dashboardPages {
+        id
+        index
+        name
+      }
+
+      dashboardItems {
+        id
+        identifier
+        static
+        w
+        h
+        x
+        y
+      }
+    }
+  }
+`;
+
+export const UpdateDashboardPagesMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    updateDashboardItems(dashboardPages) {
+      return mutate({
+        updateQueries: {
+          DashboardPagesQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.user,
+          }),
+        },
+        variables: {
+          dashboardPagesString: JSON.stringify(dashboardPages),
         },
       });
     },

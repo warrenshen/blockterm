@@ -135,7 +135,7 @@ async function monitorAlert(alert)
   }
   else
   {
-    setTimeout(() => f(alert), 16384);
+    setTimeout(() => monitorAlert(alert), 16384);
   }
 }
 
