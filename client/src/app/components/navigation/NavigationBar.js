@@ -125,9 +125,8 @@ class NavigationBar extends PureComponent
     const {
       createNotificationInfo,
     } = this.props;
-
     const seenVersion = getItem(LAST_SEEN_VERSION);
-    if (seenVersion !== PROJECT_VERSION) {
+    if (seenVersion !== PROJECT_VERSION && seenVersion !== null) {
       setItem(LAST_SEEN_VERSION, PROJECT_VERSION);
 
       let message = `New in ver. ${PATCH_NOTES[0]}`;

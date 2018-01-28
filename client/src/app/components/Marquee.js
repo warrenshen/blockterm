@@ -99,8 +99,8 @@ class Marquee extends PureComponent
         />
         <div className={'promotional ' + css(styles.promotion, nightMode && styles.promotionNight)}>
           <a href='https://www.binance.com/?ref=10907326' target='_blank'>
-           <El style={styles.bolded} type={'span'}>
-             Trade on Binance!
+           <El style={styles.bolded} type={'span'} icon={'btc'}>
+             Trade on Binance
            </El>
           </a>
         </div>

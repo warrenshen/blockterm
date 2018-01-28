@@ -30,23 +30,42 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     position: 'fixed',
-    top: '0px',
+    top: '69px',
     left: '0px',
     zIndex: '3',
     width: '100%',
     height: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+    paddingBottom: '69px',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
   },
   containerNightMode: {
-    backgroundColor: 'rgba(23, 23, 23, 0.98)',
+    backgroundColor: 'rgba(0, 0, 0, 0.9)',
   },
   rightSection: {
     display: 'flex',
     flexDirection: 'column',
-    width: '256px',
+    minWidth: '256px',
+    width: '25vw',
+    borderLeft: '1px solid #999',
   },
   sectionHeader: {
     display: 'flex',
+    backgroundColor: '#fff',
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  sectionHeaderNight: {
+    backgroundColor: '#000',
+    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
+  },
+  sectionBody: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  sectionBodyNight: {
+    backgroundColor: '#000',
+    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
   },
   form: {
     display: 'flex',
@@ -59,11 +78,43 @@ const styles = StyleSheet.create({
   },
   alert: {
     display: 'flex',
+    padding: '5px 10px',
+    marginBottom: '-1px',
     flexDirection: 'column',
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  alertNight: {
+    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
   },
   alertRow: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  subtitle: {
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+    fontWeight: '700',
+    padding: '0px 10px',
+  },
+  addToButton: {
+    letterSpacing: '1px !important',
+    fontWeight: '700',
+    borderBottom: '1px solid #777',
+    textTransform: 'uppercase',
+  },
+  emphasize: {
+    backgroundColor: STYLES.GOLD,
+    borderColor: '#000',
+  },
+  select: {
+    marginBottom: '-1px',
+  },
+  inputField: {
+    fontWeight: '700',
+    letterSpacing: '2px !important',
+  },
+  marginSides: {
+    margin: '5px 10px',
   },
 });
 
@@ -246,10 +297,11 @@ class DashboardModal extends PureComponent
     {
       return (
         <El
+          style={styles.marginSides}
           nightMode={nightMode}
           type={'h5'}
         >
-          {`Price alerts not supported for this exchange yet`}
+          {`Price alerts not supported for this exchange yet. Please try Binance or Bittrex.`}
         </El>
       );
     }
@@ -257,6 +309,7 @@ class DashboardModal extends PureComponent
     {
       return (
         <El
+          style={styles.marginSides}
           nightMode={nightMode}
           type={'h5'}
         >
@@ -271,7 +324,8 @@ class DashboardModal extends PureComponent
           <form className={css(styles.form)}>
             <El
               nightMode={nightMode}
-              type={'h3'}
+              type={'h5'}
+              style={styles.subtitle}
             >
               Create price alert
             </El>
@@ -284,6 +338,7 @@ class DashboardModal extends PureComponent
               onChange={onChangePrice}
             />
             <Select
+              className={css(styles.select)}
               clearable={false}
               matchProp={'label'}
               options={ALERT_CONDITION_SELECT_OPTIONS}
@@ -291,6 +346,7 @@ class DashboardModal extends PureComponent
               onChange={onConditionChange}
             />
             <Select
+              className={css(styles.select)}
               clearable={false}
               matchProp={'label'}
               options={ALERT_EXPIRES_IN_SELECT_OPTIONS}
@@ -298,7 +354,7 @@ class DashboardModal extends PureComponent
               onChange={onExpiresInChange}
             />
             <button
-              className={css(styles.bolded, styles.submitButton)}
+              className={css(styles.bolded, styles.addToButton, styles.emphasize)}
               type='submit'
               onClick={onClickSubmit}
             >
@@ -351,15 +407,17 @@ class DashboardModal extends PureComponent
           value={identifierValue}
         />
         <div className={css(styles.rightSection)}>
-          <div className={css(styles.sectionHeader)}>
+          <div className={css(styles.sectionHeader, nightMode && styles.sectionHeaderNight)}>
             <button
               onClick={(event) => changeModalState(null)}
             >
-              <FontAwesome name='close' className={css(styles.icon)} />
+              <FontAwesome name='search-minus' className={css(styles.icon)} />
             </button>
           </div>
-          {this.renderForm()}
-          {this.renderAlerts()}
+          <div className={css(styles.sectionBody, nightMode && styles.sectionBodyNight)}>
+            {this.renderForm()}
+            {this.renderAlerts()}
+          </div>
         </div>
       </div>
     );

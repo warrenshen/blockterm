@@ -364,3 +364,8 @@ button:disabled {
       display: none !important;
     }
 }
+
+.Select-placeholder, .Select-value-label {
+  font-weight: 700;
+  letter-spacing: 2px;
+}
