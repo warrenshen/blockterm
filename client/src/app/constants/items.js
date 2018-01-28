@@ -11,6 +11,7 @@ export const PATCH_NOTES = [
 
 const DELIMETER = '__';
 
+export const ALERTS_ITEM = 'ALERTS_ITEM';
 export const CC_CHART = 'CC_CHART';
 export const GT_CHART_ITEM = 'GT_CHART_ITEM';
 export const PERCENT_DOMINANCE_ITEM = 'PERCENT_DOMINANCE_ITEM';
@@ -23,6 +24,7 @@ export const TV_MARKET_OVERVIEW = 'TV_MARKET_OVERVIEW';
 export const TWITTER_ITEM = 'TWITTER_ITEM';
 
 export const ITEM_KEY_WHITELIST = [
+  ALERTS_ITEM,
   GT_CHART_ITEM,
   PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
@@ -34,81 +36,6 @@ export const ITEM_KEY_WHITELIST = [
   TWITTER_ITEM,
 ];
 
-// Array of dashboard page objects.
-export const DEFAULT_PAGES_OBJECTS = [
-  {
-    dashboardItems:[
-      {"id":"3","w":4,"h":4,"x":0,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
-      {"id":"6","w":4,"h":4,"x":0,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
-      {"id":"10","w":3,"h":4,"x":0,"y":8,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},
-      {"id":"11","w":2,"h":8,"x":7,"y":0,"static":false,"identifier":"TWITTER_ITEM__#cryptocurrency"},
-      {"id":"12","w":2,"h":4,"x":5,"y":8,"static":false,"identifier":"PORTFOLIO_ITEM__Default"},
-      {"id":"13","w":2,"h":4,"x":7,"y":8,"static":false,"identifier":"TWITTER_ITEM__$TRX"},
-      {"id":"14","w":3,"h":4,"x":4,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:XRPBTC"},
-      {"id":"15","w":2,"h":4,"x":3,"y":8,"static":false,"identifier":"SUBREDDIT_COMMENT_COUNTS__Bitcoin"},
-      {"id":"16","w":3,"h":4,"x":4,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:VENBTC"}
-    ],
-    index: 0,
-    name: 'Tab 1'
-  },
-  {
-    dashboardItems: [
-    ],
-    index: 1,
-    name: 'Tab 2',
-  },
-  {
-    dashboardItems: [
-    ],
-    index: 2,
-    name: 'Tab 3',
-  },
-  {
-    dashboardItems: [
-    ],
-    index: 3,
-    name: 'Tab 4',
-  },
-];
-
-// Keys should be all lowercase.
-export const DEFAULT_ITEM_OBJECTS_BY_SUBREDDIT = {
-  monero: [
-    {
-      id: '1',
-      identifier: generateIdentifier(TV_CANDLE_CHART, 'KRAKEN:XMRUSD'),
-      w: 4,
-      h: 4,
-      x: 0,
-      y: 0,
-    },
-    {
-      id: '2',
-      identifier: generateIdentifier(SUBREDDIT_POST_COUNTS, 'Monero'),
-      w: 4,
-      h: 4,
-      x: 4,
-      y: 0,
-    },
-    {
-      id: '3',
-      identifier: generateIdentifier(TV_CANDLE_CHART, 'BITTREX:XMRBTC'),
-      w: 4,
-      h: 4,
-      x: 0,
-      y: 4,
-    },
-    {
-      id: '4',
-      identifier: generateIdentifier(SUBREDDIT_COMMENT_COUNTS, 'Monero'),
-      w: 4,
-      h: 4,
-      x: 4,
-      y: 4,
-    },
-  ],
-};
-
 // These array values should be in user-facing order.
 // The order does affect user-facing order.
 export const ITEM_KEY_TO_LABELS = {
@@ -117,6 +44,7 @@ export const ITEM_KEY_TO_LABELS = {
   [TOTAL_MARKET_CAP]: 'Total market cap chart',
   [PERCENT_DOMINANCE_ITEM]: 'Percent dominance chart',
   [PORTFOLIO_ITEM]: 'Portfolio overview',
+  [ALERTS_ITEM]: 'Alerts overview',
   [GT_CHART_ITEM]: 'Google trends chart',
   [TWITTER_ITEM]: 'Twitter feed',
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
@@ -287,6 +215,9 @@ export const TWITTER_VALUE_TO_DATA_SOURCE = {
 };
 
 export const ITEM_KEY_TO_VALUES = {
+  [ALERTS_ITEM]: [
+    'Active alerts',
+  ],
   [GT_CHART_ITEM]: [
     'bitcoin',
     'ethereum',
@@ -1572,6 +1503,81 @@ export const ITEM_VALUE_TO_IMAGE = {
     'WEX:DSHEUR': 'dashcoin',
     'WEX:ETHRUR': 'ethereum',
     'WEX:LTCRUR': 'litecoin',
+};
+
+// Array of dashboard page objects.
+export const DEFAULT_PAGES_OBJECTS = [
+  {
+    dashboardItems:[
+      {"id":"3","w":4,"h":4,"x":0,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
+      {"id":"6","w":4,"h":4,"x":0,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
+      {"id":"10","w":3,"h":4,"x":0,"y":8,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},
+      {"id":"11","w":2,"h":8,"x":7,"y":0,"static":false,"identifier":"TWITTER_ITEM__#cryptocurrency"},
+      {"id":"12","w":2,"h":4,"x":5,"y":8,"static":false,"identifier":"PORTFOLIO_ITEM__Default"},
+      {"id":"13","w":2,"h":4,"x":7,"y":8,"static":false,"identifier":"TWITTER_ITEM__$TRX"},
+      {"id":"14","w":3,"h":4,"x":4,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:XRPBTC"},
+      {"id":"15","w":2,"h":4,"x":3,"y":8,"static":false,"identifier":"SUBREDDIT_COMMENT_COUNTS__Bitcoin"},
+      {"id":"16","w":3,"h":4,"x":4,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:VENBTC"}
+    ],
+    index: 0,
+    name: 'Tab 1'
+  },
+  {
+    dashboardItems: [
+    ],
+    index: 1,
+    name: 'Tab 2',
+  },
+  {
+    dashboardItems: [
+    ],
+    index: 2,
+    name: 'Tab 3',
+  },
+  {
+    dashboardItems: [
+    ],
+    index: 3,
+    name: 'Tab 4',
+  },
+];
+
+// Keys should be all lowercase.
+export const DEFAULT_ITEM_OBJECTS_BY_SUBREDDIT = {
+  monero: [
+    {
+      id: '1',
+      identifier: generateIdentifier(TV_CANDLE_CHART, 'KRAKEN:XMRUSD'),
+      w: 4,
+      h: 4,
+      x: 0,
+      y: 0,
+    },
+    {
+      id: '2',
+      identifier: generateIdentifier(SUBREDDIT_POST_COUNTS, 'Monero'),
+      w: 4,
+      h: 4,
+      x: 4,
+      y: 0,
+    },
+    {
+      id: '3',
+      identifier: generateIdentifier(TV_CANDLE_CHART, 'BITTREX:XMRBTC'),
+      w: 4,
+      h: 4,
+      x: 0,
+      y: 4,
+    },
+    {
+      id: '4',
+      identifier: generateIdentifier(SUBREDDIT_COMMENT_COUNTS, 'Monero'),
+      w: 4,
+      h: 4,
+      x: 4,
+      y: 4,
+    },
+  ],
 };
 
 export function getImageUrl(imageName)
