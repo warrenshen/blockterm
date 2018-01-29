@@ -9,19 +9,20 @@ import * as STYLES         from '../constants/styles';
 import El                  from '../components/El';
 
 const styles = StyleSheet.create({
-  wrapper: {
-    width: '100vw',
-    display: 'flex',
+  container: {
     flex: '1',
-    paddingBottom: '128px',
-    backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
-    overflowY: 'scroll',
+    display: 'flex',
+    flexDirection: 'column',
   },
   nightMode: {
+  },
+  header: {
+    display: 'flex',
   },
   list: {
     display: 'flex',
     flexDirection: 'column',
+    overflowY: 'scroll',
   },
   blockButton: {
     borderRadius: '0px',
@@ -124,21 +125,21 @@ class DashboardSidebarTabs extends PureComponent
         <div
           className={css(styles.container, nightMode && styles.containerNightMode)}
         >
-          <div>
-            <El
-              nightMode={nightMode}
-              type={'span'}
-            >
-              Tab name
-            </El>
-            <El
-              nightMode={nightMode}
-              type={'span'}
-            >
-              # widgets
-            </El>
-          </div>
           <div className={css(styles.list)}>
+            <div className={css(styles.header)}>
+              <El
+                nightMode={nightMode}
+                type={'span'}
+              >
+                Tab name
+              </El>
+              <El
+                nightMode={nightMode}
+                type={'span'}
+              >
+                # widgets
+              </El>
+            </div>
             {dashboardPages.map((dashboardPage) => this.renderDashboardPage(dashboardPage))}
           </div>
           <div className={css(styles.buttons, styles.blockButtonWrapper, nightMode && styles.darkBlockButtonWrapper, !changeActive && styles.disabled)}>
