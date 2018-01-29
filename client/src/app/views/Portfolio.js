@@ -7,8 +7,9 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { isEqual }         from 'underscore';
 import Select              from 'react-select';
-import numeral             from 'numeral';
+import FontAwesome         from 'react-fontawesome';
 import { Helmet }          from 'react-helmet';
+import numeral             from 'numeral';
 import {
   AUTH_TOKEN_COOKIE,
   getItem,
@@ -21,7 +22,6 @@ import {
 }                           from '../helpers/portfolio';
 import El                   from '../components/El';
 import DonutChartWithSelect from '../components/DonutChartWithSelect'
-import FontAwesome          from 'react-fontawesome';
 import * as STYLES          from '../constants/styles';
 import {
   getImageUrl,
@@ -432,8 +432,8 @@ class Portfolio extends Component
         </td>
         <td>
           <button
-            onClick={onClickRemove}
             className={css(styles.closeButton)}
+            onClick={onClickRemove}
           >
             <FontAwesome name='remove' />
           </button>
