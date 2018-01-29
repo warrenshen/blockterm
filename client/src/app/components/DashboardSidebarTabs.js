@@ -42,13 +42,17 @@ class DashboardSidebarTabs extends PureComponent
   renderDashboardPage(dashboardPage)
   {
     const {
+      changeDashboardPageName,
+    } = this.props;
+
+    const {
       id,
       dashboardItems,
       name,
       nightMode,
     } = dashboardPage;
 
-    const onChange = (event) => console.log(id, event.target.value);
+    const onChange = (event) => changeDashboardPageName(id, event.target.value);
 
     return (
       <div key={id}>
