@@ -18,7 +18,6 @@ const query = gql`
     $identifier: String!,
     $mentionSubredditPlotRange: String,
     $mentionTotalPlotRange: String,
-    $pricePlotRange: String
   ) {
     token: tokenByIdentifier(identifier: $identifier) {
       id
@@ -38,17 +37,6 @@ const query = gql`
       percentChange1h
       percentChange24h
       percentChange7d
-
-      markets {
-        id
-        name
-        lastPrice
-
-        marketTickers(timeRange: $pricePlotRange) {
-          value
-          timestamp
-        }
-      }
 
       mentionTotalCounts(timeRange: $mentionTotalPlotRange) {
         count
@@ -81,14 +69,12 @@ const queryOptions = {
     match,
     mentionSubredditPlotRange,
     mentionTotalPlotRange,
-    pricePlotRange,
   }) => {
     return {
       variables: {
         identifier: match.params.identifier,
         mentionSubredditPlotRange: mentionSubredditPlotRange,
         mentionTotalPlotRange: mentionTotalPlotRange,
-        pricePlotRange: pricePlotRange,
       },
     };
   },
