@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { isEqual }         from 'underscore';
 import FontAwesome         from 'react-fontawesome';
+import { Link }            from 'react-router-dom';
 import {
   Tab,
   TabList,
@@ -38,13 +39,6 @@ const styles = StyleSheet.create({
     border: `1px solid ${STYLES.BORDERDARK}`,
     borderBottom: `1px solid ${STYLES.BORDERDARK}`,
   },
-  button: {
-    width:'100%',
-    fontWeight: '700',
-    letterSpacing: '1px',
-    fontSize: '12px',
-    textTransform: 'uppercase',
-  },
   placeholder: {
     width: '100%',
     height: '64px',
@@ -62,36 +56,52 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     color: '#fff',
   },
-  tabBar: {
+  bottomBar: {
     display: 'flex',
     position: 'fixed',
     bottom: '0px',
     left: '0px',
     zIndex: '2',
-    borderBottom: '0px',
+    width: '100%',
+    borderTop: '1px solid #777',
+    backgroundColor: 'white',
+  },
+  bottomBarNight: {
+    borderTop: '1px solid #999',
+    backgroundColor: '#000',
+  },
+  bottomBarSection: {
+    display: 'flex',
+  },
+  bottomBarSectionMiddle: {
+    flex: '1',
+    overflowX: 'scroll',
+  },
+  tabList: {
+    display: 'flex',
+    flexWrap: 'nowrap',
   },
   tab: {
+    height: '100%',
+  },
+  button: {
+    height: '100%',
+    padding: '0px 12px',
+    backgroundColor: '#fff',
+    borderRight: '1px solid #333',
     fontWeight: '700',
-    borderColor: '#333',
     textTransform: 'uppercase',
     letterSpacing: '2px',
-    backgroundColor: '#fff',
-    paddingLeft: '12px',
-    paddingRight: '12px',
-    borderTop: '0px',
-    borderBottom: '0px',
+    whiteSpace: 'nowrap',
     ':hover': {
       color: '#23527c',
     },
   },
-  darkTab: {
-    //borderColor: '#fff',
-  },
-  chosenTab: {
+  buttonHighlighted: {
     backgroundColor: STYLES.GOLD,
   },
-  tabText: {
-    //nothing yet
+  buttonBorderLeft: {
+    borderLeft: '1px solid #333',
   },
 });
 
@@ -228,28 +238,53 @@ class DashboardTabs extends Component {
     const onClickEdit = (event) => changeSidebarMode('edit-tabs');
 
     return (
-      <div className={css(styles.tabBar)}>
-        <button
-          className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
-          onClick={onClickEdit}
-          title="Edit this widget and or swap it out for another."
-        >
-          <FontAwesome name='pencil' style={{'fontSize':'13px'}}/>
-        </button>
-        <TabList>
-        {
-          dashboardPages.map((dashboardPage) => (
-            <Tab key={dashboardPage.index}>
-              <button
-                className={css(styles.tab, nightMode && styles.darkTab, (dashboardPage.index == selectedTab) && styles.chosenTab)}
-                title={`Go to ${dashboardPage.name}`}
+      <div className={css(styles.bottomBar, nightMode && styles.bottomBarNight)}>
+        <div className={css(styles.bottomBarSection)}>
+          <button
+            className={css(styles.closeButton)}
+            onClick={onClickEdit}
+            title="Press to open sidebar and add or edit tabs."
+          >
+            <FontAwesome name='pencil' style={{'fontSize':'13px'}}/>
+          </button>
+        </div>
+        <div className={css(styles.bottomBarSection, styles.bottomBarSectionMiddle)}>
+          <TabList className={css(styles.tabList)}>
+          {
+            dashboardPages.map((dashboardPage, index) => (
+              <Tab
+                className={css(styles.tab, index === 0 && styles.buttonBorderLeft)}
+                key={dashboardPage.index}
               >
-                {dashboardPage.name}
-              </button>
-            </Tab>
-          ))
-        }
-        </TabList>
+                <button
+                  className={css(styles.button, (dashboardPage.index == selectedTab) && styles.buttonHighlighted)}
+                  title={`Go to ${dashboardPage.name}`}
+                >
+                  {dashboardPage.name}
+                </button>
+              </Tab>
+            ))
+          }
+          </TabList>
+        </div>
+        <div
+          className={css(styles.bottomBarSection)}
+          style={{ 'marginRight': '58px' }}
+        >
+          <Link to={`/faq`}>
+            <button
+              title="Press to read FAQ and learn dashboard actions"
+              className={css(styles.button, styles.buttonBorderLeft)}>
+              Help [?]
+            </button>
+          </Link>
+          <button
+            title="Press to open up sidebar and add widgets to dashboard"
+            className={css(styles.button, styles.buttonHighlighted)}
+            onClick={(event) => changeSidebarMode('add')} >
+            Add Widget To Dashboard [+]
+          </button>
+        </div>
       </div>
     );
   }

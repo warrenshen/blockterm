@@ -6,7 +6,6 @@ import React, {
 import PropTypes           from 'prop-types';
 import { Helmet }          from 'react-helmet';
 import { StyleSheet, css } from 'aphrodite';
-import { Link }            from 'react-router-dom';
 import Sidebar             from 'react-sidebar';
 import * as STYLES         from '../constants/styles';
 import PROJECT_VERSION     from '../constants/items';
@@ -100,32 +99,6 @@ class Dashboard extends PureComponent
   componentWillUnmount()
   {
     window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  renderAddButton()
-  {
-    const {
-      changeSidebarMode,
-      nightMode,
-    } = this.props;
-
-    return (
-      <div className={css(styles.actionBar, nightMode && styles.darkActionBar)}>
-        <Link to={`/faq`}>
-          <button
-            title="Press to read FAQ and learn dashboard actions"
-            className={css(styles.actionButton, nightMode && styles.darkActionButton)}>
-            Help [?]
-          </button>
-        </Link>
-        <button
-          title="Press to open up sidebar and add widgets to dashboard"
-          className={css(styles.actionButton, nightMode && styles.darkActionButton, styles.emphasize, nightMode && styles.darkEmphasize)}
-          onClick={(event) => changeSidebarMode('add')} >
-          Add Widget To Dashboard [+]
-        </button>
-      </div>
-    );
   }
 
   renderScrollShield()
@@ -235,7 +208,6 @@ class Dashboard extends PureComponent
           }
         >
           <DashboardTabs />
-          {this.renderAddButton()}
         </Sidebar>
       </div>
     );
