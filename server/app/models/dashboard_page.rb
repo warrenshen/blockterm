@@ -21,7 +21,7 @@
 
 class DashboardPage < ApplicationRecord
   belongs_to :user
-  has_many :dashboard_items
+  has_many :dashboard_items, dependent: :destroy
 
   validates :index, uniqueness: { scope: :user_id }
   validates :name, uniqueness: { scope: :user_id }
