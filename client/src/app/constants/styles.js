@@ -37,8 +37,21 @@ export const BLAZINGREEN = '#00EB77';
 export const COMPBLUE = '#00CDE9';
 export const TVBLUE = '#131722';
 
-export const STYLES = StyleSheet.create({
-  card: {
-    padding: '96px',
+export const styles = StyleSheet.create({
+  button: {
+    letterSpacing: '1px',
+    fontWeight: '700',
+    borderBottom: '1px solid #777',
+    textTransform: 'uppercase',
+  },
+  subtitle: {
+    textTransform: 'uppercase',
+    letterSpacing: '1px',
+    fontWeight: '700',
+    padding: '0px 10px',
+  },
+  emphasize: {
+    backgroundColor: GOLD,
+    borderColor: '#000',
   },
 });

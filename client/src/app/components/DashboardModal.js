@@ -8,7 +8,7 @@ import { StyleSheet, css } from 'aphrodite';
 import Select              from 'react-select';
 import FontAwesome         from 'react-fontawesome';
 import moment              from 'moment';
-import * as STYLES         from '../constants/styles';
+import * as DEFAULTS       from '../constants/styles';
 import {
   ALERT_CONDITION_SELECT_OPTIONS,
   ALERT_EXPIRES_IN_SELECT_OPTIONS,
@@ -52,21 +52,21 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'flex-end',
     backgroundColor: '#fff',
-    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+    borderBottom: `1px solid ${DEFAULTS.BORDERLIGHT}`,
   },
   sectionHeaderNight: {
     backgroundColor: '#000',
-    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
+    borderBottom: `1px solid ${DEFAULTS.BORDERDARK}`,
   },
   sectionBody: {
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
-    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+    borderBottom: `1px solid ${DEFAULTS.BORDERLIGHT}`,
   },
   sectionBodyNight: {
     backgroundColor: '#000',
-    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
+    borderBottom: `1px solid ${DEFAULTS.BORDERDARK}`,
   },
   form: {
     display: 'flex',
@@ -82,30 +82,14 @@ const styles = StyleSheet.create({
     padding: '5px 10px',
     marginBottom: '-1px',
     flexDirection: 'column',
-    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+    borderBottom: `1px solid ${DEFAULTS.BORDERLIGHT}`,
   },
   alertNight: {
-    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
+    borderBottom: `1px solid ${DEFAULTS.BORDERDARK}`,
   },
   alertRow: {
     display: 'flex',
     justifyContent: 'space-between',
-  },
-  subtitle: {
-    textTransform: 'uppercase',
-    letterSpacing: '1px',
-    fontWeight: '700',
-    padding: '0px 10px',
-  },
-  addToButton: {
-    letterSpacing: '1px !important',
-    fontWeight: '700',
-    borderBottom: '1px solid #777',
-    textTransform: 'uppercase',
-  },
-  emphasize: {
-    backgroundColor: STYLES.GOLD,
-    borderColor: '#000',
   },
   select: {
     marginBottom: '-1px',
@@ -342,11 +326,11 @@ class DashboardModal extends PureComponent
               onChange={onExpiresInChange}
             />
             <button
-              className={css(styles.bolded, styles.addToButton, styles.emphasize)}
+              className={css(styles.bolded, DEFAULTS.styles.button, DEFAULTS.styles.emphasize)}
               type='submit'
               onClick={onClickSubmit}
             >
-              Create alert
+              Create Alert
             </button>
           </form>
         </div>

@@ -333,17 +333,13 @@ class Home extends PureComponent {
                               xAxes: [{
                                 ticks: {
                                   display: false,
-                                }
-                              }],
-                              yAxes: [
-                                {
-                                  display: true,
-                                  gridLines: {
-                                    zeroLineColor: '#aa9000',
-                                    color: '#bbb',
-                                  }
                                 },
-                              ],
+                                gridLines: gridLinesConfig,
+                              }],
+                              yAxes: [{
+                                display: true,
+                                gridLines: gridLinesConfig,
+                              }],
                             },
                           }}
                         />

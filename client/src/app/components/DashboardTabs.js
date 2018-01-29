@@ -243,9 +243,9 @@ class DashboardTabs extends Component {
           <button
             className={css(styles.closeButton)}
             onClick={onClickEdit}
-            title="Press to open sidebar and add or edit tabs."
+            title="Press to open sidebar and add/edit tabs."
           >
-            <FontAwesome name='pencil' style={{'fontSize':'13px'}}/>
+            <FontAwesome name='edit' style={{'fontSize':'13px'}}/>
           </button>
         </div>
         <div className={css(styles.bottomBarSection, styles.bottomBarSectionMiddle)}>
