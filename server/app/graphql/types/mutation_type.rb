@@ -1057,5 +1057,56 @@ module Types
         current_user.reload
       }
     end
+
+    field :updateDashboardPages, Types::UserType do
+      description "Updates a user's dashboard pages"
+
+      argument :dashboardPagesString, !types.String
+
+      resolve -> (obj, args, ctx) {
+        current_user = QueryHelper.get_current_user(ctx)
+        if current_user.nil?
+          return GraphQL::ExecutionError.new('No current user')
+        end
+
+        ActiveRecord::Base.transaction do
+          dashboard_pages_hashes = JSON.parse(args[:dashboardPagesString])
+          dashboard_pages_hashes.each do |dashboard_page_hash|
+            dashboard_page_id = dashboard_page_hash['id']
+
+            if dashboard_page_id.index('t') == 0
+              dashboard_page = DashboardPage.create(
+                user_id: current_user.id,
+                name: dashboard_page_hash['name'],
+                index: dashboard_page_hash['index'],
+              )
+
+              if !dashboard_page.valid?
+                return GraphQL::ExecutionError.new(dashboard_page.errors.full_messages)
+              end
+            else
+              dashboard_page = DashboardPage.find_by_id(dashboard_page_id)
+
+              if dashboard_page.nil?
+                return GraphQL::ExecutionError.new('Could not find dashboard page')
+              end
+
+              dashboard_page.assign_attributes(
+                index: dashboard_page_hash['index'],
+                name: dashboard_page_hash['name'],
+              )
+
+              if dashboard_page.changed?
+                if !dashboard_page.save
+                  return GraphQL::ExecutionError.new(dashboard_page.errors.full_messages)
+                end
+              end
+            end
+          end
+        end
+
+        current_user.reload
+      }
+    end
   end
 end
