@@ -18,7 +18,9 @@ module Types
     field :website, !types.String
     field :priceUSD, !types.Float, property: :price_usd
     field :priceBTC, !types.Float, property: :price_btc
+    # Deprecating :volumeUSD24h
     field :volumeUSD24h, !types.Float, property: :volume_usd_24h
+    field :volume24hUSD, !types.Float, property: :volume_usd_24h
     field :marketCapUSD, !types.Float, property: :market_cap_usd
     field :availableSupply, !types.Float, property: :available_supply
     field :totalSupply, !types.Float, property: :total_supply
@@ -33,10 +35,44 @@ module Types
         obj.market_cap_usd / token_bitcoin.price_usd
       }
     end
+    # Deprecating volumeBTC24h
     field :volumeBTC24h, !types.Float do
       resolve -> (obj, args, ctx) {
         token_bitcoin = Token.find_by_identifier('bitcoin')
         obj.volume_usd_24h / token_bitcoin.price_usd
+      }
+    end
+    field :volume24hBTC, !types.Float do
+      resolve -> (obj, args, ctx) {
+        token_bitcoin = Token.find_by_identifier('bitcoin')
+        obj.volume_usd_24h / token_bitcoin.price_usd
+      }
+    end
+    field :percentChange1hBTC, !types.Float do
+      resolve -> (obj, args, ctx) {
+        token_bitcoin = Token.find_by_identifier('bitcoin')
+        token_bitcoin_old_price = token_bitcoin.price_usd / (1 + token_bitcoin.percent_change_1h / 100.0)
+        obj_old_price = obj.price_usd / (1 + obj.percent_change_1h / 100.0)
+        obj_old_price_btc = obj_old_price / (token_bitcoin_old_price + 0.00000001)
+        ((obj.price_btc - obj_old_price_btc) / (obj_old_price_btc + 0.00000001) * 100).round(2)
+      }
+    end
+    field :percentChange24hBTC, !types.Float do
+      resolve -> (obj, args, ctx) {
+        token_bitcoin = Token.find_by_identifier('bitcoin')
+        token_bitcoin_old_price = token_bitcoin.price_usd / (1 + token_bitcoin.percent_change_24h / 100.0)
+        obj_old_price = obj.price_usd / (1 + obj.percent_change_24h / 100.0)
+        obj_old_price_btc = obj_old_price / (token_bitcoin_old_price + 0.00000001)
+        ((obj.price_btc - obj_old_price_btc) / (obj_old_price_btc + 0.00000001) * 100).round(2)
+      }
+    end
+    field :percentChange7dBTC, !types.Float do
+      resolve -> (obj, args, ctx) {
+        token_bitcoin = Token.find_by_identifier('bitcoin')
+        token_bitcoin_old_price = token_bitcoin.price_usd / (1 + token_bitcoin.percent_change_7d / 100.0)
+        obj_old_price = obj.price_usd / (1 + obj.percent_change_7d / 100.0)
+        obj_old_price_btc = obj_old_price / (token_bitcoin_old_price + 0.00000001)
+        ((obj.price_btc - obj_old_price_btc) / (obj_old_price_btc + 0.00000001) * 100).round(2)
       }
     end
 
