@@ -15,8 +15,13 @@ const styles = StyleSheet.create({
     flex: '1',
     paddingBottom: '128px',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
+    overflowY: 'scroll',
   },
   nightMode: {
+  },
+  list: {
+    display: 'flex',
+    flexDirection: 'column',
   },
   blockButton: {
     borderRadius: '0px',
@@ -133,7 +138,9 @@ class DashboardSidebarTabs extends PureComponent
               # widgets
             </El>
           </div>
-          {dashboardPages.map((dashboardPage) => this.renderDashboardPage(dashboardPage))}
+          <div className={css(styles.list)}>
+            {dashboardPages.map((dashboardPage) => this.renderDashboardPage(dashboardPage))}
+          </div>
           <div className={css(styles.buttons, styles.blockButtonWrapper, nightMode && styles.darkBlockButtonWrapper, !changeActive && styles.disabled)}>
             <button
               className={css(styles.blockButton, nightMode && styles.darkBlockButton)}
