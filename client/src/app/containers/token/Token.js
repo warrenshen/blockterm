@@ -29,7 +29,9 @@ const query = gql`
       priceUSD
       priceBTC
       volumeUSD24h
+      volumeBTC24h
       marketCapUSD
+      marketCapBTC
       availableSupply
       totalSupply
       maxSupply

@@ -144,17 +144,6 @@ const styles = StyleSheet.create({
   }
 });
 
-// priceUSD
-// priceBTC
-// volumeUSD24h
-// marketCapUSD
-// availableSupply
-// totalSupply
-// maxSupply
-// percentChange1h
-// percentChange24h
-// percentChange7d
-
 //todo: change in volume percent in last week, volume rank
 
 class TokenHead extends PureComponent {
@@ -239,7 +228,9 @@ class TokenHead extends PureComponent {
       priceUSD,
       priceBTC,
       volumeUSD24h,
+      volumeBTC24h,
       marketCapUSD,
+      marketCapBTC,
       availableSupply,
       totalSupply,
       maxSupply,
@@ -316,7 +307,7 @@ class TokenHead extends PureComponent {
               style={styles.condensed}
               type={'h5'}
             >
-              {numeral(volumeUSD24h / priceBTC).format('0,0')} BTC
+              {numeral(volumeBTC24h).format('0,0')} BTC
             </El>
           </div>
           <div className={css(styles.column, styles.informationItem, green24h ? styles.itemGreen : styles.itemRed)}>
@@ -338,7 +329,7 @@ class TokenHead extends PureComponent {
               style={styles.condensed}
               type={'h5'}
             >
-              {numeral(marketCapUSD/priceBTC).format('0,0')} BTC
+              {numeral(marketCapBTC).format('0,0')} BTC
             </El>
           </div>
           <div className={css(styles.column, styles.informationItem)}>
@@ -374,17 +365,6 @@ class TokenHead extends PureComponent {
       nightMode,
       token,
     } = this.props;
-
-    const {
-      shortName,
-      longName,
-      priceUSD,
-      priceBTC,
-      volumeUSD24h,
-      marketCapUSD,
-      percentChange1h,
-      percentChange24h,
-    } = token;
 
     return (
       <div className={css(styles.container)}>
