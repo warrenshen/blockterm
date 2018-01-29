@@ -6,7 +6,7 @@ import React, {
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import FontAwesome         from 'react-fontawesome';
-import * as STYLES         from '../constants/styles';
+import * as DEFAULTS       from '../constants/styles';
 import El                  from '../components/El';
 
 const styles = StyleSheet.create({
@@ -19,6 +19,10 @@ const styles = StyleSheet.create({
   },
   header: {
     display: 'flex',
+    borderBottom: `1px solid ${DEFAULTS.BORDERLIGHT}`
+  },
+  headerNight: {
+    borderBottom: `1px solid ${DEFAULTS.BORDERDARK}`
   },
   list: {
     display: 'flex',
@@ -34,6 +38,9 @@ const styles = StyleSheet.create({
   },
   buttons: {
     display: 'flex',
+  },
+  input: {
+    fontWeight: '500',
   },
 });
 
@@ -63,7 +70,7 @@ class DashboardSidebarTabs extends PureComponent
     );
   }
 
-  renderDashboardPage(dashboardPage)
+  renderDashboardPage(dashboardPage, nightMode)
   {
     const {
       changeDashboardPageName,
@@ -74,7 +81,6 @@ class DashboardSidebarTabs extends PureComponent
       id,
       dashboardItems,
       name,
-      nightMode,
     } = dashboardPage;
 
     const onChange = (event) => changeDashboardPageName(id, event.target.value);
@@ -91,6 +97,7 @@ class DashboardSidebarTabs extends PureComponent
         </td>
         <td>
           <El
+            style={DEFAULTS.styles.subtitle}
             nightMode={nightMode}
             type={'span'}
           >
@@ -147,9 +154,10 @@ class DashboardSidebarTabs extends PureComponent
         >
           <table className={css(styles.list)}>
             <tbody>
-              <tr className={css(styles.header)}>
+              <tr className={css(styles.header, nightMode && styles.headerNight)}>
                 <td>
                   <El
+                    style={DEFAULTS.styles.subtitle}
                     nightMode={nightMode}
                     type={'span'}
                   >
@@ -158,6 +166,7 @@ class DashboardSidebarTabs extends PureComponent
                 </td>
                 <td>
                   <El
+                    style={DEFAULTS.styles.subtitle}
                     nightMode={nightMode}
                     type={'span'}
                   >
@@ -167,7 +176,7 @@ class DashboardSidebarTabs extends PureComponent
               </tr>
               {
                 dashboardPages.map(
-                  (dashboardPage) => this.renderDashboardPage(dashboardPage)
+                  (dashboardPage) => this.renderDashboardPage(dashboardPage, nightMode)
                 )
               }
             </tbody>

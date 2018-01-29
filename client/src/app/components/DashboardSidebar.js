@@ -73,9 +73,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     paddingLeft:'5px',
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`
   },
   darkHeader: {
     backgroundColor: '#000',
+    borderBottom: `1px solid ${STYLES.BORDERDARK}`
   },
   darkCloseButton: {
     backgroundColor: '#000',
