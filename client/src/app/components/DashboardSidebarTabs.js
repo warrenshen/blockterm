@@ -5,6 +5,7 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import FontAwesome         from 'react-fontawesome';
 import * as STYLES         from '../constants/styles';
 import El                  from '../components/El';
 
@@ -45,38 +46,6 @@ class DashboardSidebarTabs extends PureComponent
     updateDashboardPages: PropTypes.func.isRequired,
   };
 
-  renderDashboardPage(dashboardPage)
-  {
-    const {
-      changeDashboardPageName,
-    } = this.props;
-
-    const {
-      id,
-      dashboardItems,
-      name,
-      nightMode,
-    } = dashboardPage;
-
-    const onChange = (event) => changeDashboardPageName(id, event.target.value);
-
-    return (
-      <div key={id}>
-        <input
-          className={css(styles.input)}
-          onChange={onChange}
-          value={name}
-        />
-        <El
-          nightMode={nightMode}
-          type={'span'}
-        >
-          {dashboardItems.length}
-        </El>
-      </div>
-    );
-  }
-
   saveDashboardPages()
   {
     const {
@@ -94,6 +63,52 @@ class DashboardSidebarTabs extends PureComponent
     );
   }
 
+  renderDashboardPage(dashboardPage)
+  {
+    const {
+      changeDashboardPageName,
+      removeDashboardPage,
+    } = this.props;
+
+    const {
+      id,
+      dashboardItems,
+      name,
+      nightMode,
+    } = dashboardPage;
+
+    const onChange = (event) => changeDashboardPageName(id, event.target.value);
+    const onClickRemove = (event) => removeDashboardPage(id);
+
+    return (
+      <tr key={id}>
+        <td>
+          <input
+            className={css(styles.input)}
+            onChange={onChange}
+            value={name}
+          />
+        </td>
+        <td>
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            {dashboardItems.length}
+          </El>
+        </td>
+        <td>
+          <button
+            className={css(styles.closeButton)}
+            onClick={onClickRemove}
+          >
+            <FontAwesome name='remove' />
+          </button>
+        </td>
+      </tr>
+    );
+  }
+
   render()
   {
     const {
@@ -105,6 +120,7 @@ class DashboardSidebarTabs extends PureComponent
       addDashboardPage,
       updateDashboardPages,
     } = this.props;
+    console.log(dashboardPages);
 
     const onClickAdd = (event) => addDashboardPage();
     const onClickSave = (event) => this.saveDashboardPages();
@@ -115,7 +131,12 @@ class DashboardSidebarTabs extends PureComponent
         <div
           className={css(styles.container, nightMode && styles.containerNightMode)}
         >
-          LOGIN or JOIN to add/edit tabs
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            LOGIN or JOIN to add/edit tabs
+          </El>
         </div>
       );
     }
@@ -125,23 +146,33 @@ class DashboardSidebarTabs extends PureComponent
         <div
           className={css(styles.container, nightMode && styles.containerNightMode)}
         >
-          <div className={css(styles.list)}>
-            <div className={css(styles.header)}>
-              <El
-                nightMode={nightMode}
-                type={'span'}
-              >
-                Tab name
-              </El>
-              <El
-                nightMode={nightMode}
-                type={'span'}
-              >
-                # widgets
-              </El>
-            </div>
-            {dashboardPages.map((dashboardPage) => this.renderDashboardPage(dashboardPage))}
-          </div>
+          <table className={css(styles.list)}>
+            <tbody>
+              <tr className={css(styles.header)}>
+                <td>
+                  <El
+                    nightMode={nightMode}
+                    type={'span'}
+                  >
+                    Tab name
+                  </El>
+                </td>
+                <td>
+                  <El
+                    nightMode={nightMode}
+                    type={'span'}
+                  >
+                    # widgets
+                  </El>
+                </td>
+              </tr>
+              {
+                dashboardPages.map(
+                  (dashboardPage) => this.renderDashboardPage(dashboardPage)
+                )
+              }
+            </tbody>
+          </table>
           <div className={css(styles.buttons, styles.blockButtonWrapper, nightMode && styles.darkBlockButtonWrapper, !changeActive && styles.disabled)}>
             <button
               className={css(styles.blockButton, nightMode && styles.darkBlockButton)}
