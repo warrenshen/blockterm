@@ -47,7 +47,7 @@ export default function(state = initialState, action)
     case ADD_TOKEN_USER:
       oldTokenUsers = fromJS(state.tokenUsers);
       let [newId, newIndex] = getNewIdAndIndex(oldTokenUsers);
-      let newTokenUser = {
+      const newTokenUser = {
         id: newId,
         index: newIndex,
         amount: '0',

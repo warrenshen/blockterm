@@ -282,18 +282,6 @@ class DashboardModal extends PureComponent
     const onConditionChange = (option) => changeConditionValue(option);
     const onExpiresInChange = (option) => changeExpiresValue(option);
 
-    // return (
-    //   <div>
-    //     <El
-    //       nightMode={nightMode}
-    //       type={'h5'}
-    //     >
-    //       Price alerts coming soon.
-    //     </El>
-    //   </div>
-    // );
-    //
-
     if (!isIdentifierExchangeSupported(identifier))
     {
       return (

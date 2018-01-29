@@ -163,61 +163,46 @@ export default function(state = initialState, action)
   switch (action.type)
   {
     case APOLLO_MUTATION_RESULT:
+      data = action.result.data;
       switch (action.operationName)
       {
         case 'CreateDashboardItemMutation':
-          data = action.result.data;
-          dashboardPages = state.dashboardPages;
-          if (data.user)
-          {
-            dashboardPages = data.user.dashboardPages;
-            newDashboardItemStates = generateItemStatesFromPages(dashboardPages);
-            return {
-              ...state,
-              dashboardItemStates: {
-                // Note `newDashboardItemStates` is before, this is because
-                // we don't want to overwrite previous dashboard item state.
-                ...newDashboardItemStates,
-                ...state.dashboardItemStates,
-              },
-              dashboardPages: dashboardPages,
-              valueSelectValue: initialState.valueSelectValue,
-            };
-          }
-          return state;
-        case 'DestroyDashboardItemMutation':
-          data = action.result.data;
-          dashboardPages = state.dashboardPages;
-          if (data.user)
-          {
-            dashboardPages = data.user.dashboardPages;
-          }
+          dashboardPages = data.user.dashboardPages;
+          newDashboardItemStates = generateItemStatesFromPages(dashboardPages);
           return {
             ...state,
+            dashboardItemStates: {
+              // Note `newDashboardItemStates` is before, this is because
+              // we don't want to overwrite previous dashboard item state.
+              ...newDashboardItemStates,
+              ...state.dashboardItemStates,
+            },
             dashboardPages: dashboardPages,
+            valueSelectValue: initialState.valueSelectValue,
+          };
+        case 'DestroyDashboardItemMutation':
+        case 'UpdateDashboardPagesMutation':
+          dashboardPages = data.user.dashboardPages;
+          return {
+            ...state,
+            dashboardPages: data.user.dashboardPages,
           };
         case 'UpdateDashboardItemMutation':
-          data = action.result.data;
-          dashboardPages = state.dashboardPages;
-          if (data.user)
-          {
-            dashboardPages = data.user.dashboardPages;
-            newDashboardItemStates = generateItemStatesFromPages(dashboardPages);
-            return {
-              ...state,
-              dashboardItemStates: {
-                // Note `newDashboardItemStates` is before, this is because
-                // we don't want to overwrite previous dashboard item state.
-                ...newDashboardItemStates,
-                ...state.dashboardItemStates,
-              },
-              dashboardPages: dashboardPages,
-              keySelectValue: initialState.keySelectValue,
-              sidebarMode: initialState.sidebarMode,
-              valueSelectValue: initialState.valueSelectValue,
-            };
-          }
-          return state;
+          dashboardPages = data.user.dashboardPages;
+          newDashboardItemStates = generateItemStatesFromPages(dashboardPages);
+          return {
+            ...state,
+            dashboardItemStates: {
+              // Note `newDashboardItemStates` is before, this is because
+              // we don't want to overwrite previous dashboard item state.
+              ...newDashboardItemStates,
+              ...state.dashboardItemStates,
+            },
+            dashboardPages: dashboardPages,
+            keySelectValue: initialState.keySelectValue,
+            sidebarMode: initialState.sidebarMode,
+            valueSelectValue: initialState.valueSelectValue,
+          };
         default:
           return state;
       }

@@ -55,8 +55,8 @@ class GTChartItem extends PureComponent
           {
             "keyword": value,
             "geo": "",
-            // 12-m, 3-m, 1-m, 7-d, 1-d
-            "time": "today 3-m",
+            // today 12-m, today 3-m, today 1-m, now 7-d, now 1-d
+            "time": "today 1-m",
           },
         ],
         "category": 0,
