@@ -144,7 +144,6 @@ class DashboardSidebar extends PureComponent
   {
     super(props);
     this.handleEscape = (event) => {
-      console.log(event);
       if (event.key === 'Escape')
       {
         event.preventDefault();

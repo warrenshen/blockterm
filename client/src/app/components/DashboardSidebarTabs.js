@@ -120,7 +120,6 @@ class DashboardSidebarTabs extends PureComponent
       addDashboardPage,
       updateDashboardPages,
     } = this.props;
-    console.log(dashboardPages);
 
     const onClickAdd = (event) => addDashboardPage();
     const onClickSave = (event) => this.saveDashboardPages();
