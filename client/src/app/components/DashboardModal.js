@@ -138,7 +138,6 @@ class DashboardModal extends PureComponent
   constructor(props)
   {
     super(props);
-    this.container = null;
     this.handleEscape = (event) => {
       if (event.key === 'Escape')
       {
@@ -150,12 +149,12 @@ class DashboardModal extends PureComponent
 
   componentDidMount()
   {
-    this.container.addEventListener('keyup', this.handleEscape);
+    window.addEventListener('keyup', this.handleEscape);
   }
 
   componentWillUnmount()
   {
-    this.container.removeEventListener('keyup', this.handleEscape);
+    window.removeEventListener('keyup', this.handleEscape);
   }
 
   renderAlert(alert)
@@ -389,7 +388,6 @@ class DashboardModal extends PureComponent
     return (
       <div
         className={css(styles.container, nightMode && styles.containerNightMode)}
-        ref={(el) => this.container = el}
       >
         <DashboardItemLarge
           nightMode={nightMode}

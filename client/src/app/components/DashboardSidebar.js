@@ -143,8 +143,8 @@ class DashboardSidebar extends PureComponent
   constructor(props)
   {
     super(props);
-    this.container = null;
     this.handleEscape = (event) => {
+      console.log(event);
       if (event.key === 'Escape')
       {
         event.preventDefault();
@@ -153,14 +153,22 @@ class DashboardSidebar extends PureComponent
     };
   }
 
-  componentDidMount()
+  componentDidUpdate(prevProps)
   {
-    this.container.addEventListener('keyup', this.handleEscape);
-  }
+    const {
+      sidebarMode,
+    } = this.props;
 
-  componentWillUnmount()
-  {
-    this.container.removeEventListener('keyup', this.handleEscape);
+    // We add and remove event listeners here because this component
+    // is not unmounted (due to use of react-sidebar library).
+    if (sidebarMode !== null && prevProps.sidebarMode === null)
+    {
+      window.addEventListener('keyup', this.handleEscape);
+    }
+    else if (sidebarMode === null && prevProps.sidebarMode !== null)
+    {
+      window.removeEventListener('keyup', this.handleEscape);
+    }
   }
 
   focusOnSpecificSelect()
@@ -396,9 +404,7 @@ class DashboardSidebar extends PureComponent
     return (
       <div
         className={css(styles.container, nightMode && styles.nightSidebar)}
-        ref={(el) => this.container = el}
       >
-        {}
         <div className={css(styles.header, nightMode && styles.darkHeader)}>
           <El nightMode={nightMode} type={'h5'} style={styles.sidebarTitle}>
             {sidebarTitle}
