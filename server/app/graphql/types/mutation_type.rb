@@ -1069,16 +1069,23 @@ module Types
           return GraphQL::ExecutionError.new('No current user')
         end
 
+        dashboard_pages_hashes = JSON.parse(args[:dashboardPagesString])
+
+        dashboard_page_ids = dashboard_pages_hashes.map do |dashboard_page_hash|
+          dashboard_page_hash['id']
+        end
+
         ActiveRecord::Base.transaction do
-          dashboard_pages_hashes = JSON.parse(args[:dashboardPagesString])
+          destroyed_dashboard_pages = current_user.dashboard_pages.where.not(id: dashboard_page_ids).destroy_all
+
           dashboard_pages_hashes.each do |dashboard_page_hash|
             dashboard_page_id = dashboard_page_hash['id']
 
             if dashboard_page_id.index('t') == 0
               dashboard_page = DashboardPage.create(
                 user_id: current_user.id,
-                name: dashboard_page_hash['name'],
                 index: dashboard_page_hash['index'],
+                name: dashboard_page_hash['name'],
               )
 
               if !dashboard_page.valid?
