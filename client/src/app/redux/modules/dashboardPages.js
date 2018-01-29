@@ -38,6 +38,7 @@ function getNewIdAndIndex(dashboardPages)
 
 export default function(state = initialState, action)
 {
+  let dashboardPageIndex;
   let data;
   let newDashboardPages;
   let oldDashboardPages;
@@ -97,7 +98,19 @@ export default function(state = initialState, action)
           return state;
       }
     case CHANGE_DASHBOARD_PAGE_NAME:
-      return state;
+      oldDashboardPages = fromJS(state.dashboardPages);
+      dashboardPageIndex = oldDashboardPages.findIndex(
+        (dashboardPage) => dashboardPage.get('id') === action.dashboardPageId
+      );
+      newDashboardPages = oldDashboardPages.setIn(
+        [dashboardPageIndex, 'name'],
+        action.name,
+      );
+      return {
+        ...state,
+        changeActive: true,
+        dashboardPages: newDashboardPages.toJS(),
+      };
     case REMOVE_DASHBOARD_PAGE:
       oldDashboardPages = fromJS(state.dashboardPages);
       dashboardPageIndex = oldDashboardPages.findIndex(
