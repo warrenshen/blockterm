@@ -16,6 +16,7 @@ import {
   SUBREDDIT_COMMENT_COUNTS,
   generateIdentifier,
 }                          from '../constants/items';
+import DashboardSidebarTabs from '../containers/DashboardSidebarTabs';
 import El                  from '../components/El';
 
 const styles = StyleSheet.create({
@@ -32,6 +33,12 @@ const styles = StyleSheet.create({
   nightSidebar: {
     backgroundColor: STYLES.LIGHTNIGHT,
     borderLeft: '1px solid #BBB',
+  },
+  mode: {
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
   },
   bolded: {
     fontWeight: '700',
@@ -295,14 +302,11 @@ class DashboardSidebar extends PureComponent
     }
   }
 
-  render()
+  renderWidgetMode()
   {
     const {
       keySelectValue,
       nightMode,
-      sidebarMode,
-
-      changeSidebarMode,
     } = this.props;
 
     const selectOptions = Object.entries(ITEM_KEY_TO_LABELS).map((arr) => ({
@@ -311,21 +315,7 @@ class DashboardSidebar extends PureComponent
     }));
 
     return (
-      <div
-        className={css(styles.container, nightMode && styles.nightSidebar)}
-        ref={(el) => this.container = el}
-      >
-        <div className={css(styles.header, nightMode && styles.darkHeader)}>
-          <El nightMode={nightMode} type={'h5'} style={styles.sidebarTitle}>
-            {sidebarMode === 'edit' ? 'Edit widget' : 'Add widget'}
-          </El>
-          <button
-            className={css(nightMode && styles.darkCloseButton)}
-            onClick={(event) => changeSidebarMode(null)}
-          >
-            <FontAwesome name='close' className={css(styles.icon)}/>
-          </button>
-        </div>
+      <div className={css(styles.mode)}>
         <div className={css(styles.topHalf)}>
           <Select
             inputProps={{'id': 'widget_search'}}
@@ -371,6 +361,60 @@ class DashboardSidebar extends PureComponent
             <b>4)</b> Resize and reposition the widget how you see fit, and click the lock button if you would like to lock its configuration.
           </El>
         </div>
+      </div>
+    );
+  }
+
+  render()
+  {
+    const {
+      nightMode,
+      sidebarMode,
+
+      changeSidebarMode,
+    } = this.props;
+
+    const selectOptions = Object.entries(ITEM_KEY_TO_LABELS).map((arr) => ({
+      label: arr[1],
+      value: arr[0],
+    }));
+
+    let sidebarTitle;
+    if (sidebarMode === 'edit')
+    {
+      sidebarTitle = 'Edit widget';
+    }
+    else if (sidebarMode === 'add')
+    {
+      sidebarTitle = 'Add widget';
+    }
+    else
+    {
+      sidebarTitle = 'Add/edit tabs';
+    }
+
+    return (
+      <div
+        className={css(styles.container, nightMode && styles.nightSidebar)}
+        ref={(el) => this.container = el}
+      >
+        {}
+        <div className={css(styles.header, nightMode && styles.darkHeader)}>
+          <El nightMode={nightMode} type={'h5'} style={styles.sidebarTitle}>
+            {sidebarTitle}
+          </El>
+          <button
+            className={css(nightMode && styles.darkCloseButton)}
+            onClick={(event) => changeSidebarMode(null)}
+          >
+            <FontAwesome name='close' className={css(styles.icon)}/>
+          </button>
+        </div>
+        {
+          sidebarMode === 'add' || sidebarMode === 'edit' ?
+            this.renderWidgetMode() :
+            <DashboardSidebarTabs />
+        }
       </div>
     );
   }

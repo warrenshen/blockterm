@@ -501,16 +501,16 @@ export const UpdateDashboardPagesMutation = gql`
         id
         index
         name
-      }
 
-      dashboardItems {
-        id
-        identifier
-        static
-        w
-        h
-        x
-        y
+        dashboardItems {
+          id
+          identifier
+          static
+          w
+          h
+          x
+          y
+        }
       }
     }
   }
@@ -518,7 +518,7 @@ export const UpdateDashboardPagesMutation = gql`
 
 export const UpdateDashboardPagesMutationOptions = {
   props: ({ mutate, ownProps }) => ({
-    updateDashboardItems(dashboardPages) {
+    updateDashboardPages(dashboardPages) {
       return mutate({
         updateQueries: {
           DashboardPagesQuery: (prev, { mutationResult }) => ({

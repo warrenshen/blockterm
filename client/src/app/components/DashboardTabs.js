@@ -6,6 +6,7 @@ import React, {
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import { isEqual }         from 'underscore';
+import FontAwesome         from 'react-fontawesome';
 import {
   Tab,
   TabList,
@@ -62,14 +63,12 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   tabBar: {
+    display: 'flex',
     position: 'fixed',
     bottom: '0px',
     left: '0px',
     zIndex: '2',
     borderBottom: '0px',
-    display: 'flex',
-    flexDirection: 'row',
-    //boxShadow: '0px -1px 0px rgba(128, 128, 128, 0.5)',
   },
   tab: {
     fontWeight: '700',
@@ -220,12 +219,23 @@ class DashboardTabs extends Component {
   renderTabList(selectedTab)
   {
     const {
-      nightMode,
       dashboardPages,
+      nightMode,
+
+      changeSidebarMode,
     } = this.props;
+
+    const onClickEdit = (event) => changeSidebarMode('edit-tabs');
 
     return (
       <div className={css(styles.tabBar)}>
+        <button
+          className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+          onClick={onClickEdit}
+          title="Edit this widget and or swap it out for another."
+        >
+          <FontAwesome name='pencil' style={{'fontSize':'13px'}}/>
+        </button>
         <TabList>
         {
           dashboardPages.map((dashboardPage) => (

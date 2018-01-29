@@ -1,3 +1,5 @@
+// @flow weak
+
 import {
   parseItemIdentifierValue,
 } from './items';

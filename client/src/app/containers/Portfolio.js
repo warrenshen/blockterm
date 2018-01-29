@@ -4,6 +4,10 @@ import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose, graphql }   from 'react-apollo';
 import {
+  error as createNotificationError,
+  success as createNotificationSuccess,
+}                             from 'react-notification-system-redux';
+import {
   TokenUsersQuery,
   TokensAllQuery,
   UpdateTokenUsersMutation,
@@ -11,10 +15,6 @@ import {
 }                             from '../queries';
 import Portfolio              from '../views/Portfolio';
 import * as portfolioActions  from '../redux/modules/portfolio';
-import {
-  error as createNotificationError,
-  success as createNotificationSuccess,
-} from 'react-notification-system-redux';
 
 /* -----------------------------------------
   Redux
@@ -33,9 +33,9 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       addTokenUser: portfolioActions.addTokenUser,
+      changeTokenUserAmount: portfolioActions.changeTokenUserAmount,
       createNotificationError: createNotificationError,
       createNotificationSuccess: createNotificationSuccess,
-      changeTokenUserAmount: portfolioActions.changeTokenUserAmount,
       removeTokenUser: portfolioActions.removeTokenUser,
     },
     dispatch

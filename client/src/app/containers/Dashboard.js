@@ -14,6 +14,7 @@ import { isEqual }                from 'underscore';
 
 import {
   ALERTS_ITEM,
+  GT_CHART_ITEM,
   PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
@@ -116,6 +117,7 @@ function f(identifier, extras)
         }
       `;
     case ALERTS_ITEM:
+    case GT_CHART_ITEM:
     case TV_CANDLE_CHART:
     case TV_MARKET_OVERVIEW:
     case TWITTER_ITEM:

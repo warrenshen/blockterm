@@ -375,21 +375,23 @@ class Portfolio extends Component
           />
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement)}>
-          {priceUSD ?
-            <El
-              nightMode={nightMode}
-              type={'span'}
-            >
-              {numeral(priceUSD).format('$0,0.00')}
-            </El>
-          :
-            <El
-              nightMode={nightMode}
-              type={'span'}
-              inline={{'lineHeight':'16px'}}
-            >
-              Save to load price
-            </El>
+          {
+            priceUSD ? (
+              <El
+                nightMode={nightMode}
+                type={'span'}
+              >
+                {numeral(priceUSD).format('$0,0.00')}
+              </El>
+            ) : (
+              <El
+                nightMode={nightMode}
+                type={'span'}
+                inline={{'lineHeight':'16px'}}
+              >
+                Save to load price
+              </El>
+            )
           }
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement)}>
