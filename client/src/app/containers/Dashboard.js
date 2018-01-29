@@ -278,19 +278,25 @@ class Container extends PureComponent
       createNotificationSuccess,
     } = this.props;
 
+    const identifierKey = parseIdentiferKey(identifier);
     let w = 4;
     let h = 5;
 
-    if (parseIdentiferKey(identifier) === PORTFOLIO_ITEM ||
-        parseIdentiferKey(identifier) === TV_MARKET_OVERVIEW)
+    if (identifierKey === PORTFOLIO_ITEM ||
+        identifierKey === TV_MARKET_OVERVIEW)
     {
       w = 3;
       h = 9;
     }
-    else if (parseIdentiferKey(identifier) === TWITTER_ITEM)
+    else if (identifierKey === TWITTER_ITEM)
     {
       w = 2;
       h = 9;
+    }
+    else if (identifierKey === GT_CHART_ITEM)
+    {
+      w = 2;
+      h = 5;
     }
 
     const dashboardItems = dashboardPages[selectedTab].dashboardItems;
