@@ -27,6 +27,19 @@ module Types
     field :percentChange24h, !types.Float, property: :percent_change_24h
     field :percentChange7d, !types.Float, property: :percent_change_7d
 
+    field :marketCapBTC, !types.Float do
+      resolve -> (obj, args, ctx) {
+        token_bitcoin = Token.find_by_identifier('bitcoin')
+        obj.market_cap_usd / token_bitcoin.price_usd
+      }
+    end
+    field :volumeBTC24h, !types.Float do
+      resolve -> (obj, args, ctx) {
+        token_bitcoin = Token.find_by_identifier('bitcoin')
+        obj.volume_usd_24h / token_bitcoin.price_usd
+      }
+    end
+
     field :earliestMentionCountDate, types.String do
       description 'The date time of earliest mention count associated with token'
 
