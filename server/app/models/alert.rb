@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer          not null
-#  status     :integer          default(0), not null
+#  status     :integer          default("active"), not null
 #  expires_at :datetime         not null
 #  identifier :string           not null
 #  created_at :datetime         not null
