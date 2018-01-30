@@ -26,12 +26,11 @@ const styles = StyleSheet.create({
   },
 });
 
-class SubredditPostCountsItem extends Component {
-
+class SubredditPostCountsItem extends Component
+{
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
-           !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
            !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
            !isEqual(this.props.nightMode, nextProps.nightMode);
   }
@@ -39,12 +38,13 @@ class SubredditPostCountsItem extends Component {
   render()
   {
     const {
-      changeDashboardItemState,
       dashboardData,
       dashboardState,
       identifier,
       nightMode,
       specific,
+
+      changeDashboardItemState,
     } = this.props;
 
     const {

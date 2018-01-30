@@ -101,7 +101,7 @@ class DashboardGrid extends Component
            !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
            !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardItems, nextProps.dashboardItems) ||
-           !isEqual(this.props.dashboardStates, nextProps.dashboardStates) ||
+           !isEqual(this.props.dashboardItemStates, nextProps.dashboardItemStates) ||
            !isEqual(this.props.isPageLoaded, nextProps.isPageLoaded) ||
            !isEqual(this.props.nightMode, nextProps.nightMode) ||
            !isEqual(this.props.user, nextProps.user);

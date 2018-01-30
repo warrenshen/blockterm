@@ -159,18 +159,23 @@ class DashboardItem extends Component
           <GTChartItem
             dashboardAction={dashboardAction}
             dashboardData={dashboardData}
+            dashboardState={dashboardState}
+            identifier={identifier}
             nightMode={nightMode}
             value={identifierValue}
+
+            changeDashboardItemState={changeDashboardItemState}
           />
         );
       case PERCENT_DOMINANCE_ITEM:
         return (
           <PercentDominanceItem
-            changeDashboardItemState={changeDashboardItemState}
             dashboardData={dashboardData}
             dashboardState={dashboardState}
             identifier={identifier}
             nightMode={nightMode}
+
+            changeDashboardItemState={changeDashboardItemState}
           />
         );
       case PORTFOLIO_ITEM:
@@ -185,33 +190,36 @@ class DashboardItem extends Component
       case SUBREDDIT_COMMENT_COUNTS:
         return (
           <SubredditCommentCountsItem
-            changeDashboardItemState={changeDashboardItemState}
             dashboardData={dashboardData}
             dashboardState={dashboardState}
             identifier={identifier}
             specific={identifierValue}
             nightMode={nightMode}
+
+            changeDashboardItemState={changeDashboardItemState}
           />
         );
       case SUBREDDIT_POST_COUNTS:
         return (
           <SubredditPostCountsItem
-            changeDashboardItemState={changeDashboardItemState}
             dashboardData={dashboardData}
             dashboardState={dashboardState}
             identifier={identifier}
             specific={identifierValue}
             nightMode={nightMode}
+
+            changeDashboardItemState={changeDashboardItemState}
           />
         );
       case TOTAL_MARKET_CAP:
         return (
           <TotalMarketCapItem
-            changeDashboardItemState={changeDashboardItemState}
             dashboardData={dashboardData}
             dashboardState={dashboardState}
             identifier={identifier}
             nightMode={nightMode}
+
+            changeDashboardItemState={changeDashboardItemState}
           />
         );
       case TV_CANDLE_CHART:

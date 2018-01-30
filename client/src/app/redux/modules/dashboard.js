@@ -2,12 +2,13 @@
 
 import { List, Map } from 'immutable';
 import {
-  ONE_DAY,
+  GT_ONE_MONTH,
   ONE_WEEK,
   ONE_MONTH,
 } from '../../constants/plots';
 import {
   DEFAULT_PAGES_OBJECTS,
+  GT_CHART_ITEM,
   PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
@@ -27,6 +28,9 @@ import {
 } from '../../services/cookie';
 
 const IDENTIFIER_KEY_TO_STATE_MAP = {
+  [GT_CHART_ITEM]: {
+    plotRange: GT_ONE_MONTH,
+  },
   [PERCENT_DOMINANCE_ITEM]: {
     plotRange: ONE_WEEK,
   },

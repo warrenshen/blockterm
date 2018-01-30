@@ -151,8 +151,8 @@ class Container extends PureComponent
     }
     else if (identifierKey === GT_CHART_ITEM)
     {
-      w = 2;
-      h = 5;
+      w = 3;
+      h = 6;
     }
 
     const dashboardItems = dashboardPages[selectedTab].dashboardItems;
