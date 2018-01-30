@@ -10,6 +10,7 @@ import FontAwesome         from 'react-fontawesome';
 import * as STYLES         from '../constants/styles';
 import {
   ITEM_KEY_TO_LABELS,
+  ITEM_KEY_TO_IMAGE_PREVIEWS,
   ITEM_KEY_TO_VALUES,
   ITEM_SUBREDDIT_VALUE_TO_LABELS,
   SUBREDDIT_POST_COUNTS,
@@ -25,10 +26,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     minWidth: '256px',
-    width: '24vw',
+    width: '33vw',
     backgroundColor:'#fff',
     borderLeft: '1px solid #666',
     zIndex: '4',
+    overflow: 'hidden',
   },
   nightSidebar: {
     backgroundColor: STYLES.LIGHTNIGHT,
@@ -106,14 +108,17 @@ const styles = StyleSheet.create({
     letterSpacing: '3px',
   },
   widgetPreviews: {
-    //lol
+    marginLeft: '-1px',
   },
   previewButton: {
-    width: '33.3%',
+    width: '33.33%',
     height: 'auto',
-    padding: 'none',
-    //paddingTop: '100%',
+    padding: '0px 0px',
     backgroundColor: '#fff',
+    marginTop: '-1px',
+    marginLeft: '-1px',
+    overflow: 'hidden',
+    textAlign: 'center',
   },
   previewButtonNight: {
     backgroundColor: '#000',
@@ -123,6 +128,12 @@ const styles = StyleSheet.create({
     height: 'auto',
     minWidth: '85px',
     minHeight: '85px',
+    margin: '0 auto',
+    verticalAlign: 'baseline',
+    transition: 'all 0.2s',
+    ':hover': {
+      transform: 'scale(1.1)',
+    },
   },
   emphasize: {
     backgroundColor: STYLES.GOLD,
@@ -323,6 +334,8 @@ class DashboardSidebar extends PureComponent
       value: arr[0],
     }));
 
+    const currentMode = nightMode ? 'night' : 'day';
+
     return (
       <div className={css(styles.mode)}>
         <div className={css(styles.topHalf)}>
@@ -344,11 +357,23 @@ class DashboardSidebar extends PureComponent
         <div className={css(styles.widgetPreviews)}>
           {
             selectOptions.map((elem, index) => (
+              ITEM_KEY_TO_IMAGE_PREVIEWS[elem.value] &&
               <button
                 className={css(styles.previewButton, nightMode && styles.previewButtonNight)}
                 key={index}
-              >
-                <img className={css(styles.previewIcon)} alt={index} />
+              > 
+                <img 
+                  src={`https://s3-us-west-2.amazonaws.com/blockterm-cdn/widget-previews/${ITEM_KEY_TO_IMAGE_PREVIEWS[elem.value] + '_' + currentMode}.jpg`}
+                  className={css(styles.previewIcon)}
+                  alt={index}
+                />
+                <El
+                  type={'span'}
+                  nightMode={nightMode}
+                  style={STYLES.styles.subtitle}
+                >
+                  {ITEM_KEY_TO_IMAGE_PREVIEWS[elem.value]}
+                </El>
               </button>
             ))
           }
@@ -361,7 +386,7 @@ class DashboardSidebar extends PureComponent
             <b>1)</b> Enter the type of widget you would like to add, e.g. Market Overview, Candle Chart, Subreddit Posts, Subreddit Comments.
           </El>
           <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
-            <b>2)</b> Enter the widget specific type. For a candle chart, enter the ticker/symbol you are interested in. For example: BTCUSD, ETHUSD, LTCEUR, REQBTC, etc. For subreddits, enter the relevant subreddit name. For example: r/Bitcoin, r/Monero, r/Cryptocurrency, etc.
+            <b>2)</b> Enter the widget specific type. For a candle chart, enter the ticker you are interested in. For example: BTCUSD, ETHBTC, NEOBTC, etc.
           </El>
           <El nightMode={nightMode} type={'p'} className={css(styles.p)}>
             <b>3)</b> Click 'Add to Dashboard'!
