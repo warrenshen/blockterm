@@ -9,7 +9,7 @@ import { isEqual }         from 'underscore';
 import numeral             from 'numeral';
 import { Link }            from 'react-router-dom';
 import {
-  calculatePortfolioChangeIn24h,
+  calculatePortfolioChange,
   calculatePortfolioDonutData,
   calculatePortfolioTotalValue,
 }                               from '../../helpers/portfolio';
@@ -128,7 +128,9 @@ class PortfolioItem extends Component
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
-           !isEqual(this.props.nightMode, nextProps.nightMode);
+           !isEqual(this.props.nightMode, nextProps.nightMode) ||
+           !isEqual(this.props.user, nextProps.user) ||
+           !isEqual(this.props.value, nextProps.value);
   }
 
   renderHeader()
@@ -192,6 +194,7 @@ class PortfolioItem extends Component
   {
     const {
       nightMode,
+      value,
     } = this.props;
 
     const {
@@ -203,9 +206,46 @@ class PortfolioItem extends Component
     const {
       shortName,
       imageUrl,
-      priceUSD,
-      percentChange24h,
     } = token;
+
+    let attributePrice;
+    let attributePercentChange;
+    if (value === 'Default' || value === 'USD')
+    {
+      attributePrice = 'priceUSD';
+      attributePercentChange = 'percentChange24h';
+    }
+    else if (value === 'BTC')
+    {
+      attributePrice = 'priceBTC';
+      attributePercentChange = 'percentChange24hBTC';
+    }
+    else
+    {
+      attributePrice = 'priceETH';
+      attributePercentChange = 'percentChange24hETH';
+    }
+
+    const price = token[attributePrice];
+    const percentChange24h = token[attributePercentChange];
+
+    let formattedPrice;
+    let formattedValue;
+    if (value === 'Default' || value === 'USD')
+    {
+      formattedPrice = numeral(price).format('$0,0.00');
+      formattedValue = numeral(price * amount).format('$0,0.00');
+    }
+    else if (value === 'BTC')
+    {
+      formattedPrice = numeral(price).format('0.00000000');
+      formattedValue = numeral(price * amount).format('0.00000000');
+    }
+    else
+    {
+      formattedPrice = numeral(price).format('0.00000000');
+      formattedValue = numeral(price * amount).format('0.00000000');
+    }
 
     return (
       <tr className={css(styles.row)} key={id}>
@@ -238,29 +278,29 @@ class PortfolioItem extends Component
         <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
-            type={'span'}
             nightModeStyle={styles.white}
+            type={'span'}
           >
-            {priceUSD ? numeral(priceUSD).format('$0,0.00') : ''}
+            {formattedPrice}
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
-            type={'span'}
-            style={(percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
             nightModeStyle={(percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
+            style={(percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
+            type={'span'}
           >
-            {percentChange24h ? `${numeral(percentChange24h).format('0,0.00')}%` : ''}
+            {percentChange24h ? `${numeral(percentChange24h).format('0,0.00')}%` : '0.0'}
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
-            type={'span'}
             nightModeStyle={styles.white}
+            type={'span'}
           >
-            {priceUSD ? numeral(amount * priceUSD).format('$0,0.00') : ''}
+            {formattedValue}
           </El>
         </td>
       </tr>
@@ -273,6 +313,7 @@ class PortfolioItem extends Component
       dashboardData,
       nightMode,
       user,
+      value,
     } = this.props;
 
     let tokenUsers;
@@ -286,14 +327,50 @@ class PortfolioItem extends Component
       tokenUsers = [];
     }
 
-    const data = calculatePortfolioDonutData(tokenUsers, nightMode);
-    const totalValue = numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00');
-    const change24hNum = calculatePortfolioChangeIn24h(tokenUsers);
-    const totalChange24h = numeral(change24hNum).format('0.0%');
+    let attributePrice;
+    let attributePercentChange;
+    if (value === 'Default' || value === 'USD')
+    {
+      attributePrice = 'priceUSD';
+      attributePercentChange = 'percentChange24h';
+    }
+    else if (value === 'BTC')
+    {
+      attributePrice = 'priceBTC';
+      attributePercentChange = 'percentChange24hBTC';
+    }
+    else
+    {
+      attributePrice = 'priceETH';
+      attributePercentChange = 'percentChange24hETH';
+    }
+
+    const data = calculatePortfolioDonutData(tokenUsers, attributePrice, nightMode);
+    const totalValue = calculatePortfolioTotalValue(tokenUsers, attributePrice);
+
+    let formattedTotalValue;
+    if (value === 'Default' || value === 'USD')
+    {
+      formattedTotalValue = numeral(totalValue).format('$0,0.00');
+    }
+    else if (value === 'BTC')
+    {
+      formattedTotalValue = `${numeral(totalValue).format('0.00000000')} BTC`;
+    }
+    else
+    {
+      formattedTotalValue = `${numeral(totalValue).format('0.00000000')} ETH`;
+    }
+
+    const percentChange24h = calculatePortfolioChange(tokenUsers, attributePrice, attributePercentChange);
+    const formattedPercentChange24h = numeral(percentChange24h).format('0.00%');
 
     return (
       <div className={css(styles.container)}>
-        <div className={css(styles.section, styles.bottomEdge, nightMode && styles.darkBottomEdge)} style={{'height':'296px', 'paddingBottom':'8px', 'textAlign':'center',}}>
+        <div
+          className={css(styles.section, styles.bottomEdge, nightMode && styles.darkBottomEdge)}
+          style={{ 'height':'296px', 'paddingBottom':'8px', 'textAlign':'center' }}
+        >
           <DonutChartWithSelect
             data={data}
             nightMode={nightMode}
@@ -310,7 +387,7 @@ class PortfolioItem extends Component
                 nightMode={nightMode}
                 type={'h3'}
               >
-                {totalValue}
+                {formattedTotalValue}
               </El>
             </div>
             <div>
@@ -323,9 +400,9 @@ class PortfolioItem extends Component
               <El
                 nightMode={nightMode}
                 type={'h3'}
-                inline={{'color': (change24hNum < 0 ? `${STYLES.TICKER_RED}` : `${STYLES.TICKER_GREEN}`)}}
+                inline={{'color': (percentChange24h < 0 ? `${STYLES.TICKER_RED}` : `${STYLES.TICKER_GREEN}`)}}
               >
-                {totalChange24h}
+                {formattedPercentChange24h}
               </El>
             </div>
           </div>

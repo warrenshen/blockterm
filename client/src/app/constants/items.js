@@ -228,7 +228,10 @@ export const ITEM_KEY_TO_VALUES = {
     'Default',
   ],
   [PORTFOLIO_ITEM]: [
-    'Default',
+    // 'Default',
+    'USD',
+    'BTC',
+    'ETH',
   ],
   [SUBREDDIT_COMMENT_COUNTS]: SUBREDDITS_IN_USER_FACING_ORDER,
   [SUBREDDIT_POST_COUNTS]: SUBREDDITS_IN_USER_FACING_ORDER,

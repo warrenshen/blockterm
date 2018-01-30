@@ -15,8 +15,7 @@ import {
   getItem,
 }                          from '../services/cookie';
 import {
-  calculatePortfolioChangeIn24h,
-  calculatePortfolioChangeIn7d,
+  calculatePortfolioChange,
   calculatePortfolioTotalValue,
   calculatePortfolioDonutData,
 }                           from '../helpers/portfolio';
@@ -450,7 +449,7 @@ class Portfolio extends Component
       tokenUsers,
     } = this.props;
 
-    const portfolioTotalValue = calculatePortfolioTotalValue(tokenUsers);
+    const portfolioTotalValue = calculatePortfolioTotalValue(tokenUsers, 'priceUSD');
 
     return (
       <div className={css(styles.body, nightMode && styles.bodyNightMode)}>
@@ -518,8 +517,8 @@ class Portfolio extends Component
       tokenUsers,
     } = this.props;
 
-    const portfolioChangeIn24h = calculatePortfolioChangeIn24h(tokenUsers);
-    const portfolioChangeIn7d = calculatePortfolioChangeIn7d(tokenUsers);
+    const portfolioChange24h = calculatePortfolioChange(tokenUsers, 'priceUSD', 'percentChange24h');
+    const portfolioChange7d = calculatePortfolioChange(tokenUsers, 'priceUSD', 'percentChange7d');
 
     return (
       <div className={css(styles.heroTable, nightMode && styles.darkHeroTable)}>
@@ -537,7 +536,7 @@ class Portfolio extends Component
             style={styles.boldedColor}
             nightModeStyle={styles.nightBoldedColor}
           >
-             {numeral(calculatePortfolioTotalValue(tokenUsers)).format('$0,0.00')}
+             {numeral(calculatePortfolioTotalValue(tokenUsers, 'priceUSD')).format('$0,0.00')}
           </El>
         </div>
         <div className={css(styles.heroColumn, styles.borderRight, nightMode && styles.darkBorderRight)}>
@@ -551,10 +550,10 @@ class Portfolio extends Component
           <El
             nightMode={nightMode}
             type={'h2'}
-            style={(portfolioChangeIn24h < 0) ? styles.redDelta : styles.greenDelta}
-            nightModeStyle={(portfolioChangeIn24h < 0) ? styles.redDelta : styles.greenDelta}
+            style={(portfolioChange24h < 0) ? styles.redDelta : styles.greenDelta}
+            nightModeStyle={(portfolioChange24h < 0) ? styles.redDelta : styles.greenDelta}
           >
-             {numeral(portfolioChangeIn24h).format('0.00%')}
+             {numeral(portfolioChange24h).format('0.00%')}
           </El>
         </div>
         <div className={css(styles.heroColumn)}>
@@ -568,10 +567,10 @@ class Portfolio extends Component
           <El
             nightMode={nightMode}
             type={'h2'}
-            style={(portfolioChangeIn7d < 0) ? styles.redDelta : styles.greenDelta}
-            nightModeStyle={(portfolioChangeIn7d < 0) ? styles.redDelta : styles.greenDelta}
+            style={(portfolioChange7d < 0) ? styles.redDelta : styles.greenDelta}
+            nightModeStyle={(portfolioChange7d < 0) ? styles.redDelta : styles.greenDelta}
           >
-             {numeral(portfolioChangeIn7d).format('0.00%')}
+             {numeral(portfolioChange7d).format('0.00%')}
           </El>
         </div>
       </div>
@@ -585,7 +584,7 @@ class Portfolio extends Component
       tokenUsers,
     } = this.props;
 
-    const data = calculatePortfolioDonutData(tokenUsers, nightMode);
+    const data = calculatePortfolioDonutData(tokenUsers, 'priceUSD', nightMode);
 
     return (
       <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
