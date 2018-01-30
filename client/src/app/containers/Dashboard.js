@@ -4,14 +4,11 @@ import React, { PureComponent }   from 'react';
 import { StyleSheet, css }        from 'aphrodite';
 import { connect }                from 'react-redux';
 import { bindActionCreators }     from 'redux';
-import gql                        from 'graphql-tag';
-import {
-  Dashboard,
-  Wrapped as WrappedComponent,
-}                                 from '../views';
 import { graphql }                from 'react-apollo';
 import { isEqual }                from 'underscore';
-
+import {
+  buildDynamicDashboardQuery,
+}                                 from '../queries';
 import {
   ALERTS_ITEM,
   GT_CHART_ITEM,
@@ -24,137 +21,12 @@ import {
   TV_MARKET_OVERVIEW,
   TWITTER_ITEM,
   computeDashboardFreeValues,
-  parseIdentifier,
   parseIdentiferKey,
 }                                 from '../constants/items';
 import {
-  DASHBOARD_COOKIE,
-  getItem,
-  setItem,
-}                                 from '../services/cookie';
-
-function f(identifier, extras)
-{
-  const arr = parseIdentifier(identifier);
-  const identifierKey = arr[0];
-  const identifierValue = arr[1];
-
-  switch (identifierKey)
-  {
-    case PERCENT_DOMINANCE_ITEM:
-      return `
-        ${identifier}: marketsByName(names: "PERCENT_BITCOIN,PERCENT_ETHEREUM,PERCENT_ALTCOINS") {
-          id
-          name
-          lastPrice
-          earliestMarketTickerDate
-
-          marketTickers(timeRange: "${extras.plotRange}") {
-            value
-            timestamp
-          }
-        }
-      `;
-    case PORTFOLIO_ITEM:
-      return `
-        ${identifier}: user {
-          id
-
-          tokenUsers {
-            id
-            index
-            amount
-
-            token {
-              id
-              shortName
-              imageUrl
-              priceUSD
-              priceBTC
-              percentChange24h
-            }
-          }
-        }
-      `;
-    case SUBREDDIT_COMMENT_COUNTS:
-      return `
-        ${identifier}: subredditByName(name: "${identifierValue}") {
-          id
-          displayName
-          earliestCommentCountDate
-
-          commentCounts(timeRange: "${extras.plotRange}") {
-            count
-            timestamp
-          }
-        }
-      `;
-    case SUBREDDIT_POST_COUNTS:
-      return `
-        ${identifier}: subredditByName(name: "${identifierValue}") {
-          id
-          displayName
-          earliestPostCountDate
-
-          postCounts(timeRange: "${extras.plotRange}") {
-            count
-            timestamp
-          }
-        }
-      `;
-    case TOTAL_MARKET_CAP:
-      return `
-        ${identifier}: marketByName(name: "TOTAL") {
-          id
-          name
-          lastPrice
-          earliestMarketTickerDate
-
-          marketTickers(timeRange: "${extras.plotRange}") {
-            value
-            timestamp
-          }
-        }
-      `;
-    case ALERTS_ITEM:
-    case GT_CHART_ITEM:
-    case TV_CANDLE_CHART:
-    case TV_MARKET_OVERVIEW:
-    case TWITTER_ITEM:
-      return null;
-    default:
-      if (process.env.NODE_ENV === 'dev')
-      {
-        console.log('MISSING QUERY');
-      }
-      return null;
-  }
-};
-
-function queryBuilder(dashboardItems, dashboardItemStates)
-{
-  const queries = dashboardItems.map(
-    (dashboardItem) => f(dashboardItem.identifier, dashboardItemStates[dashboardItem.identifier])
-  );
-  if (queries.filter((query) => query !== null).length <= 0)
-  {
-    return {
-      query: null,
-      config: null,
-    };
-  }
-
-  const query = `query DynamicDashboardQuery {
-    ${queries.join('')}
-  }`;
-
-  return {
-    query: gql`${query}`,
-    config: {
-      // options: { pollInterval: 180000 },
-    },
-  };
-}
+  Dashboard,
+  Wrapped as WrappedComponent,
+}                                 from '../views';
 
 const styles = StyleSheet.create({
   container: {
@@ -178,33 +50,7 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
     componentWillMount()
     {
-      const {
-        dashboardItemStates,
-        dashboardPages,
-        selectedTab,
-      } = this.props;
-
-      if (dashboardPages.length <= 0)
-      {
-        return;
-      }
-
-      const dashboardItems = dashboardPages[selectedTab].dashboardItems;
-
-      if (!dashboardItems || !dashboardItemStates)
-      {
-        return;
-      }
-
-      const { query, config } = queryBuilder(dashboardItems, dashboardItemStates);
-      if (query === null)
-      {
-        this.wrapped = null;
-      }
-      else
-      {
-        this.wrapped = graphql(query, config)(ComponentToWrap);
-      }
+      this.update(this.props);
     }
 
     componentWillReceiveProps(nextProps)
@@ -217,12 +63,19 @@ function wrapDynamicGraphQL(ComponentToWrap)
       {
         return;
       }
+      else
+      {
+        this.update(nextProps);
+      }
+    }
 
+    update(updateProps)
+    {
       const {
         dashboardItemStates,
         dashboardPages,
         selectedTab,
-      } = nextProps;
+      } = updateProps;
 
       if (dashboardPages.length <= 0)
       {
@@ -236,7 +89,10 @@ function wrapDynamicGraphQL(ComponentToWrap)
         return;
       }
 
-      const { query, config } = queryBuilder(dashboardItems, dashboardItemStates);
+      const { query, config } = buildDynamicDashboardQuery(
+        dashboardItems,
+        dashboardItemStates,
+      );
       if (query === null)
       {
         this.wrapped = null;

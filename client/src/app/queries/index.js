@@ -5,6 +5,189 @@ import {
   getItem,
   setItem,
 } from '../services/cookie';
+import {
+  ALERTS_ITEM,
+  GT_CHART_ITEM,
+  PERCENT_DOMINANCE_ITEM,
+  PORTFOLIO_ITEM,
+  SUBREDDIT_COMMENT_COUNTS,
+  SUBREDDIT_POST_COUNTS,
+  TOTAL_MARKET_CAP,
+  TV_CANDLE_CHART,
+  TV_MARKET_OVERVIEW,
+  TWITTER_ITEM,
+  parseIdentifier,
+}                                 from '../constants/items';
+
+function buildDynamicDashboardQueryField(identifier, extras)
+{
+  const [identifierKey, identifierValue] = parseIdentifier(identifier);
+
+  switch (identifierKey)
+  {
+    case PERCENT_DOMINANCE_ITEM:
+      return `
+        ${identifier}: marketsByName(names: "PERCENT_BITCOIN,PERCENT_ETHEREUM,PERCENT_ALTCOINS") {
+          id
+          name
+          lastPrice
+          earliestMarketTickerDate
+
+          marketTickers(timeRange: "${extras.plotRange}") {
+            value
+            timestamp
+          }
+        }
+      `;
+    case PORTFOLIO_ITEM:
+      if (identifierValue === 'Default' || identifierValue === 'USD')
+      {
+        return `
+          ${identifier}: user {
+            id
+
+            tokenUsers {
+              id
+              index
+              amount
+
+              token {
+                id
+                shortName
+                imageUrl
+                priceUSD
+                percentChange24h
+              }
+            }
+          }
+        `;
+      }
+      else if (identifierValue === 'BTC')
+      {
+         return `
+           ${identifier}: user {
+             id
+
+             tokenUsers {
+               id
+               index
+               amount
+
+               token {
+                 id
+                 shortName
+                 imageUrl
+                 priceBTC
+                 percentChange24hBTC
+               }
+             }
+           }
+        `;
+      }
+      else
+      {
+         return `
+           ${identifier}: user {
+             id
+
+             tokenUsers {
+               id
+               index
+               amount
+
+               token {
+                 id
+                 shortName
+                 imageUrl
+                 priceETH
+                 percentChange24hETH
+               }
+             }
+           }
+        `;
+      }
+    case SUBREDDIT_COMMENT_COUNTS:
+      return `
+        ${identifier}: subredditByName(name: "${identifierValue}") {
+          id
+          displayName
+          earliestCommentCountDate
+
+          commentCounts(timeRange: "${extras.plotRange}") {
+            count
+            timestamp
+          }
+        }
+      `;
+    case SUBREDDIT_POST_COUNTS:
+      return `
+        ${identifier}: subredditByName(name: "${identifierValue}") {
+          id
+          displayName
+          earliestPostCountDate
+
+          postCounts(timeRange: "${extras.plotRange}") {
+            count
+            timestamp
+          }
+        }
+      `;
+    case TOTAL_MARKET_CAP:
+      return `
+        ${identifier}: marketByName(name: "TOTAL") {
+          id
+          name
+          lastPrice
+          earliestMarketTickerDate
+
+          marketTickers(timeRange: "${extras.plotRange}") {
+            value
+            timestamp
+          }
+        }
+      `;
+    case ALERTS_ITEM:
+    case GT_CHART_ITEM:
+    case TV_CANDLE_CHART:
+    case TV_MARKET_OVERVIEW:
+    case TWITTER_ITEM:
+      return null;
+    default:
+      if (process.env.NODE_ENV === 'dev')
+      {
+        console.log('MISSING QUERY');
+      }
+      return null;
+  }
+};
+
+export function buildDynamicDashboardQuery(dashboardItems, dashboardItemStates)
+{
+  const queries = dashboardItems.map(
+    (dashboardItem) => buildDynamicDashboardQueryField(
+      dashboardItem.identifier,
+      dashboardItemStates[dashboardItem.identifier],
+    )
+  );
+  if (queries.filter((query) => query !== null).length <= 0)
+  {
+    return {
+      query: null,
+      config: null,
+    };
+  }
+
+  const query = `query DynamicDashboardQuery {
+    ${queries.join('')}
+  }`;
+
+  return {
+    query: gql`${query}`,
+    config: {
+      // options: { pollInterval: 180000 },
+    },
+  };
+}
 
 /* -----------------------------------------
   Queries

@@ -179,6 +179,7 @@ class DashboardItem extends Component
             dashboardData={dashboardData}
             nightMode={nightMode}
             user={user}
+            value={identifierValue}
           />
         );
       case SUBREDDIT_COMMENT_COUNTS:

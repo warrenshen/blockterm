@@ -20,41 +20,49 @@ export function generateEmptyDonut(nightMode=false) {
   return emptyDonut;
 }
 
-export function calculatePortfolioTotalValue(tokenUsers)
+export function calculatePortfolioTotalValue(
+  tokenUsers,
+  attributePrice,
+)
 {
   return tokenUsers.reduce(
-    (accum, tokenUser) => accum + (tokenUser.amount * tokenUser.token.priceUSD),
+    (accum, tokenUser) => accum + (tokenUser.amount * tokenUser.token[attributePrice]),
     0,
   );
 }
 
-export function calculatePortfolioChangeIn24h(tokenUsers)
+export function calculatePortfolioChange(
+  tokenUsers,
+  attributePrice, // ex. priceUSD
+  attributePercentChange, // ex. percentChange24hUSD
+)
 {
-  const totalValue = calculatePortfolioTotalValue(tokenUsers);
+  const totalValue = calculatePortfolioTotalValue(tokenUsers, attributePrice);
   return tokenUsers.reduce(
-    (accum, tokenUser) => accum + tokenUser.amount * tokenUser.token.priceUSD / totalValue * tokenUser.token.percentChange24h / 100,
+    (accum, tokenUser) => {
+      const percentChange = tokenUser.token[attributePercentChange];
+      return accum +  tokenUser.amount * tokenUser.token[attributePrice] / totalValue * percentChange / 100;
+    },
     0,
   );
 }
 
-export function calculatePortfolioChangeIn7d(tokenUsers)
+export function calculatePortfolioDonutData(
+  tokenUsers,
+  priceAttribute,
+  nightMode,
+)
 {
-  const totalValue = calculatePortfolioTotalValue(tokenUsers);
-  return tokenUsers.reduce(
-    (accum, tokenUser) => accum + tokenUser.amount * tokenUser.token.priceUSD / totalValue * tokenUser.token.percentChange7d / 100,
-    0,
-  );
-}
-
-export function calculatePortfolioDonutData(tokenUsers, nightMode=false)
-{
-  if (calculatePortfolioTotalValue(tokenUsers) <= 0) return generateEmptyDonut(nightMode);
+  if (tokenUsers.length <= 0 || calculatePortfolioTotalValue(tokenUsers) <= 0)
+  {
+    return generateEmptyDonut(nightMode);
+  }
 
   const legend = tokenUsers.map((tokenUser) => tokenUser.token.shortName);
   const distribution = tokenUsers.map(
-    (tokenUser) => (tokenUser.amount * tokenUser.token.priceUSD)
+    (tokenUser) => tokenUser.amount * tokenUser.token[priceAttribute]
   );
-  let borderColor = nightMode ? '#fff' : '#999';
+  const borderColor = nightMode ? '#fff' : '#999';
 
   return ({
     labels: legend,
