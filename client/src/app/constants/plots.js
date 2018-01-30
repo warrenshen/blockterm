@@ -69,6 +69,47 @@ export const RANGE_SELECT_OPTIONS = [
   allTime,
 ];
 
+export const GT_ONE_DAY = 'now 1-d';
+export const GT_SEVEN_DAYS = 'now 7-d';
+export const GT_ONE_MONTH = 'today 1-m';
+export const GT_THREE_MONTHS = 'today 3-m';
+export const GT_TWELVE_MONTHS = 'today 12-m';
+export const GT_FIVE_YEARS = 'today 5-y';
+
+const oneDayGT = {
+  label: '24 hours',
+  value: GT_ONE_DAY,
+};
+const sevenDaysGT = {
+  label: '7 days',
+  value: GT_SEVEN_DAYS,
+};
+const oneMonthGT = {
+  label: '1 month',
+  value: GT_ONE_MONTH,
+};
+const threeMonthsGT = {
+  label: '3 months',
+  value: GT_THREE_MONTHS,
+};
+const twelveMonthsGT = {
+  label: '12 months',
+  value: GT_TWELVE_MONTHS,
+};
+const fiveYearsGT = {
+  label: '5 years',
+  value: GT_FIVE_YEARS,
+};
+
+export const GT_SELECT_OPTIONS = [
+  oneDayGT,
+  sevenDaysGT,
+  oneMonthGT,
+  threeMonthsGT,
+  twelveMonthsGT,
+  fiveYearsGT,
+];
+
 export const BAR_CHART_DATA_STYLES = [
   {
     // #3498db
@@ -239,7 +280,7 @@ export const LINE_CHART_AUXILLARY_STYLES = [
       pointHitRadius: 1.5,
     },
   },
-  { //night total market cap graph color 
+  { //night total market cap graph color
     historical: {
       backgroundColor: 'rgba(255, 185, 0, 0.4)',
       borderColor: '#FFB900',
