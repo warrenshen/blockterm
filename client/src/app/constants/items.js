@@ -51,6 +51,19 @@ export const ITEM_KEY_TO_LABELS = {
   [SUBREDDIT_COMMENT_COUNTS]: 'Subreddit comments chart',
 };
 
+export const ITEM_KEY_TO_IMAGE_PREVIEWS = {
+  [TV_CANDLE_CHART]: 'candle',
+  [TV_MARKET_OVERVIEW]: 'market_overview',
+  [TOTAL_MARKET_CAP]: 'market_cap',
+  [PERCENT_DOMINANCE_ITEM]: 'dominance',
+  [PORTFOLIO_ITEM]: 'portfolio',
+  //[ALERTS_ITEM]: 'alerts',
+  //[GT_CHART_ITEM]: 'trends',
+  [TWITTER_ITEM]: 'twitter',
+  [SUBREDDIT_POST_COUNTS]: 'subreddit_posts',
+  [SUBREDDIT_COMMENT_COUNTS]: 'subreddit_comments',
+};
+
 // These array values should be in user-facing order.
 // The order does affect user-facing order.
 const SUBREDDITS_IN_USER_FACING_ORDER = [
