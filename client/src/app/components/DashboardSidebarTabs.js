@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: '0px',
     textTransform: 'uppercase',
     letterSpacing: '2px',
-    fontWeight: '700',
+    fontWeight: '500',
     width: '100%',
   },
   buttons: {

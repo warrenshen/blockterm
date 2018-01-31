@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     borderBottom: `1px solid ${STYLES.BORDERDARK}`,
   },
   brand: {
+    fontSize: '16px',
     fontWeight: '700',
     letterSpacing: '3px',
     textTransform: 'uppercase',
@@ -51,10 +52,6 @@ const styles = StyleSheet.create({
       color: STYLES.GOLDINVERSEBLUE,
       borderColor: STYLES.GOLDINVERSEBLUE,
     },
-  },
-  hoverColor: {
-    fontSize: '16px',
-    fontWeight: 'inherit',
   },
   nightHover: {
     color: '#fff',
@@ -82,10 +79,10 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: '1px',
     position: 'absolute',
-    left: '124px',
+    left: '122px',
     top: '14px',
-    fontSize: '10px',
-    fontWeight: '500',
+    fontSize: '8px',
+    fontWeight: '400',
   },
   nightFloatingBeta: {
     color: '#fff',
@@ -171,11 +168,11 @@ class NavigationBar extends PureComponent
             >
               BETA
             </El>
-            <Link className={css(styles.brand)} to={'/'}>
+            <Link to={'/'}>
               <El
                 nightMode={nightMode}
                 nightModeStyle={styles.nightHover}
-                style={styles.hoverColor}
+                style={styles.brand}
                 type={'span'}
               >
                 {navigationModel.brand}

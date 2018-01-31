@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     padding: '0px 12px',
     backgroundColor: '#fff',
     borderRight: '1px solid #333',
-    fontWeight: '700',
+    fontWeight: '500',
     textTransform: 'uppercase',
     letterSpacing: '2px',
     whiteSpace: 'nowrap',
@@ -243,7 +243,7 @@ class DashboardTabs extends Component {
           <button
             className={css(styles.closeButton)}
             onClick={onClickEdit}
-            title="Press to open sidebar and add/edit tabs."
+            title="Click to add/edit dashboard tabs"
           >
             <FontAwesome name='edit' style={{'fontSize':'13px'}}/>
           </button>
@@ -258,7 +258,7 @@ class DashboardTabs extends Component {
               >
                 <button
                   className={css(styles.button, (dashboardPage.index == selectedTab) && styles.buttonHighlighted)}
-                  title={`Go to ${dashboardPage.name}`}
+                  title={`Switch to ${dashboardPage.name}`}
                 >
                   {dashboardPage.name}
                 </button>
@@ -273,13 +273,13 @@ class DashboardTabs extends Component {
         >
           <Link to={`/faq`}>
             <button
-              title="Press to read FAQ and learn dashboard actions"
+              title="Click to read FAQ and learn dashboard actions"
               className={css(styles.button, styles.buttonBorderLeft)}>
               Help [?]
             </button>
           </Link>
           <button
-            title="Press to open up sidebar and add widgets to dashboard"
+            title="Click to add widgets to dashboard"
             className={css(styles.button, styles.buttonHighlighted)}
             onClick={(event) => changeSidebarMode('add')} >
             Add Widget To Dashboard [+]

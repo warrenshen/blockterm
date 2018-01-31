@@ -92,11 +92,12 @@ const styles = StyleSheet.create({
     color: STYLES.GOLD,
   },
   inputField: {
-    fontWeight:'700',
+    fontWeight:'500',
     display: 'block',
     marginBottom: '8px',
     border: `1px solid #000`,
     width: '100%',
+    letterSpacing: '0.5px',
   },
   fieldNight: {
     border: '1px solid #fff',
@@ -122,6 +123,7 @@ const styles = StyleSheet.create({
   },
   blockli: {
     display: 'block',
+    letterSpacing: '0.5px',
   },
   submitButton: {
     border: `1px solid #000`,
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   boldedBottomHeavy: {
-    fontWeight: '700',
+    fontWeight: '500',
     marginBottom: '8px',
   },
 });
@@ -271,13 +273,17 @@ class Signup extends PureComponent
               </El>
               <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
                 <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
+                  Customize and save/load your dashboard configuration across workstations.
+                </li>
+                <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
                   Create/save your portfolio and track it on your dashboard.
                 </li>
                 <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
-                  Customize and save/load your dashboard configuration across workstations.
+                  Create price alerts for markets you are trading.
                 </li>
-                <li className={css(styles.blockli)}>We have big plans for the near future (alerts, daily voting, chat).</li>
-                <li className={css(styles.blockli)}>Motivate us to continue improving this tool!</li>
+                <li className={css(styles.blockli)}>
+                  Motivate us to continue improving this tool!
+                </li>
               </ul>
             </div>
           </div>

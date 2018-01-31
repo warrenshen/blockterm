@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     right: '0px',
     top: '0px',
     zIndex: '2',
-    padding: '0px 10px',
+    padding: '0px 12px',
     backgroundColor: STYLES.BLAZINGREEN,
     justifyContent: 'right !important',
     alignItems: 'right !important',
@@ -38,9 +38,6 @@ const styles = StyleSheet.create({
   bannerNight: {
     backgroundColor: '#000',
     borderBottom: `1px solid ${STYLES.BORDERDARK}`,
-  },
-  bolded: {
-    fontWeight: '500',
   },
 });
 
@@ -99,7 +96,7 @@ class Marquee extends PureComponent
         />
         <div className={'promotional ' + css(styles.promotion, nightMode && styles.promotionNight)}>
           <a href='https://www.binance.com/?ref=10907326' target='_blank'>
-           <El style={styles.bolded} type={'span'} icon={'btc'}>
+           <El type={'span'} icon={'btc'}>
              Trade on Binance
            </El>
           </a>

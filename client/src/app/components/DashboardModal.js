@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     padding: '6px',
   },
   inputField: {
-    fontWeight: '700',
+    fontWeight: '500',
     letterSpacing: '2px !important',
   },
   marginSides: {

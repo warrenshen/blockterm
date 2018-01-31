@@ -298,7 +298,7 @@ class DashboardItem extends Component
                 <button
                   className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
                   onClick={onClickOpen}
-                  title="Open this widget in full screen."
+                  title="Open this widget in full screen"
                 >
                   <FontAwesome name='search-plus' style={{'fontSize':'13px'}}/>
                 </button>
@@ -307,7 +307,7 @@ class DashboardItem extends Component
             <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
               onClick={onClickEdit}
-              title="Edit this widget and or swap it out for another."
+              title="Swap this widget out for another"
             >
               <FontAwesome name='pencil' style={{'fontSize':'13px'}}/>
             </button>
@@ -325,7 +325,7 @@ class DashboardItem extends Component
               <FontAwesome name={staticActive ? 'lock' : 'unlock'} style={{'fontSize':'13px'}}/>
             </button>
             <button
-              title="Press to remove this widget from the dashboard."
+              title="Remove this widget"
               className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
               onClick={onClickRemove}
             >

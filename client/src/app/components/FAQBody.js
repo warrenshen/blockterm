@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   boldedBottomHeavy: {
-    fontWeight: '700',
+    fontWeight: '500',
     marginBottom: '8px',
   },
   column: {
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     borderRight: `1px dashed ${STYLES.BORDERLIGHT}`,
   },
   bolded: {
-    fontWeight:'700',
+    fontWeight:'500',
     display: 'block',
   },
   para: {

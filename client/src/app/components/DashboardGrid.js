@@ -50,9 +50,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '256px',
   },
-  addItem: {
-    fontWeight: '700',
-  },
   closeButton: {
     color: '#000',
     borderLeft: `1px solid ${STYLES.BORDERLIGHT}`,

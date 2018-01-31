@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     paddingBottom: '8px',
   },
   bolded: {
-    fontWeight: '700',
+    fontWeight: '500',
   },
   semibolded: {
     fontWeight: '500',

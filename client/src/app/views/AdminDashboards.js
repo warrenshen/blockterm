@@ -166,7 +166,7 @@ class AdminDashboards extends PureComponent
             <Tab key={dashboardPage.index}>
               <button
                 className={css(styles.tab, nightMode && styles.darkTab, (dashboardPage.index == selectedTab) && styles.chosenTab)}
-                title={`Go to ${dashboardPage.name}`}
+                title={`Switch to ${dashboardPage.name}`}
               >
                 {dashboardPage.name}
               </button>

@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   subtitle: {
     textTransform: 'uppercase',
     letterSpacing: '1px',
-    fontWeight: '700',
+    fontWeight: '500',
     padding: '0px 10px',
   },
   emphasize: {

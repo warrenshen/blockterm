@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   bolded: {
-    fontWeight: '700',
+    fontWeight: '500',
     textTransform: 'uppercase',
     fontSize: '12px',
     letterSpacing: '2px',
@@ -94,14 +94,14 @@ const styles = StyleSheet.create({
   },
   addToButton: {
     letterSpacing: '1px !important',
-    fontWeight: '700',
+    fontWeight: '500',
     borderBottom: '1px solid #777',
   },
   p: {
     fontSize: '13px',
   },
   sidebarTitle: {
-    fontWeight: '700',
+    fontWeight: '500',
     flex: '1',
     textAlign: 'center',
     textTransform: 'uppercase',

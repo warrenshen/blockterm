@@ -38,15 +38,6 @@ const styles = StyleSheet.create({
     },
   },
   switch: {
-    ':before': {
-      content: 'NIGHT',
-      position: 'absolute',
-      left: '-57px',
-      top: '3px',
-      letterSpacing: '2px',
-      fontWeight: '700',
-      fontSize: '13px',
-    },
     borderColor: '#555',
     backgroundColor:'#fff',
   },
@@ -60,6 +51,7 @@ const styles = StyleSheet.create({
     ':before': {
       content: '"or"',
       position: 'absolute',
+      top: '6px',
       left: '-15px',
       fontSize: '12px',
       fontWeight: '500',

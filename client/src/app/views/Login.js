@@ -80,11 +80,12 @@ const styles = StyleSheet.create({
     display: 'block',
   },
   inputField: {
-    fontWeight:'700',
+    fontWeight:'500',
     display: 'block',
     marginBottom: '8px',
     border: `1px solid #000`,
     width: '100%',
+    letterSpacing: '0.5px',
   },
   fieldNight: {
     border: '1px solid #fff',
