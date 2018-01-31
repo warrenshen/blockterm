@@ -47,7 +47,7 @@ export default function(state = initialState, action)
           newAlert = data.alert;
           oldAlerts = fromJS(state.alerts);
           const oldAlertIndex = oldAlerts.findIndex(
-            (oldAlert) => oldAlert.id == newAlert.id
+            (oldAlert) => oldAlert.get('id') === newAlert.id
           );
           newAlerts = oldAlerts.delete(oldAlertIndex);
           return {

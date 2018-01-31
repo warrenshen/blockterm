@@ -10,6 +10,8 @@ import {
 import {
   CreateAlertMutation,
   CreateAlertMutationOptions,
+  UpdateAlertMutation,
+  UpdateAlertMutationOptions,
 }                              from '../queries';
 import DashboardModal          from '../components/DashboardModal';
 import * as alertsActions      from '../redux/modules/alerts';
@@ -47,5 +49,6 @@ const mapDispatchToProps = (dispatch) => {
 
 export default compose(
   graphql(CreateAlertMutation, CreateAlertMutationOptions),
+  graphql(UpdateAlertMutation, UpdateAlertMutationOptions),
   connect(mapStateToProps, mapDispatchToProps)
 )(DashboardModal);

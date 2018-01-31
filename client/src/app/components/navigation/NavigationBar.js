@@ -3,24 +3,26 @@
 import React, {
   PureComponent,
 }                          from 'react';
-import PropTypes          from 'prop-types';
+import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
-import RightNav           from './RightNav';
-import { Link }       from 'react-router-dom';
+import { Link }            from 'react-router-dom';
 import navigationModel     from '../../models/navigation.json';
-import El from '../El';
-import * as STYLES from '../../constants/styles';
-import Marquee             from '../Marquee';
+import * as STYLES         from '../../constants/styles';
 import {
   clearItem,
   getItem,
   setItem,
-} from '../../services/cookie';
+}                          from '../../services/cookie';
 import {
   PROJECT_VERSION,
   PATCH_NOTES,
-} from '../../constants/items';
-import { LAST_SEEN_VERSION } from '../../services/cookie';
+}                          from '../../constants/items';
+import {
+  LAST_SEEN_VERSION,
+}                          from '../../services/cookie';
+import RightNav            from './RightNav';
+import Marquee             from '../Marquee';
+import El                  from '../El';
 
 const styles = StyleSheet.create({
   navbar: {
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
     },
   },
   hoverColor: {
-    fontSize: '20px',
+    fontSize: '16px',
     fontWeight: 'inherit',
   },
   nightHover: {
@@ -78,9 +80,9 @@ const styles = StyleSheet.create({
   floatingBeta: {
     color: '#000',
     textTransform: 'uppercase',
-    letterSpacing: '2px',
+    letterSpacing: '1px',
     position: 'absolute',
-    left: '148px',
+    left: '124px',
     top: '14px',
     fontSize: '10px',
     fontWeight: '500',
@@ -121,7 +123,8 @@ class NavigationBar extends PureComponent
     toggleNightMode: PropTypes.func.isRequired,
   };
 
-  showLatestUpdates() {
+  showLatestUpdates()
+  {
     const {
       createNotificationInfo,
     } = this.props;
@@ -160,7 +163,14 @@ class NavigationBar extends PureComponent
         />
         <nav className={css(styles.container, nightMode && styles.nightMode)}>
           <div className={css(styles.section)}>
-            <El type={'span'} nightMode={nightMode} style={styles.floatingBeta} nightModeStyle={styles.nightFloatingBeta}>BETA</El>
+            <El
+              type={'span'}
+              nightMode={nightMode}
+              style={styles.floatingBeta}
+              nightModeStyle={styles.nightFloatingBeta}
+            >
+              BETA
+            </El>
             <Link className={css(styles.brand)} to={'/'}>
               <El
                 nightMode={nightMode}

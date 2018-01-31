@@ -225,6 +225,7 @@ class DashboardItem extends Component
       case TV_CANDLE_CHART:
         return (
           <TVChartItem
+            alerts={alerts}
             dashboardAction={dashboardAction}
             nightMode={nightMode}
             value={identifierValue}

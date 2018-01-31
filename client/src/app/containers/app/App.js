@@ -126,7 +126,7 @@ class App extends PureComponent
           window.focus();
           event.target.close();
         };
-        updateAlert(alert.id, 'inactive')
+        updateAlert(alert.id, 'triggered')
           .then((response) => console.log('update success'))
           .catch((error) => console.log(error));
       };

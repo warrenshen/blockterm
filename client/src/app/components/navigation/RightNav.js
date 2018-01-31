@@ -60,8 +60,9 @@ const styles = StyleSheet.create({
     ':before': {
       content: '"or"',
       position: 'absolute',
-      left: '-23px',
-      fontWeight: '700',
+      left: '-15px',
+      fontSize: '12px',
+      fontWeight: '500',
     },
   },
   nightBurger: {
@@ -139,7 +140,12 @@ const RightNav = ({
           label={'Portfolio'}
           link={'/portfolio'}
           nightMode={nightMode}
-          key={'portfolio'}
+        />,
+        <RightNavButton
+          key={'alerts'}
+          label={'Alerts'}
+          link={'/alerts'}
+          nightMode={nightMode}
         />,
         <RightNavButton
           key={'sign-out'}
@@ -164,6 +170,24 @@ const RightNav = ({
             style={styles.disabled}
             key={'portfolio'}
             label={'Portfolio'}
+            link={'#'}
+            icon='lock'
+            absolute={true}
+            nightMode={nightMode}
+          />
+        </div>,
+        <div
+          data-tip='LOGIN or JOIN to use alerts.'
+          data-place='bottom'
+          data-type='info'
+          data-effect='solid'
+          data-class={css(styles.tooltip)}
+          key={'alerts'}
+        >
+          <RightNavButton
+            style={styles.disabled}
+            key={'portfolio'}
+            label={'Alerts'}
             link={'#'}
             icon='lock'
             absolute={true}
