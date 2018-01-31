@@ -5,10 +5,7 @@
 const chalk           = require('chalk');
 const express         = require('express');
 const fs              = require('fs');
-const https           = require('https');
 const path            = require('path');
-
-const sslPath   = '/etc/letsencrypt/live/blockterm.com/';
 
 const app       = express();
 const DOCS_PATH = '../../../docs/';
