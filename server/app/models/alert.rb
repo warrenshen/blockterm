@@ -25,6 +25,7 @@ class Alert < ApplicationRecord
 
   enum status: {
     active: 0,
-    inactive: 1,
+    triggered: 1,
+    canceled: 2,
   }
 end
