@@ -32,6 +32,22 @@ class User < ApplicationRecord
 
   before_validation :set_last_active_at, on: :create
 
+  def generate_reset_password_token!
+    self.reset_password_token = generate_token
+    self.reset_password_sent_at = DateTime.now
+    save!
+  end
+
+  def reset_password!(password)
+    self.reset_password_token = nil
+    self.password = password
+    save!
+  end
+
+  def reset_password_token_valid?(token)
+    self.reset_password_sent_at + 4.hours > DateTime.now && self.reset_password_token == token
+  end
+
   def sync_last_active_at!
     if last_active_at.nil? || last_active_at < DateTime.now - 1.minute
       self.update_attributes!(
@@ -42,6 +58,10 @@ class User < ApplicationRecord
   end
 
   private
+
+  def generate_token
+    SecureRandom.hex(16)
+  end
 
   def set_last_active_at
     self.last_active_at = DateTime.now

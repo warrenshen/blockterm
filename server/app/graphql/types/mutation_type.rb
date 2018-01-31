@@ -794,24 +794,6 @@ module Types
       }
     end
 
-    field :logIn, Types::AuthType do
-      description 'Logs in user'
-
-      argument :email, !types.String
-      argument :password, !types.String
-
-      resolve -> (obj, args, ctx) {
-        command = AuthenticateUser.call(args[:email], args[:password])
-
-        if command.success?
-          result = command.result
-          return Auth.new(result[:user], result[:auth_token])
-        else
-          return GraphQL::ExecutionError.new('Invalid credentials')
-        end
-      }
-    end
-
     field :createUser, Types::AuthType do
       description 'Creates and logs in a user'
 
@@ -925,6 +907,72 @@ module Types
         end
 
         current_user.reload
+      }
+    end
+
+    field :logIn, Types::AuthType do
+      description 'Logs in user'
+
+      argument :email, !types.String
+      argument :password, !types.String
+
+      resolve -> (obj, args, ctx) {
+        command = AuthenticateUser.call(args[:email], args[:password])
+
+        if command.success?
+          result = command.result
+          return Auth.new(result[:user], result[:auth_token])
+        else
+          return GraphQL::ExecutionError.new('Invalid credentials')
+        end
+      }
+    end
+
+    field :forgotPassword, types.String do
+      description 'Initiates reset password flow if email exists'
+
+      argument :email, !types.String
+
+      resolve -> (obj, args, ctx) {
+        user = User.find_by_email(args[:email])
+
+        if user.nil?
+          return GraphQL::ExecutionError.new('Invalid email')
+        end
+
+        user.generate_reset_password_token!
+        'Success'
+      }
+    end
+
+    field :resetPassword, Types::AuthType do
+      description 'Resets user password if email and reset password token match'
+
+      argument :email, !types.String
+      argument :password, !types.String
+      argument :resetPasswordToken, !types.String
+
+      resolve -> (obj, args, ctx) {
+        user = User.find_by_email(args[:email])
+
+        if user.nil?
+          return GraphQL::ExecutionError.new('Invalid email')
+        end
+
+        if user.reset_password_token_valid?(args[:resetPasswordToken])
+          user.reset_password!(args[:password])
+
+          command = AuthenticateUser.call(user.email, args[:password])
+
+          if command.success?
+            result = command.result
+            return Auth.new(result[:user], result[:auth_token])
+          else
+            return GraphQL::ExecutionError.new('Something went wrong')
+          end
+        else
+          return GraphQL::ExecutionError.new('Invalid reset password token')
+        end
       }
     end
 
