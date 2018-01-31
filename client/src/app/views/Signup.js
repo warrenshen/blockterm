@@ -160,7 +160,6 @@ class Signup extends PureComponent
   {
     const {
       email,
-      history,
       password,
 
       changeError,
