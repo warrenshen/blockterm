@@ -177,7 +177,6 @@ class Login extends PureComponent
   {
     const {
       email,
-      history,
       password,
 
       changeError,

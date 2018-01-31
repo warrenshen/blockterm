@@ -19,6 +19,7 @@ import {
   ConnectedTokens,
   ConnectedFAQ,
 }                     from '../containers';
+import ConnectedReset from '../containers/Reset';
 import AdminPortolios from '../containers/AdminPortfolios';
 import AdminDashboards from '../containers/AdminDashboards';
 
@@ -27,9 +28,11 @@ export const MainRoutes = () => {
     <Switch>
       <Route exact path='/' component={ConnectedHome} />
 
-      <Route exact path='/login' component={ConnectedLogin} />
-      <Route exact path='/join' component={ConnectedSignup} />
       <Route exact path='/faq' component={ConnectedFAQ} />
+
+      <Route exact path='/join' component={ConnectedSignup} />
+      <Route exact path='/login' component={ConnectedLogin} />
+      <Route exact path='/reset' component={ConnectedReset} />
 
       <Route exact path='/portfolio' component={ConnectedPortfolio} />
 
