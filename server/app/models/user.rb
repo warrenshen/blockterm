@@ -25,16 +25,19 @@ class User < ApplicationRecord
   has_many :token_users
   has_many :tokens, through: :token_users
 
-  validates :email, presence: true, uniqueness: true
-  validates_email_format_of :email
-  validates :password, presence: true, length: { within: 5..30 }
+  validates :email, presence: true, uniqueness: true, on: :create
+  validates_email_format_of :email, on: :create
+  validates :password, presence: true, length: { within: 5..30 }, on: :create
   validates_presence_of :last_active_at
 
   before_validation :set_last_active_at, on: :create
 
-  def sync_last_active_at
+  def sync_last_active_at!
     if last_active_at.nil? || last_active_at < DateTime.now - 1.minute
-      self.update_attribute(:last_active_at, DateTime.now)
+      self.update_attributes!(
+        active_count: active_count + 1,
+        last_active_at: DateTime.now,
+      )
     end
   end
 
