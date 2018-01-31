@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     position: 'fixed',
     bottom: '0px',
     left: '0px',
-    zIndex: '2',
+    zIndex: '4',
     width: '100%',
     borderTop: '1px solid #777',
     backgroundColor: 'white',

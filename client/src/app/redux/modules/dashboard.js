@@ -273,6 +273,7 @@ export default function(state = initialState, action)
       setItem(SELECTED_TAB_COOKIE, action.value);
       return {
         ...state,
+        modalIdentifier: null,
         selectedTab: action.value,
       };
     case CHANGE_SIDEBAR_MODE:
@@ -286,9 +287,10 @@ export default function(state = initialState, action)
       return {
         ...state,
         keySelectValue: initialState.keySelectValue,
-        valueSelectValue: initialState.valueSelectValue,
+        modalIdentifier: null,
         sidebarDashboardItemId: action.dashboardItemId,
         sidebarMode: action.sidebarMode,
+        valueSelectValue: initialState.valueSelectValue,
       };
     case CHANGE_VALUE_SELECT_VALUE:
       return {

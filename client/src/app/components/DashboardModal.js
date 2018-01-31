@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     zIndex: '3',
     width: '100%',
     height: '100%',
-    paddingBottom: '69px',
+    paddingBottom: '48px',
     backgroundColor: 'rgba(255, 255, 255, 1)',
   },
   containerNightMode: {
@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     minWidth: '256px',
-    width: '25vw',
+    width: '33vw',
     borderLeft: '1px solid #999',
   },
   sectionHeader: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     backgroundColor: '#fff',
     borderBottom: `1px solid ${DEFAULTS.BORDERLIGHT}`,
   },
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     borderBottom: `1px solid ${DEFAULTS.BORDERDARK}`,
   },
   sectionBody: {
+    flex: '1',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
@@ -76,12 +77,11 @@ const styles = StyleSheet.create({
     flex: '1',
     display: 'flex',
     flexDirection: 'column',
+    overflow: 'scroll',
   },
   alert: {
-    display: 'flex',
-    padding: '5px 10px',
-    marginBottom: '-1px',
     flexDirection: 'column',
+    padding: '5px 10px',
     borderBottom: `1px solid ${DEFAULTS.BORDERLIGHT}`,
   },
   alertNight: {
@@ -90,9 +90,13 @@ const styles = StyleSheet.create({
   alertRow: {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   select: {
     marginBottom: '-1px',
+  },
+  subtitle: {
+    padding: '6px',
   },
   inputField: {
     fontWeight: '700',
@@ -100,6 +104,9 @@ const styles = StyleSheet.create({
   },
   marginSides: {
     margin: '5px 10px',
+  },
+  expiresText: {
+    fontSize: '10px',
   },
 });
 
@@ -145,6 +152,10 @@ class DashboardModal extends PureComponent
   {
     const {
       nightMode,
+
+      createNotificationError,
+      createNotificationSuccess,
+      updateAlert,
     } = this.props;
 
     const {
@@ -154,9 +165,14 @@ class DashboardModal extends PureComponent
     } = alert;
 
     const [market, price, condition] = parseAlertIdentifier(identifier);
+    const onClickRemove = (event) => {
+      updateAlert(alert.id, 'canceled')
+        .then((response) => createNotificationSuccess({ position: 'bc', title: 'Alert canceled.' }))
+        .catch((error) => createNotificationError({ position: 'bc', title: 'Failure' }));
+    };
 
     return (
-      <div
+      <li
         className={css(styles.alert)}
         key={id}
       >
@@ -169,9 +185,10 @@ class DashboardModal extends PureComponent
           </El>
           <El
             nightMode={nightMode}
-            type={'h5'}
+            style={styles.expiresText}
+            type={'span'}
           >
-            {moment(expiresAt, 'YYYY-M-D H:m:s Z').fromNow()}
+            {`Expires: ${moment(expiresAt, 'YYYY-M-D H:m:s Z').fromNow()}`}
           </El>
         </div>
         <div className={css(styles.alertRow)}>
@@ -179,16 +196,16 @@ class DashboardModal extends PureComponent
             nightMode={nightMode}
             type={'h5'}
           >
-            {price}
+            {`Alert when price ${condition} ${price}`}
           </El>
-          <El
-            nightMode={nightMode}
-            type={'h5'}
+          <button
+            className={css(styles.closeButton)}
+            onClick={onClickRemove}
           >
-            {condition}
-          </El>
+            <FontAwesome name='remove' />
+          </button>
         </div>
-      </div>
+      </li>
     );
   }
 
@@ -294,13 +311,6 @@ class DashboardModal extends PureComponent
       return (
         <div>
           <form className={css(styles.form)}>
-            <El
-              nightMode={nightMode}
-              type={'h5'}
-              style={styles.subtitle}
-            >
-              Create price alert
-            </El>
             <input
               autoFocus={true}
               className={css(styles.inputField, nightMode && styles.fieldNight)}
@@ -314,6 +324,7 @@ class DashboardModal extends PureComponent
               clearable={false}
               matchProp={'label'}
               options={ALERT_CONDITION_SELECT_OPTIONS}
+              placeholder={'When'}
               value={conditionValue ? conditionValue.value : ''}
               onChange={onConditionChange}
             />
@@ -322,6 +333,7 @@ class DashboardModal extends PureComponent
               clearable={false}
               matchProp={'label'}
               options={ALERT_EXPIRES_IN_SELECT_OPTIONS}
+              placeholder={'Expires in'}
               value={expiresValue ? expiresValue.value : ''}
               onChange={onExpiresInChange}
             />
@@ -330,7 +342,7 @@ class DashboardModal extends PureComponent
               type='submit'
               onClick={onClickSubmit}
             >
-              Create Alert
+              Create alert
             </button>
           </form>
         </div>
@@ -351,9 +363,9 @@ class DashboardModal extends PureComponent
     if (user !== null)
     {
       return (
-        <div className={css(styles.alerts)}>
+        <ul className={css(styles.alerts)}>
           {validAlerts.map((alert) => this.renderAlert(alert))}
-        </div>
+        </ul>
       );
     }
   }
@@ -379,6 +391,13 @@ class DashboardModal extends PureComponent
         />
         <div className={css(styles.rightSection)}>
           <div className={css(styles.sectionHeader, nightMode && styles.sectionHeaderNight)}>
+            <El
+              nightMode={nightMode}
+              type={'h5'}
+              style={styles.subtitle}
+            >
+              Create price alert
+            </El>
             <button
               onClick={(event) => changeModalState(null)}
             >

@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     minWidth: '256px',
-    width: '33vw',
+    width: '40vw',
     backgroundColor:'#fff',
     borderLeft: '1px solid #666',
     zIndex: '4',
-    overflow: 'hidden',
+    overflow: 'scroll',
   },
   nightSidebar: {
     backgroundColor: STYLES.LIGHTNIGHT,
@@ -361,8 +361,8 @@ class DashboardSidebar extends PureComponent
               <button
                 className={css(styles.previewButton, nightMode && styles.previewButtonNight)}
                 key={index}
-              > 
-                <img 
+              >
+                <img
                   src={`https://s3-us-west-2.amazonaws.com/blockterm-cdn/widget-previews/${ITEM_KEY_TO_IMAGE_PREVIEWS[elem.value] + '_' + currentMode}.jpg`}
                   className={css(styles.previewIcon)}
                   alt={index}

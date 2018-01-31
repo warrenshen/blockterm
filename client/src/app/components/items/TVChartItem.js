@@ -10,7 +10,8 @@ import * as STYLES         from '../../constants/styles';
 import {
   ITEM_VALUE_TO_IMAGE,
   getImageUrl,
-} from '../../constants/items.js';
+}                          from '../../constants/items.js';
+import El                  from '../El';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,35 +29,64 @@ const styles = StyleSheet.create({
   nightFrame: {
     backgroundColor: '#000',
   },
-  floatingIcon: {
+  extras: {
+    display: 'flex',
+    alignItems: 'center',
     position: 'absolute',
     top: '5px',
     right: '5px',
     zIndex: '1',
   },
+  activeAlerts: {
+    padding: '4px 8px',
+    border: '1px solid #000',
+    borderRadius: '2px',
+  },
+  activeAlertsNightMode: {
+    border: '1px solid #f3f3f3',
+  },
 });
 
 class TVChartItem extends PureComponent
 {
-  renderImage()
+  renderExtras()
   {
     const {
+      alerts,
+      nightMode,
       value,
     } = this.props;
 
-    if (value in ITEM_VALUE_TO_IMAGE)
-    {
-      return (
-        <div className={css(styles.floatingIcon)}>
-          <img
-            className={css(styles.image)}
-            src={getImageUrl(ITEM_VALUE_TO_IMAGE[value])}
-            width={32}
-            height={32}
-          />
-        </div>
-      );
-    }
+    const validAlerts = alerts.filter(
+      (alert) => alert.identifier.indexOf(value) === 0
+    );
+    return (
+      <div className={css(styles.extras)}>
+        {
+          validAlerts.length > 0 && (
+            <El
+              nightMode={nightMode}
+              style={styles.activeAlerts}
+              nightModeStyle={styles.activeAlertsNightMode}
+              type={'span'}
+            >
+              {`${validAlerts.length} active alerts`}
+            </El>
+          )
+        }
+        {
+          value in ITEM_VALUE_TO_IMAGE && (
+            <img
+              className={css(styles.image)}
+              src={getImageUrl(ITEM_VALUE_TO_IMAGE[value])}
+              width={32}
+              height={32}
+            />
+          )
+        }
+      </div>
+    );
+
   }
 
   render()
@@ -83,7 +113,7 @@ class TVChartItem extends PureComponent
 
     return (
       <div className={css(styles.container, dashboardAction && styles.noPointerEvents)}>
-        {this.renderImage()}
+        {this.renderExtras()}
         <iframe
           className={css(styles.frame, nightMode && styles.nightFrame)}
           scrolling="no"

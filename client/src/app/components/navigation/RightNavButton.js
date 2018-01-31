@@ -10,13 +10,13 @@ import FontAwesome    from 'react-fontawesome';
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: '30px',
+    marginLeft: '18px',
     display: 'flex',
   },
   boldedUpper: {
-    fontWeight: '700 !important',
+    fontWeight: '500 !important',
     textTransform: 'uppercase !important',
-    fontSize: '14px !important',  //TODO: change this to 13 when portfolio is added to nav
+    fontSize: '12px !important',
     letterSpacing: '2px !important',
     ':hover': {
       color: STYLES.GOLDINVERSEBLUE,
