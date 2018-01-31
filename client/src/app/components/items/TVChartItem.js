@@ -70,7 +70,7 @@ class TVChartItem extends PureComponent
               nightModeStyle={styles.activeAlertsNightMode}
               type={'span'}
             >
-              {`${validAlerts.length} active alerts`}
+              {`${validAlerts.length} active alert(s)`}
             </El>
           )
         }

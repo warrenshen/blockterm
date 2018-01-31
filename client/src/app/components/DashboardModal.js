@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     zIndex: '3',
     width: '100%',
     height: '100%',
-    paddingBottom: '48px',
+    paddingBottom: '96px',
     backgroundColor: 'rgba(255, 255, 255, 1)',
   },
   containerNightMode: {
@@ -44,8 +44,7 @@ const styles = StyleSheet.create({
   rightSection: {
     display: 'flex',
     flexDirection: 'column',
-    minWidth: '256px',
-    width: '33vw',
+    width: '432px',
     borderLeft: '1px solid #999',
   },
   sectionHeader: {
@@ -148,6 +147,147 @@ class DashboardModal extends PureComponent
     window.removeEventListener('keyup', this.handleEscape);
   }
 
+  createAlert()
+  {
+    const {
+      conditionValue,
+      expiresValue,
+      priceValue,
+
+      createAlert,
+      createNotificationError,
+      createNotificationSuccess,
+    } = this.props;
+
+    const identifierValue = parseItemIdentifierValue(this.props.identifier);
+    const identifier = generateAlertIdentifier(
+      identifierValue,
+      priceValue,
+      conditionValue.value,
+    );
+
+    createAlert(identifier, expiresValue.value)
+      .then((response) => createNotificationSuccess({ position: 'bc', title: 'Alert created.' }))
+      .catch((error) => createNotificationError({ position: 'bc', title: 'Failure.' }));
+  }
+
+  renderForm()
+  {
+    const {
+      alerts,
+      conditionValue,
+      expiresValue,
+      identifier,
+      priceValue,
+      nightMode,
+      user,
+
+      changeConditionValue,
+      changeExpiresValue,
+      changePriceValue,
+      createNotificationError,
+    } = this.props;
+
+    const isSubmitDisabled = !conditionValue || !expiresValue || !priceValue;
+
+    const onClickSubmit = (event) => {
+      event.preventDefault();
+
+      if (typeof Notification === 'undefined')
+      {
+        alert('Please us a modern version of Chrome, Firefox, Opera or Safari.');
+        return;
+      }
+
+      if (Notification.permission === 'default' || Notification.permission === 'denied')
+      {
+        Notification.requestPermission().then((permission) => {
+          if (permission === 'granted')
+          {
+            this.createAlert();
+          }
+          else
+          {
+            createNotificationError('Alert not created.');
+          }
+        });
+      }
+      else
+      {
+        this.createAlert();
+      }
+    };
+    const onChangePrice = (event) => changePriceValue(event.target.value);
+    const onConditionChange = (option) => changeConditionValue(option);
+    const onExpiresInChange = (option) => changeExpiresValue(option);
+
+    if (!isIdentifierExchangeSupported(identifier))
+    {
+      return (
+        <El
+          style={styles.marginSides}
+          nightMode={nightMode}
+          type={'h5'}
+        >
+          {`Price alerts not supported for this exchange yet. Please try Binance or Bittrex.`}
+        </El>
+      );
+    }
+    else if (user === null)
+    {
+      return (
+        <El
+          style={styles.marginSides}
+          nightMode={nightMode}
+          type={'h5'}
+        >
+          LOGIN or JOIN to use alerts
+        </El>
+      );
+    }
+    else
+    {
+      return (
+        <form className={css(styles.form)}>
+          <input
+            autoFocus={true}
+            className={css(styles.inputField, nightMode && styles.fieldNight)}
+            placeholder='Price'
+            required='required'
+            value={priceValue}
+            onChange={onChangePrice}
+          />
+          <Select
+            className={css(styles.select)}
+            clearable={false}
+            matchProp={'label'}
+            options={ALERT_CONDITION_SELECT_OPTIONS}
+            placeholder={'When'}
+            value={conditionValue ? conditionValue.value : ''}
+            onChange={onConditionChange}
+          />
+          <Select
+            className={css(styles.select)}
+            clearable={false}
+            matchProp={'label'}
+            options={ALERT_EXPIRES_IN_SELECT_OPTIONS}
+            placeholder={'Expires in'}
+            value={expiresValue ? expiresValue.value : ''}
+            onChange={onExpiresInChange}
+          />
+          <button
+            className={css(styles.bolded, DEFAULTS.styles.button, DEFAULTS.styles.emphasize)}
+            disabled={isSubmitDisabled}
+            type='submit'
+            onClick={onClickSubmit}
+          >
+            Create alert
+          </button>
+        </form>
+      );
+    }
+  }
+
   renderAlert(alert)
   {
     const {
@@ -209,147 +349,6 @@ class DashboardModal extends PureComponent
     );
   }
 
-  createAlert()
-  {
-    const {
-      conditionValue,
-      expiresValue,
-      priceValue,
-
-      createAlert,
-      createNotificationError,
-      createNotificationSuccess,
-    } = this.props;
-
-    const identifierValue = parseItemIdentifierValue(this.props.identifier);
-    const identifier = generateAlertIdentifier(
-      identifierValue,
-      priceValue,
-      conditionValue.value,
-    );
-
-    createAlert(identifier, expiresValue.value)
-      .then((response) => createNotificationSuccess({ position: 'bc', title: 'Alert created.' }))
-      .catch((error) => createNotificationError({ position: 'bc', title: 'Failure.' }));
-  }
-
-  renderForm()
-  {
-    const {
-      alerts,
-      conditionValue,
-      expiresValue,
-      identifier,
-      priceValue,
-      nightMode,
-      user,
-
-      changeConditionValue,
-      changeExpiresValue,
-      changePriceValue,
-      createNotificationError,
-    } = this.props;
-
-    const onClickSubmit = (event) => {
-      event.preventDefault();
-
-      if (typeof Notification === 'undefined')
-      {
-        alert('Please us a modern version of Chrome, Firefox, Opera or Safari.');
-        return;
-      }
-
-      if (Notification.permission === 'default' || Notification.permission === 'denied')
-      {
-        Notification.requestPermission().then((permission) => {
-          if (permission === 'granted')
-          {
-            this.createAlert();
-          }
-          else
-          {
-            createNotificationError('Alert not created.');
-          }
-        });
-      }
-      else
-      {
-        this.createAlert();
-      }
-    };
-
-    const onChangePrice = (event) => changePriceValue(event.target.value);
-    const onConditionChange = (option) => changeConditionValue(option);
-    const onExpiresInChange = (option) => changeExpiresValue(option);
-
-    if (!isIdentifierExchangeSupported(identifier))
-    {
-      return (
-        <El
-          style={styles.marginSides}
-          nightMode={nightMode}
-          type={'h5'}
-        >
-          {`Price alerts not supported for this exchange yet. Please try Binance or Bittrex.`}
-        </El>
-      );
-    }
-    else if (user === null)
-    {
-      return (
-        <El
-          style={styles.marginSides}
-          nightMode={nightMode}
-          type={'h5'}
-        >
-          LOGIN or JOIN to use alerts
-        </El>
-      );
-    }
-    else
-    {
-      return (
-        <div>
-          <form className={css(styles.form)}>
-            <input
-              autoFocus={true}
-              className={css(styles.inputField, nightMode && styles.fieldNight)}
-              placeholder='Price'
-              required='required'
-              value={priceValue}
-              onChange={onChangePrice}
-            />
-            <Select
-              className={css(styles.select)}
-              clearable={false}
-              matchProp={'label'}
-              options={ALERT_CONDITION_SELECT_OPTIONS}
-              placeholder={'When'}
-              value={conditionValue ? conditionValue.value : ''}
-              onChange={onConditionChange}
-            />
-            <Select
-              className={css(styles.select)}
-              clearable={false}
-              matchProp={'label'}
-              options={ALERT_EXPIRES_IN_SELECT_OPTIONS}
-              placeholder={'Expires in'}
-              value={expiresValue ? expiresValue.value : ''}
-              onChange={onExpiresInChange}
-            />
-            <button
-              className={css(styles.bolded, DEFAULTS.styles.button, DEFAULTS.styles.emphasize)}
-              type='submit'
-              onClick={onClickSubmit}
-            >
-              Create alert
-            </button>
-          </form>
-        </div>
-      );
-    }
-  }
-
   renderAlerts()
   {
     const {
@@ -363,9 +362,27 @@ class DashboardModal extends PureComponent
     if (user !== null)
     {
       return (
-        <ul className={css(styles.alerts)}>
-          {validAlerts.map((alert) => this.renderAlert(alert))}
-        </ul>
+        <div>
+          <div className={css(styles.sectionHeader, nightMode && styles.sectionHeaderNight)}>
+            <El
+              nightMode={nightMode}
+              style={styles.subtitle}
+              type={'h5'}
+            >
+              Active alerts
+            </El>
+            <El
+              nightMode={nightMode}
+              style={styles.subtitle}
+              type={'span'}
+            >
+              {`${validAlerts.length} active`}
+            </El>
+          </div>
+          <ul className={css(styles.alerts)}>
+            {validAlerts.map((alert) => this.renderAlert(alert))}
+          </ul>
+        </div>
       );
     }
   }
@@ -393,8 +410,8 @@ class DashboardModal extends PureComponent
           <div className={css(styles.sectionHeader, nightMode && styles.sectionHeaderNight)}>
             <El
               nightMode={nightMode}
-              type={'h5'}
               style={styles.subtitle}
+              type={'h5'}
             >
               Create price alert
             </El>

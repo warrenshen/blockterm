@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     verticalAlign: 'baseline',
     transition: 'all 0.2s',
     ':hover': {
-      transform: 'scale(1.1)',
+      transform: 'scale(1.05)',
     },
   },
   emphasize: {
@@ -168,6 +168,7 @@ class DashboardSidebar extends PureComponent
   componentDidUpdate(prevProps)
   {
     const {
+      keySelectValue,
       sidebarMode,
     } = this.props;
 
@@ -180,6 +181,11 @@ class DashboardSidebar extends PureComponent
     else if (sidebarMode === null && prevProps.sidebarMode !== null)
     {
       window.removeEventListener('keyup', this.handleEscape);
+    }
+
+    if (prevProps.keySelectValue !== keySelectValue)
+    {
+      this.focusOnSpecificSelect();
     }
   }
 
@@ -240,10 +246,7 @@ class DashboardSidebar extends PureComponent
       changeKeySelectValue,
     } = this.props;
 
-    changeKeySelectValue(option ? option.value : '')
-    .then(
-      () => this.focusOnSpecificSelect(),
-    );
+    changeKeySelectValue(option ? option.value : '');
   }
 
   handleValueSelectChange(option)
@@ -291,6 +294,7 @@ class DashboardSidebar extends PureComponent
           matchProp={'label'}
           menuContainerStyle={{ 'maxHeight': '412px' }}
           menuStyle={{ 'maxHeight': '412px' }}
+          openOnFocus={true}
           optionClassName={css(styles.bolded, styles.options)}
           options={selectOptions}
           value={valueSelectValue}
@@ -313,10 +317,46 @@ class DashboardSidebar extends PureComponent
       return (
         <button
           id='dashboardActionButton'
-          className={css(styles.button, styles.addToButton, styles.emphasize,nightMode && styles.sidebarAddButtonNight)}
+          className={css(styles.button, styles.addToButton, styles.emphasize, nightMode && styles.sidebarAddButtonNight)}
           onClick={(event) => this.addItem(event)}
         >
           {sidebarMode === 'edit' ? 'Edit Selected Widget' : 'Add to Dashboard'}
+        </button>
+      );
+    }
+  }
+
+  renderWidgetPreview(widgetIdentifier, index)
+  {
+    const {
+      nightMode,
+
+      changeKeySelectValue,
+    } = this.props;
+
+    const currentMode = nightMode ? 'night' : 'day';
+    const onClick = (event) => changeKeySelectValue(widgetIdentifier);
+
+    if (ITEM_KEY_TO_IMAGE_PREVIEWS[widgetIdentifier])
+    {
+      return (
+        <button
+          className={css(styles.previewButton, nightMode && styles.previewButtonNight)}
+          key={index}
+          onClick={onClick}
+        >
+          <img
+            alt={index}
+            className={css(styles.previewIcon)}
+            src={`https://s3-us-west-2.amazonaws.com/blockterm-cdn/widget-previews/${ITEM_KEY_TO_IMAGE_PREVIEWS[widgetIdentifier] + '_' + currentMode}.jpg`}
+          />
+          <El
+            nightMode={nightMode}
+            style={STYLES.styles.subtitle}
+            type={'span'}
+          >
+            {ITEM_KEY_TO_IMAGE_PREVIEWS[widgetIdentifier]}
+          </El>
         </button>
       );
     }
@@ -333,8 +373,6 @@ class DashboardSidebar extends PureComponent
       label: arr[1],
       value: arr[0],
     }));
-
-    const currentMode = nightMode ? 'night' : 'day';
 
     return (
       <div className={css(styles.mode)}>
@@ -354,30 +392,17 @@ class DashboardSidebar extends PureComponent
           {this.renderValueSelect()}
           {this.renderSubmit(nightMode)}
         </div>
-        <div className={css(styles.widgetPreviews)}>
-          {
-            selectOptions.map((elem, index) => (
-              ITEM_KEY_TO_IMAGE_PREVIEWS[elem.value] &&
-              <button
-                className={css(styles.previewButton, nightMode && styles.previewButtonNight)}
-                key={index}
-              >
-                <img
-                  src={`https://s3-us-west-2.amazonaws.com/blockterm-cdn/widget-previews/${ITEM_KEY_TO_IMAGE_PREVIEWS[elem.value] + '_' + currentMode}.jpg`}
-                  className={css(styles.previewIcon)}
-                  alt={index}
-                />
-                <El
-                  type={'span'}
-                  nightMode={nightMode}
-                  style={STYLES.styles.subtitle}
-                >
-                  {ITEM_KEY_TO_IMAGE_PREVIEWS[elem.value]}
-                </El>
-              </button>
-            ))
-          }
-        </div>
+        {
+          !keySelectValue && (
+            <div className={css(styles.widgetPreviews)}>
+              {
+                selectOptions.map(
+                  (option, index) => this.renderWidgetPreview(option.value, index)
+                )
+              }
+            </div>
+          )
+        }
         <div className={css(styles.bottomHalf)}>
           <El nightMode={nightMode} type={'h5'}>
             Adding elements to dashboard:

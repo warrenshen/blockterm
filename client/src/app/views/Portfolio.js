@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
   },
   disabled: {
     opacity: '0.5',
-    pointerEvents: 'none',
   },
   tokenImage: {
     marginRight: '8px',
@@ -460,9 +459,10 @@ class Portfolio extends Component
           </tbody>
         </table>
         {this.renderAdd()}
-        <div className={css(styles.blockButtonWrapper, nightMode && styles.darkBlockButtonWrapper, !changeActive && styles.disabled)}>
+        <div className={css(styles.blockButtonWrapper, nightMode && styles.darkBlockButtonWrapper)}>
           <button
-            className={css(styles.blockButton, nightMode && styles.darkBlockButton)}
+            className={css(styles.blockButton, nightMode && styles.darkBlockButton, !changeActive && styles.disabled)}
+            disabled={!changeActive}
             onClick={(event) => this.savePortfolio()}
           >
             Save

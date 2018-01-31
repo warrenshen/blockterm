@@ -141,12 +141,12 @@ const RightNav = ({
           link={'/portfolio'}
           nightMode={nightMode}
         />,
-        <RightNavButton
-          key={'alerts'}
-          label={'Alerts'}
-          link={'/alerts'}
-          nightMode={nightMode}
-        />,
+        // <RightNavButton
+        //   key={'alerts'}
+        //   label={'Alerts'}
+        //   link={'/alerts'}
+        //   nightMode={nightMode}
+        // />,
         <RightNavButton
           key={'sign-out'}
           action={(event) => logOut(event, client)}
@@ -176,24 +176,24 @@ const RightNav = ({
             nightMode={nightMode}
           />
         </div>,
-        <div
-          data-tip='LOGIN or JOIN to use alerts.'
-          data-place='bottom'
-          data-type='info'
-          data-effect='solid'
-          data-class={css(styles.tooltip)}
-          key={'alerts'}
-        >
-          <RightNavButton
-            style={styles.disabled}
-            key={'portfolio'}
-            label={'Alerts'}
-            link={'#'}
-            icon='lock'
-            absolute={true}
-            nightMode={nightMode}
-          />
-        </div>,
+        // <div
+        //   data-tip='LOGIN or JOIN to use alerts.'
+        //   data-place='bottom'
+        //   data-type='info'
+        //   data-effect='solid'
+        //   data-class={css(styles.tooltip)}
+        //   key={'alerts'}
+        // >
+        //   <RightNavButton
+        //     style={styles.disabled}
+        //     key={'portfolio'}
+        //     label={'Alerts'}
+        //     link={'#'}
+        //     icon='lock'
+        //     absolute={true}
+        //     nightMode={nightMode}
+        //   />
+        // </div>,
         <RightNavButton
           key={'login'}
           label={'Login'}
