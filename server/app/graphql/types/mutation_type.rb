@@ -948,18 +948,17 @@ module Types
     field :resetPassword, Types::AuthType do
       description 'Resets user password if email and reset password token match'
 
-      argument :email, !types.String
       argument :password, !types.String
       argument :resetPasswordToken, !types.String
 
       resolve -> (obj, args, ctx) {
-        user = User.find_by_email(args[:email])
+        user = User.find_by(reset_password_token: args[:resetPasswordToken])
 
         if user.nil?
           return GraphQL::ExecutionError.new('Invalid email')
         end
 
-        if user.reset_password_token_valid?(args[:resetPasswordToken])
+        if user.reset_password_token_valid?
           user.reset_password!(args[:password])
 
           command = AuthenticateUser.call(user.email, args[:password])
