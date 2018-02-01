@@ -44,8 +44,8 @@ class User < ApplicationRecord
     save!
   end
 
-  def reset_password_token_valid?(token)
-    self.reset_password_sent_at + 4.hours > DateTime.now && self.reset_password_token == token
+  def reset_password_token_valid?
+    self.reset_password_sent_at + 4.hours > DateTime.now
   end
 
   def sync_last_active_at!
@@ -60,7 +60,7 @@ class User < ApplicationRecord
   private
 
   def generate_token
-    SecureRandom.hex(16)
+    SecureRandom.hex(32)
   end
 
   def set_last_active_at
