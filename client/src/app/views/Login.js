@@ -208,7 +208,7 @@ class Login extends PureComponent
     };
 
     return (
-      <div className={css(styles.body, styles.wrapper, nightMode && styles.nightMode)}>
+      <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         <div className={css(styles.loginPanel, nightMode && styles.panelsNight)}>
           <div className={css(styles.halfPanel)}>
             <El
@@ -229,8 +229,8 @@ class Login extends PureComponent
             <input
               className={css(styles.inputField, nightMode && styles.fieldNight)}
               placeholder='password'
-              type='password'
               required='required'
+              type='password'
               value={password}
               onChange={(event) => changePassword(event.target.value)}
               onKeyPress={onKeyPress}

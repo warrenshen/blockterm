@@ -35,7 +35,7 @@ export const MainRoutes = () => {
       <Route exact path='/login' component={ConnectedLogin} />
 
       <Route exact path='/forgot' component={ConnectedForgot} />
-      <Route exact path='/reset' component={ConnectedReset} />
+      <Route exact path='/reset/:token' component={ConnectedReset} />
 
       <Route exact path='/portfolio' component={ConnectedPortfolio} />
 

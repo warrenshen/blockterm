@@ -41,14 +41,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     padding: '15px 20px',
   },
-  body: {
-    borderTop: '1px solid rgba(0,0,0,0.15)',
-    padding: '0px 10px 0px',
-    boxSizing: 'content-box',
-    backgroundColor: '#fff',
-    display: 'flex',
-    flexDirection: 'column',
-  },
   loginPanel: {
     marginTop: '10px',
     backgroundColor: '#fff',
@@ -227,8 +219,8 @@ class Signup extends PureComponent
               <input
                 className={css(styles.inputField, nightMode && styles.fieldNight)}
                 placeholder='password'
+                required='required'
                 type='password'
-                required="required"
                 value={password}
                 onChange={(event) => changePassword(event.target.value)}
                 onKeyPress={onKeyPress}
