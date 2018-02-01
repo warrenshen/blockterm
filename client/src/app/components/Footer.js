@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   para: {
     letterSpacing: '1px',
     lineHeight: '16px',
+    fontSize: '12px',
   },
   a: {
     fontWeight: '500',

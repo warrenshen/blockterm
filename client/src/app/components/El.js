@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const El = ({ children, icon, inline, nightMode, nightModeStyle, style, type }) => {
+const El = ({ children, icon, iconLeft, inline, nightMode, nightModeStyle, style, type }) => {
   const Tag = type;
   var className = css(
     styles.default,
@@ -27,8 +27,9 @@ const El = ({ children, icon, inline, nightMode, nightModeStyle, style, type }) 
   );
   return (
     <Tag className={className} style={inline}>
-      {children}
+      {!iconLeft && children}
       {icon && <FontAwesome name={`${icon}`} className={css(styles.icon)}/>}
+      {iconLeft && children}
     </Tag>
   );
 };

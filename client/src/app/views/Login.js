@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     flex: '1 1 auto',
   },
   para: {
-    lineHeight: '24px',
+    lineHeight: '20px',
     marginBottom: '16px',
   },
   a: {

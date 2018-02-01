@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   },
   activeAlerts: {
     padding: '4px 8px',
+    marginRight: '4px',
     border: '1px solid #000',
     borderRadius: '2px',
   },
@@ -69,8 +70,9 @@ class TVChartItem extends PureComponent
               style={styles.activeAlerts}
               nightModeStyle={styles.activeAlertsNightMode}
               type={'span'}
+              icon={'bullhorn'}
             >
-              {`${validAlerts.length} active alert(s)`}
+              <b>{validAlerts.length}</b> active alert(s)
             </El>
           )
         }
