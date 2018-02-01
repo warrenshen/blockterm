@@ -3,6 +3,7 @@
 /* -----------------------------------------
   constants
  ------------------------------------------*/
+const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_EMAIL = 'CHANGE_EMAIL';
 const CHANGE_ERROR = 'CHANGE_ERROR';
 const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
@@ -14,12 +15,27 @@ const initialState = {
   email: '',
   error: null,
   password: '',
+  success: false,
 };
 
 export default function(state = initialState, action)
 {
+  let data;
+
   switch (action.type)
   {
+    case APOLLO_MUTATION_RESULT:
+      data = action.result.data;
+      switch (action.operationName)
+      {
+        case 'ForgotPasswordMutation':
+          return {
+            ...state,
+            success: true,
+          };
+        default:
+          return state;
+      }
     case CHANGE_EMAIL:
       return {
         ...state,

@@ -21,10 +21,14 @@ import * as STYLES         from '../constants/styles';
 
 const styles = StyleSheet.create({
   wrapper: {
-    display: 'flex',
-    backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
-    gridTemplateColumns: 'repeat(8, 1fr)',
     flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '0px 10px 0px',
+    backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
+    borderTop: '1px solid rgba(0,0,0,0.15)',
+    boxSizing: 'content-box',
+    backgroundColor: '#fff',
   },
   nightMode: {
     color: 'white',
@@ -32,9 +36,6 @@ const styles = StyleSheet.create({
   },
   nightModeText: {
     color: '#fff',
-  },
-  mainContent: {
-    width: '100%',
   },
   header: {
     display: 'flex',
@@ -47,9 +48,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     display: 'flex',
     flexDirection: 'column',
-  },
-  bodyNightMode: {
-    backgroundColor: STYLES.LIGHTNIGHT,
   },
   loginPanel: {
     marginTop: '10px',
@@ -187,6 +185,7 @@ class Signup extends PureComponent
       changePassword,
     } = this.props;
 
+    const isSubmitDisabled = !email || !password;
     const onClickSubmit = (event) => {
       event.preventDefault();
       this.submit();
@@ -200,95 +199,93 @@ class Signup extends PureComponent
     };
 
     return (
-      <div className={css(styles.body, styles.wrapper, nightMode && styles.bodyNightMode)}>
+      <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
         <Helmet>
           <title>Blockterm | Join Our Cryptocurrency Trading Community</title>
           <meta name="description" content="Manage and track your cryptocurrency portfolio/assets in one easy place. See your cryptocurrency assets total valuation, price by cryptocurrency, and distribution percentages with Blockterm." />
         </Helmet>
 
-        <div className={css(styles.mainContent)}>
-          <div className={css(styles.loginPanel, nightMode && styles.panelsNight)}>
-            <div className={css(styles.halfPanel)}>
-              <El
-                style={styles.boldedBottomHeavy}
-                nightMode={nightMode}
-                type={'h4'}
-              >
-                  Join us:
-              </El>
-              <form>
-                <input
-                  autoFocus={true}
-                  className={css(styles.inputField, nightMode && styles.fieldNight)}
-                  placeholder='email/username'
-                  type='email'
-                  required="required"
-                  onChange={(event) => changeEmail(event.target.value)}
-                  value={email}
-                />
-                <input
-                  className={css(styles.inputField, nightMode && styles.fieldNight)}
-                  placeholder='password'
-                  type='password'
-                  required="required"
-                  value={password}
-                  onChange={(event) => changePassword(event.target.value)}
-                  onKeyPress={onKeyPress}
-                />
-                {error && (
-                  <El
-                    nightMode={nightMode}
-                    type={'span'}
+        <div className={css(styles.loginPanel, nightMode && styles.panelsNight)}>
+          <div className={css(styles.halfPanel)}>
+            <El
+              style={styles.boldedBottomHeavy}
+              nightMode={nightMode}
+              type={'h4'}
+            >
+                Join us:
+            </El>
+            <form>
+              <input
+                autoFocus={true}
+                className={css(styles.inputField, nightMode && styles.fieldNight)}
+                placeholder='email/username'
+                type='email'
+                required="required"
+                onChange={(event) => changeEmail(event.target.value)}
+                value={email}
+              />
+              <input
+                className={css(styles.inputField, nightMode && styles.fieldNight)}
+                placeholder='password'
+                type='password'
+                required="required"
+                value={password}
+                onChange={(event) => changePassword(event.target.value)}
+                onKeyPress={onKeyPress}
+              />
+              {error && (
+                <El
+                  nightMode={nightMode}
+                  type={'span'}
+                >
+                  {error}
+                </El>
+              )}
+              <div className={css(styles.row)}>
+                <div className={css(styles.section)}>
+                  <button
+                    className={css(styles.bolded, styles.submitButton)}
+                    disabled={isSubmitDisabled}
+                    type='submit'
+                    onClick={onClickSubmit}
                   >
-                    {error}
-                  </El>
-                )}
-                <div className={css(styles.row)}>
-                  <div className={css(styles.section)}>
-                    <button
-                      className={css(styles.bolded, styles.submitButton)}
-                      onClick={(event) => this.submit(event)}
-                      type='submit'
-                      onClick={onClickSubmit}
-                    >
-                      Join
-                    </button>
-                  </div>
-                  <div className={css(styles.section, styles.rightAlign)}>
-                    <El nightMode={nightMode} type={'span'}>
-                      Already have an account? <Link className={css(styles.boldedColor, nightMode && styles.nightBoldedColor)} to={'/login'}><u>Login here.</u></Link>
-                    </El>
-                  </div>
+                    Join
+                  </button>
                 </div>
-              </form>
-            </div>
-            <div className={css(styles.halfPanel, styles.rightHalf)}>
-              <El
-                style={styles.boldedBottomHeavy}
-                nightMode={nightMode}
-                type={'h4'}
-              >
-                Why should I join?
-              </El>
-              <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
-                <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
-                  Customize and save/load your dashboard configuration across workstations.
-                </li>
-                <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
-                  Create/save your portfolio and track it on your dashboard.
-                </li>
-                <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
-                  Create price alerts for markets you are trading.
-                </li>
-                <li className={css(styles.blockli)}>
-                  Motivate us to continue improving this tool!
-                </li>
-              </ul>
-            </div>
+                <div className={css(styles.section, styles.rightAlign)}>
+                  <El nightMode={nightMode} type={'span'}>
+                    Already have an account? <Link className={css(styles.boldedColor, nightMode && styles.nightBoldedColor)} to={'/login'}><u>Login here.</u></Link>
+                  </El>
+                </div>
+              </div>
+            </form>
           </div>
-
-          <FAQBody nightMode={nightMode} />
+          <div className={css(styles.halfPanel, styles.rightHalf)}>
+            <El
+              style={styles.boldedBottomHeavy}
+              nightMode={nightMode}
+              type={'h4'}
+            >
+              Why should I join?
+            </El>
+            <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
+              <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
+                Customize and save/load your dashboard configuration across workstations.
+              </li>
+              <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
+                Create/save your portfolio and track it on your dashboard.
+              </li>
+              <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
+                Create price alerts for markets you are trading.
+              </li>
+              <li className={css(styles.blockli)}>
+                Motivate us to continue improving this tool!
+              </li>
+            </ul>
+          </div>
         </div>
+
+        <FAQBody nightMode={nightMode} />
       </div>
     );
   }

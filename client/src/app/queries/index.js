@@ -525,6 +525,22 @@ export const DestroyDashboardItemMutationOptions = {
   }),
 };
 
+export const ForgotPasswordMutation = gql`
+  mutation ForgotPasswordMutation($email: String!) {
+    forgotPassword(email: $email)
+  }
+`;
+
+export const ForgotPasswordMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    forgotPassword(email) {
+      return mutate({
+        variables: { email },
+      });
+    }
+  }),
+};
+
 export const LogInMutation = gql`
   mutation LogInMutation($email: String!, $password: String!) {
     logIn(email: $email, password: $password) {
