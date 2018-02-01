@@ -19,9 +19,14 @@ import El                  from '../components/El';
 
 const styles = StyleSheet.create({
   wrapper: {
+    flex: '1',
     display: 'flex',
+    flexDirection: 'column',
+    padding: '0px 10px 0px',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
-    gridTemplateColumns: 'repeat(8, 1fr)',
+    borderTop: '1px solid rgba(0,0,0,0.15)',
+    boxSizing: 'content-box',
+    backgroundColor: '#fff',
   },
   nightMode: {
     color: 'white',
@@ -30,24 +35,9 @@ const styles = StyleSheet.create({
   nightModeText: {
     color: '#fff',
   },
-  mainContent: {
-    width: '100%',
-  },
   header: {
     display: 'flex',
     padding: '15px 20px',
-  },
-  body: {
-    borderTop: '1px solid rgba(0,0,0,0.15)',
-    padding: '0px 10px 0px',
-    boxSizing: 'content-box',
-    backgroundColor: '#fff',
-    display: 'flex',
-    flex: '1',
-    flexDirection: 'column',
-  },
-  bodyNightMode: {
-    backgroundColor: STYLES.LIGHTNIGHT,
   },
 });
 
@@ -68,30 +58,33 @@ class Reset extends PureComponent
       password,
 
       changeError,
+      createNotificationError,
       createNotificationSuccess,
-      // logIn,
+      resetPassword,
     } = this.props;
 
-    // logIn(email, password)
-    //   .then((response) => {
-    //     setItem(AUTH_TOKEN_COOKIE, response.data.logIn.authToken);
-    //     window.location = '/';
-    //   })
-    //   .catch((error) => changeError(error.graphQLErrors[0].message));
+    resetPassword(password)
+      .then((response) => {
+        setItem(AUTH_TOKEN_COOKIE, response.data.resetPassword.authToken);
+        createNotificationSuccess({ position: 'bc', title: 'Password reset.' });
+        setTimeout(() => window.location = '/', 1500);
+      })
+      .catch((error) => {
+        createNotificationError({ position: 'bc', title: 'Something went wrong.' });
+        setTimeout(() => window.location = '/', 1500);
+      });
   }
 
   render()
   {
     const {
-      email,
-      error,
       nightMode,
       password,
 
-      changeEmail,
       changePassword,
     } = this.props;
 
+    const isSubmitDisabled = !password;
     const onClickSubmit = (event) => {
       event.preventDefault();
       this.submit();
@@ -105,9 +98,29 @@ class Reset extends PureComponent
     };
 
     return (
-      <div className={css(styles.body, styles.wrapper, nightMode && styles.bodyNightMode)}>
-        <div className={css(styles.mainContent)}>
-        </div>
+      <div className={css(styles.wrapper, nightMode && styles.nightMode)}>
+        <form>
+          <input
+            autoFocus={true}
+            className={css(styles.inputField, nightMode && styles.fieldNight)}
+            placeholder='password'
+            required='required'
+            type='password'
+            value={password}
+            onChange={(event) => changePassword(event.target.value)}
+            onKeyPress={onKeyPress}
+          />
+          <div className={css(styles.section)}>
+            <button
+              className={css(styles.bolded, styles.submitButton)}
+              disabled={isSubmitDisabled}
+              type='submit'
+              onClick={onClickSubmit}
+            >
+              Reset password
+            </button>
+          </div>
+        </form>
       </div>
     );
   }

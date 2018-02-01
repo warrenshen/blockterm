@@ -564,6 +564,38 @@ export const LogInMutationOptions = {
   }),
 };
 
+export const ResetPasswordMutation = gql`
+  mutation ResetPasswordMutation(
+    $password: String!,
+    $resetPasswordToken: String!,
+  ) {
+    resetPassword(
+      password: $password,
+      resetPasswordToken: $resetPasswordToken,
+    ) {
+      authToken
+
+      user {
+        id
+        email
+      }
+    }
+  }
+`;
+
+export const ResetPasswordMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    resetPassword(password) {
+      return mutate({
+        variables: {
+          password,
+          resetPasswordToken: ownProps.match.params.token,
+        },
+      });
+    },
+  }),
+};
+
 export const UpdateAlertMutation = gql`
   mutation UpdateAlertMutation($id: ID!, $status: String!) {
     alert: updateAlert(id: $id, status: $status) {
