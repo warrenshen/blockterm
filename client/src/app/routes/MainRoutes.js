@@ -19,6 +19,7 @@ import {
   ConnectedTokens,
   ConnectedFAQ,
 }                     from '../containers';
+import ConnectedForgot from '../containers/Forgot';
 import ConnectedReset from '../containers/Reset';
 import AdminPortolios from '../containers/AdminPortfolios';
 import AdminDashboards from '../containers/AdminDashboards';
@@ -32,13 +33,14 @@ export const MainRoutes = () => {
 
       <Route exact path='/join' component={ConnectedSignup} />
       <Route exact path='/login' component={ConnectedLogin} />
+
+      <Route exact path='/forgot' component={ConnectedForgot} />
       <Route exact path='/reset' component={ConnectedReset} />
 
       <Route exact path='/portfolio' component={ConnectedPortfolio} />
 
       <Route exact path='/subreddits' component={ConnectedSubreddits} />
       <Route exact path='/subreddits/compare' component={ConnectedSubredditsCompare} />
-
       <Route exact path='/subreddit/:name' component={ConnectedSubreddit} />
 
       <Route exact path='/tokens' component={ConnectedTokens} />
@@ -49,6 +51,7 @@ export const MainRoutes = () => {
 
       <Route exact path='/admin/dashboards' component={AdminDashboards} />
       <Route exact path='/admin/dashboards/:page' component={AdminDashboards} />
+
       <Route exact path='/admin/portfolios' component={AdminPortolios} />
       <Route exact path='/admin/portfolios/:page' component={AdminPortolios} />
     </Switch>

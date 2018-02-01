@@ -7,11 +7,11 @@ import {
   success as createNotificationSuccess,
 }                             from 'react-notification-system-redux';
 import {
-  // LogInMutation,
-  // LogInMutationOptions,
+  ForgotPasswordMutation,
+  ForgotPasswordMutationOptions,
 }                             from '../queries';
 import * as loginActions      from '../redux/modules/login';
-import Reset                  from '../views/Reset';
+import Forgot                 from '../views/Forgot';
 
 /* -----------------------------------------
   Redux
@@ -22,6 +22,7 @@ const mapStateToProps = (state) => {
     email: state.login.email,
     error: state.login.error,
     nightMode: state.globals.nightMode,
+    success: state.login.success,
     user: state.globals.user,
   };
 };
@@ -29,7 +30,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
-      changePassword: loginActions.changeEmail,
+      changeEmail: loginActions.changeEmail,
       changeError: loginActions.changeError,
       createNotificationSuccess: createNotificationSuccess,
     },
@@ -38,5 +39,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
+  graphql(ForgotPasswordMutation, ForgotPasswordMutationOptions),
   connect(mapStateToProps, mapDispatchToProps),
-)(Reset);
+)(Forgot);
