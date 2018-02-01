@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '100vw',
-    height: '48px',
+    height: '44px',
     padding: '0px 12px',
     backgroundColor: 'white',
     display: 'flex',
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderBottom: `1px solid ${STYLES.BORDERDARK}`,
   },
   brand: {
-    fontSize: '16px',
+    fontSize: '18px',
     fontWeight: '700',
     letterSpacing: '3px',
     textTransform: 'uppercase',
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: '1px',
     position: 'absolute',
-    left: '122px',
+    left: '134px',
     top: '14px',
     fontSize: '8px',
     fontWeight: '400',
@@ -88,12 +88,6 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 });
-
-// <a href='https://www.kucoin.com/#/?r=7Na6rQ' target='_blank'>
-//   <El style={styles.semibolded} type={'span'}>
-//     Trade altcoins with KuCoin!
-//   </El>
-// </a>
 
 class NavigationBar extends PureComponent
 {

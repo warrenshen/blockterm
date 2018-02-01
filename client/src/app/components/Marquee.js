@@ -22,6 +22,10 @@ const styles = StyleSheet.create({
     height: '21px',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
   },
+  bolded: {
+    fontWeight: '500',
+    letterSpacing: '0px',
+  },
   promotion: {
     position:'absolute',
     right: '0px',
@@ -96,7 +100,7 @@ class Marquee extends PureComponent
         />
         <div className={'promotional ' + css(styles.promotion, nightMode && styles.promotionNight)}>
           <a href='https://www.binance.com/?ref=10907326' target='_blank'>
-           <El type={'span'} icon={'btc'}>
+           <El type={'span'} style={styles.bolded} icon={'btc'}>
              Trade on Binance
            </El>
           </a>

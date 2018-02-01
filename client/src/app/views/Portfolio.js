@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     paddingBottom: '10px',
-    padding: '5px 5px',
+    padding: '0px 5px 5px 5px',
     textAlign: 'center',
   },
   closeButton: {

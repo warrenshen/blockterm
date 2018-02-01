@@ -47,28 +47,10 @@ const styles = StyleSheet.create({
     borderTop: '1px solid #999',
     backgroundColor: '#000',
   },
-  actionButton: {
-    fontWeight: '700',
-    letterSpacing: '2px',
-    textTransform: 'uppercase',
-    paddingLeft: '16px',
-    paddingRight: '16px',
-    borderColor: '#333',
-    borderTop: '0px',
-    borderBottom: '0px',
-    //boxShadow: '0px -1px 0px rgba(128, 128, 128, 0.5)',
-    ':hover': {
-      color: '#23527c',
-    },
-  },
-  darkActionButton: {
-    //borderColor: '#fff !important',
-  },
   emphasize: {
     backgroundColor: STYLES.GOLD,
   },
   darkEmphasize: {
-    //backgroundColor: STYLES.GOLD,
   },
 });
 

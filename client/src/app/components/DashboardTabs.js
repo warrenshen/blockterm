@@ -61,17 +61,19 @@ const styles = StyleSheet.create({
     position: 'fixed',
     bottom: '0px',
     left: '0px',
+    height: '21px',
     zIndex: '4',
     width: '100%',
     borderTop: '1px solid #777',
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(255,255,255,0.8)',
   },
   bottomBarNight: {
     borderTop: '1px solid #999',
-    backgroundColor: '#000',
+    backgroundColor: 'rgba(0,0,0,0.8)',
   },
   bottomBarSection: {
     display: 'flex',
+    marginTop: '-1px',
   },
   bottomBarSectionMiddle: {
     flex: '1',
@@ -80,6 +82,7 @@ const styles = StyleSheet.create({
   tabList: {
     display: 'flex',
     flexWrap: 'nowrap',
+    marginTop: '-1px',
   },
   tab: {
     height: '100%',
@@ -89,7 +92,10 @@ const styles = StyleSheet.create({
     padding: '0px 12px',
     backgroundColor: '#fff',
     borderRight: '1px solid #333',
+    borderTop: 'none !important',
+    borderBottom: 'none !important',
     fontWeight: '500',
+    fontSize: '13px',
     textTransform: 'uppercase',
     letterSpacing: '2px',
     whiteSpace: 'nowrap',
@@ -241,11 +247,11 @@ class DashboardTabs extends Component {
       <div className={css(styles.bottomBar, nightMode && styles.bottomBarNight)}>
         <div className={css(styles.bottomBarSection)}>
           <button
-            className={css(styles.closeButton)}
+            className={css(styles.closeButton, styles.button)}
             onClick={onClickEdit}
             title="Click to add/edit dashboard tabs"
           >
-            <FontAwesome name='edit' style={{'fontSize':'13px'}}/>
+            <FontAwesome name='edit'/>
           </button>
         </div>
         <div className={css(styles.bottomBarSection, styles.bottomBarSectionMiddle)}>

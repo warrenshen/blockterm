@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   widgetTitle: {
     lineHeight: '16px',
-    fontSize: '14px',
+    fontSize: '12px',
     textTransform: 'uppercase',
     letterSpacing: '1px',
     marginLeft: '4px',
