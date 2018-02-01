@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_many :alerts
   has_many :dashboard_items
   has_many :dashboard_pages
+  has_many :portfolio_tickers
   has_many :token_users
   has_many :tokens, through: :token_users
 

@@ -11,7 +11,8 @@
 #
 # Indexes
 #
-#  index_market_tickers_on_market_id  (market_id)
+#  index_market_tickers_on_market_id                (market_id)
+#  index_market_tickers_on_market_id_and_timestamp  (market_id,timestamp)
 #
 # Foreign Keys
 #
