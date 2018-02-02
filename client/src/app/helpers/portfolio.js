@@ -1,3 +1,29 @@
+export function calculatePortfolioTotalValue(tokenUsers, attributePrice)
+{
+  return tokenUsers.reduce(
+    (accum, tokenUser) => {
+      const price = tokenUser.token[attributePrice];
+      return accum + tokenUser.amount * price;
+    },
+    0,
+  );
+}
+
+export function calculatePortfolioChange(
+  tokenUsers,
+  attributePrice, // ex. priceUSD
+  attributePercentChange, // ex. percentChange24hUSD
+)
+{
+  const totalValue = calculatePortfolioTotalValue(tokenUsers, attributePrice);
+  return tokenUsers.reduce(
+    (accum, tokenUser) => {
+      const percentChange = tokenUser.token[attributePercentChange];
+      return accum + tokenUser.amount * tokenUser.token[attributePrice] / totalValue * percentChange / 100;
+    },
+    0,
+  );
+}
 
 export function generateEmptyDonut(nightMode=false) {
     const emptyDonut = {
@@ -20,40 +46,13 @@ export function generateEmptyDonut(nightMode=false) {
   return emptyDonut;
 }
 
-export function calculatePortfolioTotalValue(
-  tokenUsers,
-  attributePrice,
-)
-{
-  return tokenUsers.reduce(
-    (accum, tokenUser) => accum + (tokenUser.amount * tokenUser.token[attributePrice]),
-    0,
-  );
-}
-
-export function calculatePortfolioChange(
-  tokenUsers,
-  attributePrice, // ex. priceUSD
-  attributePercentChange, // ex. percentChange24hUSD
-)
-{
-  const totalValue = calculatePortfolioTotalValue(tokenUsers, attributePrice);
-  return tokenUsers.reduce(
-    (accum, tokenUser) => {
-      const percentChange = tokenUser.token[attributePercentChange];
-      return accum +  tokenUser.amount * tokenUser.token[attributePrice] / totalValue * percentChange / 100;
-    },
-    0,
-  );
-}
-
 export function calculatePortfolioDonutData(
   tokenUsers,
   priceAttribute,
   nightMode,
 )
 {
-  if (tokenUsers.length <= 0 || calculatePortfolioTotalValue(tokenUsers) <= 0)
+  if (tokenUsers.length === 0)
   {
     return generateEmptyDonut(nightMode);
   }
@@ -62,6 +61,12 @@ export function calculatePortfolioDonutData(
   const distribution = tokenUsers.map(
     (tokenUser) => tokenUser.amount * tokenUser.token[priceAttribute]
   );
+
+  if (distribution.reduce((a, b) => a + b, 0) <= 0 || distribution.includes(NaN))
+  {
+    return generateEmptyDonut(nightMode);
+  }
+
   const borderColor = nightMode ? '#fff' : '#999';
 
   return ({

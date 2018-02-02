@@ -511,7 +511,8 @@ class Portfolio extends Component
     }
   }
 
-  renderHeroTable() {
+  renderHeroTable()
+  {
     const {
       nightMode,
       tokenUsers,

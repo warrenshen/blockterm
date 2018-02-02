@@ -97,13 +97,14 @@ export function parseAlertIdentifier(identifier)
 
 export function generateAlertNotificationTitle(alert)
 {
-  return `Price alert: ${alert.identifier}!`;
+  const [market, price, condition] = parseAlertIdentifier(alert.identifier);
+  return `Price alert: ${market}!`;
 }
 
 export function generateAlertNotificationBody(alert)
 {
   const [market, price, condition] = parseAlertIdentifier(alert.identifier);
-  return `${price}`;
+  return `${condition} ${price}`;
 }
 
 export function filterAlertsByItemIdentifier(alerts, itemIdentifier)
