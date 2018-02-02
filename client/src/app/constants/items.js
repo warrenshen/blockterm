@@ -1,10 +1,11 @@
-export const PROJECT_VERSION = '0.2.0.2';
+export const PROJECT_VERSION = '0.2.0.3';
 export const PATCH_NOTES = [
-  '0.2.0.2: Search bar in Prices/Volume tab, scrolling price marquee display fixed, Bitcoin Dominance widget added, chat channel!',
-  '0.2.0.1: Added more Twitter widgets for coins such as: DRGN, KNC, RPX, and many more. Subtle changes to subreddits/tokens page, portfolio widget.',
-  '0.2: Stable release of portfolio and twitter feed widgets, and volume/price delta grid. Track your total portfolio value in a few clicks!',
-  '0.1.6.5: Soft launching the heavily requested "Portfolio" tab and dashboard widget, overhauling of "Coins/Tokens" page to "Price/Volume" of top 200 cryptos;',
-  '0.1.6.3: All Binance coins/currencies now supported via Candle Chart.',
+  '0.2.3: Price alerts for Binance/Bittrex markets, portfolio widget in BTC and ETH units, ability to customize dashboard tabs.',
+  '0.2.2: Search bar in Prices/Volume tab, scrolling price marquee display fixed, Bitcoin Dominance widget added, chat channel!',
+  '0.2.1: Added more Twitter widgets for coins such as: DRGN, KNC, RPX, and many more. Subtle changes to subreddits/tokens page, portfolio widget.',
+  '0.2.0: Stable release of portfolio and twitter feed widgets, and volume/price delta grid. Track your total portfolio value in a few clicks!',
+  '0.1.5: Soft launching the heavily requested "Portfolio" tab and dashboard widget, overhauling of "Coins/Tokens" page to "Price/Volume" of top 200 cryptos;',
+  '0.1.3: All Binance coins/currencies now supported via Candle Chart.',
 ];
 //<li className={css(styles.blockli)}>Locking and unlocking of widgets now supported.</li>
 //<li className={css(styles.blockli)}>[...]</li>
@@ -1551,12 +1552,6 @@ export const DEFAULT_PAGES_OBJECTS = [
     ],
     index: 2,
     name: 'Tab 3',
-  },
-  {
-    dashboardItems: [
-    ],
-    index: 3,
-    name: 'Tab 4',
   },
 ];
 

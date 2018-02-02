@@ -187,9 +187,12 @@ export default function(state = initialState, action)
         case 'DestroyDashboardItemMutation':
         case 'UpdateDashboardPagesMutation':
           dashboardPages = data.user.dashboardPages;
+          const selectedTab = state.selectedTab > dashboardPages.length ? 0 : state.selectedTab;
+          setItem(SELECTED_TAB_COOKIE, selectedTab);
           return {
             ...state,
             dashboardPages: data.user.dashboardPages,
+            selectedTab: selectedTab,
           };
         case 'UpdateDashboardItemMutation':
           dashboardPages = data.user.dashboardPages;

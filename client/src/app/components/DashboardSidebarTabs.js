@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   element: {
     flex: '1',
     display: 'flex',
+    minWidth: '172px',
     padding: '6px 4px',
     lineHeight: '24px',
     justifyContent: 'center',
