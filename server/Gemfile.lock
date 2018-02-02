@@ -43,6 +43,7 @@ GEM
       rake (>= 10.4, < 13.0)
     arel (7.1.4)
     awesome_print (1.8.0)
+    bcrypt (3.1.11)
     builder (3.2.3)
     byebug (9.1.0)
     coderay (1.1.2)
@@ -55,8 +56,12 @@ GEM
     graphiql-rails (1.4.7)
       rails
     graphql (1.7.4)
+    graphql-batch (0.3.9)
+      graphql (>= 0.8, < 2)
+      promise.rb (~> 0.7.2)
     i18n (0.9.0)
       concurrent-ruby (~> 1.0)
+    jwt (2.1.0)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -73,6 +78,7 @@ GEM
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     pg (0.21.0)
+    promise.rb (0.7.4)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -112,12 +118,10 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     search_object (1.2.0)
-    search_object_graphql (0.1)
-      graphql (~> 1.5)
-      search_object (~> 1.2)
     seed_dump (3.2.4)
       activerecord (>= 4)
       activesupport (>= 4)
+    simple_command (0.0.9)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -134,9 +138,13 @@ GEM
     thread_safe (0.3.6)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
+    validates_email_format_of (1.6.3)
+      i18n
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    where_exists (1.1.1)
+      rails (>= 4.2, < 6)
 
 PLATFORMS
   ruby
@@ -144,9 +152,12 @@ PLATFORMS
 DEPENDENCIES
   annotate
   awesome_print
+  bcrypt
   byebug
   graphiql-rails
   graphql
+  graphql-batch
+  jwt
   listen (~> 3.0.5)
   pg (~> 0.18)
   pry-byebug
@@ -154,11 +165,13 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.0.6)
   search_object
-  search_object_graphql
   seed_dump
+  simple_command
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+  validates_email_format_of
+  where_exists
 
 BUNDLED WITH
    1.16.0
