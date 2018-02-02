@@ -30,7 +30,15 @@ const config = {
       {
         test:    /\.worker\.js$/,
         include: srcInclude,
-        loaders: ['babel-loader', 'worker-loader']
+        loaders: [
+          {
+            loader: 'babel-loader',
+          },
+          {
+            loader: 'worker-loader',
+            options: { inline: true }
+          }
+        ]
       },
       {
         test: /\.css$/,
