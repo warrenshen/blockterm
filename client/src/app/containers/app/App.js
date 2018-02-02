@@ -53,7 +53,8 @@ const notificationsStyle = {
       fontWeight: '500',
     },
     info: {
-      backgroundColor: '#F50057',
+      backgroundColor: STYLES.ROYAL_BLUE,
+      //backgroundColor: '#F50057',
     },
     error: {
       backgroundColor: '#FF0E28',
