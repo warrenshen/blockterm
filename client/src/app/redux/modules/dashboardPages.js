@@ -10,6 +10,7 @@ const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
 const APOLLO_QUERY_RESULT_CLIENT = 'APOLLO_QUERY_RESULT_CLIENT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_DASHBOARD_PAGE_NAME = 'CHANGE_DASHBOARD_PAGE_NAME';
+const CHANGE_SIDEBAR_MODE = 'CHANGE_SIDEBAR_MODE';
 const REMOVE_DASHBOARD_PAGE = 'REMOVE_DASHBOARD_PAGE';
 
 /* -----------------------------------------
@@ -81,6 +82,13 @@ export default function(state = initialState, action)
             ...state,
             dashboardPages: data.user.dashboardPages,
           };
+        case 'UpdateDashboardPagesMutation':
+          data = action.result.data;
+          return {
+            ...state,
+            changeActive: false,
+            dashboardPages: data.user.dashboardPages,
+          };
         default:
           return state;
       }
@@ -110,6 +118,11 @@ export default function(state = initialState, action)
         ...state,
         changeActive: true,
         dashboardPages: newDashboardPages.toJS(),
+      };
+    case CHANGE_SIDEBAR_MODE:
+      return {
+        ...state,
+        changeActive: false,
       };
     case REMOVE_DASHBOARD_PAGE:
       oldDashboardPages = fromJS(state.dashboardPages);

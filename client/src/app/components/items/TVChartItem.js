@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     marginRight: '4px',
     border: '1px solid #000',
     borderRadius: '2px',
+    backgroundColor: 'transparent',
   },
   activeAlertsNightMode: {
     border: '1px solid #f3f3f3',
@@ -54,26 +55,34 @@ class TVChartItem extends PureComponent
   {
     const {
       alerts,
+      identifier,
       nightMode,
       value,
+
+      changeModalState,
     } = this.props;
 
     const validAlerts = alerts.filter(
       (alert) => alert.identifier.indexOf(value) === 0
     );
+    const onClick = (event) => changeModalState(identifier);
+
     return (
       <div className={css(styles.extras)}>
         {
           validAlerts.length > 0 && (
-            <El
-              nightMode={nightMode}
-              style={styles.activeAlerts}
-              nightModeStyle={styles.activeAlertsNightMode}
-              type={'span'}
-              icon={'bullhorn'}
+            <button
+              className={css(styles.activeAlerts, nightMode && styles.activeAlertsNightMode)}
+              onClick={onClick}
             >
-              <b>{validAlerts.length}</b> active alert(s)
-            </El>
+              <El
+                icon={'bullhorn'}
+                nightMode={nightMode}
+                type={'span'}
+              >
+                <b>{validAlerts.length}</b> active alert(s)
+              </El>
+            </button>
           )
         }
         {

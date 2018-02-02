@@ -132,6 +132,7 @@ class DashboardItem extends Component
       user,
 
       changeDashboardItemState,
+      changeModalState,
     } = this.props;
 
     const identifier = dashboardItem.identifier;
@@ -228,7 +229,10 @@ class DashboardItem extends Component
             alerts={alerts}
             dashboardAction={dashboardAction}
             nightMode={nightMode}
+            identifier={identifier}
             value={identifierValue}
+
+            changeModalState={changeModalState}
           />
         );
       case TV_MARKET_OVERVIEW:

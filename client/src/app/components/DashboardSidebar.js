@@ -183,9 +183,22 @@ class DashboardSidebar extends PureComponent
       window.removeEventListener('keyup', this.handleEscape);
     }
 
+    if (prevProps.sidebarMode === null && sidebarMode === 'add' || sidebarMode === 'edit')
+    {
+      this.focusOnKeySelect();
+    }
+
     if (prevProps.keySelectValue !== keySelectValue)
     {
       this.focusOnSpecificSelect();
+    }
+  }
+
+  focusOnKeySelect()
+  {
+    const sidebarSpecificField = document.getElementById('widgetSearch');
+    if (sidebarSpecificField) {
+      sidebarSpecificField.focus();
     }
   }
 
@@ -378,7 +391,7 @@ class DashboardSidebar extends PureComponent
       <div className={css(styles.mode)}>
         <div className={css(styles.topHalf)}>
           <Select
-            inputProps={{'id': 'widget_search'}}
+            inputProps={{'id': 'widgetSearch'}}
             placeholder={'Search Widget Type'}
             className={css(styles.select, styles.bolded)}
             matchProp={'label'}

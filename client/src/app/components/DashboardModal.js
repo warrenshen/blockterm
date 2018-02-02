@@ -229,7 +229,7 @@ class DashboardModal extends PureComponent
           nightMode={nightMode}
           type={'h5'}
         >
-          {`Price alerts not supported for this exchange yet. Please try Binance or Bittrex.`}
+          Price alerts not supported for this exchange yet. Please try markets on Binance or Bittrex.
         </El>
       );
     }

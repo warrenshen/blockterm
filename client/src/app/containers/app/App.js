@@ -104,7 +104,6 @@ class App extends PureComponent
     {
       if (this.worker !== null)
       {
-        console.log('terminate');
         this.worker.terminate();
       }
 
@@ -127,8 +126,8 @@ class App extends PureComponent
           event.target.close();
         };
         updateAlert(alert.id, 'triggered')
-          .then((response) => console.log('update success'))
-          .catch((error) => console.log(error));
+          .then((response) => process.env.NODE_ENV === 'dev' && console.log('Alert update success'))
+          .catch((error) => process.env.NODE_ENV === 'dev' && console.log(error));
       };
     }
   }

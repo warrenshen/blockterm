@@ -190,6 +190,7 @@ class DashboardSidebarTabs extends PureComponent
             </button>
             <button
               className={css(styles.blockButton, nightMode && styles.darkBlockButton)}
+              disabled={!changeActive}
               onClick={onClickSave}
             >
               Save changes
