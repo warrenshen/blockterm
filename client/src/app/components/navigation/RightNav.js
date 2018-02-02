@@ -5,10 +5,11 @@ import PropTypes            from 'prop-types';
 import { withApollo }       from 'react-apollo';
 import { StyleSheet, css }  from 'aphrodite/no-important';
 import RightNavButton       from './RightNavButton';
+import Select               from 'react-select';
 import Switch               from 'react-toggle-switch'
 import El                   from '../El';
 import FontAwesome          from 'react-fontawesome';
-import * as STYLES         from '../../constants/styles';
+import * as STYLES          from '../../constants/styles';
 
 import {
   AUTH_TOKEN_COOKIE,
@@ -80,6 +81,9 @@ const styles = StyleSheet.create({
       borderBottomColor: '#304FFE !important',
     },
   },
+  select: {
+    marginLeft: '24px',
+  },
 });
 
 function logOut(event, client)
@@ -101,9 +105,46 @@ function truncateEmail(email)
   }
 }
 
+const currencyOptions = [
+  { value: 'AUD', label: 'AUD' },
+  { value: 'BGN', label: 'BGN' },
+  { value: 'BRL', label: 'BRL' },
+  { value: 'CAD', label: 'CAD' },
+  { value: 'CHF', label: 'CHF' },
+  { value: 'CNY', label: 'CNY' },
+  { value: 'CZK', label: 'CZK' },
+  { value: 'DKK', label: 'DKK' },
+  { value: 'EUR', label: 'EUR' },
+  { value: 'GBP', label: 'GBP' },
+  { value: 'HKD', label: 'HKD' },
+  { value: 'HRK', label: 'HRK' },
+  { value: 'HUF', label: 'HUF' },
+  { value: 'IDR', label: 'IDR' },
+  { value: 'ILS', label: 'ILS' },
+  { value: 'INR', label: 'INR' },
+  { value: 'ISK', label: 'ISK' },
+  { value: 'JPY', label: 'JPY' },
+  { value: 'KRW', label: 'KRW' },
+  { value: 'MXN', label: 'MXN' },
+  { value: 'MYR', label: 'MYR' },
+  { value: 'NOK', label: 'NOK' },
+  { value: 'NZD', label: 'NZD' },
+  { value: 'PHP', label: 'PHP' },
+  { value: 'PLN', label: 'PLN' },
+  { value: 'RON', label: 'RON' },
+  { value: 'RUB', label: 'RUB' },
+  { value: 'SEK', label: 'SEK' },
+  { value: 'SGD', label: 'SGD' },
+  { value: 'THB', label: 'THB' },
+  { value: 'TRY', label: 'TRY' },
+  { value: 'ZAR', label: 'ZAR' },
+];
+
 //<FontAwesome name='lightbulb-o' size='2x' style={{'position':'absolute', 'left':'-16px', 'top':'3px', 'fontSize':'20px',}}/>
 const RightNav = ({
+  currency,
   client,
+  changeCurrency,
   rightLinks,
   nightMode,
   toggleNightMode,
@@ -115,6 +156,14 @@ const RightNav = ({
       on={nightMode}
       onClick={toggleNightMode}
       title="Toggle on/off night mode"
+    />
+    <Select
+      className={css(styles.select, nightMode && styles.nightSelect)}
+      clearable={false}
+      options={currencyOptions}
+      onChange={changeCurrency}
+      searchable={false}
+      value={currency}
     />
     {
       rightLinks.map((aLinkBtn, index) => (

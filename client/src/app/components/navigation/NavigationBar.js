@@ -94,6 +94,8 @@ class NavigationBar extends PureComponent
   static propTypes = {
     // If there is no auth token cookie, then we do not fetch
     // user from the server and thus may have no data prop.
+    changeCurrency: PropTypes.func.isRequired,
+    currency: PropTypes.string.isRequired,
     data: PropTypes.object,
     isPageLoaded: PropTypes.bool.isRequired,
     navModel: PropTypes.shape({
@@ -136,18 +138,35 @@ class NavigationBar extends PureComponent
     }
   }
 
+  grabCurrencyRates() {
+    var API  = 'https://api.fixer.io/latest?base=USD';
+    fetch(API)
+    .then(response => response.json())
+    .then(data => {
+      //this.setState({data: responseJson});
+      window.exch_rates = data.rates;
+      console.log(data.rates);
+    })
+    .catch((error) => {
+      console.log(`Error getting currency rates: ${error}`);
+    });
+  }
+
   componentDidMount()
   {
     this.showLatestUpdates();
+    this.grabCurrencyRates();
   }
 
   render()
   {
     const {
+      currency,
       data,
       isPageLoaded,
       nightMode,
       toggleNightMode,
+      changeCurrency,
       toggleSidebar,
       sidebarActive,
       user,
@@ -182,10 +201,12 @@ class NavigationBar extends PureComponent
           </div>
           <div className={css(styles.section)}>
             <RightNav
+              currency={currency}
               user={user}
               nightMode={nightMode}
               rightLinks={navigationModel.rightLinks}
               toggleNightMode={toggleNightMode}
+              changeCurrency={changeCurrency}
             />
           </div>
         </nav>
