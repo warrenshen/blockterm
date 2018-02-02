@@ -7,6 +7,7 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
 import FontAwesome         from 'react-fontawesome';
 import * as DEFAULTS       from '../constants/styles';
+import * as STYLES         from '../constants/styles';
 import El                  from '../components/El';
 
 const styles = StyleSheet.create({
@@ -24,10 +25,24 @@ const styles = StyleSheet.create({
   headerNight: {
     borderBottom: `1px solid ${DEFAULTS.BORDERDARK}`
   },
-  list: {
-    display: 'flex',
-    flexDirection: 'column',
+  table: {
+    display: 'table',
+    width: '100%',
+    borderCollapse: 'collapse',
     overflowY: 'scroll',
+  },
+  row: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  element: {
+    flex: '1',
+    display: 'flex',
+    padding: '6px 4px',
+    lineHeight: '24px',
+    justifyContent: 'center',
   },
   blockButton: {
     borderRadius: '0px',
@@ -87,15 +102,15 @@ class DashboardSidebarTabs extends PureComponent
     const onClickRemove = (event) => removeDashboardPage(id);
 
     return (
-      <tr key={id}>
-        <td>
+      <tr className={css(styles.row)} key={id}>
+        <td className={css(styles.element)}>
           <input
             className={css(styles.input)}
-            onChange={onChange}
             value={name}
+            onChange={onChange}
           />
         </td>
-        <td>
+        <td className={css(styles.element)}>
           <El
             style={DEFAULTS.styles.subtitle}
             nightMode={nightMode}
@@ -152,10 +167,10 @@ class DashboardSidebarTabs extends PureComponent
         <div
           className={css(styles.container, nightMode && styles.containerNightMode)}
         >
-          <table className={css(styles.list)}>
+          <table className={css(styles.table)}>
             <tbody>
               <tr className={css(styles.header, nightMode && styles.headerNight)}>
-                <td>
+                <td className={css(styles.element)}>
                   <El
                     style={DEFAULTS.styles.subtitle}
                     nightMode={nightMode}
@@ -164,7 +179,7 @@ class DashboardSidebarTabs extends PureComponent
                     Tab name
                   </El>
                 </td>
-                <td>
+                <td className={css(styles.element)}>
                   <El
                     style={DEFAULTS.styles.subtitle}
                     nightMode={nightMode}
@@ -173,6 +188,7 @@ class DashboardSidebarTabs extends PureComponent
                     # widgets
                   </El>
                 </td>
+                <td></td>
               </tr>
               {
                 dashboardPages.map(

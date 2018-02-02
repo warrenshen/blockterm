@@ -51,9 +51,6 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
   },
-  flexTwo: {
-    flex: '2',
-  },
   element: {
     flex: '1',
     display: 'flex',
