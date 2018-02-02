@@ -12,6 +12,8 @@ import {
 import { Helmet }          from 'react-helmet';
 import {
   AUTH_TOKEN_COOKIE,
+  SELECTED_TAB_COOKIE,
+  clearItem,
   getItem,
   setItem,
 }                          from '../services/cookie';
@@ -159,6 +161,7 @@ class Signup extends PureComponent
 
     createUser(email, password)
       .then((response) => {
+        clearItem(SELECTED_TAB_COOKIE);
         setItem(AUTH_TOKEN_COOKIE, response.data.createUser.authToken);
         window.location = '/';
       })

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     position: 'fixed',
-    top: '69px',
+    top: '65px',
     left: '0px',
     zIndex: '3',
     width: '100%',
@@ -72,11 +72,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
   },
-  alerts: {
+  alertsSection: {
     flex: '1',
     display: 'flex',
     flexDirection: 'column',
     overflow: 'scroll',
+  },
+  alerts: {
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
   },
   alert: {
     flexDirection: 'column',
@@ -128,6 +133,7 @@ class DashboardModal extends PureComponent
   constructor(props)
   {
     super(props);
+    this.scrollable = null;
     this.handleEscape = (event) => {
       if (event.key === 'Escape')
       {
@@ -135,16 +141,21 @@ class DashboardModal extends PureComponent
         props.changeModalState(null);
       }
     };
+    this.handleWheelWindow = (event) => {
+      event.preventDefault();
+    };
   }
 
   componentDidMount()
   {
     window.addEventListener('keyup', this.handleEscape);
+    window.addEventListener('wheel', this.handleWheelWindow);
   }
 
   componentWillUnmount()
   {
     window.removeEventListener('keyup', this.handleEscape);
+    window.removeEventListener('wheel', this.handleWheelWindow);
   }
 
   createAlert()
@@ -362,7 +373,10 @@ class DashboardModal extends PureComponent
     if (user !== null)
     {
       return (
-        <div>
+        <div
+          className={css(styles.alertsSection)}
+          ref={(el) => this.scrollable = el}
+        >
           <div className={css(styles.sectionHeader, nightMode && styles.sectionHeaderNight)}>
             <El
               nightMode={nightMode}

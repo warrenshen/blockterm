@@ -11,6 +11,8 @@ import {
 }                          from 'react-router-dom';
 import {
   AUTH_TOKEN_COOKIE,
+  SELECTED_TAB_COOKIE,
+  clearItem,
   getItem,
   setItem,
 }                          from '../services/cookie';
@@ -176,6 +178,7 @@ class Login extends PureComponent
 
     logIn(email, password)
       .then((response) => {
+        clearItem(SELECTED_TAB_COOKIE);
         setItem(AUTH_TOKEN_COOKIE, response.data.logIn.authToken);
         window.location = '/';
       })

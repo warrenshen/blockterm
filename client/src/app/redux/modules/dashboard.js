@@ -185,6 +185,7 @@ export default function(state = initialState, action)
             valueSelectValue: initialState.valueSelectValue,
           };
         case 'DestroyDashboardItemMutation':
+        case 'UpdateDashboardItemsMutation':
         case 'UpdateDashboardPagesMutation':
           dashboardPages = data.user.dashboardPages;
           const selectedTab = state.selectedTab > dashboardPages.length ? 0 : state.selectedTab;

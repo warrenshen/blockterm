@@ -65,24 +65,29 @@ class TVChartItem extends PureComponent
     const validAlerts = alerts.filter(
       (alert) => alert.identifier.indexOf(value) === 0
     );
-    const onClick = (event) => changeModalState(identifier);
+    const onClick = (event) => {
+      console.log('hello');
+      changeModalState(identifier);
+    };
 
+    // <button
+    //   className={css(styles.activeAlerts, nightMode && styles.activeAlertsNightMode)}
+    //   title="Full screen widget and view alerts"
+    //   onClick={onClick}
+    // >
     return (
       <div className={css(styles.extras)}>
         {
           validAlerts.length > 0 && (
-            <button
-              className={css(styles.activeAlerts, nightMode && styles.activeAlertsNightMode)}
-              onClick={onClick}
+            <El
+              icon={'bullhorn'}
+              nightMode={nightMode}
+              nightModeStyle={styles.activeAlertsNightMode}
+              style={styles.activeAlerts}
+              type={'span'}
             >
-              <El
-                icon={'bullhorn'}
-                nightMode={nightMode}
-                type={'span'}
-              >
-                <b>{validAlerts.length}</b> active alert(s)
-              </El>
-            </button>
+              <b>{validAlerts.length}</b> active alert(s)
+            </El>
           )
         }
         {

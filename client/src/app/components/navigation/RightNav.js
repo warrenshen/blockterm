@@ -12,6 +12,7 @@ import * as STYLES         from '../../constants/styles';
 
 import {
   AUTH_TOKEN_COOKIE,
+  SELECTED_TAB_COOKIE,
   clearItem,
 } from '../../services/cookie';
 
@@ -84,6 +85,7 @@ const styles = StyleSheet.create({
 function logOut(event, client)
 {
   clearItem(AUTH_TOKEN_COOKIE);
+  clearItem(SELECTED_TAB_COOKIE);
   window.location = '/';
 }
 
