@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   select: {
     width: '55px',
-    marginLeft: '28px',
+    marginLeft: '30px',
   },
   nightSelectStyle: {
     backgroundColor: '#000',

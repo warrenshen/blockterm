@@ -123,13 +123,12 @@ class NavigationBar extends PureComponent
     } = this.props;
 
     const seenVersion = getItem(LAST_SEEN_VERSION);
-
-    if (seenVersion === null)
-    {
+    
+    if (seenVersion == null || seenVersion == undefined) {
       setItem(LAST_SEEN_VERSION, PROJECT_VERSION);
-    }
-    else if (seenVersion !== PROJECT_VERSION)
-    {
+      return;
+    } 
+    if (seenVersion !== PROJECT_VERSION) {
       setItem(LAST_SEEN_VERSION, PROJECT_VERSION);
 
       let message = `New in ver. ${PATCH_NOTES[0]}`;

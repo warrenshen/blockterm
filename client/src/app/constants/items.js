@@ -1,5 +1,6 @@
-export const PROJECT_VERSION = '0.2.0.3';
+export const PROJECT_VERSION = '0.2.4';
 export const PATCH_NOTES = [
+  '0.2.4: Selectable currencies for many different nationalities, e.g. CAD, AUD, KRW (₩), JPY (¥), RUB (₽), MXN, DKK (kr), etc.',
   '0.2.3: Price alerts for Binance/Bittrex markets, portfolio widget in BTC and ETH units, ability to customize dashboard tabs.',
   '0.2.2: Search bar in Prices/Volume tab, scrolling price marquee display fixed, Bitcoin Dominance widget added, chat channel!',
   '0.2.1: Added more Twitter widgets for coins such as: DRGN, KNC, RPX, and many more. Subtle changes to subreddits/tokens page, portfolio widget.',
