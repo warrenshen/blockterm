@@ -110,7 +110,7 @@ export default function(state = initialState, action)
         nightMode: newNightMode,
       };
     case CHANGE_CURRENCY:
-      setItem(CURRENCY_COOKIE, action.value); //TODO: make actual cookie
+      setItem(CURRENCY_COOKIE, action.value);
       return {
         ...state,
         currency: action.value,

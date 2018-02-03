@@ -68,7 +68,7 @@ export const currencySymbols = {
 };
 
 export function convertCurrency(inputValue, currency) {
-  const RATES = window.exchange_rates;
+  const RATES = window.exchangeRates;
   if(RATES) {
     const rate = RATES[currency];
     return inputValue * rate;
@@ -80,7 +80,7 @@ export function convertCurrency(inputValue, currency) {
 
 export function convertCurrencyToString(inputValue, currency, format='$0,0') {
   const SYMBOL = currencySymbols[currency] || currency + ' ';
-  const RATES = window.exchange_rates;
+  const RATES = window.exchangeRates;
 
   if(RATES) {
     const rate = RATES[currency];

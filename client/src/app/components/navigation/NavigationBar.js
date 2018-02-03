@@ -123,8 +123,8 @@ class NavigationBar extends PureComponent
     } = this.props;
 
     const seenVersion = getItem(LAST_SEEN_VERSION);
-    
-    if (seenVersion == null || seenVersion == undefined) {
+
+    if (seenVersion === null || seenVersion === undefined) {
       setItem(LAST_SEEN_VERSION, PROJECT_VERSION);
       return;
     } 
@@ -138,14 +138,12 @@ class NavigationBar extends PureComponent
   }
 
   grabCurrencyRates() {
-    var API  = 'https://api.fixer.io/latest?base=USD';
+    const API  = 'https://api.fixer.io/latest?base=USD';
     fetch(API)
     .then(response => response.json())
     .then(data => {
-      //this.setState({data: responseJson});
       data.rates['USD'] = 1;
-      window.exchange_rates = data.rates;
-      console.log(data.rates);
+      window.exchangeRates = data.rates;
     })
     .catch((error) => {
       console.log(`Error getting currency rates: ${error}`);
