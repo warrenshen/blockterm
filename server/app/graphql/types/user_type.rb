@@ -15,6 +15,18 @@ module Types
       }
     end
 
+    field :earliestPortfolioTickerDate, types.String do
+      description 'The date time of earliest portfolio ticker of user'
+
+      resolve -> (obj, args, ctx) {
+        time_zone = ctx[:time_zone]
+        QueryHelper::get_earliest_instance_date(
+          obj.portfolio_tickers,
+          time_zone,
+        )
+      }
+    end
+
     field :alerts, !types[Types::AlertType] do
       description 'The active (not triggered nor expired) alerts associated with user'
 
@@ -36,7 +48,7 @@ module Types
 
       resolve -> (obj, args, ctx) {
         QueryHelper::filter_portfolio_tickers_by_time_range(
-          current_user.portfolio_tickers,
+          obj.portfolio_tickers,
           args[:timeRange],
           7.days
         )
