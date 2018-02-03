@@ -84,6 +84,90 @@ module QueryHelper
     relation
   end
 
+  def self.filter_relation_by_time_range(
+    relation,
+    time_range,
+    bin_strategy='total',
+    default_time_range=7.days,
+    key_symbol=:count
+  )
+    clause = 'timestamp > ?'
+    now = DateTime.now
+    today = Date.today
+
+    if time_range.nil?
+      relation = relation.where(clause, today - default_time_range)
+    elsif time_range == 'ONE_DAY'
+      relation = relation.where(clause, now - 24.hours)
+    elsif time_range == 'ONE_WEEK'
+      relation = relation.where(clause, today - 7.days)
+    elsif time_range == 'TWO_WEEKS'
+      relation = relation.where(clause, today - 14.days)
+    elsif time_range == 'ONE_MONTH'
+      relation = relation.where(clause, today - 1.month)
+    elsif time_range == 'THREE_MONTHS'
+      relation = relation.where(clause, today - 3.months)
+    elsif time_range == 'SIX_MONTHS'
+      relation = relation.where(clause, today - 6.months)
+    elsif time_range == 'ONE_YEAR'
+      relation = relation.where(clause, today - 1.year)
+    elsif time_range == 'THREE_YEARS'
+      relation = relation.where(clause, today - 3.years)
+    end
+
+    relation = relation.order(timestamp: :asc)
+
+    relation_count = relation.length
+    if relation_count > 365
+      relation = self.bin_relation_by_k(
+        relation,
+        bin_strategy,
+        key_symbol,
+        relation_count / 365,
+      )
+    end
+
+    relation
+  end
+
+  def self.filter_portfolio_tickers_by_time_range(
+    relation,
+    time_range,
+    default_time_range=7.days
+  )
+    clause = 'timestamp > ?'
+    now = DateTime.now
+    today = Date.today
+
+    if time_range.nil?
+      relation = relation.where(clause, today - default_time_range)
+    elsif time_range == 'ONE_WEEK'
+      relation = relation.where(clause, today - 7.days)
+    elsif time_range == 'ONE_MONTH'
+      relation = relation.where(clause, today - 1.month)
+    elsif time_range == 'THREE_MONTHS'
+      relation = relation.where(clause, today - 3.months)
+    elsif time_range == 'ONE_YEAR'
+      relation = relation.where(clause, today - 1.year)
+    elsif time_range == 'THREE_YEARS'
+      relation = relation.where(clause, today - 3.years)
+    end
+
+    relation = relation.order(timestamp: :asc)
+    relation_count = relation.length
+
+    if relation_count > 365
+      result = []
+      k = relation_count / 365
+      relation = relation.each_slice(k) do |records|
+        result << records.last
+      end
+      relation = result
+    end
+
+    relation
+  end
+
   def self.get_earliest_instance_date(relation, time_zone_name)
     earliest_instance = relation.order(timestamp: :asc).first
     if earliest_instance.nil?

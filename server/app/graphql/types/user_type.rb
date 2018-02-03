@@ -29,6 +29,19 @@ module Types
         obj.dashboard_pages.order(index: :asc)
       }
     end
+    field :portfolioTickers, types[Types::PortfolioTickerType] do
+      description 'Gets the portfolio tickers associated with current user'
+
+      argument :timeRange, types.String
+
+      resolve -> (obj, args, ctx) {
+        QueryHelper::filter_portfolio_tickers_by_time_range(
+          current_user.portfolio_tickers,
+          args[:timeRange],
+          7.days
+        )
+      }
+    end
     field :tokenUsers, !types[Types::TokenUserType] do
       description 'The token users associated with user sorted by index'
 
