@@ -5,6 +5,7 @@ module Types
     field :id, !types.ID
     field :marketId, !types.ID, property: :market_id
     field :value, !types.Float
+
     field :timestamp, !types.String do
       resolve -> (obj, args, ctx) {
         time_zone = ctx[:time_zone]
