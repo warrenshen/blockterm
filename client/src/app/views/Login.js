@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
     letterSpacing: '2px',
   },
   rightAlign: {
+    flex: '1',
     textAlign: 'right',
   },
   boldedColor: {
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   section: {
-    flex: '1',
+
   },
   column: {
     display:'flex',
@@ -262,6 +263,12 @@ class Login extends PureComponent
               <div className={css(styles.section, styles.rightAlign)}>
                 <El nightMode={nightMode} type={'span'}>
                   Need an account? <Link className={css(styles.boldedColor, nightMode && styles.nightBoldedColor)} to={'/join'}><u>Register here.</u></Link>
+                </El>
+                <El nightMode={nightMode} type={'span'}>
+                  &nbsp;
+                </El>
+                <El nightMode={nightMode} type={'span'}>
+                  Forgot your password? <Link className={css(styles.boldedColor, nightMode && styles.nightBoldedColor)} to={'/forgot'}><u>Reset it here.</u></Link>
                 </El>
               </div>
             </div>
