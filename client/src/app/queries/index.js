@@ -10,6 +10,7 @@ import {
   GT_CHART_ITEM,
   PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
+  PORTFOLIO_HISTORY_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
   TOTAL_MARKET_CAP,
@@ -106,6 +107,21 @@ function buildDynamicDashboardQueryField(identifier, extras)
            }
         `;
       }
+    case PORTFOLIO_HISTORY_ITEM:
+      return `
+        ${identifier}: user {
+          id
+          earliestPortfolioTickerDate
+
+          portfolioTickers {
+            id
+            timestamp
+            valueUSD
+            valueBTC
+            valueETH
+          }
+        }
+      `;
     case SUBREDDIT_COMMENT_COUNTS:
       return `
         ${identifier}: subredditByName(name: "${identifierValue}") {

@@ -128,9 +128,11 @@ class PercentDominanceItem extends Component
         maxTicksLimit: 25,
       };
       const yTicksConfig = {
+        beginAtZero: true,
         callback: (value, index, values) => numeral(value / 100.0).format('(0%)'),
         fontColor: nightMode ? 'rgba(255, 255, 255, 0.7)' :
                                'rgba(0, 0, 0, 0.7)',
+        max: 100.0,
         padding: 6,
       };
       const legendConfig = {
@@ -167,7 +169,6 @@ class PercentDominanceItem extends Component
           ],
           yAxes: [
             {
-              beginAtZero: true,
               gridLines: gridLinesConfig,
               stacked: true,
               ticks: yTicksConfig,
