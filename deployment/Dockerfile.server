@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -qq -y \
 	nodejs \
 	libpq-dev \
 	postgresql-client-9.4 \
+  cron \
+  vim \
 	--fix-missing --no-install-recommends
 
 COPY ./server/Gemfile Gemfile
@@ -18,3 +20,5 @@ ENV APP_PATH /blockterm
 COPY . $APP_PATH
 
 WORKDIR $APP_PATH/server
+
+RUN whenever --update-crontab
