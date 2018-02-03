@@ -14,6 +14,7 @@ import {
   GT_CHART_ITEM,
   PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
+  PORTFOLIO_HISTORY_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
   SUBREDDIT_POST_COUNTS,
   TOTAL_MARKET_CAP,
@@ -29,6 +30,7 @@ import CCChartItem                from './items/CCChartItem';
 import GTChartItem                from './items/GTChartItem';
 import PercentDominanceItem       from './items/PercentDominanceItem';
 import PortfolioItem              from './items/PortfolioItem';
+import PortfolioHistoryItem       from './items/PortfolioHistoryItem';
 import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
 import SubredditPostCountsItem    from './items/SubredditPostCountsItem';
 import TotalMarketCapItem         from './items/TotalMarketCapItem';
@@ -186,6 +188,18 @@ class DashboardItem extends Component
             nightMode={nightMode}
             user={user}
             value={identifierValue}
+          />
+        );
+      case PORTFOLIO_HISTORY_ITEM:
+        return (
+          <PortfolioHistoryItem
+            dashboardData={dashboardData}
+            dashboardState={dashboardState}
+            identifier={identifier}
+            nightMode={nightMode}
+            user={user}
+
+            changeDashboardItemState={changeDashboardItemState}
           />
         );
       case SUBREDDIT_COMMENT_COUNTS:
