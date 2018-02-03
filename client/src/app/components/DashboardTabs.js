@@ -116,6 +116,7 @@ class DashboardTabs extends Component {
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.alerts, nextProps.alerts) ||
+           !isEqual(this.props.currency, nextProps.currency) ||
            !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
            !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardPages, nextProps.dashboardPages) ||
@@ -299,6 +300,7 @@ class DashboardTabs extends Component {
   {
     const {
       alerts,
+      currency,
       dashboardAction,
       dashboardData,
       dashboardItemStates,
@@ -320,6 +322,7 @@ class DashboardTabs extends Component {
         <TabPanel key={dashboardPage.index}>
           <DashboardGrid
             alerts={alerts}
+            currency={currency}
             dashboardAction={dashboardAction}
             dashboardData={dashboardData}
             dashboardItems={dashboardItems}

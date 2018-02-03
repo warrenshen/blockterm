@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
   return {
     isPageLoaded: state.globals.isPageLoaded,
     nightMode: state.globals.nightMode,
+    currency: state.globals.currency,
     user: state.globals.user,
   };
 };
@@ -25,6 +26,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       createNotificationInfo: createNotificationInfo,
       toggleNightMode: globalsActions.toggleNightMode,
+      changeCurrency: globalsActions.changeCurrency,
     },
     dispatch
   );

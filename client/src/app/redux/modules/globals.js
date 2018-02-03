@@ -3,6 +3,7 @@
 import moment from 'moment-timezone';
 import {
   AUTH_TOKEN_COOKIE,
+  CURRENCY_COOKIE,
   NIGHT_MODE_COOKIE,
   TIME_ZONE_COOKIE,
   clearItem,
@@ -18,11 +19,13 @@ const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_IS_PAGE_LOADED = 'CHANGE_IS_PAGE_LOADED';
 const CHANGE_SCROLL_ACTIVE = 'CHANGE_SCROLL_ACTIVE';
 const TOGGLE_NIGHT_MODE = 'TOGGLE_NIGHT_MODE';
+const CHANGE_CURRENCY = 'CHANGE_CURRENCY';
 
 /* -----------------------------------------
   Reducer
  ------------------------------------------*/
 const cookieNightMode = getItem(NIGHT_MODE_COOKIE);
+const cookieCurrency = getItem(CURRENCY_COOKIE);
 let cookieTimeZone = getItem(TIME_ZONE_COOKIE);
 if (cookieTimeZone === null)
 {
@@ -33,6 +36,7 @@ if (cookieTimeZone === null)
 const initialState = {
   isPageLoaded: false,
   nightMode: cookieNightMode !== null ? cookieNightMode : true,
+  currency: cookieCurrency !== null ? cookieCurrency : 'USD',
   scrollActive: false,
   timeZone: cookieTimeZone,
   user: null,
@@ -105,6 +109,12 @@ export default function(state = initialState, action)
         ...state,
         nightMode: newNightMode,
       };
+    case CHANGE_CURRENCY:
+      setItem(CURRENCY_COOKIE, action.value);
+      return {
+        ...state,
+        currency: action.value,
+      };
     default:
       return state;
   }
@@ -130,5 +140,13 @@ export function toggleNightMode()
 {
   return {
     type: TOGGLE_NIGHT_MODE,
+  };
+}
+
+export function changeCurrency(value)
+{
+  return {
+    type: CHANGE_CURRENCY,
+    value: value.value,
   };
 }

@@ -95,6 +95,7 @@ class DashboardGrid extends Component
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.alerts, nextProps.alerts) ||
+           !isEqual(this.props.currency, nextProps.currency) ||
            !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
            !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardItems, nextProps.dashboardItems) ||
@@ -108,6 +109,7 @@ class DashboardGrid extends Component
   {
     const {
       alerts,
+      currency,
       dashboardAction,
       dashboardData,
       dashboardItemStates,
@@ -137,6 +139,7 @@ class DashboardGrid extends Component
           isPageLoaded && (
             <DashboardItem
               alerts={alerts}
+              currency={currency}
               dashboardAction={dashboardAction}
               dashboardData={dashboardData ? dashboardData[identifier] : null}
               dashboardItem={dashboardItem}
@@ -211,6 +214,7 @@ class DashboardGrid extends Component
           onLayoutChange={(layout, layouts) => saveLayout(layout)}
           rowHeight={64}
           margin={[5, 5]}
+          containerPadding={[10, 5]}
         >
           {
             dashboardItems.map(

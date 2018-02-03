@@ -10,6 +10,7 @@ import { Link }            from 'react-router-dom';
 import { Helmet }          from 'react-helmet';
 import numeral             from 'numeral';
 import Select              from 'react-select';
+import * as CURRENCY       from '../helpers/currency';
 import El                  from '../components/El';
 import Sidebar             from '../components/Sidebar';
 import * as STYLES from '../constants/styles';
@@ -275,6 +276,7 @@ class Tokens extends PureComponent {
   renderToken(token, index)
   {
     const {
+      currency,
       nightMode,
     } = this.props;
 
@@ -346,7 +348,7 @@ class Tokens extends PureComponent {
               style={styles.rowSpan}
               type={'span'}
           >
-            {numeral(priceUSD).format('$0,0.00')}
+            {CURRENCY.convertCurrencyToString(priceUSD, currency, '$0,0.00')}
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexL)}>
@@ -355,7 +357,7 @@ class Tokens extends PureComponent {
               type={'span'}
               style={styles.semibolded}
           >
-            {numeral(volumeUSD24h).format('$0,0')}
+            {CURRENCY.convertCurrencyToString(volumeUSD24h, currency, '$0,0')}
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexL)}>
@@ -364,7 +366,7 @@ class Tokens extends PureComponent {
               style={styles.rowSpan}
               type={'span'}
           >
-            {numeral(marketCapUSD).format('$0,0')}
+            {CURRENCY.convertCurrencyToString(marketCapUSD, currency, '$0,0')}
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.thickElement, styles.flexM)}>

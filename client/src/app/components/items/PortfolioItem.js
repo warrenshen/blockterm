@@ -13,6 +13,7 @@ import {
   calculatePortfolioDonutData,
   calculatePortfolioTotalValue,
 }                               from '../../helpers/portfolio';
+import * as CURRENCY       from '../../helpers/currency';
 import DonutChartWithSelect from '../../components/DonutChartWithSelect'
 import El                  from '../../components/El';
 import * as STYLES from '../../constants/styles';
@@ -125,6 +126,7 @@ class PortfolioItem extends Component
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
+           !isEqual(this.props.currency, nextProps.currency) ||
            !isEqual(this.props.nightMode, nextProps.nightMode) ||
            !isEqual(this.props.user, nextProps.user) ||
            !isEqual(this.props.value, nextProps.value);
@@ -190,6 +192,7 @@ class PortfolioItem extends Component
   renderTokenUser(tokenUser)
   {
     const {
+      currency,
       nightMode,
       value,
     } = this.props;
@@ -230,8 +233,8 @@ class PortfolioItem extends Component
     let formattedValue;
     if (value === 'Default' || value === 'USD')
     {
-      formattedPrice = numeral(price).format('$0,0.00');
-      formattedValue = numeral(price * amount).format('$0,0.00');
+      formattedPrice = CURRENCY.convertCurrencyToString(price, currency, '$0,0.00');
+      formattedValue = CURRENCY.convertCurrencyToString(price * amount, currency, '$0,0.00');
     }
     else if (value === 'BTC')
     {
@@ -307,6 +310,7 @@ class PortfolioItem extends Component
   render()
   {
     const {
+      currency,
       dashboardData,
       nightMode,
       user,
@@ -348,7 +352,7 @@ class PortfolioItem extends Component
     let formattedTotalValue;
     if (value === 'Default' || value === 'USD')
     {
-      formattedTotalValue = numeral(totalValue).format('$0,0.00');
+      formattedTotalValue = CURRENCY.convertCurrencyToString(totalValue, currency, '$0,0.00');
     }
     else if (value === 'BTC')
     {

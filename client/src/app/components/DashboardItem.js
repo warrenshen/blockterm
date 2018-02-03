@@ -113,6 +113,7 @@ class DashboardItem extends Component
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.alerts, nextProps.alerts) ||
+           !isEqual(this.props.currency, nextProps.currency) ||
            !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
            !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
@@ -125,6 +126,7 @@ class DashboardItem extends Component
   {
     const {
       alerts,
+      currency,
       dashboardAction,
       dashboardData,
       dashboardState,
@@ -182,6 +184,7 @@ class DashboardItem extends Component
       case PORTFOLIO_ITEM:
         return (
           <PortfolioItem
+            currency={currency}
             dashboardData={dashboardData}
             nightMode={nightMode}
             user={user}
@@ -215,6 +218,7 @@ class DashboardItem extends Component
       case TOTAL_MARKET_CAP:
         return (
           <TotalMarketCapItem
+            currency={currency}
             dashboardData={dashboardData}
             dashboardState={dashboardState}
             identifier={identifier}

@@ -93,6 +93,7 @@ class Token extends PureComponent {
   renderToken(token)
   {
     const {
+      currency,
       changePricePlotRange,
       changeMentionTotalPlotRange,
       changeMentionSubredditPlotRange,
@@ -107,6 +108,7 @@ class Token extends PureComponent {
     return (
       <div className={css(styles.mainContent)}>
         <TokenHead
+          currency={currency}
           nightMode={nightMode}
           token={token}
         />
