@@ -94,7 +94,6 @@ class NavigationBar extends PureComponent
   static propTypes = {
     // If there is no auth token cookie, then we do not fetch
     // user from the server and thus may have no data prop.
-    changeCurrency: PropTypes.func.isRequired,
     currency: PropTypes.string.isRequired,
     data: PropTypes.object,
     isPageLoaded: PropTypes.bool.isRequired,
@@ -113,6 +112,7 @@ class NavigationBar extends PureComponent
       ).isRequired
     }),
     nightMode: PropTypes.bool.isRequired,
+    changeCurrency: PropTypes.func.isRequired,
     toggleNightMode: PropTypes.func.isRequired,
   };
 
