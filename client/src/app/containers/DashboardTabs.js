@@ -22,6 +22,7 @@ import * as globalsActions     from '../redux/modules/globals';
 const mapStateToProps = (state) => {
   return {
     alerts: state.alerts.alerts,
+    currency: state.globals.currency,
     dashboardAction: state.dashboard.dashboardAction,
     dashboardData: state.dashboard.dashboardData,
     dashboardItemStates: state.dashboard.dashboardItemStates,

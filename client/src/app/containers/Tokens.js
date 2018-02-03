@@ -15,6 +15,7 @@ import { Tokens }             from '../views';
 
 const mapStateToProps = (state) => {
   return {
+    currency: state.globals.currency,
     nightMode: state.globals.nightMode,
   };
 };

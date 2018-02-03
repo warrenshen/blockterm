@@ -19,6 +19,7 @@ import {
   calculatePortfolioTotalValue,
   calculatePortfolioDonutData,
 }                           from '../helpers/portfolio';
+import * as CURRENCY        from '../helpers/currency';
 import El                   from '../components/El';
 import DonutChartWithSelect from '../components/DonutChartWithSelect'
 import * as STYLES          from '../constants/styles';
@@ -210,7 +211,8 @@ class Portfolio extends Component
 {
   shouldComponentUpdate(nextProps, nextState)
   {
-    return !isEqual(this.props.data.tokensAll, nextProps.data.tokensAll) ||
+    return !isEqual(this.props.currency, nextProps.currency) ||
+           !isEqual(this.props.data.tokensAll, nextProps.data.tokensAll) ||
            !isEqual(this.props.nightMode, nextProps.nightMode) ||
            !isEqual(this.props.tokenUsers, nextProps.tokenUsers);
   }
@@ -276,7 +278,7 @@ class Portfolio extends Component
             nightMode={nightMode}
             type={'span'}
           >
-            Price USD
+            Price
           </El>
         </td>
         <td className={css(styles.element, styles.condensed, nightMode && styles.darkElement)}>
@@ -324,6 +326,7 @@ class Portfolio extends Component
   renderTokenUser(tokenUser, portfolioTotalValue)
   {
     const {
+      currency,
       nightMode,
       tokenUsers,
 
@@ -379,7 +382,7 @@ class Portfolio extends Component
                 nightMode={nightMode}
                 type={'span'}
               >
-                {numeral(priceUSD).format('$0,0.00')}
+                {CURRENCY.convertCurrencyToString(priceUSD, currency, '$0,0.00')}
               </El>
             ) : (
               <El
@@ -417,7 +420,7 @@ class Portfolio extends Component
             nightMode={nightMode}
             type={'span'}
           >
-            {priceUSD ? numeral(amount * priceUSD).format('$0,0.00') : ''}
+            {priceUSD ? CURRENCY.convertCurrencyToString(amount * priceUSD, currency, '$0,0.00') : ''}
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement)}>
@@ -443,6 +446,7 @@ class Portfolio extends Component
   renderTokenUsers()
   {
     const {
+      currency,
       changeActive,
       nightMode,
       tokenUsers,
@@ -514,6 +518,7 @@ class Portfolio extends Component
   renderHeroTable()
   {
     const {
+      currency,
       nightMode,
       tokenUsers,
     } = this.props;
@@ -537,7 +542,7 @@ class Portfolio extends Component
             style={styles.boldedColor}
             nightModeStyle={styles.nightBoldedColor}
           >
-             {numeral(calculatePortfolioTotalValue(tokenUsers, 'priceUSD')).format('$0,0.00')}
+             {CURRENCY.convertCurrencyToString(calculatePortfolioTotalValue(tokenUsers, 'priceUSD'), currency, '$0,0.00')}
           </El>
         </div>
         <div className={css(styles.heroColumn, styles.borderRight, nightMode && styles.darkBorderRight)}>

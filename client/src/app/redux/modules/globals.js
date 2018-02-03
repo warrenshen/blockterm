@@ -147,6 +147,6 @@ export function changeCurrency(value)
 {
   return {
     type: CHANGE_CURRENCY,
-    value: value,
+    value: value.value,
   };
 }

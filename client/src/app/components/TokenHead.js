@@ -19,6 +19,7 @@ import {
 import SubredditWidget     from './SubredditWidget';
 import BarChartWithSelect  from './BarChartWithSelect';
 import LineChartWithSelect from './LineChartWithSelect';
+import * as CURRENCY       from '../helpers/currency';
 import El                  from './El';
 import numeral             from 'numeral';
 import * as STYLES from '../constants/styles';
@@ -217,6 +218,7 @@ class TokenHead extends PureComponent {
 
   renderInformation() {
     const {
+      currency,
       nightMode,
       token,
     } = this.props;
@@ -242,7 +244,7 @@ class TokenHead extends PureComponent {
     let green24h = percentChange24h > 0;
     const floatPriceUSD = parseFloat(numeral(priceUSD).format('0.00000000')).toString();
     const decimalIndex = floatPriceUSD.indexOf('.');
-    const formattedPriceUSD = `${numeral(priceUSD).format('$0,0')}${floatPriceUSD.substring(decimalIndex)}`;
+    const formattedPriceUSD = `${CURRENCY.convertCurrencyToString(priceUSD, currency, '$0,0')}${floatPriceUSD.substring(decimalIndex)}`;
     const multipliedPriceBTC = numeral(scientificToDecimal(priceBTC) * 100000000).format('00000000');
     const formattedPriceBTC = multipliedPriceBTC >= 100000000 ? `1.00000000` : `0.${multipliedPriceBTC}`;
 
@@ -277,7 +279,7 @@ class TokenHead extends PureComponent {
               nightModeStyle={styles.trueWhite}
               type={'h4'}
             >
-              {`${formattedPriceUSD} USD (${percentChange24h}%)`}
+              {`${formattedPriceUSD} (${percentChange24h}%)`}
             </El>
             <El
               nightMode={nightMode}
@@ -300,7 +302,7 @@ class TokenHead extends PureComponent {
               nightModeStyle={styles.trueWhite}
               type={'h4'}
             >
-              {numeral(volumeUSD24h).format('$0,0')} USD
+              {CURRENCY.convertCurrencyToString(volumeUSD24h, currency, '$0,0')}
             </El>
             <El
               nightMode={nightMode}
@@ -322,7 +324,7 @@ class TokenHead extends PureComponent {
               nightModeStyle={styles.trueWhite}
               type={'h4'}
             >
-              {numeral(marketCapUSD).format('$0,0')} USD
+              {CURRENCY.convertCurrencyToString(marketCapUSD, currency,'$0,0')}
             </El>
             <El
               nightMode={nightMode}

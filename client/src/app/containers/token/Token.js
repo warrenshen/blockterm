@@ -86,6 +86,7 @@ const queryOptions = {
 
 const mapStateToProps = (state) => {
   return {
+    currency: state.globals.currency,
     mentionSubredditPlotRange: state.plots.mentionSubredditPlotRange,
     mentionTotalPlotRange: state.plots.mentionTotalPlotRange,
     nightMode: state.globals.nightMode,

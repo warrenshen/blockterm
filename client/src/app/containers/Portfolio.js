@@ -22,6 +22,7 @@ import Portfolio              from '../views/Portfolio';
 
 const mapStateToProps = (state) => {
   return {
+    currency: state.globals.currency,
     changeActive: state.portfolio.changeActive,
     nightMode: state.globals.nightMode,
     tokenUsers: state.portfolio.tokenUsers,

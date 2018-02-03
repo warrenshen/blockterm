@@ -13,6 +13,7 @@ import {
   generateLineChartDataValue,
   isPlotRangeBig,
 } from '../../helpers/chart';
+import * as CURRENCY       from '../../helpers/currency';
 import {
   RANGE_SELECT_OPTIONS,
 } from '../../constants/plots';
@@ -30,7 +31,8 @@ class TotalMarketCapItem extends Component
 {
   shouldComponentUpdate(nextProps, nextState)
   {
-    return !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
+    return !isEqual(this.props.currency, nextProps.currency) ||
+           !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
            !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
            !isEqual(this.props.nightMode, nextProps.nightMode);
   }
@@ -38,6 +40,7 @@ class TotalMarketCapItem extends Component
   render()
   {
     const {
+      currency,
       changeDashboardItemState,
       dashboardData,
       dashboardState,
@@ -147,7 +150,7 @@ class TotalMarketCapItem extends Component
           options={selectOptions}
           nightMode={nightMode}
           selectValue={plotRange}
-          title={`Total Market Cap: ${numeral(lastPrice).format('$0,0')}`}
+          title={`Total Market Cap: ${CURRENCY.convertCurrencyToString(lastPrice, currency)}`}
         />
       </div>
     );

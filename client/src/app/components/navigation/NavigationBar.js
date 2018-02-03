@@ -144,7 +144,8 @@ class NavigationBar extends PureComponent
     .then(response => response.json())
     .then(data => {
       //this.setState({data: responseJson});
-      window.exch_rates = data.rates;
+      data.rates['USD'] = 1;
+      window.exchange_rates = data.rates;
       console.log(data.rates);
     })
     .catch((error) => {
