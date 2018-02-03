@@ -193,7 +193,7 @@ class PortfolioHistoryItem extends Component
           options={selectOptions}
           nightMode={nightMode}
           selectValue={plotRange}
-          title={`Current value: ${numeral(lastPrice).format('$0,0')}`}
+          title={`Current value: ${numeral(0).format('$0,0')}`}
         />
       </div>
     );
