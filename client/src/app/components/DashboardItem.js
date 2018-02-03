@@ -312,6 +312,17 @@ class DashboardItem extends Component
                 </button>
               )
             }
+            {
+              identifierKey === TV_CANDLE_CHART && (
+                <button
+                  className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+                  onClick={onClickOpen}
+                  title="Open the alerts management panel for this chart"
+                >
+                  <FontAwesome name='bullhorn' style={{'fontSize':'13px'}}/>
+                </button>
+              )
+            }
             <button
               className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
               onClick={onClickEdit}
