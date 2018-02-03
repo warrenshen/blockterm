@@ -941,6 +941,8 @@ module Types
         end
 
         user.generate_reset_password_token!
+        UserMailer.forgot_password_email(user).deliver_later
+
         'Success'
       }
     end
