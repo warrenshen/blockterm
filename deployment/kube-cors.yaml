@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cors
+  labels:
+    app: cors
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: cors
+    spec:
+      containers:
+      - name: cors
+        image: us.gcr.io/block-191602/cors:latest
+        ports:
+        - containerPort: 80
+        args:
+        - node
+        - server.js
+        resources:
+          requests:
+            cpu: 16m
+            memory: 32Mi
+          limits:
+            cpu: 32m
+            memory: 64Mi
+      restartPolicy: Always
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cors
+  labels:
+    app: cors
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    targetPort: 8080
+  selector:
+    app: cors
+  type: NodePort
+status:
+  loadBalancer: {}

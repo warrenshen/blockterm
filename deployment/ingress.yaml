@@ -12,6 +12,7 @@ spec:
     - blockterm.com
     - www.blockterm.com
     - api.blockterm.com
+    - cors.blockterm.com
     secretName: block-tls
   rules:
   - host: blockterm.com
@@ -34,4 +35,11 @@ spec:
       - path: /
         backend:
           serviceName: server
+          servicePort: 80
+  - host: cors.blockterm.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: cors
           servicePort: 80

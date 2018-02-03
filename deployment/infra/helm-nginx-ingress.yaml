@@ -94,15 +94,15 @@ controller:
   ##
   podAnnotations: {}
 
-  replicaCount: 4
+  replicaCount: 3
 
   resources:
-    limits:
-      cpu: 100m
-      memory: 64Mi
     requests:
-      cpu: 100m
-      memory: 64Mi
+      cpu: 16m
+      memory: 16Mi
+    limits:
+      cpu: 32m
+      memory: 32Mi
 
   autoscaling:
     enabled: false
