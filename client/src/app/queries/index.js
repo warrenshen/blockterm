@@ -113,7 +113,7 @@ function buildDynamicDashboardQueryField(identifier, extras)
           id
           earliestPortfolioTickerDate
 
-          portfolioTickers {
+          portfolioTickers(timeRange: "${extras.plotRange}") {
             id
             timestamp
             valueUSD
@@ -252,6 +252,35 @@ export const DashboardPagesQuery = gql`
 `;
 export const DashboardPagesQueryOptions = {
   skip: (ownProps) => getItem(AUTH_TOKEN_COOKIE) === null,
+};
+
+export const PortfolioTickersQuery = gql`
+  query ($portfolioHistoryPlotRange: String) {
+    user {
+      id
+      earliestPortfolioTickerDate
+
+      portfolioTickers(timeRange: $portfolioHistoryPlotRange) {
+        id
+        timestamp
+        valueUSD
+        valueBTC
+        valueETH
+      }
+    }
+  }
+`;
+export const PortfolioTickersQueryOptions = {
+  options: ({
+    match,
+    portfolioHistoryPlotRange,
+  }) => {
+    return {
+      variables: {
+        portfolioHistoryPlotRange: portfolioHistoryPlotRange,
+      },
+    };
+  },
 };
 
 export const SubredditsAllQuery = gql`

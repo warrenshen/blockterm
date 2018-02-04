@@ -26,14 +26,28 @@ import * as STYLES          from '../constants/styles';
 import {
   getImageUrl,
 } from '../constants/items.js';
+import {
+  PORTFOLIO_RANGE_SELECT_OPTIONS,
+} from '../constants/plots.js';
+import {
+  // disableChartOptions,
+  generatePortfolioHistoryChartData,
+  // isPlotRangeBig,
+} from '../helpers/chart';
+import LineChartWithSelectItem from '../components/items/LineChartWithSelectItem';
 
 const styles = StyleSheet.create({
   wrapper: {
-    width: '100vw',
+    width: '100%',
     display: 'flex',
+    flexDirection: 'column',
     flex: '1',
     paddingBottom: '128px',
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
+  },
+  wrapperRow: {
+    display: 'flex',
+    width: '100%',
   },
   nightMode: {
     backgroundColor: STYLES.LIGHTNIGHT,
@@ -205,6 +219,12 @@ const styles = StyleSheet.create({
   blackTableColumn: {
     //backgroundColor: '#000',
   },
+  portfolioHistoryContainer: {
+    display: 'flex',
+    width: '100%',
+    height: '512px',
+    backgroundColor: 'white',
+  },
 });
 
 class Portfolio extends Component
@@ -212,8 +232,9 @@ class Portfolio extends Component
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.currency, nextProps.currency) ||
-           !isEqual(this.props.data.tokensAll, nextProps.data.tokensAll) ||
+           !isEqual(this.props.tokensAll, nextProps.tokensAll) ||
            !isEqual(this.props.nightMode, nextProps.nightMode) ||
+           !isEqual(this.props.portfolioHistoryPlotRange, nextProps.portfolioHistoryPlotRange) ||
            !isEqual(this.props.tokenUsers, nextProps.tokenUsers);
   }
 
@@ -479,25 +500,26 @@ class Portfolio extends Component
   renderAdd()
   {
     const {
-      data,
       nightMode,
+      tokensAll,
       tokenUsers,
 
       addTokenUser,
     } = this.props;
 
-    if (data.tokensAll)
+    if (tokensAll.length > 0)
     {
       const selectedTokenIds = tokenUsers.map(
         (tokenUser) => tokenUser.token.id
       );
-      const selectOptions = data.tokensAll.
-      filter(
-        (token) => !selectedTokenIds.includes(token.id)
-      ).map((token) => ({
-        label: `${token.longName} [${token.shortName}]`,
-        value: token,
-      }));
+      const selectOptions = tokensAll
+        .filter(
+          (token) => !selectedTokenIds.includes(token.id)
+        )
+        .map((token) => ({
+          label: `${token.longName} [${token.shortName}]`,
+          value: token,
+        }));
 
       return (
         <div className={css(styles.addRow)}>
@@ -583,6 +605,43 @@ class Portfolio extends Component
     );
   }
 
+  renderPortfolioHistory()
+  {
+    const {
+      data,
+      nightMode,
+      portfolioHistoryPlotRange,
+
+      changePortfolioHistoryPlotRange,
+    } = this.props;
+
+    if (data.user)
+    {
+      const user = data.user;
+      const [chartData, chartOptions] = generatePortfolioHistoryChartData(
+        user.portfolioTickers,
+        nightMode,
+      );
+
+      const onChange = (option) => changePortfolioHistoryPlotRange(option.value);
+
+      return (
+        <div className={css(styles.portfolioHistoryContainer)}>
+          <LineChartWithSelectItem
+            chartOptions={chartOptions}
+            data={chartData}
+            options={PORTFOLIO_RANGE_SELECT_OPTIONS}
+            nightMode={nightMode}
+            selectValue={portfolioHistoryPlotRange}
+            title={`Current value: ${numeral(0).format('$0,0')}`}
+            onChange={onChange}
+          />
+        </div>
+      );
+    }
+
+  }
+
   render()
   {
     const {
@@ -599,18 +658,23 @@ class Portfolio extends Component
           <meta name="description" content="Manage and track your cryptocurrency portfolio/assets in one easy place. See your cryptocurrency assets total valuation, price by cryptocurrency, and distribution percentages with Blockterm." />
         </Helmet>
 
-        <div className={css(styles.chartElement, styles.donutChart, styles.donutBox, nightMode && styles.darkDonutBox)}>
-          <DonutChartWithSelect
-            data={data}
-            nightMode={nightMode}
-            title="Portfolio Distribution:"
-          />
-        </div>
-        <div className={css(styles.tableColumn, styles.blackTableColumn)}>
-          <div className={css(styles.padded)}>
-            {this.renderHeroTable()}
-            {this.renderTokenUsers()}
+        <div className={css(styles.wrapperRow)}>
+          <div className={css(styles.chartElement, styles.donutChart, styles.donutBox, nightMode && styles.darkDonutBox)}>
+            <DonutChartWithSelect
+              data={data}
+              nightMode={nightMode}
+              title="Portfolio Distribution:"
+            />
           </div>
+          <div className={css(styles.tableColumn, styles.blackTableColumn)}>
+            <div className={css(styles.padded)}>
+              {this.renderHeroTable()}
+              {this.renderTokenUsers()}
+            </div>
+          </div>
+        </div>
+        <div className={css(styles.wrapperRow)}>
+          {this.renderPortfolioHistory()}
         </div>
       </div>
     );

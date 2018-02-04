@@ -10,7 +10,7 @@ import moment              from 'moment';
 import numeral             from 'numeral';
 import {
   disableChartOptions,
-  generateLineChartDataValue,
+  generatePortfolioHistoryChartData,
   isPlotRangeBig,
 } from '../../helpers/chart';
 import {
@@ -61,43 +61,13 @@ class PortfolioHistoryItem extends Component
     else
     {
       earliestPortfolioTickerDate = undefined;
-      marketTickers = [];
+      portfolioTickers = [];
     }
 
-    const chartData = {
-      labels: portfolioTickers.map(
-        (portfolioTicker) => moment(portfolioTicker.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD/YY')
-      ),
-      datasets: [
-        Object.assign(
-          {},
-          LINE_CHART_AUXILLARY_STYLES[2].historical,
-          {
-            data: portfolioTickers.map((portfolioTicker) => portfolioTicker.valueUSD),
-            label: 'Fiat',
-            yAxisID: 'fiat',
-          }
-        ),
-        Object.assign(
-          {},
-          LINE_CHART_AUXILLARY_STYLES[3].historical,
-          {
-            data: portfolioTickers.map((portfolioTicker) => portfolioTicker.valueBTC),
-            label: 'BTC',
-            yAxisID: 'btc',
-          }
-        ),
-        Object.assign(
-          {},
-          LINE_CHART_AUXILLARY_STYLES[0].historical,
-          {
-            data: portfolioTickers.map((portfolioTicker) => portfolioTicker.valueETH),
-            label: 'ETH',
-            yAxisID: 'eth',
-          }
-        ),
-      ],
-    };
+    const [chartData, chartOptions] = generatePortfolioHistoryChartData(
+      portfolioTickers,
+      nightMode,
+    );
 
     const selectOptions = disableChartOptions(
       earliestPortfolioTickerDate,
@@ -107,93 +77,16 @@ class PortfolioHistoryItem extends Component
     const onChange = (option) =>
       changeDashboardItemState(identifier, 'plotRange', option.value);
 
-    const gridLinesConfig = {
-      color: nightMode ? 'rgba(255, 255, 255, 0.15)' :
-                         'rgba(0, 0, 0, 0.15)',
-      zeroLineColor: nightMode ? 'rgba(255, 255, 255, 0.15)' :
-                                 'rgba(0, 0, 0, 0.15)',
-    };
-    const xTicksConfig = {
-      callback: (tick) => tick.substring(0, 5),
-      fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
-                             'rgba(0, 0, 0, 0.5)',
-      padding: 6,
-    };
-    const yTicksConfig = {
-      callback: (value, index, values) => numeral(value).format('($0a)'),
-      fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
-                             'rgba(0, 0, 0, 0.5)',
-      padding: 6,
-    };
-    const legendConfig = {
-      display: false,
-      labels: {
-        fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
-                               'rgba(0, 0, 0, 0.5)',
-      },
-    };
-
-    const chartOptions = {
-      animation: false,
-      legend: legendConfig,
-      maintainAspectRatio: false,
-      tooltips: {
-        // callbacks: {
-        //   label: (tooltipItem, data) => numeral(tooltipItem.yLabel).format('$0,0'),
-        //   title: (tooltipItem, data) => data.labels[tooltipItem[0].index],
-        // },
-        displayColors: false,
-        intersect: false,
-        mode: 'nearest',
-      },
-      scales: {
-        xAxes: [
-          {
-            gridLines: gridLinesConfig,
-            ticks: xTicksConfig,
-          },
-        ],
-        yAxes: [
-          {
-            display: true,
-            gridLines: gridLinesConfig,
-            id: 'fiat',
-            position: 'right',
-            ticks: yTicksConfig,
-            type: 'linear',
-          },
-          {
-            display: true,
-            gridLines: {
-              drawOnChartArea: false,
-            },
-            id: 'btc',
-            ticks: yTicksConfig,
-            type: 'linear',
-          },
-          {
-            display: true,
-            gridLines: {
-              drawOnChartArea: false,
-            },
-            id: 'eth',
-            ticks: yTicksConfig,
-            type: 'linear',
-          },
-        ],
-      },
-    };
-
     return (
       <div className={css(styles.container)}>
         <LineChartWithSelectItem
           chartOptions={chartOptions}
           data={chartData}
-          onChange={onChange}
           options={selectOptions}
           nightMode={nightMode}
           selectValue={plotRange}
           title={`Current value: ${numeral(0).format('$0,0')}`}
+          onChange={onChange}
         />
       </div>
     );

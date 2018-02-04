@@ -1,4 +1,5 @@
 import moment from 'moment';
+import numeral from 'numeral';
 import {
   BAR_CHART_DATA_STYLES,
   LINE_CHART_DATA_STYLES,
@@ -193,7 +194,8 @@ export function generateLineChartDataValue(
   recentLabel='today',
   timeFormat='MM/DD',
   nightMode=false,
-  auxillaryColor=false,)
+  auxillaryColor=false,
+)
 {
   var x = historicalCounts.map(
     (historicalCount) => moment(historicalCount.timestamp, 'YYYY-M-D H:m:s Z').format(timeFormat)
@@ -212,4 +214,138 @@ export function generateLineChartDataValue(
       )
     ],
   };
+}
+
+export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
+{
+  const chartData = {
+    labels: portfolioTickers.map(
+      (portfolioTicker) => moment(portfolioTicker.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD/YY')
+    ),
+    datasets: [
+      Object.assign(
+        {},
+        LINE_CHART_AUXILLARY_STYLES[1].historical,
+        {
+          data: portfolioTickers.map((portfolioTicker) => portfolioTicker.valueUSD),
+          fill: false,
+          label: 'Fiat',
+          yAxisID: 'fiat',
+        }
+      ),
+      Object.assign(
+        {},
+        LINE_CHART_AUXILLARY_STYLES[2].historical,
+        {
+          data: portfolioTickers.map((portfolioTicker) => portfolioTicker.valueBTC),
+          fill: false,
+          label: 'BTC',
+          yAxisID: 'btc',
+        }
+      ),
+      Object.assign(
+        {},
+        LINE_CHART_AUXILLARY_STYLES[3].historical,
+        {
+          data: portfolioTickers.map((portfolioTicker) => portfolioTicker.valueETH),
+          fill: false,
+          label: 'ETH',
+          yAxisID: 'eth',
+        }
+      ),
+    ],
+  };
+
+  const gridLinesConfig = {
+    color: nightMode ? 'rgba(255, 255, 255, 0.15)' :
+                       'rgba(0, 0, 0, 0.15)',
+    zeroLineColor: nightMode ? 'rgba(255, 255, 255, 0.15)' :
+                               'rgba(0, 0, 0, 0.15)',
+  };
+  const xTicksConfig = {
+    callback: (tick) => tick.substring(0, 5),
+    fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
+                           'rgba(0, 0, 0, 0.5)',
+    padding: 6,
+  };
+  const yTicksConfigFiat = {
+    callback: (value, index, values) => numeral(value).format('$0,0.00a'),
+    fontColor: nightMode ? '#FFB900' :
+                           '#FFB900',
+    padding: 6,
+  };
+  const yTicksConfigBTC = {
+    callback: (value, index, values) => `${numeral(value).format('0.0000')} BTC`,
+    fontColor: nightMode ? '#FF8800' :
+                           '#FF8800',
+    fontSize: 10,
+    padding: 6,
+  };
+  const yTicksConfigETH = {
+    callback: (value, index, values) => `${numeral(value).format('0.00')} ETH`,
+    fontColor: nightMode ? '#7A7D7A' :
+                           '#7A7D7A',
+    fontSize: 10,
+    padding: 6,
+  };
+  const legendConfig = {
+    display: false,
+    labels: {
+      fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
+                             'rgba(0, 0, 0, 0.5)',
+    },
+  };
+
+  const chartOptions = {
+    animation: false,
+    legend: legendConfig,
+    maintainAspectRatio: false,
+    tooltips: {
+      // callbacks: {
+      //   label: (tooltipItem, data) => numeral(tooltipItem.yLabel).format('$0,0'),
+      //   title: (tooltipItem, data) => data.labels[tooltipItem[0].index],
+      // },
+      displayColors: false,
+      intersect: false,
+      mode: 'index',
+    },
+    scales: {
+      xAxes: [
+        {
+          gridLines: gridLinesConfig,
+          ticks: xTicksConfig,
+        },
+      ],
+      yAxes: [
+        {
+          display: true,
+          gridLines: gridLinesConfig,
+          id: 'fiat',
+          position: 'right',
+          ticks: yTicksConfigFiat,
+          type: 'linear',
+        },
+        {
+          display: true,
+          gridLines: {
+            drawOnChartArea: false,
+          },
+          id: 'btc',
+          ticks: yTicksConfigBTC,
+          type: 'linear',
+        },
+        {
+          display: true,
+          gridLines: {
+            drawOnChartArea: false,
+          },
+          id: 'eth',
+          ticks: yTicksConfigETH,
+          type: 'linear',
+        },
+      ],
+    },
+  };
+
+  return [chartData, chartOptions];
 }
