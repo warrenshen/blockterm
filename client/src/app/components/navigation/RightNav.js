@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     },
   },
   select: {
-    width: '55px',
+    width: '60px',
     marginLeft: '30px',
   },
   nightSelectStyle: {
@@ -134,7 +134,7 @@ const RightNav = ({
       title="Toggle on/off night mode"
     />
     <Select
-      className={css(styles.select, nightMode && styles.nightSelect)}
+      className={css(styles.select, nightMode && styles.nightSelect) + `${nightMode ? ' nightnav' : ''}`}
       clearable={false}
       options={CURRENCY.currencySelectOptions}
       onChange={changeCurrency}

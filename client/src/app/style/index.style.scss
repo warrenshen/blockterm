@@ -369,3 +369,21 @@ button:disabled {
   font-weight: 700;
   letter-spacing: 2px;
 }
+
+.nightnav.Select {
+  border: 1px solid #999 !important;
+}
+
+.nightnav.Select * {
+  background-color: #000;
+  color: #fff !important;
+}
+
+.nightnav.Select-control {
+  border-color: #999 !important;
+}
+
+.Select-input, .Select-arrow, .Select-arrow-zone {
+  background-color: transparent !important;
+}
+
