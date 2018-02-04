@@ -3,10 +3,6 @@
   "leftLinks":  [],
   "rightLinks": [
     {
-      "label": "Dashboard",
-      "link": "/"
-    },
-    {
       "label": "Prices/Volume",
       "link": "/tokens"
     },

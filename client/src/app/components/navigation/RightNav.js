@@ -11,6 +11,7 @@ import El                   from '../El';
 import FontAwesome          from 'react-fontawesome';
 import * as STYLES          from '../../constants/styles';
 import * as CURRENCY          from '../../helpers/currency';
+import { Link }       from 'react-router-dom';
 
 import {
   AUTH_TOKEN_COOKIE,
@@ -90,6 +91,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     color: '#fff',
   },
+  nightHover: {
+    color: '#fff',
+    ':hover': {
+      color: STYLES.GOLD,
+      borderColor: STYLES.GOLD,
+    },
+  },
+  dashbutton: {
+    marginLeft: '30px',
+    fontSize: '18px',
+  },
 });
 
 const nightSelectStyles = {
@@ -140,10 +152,16 @@ const RightNav = ({
       onChange={changeCurrency}
       searchable={false}
       value={currency}
-      //optionClassName={css(nightMode && styles.nightSelectStyles)}
-      //menuContainerStyle={nightSelectStyles}
-      //menuStyle={nightSelectStyles}
     />
+    <Link to={'/'} className={css()}>
+      <El
+        nightMode={nightMode}
+        nightModeStyle={styles.nightHover}
+        style={styles.dashbutton}
+        type={'span'}>
+        <FontAwesome name={'th'} />
+      </El>
+    </Link>
     {
       rightLinks.map((aLinkBtn, index) => (
         <RightNavButton
@@ -233,19 +251,6 @@ const RightNav = ({
           style={styles.joinButton}
         />,
       ]
-    }
-    {
-    // <button
-    //   className={`hamburger hamburger--arrow ${sidebarActive ? 'is-active' : ''}  ${nightMode ? css(styles.nightBurger) : ''}`}
-    //   type="button"
-    //   aria-label="Menu"
-    //   aria-controls="navigation"
-    //   onClick={(event) => toggleSidebar()}
-    // >
-    //   <span className="hamburger-box">
-    //     <span className="hamburger-inner"></span>
-    //   </span>
-    // </button>
     }
   </ul>
 );
