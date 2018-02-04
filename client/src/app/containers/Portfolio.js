@@ -8,6 +8,7 @@ import {
   success as createNotificationSuccess,
 }                             from 'react-notification-system-redux';
 import {
+  PortfolioTickersQuery,
   TokenUsersQuery,
   TokensAllQuery,
   UpdateTokenUsersMutation,
@@ -25,6 +26,8 @@ const mapStateToProps = (state) => {
     currency: state.globals.currency,
     changeActive: state.portfolio.changeActive,
     nightMode: state.globals.nightMode,
+    portfolioHistoryPlotRange: state.portfolio.portfolioHistoryPlotRange,
+    tokensAll: state.portfolio.tokensAll,
     tokenUsers: state.portfolio.tokenUsers,
     user: state.globals.user,
   };
@@ -34,6 +37,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       addTokenUser: portfolioActions.addTokenUser,
+      changePortfolioHistoryPlotRange: portfolioActions.changePortfolioHistoryPlotRange,
       changeTokenUserAmount: portfolioActions.changeTokenUserAmount,
       createNotificationError: createNotificationError,
       createNotificationSuccess: createNotificationSuccess,
@@ -44,8 +48,9 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
   graphql(TokenUsersQuery),
   graphql(TokensAllQuery),
+  graphql(PortfolioTickersQuery),
   graphql(UpdateTokenUsersMutation, UpdateTokenUsersMutationOptions),
-  connect(mapStateToProps, mapDispatchToProps),
 )(Portfolio);

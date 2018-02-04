@@ -1,6 +1,9 @@
 // @flow weak
 
 import { fromJS } from 'immutable';
+import {
+  ONE_WEEK,
+} from '../../constants/plots';
 
 /* -----------------------------------------
   constants
@@ -9,6 +12,7 @@ const ADD_TOKEN_USER = 'ADD_TOKEN_USER';
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
 const APOLLO_QUERY_RESULT_CLIENT = 'APOLLO_QUERY_RESULT_CLIENT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
+const CHANGE_PORTFOLIO_HISTORY_PLOT_RANGE = 'CHANGE_PORTFOLIO_HISTORY_PLOT_RANGE';
 const CHANGE_TOKEN_USER_AMOUNT = 'CHANGE_TOKEN_USER_AMOUNT';
 const REMOVE_TOKEN_USER = 'REMOVE_TOKEN_USER';
 
@@ -17,6 +21,8 @@ const REMOVE_TOKEN_USER = 'REMOVE_TOKEN_USER';
  ------------------------------------------*/
 const initialState = {
   changeActive: false,
+  portfolioHistoryPlotRange: ONE_WEEK,
+  tokensAll: [],
   tokenUsers: [],
 };
 
@@ -63,6 +69,11 @@ export default function(state = initialState, action)
     case APOLLO_QUERY_RESULT_CLIENT:
       switch (action.operationName)
       {
+        case 'TokensAllQuery':
+          return {
+            ...state,
+            tokensAll: action.result.data.tokensAll,
+          };
         case 'TokenUsersQuery':
           return {
             ...state,
@@ -100,6 +111,11 @@ export default function(state = initialState, action)
         changeActive: true,
         tokenUsers: newTokenUsers.toJS(),
       };
+    case CHANGE_PORTFOLIO_HISTORY_PLOT_RANGE:
+      return {
+        ...state,
+        portfolioHistoryPlotRange: action.portfolioHistoryPlotRange,
+      };
     case REMOVE_TOKEN_USER:
       oldTokenUsers = fromJS(state.tokenUsers);
       tokenUserIndex = oldTokenUsers.findIndex(
@@ -124,6 +140,14 @@ export function addTokenUser(token)
   return {
     type: ADD_TOKEN_USER,
     token,
+  };
+}
+
+export function changePortfolioHistoryPlotRange(portfolioHistoryPlotRange)
+{
+  return {
+    type: CHANGE_PORTFOLIO_HISTORY_PLOT_RANGE,
+    portfolioHistoryPlotRange,
   };
 }
 

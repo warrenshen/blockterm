@@ -69,6 +69,13 @@ export const RANGE_SELECT_OPTIONS = [
   allTime,
 ];
 
+export const PORTFOLIO_RANGE_SELECT_OPTIONS = [
+  oneWeek,
+  oneMonth,
+  threeMonths,
+  allTime,
+];
+
 export const GT_ONE_DAY = 'now 1-d';
 export const GT_SEVEN_DAYS = 'now 7-d';
 export const GT_ONE_MONTH = 'today 1-m';
