@@ -160,6 +160,7 @@
     "money-works": "^1.5.2",
     "numeral": "^2.0.6",
     "plotly.js": "^1.31.2",
+    "prerender-node": "^2.7.4",
     "pretty-error": "^2.1.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
