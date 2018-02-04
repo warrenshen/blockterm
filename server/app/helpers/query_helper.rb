@@ -17,7 +17,7 @@ module QueryHelper
     end
   end
 
-  def self.bin_relation_by_k(relation, bin_strategy, key_symbol, k=2)
+  def self.bin_relation_by_k(relation, bin_strategy, key_symbol, k = 2)
     result = []
     relation = relation.each_slice(k) do |records|
       total_count = MentionTotalCount.new(records[0].timestamp)
@@ -190,7 +190,7 @@ module QueryHelper
   end
 
   # The nil default value of time_zone_name is important.
-  def self.localize_timestamp(timestamp, time_zone_name=nil)
+  def self.localize_timestamp(timestamp, time_zone_name = nil)
     timestamp.in_time_zone(time_zone_name.nil? ? 'Pacific Time (US & Canada)' : time_zone_name)
   end
 

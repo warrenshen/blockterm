@@ -1,5 +1,4 @@
 class PortfolioTickerJob < ApplicationJob
-
   def perform(*args)
     users_with_portfolio = User.where_exists(:token_users)
     users_with_portfolio.each do |user|
@@ -12,6 +11,11 @@ class PortfolioTickerJob < ApplicationJob
         timestamp: DateTime.now
       )
     end
+
+    AdminMailer.job_status_email(
+      AdminMailer::JOB_PORTFOLIO_TICKER,
+      AdminMailer::JOB_STATUS_SUCCESS,
+    ).deliver_now
   end
 
   def calculate_value_usd(token_users)
