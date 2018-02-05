@@ -30,6 +30,8 @@ spec:
           value: <YOUR_KEY_BASE>
         - name: SECRET_KEY_API
           value: <YOUR_KEY_API>
+        - name: SECRET_EMAIL_PASSWORD
+          value: <YOUR_EMAIL_PASSWORD>
         args:
         - bundle
         - exec
