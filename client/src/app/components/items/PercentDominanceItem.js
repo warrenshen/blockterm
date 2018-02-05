@@ -119,7 +119,7 @@ class PercentDominanceItem extends Component
       };
       const xTicksConfig = {
         callback: (tick) => tick.substring(0, 5),
-        fontColor: nightMode ? 'rgba(255, 255, 255, 0.7)' :
+        fontColor: nightMode ? 'rgba(255, 255, 255, 0.5)' :
                                'rgba(0, 0, 0, 0.7)',
         padding: 6,
         minRotation: 45,
