@@ -11,10 +11,10 @@ import numeral             from 'numeral';
 import {
   disableChartOptions,
   generatePortfolioHistoryChartData,
-  isPlotRangeBig,
 } from '../../helpers/chart';
 import {
   LINE_CHART_AUXILLARY_STYLES,
+  PORTFOLIO_RANGE_SELECT_OPTIONS,
   RANGE_SELECT_OPTIONS,
 } from '../../constants/plots';
 import LineChartWithSelectItem from './LineChartWithSelectItem';
@@ -71,7 +71,7 @@ class PortfolioHistoryItem extends Component
 
     const selectOptions = disableChartOptions(
       earliestPortfolioTickerDate,
-      RANGE_SELECT_OPTIONS,
+      PORTFOLIO_RANGE_SELECT_OPTIONS,
     );
 
     const onChange = (option) =>
