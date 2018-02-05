@@ -231,6 +231,7 @@ class Portfolio extends Component
   shouldComponentUpdate(nextProps, nextState)
   {
     return !isEqual(this.props.currency, nextProps.currency) ||
+           !isEqual(this.props.data, nextProps.data) ||
            !isEqual(this.props.tokensAll, nextProps.tokensAll) ||
            !isEqual(this.props.nightMode, nextProps.nightMode) ||
            !isEqual(this.props.portfolioHistoryPlotRange, nextProps.portfolioHistoryPlotRange) ||
@@ -617,8 +618,13 @@ class Portfolio extends Component
     if (data.user)
     {
       const user = data.user;
+      const {
+        earliestPortfolioTickerDate,
+        portfolioTickers,
+      } = user;
+
       const [chartData, chartOptions] = generatePortfolioHistoryChartData(
-        user.portfolioTickers,
+        portfolioTickers,
         nightMode,
       );
 
