@@ -69,25 +69,29 @@ export const currencySymbols = {
 
 export function convertCurrency(inputValue, currency) {
   const RATES = window.exchangeRates;
-  if(RATES) {
+  if (RATES)
+  {
     const rate = RATES[currency];
     return inputValue * rate;
   }
-  else {
+  else
+  {
     return inputValue;
   }
 }
 
-export function convertCurrencyToString(inputValue, currency, format='$0,0') {
+export function convertCurrencyToString(inputValue, currency, format = '$0,0') {
   const SYMBOL = currencySymbols[currency] || currency + ' ';
   const RATES = window.exchangeRates;
 
-  if(RATES) {
+  if (RATES)
+  {
     const rate = RATES[currency];
     const converted = inputValue * rate;
     return numeral(converted).format(format).replace('$', SYMBOL);
   }
-  else {
+  else
+  {
     return numeral(inputValue).format(format);
   }
 }
