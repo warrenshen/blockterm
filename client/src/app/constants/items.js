@@ -48,7 +48,7 @@ export const ITEM_KEY_TO_LABELS = {
   [TOTAL_MARKET_CAP]: 'Total market cap chart',
   [PERCENT_DOMINANCE_ITEM]: 'Percent dominance chart',
   [PORTFOLIO_ITEM]: 'Portfolio overview',
-  [PORTFOLIO_HISTORY_ITEM]: 'Portfolio history chart',
+  // [PORTFOLIO_HISTORY_ITEM]: 'Portfolio history chart',
   [ALERTS_ITEM]: 'Alerts overview',
   [GT_CHART_ITEM]: 'Google trends chart',
   [TWITTER_ITEM]: 'Twitter feed',

@@ -18,6 +18,6 @@ set :output,       '/blockterm/log/cron.log'
 
 job_type :job, 'cd /blockterm && bundle exec rails runner :task :output'
 
-every 6.hours do
+every 4.hours do
   job 'PortfolioTickerJob.perform_now'
 end

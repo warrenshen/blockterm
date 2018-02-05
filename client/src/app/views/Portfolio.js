@@ -683,9 +683,11 @@ class Portfolio extends Component
             </div>
           </div>
         </div>
-        <div className={css(styles.wrapperRow)}>
-          {this.renderPortfolioHistory()}
-        </div>
+        {
+          // <div className={css(styles.wrapperRow)}>
+          //   {this.renderPortfolioHistory()}
+          // </div>
+        }
       </div>
     );
   }
