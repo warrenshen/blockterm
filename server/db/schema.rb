@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180201174048) do
+ActiveRecord::Schema.define(version: 20180205013347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,17 @@ ActiveRecord::Schema.define(version: 20180201174048) do
     t.datetime "updated_at",              null: false
     t.index ["user_id", "index"], name: "index_dashboard_pages_on_user_id_and_index", unique: true, using: :btree
     t.index ["user_id"], name: "index_dashboard_pages_on_user_id", using: :btree
+  end
+
+  create_table "exchange_keys", force: :cascade do |t|
+    t.integer  "user_id",                null: false
+    t.integer  "exchange",               null: false
+    t.integer  "status",     default: 0, null: false
+    t.string   "api_key",                null: false
+    t.string   "secret_key",             null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["user_id"], name: "index_exchange_keys_on_user_id", using: :btree
   end
 
   create_table "keywords", force: :cascade do |t|
@@ -229,6 +240,7 @@ ActiveRecord::Schema.define(version: 20180201174048) do
   add_foreign_key "dashboard_items", "dashboard_pages"
   add_foreign_key "dashboard_items", "users"
   add_foreign_key "dashboard_pages", "users"
+  add_foreign_key "exchange_keys", "users"
   add_foreign_key "keywords", "tokens"
   add_foreign_key "market_tickers", "markets"
   add_foreign_key "markets", "tokens"
