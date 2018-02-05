@@ -98,11 +98,11 @@ controller:
 
   resources:
     requests:
-      cpu: 16m
-      memory: 16Mi
-    limits:
-      cpu: 32m
+      cpu: 30m
       memory: 32Mi
+    limits:
+      cpu: 50m
+      memory: 64Mi
 
   autoscaling:
     enabled: false
