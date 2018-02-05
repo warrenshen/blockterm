@@ -30,9 +30,8 @@ import {
   PORTFOLIO_RANGE_SELECT_OPTIONS,
 } from '../constants/plots.js';
 import {
-  // disableChartOptions,
+  disableChartOptions,
   generatePortfolioHistoryChartData,
-  // isPlotRangeBig,
 } from '../helpers/chart';
 import LineChartWithSelectItem from '../components/items/LineChartWithSelectItem';
 
@@ -623,6 +622,11 @@ class Portfolio extends Component
         nightMode,
       );
 
+      const selectOptions = disableChartOptions(
+        earliestPortfolioTickerDate,
+        PORTFOLIO_RANGE_SELECT_OPTIONS,
+      );
+
       const onChange = (option) => changePortfolioHistoryPlotRange(option.value);
 
       return (
@@ -630,7 +634,7 @@ class Portfolio extends Component
           <LineChartWithSelectItem
             chartOptions={chartOptions}
             data={chartData}
-            options={PORTFOLIO_RANGE_SELECT_OPTIONS}
+            options={selectOptions}
             nightMode={nightMode}
             selectValue={portfolioHistoryPlotRange}
             title={`Current value: ${numeral(0).format('$0,0')}`}

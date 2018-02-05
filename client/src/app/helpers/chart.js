@@ -220,7 +220,8 @@ export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
 {
   const chartData = {
     labels: portfolioTickers.map(
-      (portfolioTicker) => moment(portfolioTicker.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD/YY')
+      // Note that we don't need to show year in the x-axis tickers for now.
+      (portfolioTicker) => moment(portfolioTicker.timestamp, 'YYYY-M-D H:m:s Z').format('MM/DD')
     ),
     datasets: [
       Object.assign(

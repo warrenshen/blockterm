@@ -80,6 +80,28 @@ user_infos.each do |user_info|
   User.create(user_info)
 end
 
+today = DateTime.now.beginning_of_day
+value_usd = 2000
+value_btc = 0.25
+value_eth = 2
+
+for i in (-500..0)
+  date = today + i.day
+  PortfolioTicker.create(
+    user_id: User.first.id,
+    timestamp: date,
+    value_usd: value_usd,
+    value_btc: value_btc,
+    value_eth: value_eth,
+  )
+  if rand(4) == 0
+    value_usd += rand(30)
+    value_btc += rand() * 0.001
+    value_eth += rand() * 0.0001
+  end
+end
+
+
 puts 'Seeding dashboard pages and items'
 dashboard_item_infos = [
   {
