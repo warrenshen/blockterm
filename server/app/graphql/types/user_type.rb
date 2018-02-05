@@ -34,6 +34,7 @@ module Types
         obj.alerts.where(status: :active).where('expires_at > ?', DateTime.now)
       }
     end
+
     field :dashboardPages, !types[Types::DashboardPageType] do
       description 'The dashboard pages associated with user'
 
@@ -41,8 +42,17 @@ module Types
         obj.dashboard_pages.order(index: :asc)
       }
     end
+
+    field :exchangeKeys, !types[Types::ExchangeKeyType] do
+      description 'Gets the exchange keys associated with user'
+
+      resolve -> (obj, args, ctx) {
+        obj.exchange_keys
+      }
+    end
+
     field :portfolioTickers, types[Types::PortfolioTickerType] do
-      description 'Gets the portfolio tickers associated with current user'
+      description 'Gets the portfolio tickers associated with user'
 
       argument :timeRange, types.String
 
@@ -54,6 +64,7 @@ module Types
         )
       }
     end
+
     field :tokenUsers, !types[Types::TokenUserType] do
       description 'The token users associated with user sorted by index'
 
