@@ -82,7 +82,7 @@ class PercentDominanceItem extends Component
       ));
       datasets.push(Object.assign(
         {},
-        LINE_CHART_AUXILLARY_STYLES[3].historical,
+        LINE_CHART_AUXILLARY_STYLES[0].historical,
         {
           data: dashboardData[1].marketTickers.map((historicalCount) => historicalCount.value),
           fill: '-1',
@@ -91,7 +91,7 @@ class PercentDominanceItem extends Component
       ));
       datasets.push(Object.assign(
         {},
-        LINE_CHART_AUXILLARY_STYLES[0].historical,
+        LINE_CHART_AUXILLARY_STYLES[3].historical,
         {
           data: dashboardData[2].marketTickers.map((historicalCount) => historicalCount.value),
           fill: '-1',

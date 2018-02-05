@@ -216,8 +216,31 @@ export function generateLineChartDataValue(
   };
 }
 
+function generateLineStylesFromColor(lineColor, backgroundColor = null, fill = false)
+{
+  return {
+    backgroundColor: backgroundColor || 'rgba(255, 255, 255, 0)',
+    borderColor: lineColor,
+    borderWidth: 2,
+    fill: fill,
+    lineTension: 0,
+    pointBackgroundColor: '#FFFFFF',
+    pointBorderColor: lineColor,
+    pointBorderWidth: 2,
+    pointRadius: 2,
+    pointHitRadius: 1.5,
+  };
+}
+
 export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
 {
+  const FIAT_COLOR_DAY = '#27AE60';
+  const FIAT_COLOR_NIGHT = '#27AE60';
+  const BTC_COLOR_DAY = '#FF8800';
+  const BTC_COLOR_NIGHT = '#FF8800';
+  const ETH_COLOR_DAY = '#0050FF';
+  const ETH_COLOR_NIGHT = '#0050FF';
+
   const chartData = {
     labels: portfolioTickers.map(
       // Note that we don't need to show year in the x-axis tickers for now.
@@ -226,7 +249,7 @@ export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
     datasets: [
       Object.assign(
         {},
-        LINE_CHART_AUXILLARY_STYLES[1].historical,
+        nightMode ? generateLineStylesFromColor(FIAT_COLOR_NIGHT) : generateLineStylesFromColor(FIAT_COLOR_DAY),
         {
           data: portfolioTickers.map((portfolioTicker) => portfolioTicker.valueUSD),
           fill: false,
@@ -236,7 +259,7 @@ export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
       ),
       Object.assign(
         {},
-        LINE_CHART_AUXILLARY_STYLES[2].historical,
+        nightMode ? generateLineStylesFromColor(BTC_COLOR_DAY) : generateLineStylesFromColor(BTC_COLOR_NIGHT),
         {
           data: portfolioTickers.map((portfolioTicker) => portfolioTicker.valueBTC),
           fill: false,
@@ -246,7 +269,7 @@ export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
       ),
       Object.assign(
         {},
-        LINE_CHART_AUXILLARY_STYLES[3].historical,
+        nightMode ? generateLineStylesFromColor(ETH_COLOR_DAY) : generateLineStylesFromColor(ETH_COLOR_NIGHT),
         {
           data: portfolioTickers.map((portfolioTicker) => portfolioTicker.valueETH),
           fill: false,
@@ -271,21 +294,18 @@ export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
   };
   const yTicksConfigFiat = {
     callback: (value, index, values) => numeral(value).format('$0,0.00a'),
-    fontColor: nightMode ? '#FFB900' :
-                           '#FFB900',
+    fontColor: nightMode ? FIAT_COLOR_NIGHT : FIAT_COLOR_DAY,
     padding: 6,
   };
   const yTicksConfigBTC = {
     callback: (value, index, values) => `${numeral(value).format('0.0000')} BTC`,
-    fontColor: nightMode ? '#FF8800' :
-                           '#FF8800',
+    fontColor: nightMode ? BTC_COLOR_NIGHT : BTC_COLOR_DAY,
     fontSize: 10,
     padding: 6,
   };
   const yTicksConfigETH = {
     callback: (value, index, values) => `${numeral(value).format('0.00')} ETH`,
-    fontColor: nightMode ? '#7A7D7A' :
-                           '#7A7D7A',
+    fontColor: nightMode ? ETH_COLOR_NIGHT : ETH_COLOR_DAY,
     fontSize: 10,
     padding: 6,
   };
