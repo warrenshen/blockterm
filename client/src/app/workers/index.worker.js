@@ -4,6 +4,11 @@ import {
   LESS_THAN,
   parseAlertIdentifier,
 }                       from '../constants/alerts';
+import {
+  WORKER_MESSAGE_TYPE_ALERTS,
+  WORKER_MESSAGE_TYPE_EXCHANGE_KEYS,
+  WORKER_REPLY_TYPE_ALERT,
+}                           from '../constants/workers';
 
 function getBinanceAPI()
 {
@@ -129,7 +134,8 @@ async function monitorAlert(alert)
   if (fulfillingTrades.length > 0)
   {
     postMessage({
-      alert: alert,
+      data: alert,
+      type: WORKER_REPLY_TYPE_ALERT,
     });
     return true;
   }
@@ -139,10 +145,63 @@ async function monitorAlert(alert)
   }
 }
 
-onmessage = (event) => {
-  const alerts = event.data.alerts;
-  if (alerts.length > 0)
+async function syncExchangeBalance(exchangeKey)
+{
+  const {
+    id,
+    exchange,
+    apiKey,
+    secretKey,
+  } = exchangeKey;
+
+  let api = null;
+
+  switch (exchange)
   {
-    alerts.forEach((alert) => monitorAlert(alert));
+    case 'binance':
+      api = getBinanceAPI();
+      break;
+    case 'bittrex':
+      api = getBittrexAPI();
+      break;
+    default:
+      return false;
+  }
+
+  api.apiKey = apiKey;
+  api.secret = secretKey;
+
+  const balance = await api.fetchBalance();
+  console.log(balance);
+}
+
+onmessage = (event) => {
+  const {
+    payload,
+    type,
+  } = event.data;
+
+  switch (event.data.type)
+  {
+    case WORKER_MESSAGE_TYPE_ALERTS:
+      const alerts = payload;
+      if (alerts.length > 0)
+      {
+        alerts.forEach((alert) => monitorAlert(alert));
+      }
+      break;
+    case WORKER_MESSAGE_TYPE_EXCHANGE_KEYS:
+      const exchangeKeys = payload;
+      if (exchangeKeys.length > 0)
+      {
+        exchangeKeys.forEach((exchangeKey) => syncExchangeBalance(exchangeKey));
+      }
+      break;
+    default:
+      if (process.env.NODE_ENV == 'dev')
+      {
+        console.log('Unknown worker message type');
+      }
+      break;
   }
 };

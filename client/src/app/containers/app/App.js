@@ -12,6 +12,10 @@ import PropTypes            from 'prop-types';
 import { StyleSheet, css }  from 'aphrodite';
 
 import {
+  AlertsQuery,
+  AlertsQueryOptions,
+  ExchangeKeysQuery,
+  ExchangeKeysQueryOptions,
   UpdateAlertMutation,
   UpdateAlertMutationOptions,
   UserQuery,
@@ -27,8 +31,13 @@ import {
   generateAlertNotificationBody,
   generateAlertNotificationTitle,
 }                           from '../../constants/alerts';
+import {
+  WORKER_MESSAGE_TYPE_ALERTS,
+  WORKER_MESSAGE_TYPE_EXCHANGE_KEYS,
+  WORKER_REPLY_TYPE_ALERT,
+}                           from '../../constants/workers';
 import Footer               from '../../components/Footer';
-import Worker               from '../../workers/binance.worker';
+import Worker               from '../../workers/index.worker';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -90,46 +99,66 @@ class App extends PureComponent
   constructor(props)
   {
     super(props);
-    this.worker = null;
+    this.worker = new Worker();
   }
 
   componentWillReceiveProps(nextProps)
   {
     const {
       alerts,
+      exchangeKeys,
 
       updateAlert,
     } = nextProps;
 
+    this.worker.terminate();
+    this.worker = new Worker();
+
+    this.worker.onmessage = (event) => {
+      switch (event.type)
+      {
+        case WORKER_REPLY_TYPE_ALERT:
+          const alert = event.data;
+          const notification = new Notification(
+            generateAlertNotificationTitle(alert),
+            {
+              body: generateAlertNotificationBody(alert),
+              requireInteraction: true,
+            }
+          );
+          // Note that we do not use the arrow syntax for the onclick callback
+          // because we do not want to mess with `this` in the callback.
+          notification.onclick = function(event) {
+            parent.focus();
+            window.focus();
+            event.target.close();
+          };
+          updateAlert(alert.id, 'triggered')
+            .then((response) => process.env.NODE_ENV === 'dev' && console.log('Alert update success'))
+            .catch((error) => process.env.NODE_ENV === 'dev' && console.log(error));
+        default:
+          if (process.env.NODE_ENV == 'dev')
+          {
+            console.log('Unknown worker reply type');
+          }
+          break;
+      }
+    };
+
     if (alerts.length > 0)
     {
-      if (this.worker !== null)
-      {
-        this.worker.terminate();
-      }
+      this.worker.postMessage({
+        payload: alerts,
+        type: WORKER_MESSAGE_TYPE_ALERTS,
+      });
+    }
 
-      this.worker = new Worker();
-      this.worker.postMessage({ alerts: alerts });
-      this.worker.onmessage = (event) => {
-        const alert = event.data.alert;
-        const notification = new Notification(
-          generateAlertNotificationTitle(alert),
-          {
-            body: generateAlertNotificationBody(alert),
-            requireInteraction: true,
-          }
-        );
-        // Note that we do not use the arrow syntax for the onclick callback
-        // because we do not want to mess with `this` in the callback.
-        notification.onclick = function(event) {
-          parent.focus();
-          window.focus();
-          event.target.close();
-        };
-        updateAlert(alert.id, 'triggered')
-          .then((response) => process.env.NODE_ENV === 'dev' && console.log('Alert update success'))
-          .catch((error) => process.env.NODE_ENV === 'dev' && console.log(error));
-      };
+    if (exchangeKeys.length > 0)
+    {
+      this.worker.postMessage({
+        payload: exchangeKeys,
+        type: WORKER_MESSAGE_TYPE_EXCHANGE_KEYS,
+      });
     }
   }
 
@@ -157,15 +186,16 @@ class App extends PureComponent
   Redux
  ------------------------------------------*/
 
-const mapStateToProps = (state) => {
-  return {
-    alerts: state.alerts.alerts,
-    notifications: state.notifications,
-    user: state.globals.user,
-  };
-};
+const mapStateToProps = (state) => ({
+  alerts: state.alerts.alerts,
+  exchangeKeys: state.balances.exchangeKeys,
+  notifications: state.notifications,
+  user: state.globals.user,
+});
 
 export default withRouter(compose(
+  graphql(AlertsQuery, AlertsQueryOptions),
+  graphql(ExchangeKeysQuery, ExchangeKeysQueryOptions),
   graphql(UserQuery, UserQueryOptions),
   graphql(UpdateAlertMutation, UpdateAlertMutationOptions),
   connect(mapStateToProps)
