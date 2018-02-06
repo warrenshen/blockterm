@@ -5,6 +5,7 @@ import { routerReducer }            from 'react-router-redux';
 import { apolloClient }             from '../../services/apollo';
 import { reducer as notifications } from 'react-notification-system-redux';
 import alerts                       from './alerts';
+import balances                     from './balances';
 import globals                      from './globals';
 import dashboard                    from './dashboard';
 import dashboardPages               from './dashboardPages';
@@ -16,6 +17,7 @@ import token                        from './token'
 
 const appReducers = {
   alerts,
+  balances,
   dashboard,
   dashboardPages,
   globals,

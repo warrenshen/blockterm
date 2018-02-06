@@ -254,6 +254,24 @@ export const DashboardPagesQueryOptions = {
   skip: (ownProps) => getItem(AUTH_TOKEN_COOKIE) === null,
 };
 
+export const ExchangeKeysQuery = gql`
+  query ExchangeKeysQuery {
+    user {
+      id
+
+      exchangeKeys {
+        id
+        exchange
+        apiKey
+        secretKey
+      }
+    }
+  }
+`;
+export const ExchangeKeysQueryOptions = {
+  skip: (ownProps) => getItem(AUTH_TOKEN_COOKIE) === null,
+};
+
 export const PortfolioTickersQuery = gql`
   query ($portfolioHistoryPlotRange: String) {
     user {

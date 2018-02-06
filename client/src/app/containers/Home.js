@@ -8,8 +8,6 @@ import {
   success as createNotificationSuccess,
 }                              from 'react-notification-system-redux';
 import {
-  AlertsQuery,
-  AlertsQueryOptions,
   DashboardPagesQuery,
   DashboardPagesQueryOptions,
 }                              from '../queries';
@@ -133,7 +131,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
-  graphql(AlertsQuery, AlertsQueryOptions),
   graphql(DashboardPagesQuery, DashboardPagesQueryOptions),
   graphql(CreateDashboardItemMutation, CreateDashboardItemMutationOptions),
   graphql(UpdateDashboardItemMutation, UpdateDashboardItemMutationOptions),
