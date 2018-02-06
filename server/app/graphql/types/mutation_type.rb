@@ -150,6 +150,34 @@ module Types
       }
     end
 
+    field :createExchangeKey, Types::ExchangeKeyType do
+      description 'Creates an exchange key for current user'
+
+      argument :exchange, !types.String
+      argument :apiKey, !types.String
+      argument :secretKey, !types.String
+
+      resolve -> (obj, args, ctx) {
+        current_user = QueryHelper.get_current_user(ctx)
+        if current_user.nil?
+          return GraphQL::ExecutionError.new('No current user')
+        end
+
+        exchange_key = ExchangeKey.create(
+          user_id: current_user.id,
+          exchange: args[:exchange],
+          api_key: args[:apiKey],
+          secret_key: args[:secretKey],
+        )
+
+        if exchange_key.valid?
+          exchange_key
+        else
+          return GraphQL::ExecutionError.new(exchange_key.errors.full_messages)
+        end
+      }
+    end
+
     field :createKeyword, Types::KeywordType do
       description 'Creates a keyword'
 

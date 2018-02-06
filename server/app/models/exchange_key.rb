@@ -23,12 +23,15 @@
 class ExchangeKey < ApplicationRecord
   belongs_to :user
 
+  validates :api_key, presence: true
+  validates :secret_key, presence: true
+
   enum exchange: {
     gdax: 0,
     binance: 1,
     bittrex: 2,
   }
   enum status: {
-
+    active: 0,
   }
 end
