@@ -287,6 +287,16 @@ module Types
       }
     end
 
+    field :createPortfolioTickers, types.String do
+      result = MutationHelper::create_portfolio_tickers
+
+      if result
+        'Success'
+      else
+        'Failure'
+      end
+    end
+
     field :createPostCount, Types::CountType do
       description 'Create a post count'
 
