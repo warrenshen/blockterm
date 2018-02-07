@@ -131,13 +131,13 @@ class CoinmarketcapClient:
     db = SQLite3Database('cmc_tickers.db')
 
     # [{'id': 'bitcoin', 'name': 'Bitcoin', ... }, { ... }]
-    step = 64
+    step = 256
     for i in range(0, len(result), step):
       tokens = result[i:i + step]
       tokens_string = json.dumps(tokens)
       tokens_string = tokens_string.replace('"', '\\"')
       response = self.api.update_tokens(tokens_string)
-      time.sleep(8)
+      time.sleep(48)
 
       if 'errors' in response:
         print('Something went wrong with saving market ticker: %s' % response['errors'])

@@ -103,6 +103,16 @@ class Api:
     }
     return self._get_query_response(query)
 
+  def create_portfolio_tickers(self):
+    params = self._inject_api_key('')
+
+    query = { 'query': '''
+      mutation {
+        createPortfolioTickers(%s)
+      }''' % params
+    }
+    return self._get_query_response(query)
+
   def create_subscriber_count(self, subreddit_name, count, timestamp):
     params = 'subredditName: "%s", count: %s, timestamp: "%s"' % \
          (subreddit_name, count, timestamp)

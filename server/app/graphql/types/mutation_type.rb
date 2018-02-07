@@ -239,6 +239,26 @@ module Types
       }
     end
 
+    field :createPortfolioTickers, types.String do
+      description 'Create portfolio tickers for users with portfolios'
+
+      argument :apiKey, !types.String
+
+      resolve -> (obj, args, ctx) {
+        if QueryHelper::api_key_invalid?(args[:apiKey])
+          return GraphQL::ExecutionError.new('Invalid api key')
+        end
+
+        result = MutationHelper::create_portfolio_tickers
+
+        if result
+          'Success'
+        else
+          'Failure'
+        end
+      }
+    end
+
     field :createPostCount, Types::CountType do
       description 'Create a post count'
 
