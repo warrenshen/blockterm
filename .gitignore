@@ -47,6 +47,7 @@ client/.nyc_output
 __pycache__
 data/configs.py
 data/secrets.py
+data/cron.log
 data/.ipynb_checkpoints/
 data/*.pyc
 data/dbs/*.db
