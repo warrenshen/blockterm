@@ -281,6 +281,17 @@ class Api:
     }
     return self._get_query_response(query)
 
+  def update_token_exchanges(self, token_exchanges_string):
+    params = 'tokenExchangesString: "%s"' % token_exchanges_string
+    params = self._inject_api_key(params)
+
+    query = { 'query': '''
+      mutation {
+        updateTokenExchanges(%s)
+      }''' % params
+    }
+    return self._get_query_response(query)
+
   def create_market(self, name):
     params = 'name: "%s"' % name
     params = self._inject_api_key(params)
