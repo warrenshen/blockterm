@@ -24,6 +24,7 @@ cron_tab.write()
 # cron_tab.write()
 
 job = cron_tab.new(command=get_command_for_script('portfolio_tickers.py'))
+job.minute.on(8)
 job.hour.every(4)
 cron_tab.write()
 
