@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180205013347) do
+ActiveRecord::Schema.define(version: 20180207000103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,13 +187,31 @@ ActiveRecord::Schema.define(version: 20180205013347) do
     t.index ["subreddit_id"], name: "index_subscriber_counts_on_subreddit_id", using: :btree
   end
 
+  create_table "token_exchanges", force: :cascade do |t|
+    t.integer  "token_id"
+    t.integer  "exchange",                           null: false
+    t.string   "identifier",                         null: false
+    t.decimal  "price_usd",          default: "0.0", null: false
+    t.decimal  "price_btc",          default: "0.0", null: false
+    t.decimal  "price_eth",          default: "0.0", null: false
+    t.decimal  "percent_change_1h",  default: "0.0", null: false
+    t.decimal  "percent_change_24h", default: "0.0", null: false
+    t.decimal  "percent_change_7d",  default: "0.0", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["exchange", "identifier"], name: "index_token_exchanges_on_exchange_and_identifier", unique: true, using: :btree
+    t.index ["token_id"], name: "index_token_exchanges_on_token_id", using: :btree
+  end
+
   create_table "token_users", force: :cascade do |t|
-    t.integer  "token_id",                   null: false
-    t.integer  "user_id",                    null: false
-    t.integer  "index",      default: 0,     null: false
-    t.decimal  "amount",     default: "0.0", null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "token_id",                          null: false
+    t.integer  "user_id",                           null: false
+    t.integer  "index",             default: 0,     null: false
+    t.decimal  "amount",            default: "0.0", null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "token_exchange_id"
+    t.index ["token_exchange_id"], name: "index_token_users_on_token_exchange_id", using: :btree
     t.index ["token_id"], name: "index_token_users_on_token_id", using: :btree
     t.index ["user_id", "index"], name: "index_token_users_on_user_id_and_index", unique: true, using: :btree
     t.index ["user_id"], name: "index_token_users_on_user_id", using: :btree
@@ -251,6 +269,8 @@ ActiveRecord::Schema.define(version: 20180205013347) do
   add_foreign_key "subreddit_tokens", "subreddits"
   add_foreign_key "subreddit_tokens", "tokens"
   add_foreign_key "subscriber_counts", "subreddits"
+  add_foreign_key "token_exchanges", "tokens"
+  add_foreign_key "token_users", "token_exchanges"
   add_foreign_key "token_users", "tokens"
   add_foreign_key "token_users", "users"
 end

@@ -101,7 +101,6 @@ for i in (-500..0)
   end
 end
 
-
 puts 'Seeding dashboard pages and items'
 dashboard_item_infos = [
   {
@@ -406,6 +405,30 @@ token_infos.each do |token_info|
       )
     end
   end
+end
+
+Token.all.each do |token|
+  TokenExchange.create(
+    token_id: token.id,
+    exchange: 'gdax',
+    price_usd: token.price_usd,
+    price_btc: token.price_btc,
+    price_eth: token.price_usd / 1296.19,
+  )
+  TokenExchange.create(
+    token_id: token.id,
+    exchange: 'binance',
+    price_usd: token.price_usd,
+    price_btc: token.price_btc,
+    price_eth: token.price_usd / 1296.19,
+  )
+  TokenExchange.create(
+    token_id: token.id,
+    exchange: 'bittrex',
+    price_usd: token.price_usd,
+    price_btc: token.price_btc,
+    price_eth: token.price_usd / 1296.19,
+  )
 end
 
 User.all.each do |user|
