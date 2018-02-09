@@ -153,24 +153,6 @@ class CoinmarketcapClient:
       datetime_string = unix_timestamp_to_datetime_string(timestamp)
       db.insert_cmc_ticker(str(token_dict), timestamp)
 
-      # response = self.api.update_token(
-      #   token_dict['symbol'],
-      #   token_dict['id'],
-      #   token_dict['name'],
-      #   token_dict['id'],
-      #   token_dict['price_usd'],
-      #   token_dict['price_btc'],
-      #   token_dict['24h_volume_usd'],
-      #   token_dict['market_cap_usd'],
-      #   token_dict['available_supply'],
-      #   token_dict['total_supply'],
-      #   token_dict['max_supply'],
-      #   token_dict['percent_change_1h'],
-      #   token_dict['percent_change_24h'],
-      #   token_dict['percent_change_7d']
-      # )
-      # time.sleep(0.1)
-
     db.close()
 
   def run_global(self):
