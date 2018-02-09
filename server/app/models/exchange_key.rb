@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  user_id    :integer          not null
 #  exchange   :integer          not null
-#  status     :integer          default(0), not null
+#  status     :integer          default("active"), not null
 #  api_key    :string           not null
 #  secret_key :string           not null
 #  created_at :datetime         not null
@@ -26,11 +26,8 @@ class ExchangeKey < ApplicationRecord
   validates :api_key, presence: true
   validates :secret_key, presence: true
 
-  enum exchange: {
-    gdax: 0,
-    binance: 1,
-    bittrex: 2,
-  }
+  # Exchange key model exchanges should match that of token exchange model.
+  enum exchange: TokenExchange.exchanges
   enum status: {
     active: 0,
   }
