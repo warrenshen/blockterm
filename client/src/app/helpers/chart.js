@@ -300,13 +300,13 @@ export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
   const yTicksConfigBTC = {
     callback: (value, index, values) => `${numeral(value).format('0.0000')} BTC`,
     fontColor: nightMode ? BTC_COLOR_NIGHT : BTC_COLOR_DAY,
-    fontSize: 10,
+    fontSize: 11,
     padding: 6,
   };
   const yTicksConfigETH = {
     callback: (value, index, values) => `${numeral(value).format('0.00')} ETH`,
     fontColor: nightMode ? ETH_COLOR_NIGHT : ETH_COLOR_DAY,
-    fontSize: 10,
+    fontSize: 11,
     padding: 6,
   };
   const legendConfig = {

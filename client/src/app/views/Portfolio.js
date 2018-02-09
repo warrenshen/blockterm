@@ -224,6 +224,9 @@ const styles = StyleSheet.create({
     height: '512px',
     backgroundColor: 'white',
   },
+  portfolioHistoryContainerNightMode: {
+    backgroundColor: '#000',
+  },
 });
 
 class Portfolio extends Component
@@ -636,20 +639,19 @@ class Portfolio extends Component
       const onChange = (option) => changePortfolioHistoryPlotRange(option.value);
 
       return (
-        <div className={css(styles.portfolioHistoryContainer)}>
+        <div className={css(styles.portfolioHistoryContainer, nightMode && styles.portfolioHistoryContainerNightMode)}>
           <LineChartWithSelectItem
             chartOptions={chartOptions}
             data={chartData}
             options={selectOptions}
             nightMode={nightMode}
             selectValue={portfolioHistoryPlotRange}
-            title={`Current value: ${numeral(0).format('$0,0')}`}
+            title={`Portfolio history`}
             onChange={onChange}
           />
         </div>
       );
     }
-
   }
 
   render()
@@ -683,11 +685,9 @@ class Portfolio extends Component
             </div>
           </div>
         </div>
-        {
-          // <div className={css(styles.wrapperRow)}>
-          //   {this.renderPortfolioHistory()}
-          // </div>
-        }
+        <div className={css(styles.wrapperRow)}>
+          {this.renderPortfolioHistory()}
+        </div>
       </div>
     );
   }
