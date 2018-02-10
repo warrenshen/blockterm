@@ -12,7 +12,9 @@ import { Helmet }          from 'react-helmet';
 import numeral             from 'numeral';
 import {
   AUTH_TOKEN_COOKIE,
+  FEATURE_PORTFOLIO_HISTORY,
   getItem,
+  isFeatureEnabled,
 }                          from '../services/cookie';
 import {
   calculatePortfolioChange,
@@ -685,9 +687,13 @@ class Portfolio extends Component
             </div>
           </div>
         </div>
-        <div className={css(styles.wrapperRow)}>
-          {this.renderPortfolioHistory()}
-        </div>
+        {
+          isFeatureEnabled(FEATURE_PORTFOLIO_HISTORY) && (
+            <div className={css(styles.wrapperRow)}>
+              {this.renderPortfolioHistory()}
+            </div>
+          )
+        }
       </div>
     );
   }

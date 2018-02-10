@@ -8,15 +8,21 @@ const APP_PERSIST_STORES_TYPES = [
 export const AUTH_TOKEN_COOKIE = 'AUTH_TOKEN_COOKIE';
 export const CURRENCY_COOKIE = 'CURRENCY_COOKIE';
 export const DASHBOARD_COOKIE = 'DASHBOARD_COOKIE';
+export const ENABLED_FEATURES_COOKIE = 'ENABLED_FEATURES_COOKIE';
 export const NIGHT_MODE_COOKIE = 'NIGHT_MODE_COOKIE';
 export const SELECTED_TAB_COOKIE = 'SELECTED_TAB_COOKIE';
 export const TIME_ZONE_COOKIE = 'TIME_ZONE_COOKIE';
 export const LAST_SEEN_VERSION = 'LAST_SEEN_VERSION';
 
+export const FEATURE_PORTFOLIO_HISTORY = 'FEATURE_PORTFOLIO_HISTORY';
+
 const parse = JSON.parse;
 const stringify = JSON.stringify;
 
-export function getItem(itemKey, asString=false, fromStorage=APP_PERSIST_STORES_TYPES[0])
+export function getItem(
+  itemKey,
+  asString = false,
+  fromStorage = APP_PERSIST_STORES_TYPES[0])
 {
   // localStorage:
   if (fromStorage === APP_PERSIST_STORES_TYPES[0] && localStorage)
@@ -114,4 +120,10 @@ export function clearItem(itemKey, toStorage=APP_PERSIST_STORES_TYPES[0])
       sessionStorage.removeItem(itemKey);
     }
   }
+}
+
+export function isFeatureEnabled(feature)
+{
+  const enabledFeatures = getItem(ENABLED_FEATURES_COOKIE);
+  return enabledFeatures !== null && enabledFeatures[feature] === true;
 }
