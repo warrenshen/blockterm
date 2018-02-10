@@ -173,7 +173,6 @@ class Login extends PureComponent
       password,
 
       changeError,
-      createNotificationSuccess,
       logIn,
     } = this.props;
 
