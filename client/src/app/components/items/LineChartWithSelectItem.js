@@ -12,14 +12,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    padding: '0px 8px',
   },
   header: {
     display: 'inline-flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    padding: '4px 0px',
+    padding: '0px 0px 6px 4px',
   },
   chart: {
     flex: '1',

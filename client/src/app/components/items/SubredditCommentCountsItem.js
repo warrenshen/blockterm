@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    padding: '6px 6px 0px 6px',
   },
 });
 
