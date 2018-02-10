@@ -5,13 +5,18 @@ import PropTypes            from 'prop-types';
 import { withApollo }       from 'react-apollo';
 import { StyleSheet, css }  from 'aphrodite/no-important';
 import RightNavButton       from './RightNavButton';
+import MobileRightNavIcon   from './MobileRightNavIcon';
 import Select               from 'react-select';
 import Switch               from 'react-toggle-switch'
 import El                   from '../El';
 import FontAwesome          from 'react-fontawesome';
 import * as STYLES          from '../../constants/styles';
-import * as CURRENCY          from '../../helpers/currency';
-import { Link }       from 'react-router-dom';
+import * as CURRENCY        from '../../helpers/currency';
+import { Link }             from 'react-router-dom';
+import Responsive           from 'react-responsive';
+
+const Desktop = props => <Responsive {...props} minWidth={480} />;
+const Mobile = props => <Responsive {...props} maxWidth={479} />;
 
 import {
   AUTH_TOKEN_COOKIE,
@@ -118,6 +123,7 @@ function logOut(event, client)
 
 function truncateEmail(email)
 {
+  if (!email) return;
   const TARGET_LENGTH = 6;
   var re =/.+(?=@.+)/;
   var result = re.exec(email);
@@ -128,7 +134,6 @@ function truncateEmail(email)
   }
 }
 
-//<FontAwesome name='lightbulb-o' size='2x' style={{'position':'absolute', 'left':'-16px', 'top':'3px', 'fontSize':'20px',}}/>
 const RightNav = ({
   currency,
   client,
@@ -138,121 +143,144 @@ const RightNav = ({
   toggleNightMode,
   user,
 }) => (
-  <ul className={css(styles.container)}>
-    <Switch
-      className={css(styles.switch, nightMode && styles.switchNight)}
-      on={nightMode}
-      onClick={toggleNightMode}
-      title="Toggle on/off night mode"
-    />
-    <Select
-      className={css(styles.select, nightMode && styles.nightSelect) + `${nightMode ? ' nightnav' : ''}`}
-      clearable={false}
-      options={CURRENCY.currencySelectOptions}
-      onChange={changeCurrency}
-      searchable={false}
-      value={currency}
-    />
-    <Link to={'/'} className={css()}>
-      <El
-        nightMode={nightMode}
-        nightModeStyle={styles.nightHover}
-        style={styles.dashbutton}
-        type={'span'}>
-        <FontAwesome name={'th'} />
-      </El>
-    </Link>
-    {
-      rightLinks.map((aLinkBtn, index) => (
-        <RightNavButton
-          key={index}
-          link={aLinkBtn.link}
-          label={aLinkBtn.label}
-          nightMode={nightMode}
+  <div>
+    <Desktop>
+      <ul className={css(styles.container)}>
+        <Switch
+          className={css(styles.switch, nightMode && styles.switchNight)}
+          on={nightMode}
+          onClick={toggleNightMode}
+          title="Toggle on/off night mode"
         />
-      ))
-    }
-    {
-      user ?
-      [
-        <RightNavButton
-          key={'portfolio'}
-          label={'Portfolio'}
-          link={'/portfolio'}
-          nightMode={nightMode}
-        />,
-        // <RightNavButton
-        //   key={'alerts'}
-        //   label={'Alerts'}
-        //   link={'/alerts'}
-        //   nightMode={nightMode}
-        // />,
-        <RightNavButton
-          key={'sign-out'}
-          action={(event) => logOut(event, client)}
-          label={`${truncateEmail(user.email)} | `}
-          icon='sign-out'
-          nightMode={nightMode}
-          nightModeStyle={styles.nightModeButton}
-          style={styles.signOutButton}
+        <Select
+          className={css(styles.select, nightMode && styles.nightSelect) + `${nightMode ? ' nightnav' : ''}`}
+          clearable={false}
+          options={CURRENCY.currencySelectOptions}
+          onChange={changeCurrency}
+          searchable={false}
+          value={currency}
         />
-      ] :
-      [
-        <div
-          data-tip='LOGIN or JOIN to use portfolio.'
-          data-place='bottom'
-          data-type='info'
-          data-effect='solid'
-          data-class={css(styles.tooltip)}
-          key={'portfolio'}
-        >
-          <RightNavButton
-            style={styles.disabled}
-            key={'portfolio'}
-            label={'Portfolio'}
-            link={'#'}
-            icon='lock'
-            absolute={true}
+        <Link to={'/'} className={css()}>
+          <El
             nightMode={nightMode}
-          />
-        </div>,
-        // <div
-        //   data-tip='LOGIN or JOIN to use alerts.'
-        //   data-place='bottom'
-        //   data-type='info'
-        //   data-effect='solid'
-        //   data-class={css(styles.tooltip)}
-        //   key={'alerts'}
-        // >
-        //   <RightNavButton
-        //     style={styles.disabled}
-        //     key={'portfolio'}
-        //     label={'Alerts'}
-        //     link={'#'}
-        //     icon='lock'
-        //     absolute={true}
-        //     nightMode={nightMode}
-        //   />
-        // </div>,
-        <RightNavButton
-          key={'login'}
-          label={'Login'}
-          link={'/login'}
+            nightModeStyle={styles.nightHover}
+            style={styles.dashbutton}
+            type={'span'}>
+            <FontAwesome name={'th'} />
+          </El>
+        </Link>
+        {
+          rightLinks.map((aLinkBtn, index) => (
+            <RightNavButton
+              key={index}
+              link={aLinkBtn.link}
+              label={aLinkBtn.label}
+              nightMode={nightMode}
+            />
+          ))
+        }
+        {
+          user ?
+          [
+            <RightNavButton
+              key={'portfolio'}
+              label={'Portfolio'}
+              link={'/portfolio'}
+              nightMode={nightMode}
+            />,
+            // <RightNavButton
+            //   key={'alerts'}
+            //   label={'Alerts'}
+            //   link={'/alerts'}
+            //   nightMode={nightMode}
+            // />,
+            <RightNavButton
+              key={'sign-out'}
+              action={(event) => logOut(event, client)}
+              label={`${truncateEmail(user.email)} | `}
+              icon='sign-out'
+              nightMode={nightMode}
+              nightModeStyle={styles.nightModeButton}
+              style={styles.signOutButton}
+            />
+          ] :
+          [
+            <div
+              data-tip='LOGIN or JOIN to use portfolio.'
+              data-place='bottom'
+              data-type='info'
+              data-effect='solid'
+              data-class={css(styles.tooltip)}
+              key={'portfolio'}
+            >
+              <RightNavButton
+                style={styles.disabled}
+                key={'portfolio'}
+                label={'Portfolio'}
+                link={'#'}
+                icon='lock'
+                absolute={true}
+                nightMode={nightMode}
+              />
+            </div>,
+            // <div
+            //   data-tip='LOGIN or JOIN to use alerts.'
+            //   data-place='bottom'
+            //   data-type='info'
+            //   data-effect='solid'
+            //   data-class={css(styles.tooltip)}
+            //   key={'alerts'}
+            // >
+            //   <RightNavButton
+            //     style={styles.disabled}
+            //     key={'portfolio'}
+            //     label={'Alerts'}
+            //     link={'#'}
+            //     icon='lock'
+            //     absolute={true}
+            //     nightMode={nightMode}
+            //   />
+            // </div>,
+            <RightNavButton
+              key={'login'}
+              label={'Login'}
+              link={'/login'}
+              nightMode={nightMode}
+              nightModeStyle={styles.nightModeButton}
+              style={styles.loginButton}
+            />,
+            <RightNavButton
+              key={'join'}
+              label={'Join/FAQ'}
+              link={'/join'}
+              nightMode={nightMode}
+              nightModeStyle={styles.nightModeButton}
+              style={styles.joinButton}
+            />,
+          ]
+        }
+      </ul>
+    </Desktop>
+    <Mobile>
+      <ul className={css(styles.container)}>
+        <Switch
+          className={css(styles.switch, nightMode && styles.switchNight)}
+          on={nightMode}
+          onClick={toggleNightMode}
+          title="Toggle on/off night mode"
+        />
+        <MobileRightNavIcon
+          className={css(styles.bulletIcon, nightMode && styles.bulletIconNight)}
+          options={rightLinks}
           nightMode={nightMode}
-          nightModeStyle={styles.nightModeButton}
-          style={styles.loginButton}
-        />,
-        <RightNavButton
-          key={'join'}
-          label={'Join/FAQ'}
-          link={'/join'}
-          nightMode={nightMode}
-          nightModeStyle={styles.nightModeButton}
-          style={styles.joinButton}
-        />,
-      ]
-    }
-  </ul>
+          user={user}
+          email={`${truncateEmail(user && user.email)} | `}
+          logout={logOut}
+          client={client}
+        />
+      </ul>
+    </Mobile>
+  </div>
 );
 
 RightNav.propTypes = {

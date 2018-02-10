@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     letterSpacing: '1px',
     lineHeight: '16px',
     fontSize: '12px',
+    wordBreak: 'break-all'
   },
   a: {
     fontWeight: '500',

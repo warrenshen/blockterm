@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   },
   para: {
     lineHeight: '20px',
+    wordBreak: 'break-all'
   },
   a: {
     fontWeight: '500',
