@@ -287,7 +287,7 @@ class DashboardSidebar extends PureComponent
         let label;
         if (keySelectValue === SUBREDDIT_POST_COUNTS || keySelectValue === SUBREDDIT_COMMENT_COUNTS)
         {
-          label = ITEM_VALUE_TO_LABELS[value];
+          label = ITEM_SUBREDDIT_VALUE_TO_LABELS[value];
         }
         else
         {
