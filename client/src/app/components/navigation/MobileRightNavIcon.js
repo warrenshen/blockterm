@@ -17,7 +17,10 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   menuItem: {
-    fontSize: '1.5rem'
+    fontWeight: '700 !important',
+    textTransform: 'uppercase !important',
+    fontSize: '13px !important',  //TODO: change this to 13 when portfolio is added to nav
+    letterSpacing: '2px !important',
   },
   menuItemNight: {
     color: 'white',
@@ -45,6 +48,7 @@ const styles = StyleSheet.create({
   disabledNight: {
     color: 'white'
   },
+
 });
 
 
