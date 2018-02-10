@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180207000103) do
+ActiveRecord::Schema.define(version: 20180209064033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,7 +204,7 @@ ActiveRecord::Schema.define(version: 20180207000103) do
   end
 
   create_table "token_users", force: :cascade do |t|
-    t.integer  "token_id",                          null: false
+    t.integer  "token_id"
     t.integer  "user_id",                           null: false
     t.integer  "index",             default: 0,     null: false
     t.decimal  "amount",            default: "0.0", null: false

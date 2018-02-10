@@ -14,5 +14,13 @@ class CreateTokenExchanges < ActiveRecord::Migration[5.0]
 
       t.index [:exchange, :identifier], unique: true
     end
+
+    Token.all.each do |token|
+      TokenExchange.create(
+        token_id: token.id,
+        exchange: 'coinmarketcap',
+        identifier: token.identifier,
+      )
+    end
   end
 end
