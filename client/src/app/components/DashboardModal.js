@@ -292,7 +292,7 @@ class DashboardModal extends PureComponent
             type='submit'
             onClick={onClickSubmit}
           >
-            Create alert
+            Create web alert
           </button>
         </form>
       );

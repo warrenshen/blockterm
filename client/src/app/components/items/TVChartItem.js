@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     top: '5px',
-    right: '5px',
+    right: '12px',
     zIndex: '1',
   },
   activeAlerts: {
@@ -66,15 +66,9 @@ class TVChartItem extends PureComponent
       (alert) => alert.identifier.indexOf(value) === 0
     );
     const onClick = (event) => {
-      console.log('hello');
       changeModalState(identifier);
     };
 
-    // <button
-    //   className={css(styles.activeAlerts, nightMode && styles.activeAlertsNightMode)}
-    //   title="Full screen widget and view alerts"
-    //   onClick={onClick}
-    // >
     return (
       <div className={css(styles.extras)}>
         {
