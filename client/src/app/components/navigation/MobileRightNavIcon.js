@@ -91,11 +91,17 @@ class MobileRightNavIcon extends React.Component {
           onClose={this.handleClose}
           PaperProps={{style: paperStyle}}
         >
+          <MenuItem
+            className={css(styles.menuItem, nightMode && styles.menuItemNight) }
+            key={'dashboard'}
+            onClick={this.handleClose.bind(this, '/')}
+          >
+            Dashboard
+          </MenuItem>,
           {options.map((option, index) => (
             <MenuItem
               className={css(styles.menuItem, nightMode && styles.menuItemNight) }
               key={index}
-              selected={index === 0}
               onClick={this.handleClose.bind(this, option.link)}
             >
               {option.label}

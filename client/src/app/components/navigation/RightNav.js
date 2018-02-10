@@ -92,6 +92,11 @@ const styles = StyleSheet.create({
     width: '60px',
     marginLeft: '30px',
   },
+  selectMobile: {
+    width: '60px',
+    marginLeft: '12px',
+    marginRight: '5px',
+  },
   nightSelectStyle: {
     backgroundColor: '#000',
     color: '#fff',
@@ -268,6 +273,14 @@ const RightNav = ({
           on={nightMode}
           onClick={toggleNightMode}
           title="Toggle on/off night mode"
+        />
+        <Select
+          className={css(styles.selectMobile, nightMode && styles.nightSelect) + `${nightMode ? ' nightnav' : ''}`}
+          clearable={false}
+          options={CURRENCY.currencySelectOptions}
+          onChange={changeCurrency}
+          searchable={false}
+          value={currency}
         />
         <MobileRightNavIcon
           className={css(styles.bulletIcon, nightMode && styles.bulletIconNight)}
