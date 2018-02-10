@@ -16,6 +16,7 @@ import {
 }                          from 'react-tabs';
 import DashboardGrid       from '../components/DashboardGrid';
 import * as STYLES         from '../constants/styles';
+import MediaQuery          from 'react-responsive';
 
 const styles = StyleSheet.create({
   container: {
@@ -243,7 +244,6 @@ class DashboardTabs extends Component {
     } = this.props;
 
     const onClickEdit = (event) => changeSidebarMode('edit-tabs');
-
     return (
       <div className={css(styles.bottomBar, nightMode && styles.bottomBarNight)}>
         <div className={css(styles.bottomBarSection)}>
@@ -274,10 +274,7 @@ class DashboardTabs extends Component {
           }
           </TabList>
         </div>
-        <div
-          className={css(styles.bottomBarSection)}
-          style={{ 'marginRight': '58px' }}
-        >
+        <MediaQuery query="(min-device-width: 480px)" component='div' className={css(styles.bottomBarSection)} style={{ 'marginRight': '58px' }}>
           <Link to={`/faq`}>
             <button
               title="Click to read FAQ and learn dashboard actions"
@@ -291,7 +288,15 @@ class DashboardTabs extends Component {
             onClick={(event) => changeSidebarMode('add')} >
             Add Widget To Dashboard [+]
           </button>
-        </div>
+        </MediaQuery>
+        <MediaQuery query="(max-device-width: 479px)" component='div' className={css(styles.bottomBarSection)} style={{ 'marginRight': '58px' }}>
+          <button
+            title="Click to add widgets to dashboard"
+            className={css(styles.button, styles.buttonHighlighted)}
+            onClick={(event) => changeSidebarMode('add')} >
+            Add Widgets
+          </button>
+        </MediaQuery>
       </div>
     );
   }
