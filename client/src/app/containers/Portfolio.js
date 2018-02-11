@@ -23,10 +23,13 @@ import Portfolio              from '../views/Portfolio';
 
 const mapStateToProps = (state) => {
   return {
+    addTokenExchangeId: state.portfolio.addTokenExchangeId,
+    addTokenId: state.portfolio.addTokenId,
     currency: state.globals.currency,
     changeActive: state.portfolio.changeActive,
     nightMode: state.globals.nightMode,
     portfolioHistoryPlotRange: state.portfolio.portfolioHistoryPlotRange,
+    tokenExchangesAll: state.portfolio.tokenExchangesAll,
     tokensAll: state.portfolio.tokensAll,
     tokenUsers: state.portfolio.tokenUsers,
     user: state.globals.user,
@@ -37,6 +40,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       addTokenUser: portfolioActions.addTokenUser,
+      changeAddTokenExchangeId: portfolioActions.changeAddTokenExchangeId,
+      changeAddTokenId: portfolioActions.changeAddTokenId,
       changePortfolioHistoryPlotRange: portfolioActions.changePortfolioHistoryPlotRange,
       changeTokenUserAmount: portfolioActions.changeTokenUserAmount,
       createNotificationError: createNotificationError,
