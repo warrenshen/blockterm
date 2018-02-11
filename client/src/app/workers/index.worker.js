@@ -8,6 +8,7 @@ import {
   WORKER_MESSAGE_TYPE_ALERTS,
   WORKER_MESSAGE_TYPE_EXCHANGE_KEYS,
   WORKER_REPLY_TYPE_ALERT,
+  WORKER_REPLY_TYPE_BALANCE,
 }                           from '../constants/workers';
 
 function getBinanceAPI()
@@ -134,7 +135,7 @@ async function monitorAlert(alert)
   if (fulfillingTrades.length > 0)
   {
     postMessage({
-      data: alert,
+      payload: alert,
       type: WORKER_REPLY_TYPE_ALERT,
     });
     return true;
@@ -172,7 +173,13 @@ async function syncExchangeBalance(exchangeKey)
   api.secret = secretKey;
 
   const balance = await api.fetchBalance();
-  console.log(balance);
+  postMessage({
+    payload: {
+      balance: balance,
+      exchange: exchange,
+    },
+    type: WORKER_REPLY_TYPE_BALANCE,
+  });
 }
 
 onmessage = (event) => {
