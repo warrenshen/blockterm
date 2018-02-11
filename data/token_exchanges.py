@@ -9,7 +9,7 @@ def parse_tokens_to_markets(markets_data):
   token_to_markets = {}
   for market_data in markets_data:
     token = market_data['base']
-    if 'baseId' in token:
+    if 'baseId' in market_data:
       token = market_data['baseId']
     market = market_data['symbol']
     if token in token_to_markets:
@@ -21,9 +21,9 @@ def parse_tokens_to_markets(markets_data):
 def calculate_token_to_prices(
   exchange,
   token_to_markets,
-  btc_usd,
-  eth_usd,
-  eth_btc,
+  btc_usd_last,
+  eth_usd_last,
+  eth_btc_last,
   all_tickers = None,
 ):
   token_to_prices = {}
@@ -37,9 +37,11 @@ def calculate_token_to_prices(
         market_usd = exchange.fetchTicker(usd_ticker[0])
       else:
         market_usd = all_tickers[usd_ticker[0]]
-      token_usd = market_usd['last']
-      token_btc = market_usd['last'] / btc_usd['last']
-      token_eth = market_usd['last'] / eth_usd['last']
+      # If the last market USD price is `None` we replace it with 0.0.
+      market_usd_last = market_usd['last'] or 0.0
+      token_usd = market_usd_last
+      token_btc = market_usd_last / btc_usd_last
+      token_eth = market_usd_last / eth_usd_last
       done = True
 
     btc_ticker = list(filter(lambda market: '/BTC' in market, markets))
@@ -48,9 +50,9 @@ def calculate_token_to_prices(
         market_btc = exchange.fetchTicker(btc_ticker[0])
       else:
         market_btc = all_tickers[btc_ticker[0]]
-      token_usd = market_btc['last'] * btc_usd['last']
+      token_usd = market_btc['last'] * btc_usd_last
       token_btc = market_btc['last']
-      token_eth = market_btc['last'] / eth_btc['last']
+      token_eth = market_btc['last'] / eth_btc_last
       done = True
 
     eth_ticker = list(filter(lambda market: '/ETH' in market, markets))
@@ -59,8 +61,8 @@ def calculate_token_to_prices(
         market_eth = exchange.fetchTicker(eth_ticker[0])
       else:
         market_eth = all_tickers[eth_ticker[0]]
-      token_usd = market_eth['last'] * eth_usd['last']
-      token_btc = market_eth['last'] * eth_btc['last']
+      token_usd = market_eth['last'] * eth_usd_last
+      token_btc = market_eth['last'] * eth_btc_last
       token_eth = market_eth['last']
       done = True
 
@@ -91,22 +93,44 @@ def generate_token_exchanges_for_server(exchange, token_to_prices):
     })
   return token_exchanges
 
+### Coinmarketcap ###
+cmc = ccxt.coinmarketcap()
+cmc_all_tickers = cmc.fetchTickers()
+
+cmc_btc_usd_last = cmc_all_tickers['BTC/USD']['last']
+cmc_eth_usd_last = cmc_all_tickers['ETH/USD']['last']
+cmc_eth_btc_last = cmc_eth_usd_last / cmc_btc_usd_last
+
+token_to_markets = parse_tokens_to_markets(cmc.fetchMarkets())
+token_to_prices = calculate_token_to_prices(
+  cmc,
+  token_to_markets,
+  cmc_btc_usd_last,
+  cmc_eth_usd_last,
+  cmc_eth_btc_last,
+  cmc_all_tickers
+)
+
+payload = generate_token_exchanges_for_server('coinmarketcap', token_to_prices)
+payload_str = json.dumps(payload).replace('"', '\\"')
+response = server.update_token_exchanges(payload_str)
+print(response)
 
 
-### GDAX ###
+# ### GDAX ###
 gdax = ccxt.gdax()
 
-gdax_btc_usd = gdax.fetchTicker('BTC/USD')
-gdax_eth_usd = gdax.fetchTicker('ETH/USD')
-gdax_eth_btc = gdax.fetchTicker('ETH/BTC')
+gdax_btc_usd_last = gdax.fetchTicker('BTC/USD')['last']
+gdax_eth_usd_last = gdax.fetchTicker('ETH/USD')['last']
+gdax_eth_btc_last = gdax.fetchTicker('ETH/BTC')['last']
 
 token_to_markets = parse_tokens_to_markets(gdax.fetchMarkets())
 token_to_prices = calculate_token_to_prices(
   gdax,
   token_to_markets,
-  gdax_btc_usd,
-  gdax_eth_usd,
-  gdax_eth_btc
+  gdax_btc_usd_last,
+  gdax_eth_usd_last,
+  gdax_eth_btc_last
 )
 
 payload = generate_token_exchanges_for_server('gdax', token_to_prices)
@@ -116,21 +140,21 @@ print(response)
 
 
 
-# ### Binance ###
+# # ### Binance ###
 binance = ccxt.binance()
 binance_all_tickers = binance.fetchTickers()
 
-binance_btc_usd = binance_all_tickers['BTC/USDT']
-binance_eth_usd = binance_all_tickers['ETH/USDT']
-binance_eth_btc = binance_all_tickers['ETH/BTC']
+binance_btc_usd_last = binance_all_tickers['BTC/USDT']['last']
+binance_eth_usd_last = binance_all_tickers['ETH/USDT']['last']
+binance_eth_btc_last = binance_all_tickers['ETH/BTC']['last']
 
 token_to_markets = parse_tokens_to_markets(binance.fetchMarkets())
 token_to_prices = calculate_token_to_prices(
   binance,
   token_to_markets,
-  binance_btc_usd,
-  binance_eth_usd,
-  binance_eth_btc,
+  binance_btc_usd_last,
+  binance_eth_usd_last,
+  binance_eth_btc_last,
   binance_all_tickers
 )
 
@@ -141,21 +165,21 @@ print(response)
 
 
 
-# ### Bittrex ###
+# # ### Bittrex ###
 bittrex = ccxt.bittrex()
 bittrex_all_tickers = bittrex.fetchTickers()
 
-bittrex_btc_usd = bittrex_all_tickers['BTC/USDT']
-bittrex_eth_usd = bittrex_all_tickers['ETH/USDT']
-bittrex_eth_btc = bittrex_all_tickers['ETH/BTC']
+bittrex_btc_usd_last = bittrex_all_tickers['BTC/USDT']['last']
+bittrex_eth_usd_last = bittrex_all_tickers['ETH/USDT']['last']
+bittrex_eth_btc_last = bittrex_all_tickers['ETH/BTC']['last']
 
 token_to_markets = parse_tokens_to_markets(bittrex.fetchMarkets())
 token_to_prices = calculate_token_to_prices(
   bittrex,
   token_to_markets,
-  bittrex_btc_usd,
-  bittrex_eth_usd,
-  bittrex_eth_btc,
+  bittrex_btc_usd_last,
+  bittrex_eth_usd_last,
+  bittrex_eth_btc_last,
   bittrex_all_tickers
 )
 
