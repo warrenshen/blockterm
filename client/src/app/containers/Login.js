@@ -4,9 +4,6 @@ import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose, graphql }   from 'react-apollo';
 import {
-  success as createNotificationSuccess,
-}                             from 'react-notification-system-redux';
-import {
   LogInMutation,
   LogInMutationOptions,
 }                             from '../queries';
@@ -33,13 +30,12 @@ const mapDispatchToProps = (dispatch) => {
       changeEmail: loginActions.changeEmail,
       changeError: loginActions.changeError,
       changePassword: loginActions.changePassword,
-      createNotificationSuccess: createNotificationSuccess,
     },
     dispatch
   );
 };
 
 export default compose(
-  graphql(LogInMutation, LogInMutationOptions),
   connect(mapStateToProps, mapDispatchToProps),
+  graphql(LogInMutation, LogInMutationOptions),
 )(Login);
