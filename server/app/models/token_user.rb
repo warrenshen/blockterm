@@ -3,7 +3,7 @@
 # Table name: token_users
 #
 #  id                :integer          not null, primary key
-#  token_id          :integer          not null
+#  token_id          :integer
 #  user_id           :integer          not null
 #  index             :integer          default(0), not null
 #  amount            :decimal(, )      default(0.0), not null
@@ -27,9 +27,10 @@
 
 class TokenUser < ApplicationRecord
   belongs_to :token
+  belongs_to :token_exchange
   belongs_to :user
 
-  validates :token_id, uniqueness: { scope: :user_id }
-  validates :token_exchange_id, uniqueness: { scope: :user_id }
+  validates :token_id, uniqueness: { allow_nil: true, scope: :user_id }
+  validates :token_exchange_id, uniqueness: { allow_nil: true, scope: :user_id }
   validates :index, uniqueness: { scope: :user_id }
 end

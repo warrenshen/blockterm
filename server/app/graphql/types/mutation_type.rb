@@ -153,8 +153,8 @@ module Types
     field :createExchangeKey, Types::ExchangeKeyType do
       description 'Creates an exchange key for current user'
 
-      argument :exchange, !types.String
       argument :apiKey, !types.String
+      argument :exchange, !types.String
       argument :secretKey, !types.String
 
       resolve -> (obj, args, ctx) {
@@ -474,10 +474,22 @@ module Types
             token_user_id = token_user_hash['id']
 
             if token_user_id.index('t') == 0
-              token_hash = token_user_hash['token']
+              token_exchange_hash = token_user_hash['tokenExchange']
+              token_hash = token_exchange_hash['token']
+
+              token_id = token_hash['id']
+              token_exchange = TokenExchange.find_by(
+                token_id: token_id,
+                exchange: token_exchange_hash['exchange'],
+              )
+
+              if token_exchange.nil?
+                return GraphQL::ExecutionError.new('Token exchange could not be found')
+              end
 
               token_user = TokenUser.create(
-                token_id: token_hash['id'],
+                token_exchange_id: token_exchange.id,
+                token_id: token_id,
                 user_id: current_user.id,
                 amount: token_user_hash['amount'],
                 index: token_user_hash['index'],
@@ -508,6 +520,77 @@ module Types
         end
 
         current_user.reload
+      }
+    end
+
+    field :updateTokenUsersByExchange, Types::UserType do
+      description 'Update token users of current user'
+
+      argument :tokenUsersString, !types.String
+
+      resolve -> (obj, args, ctx) {
+        current_user = QueryHelper.get_current_user(ctx)
+        if current_user.nil?
+          return GraphQL::ExecutionError.new('No current user')
+        end
+
+        token_users_hashes = JSON.parse(args[:tokenUsersString])
+
+        error_messages = nil
+
+        ActiveRecord::Base.transaction do
+          token_users_hashes.each do |token_user_hash|
+            exchange = token_user_hash['exchange']
+            identifier = token_user_hash['identifier']
+            amount = token_user_hash['total']
+
+            token_exchange = TokenExchange.find_by(
+              exchange: exchange,
+              identifier: identifier,
+            )
+
+            if token_exchange.nil?
+              next
+              # error_messages = "Token exchange with exchange #{exchange} and identifier #{identifier} not found"
+              # raise ActiveRecord::Rollback
+            end
+
+            token_user = TokenUser.find_by(
+              token_exchange_id: token_exchange.id,
+              user_id: current_user.id,
+            )
+
+            if token_user.nil?
+              if exchange == 'coinmarketcap'
+                token = Token.find_by_identifier(identifier)
+              else
+                token = Token.find_by_short_name(identifier)
+              end
+
+              token_user = TokenUser.create(
+                token_exchange_id: token_exchange.id,
+                user_id: current_user.id,
+                amount: amount,
+                index: current_user.token_users.count,
+              )
+            else
+              token_user.amount = amount
+
+              if token_user.changed?
+                token_user.save
+              end
+            end
+
+            if !token_user.valid?
+              error_messages = token_user.errors.full_messages
+              raise ActiveRecord::Rollback
+            end
+          end
+
+          return current_user.reload
+        end
+
+        return GraphQL::ExecutionError.new(error_messages)
       }
     end
 
@@ -596,7 +679,16 @@ module Types
           )
 
           if token_exchange.nil?
-            token = Token.find_by_short_name(identifier)
+            if exchange == 'coinmarketcap'
+              token = Token.find_by_identifier(identifier)
+            else
+              token = Token.find_by_short_name(identifier)
+            end
+
+            if token.nil?
+              next
+            end
+
             token_exchange = TokenExchange.create(
               token_id: token.nil? ? nil : token.id,
               identifier: identifier,
@@ -672,6 +764,18 @@ module Types
             if !keyword.valid?
               return GraphQL::ExecutionError.new(keyword.errors.full_messages)
             end
+          end
+
+          token_exchange = TokenExchange.find_by(
+            exchange: 'coinmarketcap',
+            identifier: identifier,
+          )
+
+          if token_exchange.nil?
+            token_exchange = TokenExchange.create(
+              exchange: 'coinmarketcap',
+              identifier: identifier,
+            )
           end
 
           token.identifier = identifier if !identifier.nil?
