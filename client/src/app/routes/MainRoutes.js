@@ -19,6 +19,7 @@ import {
   ConnectedTokens,
   ConnectedFAQ,
 }                     from '../containers';
+import ConnectedApiKeys from '../containers/ApiKeys';
 import ConnectedForgot from '../containers/Forgot';
 import ConnectedReset from '../containers/Reset';
 import AdminPortolios from '../containers/AdminPortfolios';
@@ -38,6 +39,7 @@ export const MainRoutes = () => {
       <Route exact path='/reset/:token' component={ConnectedReset} />
 
       <Route exact path='/portfolio' component={ConnectedPortfolio} />
+      <Route exact path='/apiKeys' component={ConnectedApiKeys} />
 
       <Route exact path='/subreddits' component={ConnectedSubreddits} />
       <Route exact path='/subreddits/compare' component={ConnectedSubredditsCompare} />
