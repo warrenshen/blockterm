@@ -21,12 +21,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: '1024px',
-    padding: '24px 12px 128px 12px',
+    padding: '0px 12px 128px 12px',
     margin: '0px auto',
-    backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
-  },
-  nightMode: {
-    backgroundColor: STYLES.LIGHTNIGHT,
   },
   row: {
     display: 'flex',
@@ -74,7 +70,7 @@ class Portfolio extends PureComponent
     } = this.props;
 
     return (
-      <div className={css(styles.container, nightMode && styles.nightMode)}>
+      <div className={css(styles.container)}>
         <Helmet>
           <title>Blockterm | Cryptocurrency Portfolio Tracking Tool</title>
           <meta name="description" content="Manage and track your cryptocurrency portfolio/assets in one easy place. See your cryptocurrency assets total valuation, price by cryptocurrency, and distribution percentages with Blockterm." />
