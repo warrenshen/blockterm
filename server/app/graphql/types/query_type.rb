@@ -36,14 +36,6 @@ module Types
       }
     end
 
-    field :allTokens, types[Types::TokenType] do
-      description 'Get all tokens'
-
-      resolve -> (obj, args, ctx) {
-        Token.all
-      }
-    end
-
     field :marketByName, Types::MarketType do
       description 'Gets the market associated with given name'
 
@@ -148,6 +140,23 @@ module Types
         TokenSearch.results(filters: { sort: 'volume_usd_24h desc' }, page: args[:page])
       }
     end
+
+    field :tokenExchangesAll, types[Types::TokenExchangeType] do
+      description 'Get all token exchanges'
+
+      resolve -> (obj, args, ctx) {
+        TokenExchange.all
+      }
+    end
+
+    field :tokenExchangesByTokenId, types[Types::TokenExchangeType] do
+      argument :tokenId, !types.Int
+
+      resolve -> (obj, args, ctx) {
+        TokenExchange.where(token_id: args[:tokenId])
+      }
+    end
+
 
     field :user, Types::UserType do
       description 'Gets the current user if logged in'
