@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   bolded: {
     fontWeight: '500',
     letterSpacing: '0px',
+    textTransform: 'uppercase',
   },
   promotion: {
     position:'absolute',

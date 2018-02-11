@@ -21,6 +21,7 @@ import {
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
   TWITTER_ITEM,
+  NEWS_ITEM,
   convertIdentifierToTitle,
   parseIdentifier,
   parseIdentiferKey,
@@ -28,6 +29,7 @@ import {
 import AlertsItem                 from './items/AlertsItem';
 import CCChartItem                from './items/CCChartItem';
 import GTChartItem                from './items/GTChartItem';
+import NewsItem                from './items/NewsItem';
 import PercentDominanceItem       from './items/PercentDominanceItem';
 import PortfolioItem              from './items/PortfolioItem';
 import PortfolioHistoryItem       from './items/PortfolioHistoryItem';
@@ -46,14 +48,15 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: '1',
   },
-  closeButton: {
+  actionButton: {
     color: '#000',
+    height: '100%',
     borderLeft: `1px solid ${STYLES.BORDERLIGHT}`,
     padding: '1px 4px',
     lineHeight: '14px',
     width:'20px',
   },
-  darkCloseButton: {
+  darkActionButton: {
     backgroundColor: '#000',
     borderColor: '#ccc',
     color: '#fff',
@@ -170,6 +173,14 @@ class DashboardItem extends Component
             value={identifierValue}
 
             changeDashboardItemState={changeDashboardItemState}
+          />
+        );
+      case NEWS_ITEM:
+        return (
+          <NewsItem
+            dashboardAction={dashboardAction}
+            nightMode={nightMode}
+            value={identifierValue}
           />
         );
       case PERCENT_DOMINANCE_ITEM:
@@ -318,7 +329,7 @@ class DashboardItem extends Component
             {
               identifierKey === TV_CANDLE_CHART && (
                 <button
-                  className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+                  className={css(styles.actionButton, nightMode && styles.darkActionButton)}
                   onClick={onClickOpen}
                   title="Open this widget in full screen"
                 >
@@ -329,7 +340,7 @@ class DashboardItem extends Component
             {
               identifierKey === TV_CANDLE_CHART && (
                 <button
-                  className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+                  className={css(styles.actionButton, nightMode && styles.darkActionButton)}
                   onClick={onClickOpen}
                   title="Open the alerts management panel for this chart"
                 >
@@ -338,7 +349,7 @@ class DashboardItem extends Component
               )
             }
             <button
-              className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
+              className={css(styles.actionButton, nightMode && styles.darkActionButton, staticActive && styles.lockedElement)}
               onClick={onClickEdit}
               title="Swap this widget out for another"
             >
@@ -346,12 +357,12 @@ class DashboardItem extends Component
             </button>
             <button
               title="Drag and drop to move widget around"
-              className={css(styles.closeButton, nightMode && styles.darkCloseButton, staticActive && styles.lockedElement)}
+              className={css(styles.actionButton, nightMode && styles.darkActionButton, staticActive && styles.lockedElement)}
               >
               <FontAwesome name='arrows' style={{'fontSize':'13px'}}/>
             </button>
             <button
-              className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+              className={css(styles.actionButton, nightMode && styles.darkActionButton)}
               onClick={onClickLock}
               title="Lock and unlock element position and sizing"
             >
@@ -359,7 +370,7 @@ class DashboardItem extends Component
             </button>
             <button
               title="Remove this widget"
-              className={css(styles.closeButton, nightMode && styles.darkCloseButton)}
+              className={css(styles.actionButton, nightMode && styles.darkActionButton)}
               onClick={onClickRemove}
             >
               <FontAwesome name='remove' />

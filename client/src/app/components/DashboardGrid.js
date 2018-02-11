@@ -214,7 +214,7 @@ class DashboardGrid extends Component
           onLayoutChange={(layout, layouts) => saveLayout(layout)}
           rowHeight={64}
           margin={[5, 5]}
-          containerPadding={[10, 5]}
+          containerPadding={[10, 8]}
         >
           {
             dashboardItems.map(
