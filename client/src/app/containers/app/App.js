@@ -18,6 +18,8 @@ import {
   ExchangeKeysQueryOptions,
   UpdateAlertMutation,
   UpdateAlertMutationOptions,
+  UpdateTokenUsersByExchangeMutation,
+  UpdateTokenUsersByExchangeMutationOptions,
   UserQuery,
   UserQueryOptions,
 }                           from '../../queries';
@@ -35,6 +37,7 @@ import {
   WORKER_MESSAGE_TYPE_ALERTS,
   WORKER_MESSAGE_TYPE_EXCHANGE_KEYS,
   WORKER_REPLY_TYPE_ALERT,
+  WORKER_REPLY_TYPE_BALANCE,
 }                           from '../../constants/workers';
 import Footer               from '../../components/Footer';
 import Worker               from '../../workers/index.worker';
@@ -109,16 +112,17 @@ class App extends PureComponent
       exchangeKeys,
 
       updateAlert,
+      updateTokenUsersByExchange,
     } = nextProps;
 
     this.worker.terminate();
     this.worker = new Worker();
 
     this.worker.onmessage = (event) => {
-      switch (event.type)
+      switch (event.data.type)
       {
         case WORKER_REPLY_TYPE_ALERT:
-          const alert = event.data;
+          const alert = event.data.payload;
           const notification = new Notification(
             generateAlertNotificationTitle(alert),
             {
@@ -136,6 +140,29 @@ class App extends PureComponent
           updateAlert(alert.id, 'triggered')
             .then((response) => process.env.NODE_ENV === 'dev' && console.log('Alert update success'))
             .catch((error) => process.env.NODE_ENV === 'dev' && console.log(error));
+          break;
+        case WORKER_REPLY_TYPE_BALANCE:
+          const balance = event.data.payload.balance;
+          const exchange = event.data.payload.exchange;
+          delete balance.info;
+          delete balance.total;
+          delete balance.free;
+          delete balance.used;
+          const formattedBalance = Object.entries(balance)
+            .map(
+              ([identifier, tokenBalance]) => ({
+                exchange: exchange,
+                identifier: identifier,
+                free: tokenBalance.free,
+                used: tokenBalance.used,
+                total: tokenBalance.total,
+              })
+            )
+            .filter((tokenBalance) => tokenBalance.total > 0);
+          updateTokenUsersByExchange(formattedBalance)
+            .then((response) => console.log(response))
+            .catch((error) => console.log(error));
+          break;
         default:
           if (process.env.NODE_ENV == 'dev')
           {
@@ -194,9 +221,10 @@ const mapStateToProps = (state) => ({
 });
 
 export default withRouter(compose(
+  connect(mapStateToProps),
   graphql(AlertsQuery, AlertsQueryOptions),
   graphql(ExchangeKeysQuery, ExchangeKeysQueryOptions),
   graphql(UserQuery, UserQueryOptions),
   graphql(UpdateAlertMutation, UpdateAlertMutationOptions),
-  connect(mapStateToProps)
+  graphql(UpdateTokenUsersByExchangeMutation, UpdateTokenUsersByExchangeMutationOptions),
 )(App));
