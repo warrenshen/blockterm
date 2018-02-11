@@ -57,11 +57,12 @@ const styles = StyleSheet.create({
 
 function getTooltip(tooltipItem, data)
 {
+  const itemLabel = data.labels[tooltipItem.index];
   const itemValue = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
   const totalValue = data.datasets[tooltipItem.datasetIndex].data.reduce(
     (accum, value) => accum + value
   );
-  return `${numeral(itemValue / totalValue).format('0.0%')}, ${numeral(itemValue).format('$0,0.0')}`;
+  return `${itemLabel}: ${numeral(itemValue / totalValue).format('0.0%')}, ${numeral(itemValue).format('$0,0.0')}`;
 }
 
 class DonutChartWithSelect extends PureComponent {
