@@ -27,32 +27,54 @@ import El                      from '../components/El';
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
+    flexDirection: 'column',
     width: '100%',
   },
-  nightMode: {
-    backgroundColor: STYLES.LIGHTNIGHT,
-  },
-  section: {
+  sectionTop: {
     display: 'flex',
     flexDirection: 'column',
+    width: '100%',
+    padding: '24px 0px 36px 0px',
+  },
+  sectionBottom: {
+    display: 'flex',
+    width: '100%',
+    overflow: 'hidden',
+  },
+  sectionLeft: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '312px',
+    padding: '6px 12px 12px 12px',
   },
   sectionRight: {
     flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
     padding: '8px',
-    marginLeft: '6px',
+    marginLeft: '8px',
   },
   card: {
     backgroundColor: 'white',
-    border: `1px solid ${STYLES.BORDERLIGHT}`,
   },
-  cardTop: {
-    padding: '12px',
-    marginBottom: '6px',
+  cardNightMode: {
+    backgroundColor: 'black',
   },
   cardRow: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
+  },
+  change: {
+    marginRight: '4px',
+  },
+  redDelta: {
+    color: `${STYLES.TICKER_RED} !important`,
+    fontWeight: '500',
+  },
+  greenDelta: {
+    color: `${STYLES.TICKER_GREEN} !important`,
+    fontWeight: '500',
   },
 });
 
@@ -80,18 +102,11 @@ class PortfolioOverview extends PureComponent
     const portfolioChange7d = calculatePortfolioChange(tokenUsers, 'priceUSD', 'percentChange7d');
 
     return (
-      <div className={css(styles.card, styles.cardTop, nightMode && styles.cardNightMode)}>
+      <div className={css(styles.sectionTop)}>
         <div className={css(styles.cardRow)}>
           <El
             nightMode={nightMode}
-            style={styles.block}
-            type={'span'}
-          >
-            Total value:
-          </El>
-          <El
-            nightMode={nightMode}
-            type={'h4'}
+            type={'h1'}
             style={styles.boldedColor}
             nightModeStyle={styles.nightBoldedColor}
           >
@@ -101,14 +116,14 @@ class PortfolioOverview extends PureComponent
         <div className={css(styles.cardRow)}>
           <El
             nightMode={nightMode}
-            style={styles.block}
+            style={styles.change}
             type={'span'}
           >
-            Total change (24h):
+            Change (24h):
           </El>
           <El
             nightMode={nightMode}
-            type={'h4'}
+            type={'h3'}
             style={(portfolioChange24h < 0) ? styles.redDelta : styles.greenDelta}
             nightModeStyle={(portfolioChange24h < 0) ? styles.redDelta : styles.greenDelta}
           >
@@ -118,14 +133,14 @@ class PortfolioOverview extends PureComponent
         <div className={css(styles.cardRow)}>
           <El
             nightMode={nightMode}
-            style={styles.block}
+            style={styles.change}
             type={'span'}
           >
-            Total change (7d):
+            Change (7d):
           </El>
           <El
             nightMode={nightMode}
-            type={'h4'}
+            type={'h3'}
             style={(portfolioChange7d < 0) ? styles.redDelta : styles.greenDelta}
             nightModeStyle={(portfolioChange7d < 0) ? styles.redDelta : styles.greenDelta}
           >
@@ -166,7 +181,7 @@ class PortfolioOverview extends PureComponent
       const onChange = (option) => changePortfolioHistoryPlotRange(option.value);
 
       return (
-        <div className={css(styles.section, styles.sectionRight, styles.card)}>
+        <div className={css(styles.sectionRight, styles.card, nightMode && styles.cardNightMode)}>
           <LineChartWithSelectItem
             chartOptions={chartOptions}
             data={chartData}
@@ -192,17 +207,17 @@ class PortfolioOverview extends PureComponent
 
     return (
       <div className={css(styles.container)}>
-        <div className={css(styles.section)}>
-          {this.renderHeroTable()}
-          <div className={css(styles.card, nightMode && styles.cardNightMode)}>
+        {this.renderHeroTable()}
+        <div className={css(styles.sectionBottom)}>
+          <div className={css(styles.sectionLeft, styles.card, nightMode && styles.cardNightMode)}>
             <DonutChartWithSelect
               data={donutData}
               nightMode={nightMode}
               title="Portfolio distribution"
             />
           </div>
+          {this.renderPortfolioHistory()}
         </div>
-        {this.renderPortfolioHistory()}
       </div>
     );
   }

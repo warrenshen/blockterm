@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     flex: '1',
     display: 'inline-flex',
     width: '100%',
-    paddingBottom: '5px',
   },
   title: {
     width: '100%',

@@ -29,12 +29,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '100%',
     padding: '0px 12px 12px 12px',
-    marginTop: '6px',
+    marginTop: '12px',
     backgroundColor: 'white',
-    border: `1px solid ${STYLES.BORDERLIGHT}`,
   },
-  nightMode: {
-    backgroundColor: STYLES.LIGHTNIGHT,
+  containerNightMode: {
+    backgroundColor: 'black',
   },
   section: {
     display: 'flex',
@@ -226,7 +225,7 @@ class PortfolioTokens extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
-            Total value
+            Balance
           </El>
         </div>
         <div className={css(styles.element, nightMode && styles.darkElement)}>
@@ -488,7 +487,7 @@ class PortfolioTokens extends PureComponent
       );
 
     return (
-      <div className={css(styles.container)}>
+      <div className={css(styles.container, nightMode && styles.containerNightMode)}>
         <div className={css(styles.section)}>
           <div className={css(styles.table)}>
             {this.renderHeader()}
