@@ -26,7 +26,7 @@ import El                  from '../El';
 
 const styles = StyleSheet.create({
   navbar: {
-    zIndex:'2',
+    zIndex:'200',
   },
   container: {
     width: '100vw',

@@ -5,46 +5,14 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
+import { Link }            from 'react-router-dom';
 import FontAwesome         from 'react-fontawesome';
 import * as DEFAULTS       from '../constants/styles';
 import * as STYLES         from '../constants/styles';
+import AccountPerks        from '../components/AccountPerks';
 import El                  from '../components/El';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: '1',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  nightMode: {
-  },
-  header: {
-    display: 'flex',
-    borderBottom: `1px solid ${DEFAULTS.BORDERLIGHT}`
-  },
-  headerNight: {
-    borderBottom: `1px solid ${DEFAULTS.BORDERDARK}`
-  },
-  table: {
-    display: 'table',
-    width: '100%',
-    borderCollapse: 'collapse',
-    overflowY: 'scroll',
-  },
-  row: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
-  },
-  element: {
-    flex: '1',
-    display: 'flex',
-    minWidth: '172px',
-    padding: '6px 4px',
-    lineHeight: '24px',
-    justifyContent: 'center',
-  },
   blockButton: {
     borderRadius: '0px',
     textTransform: 'uppercase',
@@ -55,8 +23,40 @@ const styles = StyleSheet.create({
   buttons: {
     display: 'flex',
   },
+  container: {
+    flex: '1',
+    display: 'flex',
+    flexDirection: 'column',
+    maxWidth: '30vw',
+  },
+  element: {
+    flex: '1',
+    display: 'flex',
+    minWidth: '172px',
+    lineHeight: '24px',
+    justifyContent: 'center',
+  },
+  header: {
+    display: 'flex',
+    borderBottom: `1px solid ${DEFAULTS.BORDERLIGHT}`
+  },
+  headerNight: {
+    borderBottom: `1px solid ${DEFAULTS.BORDERDARK}`
+  },
   input: {
     fontWeight: '500',
+  },
+  row: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  table: {
+    display: 'table',
+    width: '100%',
+    borderCollapse: 'collapse',
+    overflowY: 'scroll',
   },
 });
 
@@ -150,16 +150,9 @@ class DashboardSidebarTabs extends PureComponent
     if (user === null)
     {
       return (
-        <div
-          className={css(styles.container, nightMode && styles.containerNightMode)}
-        >
-          <El
-            nightMode={nightMode}
-            type={'span'}
-          >
-            LOGIN or JOIN to add/edit tabs
-          </El>
-        </div>
+        <AccountPerks
+          nightMode={nightMode}
+        />
       );
     }
     else

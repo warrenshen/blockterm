@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   bottomBarSection: {
     display: 'flex',
     marginTop: '-1px',
+    overflowX: 'hidden',
   },
   bottomBarSectionMiddle: {
     flex: '1',
@@ -87,13 +88,14 @@ const styles = StyleSheet.create({
   },
   tab: {
     height: '100%',
+    borderTop: '1px solid #999',
   },
   button: {
     height: '100%',
     padding: '0px 12px',
     backgroundColor: '#fff',
     borderRight: '1px solid #333',
-    borderTop: 'none !important',
+    borderTop: '1px solid #999 !important',
     borderBottom: 'none !important',
     fontWeight: '500',
     fontSize: '13px',

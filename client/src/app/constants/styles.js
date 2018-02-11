@@ -44,14 +44,27 @@ export const styles = StyleSheet.create({
     borderBottom: '1px solid #777',
     textTransform: 'uppercase',
   },
+  emphasize: {
+    backgroundColor: GOLD,
+    borderColor: '#000',
+  },
+  hollowButton: {
+    border: '1px solid #000',
+    borderRadius: '1px',
+    color: '#000',
+    padding: '4px 12px',
+    textTransform: 'uppercase',
+    fontWeight: '700',
+    letterSpacing: '2px',
+  },
+  hollowButtonNight: {
+    borderColor: "#fff",
+    color: '#fff',
+  },
   subtitle: {
     textTransform: 'uppercase',
     letterSpacing: '1px',
     fontWeight: '500',
     padding: '0px 10px',
-  },
-  emphasize: {
-    backgroundColor: GOLD,
-    borderColor: '#000',
   },
 });

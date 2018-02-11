@@ -23,6 +23,7 @@ import {
   generateAlertIdentifier,
   parseAlertIdentifier,
 }                          from '../constants/alerts';
+import AccountPerks        from '../components/AccountPerks';
 import DashboardItemLarge  from '../components/DashboardItemLarge';
 import El                  from '../components/El';
 
@@ -106,8 +107,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     letterSpacing: '2px !important',
   },
-  marginSides: {
-    margin: '5px 10px',
+  padded: {
+    padding: '10px 10px',
   },
   expiresText: {
     fontSize: '10px',
@@ -236,7 +237,7 @@ class DashboardModal extends PureComponent
     {
       return (
         <El
-          style={styles.marginSides}
+          style={styles.padded}
           nightMode={nightMode}
           type={'h5'}
         >
@@ -247,13 +248,9 @@ class DashboardModal extends PureComponent
     else if (user === null)
     {
       return (
-        <El
-          style={styles.marginSides}
+        <AccountPerks 
           nightMode={nightMode}
-          type={'h5'}
-        >
-          LOGIN or JOIN to use alerts
-        </El>
+        />
       );
     }
     else
