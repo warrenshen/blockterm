@@ -293,12 +293,12 @@ export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
     padding: 6,
   };
   const yTicksConfigFiat = {
-    callback: (value, index, values) => numeral(value).format('$0,0.00a'),
+    callback: (value, index, values) => numeral(value).format('$0,0a'),
     fontColor: nightMode ? FIAT_COLOR_NIGHT : FIAT_COLOR_DAY,
     padding: 6,
   };
   const yTicksConfigBTC = {
-    callback: (value, index, values) => `${numeral(value).format('0.0000')} BTC`,
+    callback: (value, index, values) => `${numeral(value).format('0.000')} BTC`,
     fontColor: nightMode ? BTC_COLOR_NIGHT : BTC_COLOR_DAY,
     fontSize: 11,
     padding: 6,

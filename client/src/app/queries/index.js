@@ -18,7 +18,7 @@ import {
   TV_MARKET_OVERVIEW,
   TWITTER_ITEM,
   parseIdentifier,
-}                                 from '../constants/items';
+} from '../constants/items';
 
 function buildDynamicDashboardQueryField(identifier, extras)
 {
@@ -200,7 +200,7 @@ export function buildDynamicDashboardQuery(dashboardItems, dashboardItemStates)
   return {
     query: gql`${query}`,
     config: {
-      // options: { pollInterval: 180000 },
+      options: { pollInterval: 180000 },
     },
   };
 }
@@ -333,6 +333,12 @@ export const TokensAllQuery = gql`
       longName
       imageUrl
     }
+
+    tokenExchangesAll {
+      id
+      tokenId
+      exchange
+    }
   }
 `;
 
@@ -388,14 +394,20 @@ export const TokenUsersQuery = gql`
         index
         amount
 
-        token {
+        tokenExchange {
           id
-          shortName
-          imageUrl
+          exchange
           priceUSD
           priceBTC
-          percentChange24h
-          percentChange7d
+          priceETH
+
+          token {
+            id
+            shortName
+            imageUrl
+            percentChange24h
+            percentChange7d
+          }
         }
       }
     }
@@ -498,6 +510,39 @@ export const CreateDashboardItemMutationOptions = {
           h,
           x,
           y
+        },
+      });
+    },
+  }),
+};
+
+export const CreateExchangeKeyMutation = gql`
+  mutation CreateExchangeKeyMutation(
+    $apiKey: String!,
+    $exchange: String!,
+    $secretKey: String!,
+  ) {
+    createExchangeKey(
+      apiKey: $apiKey,
+      exchange: $exchange,
+      secretKey: $secretKey,
+    ) {
+      id
+      exchange
+      apiKey
+      secretKey
+    }
+  }
+`;
+
+export const CreateExchangeKeyMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    createExchangeKey(exchange, apiKey, secretKey) {
+      return mutate({
+        variables: {
+          apiKey,
+          exchange,
+          secretKey,
         },
       });
     },
@@ -831,8 +876,7 @@ export const UpdateTokenUsersMutation = gql`
   mutation UpdateTokenUsersMutation(
     $tokenUsersString: String!,
   ) {
-    updateTokenUsers(tokenUsersString: $tokenUsersString)
-    {
+    updateTokenUsers(tokenUsersString: $tokenUsersString) {
       id
 
       tokenUsers {
@@ -840,14 +884,20 @@ export const UpdateTokenUsersMutation = gql`
         index
         amount
 
-        token {
+        tokenExchange {
           id
-          shortName
-          imageUrl
+          exchange
           priceUSD
           priceBTC
-          percentChange24h
-          percentChange7d
+          priceETH
+
+          token {
+            id
+            shortName
+            imageUrl
+            percentChange24h
+            percentChange7d
+          }
         }
       }
     }
@@ -861,6 +911,55 @@ export const UpdateTokenUsersMutationOptions = {
         updateQueries: {
           TokenUsersQuery: (prev, { mutationResult }) => ({
             user: mutationResult.data.updateTokenUsers,
+          }),
+        },
+        variables: {
+          tokenUsersString: JSON.stringify(tokenUsers),
+        },
+      });
+    },
+  }),
+};
+
+export const UpdateTokenUsersByExchangeMutation = gql`
+  mutation UpdateTokenUsersByExchangeMutation(
+    $tokenUsersString: String!,
+  ) {
+    user: updateTokenUsersByExchange(tokenUsersString: $tokenUsersString) {
+      id
+
+      tokenUsers {
+        id
+        index
+        amount
+
+        tokenExchange {
+          id
+          exchange
+          priceUSD
+          priceBTC
+          priceETH
+
+          token {
+            id
+            shortName
+            imageUrl
+            percentChange24h
+            percentChange7d
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const UpdateTokenUsersByExchangeMutationOptions = {
+  props: ({ mutate, ownProps }) => ({
+    updateTokenUsersByExchange(tokenUsers) {
+      return mutate({
+        updateQueries: {
+          TokenUsersQuery: (prev, { mutationResult }) => ({
+            user: mutationResult.data.user,
           }),
         },
         variables: {

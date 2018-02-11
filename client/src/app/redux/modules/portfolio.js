@@ -12,6 +12,8 @@ const ADD_TOKEN_USER = 'ADD_TOKEN_USER';
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
 const APOLLO_QUERY_RESULT_CLIENT = 'APOLLO_QUERY_RESULT_CLIENT';
 const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
+const CHANGE_ADD_TOKEN_EXCHANGE_ID = 'CHANGE_ADD_TOKEN_EXCHANGE_ID';
+const CHANGE_ADD_TOKEN_ID = 'CHANGE_ADD_TOKEN_ID';
 const CHANGE_PORTFOLIO_HISTORY_PLOT_RANGE = 'CHANGE_PORTFOLIO_HISTORY_PLOT_RANGE';
 const CHANGE_TOKEN_USER_AMOUNT = 'CHANGE_TOKEN_USER_AMOUNT';
 const REMOVE_TOKEN_USER = 'REMOVE_TOKEN_USER';
@@ -20,8 +22,11 @@ const REMOVE_TOKEN_USER = 'REMOVE_TOKEN_USER';
   Reducer
  ------------------------------------------*/
 const initialState = {
+  addTokenExchangeId: null,
+  addTokenId: null,
   changeActive: false,
   portfolioHistoryPlotRange: ONE_WEEK,
+  tokenExchangesAll: [],
   tokensAll: [],
   tokenUsers: [],
 };
@@ -52,16 +57,30 @@ export default function(state = initialState, action)
   {
     case ADD_TOKEN_USER:
       oldTokenUsers = fromJS(state.tokenUsers);
-      let [newId, newIndex] = getNewIdAndIndex(oldTokenUsers);
+      const [newId, newIndex] = getNewIdAndIndex(oldTokenUsers);
+      const tokenExchangesAll = fromJS(state.tokenExchangesAll);
+      const tokensAll = fromJS(state.tokensAll);
+      const newTokenExchangeIndex = tokenExchangesAll.findIndex(
+        (tokenExchange) => tokenExchange.get('id') === state.addTokenExchangeId
+      );
+      const newTokenIndex = tokensAll.findIndex(
+        (token) => token.get('id') === state.addTokenId
+      );
       const newTokenUser = {
         id: newId,
         index: newIndex,
-        amount: '0',
-        token: action.token,
+        amount: 0,
+        tokenExchange: {
+          id: state.addTokenExchangeId,
+          exchange: tokenExchangesAll.get(newTokenExchangeIndex).get('exchange'),
+          token: tokensAll.get(newTokenIndex).toJS(),
+        },
       };
       newTokenUsers = oldTokenUsers.push(newTokenUser);
       return {
         ...state,
+        addTokenExchangeId: initialState.addTokenExchangeId,
+        addTokenId: initialState.addTokenId,
         changeActive: true,
         tokenUsers: newTokenUsers.toJS(),
       };
@@ -72,6 +91,7 @@ export default function(state = initialState, action)
         case 'TokensAllQuery':
           return {
             ...state,
+            tokenExchangesAll: action.result.data.tokenExchangesAll,
             tokensAll: action.result.data.tokensAll,
           };
         case 'TokenUsersQuery':
@@ -97,6 +117,16 @@ export default function(state = initialState, action)
         default:
           return state;
       }
+    case CHANGE_ADD_TOKEN_EXCHANGE_ID:
+      return {
+        ...state,
+        addTokenExchangeId: action.tokenExchangeId,
+      };
+    case CHANGE_ADD_TOKEN_ID:
+      return {
+        ...state,
+        addTokenId: action.tokenId,
+      };
     case CHANGE_TOKEN_USER_AMOUNT:
       oldTokenUsers = fromJS(state.tokenUsers);
       tokenUserIndex = oldTokenUsers.findIndex(
@@ -135,11 +165,26 @@ export default function(state = initialState, action)
   }
 }
 
-export function addTokenUser(token)
+export function addTokenUser()
 {
   return {
     type: ADD_TOKEN_USER,
-    token,
+  };
+}
+
+export function changeAddTokenExchangeId(tokenExchangeId)
+{
+  return {
+    tokenExchangeId,
+    type: CHANGE_ADD_TOKEN_EXCHANGE_ID,
+  };
+}
+
+export function changeAddTokenId(tokenId)
+{
+  return {
+    tokenId,
+    type: CHANGE_ADD_TOKEN_ID,
   };
 }
 
