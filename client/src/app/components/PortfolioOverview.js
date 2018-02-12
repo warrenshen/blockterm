@@ -43,14 +43,13 @@ const styles = StyleSheet.create({
   },
   sectionLeft: {
     display: 'flex',
-    flexDirection: 'column',
     width: '312px',
     padding: '6px 12px 12px 12px',
   },
   sectionRight: {
     flex: '1',
     display: 'flex',
-    flexDirection: 'column',
+    minWidth: '0px',
     padding: '8px',
     marginLeft: '8px',
   },
