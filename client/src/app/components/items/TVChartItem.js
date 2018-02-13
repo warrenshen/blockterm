@@ -51,10 +51,22 @@ const styles = StyleSheet.create({
 
 class TVChartItem extends PureComponent
 {
+  static propTypes = {
+    alerts: PropTypes.array.isRequired,
+    exchangeData: PropTypes.object,
+    dashboardAction: PropTypes.bool.isRequired,
+    nightMode: PropTypes.bool.isRequired,
+    identifier: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+
+    changeModalState: PropTypes.func.isRequired,
+  };
+
   renderExtras()
   {
     const {
       alerts,
+      exchangeData,
       identifier,
       nightMode,
       value,
@@ -71,6 +83,16 @@ class TVChartItem extends PureComponent
 
     return (
       <div className={css(styles.extras)}>
+        {
+          exchangeData && (
+            <El
+              nightMode={nightMode}
+              type={'span'}
+            >
+              {exchangeData.last}
+            </El>
+          )
+        }
         {
           validAlerts.length > 0 && (
             <El

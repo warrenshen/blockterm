@@ -36,7 +36,7 @@ import PortfolioHistoryItem       from './items/PortfolioHistoryItem';
 import SubredditCommentCountsItem from './items/SubredditCommentCountsItem';
 import SubredditPostCountsItem    from './items/SubredditPostCountsItem';
 import TotalMarketCapItem         from './items/TotalMarketCapItem';
-import TVChartItem                from './items/TVChartItem';
+import TVChartItem                from '../containers/items/TVChartItem';
 import TVMarketOverviewItem       from './items/TVMarketOverviewItem';
 import TwitterItem                from './items/TwitterItem';
 import El                         from './El';

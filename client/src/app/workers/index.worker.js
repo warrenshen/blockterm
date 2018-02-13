@@ -7,8 +7,10 @@ import {
 import {
   WORKER_MESSAGE_TYPE_ALERTS,
   WORKER_MESSAGE_TYPE_EXCHANGE_KEYS,
+  WORKER_MESSAGE_TYPE_TICKERS,
   WORKER_REPLY_TYPE_ALERT,
   WORKER_REPLY_TYPE_BALANCE,
+  WORKER_REPLY_TYPE_TICKER,
 }                           from '../constants/workers';
 
 function getBinanceAPI()
@@ -142,9 +144,43 @@ async function monitorAlert(alert)
   }
   else
   {
-    setTimeout(() => monitorAlert(alert), 16384);
+    setTimeout(() => monitorAlert(alert), 8192);
   }
 }
+
+async function pollTicker(ticker)
+{
+  const {
+    exchange,
+    symbol,
+  } = ticker;
+
+  let api = null;
+  let apiTicker = null;
+  switch (exchange) {
+    case 'BINANCE':
+      api = getBinanceAPI();
+      apiTicker = formatTickerBinance(symbol);
+      break;
+    case 'BITTREX':
+      api = getBittrexAPI();
+      apiTicker = formatTickerBittrex(symbol);
+      break;
+    default:
+      return false;
+  }
+
+  const response = await api.fetchTicker(apiTicker);
+
+  postMessage({
+    payload: {
+      exchange: exchange,
+      symbol: symbol,
+      ticker: response,
+    },
+    type: WORKER_REPLY_TYPE_TICKER,
+  });
+};
 
 async function syncExchangeBalance(exchangeKey)
 {
@@ -182,6 +218,8 @@ async function syncExchangeBalance(exchangeKey)
   });
 }
 
+let tickerPollIds = [];
+
 onmessage = (event) => {
   const {
     payload,
@@ -202,6 +240,16 @@ onmessage = (event) => {
       if (exchangeKeys.length > 0)
       {
         exchangeKeys.forEach((exchangeKey) => syncExchangeBalance(exchangeKey));
+      }
+      break;
+    case WORKER_MESSAGE_TYPE_TICKERS:
+      const tickers = payload;
+      if (tickers.length > 0)
+      {
+        tickerPollIds.forEach((tickerPollId) => clearInterval(tickerPollId));
+        tickerPollIds = tickers.map(
+          (ticker) => setInterval((ticker) => pollTicker(ticker), 8192)
+        );
       }
       break;
     default:
