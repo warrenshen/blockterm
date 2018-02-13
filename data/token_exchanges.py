@@ -1,5 +1,6 @@
 import ccxt
 import json
+import time
 
 from api import Api
 
@@ -81,7 +82,7 @@ def calculate_token_to_prices(
 
   return token_to_prices
 
-def generate_token_exchanges_for_server(exchange, token_to_prices):
+def generate_token_exchanges(exchange, token_to_prices):
   token_exchanges = []
   for token, prices in token_to_prices.items():
     token_exchanges.append({
@@ -92,6 +93,23 @@ def generate_token_exchanges_for_server(exchange, token_to_prices):
       }
     })
   return token_exchanges
+
+def update_token_exchanges(token_exchanges):
+  step = 128
+  for i in range(0, len(token_exchanges), step):
+    batch_token_exchanges = token_exchanges[i:i + step]
+    payload = json.dumps(batch_token_exchanges).replace('"', '\\"')
+    response = server.update_token_exchanges(payload)
+    time.sleep(4)
+    print(response)
+  time.sleep(48)
+
+
+
+
+logger.info('Starting token exchanges script...')
+
+
 
 ### Coinmarketcap ###
 cmc = ccxt.coinmarketcap()
@@ -111,13 +129,12 @@ token_to_prices = calculate_token_to_prices(
   cmc_all_tickers
 )
 
-payload = generate_token_exchanges_for_server('coinmarketcap', token_to_prices)
-payload_str = json.dumps(payload).replace('"', '\\"')
-response = server.update_token_exchanges(payload_str)
-print(response)
+token_exchanges = generate_token_exchanges('coinmarketcap', token_to_prices)
+update_token_exchanges(token_exchanges)
 
 
-# ### GDAX ###
+
+### GDAX ###
 gdax = ccxt.gdax()
 
 gdax_btc_usd_last = gdax.fetchTicker('BTC/USD')['last']
@@ -133,14 +150,12 @@ token_to_prices = calculate_token_to_prices(
   gdax_eth_btc_last
 )
 
-payload = generate_token_exchanges_for_server('gdax', token_to_prices)
-payload_str = json.dumps(payload).replace('"', '\\"')
-response = server.update_token_exchanges(payload_str)
-print(response)
+token_exchanges = generate_token_exchanges('gdax', token_to_prices)
+update_token_exchanges(token_exchanges)
 
 
 
-# # ### Binance ###
+### Binance ###
 binance = ccxt.binance()
 binance_all_tickers = binance.fetchTickers()
 
@@ -158,14 +173,12 @@ token_to_prices = calculate_token_to_prices(
   binance_all_tickers
 )
 
-payload = generate_token_exchanges_for_server('binance', token_to_prices)
-payload_str = json.dumps(payload).replace('"', '\\"')
-response = server.update_token_exchanges(payload_str)
-print(response)
+token_exchanges = generate_token_exchanges('binance', token_to_prices)
+update_token_exchanges(token_exchanges)
 
 
 
-# # ### Bittrex ###
+### Bittrex ###
 bittrex = ccxt.bittrex()
 bittrex_all_tickers = bittrex.fetchTickers()
 
@@ -183,8 +196,32 @@ token_to_prices = calculate_token_to_prices(
   bittrex_all_tickers
 )
 
-payload = generate_token_exchanges_for_server('bittrex', token_to_prices)
-payload_str = json.dumps(payload).replace('"', '\\"')
-response = server.update_token_exchanges(payload_str)
-print(response)
+token_exchanges = generate_token_exchanges('bittrex', token_to_prices)
+update_token_exchanges(token_exchanges)
 
+
+
+### Kucoin ###
+kucoin = ccxt.kucoin()
+kucoin_all_tickers = kucoin.fetchTickers()
+
+kucoin_btc_usd_last = kucoin_all_tickers['BTC/USDT']['last']
+kucoin_eth_usd_last = kucoin_all_tickers['ETH/USDT']['last']
+kucoin_eth_btc_last = kucoin_all_tickers['ETH/BTC']['last']
+
+token_to_markets = parse_tokens_to_markets(kucoin.fetchMarkets())
+token_to_prices = calculate_token_to_prices(
+  kucoin,
+  token_to_markets,
+  kucoin_btc_usd_last,
+  kucoin_eth_usd_last,
+  kucoin_eth_btc_last,
+  kucoin_all_tickers
+)
+
+token_exchanges = generate_token_exchanges('kucoin', token_to_prices)
+update_token_exchanges(token_exchanges)
+
+
+
+logger.info('Ending token exchanges script...')

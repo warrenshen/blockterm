@@ -35,6 +35,7 @@ class TokenExchange < ApplicationRecord
     binance: 1,
     bittrex: 2,
     coinmarketcap: 3,
+    kucoin: 4,
   }
 
   validates :exchange, presence: true
