@@ -14,12 +14,10 @@ const config = {
   devtool: '#source-map',
   entry: {
     app: [
-      'babel-polyfill',
       indexFile
     ],
     vendor: [
       'apollo-client',
-      'babel-polyfill',
       'bootstrap',
       'classnames',
       'graphql-tag',
@@ -34,13 +32,12 @@ const config = {
       'react-motion',
       'react-notification',
       'react-redux',
+      'react-router',
       'react-router-dom',
       'history',
-      'react-router',
       'react-router-redux',
       'react-tap-event-plugin',
       'redux',
-      'redux-devtools-extension',
       'redux-thunk'
     ]
   },
@@ -51,7 +48,7 @@ const config = {
   module: {
     rules: [
       {
-        test:    /\.jsx?$/,
+        test:    /\.js?$/,
         exclude: [nodeModulesDir],
         loader:  'babel-loader'
       },
