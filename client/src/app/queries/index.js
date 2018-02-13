@@ -41,7 +41,61 @@ function buildDynamicDashboardQueryField(identifier, extras)
         }
       `;
     case PORTFOLIO_ITEM:
-      if (identifierValue === 'Default' || identifierValue === 'USD')
+      if (identifierValue === 'BTC')
+      {
+         return `
+           ${identifier}: user {
+             id
+
+             tokenUsers {
+               id
+               index
+               amount
+
+               tokenExchange {
+                 id
+                 exchange
+                 priceBTC
+
+                 token {
+                   id
+                   shortName
+                   imageUrl
+                   percentChange24hBTC
+                 }
+               }
+             }
+           }
+        `;
+      }
+      else if (identifierValue === 'ETH')
+      {
+         return `
+           ${identifier}: user {
+             id
+
+             tokenUsers {
+               id
+               index
+               amount
+
+               tokenExchange {
+                 id
+                 exchange
+                 priceETH
+
+                 token {
+                   id
+                   shortName
+                   imageUrl
+                   percentChange24hETH
+                 }
+               }
+             }
+           }
+        `;
+      }
+      else
       {
         return `
           ${identifier}: user {
@@ -52,59 +106,20 @@ function buildDynamicDashboardQueryField(identifier, extras)
               index
               amount
 
-              token {
+              tokenExchange {
                 id
-                shortName
-                imageUrl
+                exchange
                 priceUSD
-                percentChange24h
+
+                token {
+                  id
+                  shortName
+                  imageUrl
+                  percentChange24hUSD
+                }
               }
             }
           }
-        `;
-      }
-      else if (identifierValue === 'BTC')
-      {
-         return `
-           ${identifier}: user {
-             id
-
-             tokenUsers {
-               id
-               index
-               amount
-
-               token {
-                 id
-                 shortName
-                 imageUrl
-                 priceBTC
-                 percentChange24hBTC
-               }
-             }
-           }
-        `;
-      }
-      else
-      {
-         return `
-           ${identifier}: user {
-             id
-
-             tokenUsers {
-               id
-               index
-               amount
-
-               token {
-                 id
-                 shortName
-                 imageUrl
-                 priceETH
-                 percentChange24hETH
-               }
-             }
-           }
         `;
       }
     case PORTFOLIO_HISTORY_ITEM:

@@ -180,13 +180,13 @@ class App extends PureComponent
       });
     }
 
-    if (exchangeKeys.length > 0)
-    {
-      this.worker.postMessage({
-        payload: exchangeKeys,
-        type: WORKER_MESSAGE_TYPE_EXCHANGE_KEYS,
-      });
-    }
+    // if (exchangeKeys.length > 0)
+    // {
+    //   this.worker.postMessage({
+    //     payload: exchangeKeys,
+    //     type: WORKER_MESSAGE_TYPE_EXCHANGE_KEYS,
+    //   });
+    // }
   }
 
   render() {

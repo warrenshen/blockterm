@@ -64,9 +64,6 @@ const styles = StyleSheet.create({
   elementDestroy: {
     width: '32px',
   },
-  darkElement: {
-    borderBottom: `1px solid ${STYLES.BORDERDARK}`,
-  },
   semibolded: {
     // fontWeight: '500',
   },
@@ -165,7 +162,7 @@ class PortfolioTokens extends PureComponent
 
     return (
       <div className={css(styles.row, styles.rowHeader)}>
-        <div className={css(styles.element, nightMode && styles.darkElement)}>
+        <div className={css(styles.element)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -174,7 +171,7 @@ class PortfolioTokens extends PureComponent
             Token
           </El>
         </div>
-        <div className={css(styles.element, nightMode && styles.darkElement)}>
+        <div className={css(styles.element)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -183,7 +180,7 @@ class PortfolioTokens extends PureComponent
             Exchange
           </El>
         </div>
-        <div className={css(styles.element, nightMode && styles.darkElement)}>
+        <div className={css(styles.element)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -192,7 +189,7 @@ class PortfolioTokens extends PureComponent
             Amount held
           </El>
         </div>
-        <div className={css(styles.element, nightMode && styles.darkElement)}>
+        <div className={css(styles.element)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -201,7 +198,7 @@ class PortfolioTokens extends PureComponent
             Price
           </El>
         </div>
-        <div className={css(styles.element, nightMode && styles.darkElement)}>
+        <div className={css(styles.element)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -210,7 +207,7 @@ class PortfolioTokens extends PureComponent
             Change (24h)
           </El>
         </div>
-        <div className={css(styles.element, nightMode && styles.darkElement)}>
+        <div className={css(styles.element)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -219,7 +216,7 @@ class PortfolioTokens extends PureComponent
             Change (7d)
           </El>
         </div>
-        <div className={css(styles.element, nightMode && styles.darkElement)}>
+        <div className={css(styles.element)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -228,7 +225,7 @@ class PortfolioTokens extends PureComponent
             Balance
           </El>
         </div>
-        <div className={css(styles.element, nightMode && styles.darkElement)}>
+        <div className={css(styles.element)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -401,7 +398,8 @@ class PortfolioTokens extends PureComponent
         binance: 'Binance',
         bittrex: 'Bittrex',
         coinmarketcap: 'Coinmarketcap',
-        gdax: 'Coinbase / GDAX'
+        gdax: 'Coinbase / GDAX',
+        kucoin: 'Kucoin',
       };
       const selectOptionsTokens = tokensAll
         .map((token) => ({

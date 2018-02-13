@@ -155,7 +155,7 @@ class PortfolioItem extends Component
             nightMode={nightMode}
             type={'span'}
           >
-            Amount Held
+            Amount held
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
@@ -164,7 +164,7 @@ class PortfolioItem extends Component
             nightMode={nightMode}
             type={'span'}
           >
-            Price USD
+            Price
           </El>
         </td>
         <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
@@ -182,7 +182,7 @@ class PortfolioItem extends Component
             nightMode={nightMode}
             type={'span'}
           >
-            Value
+            Balance
           </El>
         </td>
       </tr>
@@ -200,8 +200,14 @@ class PortfolioItem extends Component
     const {
       id,
       amount,
-      token,
+      tokenExchange,
     } = tokenUser;
+
+    const {
+      exchange,
+      priceUSD,
+      token,
+    } = tokenExchange;
 
     const {
       shortName,
@@ -210,41 +216,41 @@ class PortfolioItem extends Component
 
     let attributePrice;
     let attributePercentChange;
-    if (value === 'Default' || value === 'USD')
-    {
-      attributePrice = 'priceUSD';
-      attributePercentChange = 'percentChange24h';
-    }
-    else if (value === 'BTC')
+    if (value === 'BTC')
     {
       attributePrice = 'priceBTC';
       attributePercentChange = 'percentChange24hBTC';
     }
-    else
+    else if (value === 'ETH')
     {
       attributePrice = 'priceETH';
       attributePercentChange = 'percentChange24hETH';
     }
+    else
+    {
+      attributePrice = 'priceUSD';
+      attributePercentChange = 'percentChange24hUSD';
+    }
 
-    const price = token[attributePrice];
+    const price = tokenExchange[attributePrice];
     const percentChange24h = token[attributePercentChange];
 
     let formattedPrice;
     let formattedValue;
-    if (value === 'Default' || value === 'USD')
+    if (value === 'BTC')
     {
-      formattedPrice = CURRENCY.convertCurrencyToString(price, currency, '$0,0.00');
-      formattedValue = CURRENCY.convertCurrencyToString(price * amount, currency, '$0,0.00');
+      formattedPrice = numeral(price).format('0.000000');
+      formattedValue = numeral(price * amount).format('0.000000');
     }
-    else if (value === 'BTC')
+    else if (value === 'ETH')
     {
-      formattedPrice = numeral(price).format('0.00000000');
-      formattedValue = numeral(price * amount).format('0.00000000');
+      formattedPrice = numeral(price).format('0.000000');
+      formattedValue = numeral(price * amount).format('0.000000');
     }
     else
     {
-      formattedPrice = numeral(price).format('0.00000000');
-      formattedValue = numeral(price * amount).format('0.00000000');
+      formattedPrice = CURRENCY.convertCurrencyToString(price, currency, '$0,0.00');
+      formattedValue = CURRENCY.convertCurrencyToString(price * amount, currency, '$0,0.00');
     }
 
     return (
@@ -330,37 +336,37 @@ class PortfolioItem extends Component
 
     let attributePrice;
     let attributePercentChange;
-    if (value === 'Default' || value === 'USD')
-    {
-      attributePrice = 'priceUSD';
-      attributePercentChange = 'percentChange24h';
-    }
-    else if (value === 'BTC')
+    if (value === 'BTC')
     {
       attributePrice = 'priceBTC';
       attributePercentChange = 'percentChange24hBTC';
     }
-    else
+    else if (value === 'ETH')
     {
       attributePrice = 'priceETH';
       attributePercentChange = 'percentChange24hETH';
+    }
+    else
+    {
+      attributePrice = 'priceUSD';
+      attributePercentChange = 'percentChange24hUSD';
     }
 
     const data = calculatePortfolioDonutData(tokenUsers, attributePrice, nightMode);
     const totalValue = calculatePortfolioTotalValue(tokenUsers, attributePrice);
 
     let formattedTotalValue;
-    if (value === 'Default' || value === 'USD')
-    {
-      formattedTotalValue = CURRENCY.convertCurrencyToString(totalValue, currency, '$0,0.00');
-    }
-    else if (value === 'BTC')
+    if (value === 'BTC')
     {
       formattedTotalValue = `${numeral(totalValue).format('0.00000000')} BTC`;
     }
-    else
+    else if (value === 'ETH')
     {
       formattedTotalValue = `${numeral(totalValue).format('0.00000000')} ETH`;
+    }
+    else
+    {
+      formattedTotalValue = CURRENCY.convertCurrencyToString(totalValue, currency, '$0,0.00');
     }
 
     const percentChange24h = calculatePortfolioChange(tokenUsers, attributePrice, attributePercentChange);

@@ -239,7 +239,7 @@ export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
   const BTC_COLOR_DAY = '#FF8800';
   const BTC_COLOR_NIGHT = '#FF8800';
   const ETH_COLOR_DAY = '#0050FF';
-  const ETH_COLOR_NIGHT = '#0050FF';
+  const ETH_COLOR_NIGHT = '#0080FF';
 
   const chartData = {
     labels: portfolioTickers.map(
@@ -259,7 +259,7 @@ export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
       ),
       Object.assign(
         {},
-        nightMode ? generateLineStylesFromColor(BTC_COLOR_DAY) : generateLineStylesFromColor(BTC_COLOR_NIGHT),
+        nightMode ? generateLineStylesFromColor(BTC_COLOR_NIGHT) : generateLineStylesFromColor(BTC_COLOR_DAY),
         {
           data: portfolioTickers.map((portfolioTicker) => portfolioTicker.valueBTC),
           fill: false,
@@ -269,7 +269,7 @@ export function generatePortfolioHistoryChartData(portfolioTickers, nightMode)
       ),
       Object.assign(
         {},
-        nightMode ? generateLineStylesFromColor(ETH_COLOR_DAY) : generateLineStylesFromColor(ETH_COLOR_NIGHT),
+        nightMode ? generateLineStylesFromColor(ETH_COLOR_NIGHT) : generateLineStylesFromColor(ETH_COLOR_DAY),
         {
           data: portfolioTickers.map((portfolioTicker) => portfolioTicker.valueETH),
           fill: false,

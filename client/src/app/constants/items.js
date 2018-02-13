@@ -1804,8 +1804,7 @@ export const ITEM_KEY_TO_VALUES = {
     'Default',
   ],
   [PORTFOLIO_ITEM]: [
-    // 'Default',
-    'USD',
+    'Fiat',
     'BTC',
     'ETH',
   ],
