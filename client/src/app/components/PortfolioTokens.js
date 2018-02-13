@@ -9,7 +9,6 @@ import FontAwesome         from 'react-fontawesome';
 import Select              from 'react-select';
 import numeral             from 'numeral';
 import {
-  calculatePortfolioChange,
   calculatePortfolioTotalValue,
 }                           from '../helpers/portfolio';
 import * as CURRENCY        from '../helpers/currency';

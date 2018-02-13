@@ -352,8 +352,20 @@ class PortfolioItem extends Component
       attributePercentChange = 'percentChange24hUSD';
     }
 
-    const data = calculatePortfolioDonutData(tokenUsers, attributePrice, nightMode);
+    const donutData = calculatePortfolioDonutData(tokenUsers, attributePrice, nightMode);
     const totalValue = calculatePortfolioTotalValue(tokenUsers, attributePrice);
+
+    // Tokens that make up at least 0.5% of portfolio OR
+    // tokens that are new OR
+    // tokens that have an amount of 0.
+    const validTokenUsers = tokenUsers
+      .filter(
+        (tokenUser) => {
+          const value = tokenUser.amount * tokenUser.tokenExchange[attributePrice];
+          const percent = value / totalValue;
+          return percent > 0.005 || tokenUser.id.indexOf('t') === 0 || tokenUser.amount === 0;
+        }
+      );
 
     let formattedTotalValue;
     if (value === 'BTC')
@@ -369,7 +381,7 @@ class PortfolioItem extends Component
       formattedTotalValue = CURRENCY.convertCurrencyToString(totalValue, currency, '$0,0.00');
     }
 
-    const percentChange24h = calculatePortfolioChange(tokenUsers, attributePrice, attributePercentChange);
+    const percentChange24h = calculatePortfolioChange(validTokenUsers, attributePrice, attributePercentChange);
     const formattedPercentChange24h = numeral(percentChange24h).format('0.00%');
 
     return (
@@ -379,7 +391,7 @@ class PortfolioItem extends Component
           style={{ 'height':'296px', 'paddingBottom':'8px', 'textAlign':'center' }}
         >
           <DonutChartWithSelect
-            data={data}
+            data={donutData}
             nightMode={nightMode}
           />
           <div>
@@ -427,7 +439,7 @@ class PortfolioItem extends Component
           <table className={css(styles.table)}>
             <tbody>
               {this.renderHeader()}
-              {tokenUsers.map((tokenUser) => this.renderTokenUser(tokenUser))}
+              {validTokenUsers.map((tokenUser) => this.renderTokenUser(tokenUser))}
             </tbody>
           </table>
         </div>
