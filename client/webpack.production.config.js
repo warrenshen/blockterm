@@ -13,12 +13,10 @@ const SPLIT_STYLE = true;
 const config = {
   entry: {
     app: [
-      'babel-polyfill',
       indexFile
     ],
     vendor: [
       'apollo-client',
-      'babel-polyfill',
       'bootstrap',
       'classnames',
       'graphql-tag',
@@ -49,7 +47,7 @@ const config = {
   module: {
     rules: [
       {
-        test:    /\.jsx?$/,
+        test:    /\.js?$/,
         exclude: [nodeModulesDir],
         loader:  'babel-loader'
       },

@@ -1,28 +1,17 @@
 {
   "presets": [
-    ["es2015"],
+    [
+      "env", {
+        "debug": false,
+        "targets": {
+          "browsers": ["last 2 versions", "safari >= 7"]
+        }
+      }
+    ],
     "react",
-    "stage-2",
-    "flow"
+    "stage-2"
   ],
   "plugins": [
-    "react-hot-loader/babel",
-    "transform-regenerator",
-    "transform-async-to-generator"
-  ],
-  "env": {
-    "production": {
-      "presets": [
-        "react-optimize"
-      ],
-      "comments": false
-    },
-    "server": {
-      "presets": [
-        "react-optimize",
-        "babili"
-      ],
-      "comments": false
-    }
-  }
+    "react-hot-loader/babel"
+  ]
 }
