@@ -4,6 +4,7 @@ class AddTokenExchangeIdToTokenUsers < ActiveRecord::Migration[5.0]
 
     TokenUser.all.each do |token_user|
       token_exchange = TokenExchange.find_by(
+        exchange: 'coinmarketcap',
         token_id: token_user.token_id,
       )
       token_user.update_attributes(token_exchange_id: token_exchange.id)
