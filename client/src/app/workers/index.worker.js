@@ -247,9 +247,9 @@ onmessage = (event) => {
       if (tickers.length > 0)
       {
         tickerPollIds.forEach((tickerPollId) => clearInterval(tickerPollId));
-        tickerPollIds = tickers.map(
-          (ticker) => setInterval((ticker) => pollTicker(ticker), 8192)
-        );
+        // tickerPollIds = tickers.map(
+        //   (ticker) => setInterval(() => pollTicker(ticker), 8192)
+        // );
       }
       break;
     default:
