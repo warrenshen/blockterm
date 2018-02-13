@@ -3,6 +3,7 @@ import json
 import time
 
 from api import Api
+from logger import logger
 
 server = Api()
 
