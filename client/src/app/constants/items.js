@@ -1,5 +1,6 @@
-export const PROJECT_VERSION = '0.2.4';
+export const PROJECT_VERSION = '0.2.5';
 export const PATCH_NOTES = [
+  '0.2.5: Portfolio history chart on portfolio page and as a widget, cryptocurrency news widget, and portfolio holdings by exchange.',
   '0.2.4: Selectable currencies for many different nationalities, e.g. CAD, AUD, KRW (₩), JPY (¥), RUB (₽), MXN, DKK (kr), etc.',
   '0.2.3: Price alerts for Binance/Bittrex markets, portfolio widget in BTC and ETH units, ability to customize dashboard tabs.',
   '0.2.2: Search bar in Prices/Volume tab, scrolling price marquee display fixed, Bitcoin Dominance widget added, chat channel!',
@@ -51,12 +52,12 @@ export const ITEM_KEY_TO_LABELS = {
   [PERCENT_DOMINANCE_ITEM]: 'Percent dominance chart',
   [PORTFOLIO_ITEM]: 'Portfolio overview',
   [PORTFOLIO_HISTORY_ITEM]: 'Portfolio history chart',
-  [ALERTS_ITEM]: 'Alerts overview',
-  [GT_CHART_ITEM]: 'Google trends chart',
+  [NEWS_ITEM]:'News stream',
   [TWITTER_ITEM]: 'Twitter feed',
+  [GT_CHART_ITEM]: 'Google trends chart',
   [SUBREDDIT_POST_COUNTS]: 'Subreddit posts chart',
   [SUBREDDIT_COMMENT_COUNTS]: 'Subreddit comments chart',
-  [NEWS_ITEM]:'News stream',
+  [ALERTS_ITEM]: 'Active alerts',
 };
 
 export const ITEM_KEY_TO_IMAGE_PREVIEWS = {
@@ -3161,33 +3162,9 @@ export const ITEM_VALUE_TO_IMAGE = {
 
 // Array of dashboard page objects.
 export const DEFAULT_PAGES_OBJECTS = [
-  {
-    dashboardItems:[
-      {"id":"3","w":4,"h":4,"x":0,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},
-      {"id":"6","w":4,"h":4,"x":0,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:ETHUSD"},
-      {"id":"10","w":3,"h":4,"x":0,"y":8,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},
-      {"id":"11","w":2,"h":8,"x":7,"y":0,"static":false,"identifier":"TWITTER_ITEM__#cryptocurrency"},
-      {"id":"12","w":2,"h":4,"x":5,"y":8,"static":false,"identifier":"PORTFOLIO_ITEM__Default"},
-      {"id":"13","w":2,"h":4,"x":7,"y":8,"static":false,"identifier":"TWITTER_ITEM__$TRX"},
-      {"id":"14","w":3,"h":4,"x":4,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:XRPBTC"},
-      {"id":"15","w":2,"h":4,"x":3,"y":8,"static":false,"identifier":"SUBREDDIT_COMMENT_COUNTS__Bitcoin"},
-      {"id":"16","w":3,"h":4,"x":4,"y":4,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:VENBTC"}
-    ],
-    index: 0,
-    name: 'Tab 1'
-  },
-  {
-    dashboardItems: [
-    ],
-    index: 1,
-    name: 'Tab 2',
-  },
-  {
-    dashboardItems: [
-    ],
-    index: 2,
-    name: 'Tab 3',
-  },
+  {"dashboardItems":[{"id":"3","w":4,"h":5,"x":0,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},{"id":"10","w":4,"h":4,"x":0,"y":10,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},{"id":"11","w":2,"h":7,"x":7,"y":0,"static":false,"identifier":"TWITTER_ITEM__#cryptocurrency"},{"id":"12","w":2,"h":6,"x":4,"y":7,"static":false,"identifier":"PORTFOLIO_ITEM__Default"},{"id":"14","w":4,"h":5,"x":0,"y":5,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:ETHBTC"},{"id":"15","w":3,"h":7,"x":4,"y":0,"static":false,"identifier":"NEWS_ITEM__Cryptocurrency"},{"id":"16","w":3,"h":6,"x":6,"y":7,"static":false,"identifier":"GT_CHART_ITEM__Bitcoin"}],"index":0,"name":"Tab 1"},
+  {"dashboardItems":[],"index":1,"name":"Tab 2"},
+  {"dashboardItems":[],"index":2,"name":"Tab 3"},
 ];
 
 // Keys should be all lowercase.

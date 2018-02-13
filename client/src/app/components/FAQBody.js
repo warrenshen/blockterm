@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
   panelsLightNight: {
     backgroundColor: '#000',
     border: `1px solid ${STYLES.BORDERDARK}`,
-    //borderBottom: `2px solid ${STYLES.BORDERDARK}`,
   },
   row: {
     display: 'flex',
@@ -93,7 +92,7 @@ class FAQBody extends PureComponent {
               type={'p'}
               style={styles.para}
             >
-            Blockterm hopes to be the premier blockchain terminal. Blockterm is a fully customizable cryptocurrency monitoring terminal designed for the avid investor/trader. We hope to empower you to set up different tabs/pages of charts and tools, separated by coin/token, for example. We also enable you to monitor your portfolio and holdings values so you can keep on pace to reach your goals.<br /><br />
+            Blockterm is a fully customizable cryptocurrency monitoring terminal designed for the avid investor/trader. We hope to empower you to set up different tabs/pages of charts and tools, separated by coin/token, for example. We also enable you to monitor your portfolio and holdings values so you can keep on pace to reach your goals.<br /><br />
             We were inspired to build Blockterm due to the hassle of continuously having to tab in/out of different webpages when keeping up with cryptocurrencies. We also wanted to stop having to use spreadsheets! We strive to help this community have all their tools in one snug place!
             </El>
           </div>

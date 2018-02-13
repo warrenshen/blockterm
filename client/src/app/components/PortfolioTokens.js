@@ -474,14 +474,14 @@ class PortfolioTokens extends PureComponent
     // Tokens that make up at least 0.5% of portfolio OR
     // tokens that are new OR
     // tokens that have an amount of 0.
-    const validTokenUsers = tokenUsers
-      .filter(
-        (tokenUser) => {
-          const value = tokenUser.amount * tokenUser.tokenExchange['priceUSD'];
-          const percent = value / portfolioTotalValue;
-          return percent > 0.005 || tokenUser.id.indexOf('t') === 0 || tokenUser.amount === 0;
-        }
-      );
+    const validTokenUsers = tokenUsers;
+      // .filter(
+      //   (tokenUser) => {
+      //     const value = tokenUser.amount * tokenUser.tokenExchange['priceUSD'];
+      //     const percent = value / portfolioTotalValue;
+      //     return percent > 0.005 || tokenUser.id.indexOf('t') === 0 || tokenUser.amount === 0;
+      //   }
+      // );
 
     return (
       <div className={css(styles.container, nightMode && styles.containerNightMode)}>

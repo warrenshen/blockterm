@@ -302,17 +302,17 @@ class Login extends PureComponent
                 <El nightMode={nightMode}
                 style={styles.para}
                 type={'p'}>
-                  <strong><u>Desktop Alerts:</u></strong> &nbsp;alerts/notifications is one of the features we feel most strongly about. We intend to add this as soon as possible in the next version of Blockterm.
-                </El>
-                <El nightMode={nightMode}
-                style={styles.para}
-                type={'p'}>
                   <strong><u>Profit Loss Tracking Tool:</u></strong> &nbsp;profit/loss tracking via a widget on the dashboard is another feature we see high demand for. We look forward to adding this feature and helping the community, and ourselves better track collective investments.
                 </El>
                 <El nightMode={nightMode}
                 style={styles.para}
                 type={'p'}>
                   <strong><u>Correlation Graphs:</u></strong> &nbsp;cross coin correlation graphs have been requested, and seem lacking in the current cryptocurrency space. We intend to remedy this.
+                </El>
+                <El nightMode={nightMode}
+                style={styles.para}
+                type={'p'}>
+                  <strong><u>Depth charts:</u></strong> &nbsp;depth chart (order book) in candle chart widget and full screen mode.
                 </El>
                 <El nightMode={nightMode}
                 style={styles.para}
