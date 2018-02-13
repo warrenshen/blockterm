@@ -19,6 +19,7 @@ import {
 }                              from '../queries';
 import Dashboard               from './Dashboard';
 import * as dashboardActions   from '../redux/modules/dashboard';
+import * as exchangesActions   from '../redux/modules/exchanges';
 import * as globalsActions     from '../redux/modules/globals';
 
 /* -----------------------------------------
@@ -125,6 +126,7 @@ const mapDispatchToProps = (dispatch) => {
       createNotificationSuccess: createNotificationSuccess,
       changeValueSelectValue: changeValueSelectValue,
       updateDashboardItemLocal: updateDashboardItemLocalWithNotification,
+      updateExchangeTicker: exchangesActions.updateExchangeTicker,
     },
     dispatch
   );

@@ -22,11 +22,17 @@ import {
   TWITTER_ITEM,
   computeDashboardFreeValues,
   parseIdentiferKey,
+  parseItemIdentifierValue,
 }                                 from '../constants/items';
+import {
+  WORKER_MESSAGE_TYPE_TICKERS,
+  WORKER_REPLY_TYPE_TICKER,
+}                                 from '../constants/workers';
 import {
   Dashboard,
   Wrapped as WrappedComponent,
 }                                 from '../views';
+import Worker                     from '../workers/index.worker';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,16 +47,49 @@ const styles = StyleSheet.create({
 
 function wrapDynamicGraphQL(ComponentToWrap)
 {
-  class DynamicDashboardQueryHOC extends PureComponent {
-
-    constructor(props) {
+  class DynamicDashboardQueryHOC extends PureComponent
+  {
+    constructor(props)
+    {
       super(props);
+      this.worker = new Worker();
       this.wrapped = null;
     }
 
-    componentWillMount()
+    componentDidMount()
     {
+      const {
+        updateExchangeTicker,
+      } = this.props;
+
+      this.worker.onmessage = (event) => {
+        switch (event.data.type)
+        {
+          case WORKER_REPLY_TYPE_TICKER:
+            const payload = event.data.payload;
+            const {
+              exchange,
+              symbol,
+              ticker,
+            } = payload;
+            updateExchangeTicker(exchange, symbol, ticker);
+            break;
+          default:
+            if (process.env.NODE_ENV == 'dev')
+            {
+              console.log('Unknown worker reply type');
+            }
+            break;
+        }
+      };
+
       this.update(this.props);
+    }
+
+    componentWillUnmount()
+    {
+      this.worker.terminate();
+      this.worker = null;
     }
 
     componentWillReceiveProps(nextProps)
@@ -86,8 +125,28 @@ function wrapDynamicGraphQL(ComponentToWrap)
 
       if (!dashboardItems || !dashboardItemStates)
       {
+        console.log('no dashboard items and dashboard states');
         return;
       }
+
+      const tickers = dashboardItems
+        .filter(
+          ({ identifier }) => parseIdentiferKey(identifier) === TV_CANDLE_CHART
+        )
+        .map(
+          ({ identifier }) => {
+            const [exchange, symbol] = parseItemIdentifierValue(identifier).split(':');
+            return {
+              exchange: exchange,
+              symbol: symbol,
+            };
+          }
+        );
+
+      this.worker.postMessage({
+        payload: tickers,
+        type: WORKER_MESSAGE_TYPE_TICKERS,
+      });
 
       const { query, config } = buildDynamicDashboardQuery(
         dashboardItems,
