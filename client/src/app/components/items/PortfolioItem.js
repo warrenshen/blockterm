@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    minWidth: '0px',
     padding: '5px 5px',
   },
   section: {

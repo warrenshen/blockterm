@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    minWidth: '0px',
   },
   header: {
     display: 'inline-flex',
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     padding: '0px 0px 6px 4px',
+    boxSizing: 'border-box',
   },
   chart: {
     flex: '1',
