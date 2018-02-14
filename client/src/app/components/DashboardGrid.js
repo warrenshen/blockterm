@@ -213,7 +213,7 @@ class DashboardGrid extends Component
           onResizeStop={logDashboardActionStop}
           onLayoutChange={(layout, layouts) => saveLayout(layout)}
           rowHeight={64}
-          margin={[5, 5]}
+          margin={[6, 6]}
           containerPadding={[10, 8]}
         >
           {

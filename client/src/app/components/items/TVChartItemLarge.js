@@ -43,7 +43,7 @@ class TVChartItemLarge extends PureComponent
       'withdateranges=1&' +
       'hideideas=1&' +
       'hidesidetoolbar=0&' +
-      'symboledit=0&' +
+      'symboledit=1&' +
       'saveimage=1&' +
       'toolbarbg=rgba(0,0,0,0)&' +
       `theme=${nightMode ? "Dark" : "Light"}&` +
