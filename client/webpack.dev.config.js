@@ -20,7 +20,6 @@ const config = {
     vendor: [
       'apollo-client',
       'babel-polyfill',
-      'bootstrap',
       'classnames',
       'graphql-tag',
       'jquery',
@@ -29,7 +28,6 @@ const config = {
       'numeral',
       'react',
       'react-apollo',
-      'react-bootstrap',
       'react-dom',
       'react-motion',
       'react-notification',
