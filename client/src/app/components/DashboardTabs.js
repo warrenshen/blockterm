@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   button: {
     height: '100%',
-    padding: '0px 12px',
+    padding: '0px 9px',
     backgroundColor: '#fff',
     // borderRight: '1px solid #333',
     // borderTop: '1px solid #999 !important',
