@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     height: '100%',
     borderLeft: `1px solid ${STYLES.BORDERLIGHT}`,
     padding: '1px 4px',
-    lineHeight: '14px',
+    lineHeight: '15px',
     width:'20px',
   },
   darkActionButton: {
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   widgetTitle: {
     lineHeight: '16px',
-    fontSize: '12px',
+    fontSize: '13px',
     textTransform: 'uppercase',
     letterSpacing: '1px',
     marginLeft: '4px',
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   item: {
+    width: '100%',
     flex: '1',
     display: 'inline-flex',
     overflow: 'hidden',

@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     bottom: '0px',
     left: '0px',
     width: '100%',
-    height: '36px',
+    height: '30px',
     zIndex: '4',
     borderTop: '1px solid #777',
     backgroundColor: 'rgba(255,255,255,0.8)',
@@ -112,6 +112,9 @@ const styles = StyleSheet.create({
   },
   buttonBorderLeft: {
     borderLeft: '1px solid #333',
+  },
+  bolded: {
+    fontWeight: '700',
   },
 });
 
@@ -287,7 +290,7 @@ class DashboardTabs extends Component {
           </Link>
           <button
             title="Click to add widgets to dashboard"
-            className={css(styles.button, styles.buttonHighlighted)}
+            className={css(styles.button, styles.bolded, styles.buttonHighlighted)}
             onClick={(event) => changeSidebarMode('add')} >
             Add Widget To Dashboard [+]
           </button>
@@ -295,7 +298,7 @@ class DashboardTabs extends Component {
         <MediaQuery query="(max-device-width: 479px)" component='div' className={css(styles.bottomBarSection)} style={{ 'marginRight': '58px' }}>
           <button
             title="Click to add widgets to dashboard"
-            className={css(styles.button, styles.buttonHighlighted)}
+            className={css(styles.button, styles.bolded, styles.buttonHighlighted)}
             onClick={(event) => changeSidebarMode('add')} >
             Add Widgets
           </button>
