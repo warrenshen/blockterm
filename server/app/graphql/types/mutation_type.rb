@@ -778,6 +778,20 @@ module Types
             )
           end
 
+          token_exchange.price_usd = price_usd if !price_usd.nil?
+          token_exchange.price_btc = price_btc if !price_btc.nil?
+          if !price_usd.nil?
+            token_eth = Token.find_by_identifier('ethereum')
+
+            if !token_eth.nil?
+              token_exchange.price_eth = price_usd.to_f / token_eth.price_usd
+            end
+          end
+
+          if token_exchange.changed?
+            token_exchange.save
+          end
+
           token.identifier = identifier if !identifier.nil?
           token.short_name = short_name if !short_name.nil?
           token.long_name = long_name if !long_name.nil?
