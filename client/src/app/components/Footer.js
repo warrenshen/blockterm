@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   container: {
     display:'flex',
     backgroundColor: '#fff',
-    padding: '5px 10px 20px 10px !important',
+    padding: '5px 10px 32px 10px !important',
     borderTop: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   panelsLightNight: {

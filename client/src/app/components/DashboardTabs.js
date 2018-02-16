@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
     position: 'fixed',
     bottom: '0px',
     left: '0px',
-    height: '21px',
-    zIndex: '4',
     width: '100%',
+    height: '36px',
+    zIndex: '4',
     borderTop: '1px solid #777',
     backgroundColor: 'rgba(255,255,255,0.8)',
   },
@@ -74,12 +74,13 @@ const styles = StyleSheet.create({
   },
   bottomBarSection: {
     display: 'flex',
-    marginTop: '-1px',
+    // marginTop: '-1px',
     overflowX: 'hidden',
   },
   bottomBarSectionMiddle: {
     flex: '1',
     overflowX: 'scroll',
+    overflowY: 'hidden',
   },
   tabList: {
     display: 'flex',
