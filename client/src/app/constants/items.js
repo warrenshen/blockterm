@@ -17,6 +17,7 @@ const DELIMETER = '__';
 export const ALERTS_ITEM = 'ALERTS_ITEM';
 export const CC_CHART = 'CC_CHART';
 export const GT_CHART_ITEM = 'GT_CHART_ITEM';
+export const NEWS_ITEM = 'NEWS_ITEM';
 export const PERCENT_DOMINANCE_ITEM = 'PERCENT_DOMINANCE_ITEM';
 export const PORTFOLIO_ITEM = 'PORTFOLIO_ITEM';
 export const PORTFOLIO_HISTORY_ITEM = 'PORTFOLIO_HISTORY_ITEM';
@@ -26,11 +27,11 @@ export const TOTAL_MARKET_CAP = 'TOTAL_MARKET_CAP';
 export const TV_CANDLE_CHART = 'TV_CANDLE_CHART';
 export const TV_MARKET_OVERVIEW = 'TV_MARKET_OVERVIEW';
 export const TWITTER_ITEM = 'TWITTER_ITEM';
-export const NEWS_ITEM = 'NEWS_ITEM';
 
 export const ITEM_KEY_WHITELIST = [
   ALERTS_ITEM,
   GT_CHART_ITEM,
+  NEWS_ITEM,
   PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
   PORTFOLIO_HISTORY_ITEM,
@@ -40,7 +41,6 @@ export const ITEM_KEY_WHITELIST = [
   TV_CANDLE_CHART,
   TV_MARKET_OVERVIEW,
   TWITTER_ITEM,
-  NEWS_ITEM,
 ];
 
 // These array values should be in user-facing order.

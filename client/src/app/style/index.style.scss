@@ -158,6 +158,10 @@ textarea {
   -o-transition: border-color, box-shadow 0.25s ease-in-out;
 }
 
+button {
+  cursor: pointer;
+}
+
 input {
   max-height: 42px;
 }

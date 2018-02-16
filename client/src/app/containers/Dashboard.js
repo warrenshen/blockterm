@@ -12,6 +12,7 @@ import {
 import {
   ALERTS_ITEM,
   GT_CHART_ITEM,
+  NEWS_ITEM,
   PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
   SUBREDDIT_COMMENT_COUNTS,
@@ -197,7 +198,8 @@ class Container extends PureComponent
     let w = 4;
     let h = 5;
 
-    if (identifierKey === PORTFOLIO_ITEM ||
+    if (identifierKey === NEWS_ITEM ||
+        identifierKey === PORTFOLIO_ITEM ||
         identifierKey === TV_MARKET_OVERVIEW)
     {
       w = 3;

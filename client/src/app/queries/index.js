@@ -8,6 +8,7 @@ import {
 import {
   ALERTS_ITEM,
   GT_CHART_ITEM,
+  NEWS_ITEM,
   PERCENT_DOMINANCE_ITEM,
   PORTFOLIO_ITEM,
   PORTFOLIO_HISTORY_ITEM,
@@ -179,6 +180,7 @@ function buildDynamicDashboardQueryField(identifier, extras)
       `;
     case ALERTS_ITEM:
     case GT_CHART_ITEM:
+    case NEWS_ITEM:
     case TV_CANDLE_CHART:
     case TV_MARKET_OVERVIEW:
     case TWITTER_ITEM:

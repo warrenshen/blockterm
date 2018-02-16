@@ -137,17 +137,19 @@ class NewsItem extends PureComponent
     fetch(redditFeed)
     .then((response) => response.json())
     .then((responseJson) => {
-      const filtered = responseJson.data.children.slice(2).map((entry, index) => (
-        {
-          title: entry.data.title,
-          thumbnail: entry.data.thumbnail,
-          link: entry.data.url,
-          ups: entry.data.ups,
-          categories: ['reddit'],
-          color: '#FF9100',
-          pubDate: moment(entry.created).format('YYYY-M-D H:m:s'),
+      const filtered = responseJson.data.children.slice(2).map(
+        (entry, index) => {
+          return {
+            title: entry.data.title,
+            thumbnail: entry.data.thumbnail,
+            link: entry.data.url,
+            ups: entry.data.ups,
+            categories: ['reddit'],
+            color: '#FF9100',
+            pubDate: moment.unix(entry.data.created).format('YYYY-MM-DD HH:mm:ss'),
+          };
         }
-      ));
+      );
       //url, title, ups
       this.setState({data: [...this.state.data, ...filtered]});
       this.forceUpdate();
@@ -169,7 +171,8 @@ class NewsItem extends PureComponent
       nightMode,
     } = this.props;
 
-    if(this.state.error) {
+    if (this.state.error)
+    {
       return (
         <El
           nightMode={nightMode}
@@ -179,56 +182,61 @@ class NewsItem extends PureComponent
         </El>
       );
     }
-    else if(this.state.data.length > 0) {
+    else if (this.state.data.length > 0)
+    {
       const feed = this.state.data;
       return feed
-      .sort((a, b) => {
-        return moment(a.pubDate).isBefore(moment(b.pubDate));
-      })
-      .map((entry, index) => 
-        (
-          <a key={index} href={entry.link} target="_blank" className={css(styles.link)}>
-            <div
-              className={css(styles.newsElement, nightMode && styles.newsElementNight)}
-            >
-              <img src={entry.thumbnail} className={css(styles.thumb)}/>
-              <div className={css(styles.content)}>
-                <div className={css(styles.row)}>
-                  <El
-                    style={styles.contentText}
-                    key={index}
-                    nightMode={nightMode}
-                    type={'p'}
-                  >
-                    {entry.title}
-                  </El>
-                  { entry.categories[0] &&
-                    <div className={css(styles.tags)} style={{backgroundColor: `${entry.color}`}}>
-                      {entry.categories[0].toLowerCase()}
-                    </div>
-                  }
-                  <El
-                    style={styles.outlinkLight}
-                    nightModeStyle={styles.outlink}
-                    nightMode={nightMode}
-                    type={'span'}
-                  >
-                    &nbsp;[{(entry.link.replace('https://','').replace('www.','').substring(0,25))}...]
-                  </El>
-                </div>
-                <div className={css(styles.row)}>
-                  <El
-                    style={styles.timestamp}
-                    nightMode={nightMode}
-                    type={'span'}
-                  >
-                    {`${moment(entry.pubDate, 'YYYY-M-D H:m:s').fromNow()}`}
-                  </El>
+        .sort((a, b) => {
+          // console.log(a.pubDate);
+          // console.log(b.pubDate);
+          return moment(a.pubDate).isBefore(moment(b.pubDate));
+        })
+        .map((entry, index) =>
+          (
+            <a key={index} href={entry.link} target="_blank" className={css(styles.link)}>
+              <div
+                className={css(styles.newsElement, nightMode && styles.newsElementNight)}
+              >
+                <img src={entry.thumbnail} className={css(styles.thumb)}/>
+                <div className={css(styles.content)}>
+                  <div className={css(styles.row)}>
+                    <El
+                      style={styles.contentText}
+                      key={index}
+                      nightMode={nightMode}
+                      type={'p'}
+                    >
+                      {entry.title}
+                    </El>
+                    {
+                      entry.categories[0] && (
+                        <div className={css(styles.tags)} style={{backgroundColor: `${entry.color}`}}>
+                          {entry.categories[0].toLowerCase()}
+                        </div>
+                      )
+                    }
+                    <El
+                      style={styles.outlinkLight}
+                      nightModeStyle={styles.outlink}
+                      nightMode={nightMode}
+                      type={'span'}
+                    >
+                      &nbsp;[{(entry.link.replace('https://','').replace('www.','').substring(0,25))}...]
+                    </El>
+                  </div>
+                  <div className={css(styles.row)}>
+                    <El
+                      style={styles.timestamp}
+                      nightMode={nightMode}
+                      type={'span'}
+                    >
+                      {/** `${moment(entry.pubDate).fromNow()}` */}
+                    </El>
+                  </div>
                 </div>
               </div>
-            </div>
-          </a>
-        ));
+            </a>
+          ));
     }
     else {
       return (
