@@ -113,25 +113,25 @@ logger.info('Starting token exchanges script...')
 
 
 ### Coinmarketcap ###
-cmc = ccxt.coinmarketcap()
-cmc_all_tickers = cmc.fetchTickers()
+# cmc = ccxt.coinmarketcap()
+# cmc_all_tickers = cmc.fetchTickers()
 
-cmc_btc_usd_last = cmc_all_tickers['BTC/USD']['last']
-cmc_eth_usd_last = cmc_all_tickers['ETH/USD']['last']
-cmc_eth_btc_last = cmc_eth_usd_last / cmc_btc_usd_last
+# cmc_btc_usd_last = cmc_all_tickers['BTC/USD']['last']
+# cmc_eth_usd_last = cmc_all_tickers['ETH/USD']['last']
+# cmc_eth_btc_last = cmc_eth_usd_last / cmc_btc_usd_last
 
-token_to_markets = parse_tokens_to_markets(cmc.fetchMarkets())
-token_to_prices = calculate_token_to_prices(
-  cmc,
-  token_to_markets,
-  cmc_btc_usd_last,
-  cmc_eth_usd_last,
-  cmc_eth_btc_last,
-  cmc_all_tickers
-)
+# token_to_markets = parse_tokens_to_markets(cmc.fetchMarkets())
+# token_to_prices = calculate_token_to_prices(
+#   cmc,
+#   token_to_markets,
+#   cmc_btc_usd_last,
+#   cmc_eth_usd_last,
+#   cmc_eth_btc_last,
+#   cmc_all_tickers
+# )
 
-token_exchanges = generate_token_exchanges('coinmarketcap', token_to_prices)
-update_token_exchanges(token_exchanges)
+# token_exchanges = generate_token_exchanges('coinmarketcap', token_to_prices)
+# update_token_exchanges(token_exchanges)
 
 
 
