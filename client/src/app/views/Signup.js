@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     border: `1px solid #000`,
     textTransform: 'uppercase',
     letterSpacing: '2px',
+    fontSize: '13px',
   },
   row: {
     display: 'flex',

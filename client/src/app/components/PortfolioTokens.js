@@ -30,9 +30,11 @@ const styles = StyleSheet.create({
     padding: '0px 12px 12px 12px',
     marginTop: '12px',
     backgroundColor: 'white',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   containerNightMode: {
     backgroundColor: 'black',
+    border: `1px solid ${STYLES.BORDERDARK}`,
   },
   section: {
     display: 'flex',
@@ -64,15 +66,15 @@ const styles = StyleSheet.create({
     width: '32px',
   },
   semibolded: {
-    // fontWeight: '500',
+     fontWeight: '500',
   },
   redDelta: {
     color: `${STYLES.TICKER_RED} !important`,
-    // fontWeight: '500',
+    fontWeight: '500',
   },
   greenDelta: {
     color: `${STYLES.TICKER_GREEN} !important`,
-    // fontWeight: '500',
+    fontWeight: '500',
   },
   closeButton: {
     width: '100%',
@@ -84,6 +86,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontWeight: '700',
+    fontSize: '12px',
   },
   buttonNightMode: {
     color: '#fff',

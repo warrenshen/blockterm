@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   bolded: {
     fontWeight: '500',
-    letterSpacing: '0px',
+    letterSpacing: '0.5px',
     textTransform: 'uppercase',
   },
   promotion: {

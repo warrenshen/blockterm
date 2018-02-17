@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
   },
   bottomBarSectionMiddle: {
     flex: '1',
-    overflowX: 'scroll',
     overflowY: 'hidden',
   },
   tabList: {

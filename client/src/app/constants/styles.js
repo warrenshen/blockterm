@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
     border: '1px solid #000',
     borderRadius: '1px',
     color: '#000',
-    padding: '4px 12px',
+    padding: '8px 12px',
     textTransform: 'uppercase',
     fontWeight: '700',
     letterSpacing: '2px',
