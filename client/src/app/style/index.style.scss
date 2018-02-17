@@ -60,9 +60,6 @@ ul {
   color: $black;
   outline: none;
 }
-p {
-  margin-bottom: 5px;
-}
 
 body {
   width: 100vw;
@@ -70,8 +67,13 @@ body {
   background-color: #ececec;
   overflow-x: hidden;
 }
+
 .darkClass {
   background-color: #121515;
+}
+
+p {
+  margin-bottom: 5px;
 }
 
 h1,
