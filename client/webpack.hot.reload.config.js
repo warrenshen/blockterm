@@ -1,11 +1,11 @@
 // @flow weak
 
-const webpack      = require('webpack');
-const path         = require('path');
+const path       = require('path');
+const webpack    = require('webpack');
 
-const assetsDir   = path.join(__dirname, 'public/assets');
-const srcInclude  = path.join(__dirname, 'src/app');
-const indexFile   = path.join(__dirname, 'src/app/index.js');
+const assetsDir  = path.join(__dirname, 'docs/assets');
+const srcInclude = path.join(__dirname, 'src/app');
+const indexFile  = path.join(__dirname, 'src/app/index.js');
 
 const config = {
   devtool: 'cheap-module-source-map',
@@ -18,7 +18,7 @@ const config = {
   output: {
     path: assetsDir,
     filename: 'bundle.js',
-    publicPath: '/public/assets/'
+    publicPath: '/assets/'
   },
   module: {
     rules: [
