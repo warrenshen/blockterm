@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
   },
   bottomBarSectionMiddle: {
     flex: '1',
+    overflow: 'auto',
     overflowY: 'hidden',
   },
   tabList: {

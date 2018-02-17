@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
     borderLeft: '1px solid #666',
     zIndex: '4',
-    overflow: 'scroll',
+    overflow: 'auto',
+    overflowX: 'hidden',
   },
   nightSidebar: {
     backgroundColor: STYLES.LIGHTNIGHT,
