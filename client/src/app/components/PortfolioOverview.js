@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
   },
   sectionTop: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     width: '100%',
-    padding: '24px 0px 36px 0px',
+    padding: '10px 0px 12px 0px',
   },
   sectionBottom: {
     display: 'flex',
@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     width: '312px',
     padding: '6px 12px 12px 12px',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   sectionRight: {
     flex: '1',
@@ -52,6 +53,10 @@ const styles = StyleSheet.create({
     minWidth: '0px',
     padding: '8px',
     marginLeft: '8px',
+    border: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  nightBorders: {
+    border: `1px solid ${STYLES.BORDERDARK}`,
   },
   card: {
     backgroundColor: 'white',
@@ -59,21 +64,21 @@ const styles = StyleSheet.create({
   cardNightMode: {
     backgroundColor: 'black',
   },
-  cardRow: {
-    display: 'flex',
-    justifyContent: 'center',
+  cardFlex: {
     alignItems: 'center',
+    display: 'flex',
+    flex: '1',
+    justifyContent: 'center',
   },
   change: {
     marginRight: '4px',
+    fontWeight: '500',
   },
   redDelta: {
     color: `${STYLES.TICKER_RED} !important`,
-    fontWeight: '500',
   },
   greenDelta: {
     color: `${STYLES.TICKER_GREEN} !important`,
-    fontWeight: '500',
   },
 });
 
@@ -102,21 +107,11 @@ class PortfolioOverview extends PureComponent
 
     return (
       <div className={css(styles.sectionTop)}>
-        <div className={css(styles.cardRow)}>
-          <El
-            nightMode={nightMode}
-            type={'h1'}
-            style={styles.boldedColor}
-            nightModeStyle={styles.nightBoldedColor}
-          >
-             {CURRENCY.convertCurrencyToString(calculatePortfolioTotalValue(tokenUsers, 'priceUSD'), currency, '$0,0.00')}
-          </El>
-        </div>
-        <div className={css(styles.cardRow)}>
+        <div className={css(styles.cardFlex)}>
           <El
             nightMode={nightMode}
             style={styles.change}
-            type={'span'}
+            type={'h4'}
           >
             Change (24h):
           </El>
@@ -129,11 +124,21 @@ class PortfolioOverview extends PureComponent
              {numeral(portfolioChange24h).format('0.00%')}
           </El>
         </div>
-        <div className={css(styles.cardRow)}>
+        <div className={css(styles.cardFlex)}>
+          <El
+            nightMode={nightMode}
+            type={'h1'}
+            style={styles.boldedColor}
+            nightModeStyle={styles.nightBoldedColor}
+          >
+             {CURRENCY.convertCurrencyToString(calculatePortfolioTotalValue(tokenUsers, 'priceUSD'), currency, '$0,0.00')}
+          </El>
+        </div>
+        <div className={css(styles.cardFlex)}>
           <El
             nightMode={nightMode}
             style={styles.change}
-            type={'span'}
+            type={'h4'}
           >
             Change (7d):
           </El>
@@ -180,7 +185,7 @@ class PortfolioOverview extends PureComponent
       const onChange = (option) => changePortfolioHistoryPlotRange(option.value);
 
       return (
-        <div className={css(styles.sectionRight, styles.card, nightMode && styles.cardNightMode)}>
+        <div className={css(styles.sectionRight, styles.card, nightMode && styles.cardNightMode, nightMode && styles.nightBorders)}>
           <LineChartWithSelectItem
             chartOptions={chartOptions}
             data={chartData}
@@ -208,7 +213,7 @@ class PortfolioOverview extends PureComponent
       <div className={css(styles.container)}>
         {this.renderHeroTable()}
         <div className={css(styles.sectionBottom)}>
-          <div className={css(styles.sectionLeft, styles.card, nightMode && styles.cardNightMode)}>
+          <div className={css(styles.sectionLeft, styles.card, nightMode && styles.cardNightMode, nightMode && styles.nightBorders)}>
             <DonutChartWithSelect
               data={donutData}
               nightMode={nightMode}

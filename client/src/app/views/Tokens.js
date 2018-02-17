@@ -297,18 +297,18 @@ class Tokens extends PureComponent {
     } = token;
 
     let generatedBackground1h = {
-        fontWeight: '500', margin: 'auto 0', width: '100%', padding: '16px 0px',
-        color: (percentChange1h < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 90)}, 0)`,
+        fontWeight: '500', margin: 'auto 0', width: '100%', padding: '17px 0px',
+        color: (percentChange1h < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 120)}, 0)`,
         backgroundColor: (percentChange1h < 0) ? `rgba(255,0,0,${Math.min(percentChange1h/-100, 0.5)})` : `rgba(0,255,0,${Math.min(percentChange1h/100, 0.5)})`,
     };
     let generatedBackground24h = {
-        fontWeight: '500', margin: 'auto 0', width: '100%', padding: '16px 0px',
-        color: (percentChange24h < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 90)}, 0)`,
+        fontWeight: '500', margin: 'auto 0', width: '100%', padding: '17px 0px',
+        color: (percentChange24h < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 120)}, 0)`,
         backgroundColor: (percentChange24h < 0) ? `rgba(255,0,0,${Math.min(percentChange24h/-100, 0.5)})` : `rgba(0,255,0,${Math.min(percentChange24h/100, 0.5)})`,
     };
     let generatedBackground7d = {
-        fontWeight: '500', margin: 'auto 0', width: '100%', padding: '16px 0px',
-        color: (percentChange7d < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 90)}, 0)`,
+        fontWeight: '500', margin: 'auto 0', width: '100%', padding: '17px 0px',
+        color: (percentChange7d < 0) ? 'rgb(255, 0, 0)' : `rgb(0, ${255 - (nightMode ? 0 : 120)}, 0)`,
         backgroundColor: (percentChange7d < 0) ? `rgba(255,0,0,${Math.min(percentChange7d/-100, 0.5)})` : `rgba(0,255,0,${Math.min(percentChange7d/100, 0.5)})`,
     };
 
