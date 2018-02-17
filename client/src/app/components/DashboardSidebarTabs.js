@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     maxWidth: '30vw',
+    overflowX: 'hidden',
   },
   element: {
     flex: '1',
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     display: 'table',
     width: '100%',
     borderCollapse: 'collapse',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
 });
 

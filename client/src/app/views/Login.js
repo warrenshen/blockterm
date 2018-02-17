@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   squareList: {
     listStyleType: 'square',
     flex: '1',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
   blockli: {
     display: 'block',

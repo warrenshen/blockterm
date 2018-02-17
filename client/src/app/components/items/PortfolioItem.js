@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     flex: '1',
   },
   overflowScroll: {
-    overflowY: 'scroll',
+    overflowY: 'auto',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   nightOverflowScroll: {

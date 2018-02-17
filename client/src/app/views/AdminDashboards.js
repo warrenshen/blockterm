@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '33.3%',
     height: '512px',
-    overflowY: 'scroll',
+    overflowY: 'auto',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   elementHeader: {
