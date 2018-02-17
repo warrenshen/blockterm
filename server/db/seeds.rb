@@ -432,9 +432,9 @@ Token.all.each do |token|
 end
 
 User.all.each do |user|
-  Token.first(2).each_with_index do |token, index|
+  TokenExchange.first(2).each_with_index do |token_exchange, index|
     TokenUser.create(
-      token_id: token.id,
+      token_exchange_id: token_exchange.id,
       user_id: user.id,
       index: index,
       amount: rand(20),
