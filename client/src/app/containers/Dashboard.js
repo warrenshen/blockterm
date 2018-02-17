@@ -1,6 +1,8 @@
 // @flow weak
 
-import React, { PureComponent }   from 'react';
+import React, {
+  PureComponent,
+}                                 from 'react';
 import { StyleSheet, css }        from 'aphrodite';
 import { connect }                from 'react-redux';
 import { bindActionCreators }     from 'redux';
@@ -53,50 +55,18 @@ function wrapDynamicGraphQL(ComponentToWrap)
     constructor(props)
     {
       super(props);
-      // this.worker = new Worker();
-      this.wrapped = null;
+      this.state = { wrapped: null };
     }
 
     componentDidMount()
     {
-      const {
-        updateExchangeTicker,
-      } = this.props;
-
-      // this.worker.onmessage = (event) => {
-      //   switch (event.data.type)
-      //   {
-      //     case WORKER_REPLY_TYPE_TICKER:
-      //       const payload = event.data.payload;
-      //       const {
-      //         exchange,
-      //         symbol,
-      //         ticker,
-      //       } = payload;
-      //       updateExchangeTicker(exchange, symbol, ticker);
-      //       break;
-      //     default:
-      //       if (process.env.NODE_ENV == 'dev')
-      //       {
-      //         console.log('Unknown worker reply type');
-      //       }
-      //       break;
-      //   }
-      // };
-
       this.update(this.props);
-    }
-
-    componentWillUnmount()
-    {
-      // this.worker.terminate();
-      // this.worker = null;
     }
 
     componentWillReceiveProps(nextProps)
     {
       const props = this.props;
-      if (this.wrapped !== null &&
+      if (this.state.wrapped !== null &&
           props.selectedTab === nextProps.selectedTab &&
           isEqual(props.dashboardItemStates, nextProps.dashboardItemStates) &&
           isEqual(props.dashboardPages, nextProps.dashboardPages))
@@ -153,22 +123,23 @@ function wrapDynamicGraphQL(ComponentToWrap)
         dashboardItems,
         dashboardItemStates,
       );
+
       if (query === null)
       {
-        this.wrapped = null;
+        this.state.wrapped = null;
       }
       else
       {
-        this.wrapped = graphql(query, config)(ComponentToWrap);
+        this.setState({ wrapped: graphql(query, config)(ComponentToWrap) });
       }
     }
 
     render()
     {
-      const W = this.wrapped;
+      const W = this.state.wrapped;
       return (
         <div className={css(styles.hidden)}>
-          {this.wrapped && <W />}
+          { this.state.wrapped && <W /> }
         </div>
       );
     }
@@ -181,6 +152,46 @@ const DataProvider = wrapDynamicGraphQL(WrappedComponent);
 
 class Container extends PureComponent
 {
+  constructor(props)
+  {
+    super(props);
+    // this.worker = new Worker();
+  }
+
+  componentDidMount()
+  {
+    const {
+      updateExchangeTicker,
+    } = this.props;
+
+    // this.worker.onmessage = (event) => {
+    //   switch (event.data.type)
+    //   {
+    //     case WORKER_REPLY_TYPE_TICKER:
+    //       const payload = event.data.payload;
+    //       const {
+    //         exchange,
+    //         symbol,
+    //         ticker,
+    //       } = payload;
+    //       updateExchangeTicker(exchange, symbol, ticker);
+    //       break;
+    //     default:
+    //       if (process.env.NODE_ENV == 'dev')
+    //       {
+    //         console.log('Unknown worker reply type');
+    //       }
+    //       break;
+    //   }
+    // };
+  }
+
+  componentWillUnmount()
+  {
+    // this.worker.terminate();
+    // this.worker = null;
+  }
+
   addToLayout(identifier)
   {
     const {

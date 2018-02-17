@@ -10,17 +10,15 @@ import {
 import {
   DashboardPagesQuery,
   DashboardPagesQueryOptions,
-}                              from '../queries';
-import {
   CreateDashboardItemMutation,
   CreateDashboardItemMutationOptions,
   UpdateDashboardItemMutation,
   UpdateDashboardItemMutationOptions,
 }                              from '../queries';
-import Dashboard               from './Dashboard';
 import * as dashboardActions   from '../redux/modules/dashboard';
 import * as exchangesActions   from '../redux/modules/exchanges';
 import * as globalsActions     from '../redux/modules/globals';
+import Dashboard               from './Dashboard';
 
 /* -----------------------------------------
   Redux
@@ -133,8 +131,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
   graphql(DashboardPagesQuery, DashboardPagesQueryOptions),
   graphql(CreateDashboardItemMutation, CreateDashboardItemMutationOptions),
-  graphql(UpdateDashboardItemMutation, UpdateDashboardItemMutationOptions),
-  connect(mapStateToProps, mapDispatchToProps)
+  graphql(UpdateDashboardItemMutation, UpdateDashboardItemMutationOptions)
 )(Dashboard);
