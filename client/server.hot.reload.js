@@ -2,13 +2,15 @@
 
 /* eslint no-console:0 */
 /* eslint consistent-return:0 */
-const path          = require('path');
-const webpack       = require('webpack');
-const express       = require('express');
-const devMiddleware = require('webpack-dev-middleware');
-const hotMiddleware = require('webpack-hot-middleware');
-const config        = require('./webpack.hot.reload.config');
-const chalk         = require('chalk');
+const chalk              = require('chalk');
+const path               = require('path');
+const webpack            = require('webpack');
+const express            = require('express');
+const devMiddleware      = require('webpack-dev-middleware');
+const hotMiddleware      = require('webpack-hot-middleware');
+const historyApiFallback = require('connect-history-api-fallback');
+
+const config             = require('./webpack.hot.reload.config');
 
 const app       = express();
 const compiler  = webpack(config);
@@ -19,9 +21,13 @@ const IP_ADRESS = '0.0.0.0';
 app.set('port', PORT);
 app.set('ipAdress', IP_ADRESS);
 
+app.use(historyApiFallback({ verbose: false }));
+
+app.use(express.static(path.join(__dirname, 'docs/assets/')));
+
 app.use(devMiddleware(compiler, {
   publicPath: config.output.publicPath,
-  historyApiFallback: true
+  stats: { colors: true }
 }));
 
 app.use(hotMiddleware(compiler));
