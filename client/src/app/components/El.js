@@ -17,7 +17,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const El = ({ children, icon, iconLeft, inline, nightMode, nightModeStyle, style, type }) => {
+const El = ({
+  children,
+  icon,
+  iconLeft,
+  inline,
+  nightMode,
+  nightModeStyle,
+  style,
+  type,
+}) => {
   const Tag = type;
   var className = css(
     styles.default,

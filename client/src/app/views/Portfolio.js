@@ -54,6 +54,7 @@ class Portfolio extends PureComponent
       data,
       nightMode,
       portfolioHistoryPlotRange,
+      sortBy,
       tokenExchangesAll,
       tokensAll,
       tokenUsers,
@@ -62,6 +63,7 @@ class Portfolio extends PureComponent
       changeAddTokenExchangeId,
       changeAddTokenId,
       changePortfolioHistoryPlotRange,
+      changePortfolioSortBy,
       changeTokenUserAmount,
       createNotificationError,
       createNotificationSuccess,
@@ -91,6 +93,7 @@ class Portfolio extends PureComponent
           changeActive={changeActive}
           currency={currency}
           nightMode={nightMode}
+          sortBy={sortBy}
           tokenExchangesAll={tokenExchangesAll}
           tokensAll={tokensAll}
           tokenUsers={tokenUsers}
@@ -98,6 +101,7 @@ class Portfolio extends PureComponent
           addTokenUser={addTokenUser}
           changeAddTokenExchangeId={changeAddTokenExchangeId}
           changeAddTokenId={changeAddTokenId}
+          changePortfolioSortBy={changePortfolioSortBy}
           changeTokenUserAmount={changeTokenUserAmount}
           createNotificationError={createNotificationError}
           createNotificationSuccess={createNotificationSuccess}

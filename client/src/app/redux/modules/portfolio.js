@@ -4,6 +4,12 @@ import { fromJS } from 'immutable';
 import {
   ONE_WEEK,
 } from '../../constants/plots';
+import {
+  PORTFOLIO_SORT_BY_COOKIE,
+  clearItem,
+  getItem,
+  setItem,
+} from '../../services/cookie';
 
 /* -----------------------------------------
   constants
@@ -15,17 +21,20 @@ const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_ADD_TOKEN_EXCHANGE_ID = 'CHANGE_ADD_TOKEN_EXCHANGE_ID';
 const CHANGE_ADD_TOKEN_ID = 'CHANGE_ADD_TOKEN_ID';
 const CHANGE_PORTFOLIO_HISTORY_PLOT_RANGE = 'CHANGE_PORTFOLIO_HISTORY_PLOT_RANGE';
+const CHANGE_PORTFOLIO_SORT_BY = 'CHANGE_PORTFOLIO_SORT_BY';
 const CHANGE_TOKEN_USER_AMOUNT = 'CHANGE_TOKEN_USER_AMOUNT';
 const REMOVE_TOKEN_USER = 'REMOVE_TOKEN_USER';
 
 /* -----------------------------------------
   Reducer
  ------------------------------------------*/
+const cookieSortBy = getItem(PORTFOLIO_SORT_BY_COOKIE);
 const initialState = {
   addTokenExchangeId: null,
   addTokenId: null,
   changeActive: false,
   portfolioHistoryPlotRange: ONE_WEEK,
+  sortBy: cookieSortBy,
   tokenExchangesAll: [],
   tokensAll: [],
   tokenUsers: [],
@@ -146,6 +155,13 @@ export default function(state = initialState, action)
         ...state,
         portfolioHistoryPlotRange: action.portfolioHistoryPlotRange,
       };
+    case CHANGE_PORTFOLIO_SORT_BY:
+      const newSortBy = state.sortBy !== action.sortBy ? action.sortBy : null;
+      setItem(PORTFOLIO_SORT_BY_COOKIE, newSortBy);
+      return {
+        ...state,
+        sortBy: newSortBy,
+      };
     case REMOVE_TOKEN_USER:
       oldTokenUsers = fromJS(state.tokenUsers);
       tokenUserIndex = oldTokenUsers.findIndex(
@@ -193,6 +209,14 @@ export function changePortfolioHistoryPlotRange(portfolioHistoryPlotRange)
   return {
     type: CHANGE_PORTFOLIO_HISTORY_PLOT_RANGE,
     portfolioHistoryPlotRange,
+  };
+}
+
+export function changePortfolioSortBy(sortBy)
+{
+  return {
+    sortBy,
+    type: CHANGE_PORTFOLIO_SORT_BY,
   };
 }
 
