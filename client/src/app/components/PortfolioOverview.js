@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
-    padding: '10px 0px 12px 0px',
+    padding: '5px 0px 6px 0px',
   },
   sectionBottom: {
     display: 'flex',

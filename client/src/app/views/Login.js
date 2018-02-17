@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontSize: '13px',
+    padding: '8px 6px',
   },
   rightAlign: {
     flex: '1',
