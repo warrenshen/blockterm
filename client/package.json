@@ -51,6 +51,7 @@
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react-optimize": "^1.0.1",
     "chai": "^3.5.0",
+    "connect-history-api-fallback": "^1.5.0",
     "coveralls": "^2.11.11",
     "css-loader": "^0.28.4",
     "dirty-chai": "^1.2.2",
