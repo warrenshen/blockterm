@@ -18,7 +18,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontWeight: '500',
+    fontSize: '12px',
     width: '100%',
+    border: '1px solid #777',
   },
   buttons: {
     display: 'flex',
@@ -27,13 +29,12 @@ const styles = StyleSheet.create({
     flex: '1',
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: '30vw',
-    overflowX: 'hidden',
+    width: '30vw',
+    overflowX: 'auto',
   },
   element: {
     flex: '1',
     display: 'flex',
-    minWidth: '172px',
     lineHeight: '24px',
     justifyContent: 'center',
   },
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
   },
   input: {
     fontWeight: '500',
+    minWidth: '500',
   },
   row: {
     width: '100%',
@@ -58,6 +60,16 @@ const styles = StyleSheet.create({
     width: '100%',
     borderCollapse: 'collapse',
     overflowY: 'auto',
+  },
+  actionButton: {
+    color: '#000',
+    height: '100%',
+    padding: '3px 6px',
+  },
+  darkActionButton: {
+    backgroundColor: '#000',
+    borderColor: '#ccc',
+    color: '#fff',
   },
 });
 
@@ -105,7 +117,7 @@ class DashboardSidebarTabs extends PureComponent
 
     return (
       <tr className={css(styles.row)} key={id}>
-        <td className={css(styles.element)}>
+        <td className={css(styles.element, styles.input)}>
           <input
             className={css(styles.input)}
             value={name}
@@ -123,7 +135,7 @@ class DashboardSidebarTabs extends PureComponent
         </td>
         <td>
           <button
-            className={css(styles.closeButton)}
+            className={css(styles.actionButton, nightMode && styles.darkActionButton)}
             onClick={onClickRemove}
           >
             <FontAwesome name='remove' />

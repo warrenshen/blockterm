@@ -116,12 +116,14 @@ const styles = StyleSheet.create({
   blockli: {
     display: 'block',
     letterSpacing: '0.5px',
+    lineHeight: '18px',
   },
   submitButton: {
     border: `1px solid #000`,
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontSize: '13px',
+    padding: '8px 6px',
   },
   row: {
     display: 'flex',
@@ -270,6 +272,9 @@ class Signup extends PureComponent
               </li>
               <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
                 Create/save your portfolio and track it on your dashboard.
+              </li>
+              <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
+                Edit, customize, and rename your tabs to keep things tidy.
               </li>
               <li className={css(styles.blockli, styles.boldedColor, nightMode && styles.nightBoldedColor)}>
                 Create price alerts for markets you are trading.

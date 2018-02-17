@@ -86,11 +86,14 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: '2px',
     fontWeight: '700',
-    fontSize: '12px',
+    fontSize: '13px',
   },
   buttonNightMode: {
     color: '#fff',
     backgroundColor: '#000',
+  },
+  saveButton: {
+    padding: '5px 10px',
   },
   select: {
     flex: '1',
@@ -501,7 +504,7 @@ class PortfolioTokens extends PureComponent
         {this.renderAdd()}
         <div className={css(styles.section)}>
           <button
-            className={css(styles.button, nightMode && styles.buttonNightMode)}
+            className={css(styles.button, styles.saveButton, nightMode && styles.buttonNightMode)}
             disabled={!changeActive}
             onClick={(event) => this.savePortfolio()}
           >
