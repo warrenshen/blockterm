@@ -15,6 +15,12 @@ import * as CURRENCY        from '../helpers/currency';
 import El                   from '../components/El';
 import * as STYLES          from '../constants/styles';
 import {
+  PORTFOLIO_SORT_BY_BALANCE,
+  PORTFOLIO_SORT_BY_EXCHANGE,
+  PORTFOLIO_SORT_BY_HOLDING,
+  PORTFOLIO_SORT_BY_PRICE,
+}                           from '../constants/portfolio';
+import {
   getImageUrl,
 } from '../constants/items.js';
 import {
@@ -27,7 +33,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    padding: '0px 12px 12px 12px',
+    padding: '0px 12px 0px 12px',
     marginTop: '12px',
     backgroundColor: 'white',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
@@ -40,7 +46,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
-    paddingTop: '12px',
+    paddingBottom: '12px',
   },
   table: {
     display: 'flex',
@@ -52,8 +58,18 @@ const styles = StyleSheet.create({
     width: '100%',
     borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
   },
-  rowHeader: {
-    paddingBottom: '8px',
+  headerElement: {
+    padding: '12px 0px',
+  },
+  headerButton: {
+    border: 'none',
+    backgroundColor: 'inherit',
+  },
+  headerButtonSelected: {
+    backgroundColor: `${STYLES.GOLD}`,
+  },
+  headerButtonSelectedNightMode: {
+    backgroundColor: '#222',
   },
   element: {
     flex: '1',
@@ -133,6 +149,7 @@ class PortfolioTokens extends PureComponent
     changeActive: PropTypes.bool.isRequired,
     currency: PropTypes.string.isRequired,
     nightMode: PropTypes.bool.isRequired,
+    sortBy: PropTypes.string,
     tokenUsers: PropTypes.array.isRequired,
 
     changeTokenUserAmount: PropTypes.func.isRequired,
@@ -163,11 +180,18 @@ class PortfolioTokens extends PureComponent
   {
     const {
       nightMode,
+      sortBy,
+      changePortfolioSortBy,
     } = this.props;
 
+    const onClickBalance = (event) => changePortfolioSortBy(PORTFOLIO_SORT_BY_BALANCE);
+    const onClickExchange = (event) => changePortfolioSortBy(PORTFOLIO_SORT_BY_EXCHANGE);
+    const onClickHolding = (event) => changePortfolioSortBy(PORTFOLIO_SORT_BY_HOLDING);
+    const onClickPrice = (event) => changePortfolioSortBy(PORTFOLIO_SORT_BY_PRICE);
+
     return (
-      <div className={css(styles.row, styles.rowHeader)}>
-        <div className={css(styles.element)}>
+      <div className={css(styles.row)}>
+        <div className={css(styles.element, styles.headerElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -176,7 +200,16 @@ class PortfolioTokens extends PureComponent
             Token
           </El>
         </div>
-        <div className={css(styles.element)}>
+        <button
+          className={css(
+            styles.element,
+            styles.headerElement,
+            styles.headerButton,
+            sortBy === PORTFOLIO_SORT_BY_EXCHANGE && styles.headerButtonSelected,
+            sortBy === PORTFOLIO_SORT_BY_EXCHANGE && nightMode && styles.headerButtonSelectedNightMode,
+          )}
+          onClick={onClickExchange}
+        >
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -184,8 +217,22 @@ class PortfolioTokens extends PureComponent
           >
             Exchange
           </El>
-        </div>
-        <div className={css(styles.element)}>
+          <El
+            icon={'sort'}
+            nightMode={nightMode}
+            type={'span'}
+          />
+        </button>
+        <button
+          className={css(
+            styles.element,
+            styles.headerElement,
+            styles.headerButton,
+            sortBy === PORTFOLIO_SORT_BY_HOLDING && styles.headerButtonSelected,
+            sortBy === PORTFOLIO_SORT_BY_HOLDING && nightMode && styles.headerButtonSelectedNightMode,
+          )}
+          onClick={onClickHolding}
+        >
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -193,8 +240,22 @@ class PortfolioTokens extends PureComponent
           >
             Amount held
           </El>
-        </div>
-        <div className={css(styles.element)}>
+          <El
+            icon={'sort'}
+            nightMode={nightMode}
+            type={'span'}
+          />
+        </button>
+        <button
+          className={css(
+            styles.element,
+            styles.headerElement,
+            styles.headerButton,
+            sortBy === PORTFOLIO_SORT_BY_PRICE && styles.headerButtonSelected,
+            sortBy === PORTFOLIO_SORT_BY_PRICE && nightMode && styles.headerButtonSelectedNightMode,
+          )}
+          onClick={onClickPrice}
+        >
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -202,8 +263,13 @@ class PortfolioTokens extends PureComponent
           >
             Price
           </El>
-        </div>
-        <div className={css(styles.element)}>
+          <El
+            icon={'sort'}
+            nightMode={nightMode}
+            type={'span'}
+          />
+        </button>
+        <div className={css(styles.element, styles.headerElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -212,7 +278,7 @@ class PortfolioTokens extends PureComponent
             Change (24h)
           </El>
         </div>
-        <div className={css(styles.element)}>
+        <div className={css(styles.element, styles.headerElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -221,7 +287,16 @@ class PortfolioTokens extends PureComponent
             Change (7d)
           </El>
         </div>
-        <div className={css(styles.element)}>
+        <button
+          className={css(
+            styles.element,
+            styles.headerElement,
+            styles.headerButton,
+            sortBy === PORTFOLIO_SORT_BY_BALANCE && styles.headerButtonSelected,
+            sortBy === PORTFOLIO_SORT_BY_BALANCE && nightMode && styles.headerButtonSelectedNightMode,
+          )}
+          onClick={onClickBalance}
+        >
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -229,8 +304,13 @@ class PortfolioTokens extends PureComponent
           >
             Balance
           </El>
-        </div>
-        <div className={css(styles.element)}>
+          <El
+            icon={'sort'}
+            nightMode={nightMode}
+            type={'span'}
+          />
+        </button>
+        <div className={css(styles.element, styles.headerElement)}>
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -239,7 +319,7 @@ class PortfolioTokens extends PureComponent
             % of portfolio
           </El>
         </div>
-        <div className={css(styles.elementDestroy)}>
+        <div className={css(styles.elementDestroy, styles.headerElement)}>
         </div>
       </div>
     );
@@ -473,6 +553,7 @@ class PortfolioTokens extends PureComponent
     const {
       changeActive,
       nightMode,
+      sortBy,
       tokenUsers,
     } = this.props;
 
@@ -480,14 +561,58 @@ class PortfolioTokens extends PureComponent
     // Tokens that make up at least 0.5% of portfolio OR
     // tokens that are new OR
     // tokens that have an amount of 0.
-    const validTokenUsers = tokenUsers;
-      // .filter(
-      //   (tokenUser) => {
-      //     const value = tokenUser.amount * tokenUser.tokenExchange['priceUSD'];
-      //     const percent = value / portfolioTotalValue;
-      //     return percent > 0.005 || tokenUser.id.indexOf('t') === 0 || tokenUser.amount === 0;
-      //   }
-      // );
+    let validTokenUsers = tokenUsers;
+    // .filter(
+    //   (tokenUser) => {
+    //     const value = tokenUser.amount * tokenUser.tokenExchange['priceUSD'];
+    //     const percent = value / portfolioTotalValue;
+    //     return percent > 0.005 || tokenUser.id.indexOf('t') === 0 || tokenUser.amount === 0;
+    //   }
+    // );
+
+    if (!changeActive)
+    {
+      if (sortBy === PORTFOLIO_SORT_BY_BALANCE)
+      {
+        validTokenUsers = validTokenUsers.slice(0).sort(
+          (tokenUserA, tokenUserB) => {
+            const balanceA = tokenUserA.amount * tokenUserA.tokenExchange.priceUSD;
+            const balanceB = tokenUserB.amount * tokenUserB.tokenExchange.priceUSD;
+            return balanceA < balanceB;
+          }
+        );
+      }
+      else if (sortBy === PORTFOLIO_SORT_BY_EXCHANGE)
+      {
+        validTokenUsers = validTokenUsers.slice(0).sort(
+          (tokenUserA, tokenUserB) => {
+            const exchangeA = tokenUserA.tokenExchange.exchange;
+            const exchangeB = tokenUserB.tokenExchange.exchange;
+            return exchangeA < exchangeB;
+          }
+        );
+      }
+      else if (sortBy === PORTFOLIO_SORT_BY_HOLDING)
+      {
+        validTokenUsers = validTokenUsers.slice(0).sort(
+          (tokenUserA, tokenUserB) => {
+            const holdingA = tokenUserA.amount;
+            const holdingB = tokenUserB.amount;
+            return holdingA < holdingB;
+          }
+        );
+      }
+      else if (sortBy === PORTFOLIO_SORT_BY_PRICE)
+      {
+        validTokenUsers = validTokenUsers.slice(0).sort(
+          (tokenUserA, tokenUserB) => {
+            const priceA = tokenUserA.tokenExchange.priceUSD;
+            const priceB = tokenUserB.tokenExchange.priceUSD;
+            return priceA < priceB;
+          }
+        );
+      }
+    }
 
     return (
       <div className={css(styles.container, nightMode && styles.containerNightMode)}>
