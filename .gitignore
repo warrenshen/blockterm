@@ -37,7 +37,6 @@ client/.vscode/
 client/.idea/
 client/*.log
 
-client/docs/assets/
 client/coverage
 client/.nyc_output
 
