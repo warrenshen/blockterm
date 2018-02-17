@@ -9,28 +9,25 @@ import * as STYLES from '../constants/styles';
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    position: 'fixed',
-    top: '65px',
-    left: '0px',
-    zIndex: '3',
-    width: '100%',
-    height: '100%',
-    paddingBottom: '96px',
-    backgroundColor: 'rgba(255, 255, 255, 1)',
-  },
-  padded: {
+    flexDirection: 'column',
     padding: '10px 10px',
   },
   squareList: {
+    display: 'flex',
+    flexDirection: 'column',
+    listStylePosition: 'inside',
     listStyleType: 'square',
   },
   nightModeText: {
     color: '#fff',
   },
+  listItem: {
+    lineHeight: '24px',
+  },
 });
 
-class AccountPerks extends PureComponent {
-
+class AccountPerks extends PureComponent
+{
   render()
   {
     const {
@@ -38,7 +35,7 @@ class AccountPerks extends PureComponent {
     } = this.props;
 
     return(
-      <div className={css(styles.padded)}>
+      <div className={css(styles.container)}>
         <El
           nightMode={nightMode}
           type={'h4'}
@@ -52,10 +49,18 @@ class AccountPerks extends PureComponent {
           Benefits of creating a free account include:
         </El>
         <ul className={css(styles.squareList, nightMode && styles.nightModeText)}>
-          <li>Portfolio tracking and historic value graph</li>
-          <li>Configurable price alerts via browser notifications</li>
-          <li>Customizable tab names on the dashboard</li>
-          <li>Stored dashboard configuration cross-computer/browser</li>
+          <li className={css(styles.listItem)}>
+            Portfolio tracking and historic value graph
+          </li>
+          <li className={css(styles.listItem)}>
+            Configurable price alerts via browser notifications
+          </li>
+          <li className={css(styles.listItem)}>
+            Customizable tab names on the dashboard
+          </li>
+          <li className={css(styles.listItem)}>
+            Stored dashboard configuration cross-computer/browser
+          </li>
         </ul>
       </div>
     );
