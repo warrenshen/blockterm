@@ -30,7 +30,7 @@ class TokenUser < ApplicationRecord
   belongs_to :token_exchange
   belongs_to :user
 
-  validates :token_id, uniqueness: { allow_nil: true, scope: :user_id }
-  validates :token_exchange_id, uniqueness: { allow_nil: true, scope: :user_id }
+  validates :token_exchange_id, presence: true,
+                                uniqueness: { scope: :user_id }
   validates :index, uniqueness: { scope: :user_id }
 end
