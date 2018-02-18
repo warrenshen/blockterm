@@ -1,5 +1,6 @@
-export const PROJECT_VERSION = '0.2.5';
+export const PROJECT_VERSION = '0.3.0';
 export const PATCH_NOTES = [
+  '0.3.0: Portfolio page and widget sortable by different columns.',
   '0.2.5: Portfolio history chart on portfolio page and as a widget, cryptocurrency news widget, and portfolio holdings by exchange.',
   '0.2.4: Selectable currencies for many different nationalities, e.g. CAD, AUD, KRW (₩), JPY (¥), RUB (₽), MXN, DKK (kr), etc.',
   '0.2.3: Price alerts for Binance/Bittrex markets, portfolio widget in BTC and ETH units, ability to customize dashboard tabs.',
@@ -8,9 +9,8 @@ export const PATCH_NOTES = [
   '0.2.0: Stable release of portfolio and twitter feed widgets, and volume/price delta grid. Track your total portfolio value in a few clicks!',
   '0.1.5: Soft launching the heavily requested "Portfolio" tab and dashboard widget, overhauling of "Coins/Tokens" page to "Price/Volume" of top 200 cryptos;',
   '0.1.3: All Binance coins/currencies now supported via Candle Chart.',
+  '0.1.2: Locking and unlocking of widgets now supported.',
 ];
-//<li className={css(styles.blockli)}>Locking and unlocking of widgets now supported.</li>
-//<li className={css(styles.blockli)}>[...]</li>
 
 const DELIMETER = '__';
 
