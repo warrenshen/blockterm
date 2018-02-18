@@ -22,6 +22,7 @@ const mapStateToProps = (state) => ({
   apiKey: state.balances.apiKey,
   exchange: state.balances.exchange,
   exchangeKeys: state.balances.exchangeKeys,
+  nightMode: state.globals.nightMode,
   secretKey: state.balances.secretKey,
   user: state.globals.user,
 });

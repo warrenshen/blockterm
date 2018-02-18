@@ -539,7 +539,7 @@ export const CreateExchangeKeyMutation = gql`
     $exchange: String!,
     $secretKey: String!,
   ) {
-    createExchangeKey(
+    exchangeKey: createExchangeKey(
       apiKey: $apiKey,
       exchange: $exchange,
       secretKey: $secretKey,
