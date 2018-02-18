@@ -1039,14 +1039,17 @@ export const UsersByPageWithTokenUsersQuery = gql`
         index
         amount
 
-        token {
+        tokenExchange {
           id
-          shortName
-          imageUrl
+          exchange
           priceUSD
-          priceBTC
-          percentChange24h
-          percentChange7d
+
+          token {
+            id
+            shortName
+            imageUrl
+            percentChange24hUSD
+          }
         }
       }
     }
