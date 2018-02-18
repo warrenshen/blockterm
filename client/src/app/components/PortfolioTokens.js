@@ -19,6 +19,7 @@ import {
   PORTFOLIO_SORT_BY_EXCHANGE,
   PORTFOLIO_SORT_BY_HOLDING,
   PORTFOLIO_SORT_BY_PRICE,
+  PORTFOLIO_SORT_BY_TOKEN,
 }                           from '../constants/portfolio';
 import {
   getImageUrl,
@@ -188,10 +189,20 @@ class PortfolioTokens extends PureComponent
     const onClickExchange = (event) => changePortfolioSortBy(PORTFOLIO_SORT_BY_EXCHANGE);
     const onClickHolding = (event) => changePortfolioSortBy(PORTFOLIO_SORT_BY_HOLDING);
     const onClickPrice = (event) => changePortfolioSortBy(PORTFOLIO_SORT_BY_PRICE);
+    const onClickToken = (event) => changePortfolioSortBy(PORTFOLIO_SORT_BY_TOKEN);
 
     return (
       <div className={css(styles.row)}>
-        <div className={css(styles.element, styles.headerElement)}>
+        <button
+          className={css(
+            styles.element,
+            styles.headerElement,
+            styles.headerButton,
+            sortBy === PORTFOLIO_SORT_BY_TOKEN && styles.headerButtonSelected,
+            sortBy === PORTFOLIO_SORT_BY_TOKEN && nightMode && styles.headerButtonSelectedNightMode,
+          )}
+          onClick={onClickToken}
+        >
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -199,7 +210,12 @@ class PortfolioTokens extends PureComponent
           >
             Token
           </El>
-        </div>
+          <El
+            icon={'sort'}
+            nightMode={nightMode}
+            type={'span'}
+          />
+        </button>
         <button
           className={css(
             styles.element,
@@ -588,7 +604,7 @@ class PortfolioTokens extends PureComponent
           (tokenUserA, tokenUserB) => {
             const exchangeA = tokenUserA.tokenExchange.exchange;
             const exchangeB = tokenUserB.tokenExchange.exchange;
-            return exchangeA < exchangeB;
+            return exchangeA > exchangeB;
           }
         );
       }
@@ -609,6 +625,16 @@ class PortfolioTokens extends PureComponent
             const priceA = tokenUserA.tokenExchange.priceUSD;
             const priceB = tokenUserB.tokenExchange.priceUSD;
             return priceA < priceB;
+          }
+        );
+      }
+      else if (sortBy === PORTFOLIO_SORT_BY_TOKEN)
+      {
+        validTokenUsers = validTokenUsers.slice(0).sort(
+          (tokenUserA, tokenUserB) => {
+            const tokenA = tokenUserA.tokenExchange.token.shortName;
+            const tokenB = tokenUserB.tokenExchange.token.shortName;
+            return tokenA > tokenB;
           }
         );
       }
