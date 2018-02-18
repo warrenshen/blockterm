@@ -1,9 +1,12 @@
 // @flow weak
 
+import { fromJS } from 'immutable';
+
 /* -----------------------------------------
   constants
  ------------------------------------------*/
 const APOLLO_QUERY_RESULT = 'APOLLO_QUERY_RESULT';
+const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_API_KEY = 'CHANGE_API_KEY';
 const CHANGE_EXCHANGE = 'CHANGE_EXCHANGE';
 const CHANGE_SECRET_KEY = 'CHANGE_SECRET_KEY';
@@ -30,6 +33,23 @@ export default function(state = initialState, action)
           return {
             ...state,
             exchangeKeys: action.result.data.user.exchangeKeys,
+          };
+        default:
+          return state;
+      }
+    case APOLLO_MUTATION_RESULT:
+      switch (action.operationName)
+      {
+        case 'CreateExchangeKeyMutation':
+          const newExchangeKey = action.result.data.exchangeKey;
+          const oldExchangeKeys = fromJS(state.exchangeKeys);
+          const newExchangeKeys = oldExchangeKeys.push(newExchangeKey);
+          return {
+            ...state,
+            apiKey: initialState.apiKey,
+            exchange: initialState.exchange,
+            exchangeKeys: newExchangeKeys.toJS(),
+            secretKey: initialState.secretKey,
           };
         default:
           return state;

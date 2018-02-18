@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
     // borderTop: '1px solid rgba(0,0,0,0.15)',
     backgroundColor: '#fff',
   },
+  sectionNightMode: {
+    backgroundColor: 'black',
+  },
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -47,6 +50,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     marginTop: '12px',
+  },
+  submitButton: {
+    border: `1px solid #000`,
+    textTransform: 'uppercase',
+    letterSpacing: '2px',
+    fontSize: '13px',
+    padding: '8px 6px',
   },
   exchangeKeys: {
 
@@ -214,7 +224,7 @@ class ApiKeys extends PureComponent
 
     return (
       <div className={css(styles.container)}>
-        <div className={css(styles.section)}>
+        <div className={css(styles.section, nightMode && styles.sectionNightMode)}>
           <El
             nightMode={nightMode}
             type={'h3'}
@@ -223,7 +233,7 @@ class ApiKeys extends PureComponent
           </El>
           {this.renderForm()}
         </div>
-        <div className={css(styles.section)}>
+        <div className={css(styles.section, nightMode && styles.sectionNightMode)}>
           <El
             nightMode={nightMode}
             type={'h3'}
