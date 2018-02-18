@@ -3162,7 +3162,7 @@ export const ITEM_VALUE_TO_IMAGE = {
 
 // Array of dashboard page objects.
 export const DEFAULT_PAGES_OBJECTS = [
-  {"dashboardItems":[{"id":"3","w":4,"h":5,"x":0,"y":0,"static":false,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},{"id":"10","w":4,"h":4,"x":0,"y":10,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},{"id":"11","w":2,"h":7,"x":7,"y":0,"static":false,"identifier":"TWITTER_ITEM__#cryptocurrency"},{"id":"12","w":2,"h":6,"x":4,"y":7,"static":false,"identifier":"PORTFOLIO_ITEM__Default"},{"id":"14","w":4,"h":5,"x":0,"y":5,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:ETHBTC"},{"id":"15","w":3,"h":7,"x":4,"y":0,"static":false,"identifier":"NEWS_ITEM__Cryptocurrency"},{"id":"16","w":3,"h":6,"x":6,"y":7,"static":false,"identifier":"GT_CHART_ITEM__Bitcoin"}],"index":0,"name":"Tab 1"},
+  {"dashboardItems":[{"id":"3","w":5,"h":5,"x":0,"y":0,"static":true,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},{"id":"10","w":4,"h":5,"x":5,"y":0,"static":true,"identifier":"TOTAL_MARKET_CAP__Default"},{"id":"11","w":3,"h":7,"x":9,"y":7,"static":false,"identifier":"TWITTER_ITEM__#cryptocurrency"},{"id":"12","w":5,"h":4,"x":0,"y":10,"static":false,"identifier":"PORTFOLIO_ITEM__Default"},{"id":"14","w":5,"h":5,"x":0,"y":5,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:ETHBTC"},{"id":"15","w":3,"h":7,"x":9,"y":0,"static":false,"identifier":"NEWS_ITEM__Cryptocurrency"},{"id":"16","w":4,"h":7,"x":5,"y":5,"static":false,"identifier":"GT_CHART_ITEM__Bitcoin"}],"index":0,"name":"Tab 1"},
   {"dashboardItems":[],"index":1,"name":"Tab 2"},
   {"dashboardItems":[],"index":2,"name":"Tab 3"},
 ];

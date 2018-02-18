@@ -1,11 +1,10 @@
 // @flow weak
 
 import React, {
-  Component,
+  PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import { isEqual }         from 'underscore';
 import { Responsive, WidthProvider } from 'react-grid-layout';
 import FontAwesome                from 'react-fontawesome';
 import DashboardItem from '../components/DashboardItem';
@@ -90,21 +89,8 @@ const styles = StyleSheet.create({
   },
 });
 
-class DashboardGrid extends Component
+class DashboardGrid extends PureComponent
 {
-  shouldComponentUpdate(nextProps, nextState)
-  {
-    return !isEqual(this.props.alerts, nextProps.alerts) ||
-           !isEqual(this.props.currency, nextProps.currency) ||
-           !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
-           !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
-           !isEqual(this.props.dashboardItems, nextProps.dashboardItems) ||
-           !isEqual(this.props.dashboardItemStates, nextProps.dashboardItemStates) ||
-           !isEqual(this.props.isPageLoaded, nextProps.isPageLoaded) ||
-           !isEqual(this.props.nightMode, nextProps.nightMode) ||
-           !isEqual(this.props.user, nextProps.user);
-  }
-
   renderItem(dashboardItem)
   {
     const {
@@ -115,10 +101,12 @@ class DashboardGrid extends Component
       dashboardItemStates,
       isPageLoaded,
       nightMode,
+      portfolioSortBy,
       user,
 
       changeDashboardItemState,
       changeModalState,
+      changePortfolioDashboardSortBy,
       changeSidebarMode,
       destroyDashboardItem,
       removeFromLayout,
@@ -145,10 +133,12 @@ class DashboardGrid extends Component
               dashboardItem={dashboardItem}
               dashboardState={dashboardItemStates[identifier]}
               nightMode={nightMode}
+              portfolioSortBy={portfolioSortBy}
               user={user}
 
               changeDashboardItemState={changeDashboardItemState}
               changeModalState={changeModalState}
+              changePortfolioDashboardSortBy={changePortfolioDashboardSortBy}
               changeSidebarMode={changeSidebarMode}
               destroyDashboardItem={destroyDashboardItem}
               removeFromLayout={removeFromLayout}
@@ -186,8 +176,8 @@ class DashboardGrid extends Component
       x: dashboardItem.x,
       y: dashboardItem.y,
       minW: 2,
-      maxW: 9,
-      minH: 2,
+      maxW: 12,
+      minH: 3,
       // `static` is a reserved word so can't assign it to variable above.
       static: dashboardItem.static,
     }));
@@ -204,7 +194,7 @@ class DashboardGrid extends Component
       return (
         <ResponsiveReactGridLayout
           className={css(styles.container, nightMode && styles.nightContainer)}
-          cols={{ lg: 9, md: 9, sm: 9, xs: 9, xxs: 1 }}
+          cols={{ lg: 12, md: 12, sm: 12, xs: 12, xxs: 1 }}
           compactType={'vertical'}
           layouts={layouts}
           onDragStart={logDashboardActionStart}

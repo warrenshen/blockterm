@@ -136,7 +136,7 @@ class DonutChartWithSelect extends PureComponent {
             data={data}
             height={height ? height : 300}
             options={chartOptions}
-            redraw={true}
+            redraw={false}
           />
         </div>
       </div>

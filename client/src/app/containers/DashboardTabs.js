@@ -29,6 +29,7 @@ const mapStateToProps = (state) => {
     dashboardPages: state.dashboard.dashboardPages,
     isPageLoaded: state.globals.isPageLoaded,
     nightMode: state.globals.nightMode,
+    portfolioSortBy: state.dashboard.portfolioSortBy,
     selectedTab: state.dashboard.selectedTab,
     sidebarMode: state.dashboard.sidebarMode,
     user: state.globals.user,
@@ -40,6 +41,7 @@ const mapDispatchToProps = (dispatch) => {
     {
       changeDashboardItemState: dashboardActions.changeDashboardItemState,
       changeModalState: dashboardActions.changeModalState,
+      changePortfolioDashboardSortBy: dashboardActions.changePortfolioDashboardSortBy,
       changeSelectedTab: dashboardActions.changeSelectedTab,
       changeSidebarMode: dashboardActions.changeSidebarMode,
       destroyDashboardItemLocal: dashboardActions.destroyDashboardItemLocal,

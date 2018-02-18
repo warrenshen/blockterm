@@ -1,11 +1,10 @@
 // @flow weak
 
 import React, {
-  Component,
+  PureComponent,
 }                                 from 'react';
 import PropTypes                  from 'prop-types';
 import { StyleSheet, css }        from 'aphrodite';
-import { isEqual }                from 'underscore';
 import FontAwesome                from 'react-fontawesome';
 import * as STYLES                from '../constants/styles';
 import {
@@ -114,20 +113,8 @@ const styles = StyleSheet.create({
   },
 });
 
-class DashboardItem extends Component
+class DashboardItem extends PureComponent
 {
-  shouldComponentUpdate(nextProps, nextState)
-  {
-    return !isEqual(this.props.alerts, nextProps.alerts) ||
-           !isEqual(this.props.currency, nextProps.currency) ||
-           !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
-           !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
-           !isEqual(this.props.dashboardItem, nextProps.dashboardItem) ||
-           !isEqual(this.props.dashboardState, nextProps.dashboardState) ||
-           !isEqual(this.props.nightMode, nextProps.nightMode) ||
-           !isEqual(this.props.user, nextProps.user);
-  }
-
   renderItem(dashboardItem)
   {
     const {
@@ -137,10 +124,12 @@ class DashboardItem extends Component
       dashboardData,
       dashboardState,
       nightMode,
+      portfolioSortBy,
       user,
 
       changeDashboardItemState,
       changeModalState,
+      changePortfolioDashboardSortBy,
     } = this.props;
 
     const identifier = dashboardItem.identifier;
@@ -201,8 +190,10 @@ class DashboardItem extends Component
             currency={currency}
             dashboardData={dashboardData}
             nightMode={nightMode}
+            portfolioSortBy={portfolioSortBy}
             user={user}
             value={identifierValue}
+            changePortfolioDashboardSortBy={changePortfolioDashboardSortBy}
           />
         );
       case PORTFOLIO_HISTORY_ITEM:

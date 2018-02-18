@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   headerButton: {
     border: 'none',
     backgroundColor: 'inherit',
+    outline: '0px',
   },
   headerButtonSelected: {
     backgroundColor: `${STYLES.GOLD}`,
@@ -254,7 +255,7 @@ class PortfolioTokens extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
-            Amount held
+            Amount
           </El>
           <El
             icon={'sort'}
