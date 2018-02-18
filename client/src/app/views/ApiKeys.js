@@ -34,13 +34,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '100%',
     padding: '24px',
-    marginTop: '48px',
+    marginTop: '24px',
+  },
+  sectionCard: {
     backgroundColor: STYLES.LIGHTBACKGROUNDGRAY,
-    // borderTop: '1px solid rgba(0,0,0,0.15)',
     backgroundColor: '#fff',
   },
   sectionNightMode: {
     backgroundColor: 'black',
+  },
+  sectionText: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0px',
   },
   form: {
     display: 'flex',
@@ -224,7 +230,13 @@ class ApiKeys extends PureComponent
 
     return (
       <div className={css(styles.container)}>
-        <div className={css(styles.section, nightMode && styles.sectionNightMode)}>
+        <div
+          className={css(
+            styles.section,
+            styles.sectionCard,
+            nightMode && styles.sectionNightMode,
+          )}
+        >
           <El
             nightMode={nightMode}
             type={'h3'}
@@ -233,7 +245,26 @@ class ApiKeys extends PureComponent
           </El>
           {this.renderForm()}
         </div>
-        <div className={css(styles.section, nightMode && styles.sectionNightMode)}>
+        <div
+          className={css(
+            styles.section,
+            styles.sectionText,
+          )}
+        >
+          <El
+            nightMode={nightMode}
+            type={'span'}
+          >
+            For extra security, please be sure to set your API keys to READ ONLY.
+          </El>
+        </div>
+        <div
+          className={css(
+            styles.section,
+            styles.sectionCard,
+            nightMode && styles.sectionNightMode,
+          )}
+        >
           <El
             nightMode={nightMode}
             type={'h3'}
