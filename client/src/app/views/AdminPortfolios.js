@@ -103,8 +103,9 @@ class AdminPortolios extends PureComponent
 
     return (
       <PortfolioItem
-        dashboardData={{tokenUsers: tokenUsers}}
+        dashboardData={{ tokenUsers: tokenUsers }}
         nightMode={nightMode}
+        value={'FIAT'}
       />
     );
   }
