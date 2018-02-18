@@ -523,6 +523,7 @@ module Types
       }
     end
 
+    # Update token users from data from exchange balances API.
     field :updateTokenUsersByExchange, Types::UserType do
       description 'Update token users of current user'
 
