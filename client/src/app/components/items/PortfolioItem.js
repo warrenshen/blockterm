@@ -1,11 +1,10 @@
 // @flow weak
 
 import React, {
-  Component,
+  PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import { isEqual }         from 'underscore';
 import numeral             from 'numeral';
 import { Link }            from 'react-router-dom';
 import {
@@ -17,6 +16,13 @@ import * as CURRENCY       from '../../helpers/currency';
 import DonutChartWithSelect from '../../components/DonutChartWithSelect'
 import El                  from '../../components/El';
 import * as STYLES from '../../constants/styles';
+import {
+  PORTFOLIO_SORT_BY_BALANCE,
+  PORTFOLIO_SORT_BY_EXCHANGE,
+  PORTFOLIO_SORT_BY_HOLDING,
+  PORTFOLIO_SORT_BY_PRICE,
+  PORTFOLIO_SORT_BY_TOKEN,
+}                           from '../../constants/portfolio';
 import {
   getImageUrl,
 } from '../../constants/items.js';
@@ -45,28 +51,41 @@ const styles = StyleSheet.create({
     backgroundColor: STYLES.LIGHTNIGHT,
   },
   table: {
-    display: 'table',
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'absolute',
+    top: '0px',
+    left: '0px',
     width: '100%',
-    borderCollapse: 'collapse',
   },
   row: {
-    width: '100%',
     display: 'flex',
+    width: '100%',
+    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
+  },
+  headerElement: {
+    padding: '8px 0px',
+  },
+  headerButton: {
+    border: 'none',
+    backgroundColor: 'inherit',
+    outline: '0px',
+  },
+  headerButtonSelected: {
+    backgroundColor: `${STYLES.GOLD}`,
+  },
+  headerButtonSelectedNightMode: {
+    backgroundColor: '#222',
   },
   element: {
     flex: '1',
     display: 'flex',
-    padding: '6px 4px',
-    borderBottom: `1px solid ${STYLES.BORDERLIGHT}`,
-    lineHeight: '24px',
     justifyContent: 'center',
+    alignItems: 'center',
+    padding: '6px 4px',
   },
   darkElement: {
     borderBottom: `1px solid ${STYLES.BORDERDARK}`,
-  },
-  condensed: {
-    lineHeight: '15px',
-    paddingBottom: '8px',
   },
   bolded: {
     fontWeight: '500',
@@ -90,10 +109,12 @@ const styles = StyleSheet.create({
   },
   overflowScroll: {
     overflowY: 'auto',
-    border: `1px solid ${STYLES.BORDERLIGHT}`,
+    borderLeft: `1px solid ${STYLES.BORDERLIGHT}`,
+    borderRight: `1px solid ${STYLES.BORDERLIGHT}`,
   },
   nightOverflowScroll: {
-    border: `1px solid ${STYLES.BORDERDARK}`,
+    borderLeft: `1px solid ${STYLES.BORDERDARK}`,
+    borderRight: `1px solid ${STYLES.BORDERDARK}`,
   },
   flatButton: {
     marginRight: '-12px',
@@ -122,26 +143,35 @@ const styles = StyleSheet.create({
   },
 });
 
-class PortfolioItem extends Component
+class PortfolioItem extends PureComponent
 {
-  shouldComponentUpdate(nextProps, nextState)
-  {
-    return !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
-           !isEqual(this.props.currency, nextProps.currency) ||
-           !isEqual(this.props.nightMode, nextProps.nightMode) ||
-           !isEqual(this.props.user, nextProps.user) ||
-           !isEqual(this.props.value, nextProps.value);
-  }
-
   renderHeader()
   {
     const {
       nightMode,
+      portfolioSortBy,
+      changePortfolioDashboardSortBy,
     } = this.props;
 
+    const sortBy = portfolioSortBy;
+    const onClickBalance = (event) => changePortfolioDashboardSortBy(PORTFOLIO_SORT_BY_BALANCE);
+    const onClickExchange = (event) => changePortfolioDashboardSortBy(PORTFOLIO_SORT_BY_EXCHANGE);
+    const onClickHolding = (event) => changePortfolioDashboardSortBy(PORTFOLIO_SORT_BY_HOLDING);
+    const onClickPrice = (event) => changePortfolioDashboardSortBy(PORTFOLIO_SORT_BY_PRICE);
+    const onClickToken = (event) => changePortfolioDashboardSortBy(PORTFOLIO_SORT_BY_TOKEN);
+
     return (
-      <tr className={css(styles.row)}>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
+      <div className={css(styles.row)}>
+        <button
+          className={css(
+            styles.element,
+            styles.headerElement,
+            styles.headerButton,
+            sortBy === PORTFOLIO_SORT_BY_TOKEN && styles.headerButtonSelected,
+            sortBy === PORTFOLIO_SORT_BY_TOKEN && nightMode && styles.headerButtonSelectedNightMode,
+          )}
+          onClick={onClickToken}
+        >
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -149,17 +179,45 @@ class PortfolioItem extends Component
           >
             Token
           </El>
-        </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
+          <El
+            icon={'sort'}
+            nightMode={nightMode}
+            type={'span'}
+          />
+        </button>
+        <button
+          className={css(
+            styles.element,
+            styles.headerElement,
+            styles.headerButton,
+            sortBy === PORTFOLIO_SORT_BY_HOLDING && styles.headerButtonSelected,
+            sortBy === PORTFOLIO_SORT_BY_HOLDING && nightMode && styles.headerButtonSelectedNightMode,
+          )}
+          onClick={onClickHolding}
+        >
           <El
             style={styles.semibolded}
             nightMode={nightMode}
             type={'span'}
           >
-            Amount held
+            Amount
           </El>
-        </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
+          <El
+            icon={'sort'}
+            nightMode={nightMode}
+            type={'span'}
+          />
+        </button>
+        <button
+          className={css(
+            styles.element,
+            styles.headerElement,
+            styles.headerButton,
+            sortBy === PORTFOLIO_SORT_BY_PRICE && styles.headerButtonSelected,
+            sortBy === PORTFOLIO_SORT_BY_PRICE && nightMode && styles.headerButtonSelectedNightMode,
+          )}
+          onClick={onClickPrice}
+        >
           <El
             style={styles.semibolded}
             nightMode={nightMode}
@@ -167,17 +225,36 @@ class PortfolioItem extends Component
           >
             Price
           </El>
-        </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
+          <El
+            icon={'sort'}
+            nightMode={nightMode}
+            type={'span'}
+          />
+        </button>
+        <div
+          className={css(
+            styles.element,
+            styles.headerElement,
+          )}
+        >
           <El
             style={styles.semibolded}
             nightMode={nightMode}
             type={'span'}
           >
-            Change (24h)
+            % (24h)
           </El>
-        </td>
-        <td className={css(styles.element, nightMode && styles.darkElement, styles.condensed)}>
+        </div>
+        <button
+          className={css(
+            styles.element,
+            styles.headerElement,
+            styles.headerButton,
+            sortBy === PORTFOLIO_SORT_BY_BALANCE && styles.headerButtonSelected,
+            sortBy === PORTFOLIO_SORT_BY_BALANCE && nightMode && styles.headerButtonSelectedNightMode,
+          )}
+          onClick={onClickBalance}
+        >
           <El
             style={styles.bolded}
             nightMode={nightMode}
@@ -185,8 +262,13 @@ class PortfolioItem extends Component
           >
             Balance
           </El>
-        </td>
-      </tr>
+          <El
+            icon={'sort'}
+            nightMode={nightMode}
+            type={'span'}
+          />
+        </button>
+      </div>
     );
   }
 
@@ -236,27 +318,32 @@ class PortfolioItem extends Component
     const price = tokenExchange[attributePrice];
     const percentChange24h = token[attributePercentChange];
 
+    let formattedAmount;
     let formattedPrice;
     let formattedValue;
+
     if (value === 'BTC')
     {
-      formattedPrice = numeral(price).format('0.000000');
-      formattedValue = numeral(price * amount).format('0.000000');
+      formattedAmount = numeral(amount).format('0.0000');
+      formattedPrice = numeral(price).format('0.0000');
+      formattedValue = numeral(price * amount).format('0.0000');
     }
     else if (value === 'ETH')
     {
-      formattedPrice = numeral(price).format('0.000000');
-      formattedValue = numeral(price * amount).format('0.000000');
+      formattedAmount = numeral(amount).format('0.0000');
+      formattedPrice = numeral(price).format('0.0000');
+      formattedValue = numeral(price * amount).format('0.0000');
     }
     else
     {
+      formattedAmount = numeral(amount).format('0.0000');
       formattedPrice = CURRENCY.convertCurrencyToString(price, currency, '$0,0.00');
       formattedValue = CURRENCY.convertCurrencyToString(price * amount, currency, '$0,0.00');
     }
 
     return (
-      <tr className={css(styles.row)} key={id}>
-        <td className={css(styles.element, nightMode && styles.darkElement)}>
+      <div className={css(styles.row)} key={id}>
+        <div className={css(styles.element, nightMode && styles.darkElement)}>
           <img
             className={css(styles.tokenImage)}
             src={getImageUrl(imageUrl)}
@@ -271,18 +358,18 @@ class PortfolioItem extends Component
           >
             {shortName}
           </El>
-        </td>
-        <td className={css(styles.element, nightMode && styles.darkElement)}>
+        </div>
+        <div className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             type={'span'}
             style={styles.semibolded}
             nightModeStyle={styles.white}
           >
-            {amount}
+            {formattedAmount}
           </El>
-        </td>
-        <td className={css(styles.element, nightMode && styles.darkElement)}>
+        </div>
+        <div className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             nightModeStyle={styles.white}
@@ -290,8 +377,8 @@ class PortfolioItem extends Component
           >
             {formattedPrice}
           </El>
-        </td>
-        <td className={css(styles.element, nightMode && styles.darkElement)}>
+        </div>
+        <div className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             nightModeStyle={(percentChange24h < 0) ? styles.redDelta : styles.greenDelta}
@@ -300,8 +387,8 @@ class PortfolioItem extends Component
           >
             {percentChange24h ? `${numeral(percentChange24h).format('0,0.00')}%` : '0.0'}
           </El>
-        </td>
-        <td className={css(styles.element, nightMode && styles.darkElement)}>
+        </div>
+        <div className={css(styles.element, nightMode && styles.darkElement)}>
           <El
             nightMode={nightMode}
             nightModeStyle={styles.white}
@@ -309,8 +396,8 @@ class PortfolioItem extends Component
           >
             {formattedValue}
           </El>
-        </td>
-      </tr>
+        </div>
+      </div>
     );
   }
 
@@ -320,6 +407,7 @@ class PortfolioItem extends Component
       currency,
       dashboardData,
       nightMode,
+      portfolioSortBy,
       user,
       value,
     } = this.props;
@@ -359,14 +447,74 @@ class PortfolioItem extends Component
     // Tokens that make up at least 0.5% of portfolio OR
     // tokens that are new OR
     // tokens that have an amount of 0.
-    const validTokenUsers = tokenUsers
-      .filter(
-        (tokenUser) => {
-          const value = tokenUser.amount * tokenUser.tokenExchange[attributePrice];
-          const percent = value / totalValue;
-          return percent > 0.005 || tokenUser.id.indexOf('t') === 0 || tokenUser.amount === 0;
+    // const validTokenUsers = tokenUsers
+    //   .filter(
+    //     (tokenUser) => {
+    //       const value = tokenUser.amount * tokenUser.tokenExchange[attributePrice];
+    //       const percent = value / totalValue;
+    //       return percent > 0.005 || tokenUser.id.indexOf('t') === 0 || tokenUser.amount === 0;
+    //     }
+    //   );
+
+    let validTokenUsers = tokenUsers;
+    // .filter(
+    //   (tokenUser) => {
+    //     const value = tokenUser.amount * tokenUser.tokenExchange['priceUSD'];
+    //     const percent = value / portfolioTotalValue;
+    //     return percent > 0.005 || tokenUser.id.indexOf('t') === 0 || tokenUser.amount === 0;
+    //   }
+    // );
+    const sortBy = portfolioSortBy;
+    if (sortBy === PORTFOLIO_SORT_BY_BALANCE)
+    {
+      validTokenUsers = validTokenUsers.slice(0).sort(
+        (tokenUserA, tokenUserB) => {
+          const balanceA = tokenUserA.amount * tokenUserA.tokenExchange[attributePrice];
+          const balanceB = tokenUserB.amount * tokenUserB.tokenExchange[attributePrice];
+          return balanceA < balanceB;
         }
       );
+    }
+    else if (sortBy === PORTFOLIO_SORT_BY_EXCHANGE)
+    {
+      validTokenUsers = validTokenUsers.slice(0).sort(
+        (tokenUserA, tokenUserB) => {
+          const exchangeA = tokenUserA.tokenExchange.exchange;
+          const exchangeB = tokenUserB.tokenExchange.exchange;
+          return exchangeA > exchangeB;
+        }
+      );
+    }
+    else if (sortBy === PORTFOLIO_SORT_BY_HOLDING)
+    {
+      validTokenUsers = validTokenUsers.slice(0).sort(
+        (tokenUserA, tokenUserB) => {
+          const holdingA = tokenUserA.amount;
+          const holdingB = tokenUserB.amount;
+          return holdingA < holdingB;
+        }
+      );
+    }
+    else if (sortBy === PORTFOLIO_SORT_BY_PRICE)
+    {
+      validTokenUsers = validTokenUsers.slice(0).sort(
+        (tokenUserA, tokenUserB) => {
+          const priceA = tokenUserA.tokenExchange[attributePrice];
+          const priceB = tokenUserB.tokenExchange[attributePrice];
+          return priceA < priceB;
+        }
+      );
+    }
+    else if (sortBy === PORTFOLIO_SORT_BY_TOKEN)
+    {
+      validTokenUsers = validTokenUsers.slice(0).sort(
+        (tokenUserA, tokenUserB) => {
+          const tokenA = tokenUserA.tokenExchange.token.shortName;
+          const tokenB = tokenUserB.tokenExchange.token.shortName;
+          return tokenA > tokenB;
+        }
+      );
+    }
 
     let formattedTotalValue;
     if (value === 'BTC')
@@ -437,12 +585,14 @@ class PortfolioItem extends Component
           </Link>
         </div>
         <div className={css(styles.section, styles.flexItem, styles.overflowScroll, nightMode && styles.nightOverflowScroll)}>
-          <table className={css(styles.table)}>
-            <tbody>
-              {this.renderHeader()}
-              {validTokenUsers.map((tokenUser) => this.renderTokenUser(tokenUser))}
-            </tbody>
-          </table>
+          <div className={css(styles.table)}>
+            {this.renderHeader()}
+            {
+              validTokenUsers.map(
+                (tokenUser) => this.renderTokenUser(tokenUser)
+              )
+            }
+          </div>
         </div>
       </div>
     );

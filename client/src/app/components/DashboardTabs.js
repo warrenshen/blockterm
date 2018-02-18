@@ -1,11 +1,10 @@
 // @flow weak
 
 import React, {
-  Component,
+  PureComponent,
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import { isEqual }         from 'underscore';
 import FontAwesome         from 'react-fontawesome';
 import { Link }            from 'react-router-dom';
 import {
@@ -118,22 +117,8 @@ const styles = StyleSheet.create({
   },
 });
 
-class DashboardTabs extends Component {
-
-  shouldComponentUpdate(nextProps, nextState)
-  {
-    return !isEqual(this.props.alerts, nextProps.alerts) ||
-           !isEqual(this.props.currency, nextProps.currency) ||
-           !isEqual(this.props.dashboardAction, nextProps.dashboardAction) ||
-           !isEqual(this.props.dashboardData, nextProps.dashboardData) ||
-           !isEqual(this.props.dashboardPages, nextProps.dashboardPages) ||
-           !isEqual(this.props.dashboardItemStates, nextProps.dashboardItemStates) ||
-           !isEqual(this.props.isPageLoaded, nextProps.isPageLoaded) ||
-           !isEqual(this.props.nightMode, nextProps.nightMode) ||
-           !isEqual(this.props.selectedTab, nextProps.selectedTab) ||
-           !isEqual(this.props.user, nextProps.user);
-  }
-
+class DashboardTabs extends PureComponent
+{
   removeFromLayout(id)
   {
     const {
@@ -318,10 +303,12 @@ class DashboardTabs extends Component {
       dashboardPages,
       isPageLoaded,
       nightMode,
+      portfolioSortBy,
       user,
 
       changeDashboardItemState,
       changeModalState,
+      changePortfolioDashboardSortBy,
       changeSidebarMode,
       logDashboardActionStart,
       logDashboardActionStop,
@@ -340,10 +327,12 @@ class DashboardTabs extends Component {
             dashboardItemStates={dashboardItemStates}
             isPageLoaded={isPageLoaded}
             nightMode={nightMode}
+            portfolioSortBy={portfolioSortBy}
             user={user}
 
             changeDashboardItemState={changeDashboardItemState}
             changeModalState={changeModalState}
+            changePortfolioDashboardSortBy={changePortfolioDashboardSortBy}
             changeSidebarMode={changeSidebarMode}
             logDashboardActionStart={logDashboardActionStart}
             logDashboardActionStop={logDashboardActionStop}

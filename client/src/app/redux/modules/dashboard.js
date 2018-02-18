@@ -22,6 +22,7 @@ import {
 import {
   AUTH_TOKEN_COOKIE,
   DASHBOARD_COOKIE,
+  PORTFOLIO_DASHBOARD_SORT_BY_COOKIE,
   SELECTED_TAB_COOKIE,
   clearItem,
   getItem,
@@ -61,6 +62,7 @@ const APOLLO_MUTATION_RESULT = 'APOLLO_MUTATION_RESULT';
 const CHANGE_DASHBOARD_ITEM_STATE = 'CHANGE_DASHBOARD_PAGE_STATE';
 const CHANGE_KEY_SELECT_VALUE = 'CHANGE_KEY_SELECT_VALUE';
 const CHANGE_MODAL_STATE = 'CHANGE_MODAL_STATE';
+const CHANGE_PORTFOLIO_DASHBOARD_SORT_BY = 'CHANGE_PORTFOLIO_DASHBOARD_SORT_BY';
 const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
 const CHANGE_SIDEBAR_MODE = 'CHANGE_SIDEBAR_MODE';
 const CHANGE_VALUE_SELECT_VALUE = 'CHANGE_VALUE_SELECT_VALUE';
@@ -134,6 +136,7 @@ function getInitialDashboardPages()
 /* -----------------------------------------
   Reducer
  ------------------------------------------*/
+const cookiePortfolioSortBy = getItem(PORTFOLIO_DASHBOARD_SORT_BY_COOKIE);
 const cookieSelectedTab = getItem(SELECTED_TAB_COOKIE) || 0;
 const [initialDashboardPages, initialDashboardItemStates] = getInitialDashboardPages();
 const initialState = {
@@ -143,6 +146,7 @@ const initialState = {
   dashboardPages: initialDashboardPages,
   keySelectValue: '',
   modalIdentifier: null,
+  portfolioSortBy: cookiePortfolioSortBy,
   selectedTab: cookieSelectedTab,
   sidebarDashboardItemId: null,
   sidebarMode: null,
@@ -276,6 +280,15 @@ export default function(state = initialState, action)
       return {
         ...state,
         modalIdentifier: action.modalIdentifier,
+      };
+    case CHANGE_PORTFOLIO_DASHBOARD_SORT_BY:
+      const newPortfolioSortBy = state.portfolioSortBy !== action.sortBy ?
+                                   action.sortBy :
+                                   null;
+      setItem(PORTFOLIO_DASHBOARD_SORT_BY_COOKIE, newPortfolioSortBy);
+      return {
+        ...state,
+        portfolioSortBy: newPortfolioSortBy,
       };
     case CHANGE_SELECTED_TAB:
       setItem(SELECTED_TAB_COOKIE, action.value);
@@ -417,6 +430,14 @@ export function changeModalState(modalIdentifier)
   return {
     type: CHANGE_MODAL_STATE,
     modalIdentifier: modalIdentifier,
+  };
+}
+
+export function changePortfolioDashboardSortBy(sortBy)
+{
+  return {
+    sortBy: sortBy,
+    type: CHANGE_PORTFOLIO_DASHBOARD_SORT_BY,
   };
 }
 
