@@ -48,7 +48,7 @@ class TwitterItem extends PureComponent
       // This is necessary because the Timeline component has an extra div
       // wrapping the twitter iframe, which we want to stretch to match the height
       // of the container div (but don't have an easier way to add flex: 1 to it).
-      this.instance.firstChild.style = 'flex: 1';
+      this.instance.firstChild.style = 'flex: 1;';
     };
     return (
       <div
