@@ -41,6 +41,20 @@ function getBittrexAPI()
   return bittrex;
 }
 
+function getKucoinApi()
+{
+  const kucoin = new ccxt.kucoin();
+  if (process.env.NODE_ENV == 'dev')
+  {
+    kucoin.proxy = 'http://localhost:9876/';
+  }
+  else
+  {
+    kucoin.proxy = 'https://cors.blockterm.com/';
+  }
+  return kucoin;
+}
+
 // Note we make the assumption that the right hand symbol is three letters.
 function formatTickerBittrex(ticker)
 {
