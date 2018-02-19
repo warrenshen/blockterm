@@ -206,24 +206,24 @@ class Container extends PureComponent
     } = this.props;
 
     const identifierKey = parseIdentiferKey(identifier);
-    let w = 4;
+    let w = 5;
     let h = 5;
 
     if (identifierKey === NEWS_ITEM ||
         identifierKey === PORTFOLIO_ITEM ||
         identifierKey === TV_MARKET_OVERVIEW)
     {
-      w = 3;
+      w = 4;
       h = 9;
     }
     else if (identifierKey === TWITTER_ITEM)
     {
-      w = 2;
+      w = 3;
       h = 9;
     }
     else if (identifierKey === GT_CHART_ITEM)
     {
-      w = 3;
+      w = 4;
       h = 6;
     }
 
