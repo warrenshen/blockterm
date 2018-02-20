@@ -151,19 +151,39 @@ class TVChartItem extends PureComponent
   update() {
     const {
       dashboardState,
+      nightMode,
       value,
     } = this.props;
 
     if (value.indexOf('KUCOIN:') === 0)
     {
+      const overrides = nightMode ? {
+        'paneProperties.background': '#131722',
+        'paneProperties.vertGridProperties.color': '#454545',
+        'paneProperties.horzGridProperties.color': '#454545',
+        'symbolWatermarkProperties.transparency': 90,
+        'scalesProperties.textColor' : '#AAA',
+        // 'scalesProperties.backgroundColor' : '#222222',
+      } :
+      {};
       const symbol = value.split(':', 2)[1];
-
       const datafeed = {
         onReady: (callback) => {
           if (this.instance)
           {
             this.instance.firstChild.style = 'width: 100%; height: 100%;';
+
+            if (nightMode)
+            {
+              const iframeDocument = this.instance.firstChild.contentWindow.document;
+              const s = iframeDocument.createElement('script');
+              s.type = 'text/javascript';
+              s.innerHTML = "$('.chart-page').css('background-color', '#131722'); console.log($('.chart-page')); console.log($('.chart-controls-bar')); $('.chart-controls-bar').css('background-color', '#141823');";
+
+              iframeDocument.body.appendChild(s);
+            }
           }
+
           setTimeout(
             () => callback({
               supported_resolutions: ['1', '5', '15', '30', '60', '480', '1D', '1W', '1M'],
@@ -204,6 +224,16 @@ class TVChartItem extends PureComponent
           onErrorCallback,
           firstDataRequest,
         ) => {
+          if (this.instance && nightMode)
+          {
+            const iframeDocument = this.instance.firstChild.contentWindow.document;
+            const s = iframeDocument.createElement('script');
+            s.type = 'text/javascript';
+            s.innerHTML = "console.log($('.chart-controls-bar')); $('.chart-controls-bar').css('background-color', '#141823');";
+
+            iframeDocument.body.appendChild(s);
+          }
+
           const formattedResponse = await fetchFormattedOHLCVTickers(
             symbol,
             fromUnixTimestamp,
@@ -234,8 +264,20 @@ class TVChartItem extends PureComponent
                 case '1':
                   fromUnix = toUnix - 60;
                   break;
+                case '5':
+                  fromUnix = toUnix - 60 * 5;
+                  break;
+                case '15':
+                  fromUnix = toUnix - 60 * 15;
+                  break;
+                case '30':
+                  fromUnix = toUnix - 60 * 30;
+                  break;
                 case '60':
                   fromUnix = toUnix - 60 * 60;
+                  break;
+                case '480':
+                  fromUnix = toUnix - 60 * 480;
                   break;
                 case 'D':
                   fromUnix = toUnix - 24 * 60 * 60;
@@ -280,10 +322,10 @@ class TVChartItem extends PureComponent
         interval: '1D',
         container_id: `${this.uId}`,
         datafeed: datafeed,
-        library_path: "/",
-        locale: "en",
+        library_path: '/',
+        locale: 'en',
         //  Regression Trend-related functionality is not implemented yet, so it's hidden for a while
-        drawings_access: { type: 'black', tools: [ { name: "Regression Trend" } ] },
+        drawings_access: { type: 'black', tools: [ { name: 'Regression Trend' } ] },
         disabled_features: [
           'go_to_date',
           'header_compare',
@@ -293,21 +335,17 @@ class TVChartItem extends PureComponent
           'header_symbol_search',
           'header_undo_redo',
           'left_toolbar',
+          'show_hide_button_in_legend',
           // 'symbol_info',
+          // 'timeframes_toolbar',
           'use_localstorage_for_settings',
         ],
-        // enabled_features: ["study_templates"],
+        // enabled_features: ['study_templates'],
         // charts_storage_url: 'http://saveload.tradingview.com',
-        //           charts_storage_api_version: "1.1",
+        //           charts_storage_api_version: '1.1',
         // client_id: 'tradingview.com',
         // user_id: 'public_user_id'
-        overrides: {
-          "paneProperties.background": "#222222",
-                      "paneProperties.vertGridProperties.color": "#454545",
-                      "paneProperties.horzGridProperties.color": "#454545",
-          "symbolWatermarkProperties.transparency": 90,
-          "scalesProperties.textColor" : "#AAA"
-        },
+        overrides: overrides,
       };
 
       var widget = new window.TradingView.widget(widgetConfig);
@@ -407,14 +445,14 @@ class TVChartItem extends PureComponent
         'symboledit=0&' +
         'saveimage=0&' +
         'toolbarbg=rgba(0,0,0,0)&' +
-        `theme=${nightMode ? "Dark" : "Light"}&` +
+        `theme=${nightMode ? 'Dark' : 'Light'}&` +
         `timezone=${moment.tz.guess()}`
       ;
 
       return (
         <iframe
           className={css(styles.frame, nightMode && styles.nightFrame)}
-          scrolling="no"
+          scrolling='no'
           src={url}
         />
       );
