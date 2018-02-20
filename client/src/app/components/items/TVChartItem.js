@@ -319,7 +319,7 @@ class TVChartItem extends PureComponent
         debug: true,
         fullscreen: true,
         symbol: symbol,
-        interval: '1D',
+        interval: '15',
         container_id: `${this.uId}`,
         datafeed: datafeed,
         library_path: '/',
@@ -336,7 +336,7 @@ class TVChartItem extends PureComponent
           'header_undo_redo',
           'left_toolbar',
           'show_hide_button_in_legend',
-          // 'symbol_info',
+          'symbol_info',
           // 'timeframes_toolbar',
           'use_localstorage_for_settings',
         ],
@@ -438,7 +438,7 @@ class TVChartItem extends PureComponent
       const url =
         'https://s.tradingview.com/widgetembed/?' +
         `symbol=${value}&` +
-        'interval=5&' +
+        'interval=15&' +
         'withdateranges=1&' +
         'hideideas=1&' +
         'hidesidetoolbar=1&' +
