@@ -53,10 +53,8 @@ function createDashboardItemLocalWithNotification(newDashboardItem)
         reject();
       }
     })
-    .then(
-      () => dispatch(createNotificationSuccess({ position: 'bc', title: 'Success!' })),
-      () => dispatch(createNotificationError({ position: 'bc', title: 'Failure.' })),
-    );
+      .then(() => dispatch(createNotificationSuccess({ position: 'bc', title: 'Success!' })))
+      .catch(() => dispatch(createNotificationError({ position: 'bc', title: 'Failure.' })));
   }
 }
 
@@ -73,10 +71,8 @@ function updateDashboardItemLocalWithNotification(dashboardItemId, newIdentifier
         reject();
       }
     })
-    .then(
-      () => dispatch(createNotificationSuccess({ position: 'bc', title: 'Success!' })),
-      () => dispatch(createNotificationError({ position: 'bc', title: 'Failure.' })),
-    );
+      .then(() => dispatch(createNotificationSuccess({ position: 'bc', title: 'Success!' })))
+      .catch(() => dispatch(createNotificationError({ position: 'bc', title: 'Failure.' })));
   }
 }
 

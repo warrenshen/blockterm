@@ -9,6 +9,10 @@ import { bindActionCreators }     from 'redux';
 import { graphql }                from 'react-apollo';
 import { isEqual }                from 'underscore';
 import {
+  HAS_ADDED_WIDGET_COOKIE,
+  setItem,
+}                                 from '../services/cookie';
+import {
   buildDynamicDashboardQuery,
 }                                 from '../queries';
 import {
@@ -239,10 +243,14 @@ class Container extends PureComponent
         h,
         x,
         y,
-      ).then(
-        () => createNotificationSuccess({ position: 'bc', title: 'Success!' }),
-        () => createNotificationError({ position: 'bc', title: 'Failure.' }),
-      );;
+      )
+        .then(
+          () => {
+            createNotificationSuccess({ position: 'bc', title: 'Success!' });
+            setItem(HAS_ADDED_WIDGET_COOKIE, true);
+          }
+        )
+        .catch(() => createNotificationError({ position: 'bc', title: 'Failure.' }));
     }
     else
     {
@@ -255,6 +263,7 @@ class Container extends PureComponent
         y: y,
         static: false,
       });
+      setItem(HAS_ADDED_WIDGET_COOKIE, true);
     }
   }
 
