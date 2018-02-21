@@ -1,5 +1,6 @@
-export const PROJECT_VERSION = '0.3.0';
+export const PROJECT_VERSION = '0.3.1';
 export const PATCH_NOTES = [
+  '0.3.1: Kucoin candle chart support.',
   '0.3.0: Portfolio page and widget sortable by different columns.',
   '0.2.5: Portfolio history chart on portfolio page and as a widget, cryptocurrency news widget, and portfolio holdings by exchange.',
   '0.2.4: Selectable currencies for many different nationalities, e.g. CAD, AUD, KRW (₩), JPY (¥), RUB (₽), MXN, DKK (kr), etc.',
@@ -3427,7 +3428,7 @@ export const ITEM_VALUE_TO_IMAGE = {
 
 // Array of dashboard page objects.
 export const DEFAULT_PAGES_OBJECTS = [
-  {"dashboardItems":[{"id":"3","w":5,"h":5,"x":0,"y":0,"static":true,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},{"id":"10","w":4,"h":5,"x":5,"y":7,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},{"id":"11","w":3,"h":7,"x":9,"y":0,"static":false,"identifier":"TWITTER_ITEM__#cryptocurrency"},{"id":"12","w":5,"h":4,"x":0,"y":10,"static":false,"identifier":"PORTFOLIO_ITEM__Default"},{"id":"14","w":5,"h":5,"x":0,"y":5,"static":true,"identifier":"TV_CANDLE_CHART__BINANCE:ETHBTC"},{"id":"15","w":4,"h":7,"x":5,"y":0,"static":true,"identifier":"NEWS_ITEM__Cryptocurrency"},{"id":"16","w":3,"h":7,"x":9,"y":7,"static":false,"identifier":"GT_CHART_ITEM__Bitcoin"}],"index":0,"name":"Tab 1"},
+  {"dashboardItems":[{"id":"3","w":5,"h":5,"x":0,"y":0,"static":true,"identifier":"TV_CANDLE_CHART__BITSTAMP:BTCUSD"},{"id":"10","w":4,"h":5,"x":8,"y":0,"static":false,"identifier":"TOTAL_MARKET_CAP__Default"},{"id":"12","w":3,"h":4,"x":5,"y":7,"static":false,"identifier":"PORTFOLIO_ITEM__Default"},{"id":"14","w":5,"h":5,"x":0,"y":5,"static":false,"identifier":"TV_CANDLE_CHART__BINANCE:ETHBTC"},{"id":"15","w":3,"h":7,"x":5,"y":0,"static":false,"identifier":"NEWS_ITEM__Cryptocurrency"}],"index":0,"name":"Tab 1"},
   {"dashboardItems":[],"index":1,"name":"Tab 2"},
   {"dashboardItems":[],"index":2,"name":"Tab 3"},
 ];

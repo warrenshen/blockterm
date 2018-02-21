@@ -210,7 +210,7 @@ class Container extends PureComponent
     } = this.props;
 
     const identifierKey = parseIdentiferKey(identifier);
-    let w = 6;
+    let w = 4;
     let h = 5;
 
     if (identifierKey === NEWS_ITEM ||

@@ -211,6 +211,7 @@ class DashboardGrid extends PureComponent
       // `static` is a reserved word so can't assign it to variable above.
       static: dashboardItem.static,
     }));
+
     const [freeX, freeY, _] = computeDashboardFreeValues(validItems, 4, 5);
     configs.push({
       i: 'placeholder-id',
@@ -220,6 +221,7 @@ class DashboardGrid extends PureComponent
       y: freeY,
       static: !dashboardAction,
     });
+
     const layouts = {
       lg: configs,
       md: configs,
