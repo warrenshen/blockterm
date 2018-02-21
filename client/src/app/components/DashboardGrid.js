@@ -10,6 +10,10 @@ import {
   WidthProvider,
 }                          from 'react-grid-layout';
 import FontAwesome         from 'react-fontawesome';
+import {
+  HAS_ADDED_WIDGET_COOKIE,
+  getItem,
+}                          from '../services/cookie';
 import DashboardItem       from '../components/DashboardItem';
 import {
   computeDashboardFreeValues,
@@ -91,12 +95,20 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     border: 'dashed 1px #000',
   },
   placeholderHidden: {
     display: 'none',
+  },
+  placeholderButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    background: 'none',
+    border: 'none',
+    outline: 'none',
   },
 });
 
@@ -171,10 +183,12 @@ class DashboardGrid extends PureComponent
     const {
       dashboardAction,
       dashboardItems,
-      logDashboardActionStart,
-      logDashboardActionStop,
       nightMode,
       saveLayout,
+
+      changeSidebarMode,
+      logDashboardActionStart,
+      logDashboardActionStop,
     } = this.props;
 
     const validItems = dashboardItems.filter(
@@ -200,6 +214,7 @@ class DashboardGrid extends PureComponent
       h: 5,
       x: freeX,
       y: freeY,
+      static: !dashboardAction,
     });
     const layouts = {
       lg: configs,
@@ -208,6 +223,8 @@ class DashboardGrid extends PureComponent
       xs: configs,
       xxs: configs,
     };
+
+    const onClickPlaceholder = (event) => changeSidebarMode('add');
 
     if (validItems.length > 0)
     {
@@ -232,15 +249,25 @@ class DashboardGrid extends PureComponent
             )
           }
           <div
-            className={css(styles.placeholder, dashboardAction && styles.placeholderHidden)}
+            className={
+              css(
+                styles.placeholder,
+                (getItem(HAS_ADDED_WIDGET_COOKIE) || dashboardAction) && styles.placeholderHidden
+              )
+            }
             key={'placeholder-id'}
           >
-            <El
-              nightMode={nightMode}
-              type={'span'}
+            <button
+              className={css(styles.placeholderButton)}
+              onClick={onClickPlaceholder}
             >
-              Add widget [+]
-            </El>
+              <El
+                nightMode={nightMode}
+                type={'span'}
+              >
+                Add widget [+]
+              </El>
+            </button>
           </div>
         </ResponsiveReactGridLayout>
       );
@@ -254,7 +281,7 @@ class DashboardGrid extends PureComponent
             nightMode={nightMode}
             type={'span'}
           >
-            No widgets here. Use the action bar below to add some!
+            No widgets here. Use the button at the bottom right to add some!
           </El>
         </div>
       );
