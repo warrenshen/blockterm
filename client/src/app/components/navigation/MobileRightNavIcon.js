@@ -63,10 +63,8 @@ class MobileRightNavIcon extends React.Component {
   };
 
   handleClose = (link) => {
-    console.log(link);
     this.props.history.push(link)
     this.setState({ anchorEl: null });
-
   };
 
   render() {

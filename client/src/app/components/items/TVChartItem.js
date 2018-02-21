@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 function getKucoin()
 {
   const kucoin = new ccxt.kucoin();
-  if (process.env.NODE_ENV == 'dev')
+  if (process.env.NODE_ENV === 'dev')
   {
     kucoin.proxy = 'http://localhost:9876/';
   }
@@ -143,7 +143,6 @@ class TVChartItem extends PureComponent
 
   componentDidUpdate(prevProps)
   {
-    console.log(prevProps);
     if (
       !isEqual(prevProps.nightMode, this.props.nightMode) ||
       !isEqual(prevProps.value, this.props.value)
@@ -183,7 +182,7 @@ class TVChartItem extends PureComponent
               const iframeDocument = this.instance.firstChild.contentWindow.document;
               const s = iframeDocument.createElement('script');
               s.type = 'text/javascript';
-              s.innerHTML = "$('.chart-page').css('background-color', '#131722'); console.log($('.chart-page')); console.log($('.chart-controls-bar')); $('.chart-controls-bar').css('background-color', '#141823');";
+              s.innerHTML = "$('.chart-page').css('background-color', '#131722');";
 
               iframeDocument.body.appendChild(s);
             }
@@ -234,7 +233,7 @@ class TVChartItem extends PureComponent
             const iframeDocument = this.instance.firstChild.contentWindow.document;
             const s = iframeDocument.createElement('script');
             s.type = 'text/javascript';
-            s.innerHTML = "console.log($('.chart-controls-bar')); $('.chart-controls-bar').css('background-color', '#141823');";
+            s.innerHTML = "$('.chart-controls-bar').css('background-color', '#141823');";
 
             iframeDocument.body.appendChild(s);
           }
@@ -320,14 +319,15 @@ class TVChartItem extends PureComponent
         },
       };
 
+      const libraryPath = process.env.NODE_ENV === 'dev' ? '/' : '/tv/';
       const widgetConfig = {
-        debug: true,
+        debug: process.env.NODE_ENV === 'dev',
         fullscreen: true,
         symbol: symbol,
         interval: '15',
         container_id: `${this.uId}`,
         datafeed: datafeed,
-        library_path: '/',
+        library_path: libraryPath,
         locale: 'en',
         //  Regression Trend-related functionality is not implemented yet, so it's hidden for a while
         drawings_access: { type: 'black', tools: [ { name: 'Regression Trend' } ] },
