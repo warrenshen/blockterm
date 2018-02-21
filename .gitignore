@@ -40,6 +40,8 @@ client/*.log
 client/coverage
 client/.nyc_output
 
+client/docs/assets
+
 # Python
 
 .pyc
