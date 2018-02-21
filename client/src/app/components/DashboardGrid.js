@@ -5,12 +5,18 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import { Responsive, WidthProvider } from 'react-grid-layout';
-import FontAwesome                from 'react-fontawesome';
-import DashboardItem from '../components/DashboardItem';
-import { isIdentifierValid } from '../constants/items.js';
-import * as STYLES from '../constants/styles';
-import El from '../components/El';
+import {
+  Responsive,
+  WidthProvider,
+}                          from 'react-grid-layout';
+import FontAwesome         from 'react-fontawesome';
+import DashboardItem       from '../components/DashboardItem';
+import {
+  computeDashboardFreeValues,
+  isIdentifierValid,
+}                          from '../constants/items.js';
+import * as STYLES         from '../constants/styles';
+import El                  from '../components/El';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -44,10 +50,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width:'100%',
-  },
-  placeholder: {
-    width: '100%',
-    height: '256px',
   },
   closeButton: {
     color: '#000',
@@ -86,6 +88,15 @@ const styles = StyleSheet.create({
   noWidgets: {
     letterSpacing: '1px',
     fontWeight: '500',
+  },
+  placeholder: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    border: 'dashed 1px #000',
+  },
+  placeholderHidden: {
+    display: 'none',
   },
 });
 
@@ -158,6 +169,7 @@ class DashboardGrid extends PureComponent
   render()
   {
     const {
+      dashboardAction,
       dashboardItems,
       logDashboardActionStart,
       logDashboardActionStop,
@@ -181,6 +193,14 @@ class DashboardGrid extends PureComponent
       // `static` is a reserved word so can't assign it to variable above.
       static: dashboardItem.static,
     }));
+    const [freeX, freeY, _] = computeDashboardFreeValues(validItems, 4, 5);
+    configs.push({
+      i: 'placeholder-id',
+      w: 4,
+      h: 5,
+      x: freeX,
+      y: freeY,
+    });
     const layouts = {
       lg: configs,
       md: configs,
@@ -211,6 +231,17 @@ class DashboardGrid extends PureComponent
               (dashboardItem) => this.renderItem(dashboardItem)
             )
           }
+          <div
+            className={css(styles.placeholder, dashboardAction && styles.placeholderHidden)}
+            key={'placeholder-id'}
+          >
+            <El
+              nightMode={nightMode}
+              type={'span'}
+            >
+              Add widget [+]
+            </El>
+          </div>
         </ResponsiveReactGridLayout>
       );
     }

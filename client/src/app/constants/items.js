@@ -3495,18 +3495,18 @@ function checkConflict(x, y, w, h, dashboardItems)
 // Returns an array of [next X coordinate to use, next Y coordinate to use, next id to use].
 export function computeDashboardFreeValues(dashboardItems, w, h)
 {
-  var maxId = 0;
-  var maxY = 0;
+  let maxId = 0;
+  let maxY = 0;
   dashboardItems.forEach((dashboardItem) => {
     maxId = Math.max(maxId, parseInt(dashboardItem.id));
     maxY = Math.max(maxY, dashboardItem.y + dashboardItem.h);
   });
 
-  var nextX = 0;
-  var nextY = 0;
+  let nextX = 0;
+  let nextY = 0;
   while (nextY <= maxY + 1)
   {
-    while (nextX <= 9 - w)
+    while (nextX <= 12 - w)
     {
       if (!checkConflict(nextX, nextY, w, h, dashboardItems))
       {

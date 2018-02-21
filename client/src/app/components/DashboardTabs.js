@@ -155,21 +155,27 @@ class DashboardTabs extends PureComponent
     } = this.props;
 
     const dashboardItems = dashboardPages[selectedTab].dashboardItems;
+    const validItems = dashboardItems.filter(
+      (dashboardItem) => dashboardItem.id !== 'placeholder-id'
+    );
 
-    var layoutChanged = false;
+    let layoutChanged = false;
     const newDashboardItemsMap = {};
-    layout.forEach((dashboardItem) => {
-      newDashboardItemsMap[dashboardItem.i] = {
-        id: dashboardItem.i,
-        w: dashboardItem.w,
-        h: dashboardItem.h,
-        x: dashboardItem.x,
-        y: dashboardItem.y,
-        static: dashboardItem.static,
-      };
-    });
 
-    dashboardItems.forEach((dashboardItem) => {
+    layout
+      .filter((item) => item.i !== 'placeholder-id')
+      .forEach((dashboardItem) => {
+        newDashboardItemsMap[dashboardItem.i] = {
+          id: dashboardItem.i,
+          w: dashboardItem.w,
+          h: dashboardItem.h,
+          x: dashboardItem.x,
+          y: dashboardItem.y,
+          static: dashboardItem.static,
+        };
+      });
+
+    validItems.forEach((dashboardItem) => {
       const matchItem = newDashboardItemsMap[dashboardItem.id];
       layoutChanged = layoutChanged || dashboardItem.w != matchItem.w;
       layoutChanged = layoutChanged || dashboardItem.h != matchItem.h;
@@ -189,7 +195,7 @@ class DashboardTabs extends PureComponent
       }
       else
       {
-        dashboardItems.map((item) => {
+        validItems.map((item) => {
           newDashboardItemsMap[item.id].identifier = item.identifier;
         });
         saveDashboardItemsLocal(Object.values(newDashboardItemsMap));
