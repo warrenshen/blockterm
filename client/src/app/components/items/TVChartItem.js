@@ -5,7 +5,10 @@ import React, {
 }                          from 'react';
 import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite';
-import { uniqueId }        from 'underscore';
+import {
+  isEqual,
+  uniqueId,
+}                          from 'underscore';
 import moment              from 'moment-timezone';
 import * as STYLES         from '../../constants/styles';
 import {
@@ -89,6 +92,7 @@ async function fetchOHLCVTickers(symbol, fromUnix, toUnix, resolution)
   catch (error)
   {
     console.log(error);
+    return [];
   }
 }
 
@@ -137,16 +141,17 @@ class TVChartItem extends PureComponent
     this.update();
   }
 
-  // componentDidUpdate(prevProps)
-  // {
-  //   if (
-  //     !isEqual(prevProps.dashboardState, this.props.dashboardState) ||
-  //     !isEqual(prevProps.value, this.props.value)
-  //   )
-  //   {
-  //     this.update();
-  //   }
-  // }
+  componentDidUpdate(prevProps)
+  {
+    console.log(prevProps);
+    if (
+      !isEqual(prevProps.nightMode, this.props.nightMode) ||
+      !isEqual(prevProps.value, this.props.value)
+    )
+    {
+      this.update();
+    }
+  }
 
   update() {
     const {
@@ -337,14 +342,8 @@ class TVChartItem extends PureComponent
           'left_toolbar',
           'show_hide_button_in_legend',
           'symbol_info',
-          // 'timeframes_toolbar',
           'use_localstorage_for_settings',
         ],
-        // enabled_features: ['study_templates'],
-        // charts_storage_url: 'http://saveload.tradingview.com',
-        //           charts_storage_api_version: '1.1',
-        // client_id: 'tradingview.com',
-        // user_id: 'public_user_id'
         overrides: overrides,
       };
 
