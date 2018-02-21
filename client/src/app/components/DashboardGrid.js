@@ -97,6 +97,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     border: 'dashed 1px #000',
   },
+  placeholderNightMode: {
+    display: 'flex',
+    border: 'dashed 1px #fff',
+  },
   placeholderHidden: {
     display: 'none',
   },
@@ -252,6 +256,7 @@ class DashboardGrid extends PureComponent
             className={
               css(
                 styles.placeholder,
+                nightMode && styles.placeholderNightMode,
                 (getItem(HAS_ADDED_WIDGET_COOKIE) || dashboardAction) && styles.placeholderHidden
               )
             }
