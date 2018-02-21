@@ -18,7 +18,7 @@ const config = {
   output: {
     path: assetsDir,
     filename: 'bundle.js',
-    publicPath: '/assets/'
+    publicPath: '/tv/'
   },
   module: {
     rules: [

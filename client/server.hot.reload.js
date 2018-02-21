@@ -23,7 +23,7 @@ app.set('ipAdress', IP_ADRESS);
 
 app.use(historyApiFallback({ verbose: false }));
 
-app.use(express.static(path.join(__dirname, 'docs/assets/')));
+app.use(express.static(path.join(__dirname, 'docs/tv/')));
 
 app.use(devMiddleware(compiler, {
   publicPath: config.output.publicPath,
