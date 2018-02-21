@@ -10,14 +10,15 @@ import {
   uniqueId,
 }                          from 'underscore';
 import moment              from 'moment-timezone';
+import {
+  fetchFormattedOHLCVTickers,
+}                          from '../../helpers/kucoin';
 import * as STYLES         from '../../constants/styles';
 import {
   ITEM_VALUE_TO_IMAGE,
   getImageUrl,
 }                          from '../../constants/items.js';
 import El                  from '../El';
-
-import ccxt             from 'ccxt';
 
 const styles = StyleSheet.create({
   container: {
@@ -55,66 +56,6 @@ const styles = StyleSheet.create({
     border: '1px solid #f3f3f3',
   },
 });
-
-function getKucoin()
-{
-  const kucoin = new ccxt.kucoin();
-  if (process.env.NODE_ENV === 'dev')
-  {
-    kucoin.proxy = 'http://localhost:9876/';
-  }
-  else
-  {
-    kucoin.proxy = 'https://cors.blockterm.com/';
-  }
-  return kucoin;
-}
-
-async function fetchOHLCVTickers(symbol, fromUnix, toUnix, resolution)
-{
-  const kucoin = getKucoin();
-
-  try
-  {
-    const response = await kucoin.fetchOHLCV(
-      symbol,
-      undefined,
-      undefined,
-      undefined,
-      {
-        from: fromUnix,
-        to: toUnix,
-        resolution: resolution,
-      },
-    );
-    return response;
-  }
-  catch (error)
-  {
-    console.log(error);
-    return [];
-  }
-}
-
-async function fetchFormattedOHLCVTickers(symbol, fromUnix, toUnix, resolution)
-{
-  const response = await fetchOHLCVTickers(
-    symbol,
-    fromUnix,
-    toUnix,
-    resolution,
-  );
-  return response.map(
-    ([time, open, high, low, close, volume]) => ({
-      time: time,
-      open,
-      high,
-      low,
-      close,
-      volume,
-    })
-  );
-}
 
 class TVChartItem extends PureComponent
 {
@@ -154,7 +95,6 @@ class TVChartItem extends PureComponent
 
   update() {
     const {
-      dashboardState,
       nightMode,
       value,
     } = this.props;
@@ -167,7 +107,6 @@ class TVChartItem extends PureComponent
         'paneProperties.horzGridProperties.color': '#454545',
         'symbolWatermarkProperties.transparency': 90,
         'scalesProperties.textColor' : '#AAA',
-        // 'scalesProperties.backgroundColor' : '#222222',
       } :
       {};
       const symbol = value.split(':', 2)[1];
