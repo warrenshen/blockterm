@@ -471,7 +471,7 @@ class PortfolioItem extends PureComponent
         (tokenUserA, tokenUserB) => {
           const balanceA = tokenUserA.amount * tokenUserA.tokenExchange[attributePrice];
           const balanceB = tokenUserB.amount * tokenUserB.tokenExchange[attributePrice];
-          return balanceA < balanceB;
+          return balanceA < balanceB ? 1 : -1;
         }
       );
     }
@@ -481,7 +481,7 @@ class PortfolioItem extends PureComponent
         (tokenUserA, tokenUserB) => {
           const exchangeA = tokenUserA.tokenExchange.exchange;
           const exchangeB = tokenUserB.tokenExchange.exchange;
-          return exchangeA > exchangeB;
+          return exchangeA > exchangeB ? 1 : -1;
         }
       );
     }
@@ -491,7 +491,7 @@ class PortfolioItem extends PureComponent
         (tokenUserA, tokenUserB) => {
           const holdingA = tokenUserA.amount;
           const holdingB = tokenUserB.amount;
-          return holdingA < holdingB;
+          return holdingA < holdingB ? 1 : -1;
         }
       );
     }
@@ -501,7 +501,7 @@ class PortfolioItem extends PureComponent
         (tokenUserA, tokenUserB) => {
           const priceA = tokenUserA.tokenExchange[attributePrice];
           const priceB = tokenUserB.tokenExchange[attributePrice];
-          return priceA < priceB;
+          return priceA < priceB ? 1 : -1;
         }
       );
     }
@@ -511,7 +511,7 @@ class PortfolioItem extends PureComponent
         (tokenUserA, tokenUserB) => {
           const tokenA = tokenUserA.tokenExchange.token.shortName;
           const tokenB = tokenUserB.tokenExchange.token.shortName;
-          return tokenA > tokenB;
+          return tokenA > tokenB ? 1 : -1;
         }
       );
     }
