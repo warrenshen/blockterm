@@ -78,12 +78,13 @@ const config = {
     setNodeEnv()
   ]
 };
+
 /*
 * here using hoisting so don't use `var NAME = function()...`
 */
 function getImplicitGlobals() {
   return new webpack.ProvidePlugin({
-    $: 'jquery',
+    $:      'jquery',
     jQuery: 'jquery'
   });
 }

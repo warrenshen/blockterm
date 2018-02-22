@@ -3,6 +3,7 @@
 const webpack           = require('webpack');
 const path              = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin    = require('uglifyjs-webpack-plugin')
 
 const assetsDir       = path.resolve(__dirname, 'docs/assets');
 const nodeModulesDir  = path.resolve(__dirname, 'node_modules');
@@ -49,7 +50,8 @@ const config = {
       {
         test:    /\.jsx?$/,
         exclude: [nodeModulesDir],
-        loader:  'babel-loader'
+        loader:  'babel-loader',
+        query: { compact: true }
       },
       {
         test:    /\.worker\.js$/,
@@ -57,6 +59,7 @@ const config = {
         loaders: [
           {
             loader: 'babel-loader',
+            query: { compact: true }
           },
           {
             loader: 'worker-loader',
@@ -119,9 +122,12 @@ const config = {
     new webpack.optimize.CommonsChunkPlugin({
       name:     'vendor',
       filename: 'app.vendor.bundle.js'
-    })
+    }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
+    new UglifyJsPlugin()
   ]
 };
+
 /*
 * here using hoisting so don't use `var NAME = function()...`
 */
