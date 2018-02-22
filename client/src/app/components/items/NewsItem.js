@@ -7,12 +7,10 @@ import PropTypes           from 'prop-types';
 import { StyleSheet, css } from 'aphrodite/no-important';
 import { isEqual }         from 'underscore';
 import { Timeline }        from 'react-twitter-widgets';
-import El                  from '../El';
+import moment              from 'moment-timezone';
 import * as STYLES         from '../../constants/styles';
-import moment              from 'moment';
-import {
-  NEWS_ITEM,
-} from '../../constants/items.js';
+import El                  from '../El';
+
 
 const RSS_URLS = [
   'https://news.google.com/news/rss/search/section/q/cryptocurrency/cryptocurrency?hl=en&gl=US&ned=us',
@@ -187,9 +185,7 @@ class NewsItem extends PureComponent
       const feed = this.state.data;
       return feed
         .sort((a, b) => {
-          // console.log(a.pubDate);
-          // console.log(b.pubDate);
-          return moment(a.pubDate).isBefore(moment(b.pubDate));
+          return moment(a.pubDate).isBefore(moment(b.pubDate)) ? 1 : -1;
         })
         .map((entry, index) =>
           (
@@ -221,7 +217,7 @@ class NewsItem extends PureComponent
                       nightMode={nightMode}
                       type={'span'}
                     >
-                      &nbsp;[{(entry.link.replace('https://','').replace('www.','').substring(0,25))}...]
+                      &nbsp;[{(entry.link.replace('https://', '').replace('www.', '').substring(0,25))}...]
                     </El>
                   </div>
                   <div className={css(styles.row)}>
@@ -230,7 +226,7 @@ class NewsItem extends PureComponent
                       nightMode={nightMode}
                       type={'span'}
                     >
-                      {/** `${moment(entry.pubDate).fromNow()}` */}
+                      {`${moment(entry.pubDate).tz('GMT', moment.tz.guess()).fromNow()}`}
                     </El>
                   </div>
                 </div>
