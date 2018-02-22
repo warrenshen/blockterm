@@ -25,7 +25,7 @@
     "server": {
       "presets": [
         "react-optimize",
-        "babili"
+        "minify"
       ],
       "comments": false
     }
