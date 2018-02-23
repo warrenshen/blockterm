@@ -101,9 +101,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     border: 'dashed 1px #fff',
   },
-  placeholderHidden: {
-    display: 'none',
-  },
   placeholderButton: {
     display: 'flex',
     justifyContent: 'center',
@@ -182,6 +179,58 @@ class DashboardGrid extends PureComponent
     );
   }
 
+  renderDashboardItems()
+  {
+    const {
+      dashboardAction,
+      dashboardItems,
+      nightMode,
+
+      changeSidebarMode,
+    } = this.props;
+
+    const validItems = dashboardItems.filter(
+      (dashboardItem) => isIdentifierValid(dashboardItem.identifier)
+    );
+
+    const arr = dashboardItems.map(
+      (dashboardItem) => this.renderItem(dashboardItem)
+    );
+
+    const onClickPlaceholder = (event) => changeSidebarMode('add');
+
+    // If user has not added a widget before and there is no
+    // dashboard action, then show the "add widget" hint widget.
+    if (!getItem(HAS_ADDED_WIDGET_COOKIE) && !dashboardAction)
+    {
+      arr.push((
+        <div
+          className={
+            css(
+              styles.placeholder,
+              nightMode && styles.placeholderNightMode,
+            )
+          }
+          key={'placeholder-id'}
+        >
+          <button
+            className={css(styles.placeholderButton)}
+            onClick={onClickPlaceholder}
+          >
+            <El
+              nightMode={nightMode}
+              type={'span'}
+            >
+              Add widget [+]
+            </El>
+          </button>
+        </div>
+      ));
+    }
+
+    return arr;
+  }
+
   render()
   {
     const {
@@ -190,7 +239,6 @@ class DashboardGrid extends PureComponent
       nightMode,
       saveLayout,
 
-      changeSidebarMode,
       logDashboardActionStart,
       logDashboardActionStop,
     } = this.props;
@@ -213,6 +261,7 @@ class DashboardGrid extends PureComponent
     }));
 
     const [freeX, freeY, _] = computeDashboardFreeValues(validItems, 4, 5);
+
     configs.push({
       i: 'placeholder-id',
       w: 4,
@@ -229,8 +278,6 @@ class DashboardGrid extends PureComponent
       xs: configs,
       xxs: configs,
     };
-
-    const onClickPlaceholder = (event) => changeSidebarMode('add');
 
     if (validItems.length > 0)
     {
@@ -249,33 +296,7 @@ class DashboardGrid extends PureComponent
           margin={[6, 6]}
           containerPadding={[10, 8]}
         >
-          {
-            dashboardItems.map(
-              (dashboardItem) => this.renderItem(dashboardItem)
-            )
-          }
-          <div
-            className={
-              css(
-                styles.placeholder,
-                nightMode && styles.placeholderNightMode,
-                (getItem(HAS_ADDED_WIDGET_COOKIE) || dashboardAction) && styles.placeholderHidden
-              )
-            }
-            key={'placeholder-id'}
-          >
-            <button
-              className={css(styles.placeholderButton)}
-              onClick={onClickPlaceholder}
-            >
-              <El
-                nightMode={nightMode}
-                type={'span'}
-              >
-                Add widget [+]
-              </El>
-            </button>
-          </div>
+          {this.renderDashboardItems()}
         </ResponsiveReactGridLayout>
       );
     }
