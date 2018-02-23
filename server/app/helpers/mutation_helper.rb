@@ -75,20 +75,24 @@ module MutationHelper
   def self.create_portfolio_tickers
     success = true
 
-    users_with_portfolio = User.where_exists(:token_users)
-    users_with_portfolio.each do |user|
-      token_users = TokenUser.includes(:token).where(user_id: user.id)
-      portfolio_ticker = PortfolioTicker.create(
-        user_id: user.id,
-        value_usd: self.calculate_value_usd(token_users),
-        value_btc: self.calculate_value_btc(token_users),
-        value_eth: self.calculate_value_eth(token_users),
-        timestamp: DateTime.now
-      )
+    begin
+      users_with_portfolio = User.where_exists(:token_users)
+      users_with_portfolio.each do |user|
+        token_users = TokenUser.includes(:token).where(user_id: user.id)
+        portfolio_ticker = PortfolioTicker.create(
+          user_id: user.id,
+          value_usd: self.calculate_value_usd(token_users),
+          value_btc: self.calculate_value_btc(token_users),
+          value_eth: self.calculate_value_eth(token_users),
+          timestamp: DateTime.now
+        )
 
-      if !portfolio_ticker.valid?
-        success = false
+        if !portfolio_ticker.valid?
+          success = false
+        end
       end
+    rescue
+      success = false
     end
 
     if success
@@ -109,7 +113,7 @@ module MutationHelper
   def self.calculate_value_usd(token_users)
     value_usd = 0.0
     token_users.each do |token_user|
-      value_usd += token_user.amount * token_user.token.price_usd
+      value_usd += token_user.amount * token_user.token_exchange.price_usd
     end
     value_usd
   end
@@ -117,17 +121,15 @@ module MutationHelper
   def self.calculate_value_btc(token_users)
     value_btc = 0.0
     token_users.each do |token_user|
-      value_btc += token_user.amount * token_user.token.price_btc
+      value_btc += token_user.amount * token_user.token_exchange.price_btc
     end
     value_btc
   end
 
   def self.calculate_value_eth(token_users)
     value_eth = 0.0
-    token_eth = Token.find_by_identifier('ethereum')
     token_users.each do |token_user|
-      eth_price = token_user.token.price_usd / token_eth.price_usd
-      value_eth += token_user.amount * eth_price
+      value_eth += token_user.amount * token_user.token_exchange.price_eth
     end
     value_eth
   end
