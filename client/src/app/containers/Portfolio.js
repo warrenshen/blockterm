@@ -27,6 +27,7 @@ const mapStateToProps = (state) => {
     addTokenId: state.portfolio.addTokenId,
     currency: state.globals.currency,
     changeActive: state.portfolio.changeActive,
+    exchangeKeys: state.balances.exchangeKeys,
     nightMode: state.globals.nightMode,
     portfolioHistoryPlotRange: state.portfolio.portfolioHistoryPlotRange,
     sortBy: state.portfolio.sortBy,

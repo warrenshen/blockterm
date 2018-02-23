@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '100%',
     padding: '0px 12px 0px 12px',
-    marginTop: '12px',
     backgroundColor: 'white',
     border: `1px solid ${STYLES.BORDERLIGHT}`,
   },
