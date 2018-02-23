@@ -8,12 +8,17 @@ import { StyleSheet, css } from 'aphrodite';
 import { isEqual }         from 'underscore';
 import { Helmet }          from 'react-helmet';
 import {
+  Link,
+  withRouter,
+}                          from 'react-router-dom';
+import {
   AUTH_TOKEN_COOKIE,
   getItem,
 }                          from '../services/cookie';
 import * as STYLES         from '../constants/styles';
 import PortfolioOverview   from '../components/PortfolioOverview';
 import PortfolioTokens     from '../components/PortfolioTokens';
+import El                  from '../components/El';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,9 +29,17 @@ const styles = StyleSheet.create({
     padding: '0px 12px 128px 12px',
     margin: '0px auto',
   },
-  row: {
+  section: {
     display: 'flex',
+    justifyContent: 'flex-end',
     width: '100%',
+    padding: '12px 0px',
+  },
+  button: {
+    textDecoration: 'underline',
+  },
+  text: {
+    paddingRight: '6px',
   },
 });
 
@@ -52,6 +65,7 @@ class Portfolio extends PureComponent
       changeActive,
       currency,
       data,
+      exchangeKeys,
       nightMode,
       portfolioHistoryPlotRange,
       sortBy,
@@ -87,6 +101,24 @@ class Portfolio extends PureComponent
 
           changePortfolioHistoryPlotRange={changePortfolioHistoryPlotRange}
         />
+        <div className={css(styles.section)}>
+          <El
+            nightMode={nightMode}
+            style={styles.text}
+            type={'span'}
+          >
+            {`You have ${exchangeKeys.length} active API keys.`}
+          </El>
+          <Link to={'/apiKeys'}>
+            <El
+              nightMode={nightMode}
+              style={styles.button}
+              type={'span'}
+            >
+              Manage API keys
+            </El>
+          </Link>
+        </div>
         <PortfolioTokens
           addTokenExchangeId={addTokenExchangeId}
           addTokenId={addTokenId}
@@ -113,4 +145,4 @@ class Portfolio extends PureComponent
   }
 }
 
-export default Portfolio;
+export default withRouter(Portfolio);

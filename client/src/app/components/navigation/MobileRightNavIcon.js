@@ -1,6 +1,6 @@
 import React                from 'react';
 import { StyleSheet, css }  from 'aphrodite/no-important';
-import {withRouter}         from 'react-router-dom';
+import { withRouter }       from 'react-router-dom';
 import FontAwesome          from 'react-fontawesome';
 import IconButton           from 'material-ui/IconButton';
 import Menu, { MenuItem }   from 'material-ui/Menu';
