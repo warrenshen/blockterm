@@ -103,7 +103,7 @@ function isConditionFulfilledBinance(condition, price, createdAtUnix, trade)
   }
 }
 
-async function monitorAlert(alert)
+async function pollAlert(alert)
 {
   const {
     id,
@@ -154,11 +154,6 @@ async function monitorAlert(alert)
       payload: alert,
       type: WORKER_REPLY_TYPE_ALERT,
     });
-    return true;
-  }
-  else
-  {
-    setTimeout(() => monitorAlert(alert), 8192);
   }
 }
 
@@ -222,16 +217,25 @@ async function syncExchangeBalance(exchangeKey)
   api.apiKey = apiKey;
   api.secret = secretKey;
 
-  const balance = await api.fetchBalance();
-  postMessage({
-    payload: {
-      balance: balance,
-      exchange: exchange,
-    },
-    type: WORKER_REPLY_TYPE_BALANCE,
-  });
+  try
+  {
+    const balance = await api.fetchBalance();
+
+    postMessage({
+      payload: {
+        balance: balance,
+        exchange: exchange,
+      },
+      type: WORKER_REPLY_TYPE_BALANCE,
+    });
+  }
+  catch (err)
+  {
+    console.log(err);
+  }
 }
 
+let alertPollIds = [];
 let tickerPollIds = [];
 
 onmessage = (event) => {
@@ -246,7 +250,10 @@ onmessage = (event) => {
       const alerts = payload;
       if (alerts.length > 0)
       {
-        alerts.forEach((alert) => monitorAlert(alert));
+        alertPollIds.forEach((alertPollId) => clearInterval(alertPollId));
+        alertPollIds = alerts.map(
+          (alert) => setInterval(() => pollAlert(alert), 8192)
+        );
       }
       break;
     case WORKER_MESSAGE_TYPE_EXCHANGE_KEYS:
