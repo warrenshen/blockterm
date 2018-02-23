@@ -126,10 +126,10 @@ class ApiKeys extends PureComponent
         label: 'Bittrex',
         value: 'bittrex',
       },
-      {
-        label: 'Coinbase / GDAX',
-        value: 'gdax',
-      },
+      // {
+      //   label: 'Coinbase / GDAX',
+      //   value: 'gdax',
+      // },
     ];
     const isSubmitDisabled = !exchange || !apiKey || !secretKey;
     const onClickSubmit = (event) => {

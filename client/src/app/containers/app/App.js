@@ -1,15 +1,20 @@
 // @flow weak
 
-import { connect }          from 'react-redux';
-import { compose, graphql } from 'react-apollo';
-import Notifications        from 'react-notification-system-redux';
-import ReactTooltip         from 'react-tooltip';
+import { connect }             from 'react-redux';
+import { bindActionCreators }  from 'redux';
+import { compose, graphql }    from 'react-apollo';
+import Notifications, {
+  error as createNotificationError,
+  success as createNotificationSuccess,
+}                              from 'react-notification-system-redux';
+import ReactTooltip            from 'react-tooltip';
 import React, {
   PureComponent,
-}                           from 'react';
-import { withRouter }       from 'react-router';
-import PropTypes            from 'prop-types';
-import { StyleSheet, css }  from 'aphrodite';
+}                              from 'react';
+import { withRouter }          from 'react-router';
+import PropTypes               from 'prop-types';
+import { StyleSheet, css }     from 'aphrodite';
+import { isEqual }             from 'underscore';
 
 import {
   AlertsQuery,
@@ -22,25 +27,25 @@ import {
   UpdateTokenUsersByExchangeMutationOptions,
   UserQuery,
   UserQueryOptions,
-}                           from '../../queries';
+}                              from '../../queries';
 import {
   ConnectedNavigationBar,
   ConnectedFooter,
-}                           from '../../containers';
-import MainRoutes           from '../../routes/MainRoutes';
-import * as STYLES          from '../../constants/styles';
+}                              from '../../containers';
+import MainRoutes              from '../../routes/MainRoutes';
+import * as STYLES             from '../../constants/styles';
 import {
   generateAlertNotificationBody,
   generateAlertNotificationTitle,
-}                           from '../../constants/alerts';
+}                              from '../../constants/alerts';
 import {
   WORKER_MESSAGE_TYPE_ALERTS,
   WORKER_MESSAGE_TYPE_EXCHANGE_KEYS,
   WORKER_REPLY_TYPE_ALERT,
   WORKER_REPLY_TYPE_BALANCE,
-}                           from '../../constants/workers';
-import Footer               from '../../components/Footer';
-import Worker               from '../../workers/index.worker';
+}                              from '../../constants/workers';
+import Footer                  from '../../components/Footer';
+import Worker                  from '../../workers/index.worker';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -66,7 +71,6 @@ const notificationsStyle = {
     },
     info: {
       backgroundColor: STYLES.ROYAL_BLUE,
-      //backgroundColor: '#F50057',
     },
     error: {
       backgroundColor: '#FF0E28',
@@ -111,12 +115,10 @@ class App extends PureComponent
       alerts,
       exchangeKeys,
 
+      createNotificationSuccess,
       updateAlert,
       updateTokenUsersByExchange,
     } = nextProps;
-
-    this.worker.terminate();
-    this.worker = new Worker();
 
     this.worker.onmessage = (event) => {
       switch (event.data.type)
@@ -160,7 +162,9 @@ class App extends PureComponent
             )
             .filter((tokenBalance) => tokenBalance.total > 0);
           updateTokenUsersByExchange(formattedBalance)
-            .then((response) => console.log(response))
+            .then(
+              (response) => createNotificationSuccess({ position: 'bc', title: `Sync with ${exchange} exchange complete!` })
+            )
             .catch((error) => console.log(error));
           break;
         default:
@@ -180,16 +184,17 @@ class App extends PureComponent
       });
     }
 
-    // if (exchangeKeys.length > 0)
-    // {
-    //   this.worker.postMessage({
-    //     payload: exchangeKeys,
-    //     type: WORKER_MESSAGE_TYPE_EXCHANGE_KEYS,
-    //   });
-    // }
+    if (exchangeKeys.length > 0 && !isEqual(this.props.exchangeKeys, nextProps.exchangeKeys))
+    {
+      this.worker.postMessage({
+        payload: exchangeKeys,
+        type: WORKER_MESSAGE_TYPE_EXCHANGE_KEYS,
+      });
+    }
   }
 
-  render() {
+  render()
+  {
     const {
       notifications,
     } = this.props;
@@ -220,8 +225,18 @@ const mapStateToProps = (state) => ({
   user: state.globals.user,
 });
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      createNotificationError: createNotificationError,
+      createNotificationSuccess: createNotificationSuccess,
+    },
+    dispatch
+  );
+};
+
 export default withRouter(compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   graphql(AlertsQuery, AlertsQueryOptions),
   graphql(ExchangeKeysQuery, ExchangeKeysQueryOptions),
   graphql(UserQuery, UserQueryOptions),
