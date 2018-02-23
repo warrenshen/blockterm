@@ -72,6 +72,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: '12px 0px',
   },
+  paragraph: {
+    paddingTop: '6px',
+  },
 });
 
 class ApiKeys extends PureComponent
@@ -242,6 +245,13 @@ class ApiKeys extends PureComponent
             type={'h3'}
           >
             Add new exchange API key
+          </El>
+          <El
+            nightMode={nightMode}
+            style={styles.paragraph}
+            type={'p'}
+          >
+            Add an exchange API key and we'll automatically sync your portfolio with your exchange balance.
           </El>
           {this.renderForm()}
         </div>
